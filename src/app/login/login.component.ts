@@ -19,7 +19,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see https://www.gnu.org/licenses/.
  */
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, DestroyRef, OnDestroy, OnInit } from '@angular/core';
 import { loginService } from '../services/loginService/login.service';
 import { dataService } from '../services/dataService/data.service';
 import { Router } from '@angular/router';
@@ -28,8 +28,10 @@ import { ConfirmationDialogsService } from './../services/dialog/confirmation.se
 // import { Subscription } from 'rxjs/Subscription';
 // import { InterceptedHttp } from 'app/http.interceptor';
 import * as CryptoJS from 'crypto-js';
-import { Subscription } from 'rxjs';
-import { InterceptedHttp } from '../http.interceptor';
+import { BehaviorSubject, EMPTY, Subscription, switchMap } from 'rxjs';
+// import { InterceptedHttp } from '../http.interceptor';
+import { HttpInterceptorService } from '../services/http-interceptor.service';
+// import { AuthService } from '../services/authentication/auth.service';
 
 @Component({
   selector: 'app-login-component',
@@ -57,14 +59,15 @@ export class loginContentClassComponent implements OnInit, OnDestroy {
   _iterationCount: any;
   logoutUserFromPreviousSessionSubscription!: Subscription;
   encryptPassword: any;
+  // private dologout: any = null;
 
   constructor(
     public loginservice: loginService,
     public router: Router,
     private alertMessage: ConfirmationDialogsService,
     public dataSettingService: dataService,
-    // public HttpServices: HttpServices,
-    private httpService: InterceptedHttp,
+    private httpService: HttpInterceptorService,
+    // private authService: AuthService
   ) {
     this._keySize = 256;
     this._ivSize = 128;
@@ -175,7 +178,7 @@ export class loginContentClassComponent implements OnInit, OnDestroy {
       this.loginservice
         .authenticateUser(userId, this.encryptPassword, doLogout)
         .subscribe(
-          (response: any) => {
+          (response) => {
             sessionStorage.setItem('authToken', response.key);
             this.successCallback(response);
           },
@@ -243,58 +246,83 @@ export class loginContentClassComponent implements OnInit, OnDestroy {
   }
 
   successCallback(response: any) {
-    console.log(response);
-    this.dataSettingService.Userdata = response;
-    this.dataSettingService.userPriveliges = response.previlegeObj;
-    this.dataSettingService.uid = response.userID;
-    // this.dataSettingService.service_providerID = response.provider[0].providerID;
-    this.dataSettingService.uname = response.userName;
-    console.log('array', response.previlegeObj);
+    if (response.statusCode === 5002) {
+      if (
+        response.errorMessage ===
+        'You are already logged in,please confirm to logout from other device and login again'
+      ) {
+        this.alertMessage
+          .confirm('info', response.errorMessage)
+          .subscribe((confirmResponse) => {
+            if (confirmResponse) {
+              this.httpService.dologoutUsrFromPreSession(true);
+            }
+            //   else{
+            //     this.authService.removeToken();
+            // }
+          });
+      }
+    } else if (response.data !== undefined) {
+      console.log(response.data);
+      this.dataSettingService.Userdata = response.data;
+      this.dataSettingService.userPriveliges = response.data.previlegeObj;
+      this.dataSettingService.uid = response.data.userID;
+      // this.dataSettingService.service_providerID = response.provider[0].providerID;
+      this.dataSettingService.uname = response.data.userName;
+      console.log('array', response.data.previlegeObj);
 
-    if (response.isAuthenticated === true && response.Status === 'Active') {
-      console.log(
-        'response.previlegeObj[0].serviceID',
-        response.previlegeObj[0].serviceID,
-      );
-      this.loginservice
-        .getServiceProviderID(response.previlegeObj[0].serviceID)
-        .subscribe(
-          (res) => this.getServiceProviderMapIDSuccessHandeler(res),
-          (err) => console.log('error in fetching service provider ID', err),
+      if (
+        response.data.isAuthenticated === true &&
+        response.data.Status === 'Active'
+      ) {
+        console.log(
+          'response.previlegeObj[0].serviceID',
+          response.data.previlegeObj[0].serviceID,
         );
-      // this.router.navigate(['/MultiRoleScreenComponent']);
-      for (let i = 0; i < response.Previlege.length; i++) {
-        // for (let j = 0; j < response.Previlege[i].Role.length; j++) {
-        if (response.Previlege[i].Role === 'ProviderAdmin') {
-          // this.router.navigate(['/MultiRoleScreenComponent']);
-          this.dataSettingService.role = 'PROVIDERADMIN';
-          console.log('VALUE SET HOGAYI');
-        } else {
-          this.dataSettingService.role = '';
+        this.loginservice
+          .getServiceProviderID(response.data.previlegeObj[0].serviceID)
+          .subscribe(
+            (res) => this.getServiceProviderMapIDSuccessHandeler(res),
+            (err) => console.log('error in fetching service provider ID', err),
+          );
+        // this.router.navigate(['/MultiRoleScreenComponent']);
+        for (let i = 0; i < response.data.Previlege.length; i++) {
+          // for (let j = 0; j < response.Previlege[i].Role.length; j++) {
+          if (response.data.Previlege[i].Role === 'ProviderAdmin') {
+            // this.router.navigate(['/MultiRoleScreenComponent']);
+            this.dataSettingService.role = 'PROVIDERADMIN';
+            console.log('VALUE SET HOGAYI');
+          } else {
+            this.dataSettingService.role = '';
+          }
+          // }
         }
-        // }
+        if (
+          this.dataSettingService.role.toLowerCase() ===
+          'PROVIDERADMIN'.toLowerCase()
+        ) {
+          this.router.navigate(['/MultiRoleScreenComponent']);
+        } else {
+          this.alertMessage.alert('User is not a provider admin');
+        }
       }
       if (
-        this.dataSettingService.role.toLowerCase() ===
-        'PROVIDERADMIN'.toLowerCase()
+        response.data.isAuthenticated === true &&
+        response.data.Status === 'New'
       ) {
-        this.router.navigate(['/MultiRoleScreenComponent']);
-      } else {
-        this.alertMessage.alert('User is not a provider admin');
+        this.status = 'new';
+        sessionStorage.setItem('authToken', response.key);
+        this.router.navigate(['/setQuestions']);
       }
-    }
-    if (response.isAuthenticated === true && response.Status === 'New') {
-      this.status = 'new';
-      sessionStorage.setItem('authToken', response.key);
-      this.router.navigate(['/setQuestions']);
-    }
 
-    for (let i = 0; i < response?.previlegeObj?.length; i++) {
-      if (
-        response.previlegeObj[i].serviceDesc.toLowerCase() === '104 helpline'
-      ) {
-        this.dataSettingService.providerServiceMapID_104 =
-          response.previlegeObj[i].providerServiceMapID;
+      for (let i = 0; i < response.data?.previlegeObj?.length; i++) {
+        if (
+          response.data.previlegeObj[i].serviceDesc.toLowerCase() ===
+          '104 helpline'
+        ) {
+          this.dataSettingService.providerServiceMapID_104 =
+            response.data.previlegeObj[i].providerServiceMapID;
+        }
       }
     }
   }
@@ -339,7 +367,6 @@ export class loginContentClassComponent implements OnInit, OnDestroy {
     this.commitDetails = response;
     this.version = this.commitDetails['version'];
   }
-
   ngOnDestroy() {
     if (this.logoutUserFromPreviousSessionSubscription) {
       this.logoutUserFromPreviousSessionSubscription.unsubscribe();

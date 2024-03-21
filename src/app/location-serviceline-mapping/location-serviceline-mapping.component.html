@@ -1,6 +1,6 @@
 <!-- first page starts -->
 <!-- search panel -->
-<!-- <div class="row">
+<div class="row">
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="!showForm">
     <h4 class="pull-left">Work Location-Serviceline Master</h4>
   </div>
@@ -8,10 +8,10 @@
     <h4 class="pull-left">Create Work Location</h4>
   </div>
   <form #searchForm="ngForm" id="searchForm" autocomplete="off">
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15"> -->
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
       <!-- <md-input-container class="hide_underline width100">
         <input mdInput style="display:none"> -->
-      <!-- <md-select
+      <mat-select
         [disabled]="disableSelection"
         placeholder="Serviceline"
         class="width100"
@@ -20,16 +20,16 @@
         name="serviceline"
         (change)="getStates(search_serviceline)"
       >
-        <md-option *ngFor="let service of servicelines" [value]="service">
+        <mat-option *ngFor="let service of servicelines" [value]="service">
           {{ service.serviceName }}
-        </md-option>
-      </md-select> -->
+        </mat-option>
+      </mat-select>
       <!-- </md-input-container> -->
-    <!-- </div> -->
-    <!-- <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15"> -->
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
       <!-- <md-input-container class="hide_underline width100">
         <input mdInput style="display:none"> -->
-      <!-- <md-select
+      <mat-select
         [disabled]="disableSelection || nationalFlag"
         placeholder="State"
         class="width100"
@@ -42,41 +42,36 @@
         "
         required
       >
-        <md-option *ngFor="let item of states" [value]="item">
+        <mat-option *ngFor="let item of states" [value]="item">
           {{ item.stateName }}
-        </md-option>
-      </md-select> -->
+        </mat-option>
+      </mat-select>
       <!-- </md-input-container> -->
-    <!-- </div>
+    </div>
   </form>
-</div> -->
+</div>
 
-<!-- <div class="pull-right" *ngIf="workLocations.length !== 0 && showTable">
-  <md-input-container id="filterbox">
+<div class="pull-right" *ngIf="workLocations.length !== 0 && showTable">
+  <mat-form-field id="filterbox">
     <input
-      mdInput
+      matInput
       placeholder="In-Table Search"
       #filterTerm
       (keyup)="filterComponentList(filterTerm.value)"
     />
-    <md-icon mdSuffix>search</md-icon>
-  </md-input-container>
+    <mat-icon mdSuffix>search</mat-icon>
+  </mat-form-field>
 </div>
 
 <div class="row">
   <div class="col-xs-12 col-sm-12 m-t-15" *ngIf="showTable">
     <div class="table-responsive">
-      <table
-        [md2Data]="filteredworkLocations"
-        #md2="md2DataTable"
-        class="table table-striped table-hover"
-        [rowsPerPage]="4"
-      >
+      <!-- <table [md2Data]="filteredworkLocations" #md2="md2DataTable" class="table table-striped table-hover" [rowsPerPage]="4">
         <thead>
-          <tr> -->
-            <!--<th>Provider-Service Map ID</th>-->
-            <!--<th>Provider-Service-Address Map ID</th>-->
-            <!-- <th>S.No.</th>
+          <tr>
+            <th>Provider-Service Map ID</th>-->
+      <!--<th>Provider-Service-Address Map ID</th>-->
+      <!-- <th>S.No.</th>
             <th>Office Name</th>
             <th>Serviceline</th>
             <th>Address</th>
@@ -85,52 +80,28 @@
             <th>Edit</th>
             <th>Action</th>
           </tr>
-        </thead>
-        <tbody>
-          <tr *ngIf="md2.data.length === 0" class="record-not-found">
+        </thead>  -->
+      <!-- <tbody>
+          <tr *ngIf="md2.data.length==0" class="record-not-found">
             <td colspan="8" align="center">No records found</td>
           </tr>
-          <tr *ngFor="let loc of md2.data; let i = index"> -->
-            <!--<td>{{loc.providerServiceMapID}}</td>-->
-            <!--<td>{{loc.pSAddMapID}}</td>-->
-            <!-- <td width="5%">{{ (md2.activePage - 1) * 4 + i + 1 }}</td>
-            <td width="15%">{{ loc.locationName }}</td>
-            <td width="15%">{{ loc.serviceName }}</td>
-            <td width="25%">{{ loc.address }}</td>
-            <td width="20%">
-              {{ loc.serviceName === "1097" ? "All states" : loc.stateName }}
+          <tr *ngFor="let loc of md2.data;  let i= index"> -->
+      <!--<td>{{loc.providerServiceMapID}}</td>-->
+      <!--<td>{{loc.pSAddMapID}}</td>-->
+      <!-- <td width=5%>{{(md2.activePage-1)*4+i+1}}</td>
+            <td width=15%>{{loc.locationName}}</td>
+            <td width=15%>{{loc.serviceName}}</td>
+            <td width=25%>{{loc.address}}</td>
+            <td width=20%>{{loc.serviceName==="1097"?"All states":loc.stateName}}</td>
+            <td width=15%>{{loc.districtName}}</td>
+            <td width=10%>
+              <mat-icon mdTooltip="Edit" class="mat-icon material-icons" role="img" aria-hidden="true" style="cursor: pointer" *ngIf="!loc.deleted"
+                (click)="editOfficeAddress(loc)">edit</mat-icon>
             </td>
-            <td width="15%">{{ loc.districtName }}</td>
-            <td width="10%">
-              <md-icon
-                mdTooltip="Edit"
-                class="mat-icon material-icons"
-                role="img"
-                aria-hidden="true"
-                style="cursor: pointer"
-                *ngIf="!loc.deleted"
-                (click)="editOfficeAddress(loc)"
-                >edit</md-icon
-              >
-            </td>
-            <td width="15%"> -->
-              <!--               <md-icon mdTooltip="delete" class="mat-icon material-icons" role="img" aria-hidden="true" style="cursor: pointer" *ngIf="!loc.deleted" (click)="deleteOfficeAddress(loc.pSAddMapID)">delete</md-icon> -->
-              <!-- <button
-                *ngIf="loc.deleted === true"
-                md-raised-button
-                color="accent"
-                (click)="activeDeactivate(loc.pSAddMapID, false)"
-              >
-                Activate
-              </button>
-              <button
-                *ngIf="loc.deleted === false"
-                md-raised-button
-                color="primary"
-                (click)="activeDeactivate(loc.pSAddMapID, true)"
-              >
-                Deactivate
-              </button>
+            <td width=15%> -->
+      <!--               <md-icon mdTooltip="delete" class="mat-icon material-icons" role="img" aria-hidden="true" style="cursor: pointer" *ngIf="!loc.deleted" (click)="deleteOfficeAddress(loc.pSAddMapID)">delete</md-icon> -->
+      <!-- <button *ngIf="loc.deleted == true" mat-raised-button color="accent" (click)="activeDeactivate(loc.pSAddMapID, false)">Activate</button>
+              <button *ngIf="loc.deleted == false" mat-raised-button color="primary" (click)="activeDeactivate(loc.pSAddMapID, true)">Deactivate</button>
             </td>
           </tr>
         </tbody>
@@ -140,54 +111,122 @@
               <md2-pagination></md2-pagination>
             </td>
             <td colspan="4" class="p-r-0">
-              <button
-                md-raised-button
-                color="primary"
-                [disabled]="searchForm.invalid"
-                class="pull-right"
-                (click)="changeTableFlag(false)"
-              >
-                Add Work Location
-              </button>
+              <button md-raised-button color="primary" [disabled]="searchForm.invalid" class="pull-right" (click)="changeTableFlag(false)">Add Work Location</button>
             </td>
           </tr>
         </tfoot>
-      </table>
+      </table> -->
+      <mat-table
+        [dataSource]="dataSource"
+        class="table table-striped table-hover"
+      >
+        <ng-container matColumnDef="activePage">
+          <th mat-header-cell *matHeaderCellDef>S.No.</th>
+          <td mat-cell *matCellDef="let element">
+            {{ (element.activePage - 1) * 4 + 1 }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="locationName">
+          <th mat-header-cell *matHeaderCellDef>Office Name</th>
+          <td mat-cell *matCellDef="let element">{{ element.locationName }}</td>
+        </ng-container>
+        <ng-container matColumnDef="serviceName">
+          <th mat-header-cell *matHeaderCellDef>Serviceline</th>
+          <td mat-cell *matCellDef="let element">{{ element.serviceName }}</td>
+        </ng-container>
+        <ng-container matColumnDef="address">
+          <th mat-header-cell *matHeaderCellDef>Address</th>
+          <td mat-cell *matCellDef="let element">{{ element.address }}</td>
+        </ng-container>
+        <ng-container matColumnDef="stateName">
+          <th mat-header-cell *matHeaderCellDef>State</th>
+          <td mat-cell *matCellDef="let element">
+            {{
+              element.serviceName === "1097" ? "All states" : element.stateName
+            }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="districtName">
+          <th mat-header-cell *matHeaderCellDef>District</th>
+          <td mat-cell *matCellDef="let element">{{ element.districtName }}</td>
+        </ng-container>
+        <ng-container matColumnDef="edit">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            Edit
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <button
+              mat-icon-button
+              matTooltip="Click to Edit"
+              class="iconbutton"
+              color="primary"
+              (click)="editOfficeAddress(element)"
+            >
+              <mat-icon>edit</mat-icon>
+            </button>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="edit">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            Delete
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <button
+              *ngIf="element.deleted === true"
+              mat-raised-button
+              color="accent"
+              (click)="activeDeactivate(element.pSAddMapID, false)"
+            >
+              Activate
+            </button>
+            <button
+              *ngIf="element.deleted === false"
+              mat-raised-button
+              color="primary"
+              (click)="activeDeactivate(element.pSAddMapID, true)"
+            >
+              Deactivate
+            </button>
+          </mat-cell>
+        </ng-container>
+      </mat-table>
     </div>
   </div>
-</div> -->
+</div>
 
 <!--new location form starts -->
-<!-- <div class="row" *ngIf="showForm"> -->
+<div class="row" *ngIf="showForm">
   <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <h4 class="pull-left">Add Work Location</h4>
   </div> -->
-  <!-- <form #f="ngForm" id="locationForm" autocomplete="off">
+  <form #f="ngForm" id="locationForm" autocomplete="off">
     <div
       class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15"
-      *ngIf="!nationalFlag" -->
+      *ngIf="!nationalFlag"
     >
       <!-- <md-input-container class="hide_underline width100">
         <input mdInput style="display:none"> -->
-      <!-- <md-select
+      <mat-select
         placeholder="District"
         class="width100"
-        [disabled]="isNational"
         [(ngModel)]="district"
         name="district"
         #District="ngModel"
         required
       >
-        <md-option *ngFor="let item of districts" value="{{ item.districtID }}">
+        <mat-option
+          *ngFor="let item of districts"
+          value="{{ item.districtID }}"
+        >
           {{ item.districtName }}
-        </md-option>
-      </md-select> -->
+        </mat-option>
+      </mat-select>
       <!-- </md-input-container> -->
-    <!-- </div>
+    </div>
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
-      <md-input-container class="width100" myProviderName>
+      <mat-form-field class="width100" myProviderName>
         <input
-          mdInput
+          matInput
           placeholder="Office Name"
           [(ngModel)]="OfficeID"
           name="OfficeID"
@@ -195,19 +234,19 @@
           required
           maxlength="45"
         />
-        <md-hint>
+        <mat-hint>
           <span *ngIf="officeId.touched && officeId.errors" class="error_text"
             >Office Name is required</span
           >
           <span *ngIf="officeNameExist" class="error_text">{{ msg }}</span>
-        </md-hint>
-      </md-input-container>
+        </mat-hint>
+      </mat-form-field>
     </div>
     <div class="clearfix visible-sm"></div>
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
-      <md-input-container class="width100">
+      <mat-form-field class="width100">
         <input
-          mdInput
+          matInput
           myAddress
           placeholder="Office Address Line 1"
           maxlength="140"
@@ -216,16 +255,16 @@
           #officeAddress1="ngModel"
           required
         />
-        <md-hint *ngIf="officeAddress1.errors && officeAddress1.touched">
+        <mat-hint *ngIf="officeAddress1.errors && officeAddress1.touched">
           <span class="error_text">Address1 is required</span>
-        </md-hint>
-      </md-input-container>
+        </mat-hint>
+      </mat-form-field>
     </div>
     <div class="clearfix visible-md"></div>
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
-      <md-input-container class="width100">
+      <mat-form-field class="width100">
         <input
-          mdInput
+          matInput
           myAddress
           placeholder="Office Address Line 2"
           maxlength="140"
@@ -234,10 +273,10 @@
           #officeAddress2="ngModel"
           required
         />
-        <md-hint *ngIf="officeAddress2.errors && officeAddress2.touched">
+        <mat-hint *ngIf="officeAddress2.errors && officeAddress2.touched">
           <span class="error_text">Address2 is required</span>
-        </md-hint>
-      </md-input-container>
+        </mat-hint>
+      </mat-form-field>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10">
       <button
@@ -248,9 +287,9 @@
         [disabled]="f.invalid || officeNameExist"
       >
         Save
-      </button> -->
+      </button>
       <!-- <button class="pull-left" md-raised-button color="primary" (click)="changeTableFlag(true)">Back</button> -->
-      <!-- <button
+      <button
         class="pull-left"
         md-raised-button
         color="primary"
@@ -260,4 +299,4 @@
       </button>
     </div>
   </form>
-</div> -->
+</div>

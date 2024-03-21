@@ -31,7 +31,6 @@ import {
   HttpInterceptor,
 } from '@angular/common/http';
 import { BehaviorSubject, Observable, catchError, map, throwError } from 'rxjs';
-import { InterceptedHttp } from 'src/app/http.interceptor';
 
 @Injectable()
 export class loginService {
@@ -58,7 +57,6 @@ export class loginService {
   dologout: any;
 
   constructor(
-    private _http: InterceptedHttp,
     private _httpInterceptor: HttpClient,
     private _config: ConfigService,
   ) {
@@ -136,12 +134,18 @@ export class loginService {
     // .catch(this.handleError);
   }
 
-  getServiceProviderID(providerServiceMapID: any) {
-    return this._httpInterceptor.post(this.getServiceProviderID_url, {
+  // getServiceProviderID(providerServiceMapID: any) {
+  //   return this._httpInterceptor.post(this.getServiceProviderID_url, {
+  //     providerServiceMapID: providerServiceMapID,
+  //   });
+  //   // .map(this.extractData)
+  //   // .catch(this.handleError);
+  // }
+  getServiceProviderID(providerServiceMapID: any): Observable<any> {
+    const url = this.getServiceProviderID_url;
+    return this._httpInterceptor.post(url, {
       providerServiceMapID: providerServiceMapID,
     });
-    // .map(this.extractData)
-    // .catch(this.handleError);
   }
   getApiVersionDetails() {
     return this._httpInterceptor.get(this.apiVersionUrl);

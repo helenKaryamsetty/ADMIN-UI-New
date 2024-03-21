@@ -29,13 +29,14 @@ import {
   HttpClient,
   HttpErrorResponse,
 } from '@angular/common/http';
-import { catchError, tap } from 'rxjs/operators';
-import { Observable, of } from 'rxjs';
+import { catchError, switchMap, tap } from 'rxjs/operators';
+import { BehaviorSubject, EMPTY, Observable, of } from 'rxjs';
 import { Router } from '@angular/router';
 import { throwError } from 'rxjs/internal/observable/throwError';
 import { SpinnerService } from './spinner.service';
 import { environment } from 'src/environments/environment';
 import { ConfirmationDialogsService } from './dialog/confirmation.service';
+import { AuthService } from './authentication/auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -43,11 +44,13 @@ import { ConfirmationDialogsService } from './dialog/confirmation.service';
 export class HttpInterceptorService implements HttpInterceptor {
   timerRef: any;
   currentLanguageSet: any;
+  private dologout: any = null;
   constructor(
     private spinnerService: SpinnerService,
     private router: Router,
     private confirmationService: ConfirmationDialogsService,
     private http: HttpClient,
+    // private authService: AuthService
     // private setLanguageService: SetLanguageService
   ) {}
 
@@ -96,12 +99,11 @@ export class HttpInterceptorService implements HttpInterceptor {
       sessionStorage.clear();
       localStorage.clear();
       setTimeout(() => this.router.navigate(['/']), 0);
-      this.confirmationService.alert(response.errorMessage, 'error');
+      this.confirmationService.confirm('alert', response.errorMessage);
     } else {
       this.startTimer();
     }
   }
-
   startTimer() {
     this.timerRef = setTimeout(
       () => {
@@ -150,5 +152,12 @@ export class HttpInterceptorService implements HttpInterceptor {
       },
       27 * 60 * 1000,
     );
+  }
+  logoutUserFromPreviousSession = new BehaviorSubject(this.dologout);
+  logoutUserFromPreviousSessions$ =
+    this.logoutUserFromPreviousSession.asObservable();
+  dologoutUsrFromPreSession(dologout: any) {
+    this.dologout = dologout;
+    this.logoutUserFromPreviousSession.next(dologout);
   }
 }

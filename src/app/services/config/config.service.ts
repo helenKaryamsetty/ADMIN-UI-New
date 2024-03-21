@@ -32,9 +32,9 @@ const commonIP = environment.commonIP;
 
 @Injectable()
 export class ConfigService {
-  private adminBaseUrl = `${adminIP}adminapi-v1.0/`;
+  private adminBaseUrl = `${adminIP}adminapi-v0.1/`;
   // private adminBaseUrl: String = `http://localhost:8082/`;
-  private superadminBaseURL = `${adminIP}adminapi-v1.0/`;
+  private superadminBaseURL = `${adminIP}adminapi-v0.1/`;
   // private superadminBaseURL: String = `http://localhost:8082/`;
   private _commonBaseURL = `${commonIP}commonapi-v0.1/`;
   // private _commonBaseURL: String = `http://localhost:8080/`;

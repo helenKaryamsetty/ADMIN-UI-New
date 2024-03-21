@@ -3,14 +3,14 @@
     <h4 class="modal-title">Edit Work Location</h4>
   </div>
   <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-    <button md-button class="pull-right p-r-0" [md-dialog-close]="true">
-      <md-icon
-        mdTooltip="close"
+    <button mat-button class="pull-right p-r-0" [mat-dialog-close]="true">
+      <mat-icon
+        matTooltip="close"
         class="mat-icon material-icons pull-right"
         role="img"
         aria-hidden="true"
         style="cursor: pointer"
-        >clear</md-icon
+        >clear</mat-icon
       >
     </button>
   </div>
@@ -18,42 +18,42 @@
 <div class="row m-t-10">
   <form #f1="ngForm" autocomplete="off">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-      <md-input-container class="width100">
+      <mat-form-field class="width100">
         <input
-          mdInput
+          matInput
           placeholder="Service Provider Name"
           disabled="true"
           name="serviceProviderName"
           [(ngModel)]="serviceProviderName"
         />
-      </md-input-container>
+      </mat-form-field>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-      <md-input-container class="width100">
+      <mat-form-field class="width100">
         <input
-          mdInput
+          matInput
           placeholder="State"
           disabled="true"
           name="stateName"
           [(ngModel)]="stateName"
         />
-      </md-input-container>
+      </mat-form-field>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-      <md-input-container class="width100">
+      <mat-form-field class="width100">
         <input
-          mdInput
+          matInput
           placeholder="District"
           disabled="true"
           name="districtName"
           [(ngModel)]="districtName"
         />
-      </md-input-container>
+      </mat-form-field>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-      <md-input-container myAddress class="width100">
+      <mat-form-field myAddress class="width100">
         <input
-          mdInput
+          matInput
           placeholder="Address"
           name="address"
           [(ngModel)]="address"
@@ -61,15 +61,15 @@
           #addressValue="ngModel"
           required
         />
-        <md-hint *ngIf="addressValue.errors && addressValue.touched">
+        <mat-hint *ngIf="addressValue.errors && addressValue.touched">
           <span class="error_text">Address is required</span>
-        </md-hint>
-      </md-input-container>
+        </mat-hint>
+      </mat-form-field>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-      <md-input-container class="width100" myProviderName>
+      <mat-form-field class="width100" myProviderName>
         <input
-          mdInput
+          matInput
           placeholder="Office Name"
           name="officeID"
           [(ngModel)]="officeID"
@@ -79,13 +79,13 @@
           required
           (keyup)="checkOfficeName(officeID)"
         />
-        <md-hint>
+        <mat-hint>
           <span *ngIf="officeId.errors && officeId.touched" class="error_text"
             >Office Name is required</span
           >
           <span [hidden]="!officeNameExist" class="error_text">{{ msg }}</span>
-        </md-hint>
-      </md-input-container>
+        </mat-hint>
+      </mat-form-field>
     </div>
   </form>
 </div>

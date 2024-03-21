@@ -43,7 +43,7 @@ export class ProviderAdminComponent implements OnInit {
 
   Activity_Number: any = '0';
 
-  show(value) {
+  show(value: any) {
     if (this.Activity_Number !== '0' && this.Activity_Number !== value) {
       this.alertService
         .confirm(
@@ -66,10 +66,8 @@ export class ProviderAdminComponent implements OnInit {
       (err) => this.successhandeler1(err),
     );
   }
-  successhandeler1(response) {
+  successhandeler1(response: any) {
     this.commitDetails = response;
-    this.version = this.commitDetails['version'];
-    ils = response;
     this.version = this.commitDetails['version'];
   }
   logOutKeyUp(event: KeyboardEvent): void {

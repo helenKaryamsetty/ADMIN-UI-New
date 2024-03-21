@@ -19,31 +19,27 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see https://www.gnu.org/licenses/.
  */
-import { Injectable } from '@angular/core';
-import { Router, ActivatedRoute, CanActivate } from '@angular/router';
-import { dataService } from '../dataService/data.service';
-import 'rxjs/add/operator/toPromise';
-import { ConfigService } from '../config/config.service';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-@Injectable()
-export class AuthGuard implements CanActivate {
-  _baseURL = this._config.getCommonBaseURL();
-  _authorisedUser = this._baseURL + 'user/getLoginResponse';
-  _deleteToken = this._baseURL + 'user/userLogout';
-  constructor(
-    private router: Router,
-    private _config: ConfigService,
-    private route: ActivatedRoute,
-    public dataSettingService: dataService,
-  ) {}
+import { ViewVersionDetailsComponent } from './view-version-details.component';
 
-  canActivate(route: any, state: any) {
-    const authkey = sessionStorage.getItem('authToken');
+describe('ViewVersionDetailsComponent', () => {
+  let component: ViewVersionDetailsComponent;
+  let fixture: ComponentFixture<ViewVersionDetailsComponent>;
 
-    if (authkey) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-}
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [ViewVersionDetailsComponent],
+    }).compileComponents();
+  }));
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(ViewVersionDetailsComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should be created', () => {
+    expect(component).toBeTruthy();
+  });
+});

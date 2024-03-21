@@ -19,7 +19,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see https://www.gnu.org/licenses/.
  */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, FormArray, FormBuilder } from '@angular/forms';
 import { ConfirmationDialogsService } from '../services/dialog/confirmation.service';
 import { SmsTemplateService } from '../services/adminServices/SMSMaster/sms-template-service.service';
@@ -28,6 +28,8 @@ import { AgentListCreationService } from '../services/ProviderAdminServices/agen
 import { MatDialog } from '@angular/material/dialog';
 import { EditQuestionnaireComponent } from '../edit-questionnaire/edit-questionnaire.component';
 import { QuestionnaireServiceService } from '../services/questionnaire-service.service';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-add-questionnaire',
@@ -37,6 +39,9 @@ import { QuestionnaireServiceService } from '../services/questionnaire-service.s
 export class AddQuestionnaireComponent implements OnInit {
   showAdd = false;
   // questionTypes:any=["Qualitative","Utility","Quantitative"];
+  @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
+  dataSource = new MatTableDataSource<any>();
+
   answerTypes: any = ['Radio', 'Dropdown', 'Free Text'];
   questionnaireForm!: FormGroup;
   questionArrayList: any;
@@ -48,7 +53,7 @@ export class AddQuestionnaireComponent implements OnInit {
   maxwght = 100;
   questionsList: any;
   questionrows: any = [];
-  questionlists: any = [];
+  // questionlists: any = [];
   providerServiceMapID: any;
   questionlistValue: any = [];
   rankArray: any = [];
@@ -66,6 +71,7 @@ export class AddQuestionnaireComponent implements OnInit {
   // sum: number=0;
   delVar = false;
   enableOptionArray: any = [];
+  allQuestions: any = [];
   constructor(
     private formBuilder: FormBuilder,
     public commonDialogService: ConfirmationDialogsService,
@@ -80,6 +86,7 @@ export class AddQuestionnaireComponent implements OnInit {
     this.userID = this.data_service.uid;
     this.getServices(this.userID);
     this.getQuestionType();
+    this.getQusetionsNew();
   }
   getQuestionType() {
     this.questionnaire_service
@@ -137,9 +144,9 @@ export class AddQuestionnaireComponent implements OnInit {
         (response: any) => {
           console.log('Hello', response);
           if (response.statusCode === 200) {
-            this.questionlists = response.data;
+            this.dataSource = response.data;
 
-            console.log('Successfull Message', this.questionlists);
+            console.log('Successfull Message', this.dataSource);
           }
         },
         (error: any) => {
@@ -179,6 +186,9 @@ export class AddQuestionnaireComponent implements OnInit {
   }
   get newQuestions(): FormArray {
     return this.questionnaireForm.get('newQuestions') as FormArray;
+  }
+  getQusetionsNew() {
+    this.allQuestions = this.newQuestions;
   }
   addOptionField(i: any) {
     this.questionOptionList = [];
@@ -370,17 +380,17 @@ export class AddQuestionnaireComponent implements OnInit {
     }
   }
   setQuestionType(value: any) {
-    this.questionlists = this.questionlists.sort((a: any, b: any) =>
-      a.questionRank < b.questionRank ? -1 : 1,
-    );
-    console.log('questionrows', this.questionlists);
+    // this.dataSource = this.dataSource.data.sort((a: any, b: any) =>
+    //   a.questionRank < b.questionRank ? -1 : 1,
+    // );
+    console.log('questionrows', this.dataSource);
     console.log('questiontyepvalue', value);
     this.questionrows = [];
     this.questionrowsfilter = [];
-    for (let i = 0; i < this.questionlists.length; i++) {
-      if (value === this.questionlists[i].questionType) {
-        this.questionrows.push(this.questionlists[i]);
-        this.questionrowsfilter.push(this.questionlists[i]);
+    for (let i = 0; i < this.dataSource.data.length; i++) {
+      if (value === this.dataSource.data[i].questionType) {
+        this.questionrows.push(this.dataSource.data[i]);
+        this.questionrowsfilter.push(this.dataSource.data[i]);
       }
     }
     console.log('questionrows1', this.questionrows);
@@ -439,7 +449,7 @@ export class AddQuestionnaireComponent implements OnInit {
       .subscribe(
         (respon: any) => {
           // this.listDisplay = true;
-          this.questionlists = respon.data;
+          this.dataSource = respon.data;
           this.setQuestionType(this.questiontype);
         },
         (error: any) => {
@@ -478,7 +488,7 @@ export class AddQuestionnaireComponent implements OnInit {
             .subscribe(
               (respon: any) => {
                 // this.listDisplay = true;
-                this.questionlists = respon.data;
+                this.dataSource = respon.data;
 
                 this.setQuestionType(response.questionType);
               },
@@ -494,7 +504,7 @@ export class AddQuestionnaireComponent implements OnInit {
             .subscribe(
               (respon: any) => {
                 // this.listDisplay = true;
-                this.questionlists = respon.data;
+                this.dataSource = respon.data;
 
                 this.setQuestionType(this.questiontype);
               },
@@ -541,7 +551,7 @@ export class AddQuestionnaireComponent implements OnInit {
                     .subscribe(
                       (respon: any) => {
                         // this.listDisplay = true;
-                        this.questionlists = respon.data;
+                        this.dataSource = respon.data;
 
                         this.setQuestionType(this.questiontype);
                       },
@@ -591,9 +601,9 @@ export class AddQuestionnaireComponent implements OnInit {
 
       console.log('Rank', value);
       if (setRank === false) {
-        for (let i = 0; i < this.questionlists.length; i++) {
+        for (let i = 0; i < this.dataSource.data.length; i++) {
           // console.log("qiestioList", this.questionlists[i].questionnaireDetail.questionRank);
-          if (value === this.questionlists[i].questionRank) {
+          if (value === this.dataSource.data[i].questionRank) {
             // this.rankFlag = true;
             // setRank=true;
             // this.commonDialogService.alert("Question with same rank is already exist", 'error');

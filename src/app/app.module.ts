@@ -73,6 +73,16 @@ import {
   HttpClient,
   HttpClientModule,
 } from '@angular/common/http';
+import { AddQuestionnaireComponent } from './add-questionnaire/add-questionnaire.component';
+import { MultiRoleScreenComponent } from './multi-role-screen/multi-role-screen.component';
+import { AuthGuard } from './services/authGuardService/auth-guard.services';
+import { ViewVersionDetailsComponent } from './view-version-details/view-version-details.component';
+import { SuperAdminComponent } from './super-admin/super-admin.component';
+import { ProviderAdminComponent } from './provider-admin/provider-admin.component';
+import {
+  EditLocationModalComponent,
+  LocationServicelineMappingComponent,
+} from './location-serviceline-mapping/location-serviceline-mapping.component';
 // import { MultiRoleScreenComponent } from './multi-role-screen/multi-role-screen.component';
 // import { AuthGuard } from './services/authGuardService/auth-guard.services';
 // import { SuperAdminComponent } from './super-admin/super-admin.component';
@@ -89,13 +99,17 @@ import {
 @NgModule({
   declarations: [
     AppComponent,
-    // AddQuestionnaireComponent,
+    AddQuestionnaireComponent,
     // EditQuestionnaireComponent,
     CommonDialogComponent,
     loginContentClassComponent,
     ResetComponent,
     SetPasswordComponent,
     SetSecurityQuestionsComponent,
+    MultiRoleScreenComponent,
+    ViewVersionDetailsComponent,
+    LocationServicelineMappingComponent,
+    EditLocationModalComponent,
     // ServicePointComponent,
     // ServiceComponent,
     // ResetPasswordComponent,
@@ -137,23 +151,23 @@ import {
         path: 'setQuestions',
         component: SetSecurityQuestionsComponent,
       },
-      // {
-      //   path: 'MultiRoleScreenComponent',
-      //   component: MultiRoleScreenComponent,
-      //   canActivate: [AuthGuard],
-      //   children: [
-      //     {
-      //       path: 'superAdmin',
-      //       component: SuperAdminComponent,
-      //       outlet: 'postLogin_router'
-      //     },
-      //     {
-      //       path: 'providerAdmin',
-      //       component: ProviderAdminComponent,
-      //       outlet: 'postLogin_router'
-      //     }
-      //   ]
-      // },
+      {
+        path: 'MultiRoleScreenComponent',
+        component: MultiRoleScreenComponent,
+        // canActivate: [AuthGuard],
+        children: [
+          {
+            path: 'superAdmin',
+            component: SuperAdminComponent,
+            outlet: 'postLogin_router',
+          },
+          {
+            path: 'providerAdmin',
+            component: ProviderAdminComponent,
+            outlet: 'postLogin_router',
+          },
+        ],
+      },
       {
         path: 'setPassword',
         component: SetPasswordComponent,
@@ -184,6 +198,10 @@ import {
       multi: true,
     },
   ],
+  // entryComponents: [
+  //   CommonDialogComponent,
+  //   ViewVersionDetailsComponent,
+  // ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
