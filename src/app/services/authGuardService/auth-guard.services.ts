@@ -22,7 +22,6 @@
 import { Injectable } from '@angular/core';
 import { Router, ActivatedRoute, CanActivate } from '@angular/router';
 import { dataService } from '../dataService/data.service';
-import 'rxjs/add/operator/toPromise';
 import { ConfigService } from '../config/config.service';
 
 @Injectable()

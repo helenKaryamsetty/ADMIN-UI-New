@@ -21,10 +21,8 @@
  */
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 // import {Http, Response} from '@angular/http';
-import 'rxjs/add/operator/map';
-
 @Injectable()
 /**
  * Author: Neeraj Kumar ( 298657 )
@@ -38,8 +36,11 @@ export class DashboardHttpServices {
   // getData(url: string) {
   //     return this.http.get(url).map((res:Response) => console.log(res));
   // }
-  getData(url: string): Observable<any> {
-    return this.http.get(url);
+  // getData(url: string): Observable<any> {
+  //   return this.http.get(url);
+  // }
+  getData(url: string):Observable<any> {
+		return this.http.get(url).pipe(map((res:any) => res));
   }
   // Function to call post API, Returns response in Json format...
   postData() {}

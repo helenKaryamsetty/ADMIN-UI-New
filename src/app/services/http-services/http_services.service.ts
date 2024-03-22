@@ -21,11 +21,10 @@
  */
 import { Injectable } from '@angular/core';
 
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { Observable, throttleTime, throwError } from 'rxjs';
 
-// import 'rxjs/add/operator/catch';
-// import 'rxjs/add/operator/map';
-// import { SecurityInterceptedHttp } from'@angular/h
+// import { SecurityInterceptedHttp } from '../../http.securityinterceptor';
 
 /**
  * Author: Diamond Khanna ( 352929 )
@@ -35,44 +34,40 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 
 @Injectable()
 export class HttpServices {
-  constructor(
-    private http: HttpClient,
-    private httpResponse: HttpResponse<any>,
-  ) {}
+  constructor(private http: HttpClient) {}
 
-  getData(url: string) {
+  // getData(url: string) {
+  //   return this.http.get(url);
+  //   // .map(this.handleGetSuccess)
+  //   // .catch(this.handleGetError);
+  // }
+  getData(url: string):Observable<any> {
+		return this.http.get(url)
+  }
+
+  getCommitDetails(url: string):Observable<any> {
     return this.http.get(url);
     // .map(this.handleGetSuccess)
     // .catch(this.handleGetError);
   }
 
-  getCommitDetails(url: string) {
-    return this.http.get(url);
-    // .map(this.handleGetSuccess)
-    // .catch(this.handleGetError);
+  handleGetSuccess(response: Response) {
+    return response;
   }
 
-  // handleGetSuccess(response: HttpResponse<any>) {
-
-  // 	return response;
-  // }
-
-  // handleGetError(error: Response | any) {
-  // 	return Observable.throw(error.json());
-
-  // }
+  handleGetError(error: Response | any) {
+    return throwError(error);
+  }
 
   // handleGetSuccessForSecurity(response: Response) {
-  // 	if (response.json().data) {
-  // 		return response.json();
-  // 	  } else {
+  // 	if (response) {
   // 		return response.json();
   // 	  }
   // 	}
 
-  securityData(url: string, data: any) {
-    return this.http.post(url, data);
-    // .map(this.handleGetSuccess)
-    // .catch(this.handleGetError);
-  }
+  // securityData(url: string, data: any) {
+  // 	return this.http.post(url, data)
+  // 		// .map(this.handleGetSuccess)
+  // 		// .catch(this.handleGetError);
+  // }
 }

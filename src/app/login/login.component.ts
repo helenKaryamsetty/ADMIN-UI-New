@@ -158,7 +158,7 @@ export class loginContentClassComponent implements OnInit, OnDestroy {
             if (response.isAuthenticated) {
               if (response.previlegeObj.length === 0) {
                 console.log(response, 'SUPERADMIN VALIDATED');
-                sessionStorage.setItem('authToken', response.key);
+                sessionStorage.setItem('authToken', response.data.key);
                 this.dataSettingService.Userdata = { userName: 'Super Admin' };
                 this.dataSettingService.role = 'SUPERADMIN';
                 this.dataSettingService.uname = 'Super Admin';
@@ -179,8 +179,14 @@ export class loginContentClassComponent implements OnInit, OnDestroy {
         .authenticateUser(userId, this.encryptPassword, doLogout)
         .subscribe(
           (response) => {
-            sessionStorage.setItem('authToken', response.key);
+            if(response.data !== undefined){
+            sessionStorage.setItem('authToken', response.data.key);
             this.successCallback(response);
+            }
+            else{
+              sessionStorage.setItem('authToken', response.key);
+            this.successCallback(response);
+            }
           },
           (error: any) => {
             this.errorCallback(error);
@@ -207,7 +213,7 @@ export class loginContentClassComponent implements OnInit, OnDestroy {
                   if (response.isAuthenticated) {
                     if (response.previlegeObj.length === 0) {
                       console.log(response, 'SUPERADMIN VALIDATED');
-                      sessionStorage.setItem('authToken', response.key);
+                      sessionStorage.setItem('authToken', response.data.key);
                       this.dataSettingService.Userdata = {
                         userName: 'Super Admin',
                       };
@@ -230,7 +236,7 @@ export class loginContentClassComponent implements OnInit, OnDestroy {
               .authenticateUser(this.userID, this.encryptPassword, doLogOut)
               .subscribe(
                 (response: any) => {
-                  sessionStorage.setItem('authToken', response.key);
+                  sessionStorage.setItem('authToken', response.data.key);
                   this.successCallback(response);
                 },
                 (error: any) => {
@@ -275,6 +281,7 @@ export class loginContentClassComponent implements OnInit, OnDestroy {
         response.data.isAuthenticated === true &&
         response.data.Status === 'Active'
       ) {
+        sessionStorage.setItem('authToken', response.data.key);
         console.log(
           'response.previlegeObj[0].serviceID',
           response.data.previlegeObj[0].serviceID,
@@ -311,7 +318,7 @@ export class loginContentClassComponent implements OnInit, OnDestroy {
         response.data.Status === 'New'
       ) {
         this.status = 'new';
-        sessionStorage.setItem('authToken', response.key);
+        sessionStorage.setItem('authToken', response.data.key);
         this.router.navigate(['/setQuestions']);
       }
 

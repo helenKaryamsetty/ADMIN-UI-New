@@ -62,7 +62,6 @@ import { RouterModule } from '@angular/router';
 import { ConfigService } from './services/config/config.service';
 import { ConfirmationDialogsService } from './services/dialog/confirmation.service';
 import { dataService } from './services/dataService/data.service';
-import { HttpServices } from './http-services/http_services.service';
 import { InterceptedHttp } from './http.interceptor';
 import { SpinnerService } from './services/spinner.service';
 import { ResetComponent } from './resetPassword/resetPassword.component';
@@ -83,24 +82,13 @@ import {
   EditLocationModalComponent,
   LocationServicelineMappingComponent,
 } from './location-serviceline-mapping/location-serviceline-mapping.component';
-// import { MultiRoleScreenComponent } from './multi-role-screen/multi-role-screen.component';
-// import { AuthGuard } from './services/authGuardService/auth-guard.services';
-// import { SuperAdminComponent } from './super-admin/super-admin.component';
-// import { ProviderAdminComponent } from './provider-admin/provider-admin.component';
-// import { LocationServicelineMappingComponent } from './location-serviceline-mapping/location-serviceline-mapping.component';
-// import { ResetComponent } from './resetPassword/resetPassword.component';
-// import { SetPasswordComponent } from './set-password/set-password.component';
-// import { ProviderAdminComponent } from './provider-admin/provider-admin.component';
-// import { SuperAdminComponent } from './super-admin/super-admin.component';
-// import { AuthGuard } from './services/authGuardService/auth-guard.services';
-// import { MultiRoleScreenComponent } from './multi-role-screen/multi-role-screen.component';
-// import { SetSecurityQuestionsComponent } from './set-security-questions/set-security-questions.component';
+import { DashboardHttpServices } from './http-service/http-service.service';
+import { HttpServices } from './services/http-services/http_services.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     AddQuestionnaireComponent,
-    // EditQuestionnaireComponent,
     CommonDialogComponent,
     loginContentClassComponent,
     ResetComponent,
@@ -110,12 +98,6 @@ import {
     ViewVersionDetailsComponent,
     LocationServicelineMappingComponent,
     EditLocationModalComponent,
-    // ServicePointComponent,
-    // ServiceComponent,
-    // ResetPasswordComponent,
-    // SetPasswordComponent,
-    // SetSecurityQuestionsComponent,
-    // TmLogoutComponent,
   ],
   imports: [
     BrowserModule,
@@ -154,7 +136,7 @@ import {
       {
         path: 'MultiRoleScreenComponent',
         component: MultiRoleScreenComponent,
-        // canActivate: [AuthGuard],
+         canActivate: [AuthGuard],
         children: [
           {
             path: 'superAdmin',
@@ -185,13 +167,14 @@ import {
 
   providers: [
     HttpClient,
-    HttpInterceptorService,
     loginService,
     ConfigService,
     ConfirmationDialogsService,
     dataService,
     HttpServices,
     SpinnerService,
+    AuthGuard,
+    DashboardHttpServices,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpInterceptorService,

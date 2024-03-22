@@ -58,7 +58,7 @@ export class HttpInterceptorService implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler,
   ): Observable<HttpEvent<any>> {
-    const key: any = sessionStorage.getItem('key');
+    const key: any = sessionStorage['authToken']
     let modifiedReq = null;
     if (key !== undefined && key !== null) {
       modifiedReq = req.clone({
