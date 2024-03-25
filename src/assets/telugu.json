@@ -1,0 +1,24 @@
+{
+    "telugu": {
+        "welcome": "స్వాగత",
+        "activities": "చర్యలు",
+        "activity_dropdown": {
+          "provider_on_board": "प्रदाता बनाएं",
+          "block_provider": "ब्लॉक प्रदाता",
+          "gender_master": "नया लिंग बनाएं",
+          "qualification_master": "नई योग्यता बनाएं",
+          "caste_master": "नई जाति बनाओ",
+          "religion_master": "नया धर्म बनाएं",
+          "state_master": "नया राज्य बनाएं"
+        },
+        "provider_name": "Provider Name",
+        "valid_till": "Valid Till",
+        "contact_person": "Contact Person",
+        "contact_number": "Contact Number",
+        "emailID": "Email ID",
+        "address1": "Address 1",
+        "address2": "Address 2",
+        "reports": "నివేదికలు",
+        "configurations": "ఆకృతీకరణలు"
+      }
+}

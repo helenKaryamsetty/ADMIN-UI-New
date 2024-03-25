@@ -32,72 +32,32 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 //   HttpClientModule,
 //   HTTP_INTERCEPTORS,
 // } from '@angular/common/http';
-import { MaterialModule } from './material.module';
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { MaterialModule } from './core/material.module';
 import { AppRoutingModule } from './app-routing.module';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { HttpInterceptorService } from './services/http-interceptor.service';
-import { MatGridListModule } from '@angular/material/grid-list';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatInputModule } from '@angular/material/input';
-import { MatTableModule } from '@angular/material/table';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
-import { MatRadioModule } from '@angular/material/radio';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatListModule } from '@angular/material/list';
-import { MatSelectModule } from '@angular/material/select';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
-// import { AddQuestionnaireComponent } from './add-questionnaire/add-questionnaire.component';
-// import { EditQuestionnaireComponent } from './edit-questionnaire/edit-questionnaire.component';
-import { CommonDialogComponent } from './common-dialog/common-dialog.component';
-import { loginService } from './services/loginService/login.service';
-import { loginContentClassComponent } from './login/login.component';
-import { RouterModule } from '@angular/router';
-import { ConfigService } from './services/config/config.service';
-import { ConfirmationDialogsService } from './services/dialog/confirmation.service';
-import { dataService } from './services/dataService/data.service';
-import { InterceptedHttp } from './http.interceptor';
-import { SpinnerService } from './services/spinner.service';
-import { ResetComponent } from './resetPassword/resetPassword.component';
-import { SetPasswordComponent } from './set-password/set-password.component';
-import { SetSecurityQuestionsComponent } from './set-security-questions/set-security-questions.component';
 import {
   HTTP_INTERCEPTORS,
   HttpClient,
   HttpClientModule,
 } from '@angular/common/http';
-import { AddQuestionnaireComponent } from './add-questionnaire/add-questionnaire.component';
-import { MultiRoleScreenComponent } from './multi-role-screen/multi-role-screen.component';
-import { AuthGuard } from './services/authGuardService/auth-guard.services';
-import { ViewVersionDetailsComponent } from './view-version-details/view-version-details.component';
-import { SuperAdminComponent } from './super-admin/super-admin.component';
-import { ProviderAdminComponent } from './provider-admin/provider-admin.component';
-import {
-  EditLocationModalComponent,
-  LocationServicelineMappingComponent,
-} from './location-serviceline-mapping/location-serviceline-mapping.component';
-import { DashboardHttpServices } from './http-service/http-service.service';
-import { HttpServices } from './services/http-services/http_services.service';
+import { HttpInterceptorService } from './core/services/httpInterceptor/http-interceptor.service';
+import { loginContentClassComponent } from './user-login/login/login.component';
+import { ResetComponent } from './user-login/resetPassword/resetPassword.component';
+import { SetPasswordComponent } from './user-login/set-password/set-password.component';
+import { SetSecurityQuestionsComponent } from './user-login/set-security-questions/set-security-questions.component';
+import { UserLoginModule } from './user-login/user-login.module';
+import { CoreModule } from './core/core.module';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    AddQuestionnaireComponent,
-    CommonDialogComponent,
     loginContentClassComponent,
     ResetComponent,
     SetPasswordComponent,
     SetSecurityQuestionsComponent,
-    MultiRoleScreenComponent,
-    ViewVersionDetailsComponent,
-    LocationServicelineMappingComponent,
-    EditLocationModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -105,76 +65,20 @@ import { HttpServices } from './services/http-services/http_services.service';
     MatIconModule,
     MatFormFieldModule,
     ReactiveFormsModule,
+    FormsModule,
     HttpClientModule,
     MaterialModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    MatGridListModule,
-    MatDialogModule,
-    MatPaginatorModule,
-    MatInputModule,
-    MatTableModule,
-    MatTooltipModule,
-    MatMenuModule,
-    MatButtonModule,
-    MatCardModule,
-    MatRadioModule,
-    MatDatepickerModule,
-    MatListModule,
-    MatSelectModule,
-    MatProgressBarModule,
-    MatProgressSpinnerModule,
-    RouterModule.forRoot([
-      {
-        path: 'resetPassword',
-        component: ResetComponent,
-      },
-      {
-        path: 'setQuestions',
-        component: SetSecurityQuestionsComponent,
-      },
-      {
-        path: 'MultiRoleScreenComponent',
-        component: MultiRoleScreenComponent,
-         canActivate: [AuthGuard],
-        children: [
-          {
-            path: 'superAdmin',
-            component: SuperAdminComponent,
-            outlet: 'postLogin_router',
-          },
-          {
-            path: 'providerAdmin',
-            component: ProviderAdminComponent,
-            outlet: 'postLogin_router',
-          },
-        ],
-      },
-      {
-        path: 'setPassword',
-        component: SetPasswordComponent,
-      },
-      {
-        path: '',
-        component: loginContentClassComponent,
-      },
-    ]),
+    UserLoginModule,
+    CoreModule.forRoot()
   ],
   // UserLoginModule,
   //DataSYNCModule,
   // CoreModule.forRoot()
-  // schemas: [CUSTOM_ELEMENTS_SCHEMA],
-
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
     HttpClient,
-    loginService,
-    ConfigService,
-    ConfirmationDialogsService,
-    dataService,
-    HttpServices,
-    SpinnerService,
-    AuthGuard,
-    DashboardHttpServices,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpInterceptorService,
