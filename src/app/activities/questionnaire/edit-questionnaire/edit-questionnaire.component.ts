@@ -22,10 +22,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { dataService } from '../services/dataService/data.service';
-import { ConfirmationDialogsService } from '../services/dialog/confirmation.service';
-import { QuestionnaireServiceService } from '../services/questionnaire-service.service';
-import { from } from 'rxjs';
+import { dataService } from 'src/app/core/services/dataService/data.service'; 
+import { ConfirmationDialogsService } from 'src/app/core/services/dialog/confirmation.service'; 
+import { QuestionnaireServiceService } from '../../services/questionnaire-service.service';
 
 @Component({
   selector: 'app-edit-questionnaire',
@@ -46,6 +45,7 @@ export class EditQuestionnaireComponent implements OnInit {
   enableUpdate = true;
   disableWeightage = false;
   enableOptionArray!: boolean;
+  answerOptionValueData: any = [];
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<EditQuestionnaireComponent>,
@@ -179,6 +179,9 @@ export class EditQuestionnaireComponent implements OnInit {
       );
     }
   }
+  answerOptionValue(){
+   return this.answerOptionValueData = this.editQuestionnaireForm.value.answerOptions;
+  }
   addOptField(i: any) {
     this.questionOptionList = [];
 
@@ -193,10 +196,10 @@ export class EditQuestionnaireComponent implements OnInit {
     console.log('FormValues', this.editQuestionnaireForm.value);
   }
 
-  addOptionField(i: any, idx: any) {
+  addOptionField(idx: any) {
     this.questionOptionList = [];
 
-    console.log('Ind', i);
+    // console.log('Ind', i);
     const questionList = <FormArray>(
       this.editQuestionnaireForm.controls['answerOptions']
     );

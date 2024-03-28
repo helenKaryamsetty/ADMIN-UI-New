@@ -19,8 +19,8 @@
  * along with this program.  If not, see https://www.gnu.org/licenses/.
  */
 import { Component, OnInit } from '@angular/core';
-import { ConfirmationDialogsService } from '../../services/dialog/confirmation.service';
-import { HttpServices } from '../../services/http-services/http_services.service';
+import { ConfirmationDialogsService } from '../core/services/dialog/confirmation.service';
+import { HttpServices } from '../core/services/http-services/http_services.service'; 
 
 
 @Component({

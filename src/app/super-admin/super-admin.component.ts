@@ -20,9 +20,10 @@
  * along with this program.  If not, see https://www.gnu.org/licenses/.
  */
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
-import { ConfirmationDialogsService } from '../../services/dialog/confirmation.service';
-import { HttpServices } from '../../services/http-services/http_services.service';
-import { dataService } from '../../services/dataService/data.service';
+import { ConfirmationDialogsService } from '../core/services/dialog/confirmation.service';
+import { HttpServices } from '../core/services/http-services/http_services.service';
+import { dataService } from '../core/services/dataService/data.service';
+
 declare let jQuery: any;
 
 @Component({

@@ -49,6 +49,15 @@ import { SetSecurityQuestionsComponent } from './user-login/set-security-questio
 import { UserLoginModule } from './user-login/user-login.module';
 import { CoreModule } from './core/core.module';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { AddQuestionnaireComponent } from './activities/questionnaire/add-questionnaire/add-questionnaire.component';
+import { EditQuestionnaireComponent } from './activities/questionnaire/edit-questionnaire/edit-questionnaire.component';
+import { ActivitiesModule } from './activities/activities.module';
+import { ProviderAdminComponent } from './provider-admin/provider-admin.component';
+import { MultiRoleScreenComponent } from './multi-role-screen/multi-role-screen.component';
+import { SuperAdminComponent } from './super-admin/super-admin.component';
+import { LocationServicelineMappingComponent } from './location-serviceline-mapping/location-serviceline-mapping.component';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatButtonModule } from '@angular/material/button';
 
 
 @NgModule({
@@ -58,6 +67,12 @@ import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
     ResetComponent,
     SetPasswordComponent,
     SetSecurityQuestionsComponent,
+    AddQuestionnaireComponent,
+    EditQuestionnaireComponent,
+    ProviderAdminComponent,
+    MultiRoleScreenComponent,
+    SuperAdminComponent,
+    LocationServicelineMappingComponent
   ],
   imports: [
     BrowserModule,
@@ -71,7 +86,10 @@ import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
     BrowserAnimationsModule,
     AppRoutingModule,
     UserLoginModule,
-    CoreModule.forRoot()
+    CoreModule.forRoot(),
+    ActivitiesModule,
+    MatMenuModule,
+    MatButtonModule
   ],
   // UserLoginModule,
   //DataSYNCModule,

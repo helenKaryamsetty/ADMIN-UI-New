@@ -21,22 +21,17 @@
  */
 import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { LocationServicelineMapping } from '../services/ProviderAdminServices/location-serviceline-mapping.service';
-import { dataService } from '../services/dataService/data.service';
 import {
   MAT_DIALOG_DATA,
   MatDialog,
   MatDialogRef,
 } from '@angular/material/dialog';
-import { ConfirmationDialogsService } from '../services/dialog/confirmation.service';
+// import { ConfirmationDialogsService } from '../services/dialog/confirmation.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-// import { NgForm } from '@angular/forms';
-// import { LocationServicelineMapping } from '../services/ProviderAdminServices/location-serviceline-mapping.service';
-// import { dataService } from '../services/dataService/data.service';
-// import { ConfirmationDialogsService } from '../services/dialog/confirmation.service';
-// import { MdDialog, MdDialogRef } from '@angular/material';
-// import { MD_DIALOG_DATA } from '@angular/material';
+import { LocationServicelineMapping } from 'src/app/core/services/ProviderAdminServices/location-serviceline-mapping.service';
+import { dataService } from 'src/app/core/services/dataService/data.service';
+import { ConfirmationDialogsService } from 'src/app/core/services/dialog/confirmation.service';
 declare let jQuery: any;
 
 @Component({
@@ -207,7 +202,7 @@ export class LocationServicelineMappingComponent implements OnInit {
   }
   getStatesSuccessHandeler(response: any, value: any) {
     this.search_state = '';
-    this.states = response;
+    this.states = response.data;
     this.workLocations = [];
     // this.filteredworkLocations = [];
     if (value.isNational) {
@@ -458,12 +453,12 @@ export class LocationServicelineMappingComponent implements OnInit {
 
   getDistrictsSuccessHandeler(response: any) {
     console.log(response, 'districts');
-    this.districts = response;
+    this.districts = response.data;
   }
 
   servicesSuccesshandeler(response: any) {
     console.log(response, 'services');
-    this.servicelines = response;
+    this.servicelines = response.data;
     // if (response.length > 0) {
     //   this.providerServiceMapID = response[0].providerServiceMapID;
     // }
@@ -472,7 +467,7 @@ export class LocationServicelineMappingComponent implements OnInit {
   saveOfficeSuccessHandeler(response: any) {
     // alert("location successfully created");
     this.alertService.alert('Saved successfully', 'success');
-    console.log('saved', response);
+    console.log('saved', response.data);
     // this.showTable = false;
     this.showForm = false;
     this.disableSelection = false;
