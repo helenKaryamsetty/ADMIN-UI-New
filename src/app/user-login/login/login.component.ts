@@ -179,13 +179,12 @@ export class loginContentClassComponent implements OnInit, OnDestroy {
         .authenticateUser(userId, this.encryptPassword, doLogout)
         .subscribe(
           (response) => {
-            if(response.data !== undefined){
-            sessionStorage.setItem('authToken', response.data.key);
-            this.successCallback(response);
-            }
-            else{
+            if (response.data !== undefined) {
+              sessionStorage.setItem('authToken', response.data.key);
+              this.successCallback(response);
+            } else {
               sessionStorage.setItem('authToken', response.key);
-            this.successCallback(response);
+              this.successCallback(response);
             }
           },
           (error: any) => {

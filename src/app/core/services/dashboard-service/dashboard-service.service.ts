@@ -39,8 +39,8 @@ export class DashboardHttpServices {
   // getData(url: string): Observable<any> {
   //   return this.http.get(url);
   // }
-  getData(url: string):Observable<any> {
-		return this.http.get(url).pipe(map((res:any) => res));
+  getData(url: string): Observable<any> {
+    return this.http.get(url).pipe(map((res: any) => res));
   }
   // Function to call post API, Returns response in Json format...
   postData() {}

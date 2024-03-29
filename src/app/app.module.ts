@@ -59,7 +59,6 @@ import { LocationServicelineMappingComponent } from './location-serviceline-mapp
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -72,7 +71,7 @@ import { MatButtonModule } from '@angular/material/button';
     ProviderAdminComponent,
     MultiRoleScreenComponent,
     SuperAdminComponent,
-    LocationServicelineMappingComponent
+    LocationServicelineMappingComponent,
   ],
   imports: [
     BrowserModule,
@@ -89,7 +88,7 @@ import { MatButtonModule } from '@angular/material/button';
     CoreModule.forRoot(),
     ActivitiesModule,
     MatMenuModule,
-    MatButtonModule
+    MatButtonModule,
   ],
   // UserLoginModule,
   //DataSYNCModule,

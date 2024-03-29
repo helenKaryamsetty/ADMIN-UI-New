@@ -13,12 +13,8 @@ import { MaterialModule } from '../core/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EditLocationModalComponent } from '../location-serviceline-mapping/location-serviceline-mapping.component';
 
-
-
 @NgModule({
-  declarations: [
-    EditLocationModalComponent
-  ],
+  declarations: [EditLocationModalComponent],
   imports: [
     CommonModule,
     MatSelectModule,
@@ -33,6 +29,6 @@ import { EditLocationModalComponent } from '../location-serviceline-mapping/loca
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
-  ]
+  ],
 })
-export class ActivitiesModule { }
+export class ActivitiesModule {}

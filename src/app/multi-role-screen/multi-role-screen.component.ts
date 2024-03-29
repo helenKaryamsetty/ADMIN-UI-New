@@ -24,12 +24,11 @@ import { Router } from '@angular/router';
 import { PlatformLocation } from '@angular/common';
 // import { JsonpModule } from '@angular/http';
 import { MatDialog } from '@angular/material/dialog';
-import { ViewVersionDetailsComponent } from '../core/components/view-version-details/view-version-details.component'; 
+import { ViewVersionDetailsComponent } from '../core/components/view-version-details/view-version-details.component';
 import { ConfigService } from '../core/services/config/config.service';
 import { dataService } from '../core/services/dataService/data.service';
 import { loginService } from '../core/services/loginService/login.service';
 import { HttpServices } from '../core/services/http-services/http_services.service';
-
 
 declare let jQuery: any;
 

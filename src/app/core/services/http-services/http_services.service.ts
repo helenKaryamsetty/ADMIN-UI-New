@@ -41,11 +41,11 @@ export class HttpServices {
   //   // .map(this.handleGetSuccess)
   //   // .catch(this.handleGetError);
   // }
-  getData(url: string):Observable<any> {
-		return this.http.get(url)
+  getData(url: string): Observable<any> {
+    return this.http.get(url);
   }
 
-  getCommitDetails(url: string):Observable<any> {
+  getCommitDetails(url: string): Observable<any> {
     return this.http.get(url);
     // .map(this.handleGetSuccess)
     // .catch(this.handleGetError);

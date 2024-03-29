@@ -20,8 +20,7 @@
  */
 import { Component, OnInit } from '@angular/core';
 import { ConfirmationDialogsService } from '../core/services/dialog/confirmation.service';
-import { HttpServices } from '../core/services/http-services/http_services.service'; 
-
+import { HttpServices } from '../core/services/http-services/http_services.service';
 
 @Component({
   selector: 'app-provider-admin',
