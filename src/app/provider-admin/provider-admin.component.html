@@ -1,4 +1,5 @@
 <!-- <div class="row m-t-5">
+
   <div class="col-xs-12 col-sm-12">
     <nav class="navbar navbar-default m-b-10 cu-admin-nav-top">
       <div class="container-fluid">
@@ -305,72 +306,120 @@
     </nav>
   </div>
 </div> -->
-<button mat-button [matMenuTriggerFor]="Activities">Activities</button>
-<mat-menu #Activities="matMenu">
-  <button mat-menu-item (click)="show('1')">Job Location-ServiceLine Mapping Master</button>
-  <button mat-menu-item (click)="show('2')">Role Master</button>
-  <button mat-menu-item (click)="show('27')">Employee Master</button>
-  <button mat-menu-item (click)="show('28')">Language Mapping</button>
-  <button mat-menu-item (click)="show('28')">Work Location Mapping</button>
-  <button mat-menu-item (click)="show('59')">Specialist Mapping</button>
-  <button mat-menu-item (click)="show('4')">Call Disposition Type Master</button>
-  <button mat-menu-item (click)="show('77')">Serviceline State CDSS Mapping</button>
-  <button mat-menu-item (click)="show('5')">Category Subcategory Provisioning</button>
-  <button mat-menu-item (click)="show('20')">Institute Directory Master</button>
-  <button mat-menu-item (click)="show('22')">Institute Subdirectory Master</button>
-  <button mat-menu-item  [matMenuTriggerFor]= "FeedbackComplaintTypeMaster">Feedback/Complaint Type Master</button>
-  <button mat-menu-item (click)="show('58')">Nature Of Complaint-Category Mapping</button>
-  <button mat-menu-item (click)="show('25')">Institute Type Master</button>
-  <button mat-menu-item (click)="show('21')">Institute Master</button>
-  <button mat-menu-item (click)="show('12')">Severity Type</button>
-  <button mat-menu-item  [matMenuTriggerFor]= "FetosenseMaster">Fetosense Master</button>
-  <button mat-menu-item  [matMenuTriggerFor]= "DrugGroup">Drug Group</button>
-  <button mat-menu-item [matMenuTriggerFor]= "OutreachMaster">Outreach Master</button>
-  <button mat-menu-item (click)="show('4')">Data Mapping Blocking to Subcenter</button>
-</mat-menu>
-<mat-menu #FeedbackComplaintTypeMaster="matMenu">
-  <button mat-menu-item (click)="show('19')">Nature Of Complaints List</button>
-  <button mat-menu-item (click)="show('58')">Nature Of Complaint-Category Mapping</button>
-</mat-menu>
-<mat-menu #FetosenseMaster="matMenu">
-  <button mat-menu-item (click)="show('68')">Device ID Master</button>
-  <button mat-menu-item (click)="show('58')">Fetosense Test Master</button>
-</mat-menu>
-<mat-menu #DrugGroup="matMenu">
-  <button mat-menu-item (click)="show('33')">Drug Group Master</button>
-  <button mat-menu-item (click)="show('56')">Drug Strength</button>
-  <button mat-menu-item (click)="show('34')">Drug Master</button>
-  <button mat-menu-item (click)="show('35')">Drug Group Item Mapping</button>
-</mat-menu>
-<mat-menu #OutreachMaster="matMenu">
-  <button mat-menu-item [matMenuTriggerFor]= "ZoneMaster">Zone Master</button>
-  <button mat-menu-item [matMenuTriggerFor]= "ParkingPlaceMaster">Parking Place Master</button>
-  <button mat-menu-item (click)="show('9')">Service Point Master</button>
-</mat-menu>
-<mat-menu #ZoneMaster="matMenu">
-  <button mat-menu-item (click)="show('36')">Zone List</button>
-  <button mat-menu-item (click)="show('37')">Zone District Mapping</button>
-</mat-menu>
-<mat-menu #ParkingPlaceMaster="matMenu">
-  <button mat-menu-item (click)="show('8')">Parking Place List</button>
-  <button mat-menu-item (click)="show('57')">Parking Place Sub-District Mapping</button>
-</mat-menu>
-<button mat-button>Reports</button>
-<button mat-button [matMenuTriggerFor]="Configuration">Configuration</button>
-<mat-menu #Configuration="matMenu">
-  <button mat-menu-item>Agent List Creation</button>
-  <button mat-menu-item>User-Role AgentID Mapping</button>
-</mat-menu>
-<button mat-button>Inventory</button>
-<!-- <div class="panel-body card p-a-0 bg-white sm-m-b-35 xs-m-b-35"> -->
-  <!-- <div class="container-fluid p-a-0 overflow-y" style="height: 510px"> -->
+<!-- <div style=".container-fluid {
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}"> -->
+<div class="topbar">
+  <div class="mainbar mainbar-rad">
+    <button mat-button [matMenuTriggerFor]="Activities" class="top-element">
+      Activities
+    </button>
+    <mat-menu #Activities="matMenu">
+      <button mat-menu-item (click)="show('1')">
+        Job Location-ServiceLine Mapping Master
+      </button>
+      <button mat-menu-item (click)="show('2')">Role Master</button>
+      <button mat-menu-item (click)="show('27')">Employee Master</button>
+      <button mat-menu-item (click)="show('28')">Language Mapping</button>
+      <button mat-menu-item (click)="show('28')">Work Location Mapping</button>
+      <button mat-menu-item (click)="show('59')">Specialist Mapping</button>
+      <button mat-menu-item (click)="show('4')">
+        Call Disposition Type Master
+      </button>
+      <button mat-menu-item (click)="show('77')">
+        Serviceline State CDSS Mapping
+      </button>
+      <button mat-menu-item (click)="show('5')">
+        Category Subcategory Provisioning
+      </button>
+      <button mat-menu-item (click)="show('20')">
+        Institute Directory Master
+      </button>
+      <button mat-menu-item (click)="show('22')">
+        Institute Subdirectory Master
+      </button>
+      <button mat-menu-item [matMenuTriggerFor]="FeedbackComplaintTypeMaster">
+        Feedback/Complaint Type Master
+      </button>
+      <button mat-menu-item (click)="show('58')">
+        Nature Of Complaint-Category Mapping
+      </button>
+      <button mat-menu-item (click)="show('25')">Institute Type Master</button>
+      <button mat-menu-item (click)="show('21')">Institute Master</button>
+      <button mat-menu-item (click)="show('12')">Severity Type</button>
+      <button mat-menu-item [matMenuTriggerFor]="FetosenseMaster">
+        Fetosense Master
+      </button>
+      <button mat-menu-item [matMenuTriggerFor]="DrugGroup">Drug Group</button>
+      <button mat-menu-item [matMenuTriggerFor]="OutreachMaster">
+        Outreach Master
+      </button>
+      <button mat-menu-item (click)="show('4')">
+        Data Mapping Blocking to Subcenter
+      </button>
+    </mat-menu>
+    <mat-menu #FeedbackComplaintTypeMaster="matMenu">
+      <button mat-menu-item (click)="show('19')">
+        Nature Of Complaints List
+      </button>
+      <button mat-menu-item (click)="show('58')">
+        Nature Of Complaint-Category Mapping
+      </button>
+    </mat-menu>
+    <mat-menu #FetosenseMaster="matMenu">
+      <button mat-menu-item (click)="show('68')">Device ID Master</button>
+      <button mat-menu-item (click)="show('58')">Fetosense Test Master</button>
+    </mat-menu>
+    <mat-menu #DrugGroup="matMenu">
+      <button mat-menu-item (click)="show('33')">Drug Group Master</button>
+      <button mat-menu-item (click)="show('56')">Drug Strength</button>
+      <button mat-menu-item (click)="show('34')">Drug Master</button>
+      <button mat-menu-item (click)="show('35')">
+        Drug Group Item Mapping
+      </button>
+    </mat-menu>
+    <mat-menu #OutreachMaster="matMenu">
+      <button mat-menu-item [matMenuTriggerFor]="ZoneMaster">
+        Zone Master
+      </button>
+      <button mat-menu-item [matMenuTriggerFor]="ParkingPlaceMaster">
+        Parking Place Master
+      </button>
+      <button mat-menu-item (click)="show('9')">Service Point Master</button>
+    </mat-menu>
+    <mat-menu #ZoneMaster="matMenu">
+      <button mat-menu-item (click)="show('36')">Zone List</button>
+      <button mat-menu-item (click)="show('37')">Zone District Mapping</button>
+    </mat-menu>
+    <mat-menu #ParkingPlaceMaster="matMenu">
+      <button mat-menu-item (click)="show('8')">Parking Place List</button>
+      <button mat-menu-item (click)="show('57')">
+        Parking Place Sub-District Mapping
+      </button>
+    </mat-menu>
+    <button mat-button>Reports</button>
+    <button mat-button [matMenuTriggerFor]="Configuration">
+      Configuration
+    </button>
+    <mat-menu #Configuration="matMenu">
+      <button mat-menu-item>Agent List Creation</button>
+      <button mat-menu-item>User-Role AgentID Mapping</button>
+    </mat-menu>
+    <button mat-button>Inventory</button>
+    <!-- <div class="panel-body card p-a-0 bg-white sm-m-b-35 xs-m-b-35"> -->
+    <!-- <div class="container-fluid p-a-0 overflow-y" style="height: 510px"> -->
     <!-- <div class="b-t-2-w"> -->
-      <!-- <div class="col-xs-12 col-sm-12"> -->
-        <!-- <div class="row"> -->
-          <div [ngSwitch]="Activity_Number" class="col-xs-12 col-sm-12">
-            <div>
-              <app-location-serviceline-mapping *ngSwitchCase="1"></app-location-serviceline-mapping>
-              <!-- <app-provider-admin-role-master
+    <!-- <div class="col-xs-12 col-sm-12"> -->
+    <!-- <div class="row"> -->
+    <div [ngSwitch]="Activity_Number" class="col-xs-12 col-sm-12">
+      <div>
+        <app-location-serviceline-mapping
+          *ngSwitchCase="1"
+        ></app-location-serviceline-mapping>
+        <!-- <app-provider-admin-role-master
                 *ngSwitchCase="2"
               ></app-provider-admin-role-master>
               <app-call-disposition-type-master
@@ -528,29 +577,34 @@
               <app-data-mapping-block-subcenter
                 *ngSwitchCase="72"
               ></app-data-mapping-block-subcenter> -->
-            </div>
-          </div>
-        <!-- </div> -->
-        <footer class="footer" style="left: 0px">
-          <div class="row">
-            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-              <span class="footer-text">Powered by: WIPRO</span>
-            </div>
-            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-              <p class="footer-text t-a-c">
-                2018
-                <mat-icon color="" class="copyright_icon" style="font-size: 12px"
-                  >copyright</mat-icon
-                >
-                PSMRI
-              </p>
-            </div>
-            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-              <span class="footer-text pull-right">Version: {{ version }}</span>
-            </div>
-          </div>
-        </footer>
-      <!-- </div> -->
+      </div>
+    </div>
     <!-- </div> -->
-  <!-- </div> -->
-<!-- </div> -->
+    <footer class="footer" style="left: 0px">
+      <div class="row">
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+          <span class="footer-text">Powered by: WIPRO</span>
+        </div>
+        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+          <p class="footer-text t-a-c">
+            2018
+            <mat-icon color="" class="copyright_icon" style="font-size: 12px"
+              >copyright</mat-icon
+            >
+            PSMRI
+          </p>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+          <span class="footer-text pull-right">Version: {{ version }}</span>
+        </div>
+      </div>
+    </footer>
+    <!-- </div> -->
+    <!-- </div> -->
+    <!-- </div> -->
+    <!-- </div> -->
+  </div>
+</div>
+<div class="main">
+  <div class="main-section"></div>
+</div>

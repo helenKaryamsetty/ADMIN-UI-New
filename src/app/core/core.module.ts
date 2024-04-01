@@ -22,8 +22,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { LocationServicelineMapping } from './services/ProviderAdminServices/location-serviceline-mapping.service';
 // import { ProviderAdminComponent } from './components/provider-admin/provider-admin.component';
 
-
-
 @NgModule({
   declarations: [
     ViewVersionDetailsComponent,
@@ -37,9 +35,7 @@ import { LocationServicelineMapping } from './services/ProviderAdminServices/loc
     MatFormFieldModule,
     FormsModule,
   ],
-  exports: [
-    CommonDialogComponent
-  ],
+  exports: [CommonDialogComponent],
   providers: [
     HttpClient,
     loginService,
@@ -54,10 +50,10 @@ import { LocationServicelineMapping } from './services/ProviderAdminServices/loc
     RoleService,
     ScreenService,
     ServicemasterService,
-    LocationServicelineMapping
-  ]
+    LocationServicelineMapping,
+  ],
 })
-export class CoreModule { 
+export class CoreModule {
   static forRoot(): ModuleWithProviders<CoreModule> {
     return {
       ngModule: CoreModule,
@@ -70,7 +66,7 @@ export class CoreModule {
         dataService,
         HttpServices,
         DashboardHttpServices,
-        LanguageService
+        LanguageService,
       ],
     };
   }

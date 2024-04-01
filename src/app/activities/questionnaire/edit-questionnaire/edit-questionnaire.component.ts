@@ -22,8 +22,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { dataService } from 'src/app/core/services/dataService/data.service'; 
-import { ConfirmationDialogsService } from 'src/app/core/services/dialog/confirmation.service'; 
+import { dataService } from 'src/app/core/services/dataService/data.service';
+import { ConfirmationDialogsService } from 'src/app/core/services/dialog/confirmation.service';
 import { QuestionnaireServiceService } from '../../services/questionnaire-service.service';
 
 @Component({
@@ -179,8 +179,9 @@ export class EditQuestionnaireComponent implements OnInit {
       );
     }
   }
-  answerOptionValue(){
-   return this.answerOptionValueData = this.editQuestionnaireForm.value.answerOptions;
+  answerOptionValue() {
+    return (this.answerOptionValueData =
+      this.editQuestionnaireForm.value.answerOptions);
   }
   addOptField(i: any) {
     this.questionOptionList = [];

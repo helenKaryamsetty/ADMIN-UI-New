@@ -30,7 +30,7 @@ const routes: Routes = [
   {
     path: 'MultiRoleScreenComponent',
     component: MultiRoleScreenComponent,
-     canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     children: [
       {
         path: 'superAdmin',
@@ -47,7 +47,7 @@ const routes: Routes = [
   {
     path: 'setPassword',
     component: SetPasswordComponent,
-  }
+  },
 ];
 
 @NgModule({

@@ -29,7 +29,6 @@ import { ConfigService } from 'src/app/core/services/config/config.service';
 // import { InterceptedHttp } from 'app/http.interceptor';
 // import { SecurityInterceptedHttp } from 'app/http.securityinterceptor';
 
-
 @Injectable()
 export class QuestionnaireServiceService {
   saveQuestionnaire_url: any;

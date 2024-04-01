@@ -25,7 +25,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class ServicemasterService {
   test = [];
-  options: any; 
+  options: any;
   headers = new Headers(
     { 'Content-Type': 'application/json' },
     //  ,{'Access-Control-Allow-Headers': 'X-Requested-With, content-type'}
@@ -40,15 +40,13 @@ export class ServicemasterService {
 
   constructor(private _http: HttpClient) {}
   getServiceMaster() {
-    return this._http
-      .post(this._geturl, this.options)
-      // .map((response: Response) => response.json());
+    return this._http.post(this._geturl, this.options);
+    // .map((response: Response) => response.json());
   }
   saveServiceMaster(data: any) {
     //console.log(data);
-    return this._http
-      .post(this._saveurl, data, this.options)
+    return this._http.post(this._saveurl, data, this.options);
 
-      // .map((response: Response) => response.json());
+    // .map((response: Response) => response.json());
   }
 }

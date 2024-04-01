@@ -71,7 +71,7 @@ export class LocationServicelineMapping {
       this.providerAdmin_Base_Url + '/m/location/getOfficeNameByMapId';
   }
 
-  getStates(serviceProviderID: any):Observable<any>{
+  getStates(serviceProviderID: any): Observable<any> {
     return this.http.post(this.getStates_url, {
       serviceProviderID: serviceProviderID,
     });
@@ -79,19 +79,19 @@ export class LocationServicelineMapping {
     // .catch(this.handleError);
   }
 
-  getStatesNew(obj: any):Observable<any>{
+  getStatesNew(obj: any): Observable<any> {
     return this.http.post(this.getStates_new_url, obj);
     // .map(this.handleState_n_ServiceSuccess)
     // 	.catch(this.handleError);
   }
 
-  getServiceLinesNew(userID: any):Observable<any>{
+  getServiceLinesNew(userID: any): Observable<any> {
     return this.http.post(this.getServiceLines_new_url, { userID: userID });
     // .map(this.handleState_n_ServiceSuccess)
     // .catch(this.handleError);
   }
 
-  getDistricts(serviceProviderID: any, stateID: any):Observable<any>{
+  getDistricts(serviceProviderID: any, stateID: any): Observable<any> {
     return this.http.post(this.getDistricts_url, {
       serviceProviderID: serviceProviderID,
       stateID: stateID,
@@ -100,7 +100,7 @@ export class LocationServicelineMapping {
     // .catch(this.handleError);
   }
 
-  getServiceLines(serviceProviderID: any, stateID: any):Observable<any>{
+  getServiceLines(serviceProviderID: any, stateID: any): Observable<any> {
     return this.http.post(this.getServiceLines_url, {
       serviceProviderID: serviceProviderID,
       stateID: stateID,
@@ -109,35 +109,35 @@ export class LocationServicelineMapping {
     // .catch(this.handleError);
   }
 
-  getWorkLocations(reqObj: any):Observable<any>{
+  getWorkLocations(reqObj: any): Observable<any> {
     return this.http.post(this.getWorkLocations_url, reqObj);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
-  getWorkLocationsOnState(reqObj: any):Observable<any>{
+  getWorkLocationsOnState(reqObj: any): Observable<any> {
     return this.http.post(this.getWorkLocationsOnState_url, reqObj);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
 
-  addWorkLocation(requestObject: any):Observable<any>{
+  addWorkLocation(requestObject: any): Observable<any> {
     return this.http.post(this.add_WorkLocation_url, requestObject);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
 
-  editWorkLocation(requestObject: any):Observable<any> {
+  editWorkLocation(requestObject: any): Observable<any> {
     return this.http.post(this.edit_WorkLocation_url, requestObject);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
 
-  deleteWorkLocation(obj: any):Observable<any> {
+  deleteWorkLocation(obj: any): Observable<any> {
     return this.http.post(this.delete_WorkLocation_url, obj);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
-  getWorklocationOnProviderArray(ProvidepMapIDArray: any):Observable<any> {
+  getWorklocationOnProviderArray(ProvidepMapIDArray: any): Observable<any> {
     return this.http.post(this.getOfficesUrl, {
       providerServiceMapID: ProvidepMapIDArray,
     });

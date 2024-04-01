@@ -12,8 +12,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MaterialModule } from '../core/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // import { EditLocationModalComponent } from '../location-serviceline-mapping/location-serviceline-mapping.component';
-
-
+// import { EditLocationModalComponent } from '../location-serviceline-mapping/location-serviceline-mapping.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +32,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
-  ]
+  ],
 })
-export class ActivitiesModule { }
+export class ActivitiesModule {}
