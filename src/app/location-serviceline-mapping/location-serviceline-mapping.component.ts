@@ -45,7 +45,7 @@ export class LocationServicelineMappingComponent implements OnInit {
   // dataSource = new MatTableDataSource<any>();
   filteredworkLocations= new MatTableDataSource<any>();
   userID: any;
-  displayedColumns: string[] = ['activePage', 'locationName', 'serviceName', 'address','stateName','districtName'];
+  displayedColumns: string[] = ['activePage', 'locationName', 'serviceName', 'address','stateName','districtName','edit','action'];
   // ngModels
   state: any;
   district: any;
@@ -476,8 +476,8 @@ export class LocationServicelineMappingComponent implements OnInit {
 
     // this.search_serviceline=this.service_ID; we can use this also if we want to find for specific
 
-    jQuery('#locationForm').trigger('reset');
-
+    // jQuery('#locationForm').trigger('reset');
+    this.form.resetForm();
     this.findLocations(
       this.search_state.stateID,
       this.search_serviceline.serviceID,
