@@ -55,7 +55,10 @@ import { ActivitiesModule } from './activities/activities.module';
 import { ProviderAdminComponent } from './provider-admin/provider-admin.component';
 import { MultiRoleScreenComponent } from './multi-role-screen/multi-role-screen.component';
 import { SuperAdminComponent } from './super-admin/super-admin.component';
-import { EditLocationModalComponent, LocationServicelineMappingComponent } from './location-serviceline-mapping/location-serviceline-mapping.component';
+import {
+  EditLocationModalComponent,
+  LocationServicelineMappingComponent,
+} from './location-serviceline-mapping/location-serviceline-mapping.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
@@ -75,7 +78,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MultiRoleScreenComponent,
     SuperAdminComponent,
     LocationServicelineMappingComponent,
-    EditLocationModalComponent
+    EditLocationModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -95,7 +98,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatButtonModule,
     MatSelectModule,
     MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
   ],
   // UserLoginModule,
   //DataSYNCModule,

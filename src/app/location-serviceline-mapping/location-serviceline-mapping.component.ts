@@ -43,9 +43,16 @@ export class LocationServicelineMappingComponent implements OnInit {
   [x: string]: any;
   @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
   // dataSource = new MatTableDataSource<any>();
-  filteredworkLocations= new MatTableDataSource<any>();
+  filteredworkLocations = new MatTableDataSource<any>();
   userID: any;
-  displayedColumns: string[] = ['activePage', 'locationName', 'serviceName', 'address','stateName','districtName'];
+  displayedColumns: string[] = [
+    'activePage',
+    'locationName',
+    'serviceName',
+    'address',
+    'stateName',
+    'districtName',
+  ];
   // ngModels
   state: any;
   district: any;
@@ -202,7 +209,7 @@ export class LocationServicelineMappingComponent implements OnInit {
   }
   getStatesSuccessHandeler(response: any, value: any) {
     this.search_state = '';
-    this.states = response
+    this.states = response;
     this.workLocations = [];
     this.filteredworkLocations.data = [];
     if (value.isNational) {
@@ -448,7 +455,7 @@ export class LocationServicelineMappingComponent implements OnInit {
 
     this.workLocations = response.data;
     this.filteredworkLocations.data = response.data;
-    this.filteredworkLocations.paginator = this.paginator
+    this.filteredworkLocations.paginator = this.paginator;
     // this.showTable = true;
   }
 
@@ -574,7 +581,7 @@ export class LocationServicelineMappingComponent implements OnInit {
     if (!searchTerm) {
       // this.dataSource = this.workLocations;
       this.filteredworkLocations.data = this.workLocations;
-      this.filteredworkLocations.paginator = this.paginator
+      this.filteredworkLocations.paginator = this.paginator;
     } else {
       this.filteredworkLocations.data = [];
       this.workLocations.forEach((item: any) => {
@@ -583,7 +590,7 @@ export class LocationServicelineMappingComponent implements OnInit {
             const value: string = '' + item[key];
             if (value.toLowerCase().indexOf(searchTerm.toLowerCase()) >= 0) {
               this.filteredworkLocations.data.push(item);
-              this.filteredworkLocations.paginator = this.paginator
+              this.filteredworkLocations.paginator = this.paginator;
               break;
             }
           }
