@@ -55,10 +55,12 @@ import { ActivitiesModule } from './activities/activities.module';
 import { ProviderAdminComponent } from './provider-admin/provider-admin.component';
 import { MultiRoleScreenComponent } from './multi-role-screen/multi-role-screen.component';
 import { SuperAdminComponent } from './super-admin/super-admin.component';
-import { LocationServicelineMappingComponent } from './location-serviceline-mapping/location-serviceline-mapping.component';
+import { EditLocationModalComponent, LocationServicelineMappingComponent } from './location-serviceline-mapping/location-serviceline-mapping.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
-
+import { MatSelectModule } from '@angular/material/select';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -72,7 +74,8 @@ import { MatButtonModule } from '@angular/material/button';
     ProviderAdminComponent,
     MultiRoleScreenComponent,
     SuperAdminComponent,
-    LocationServicelineMappingComponent
+    LocationServicelineMappingComponent,
+    EditLocationModalComponent
   ],
   imports: [
     BrowserModule,
@@ -87,9 +90,12 @@ import { MatButtonModule } from '@angular/material/button';
     AppRoutingModule,
     UserLoginModule,
     CoreModule.forRoot(),
-    ActivitiesModule,
+    // ActivitiesModule,
     MatMenuModule,
-    MatButtonModule
+    MatButtonModule,
+    MatSelectModule,
+    MatTableModule,
+    MatPaginatorModule
   ],
   // UserLoginModule,
   //DataSYNCModule,

@@ -42,10 +42,10 @@ declare let jQuery: any;
 export class LocationServicelineMappingComponent implements OnInit {
   [x: string]: any;
   @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
-  dataSource = new MatTableDataSource<any>();
-  // filteredworkLocations: any = [];
+  // dataSource = new MatTableDataSource<any>();
+  filteredworkLocations= new MatTableDataSource<any>();
   userID: any;
-
+  displayedColumns: string[] = ['activePage', 'locationName', 'serviceName', 'address','stateName','districtName'];
   // ngModels
   state: any;
   district: any;
@@ -95,7 +95,7 @@ export class LocationServicelineMappingComponent implements OnInit {
     this.districts = [];
     this.servicelines = [];
     this.workLocations = [];
-    // this.filteredworkLocations = [];
+    this.filteredworkLocations.data = [];
 
     console.log('USER ID IS', this.userID);
     this.showForm = false;
@@ -193,7 +193,7 @@ export class LocationServicelineMappingComponent implements OnInit {
     this.provider_admin_location_serviceline_mapping
       .getStatesNew(obj)
       .subscribe(
-        (response) => this.getStatesSuccessHandeler(response, value),
+        (response) => this.getStatesSuccessHandeler(response.data, value),
         (err) => {
           console.log('error in fetching states');
           // this.alertService.alert(err, 'error');
@@ -202,9 +202,9 @@ export class LocationServicelineMappingComponent implements OnInit {
   }
   getStatesSuccessHandeler(response: any, value: any) {
     this.search_state = '';
-    this.states = response.data;
+    this.states = response
     this.workLocations = [];
-    // this.filteredworkLocations = [];
+    this.filteredworkLocations.data = [];
     if (value.isNational) {
       this.nationalFlag = value.isNational;
       this.setPSMID(response[0].providerServiceMapID);
@@ -267,7 +267,7 @@ export class LocationServicelineMappingComponent implements OnInit {
 
   findLocations(stateID: any, serviceID: any) {
     const reqOBJ = {
-      serviceProviderID: this.serviceProviderID,
+      serviceProviderID: 1,
       stateID: stateID,
       serviceID: serviceID,
       isNational: this.nationalFlag,
@@ -446,8 +446,9 @@ export class LocationServicelineMappingComponent implements OnInit {
   findLocationsSuccesshandeler(response: any) {
     console.log(response, 'get locations success');
 
-    this.workLocations = response;
-    this.dataSource = response;
+    this.workLocations = response.data;
+    this.filteredworkLocations.data = response.data;
+    this.filteredworkLocations.paginator = this.paginator
     // this.showTable = true;
   }
 
@@ -497,7 +498,7 @@ export class LocationServicelineMappingComponent implements OnInit {
     // this.search_state = "";
     this.showTable = false;
     this.workLocations = [];
-    // this.filteredworkLocations = [];
+    this.filteredworkLocations.data = [];
     this.servicelines = [];
     this.PSMID_searchService = '';
   }
@@ -530,7 +531,7 @@ export class LocationServicelineMappingComponent implements OnInit {
     this.provider_admin_location_serviceline_mapping
       .getWorklocationOnProviderArray(reqArray)
       .subscribe(
-        (response) => this.currentServicesSuccess(response),
+        (response) => this.currentServicesSuccess(response.data),
         (err) => {
           console.log('error', err);
           //this.alertService.alert(err, 'error')
@@ -571,15 +572,18 @@ export class LocationServicelineMappingComponent implements OnInit {
   }
   filterComponentList(searchTerm?: string) {
     if (!searchTerm) {
-      this.dataSource = this.workLocations;
+      // this.dataSource = this.workLocations;
+      this.filteredworkLocations.data = this.workLocations;
+      this.filteredworkLocations.paginator = this.paginator
     } else {
-      // this.filteredworkLocations = [];
+      this.filteredworkLocations.data = [];
       this.workLocations.forEach((item: any) => {
         for (const key in item) {
           if (key === 'locationName' || key === 'districtName') {
             const value: string = '' + item[key];
             if (value.toLowerCase().indexOf(searchTerm.toLowerCase()) >= 0) {
-              this.dataSource.data.push(item);
+              this.filteredworkLocations.data.push(item);
+              this.filteredworkLocations.paginator = this.paginator
               break;
             }
           }
