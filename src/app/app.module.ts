@@ -51,7 +51,6 @@ import { CoreModule } from './core/core.module';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { AddQuestionnaireComponent } from './activities/questionnaire/add-questionnaire/add-questionnaire.component';
 import { EditQuestionnaireComponent } from './activities/questionnaire/edit-questionnaire/edit-questionnaire.component';
-import { ActivitiesModule } from './activities/activities.module';
 import { ProviderAdminComponent } from './provider-admin/provider-admin.component';
 import { MultiRoleScreenComponent } from './multi-role-screen/multi-role-screen.component';
 import { SuperAdminComponent } from './super-admin/super-admin.component';
@@ -64,6 +63,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { RoleMasterComponent } from './role-master/provider-admin-role-master.component';
+import { ProviderAdminRoleService } from './activities/services/state-serviceline-role.service';
 
 @NgModule({
   declarations: [
@@ -79,6 +80,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     SuperAdminComponent,
     LocationServicelineMappingComponent,
     EditLocationModalComponent,
+    RoleMasterComponent,
   ],
   imports: [
     BrowserModule,
@@ -106,6 +108,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
     HttpClient,
+    ProviderAdminRoleService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpInterceptorService,
