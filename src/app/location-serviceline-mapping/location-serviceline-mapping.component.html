@@ -26,7 +26,10 @@
       </mat-select>
       <!-- </md-input-container> -->
     </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15" style="margin-left: 416px; margin-top: -27px;">
+    <div
+      class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15"
+      style="margin-left: 416px; margin-top: -27px"
+    >
       <!-- <md-input-container class="hide_underline width100">
         <input mdInput style="display:none"> -->
       <mat-select
@@ -66,97 +69,103 @@
 <div class="row">
   <div class="col-xs-12 col-sm-12 m-t-15" *ngIf="showTable">
     <!-- <div class="table-responsive"> -->
-      <table mat-table [dataSource]="filteredworkLocations.data" 
-        class="table table-striped table-hover"
-      >
-        <ng-container matColumnDef="activePage">
-          <th mat-header-cell *matHeaderCellDef>S.No.</th>
-          <td mat-cell *matCellDef="let element; let i = index">
-            {{ i + 1 }}
-          </td>
-        </ng-container>
-        <ng-container matColumnDef="locationName">
-          <th mat-header-cell *matHeaderCellDef>Office Name</th>
-          <td mat-cell *matCellDef="let element">{{ element.locationName }}</td>
-        </ng-container>
-        <ng-container matColumnDef="serviceName">
-          <th mat-header-cell *matHeaderCellDef>Serviceline</th>
-          <td mat-cell *matCellDef="let element">{{ element.serviceName }}</td>
-        </ng-container>
-        <ng-container matColumnDef="address">
-          <th mat-header-cell *matHeaderCellDef>Address</th>
-          <td mat-cell *matCellDef="let element">{{ element.address }}</td>
-        </ng-container>
-        <ng-container matColumnDef="stateName">
-          <th mat-header-cell *matHeaderCellDef>State</th>
-          <td mat-cell *matCellDef="let element">
-            {{
-              element.serviceName === "1097" ? "All states" : element.stateName
-            }}
-          </td>
-        </ng-container>
-        <ng-container matColumnDef="districtName">
-          <th mat-header-cell *matHeaderCellDef>District</th>
-          <td mat-cell *matCellDef="let element">{{ element.districtName }}</td>
-        </ng-container>
-       
-        <ng-container matColumnDef="edit">
-          <th mat-header-cell *matHeaderCellDef>
-            Edit
-          </th>
-          <td mat-cell *matCellDef="let element">
-            <button
-              mat-icon-button
-              matTooltip="Click to Edit"
-              class="iconbutton"
-              color="primary"
-              (click)="editOfficeAddress(element)"
-            >
-              <mat-icon>edit</mat-icon>
-            </button>
-          </td>
-        </ng-container>
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        <ng-container matColumnDef="action">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>
-            Action
-          </th>
-          <td mat-cell *matCellDef="let element">
-            <button
-              *ngIf="element.deleted === true"
-              mat-raised-button
-              color="accent"
-              (click)="activeDeactivate(element.pSAddMapID, false)"
-            >
-              Activate
-            </button>
-            <button
-              *ngIf="element.deleted === false"
-              mat-raised-button
-              color="primary"
-              (click)="activeDeactivate(element.pSAddMapID, true)"
-            >
-              Deactivate
-            </button>
-          </td>
-          <!-- <td colspan="4" class="p-r-0" mat-cell>
+    <table
+      mat-table
+      [dataSource]="filteredworkLocations.data"
+      class="table table-striped table-hover"
+    >
+      <ng-container matColumnDef="activePage">
+        <th mat-header-cell *matHeaderCellDef>S.No.</th>
+        <td mat-cell *matCellDef="let element; let i = index">
+          {{ i + 1 }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="locationName">
+        <th mat-header-cell *matHeaderCellDef>Office Name</th>
+        <td mat-cell *matCellDef="let element">{{ element.locationName }}</td>
+      </ng-container>
+      <ng-container matColumnDef="serviceName">
+        <th mat-header-cell *matHeaderCellDef>Serviceline</th>
+        <td mat-cell *matCellDef="let element">{{ element.serviceName }}</td>
+      </ng-container>
+      <ng-container matColumnDef="address">
+        <th mat-header-cell *matHeaderCellDef>Address</th>
+        <td mat-cell *matCellDef="let element">{{ element.address }}</td>
+      </ng-container>
+      <ng-container matColumnDef="stateName">
+        <th mat-header-cell *matHeaderCellDef>State</th>
+        <td mat-cell *matCellDef="let element">
+          {{
+            element.serviceName === "1097" ? "All states" : element.stateName
+          }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="districtName">
+        <th mat-header-cell *matHeaderCellDef>District</th>
+        <td mat-cell *matCellDef="let element">{{ element.districtName }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="edit">
+        <th mat-header-cell *matHeaderCellDef>Edit</th>
+        <td mat-cell *matCellDef="let element">
+          <button
+            mat-icon-button
+            matTooltip="Click to Edit"
+            class="iconbutton"
+            color="primary"
+            (click)="editOfficeAddress(element)"
+          >
+            <mat-icon>edit</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Action</th>
+        <td mat-cell *matCellDef="let element">
+          <button
+            *ngIf="element.deleted === true"
+            mat-raised-button
+            color="accent"
+            (click)="activeDeactivate(element.pSAddMapID, false)"
+          >
+            Activate
+          </button>
+          <button
+            *ngIf="element.deleted === false"
+            mat-raised-button
+            color="primary"
+            (click)="activeDeactivate(element.pSAddMapID, true)"
+          >
+            Deactivate
+          </button>
+        </td>
+        <!-- <td colspan="4" class="p-r-0" mat-cell>
             <button md-raised-button color="primary" [disabled]="searchForm.invalid" class="pull-right" (click)="changeTableFlag(false)">Add Work Location</button>
           </td> -->
-        </ng-container>
-      </table>
-      <div> 
-        <button mat-raised-button color="primary" [disabled]="searchForm.invalid" class="pull-right" (click)="changeTableFlag(false)">Add Work Location</button>
-      </div>
-      <!-- <mat-paginator [length]="200" [pageSizeOptions]="[5, 10, 100]" aria-label="Select page" [hidden]="filteredworkLocations.data.length === 0">
+      </ng-container>
+    </table>
+    <div>
+      <button
+        mat-raised-button
+        color="primary"
+        [disabled]="searchForm.invalid"
+        class="pull-right"
+        (click)="changeTableFlag(false)"
+      >
+        Add Work Location
+      </button>
+    </div>
+    <!-- <mat-paginator [length]="200" [pageSizeOptions]="[5, 10, 100]" aria-label="Select page" [hidden]="filteredworkLocations.data.length === 0">
       </mat-paginator> -->
     <!-- </div> -->
     <mat-paginator
-        [hidden]="filteredworkLocations.data.length === 0"
-        [pageSizeOptions]="[5, 10, 25]"
-        [pageSize]="5"
-        showFirstLastButtons
-      ></mat-paginator>
+      [hidden]="filteredworkLocations.data.length === 0"
+      [pageSizeOptions]="[5, 10, 25]"
+      [pageSize]="5"
+      showFirstLastButtons
+    ></mat-paginator>
   </div>
 </div>
 

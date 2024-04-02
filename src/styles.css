@@ -31,3 +31,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   .mat-mdc-form-field:not(.mat-form-field-no-animations) .mdc-text-field__input {
     border-bottom-style: groove ;
   }
+  .mat-elevation-z8, .mat-mdc-elevation-specific.mat-elevation-z8 {
+    overflow: hidden !important;
+}

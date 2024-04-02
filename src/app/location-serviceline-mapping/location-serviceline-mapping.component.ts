@@ -45,7 +45,16 @@ export class LocationServicelineMappingComponent implements OnInit {
   // dataSource = new MatTableDataSource<any>();
   filteredworkLocations = new MatTableDataSource<any>();
   userID: any;
-  displayedColumns: string[] = ['activePage', 'locationName', 'serviceName', 'address','stateName','districtName','edit','action'];
+  displayedColumns: string[] = [
+    'activePage',
+    'locationName',
+    'serviceName',
+    'address',
+    'stateName',
+    'districtName',
+    'edit',
+    'action',
+  ];
   // ngModels
   state: any;
   district: any;

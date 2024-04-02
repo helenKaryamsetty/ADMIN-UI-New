@@ -72,3 +72,9 @@
     height:50px;
     --mat-mdc-button-persistent-ripple-color:none;
 }
+.mat-mdc-menu-item {
+    min-height: unset !important;
+}
+.mainbar >>>.mat-elevation-z8, .mat-mdc-elevation-specific.mat-elevation-z8 {
+    overflow: hidden !important;
+}
