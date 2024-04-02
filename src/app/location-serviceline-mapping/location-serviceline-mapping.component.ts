@@ -103,7 +103,7 @@ export class LocationServicelineMappingComponent implements OnInit {
     this.servicelines = [];
     this.workLocations = [];
     this.filteredworkLocations.data = [];
-
+    console.log('service provider id', this.commonDataService);
     console.log('USER ID IS', this.userID);
     this.showForm = false;
   }

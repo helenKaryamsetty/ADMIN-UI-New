@@ -24,8 +24,23 @@
 // `ng build --env=prod` then `environment.prod.ts` will be used instead.
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
+const ADMIN_API = 'https://amritwprdev.piramalswasthya.org/';
+const COMMON_API = 'https://amritwprdev.piramalswasthya.org/';
+
 export const environment = {
   production: false,
-  adminIP: 'https://amritwprdev.piramalswasthya.org/',
-  commonIP: 'https://amritwprdev.piramalswasthya.org/',
+
+  //Role Master APIs
+  get_State_Url: `${ADMIN_API}m/role/state`,
+  get_Service_Url: `${ADMIN_API}m/role/service`,
+  find_Roles_By_State_Service_Url: `${ADMIN_API}m/role/search`,
+  create_Roles_Url: `${ADMIN_API}m/role/addRole`,
+  delete_Role_Url: `${ADMIN_API}m/role/deleteRole`,
+  edit_Role_Url: `${ADMIN_API}m/role/editRole`,
+  getFeaturesUrl: `${ADMIN_API}m/searchFeature`,
+  updateFeatureToRole_Url: `${ADMIN_API}mapExterafeature`,
+  getServiceLines_new_url: `${ADMIN_API}m/role/serviceNew`,
+  getStates_new_url: `${ADMIN_API}m/role/stateNew`,
+
+
 };
