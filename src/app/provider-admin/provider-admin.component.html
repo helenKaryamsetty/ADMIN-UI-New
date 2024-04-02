@@ -407,6 +407,27 @@
     <mat-menu #Configuration="matMenu">
       <button mat-menu-item>Agent List Creation</button>
       <button mat-menu-item>User-Role AgentID Mapping</button>
+      <button mat-menu-item>Hospital-Institute Directory Mapping</button>
+      <button mat-menu-item>Email Configuration</button>
+      <button mat-menu-item>Email and Contact Number Configuration</button>
+      <button mat-menu-item>Reset User Password</button>
+      <button mat-menu-item>User Swymed Mapping</button>
+      <button mat-menu-item>Wrapup Time Configuration</button>
+      <button mat-menu-item>User Signature Mapping</button>
+      <button mat-menu-item [matMenuTriggerFor]="OutreachConfigurations">
+        Outreach Configurations
+      </button>
+      <mat-menu #OutreachConfigurations="matMenu">
+        <button mat-menu-item>Service Point Village Mapping</button>
+        <button mat-menu-item>Van Service Point Mapping</button>
+        <button mat-menu-item>User Parking Place Mapping</button>
+        <button mat-menu-item>Procedure Component Mapping</button>
+        <button mat-menu-item>Van Spoke Mapping</button>
+        <button mat-menu-item>Spoke Fetosense Device ID Mapping</button>
+      </mat-menu>
+      <button mat-menu-item>SMS Templates</button>
+      <button mat-menu-item>CDI Questionnaire</button>
+      <button mat-menu-item>Mapping Snomed CT Code</button>
     </mat-menu>
     <button mat-button>Inventory</button>
     <!-- <div class="panel-body card p-a-0 bg-white sm-m-b-35 xs-m-b-35"> -->
@@ -430,6 +451,10 @@
                 *ngSwitchCase="2"
               ></app-provider-admin-role-master>
               <app-call-disposition-type-master
+        <app-provider-admin-role-master
+          *ngSwitchCase="2"
+        ></app-provider-admin-role-master>
+        <!-- <app-call-disposition-type-master
                 *ngSwitchCase="4"
               ></app-call-disposition-type-master>
               <app-serviceline-cdss-mapping

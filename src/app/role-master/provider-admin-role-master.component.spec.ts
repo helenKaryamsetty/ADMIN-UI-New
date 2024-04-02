@@ -19,30 +19,27 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see https://www.gnu.org/licenses/.
  */
-import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-// import { Http, Response, Headers, RequestOptions } from '@angular/http';
-// import { Observable } from 'rxjs/Observable';
-// import 'rxjs/add/operator/catch';
-// import 'rxjs/add/operator/map';
+import { ProviderAdminRoleMasterComponent } from './provider-admin-role-master.component';
 
-const adminIP = environment.adminBaseUrl;
-const commonIP = environment._commonBaseURL;
+describe('ProviderAdminRoleMasterComponent', () => {
+  let component: ProviderAdminRoleMasterComponent;
+  let fixture: ComponentFixture<ProviderAdminRoleMasterComponent>;
 
-@Injectable()
-export class ConfigService {
-  private adminBaseUrl = adminIP;
-  private superadminBaseURL = adminIP;
-  private _commonBaseURL = commonIP;
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [ProviderAdminRoleMasterComponent],
+    }).compileComponents();
+  }));
 
-  getCommonBaseURL() {
-    return this._commonBaseURL;
-  }
-  getAdminBaseUrl() {
-    return this.adminBaseUrl;
-  }
-  getSuperAdminBaseUrl() {
-    return this.superadminBaseURL;
-  }
-}
+  beforeEach(() => {
+    fixture = TestBed.createComponent(ProviderAdminRoleMasterComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should be created', () => {
+    expect(component).toBeTruthy();
+  });
+});

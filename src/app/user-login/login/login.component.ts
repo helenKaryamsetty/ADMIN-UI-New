@@ -354,9 +354,10 @@ export class loginContentClassComponent implements OnInit, OnDestroy {
 
   getServiceProviderMapIDSuccessHandeler(response: any) {
     console.log('service provider map id', response);
-    if (response !== undefined) {
-      this.dataSettingService.service_providerID = response.serviceProviderID;
-      this.serviceProviderID = response.serviceProviderID;
+    if (response && response.data) {
+      this.dataSettingService.service_providerID =
+        response.data.serviceProviderID;
+      this.serviceProviderID = response.data.serviceProviderID;
     } else {
       this.alertMessage.alert(
         'Service Provider map ID is not fetched',

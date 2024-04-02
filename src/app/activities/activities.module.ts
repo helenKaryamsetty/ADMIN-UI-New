@@ -11,6 +11,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTableModule } from '@angular/material/table';
 import { MaterialModule } from '../core/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ProviderAdminRoleService } from './services/state-serviceline-role.service';
 // import { EditLocationModalComponent } from '../location-serviceline-mapping/location-serviceline-mapping.component';
 // import { EditLocationModalComponent } from '../location-serviceline-mapping/location-serviceline-mapping.component';
 
@@ -33,5 +34,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FormsModule,
     ReactiveFormsModule,
   ],
+  providers: [ProviderAdminRoleService],
 })
 export class ActivitiesModule {}

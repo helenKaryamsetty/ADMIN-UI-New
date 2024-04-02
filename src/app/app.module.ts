@@ -51,7 +51,6 @@ import { CoreModule } from './core/core.module';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { AddQuestionnaireComponent } from './activities/questionnaire/add-questionnaire/add-questionnaire.component';
 import { EditQuestionnaireComponent } from './activities/questionnaire/edit-questionnaire/edit-questionnaire.component';
-import { ActivitiesModule } from './activities/activities.module';
 import { ProviderAdminComponent } from './provider-admin/provider-admin.component';
 import { MultiRoleScreenComponent } from './multi-role-screen/multi-role-screen.component';
 import { SuperAdminComponent } from './super-admin/super-admin.component';
@@ -69,6 +68,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { LanguageMappingComponent } from './language-mapping/language-mapping.component';
 import { WorkLocationMappingComponent } from './work-location-mapping/work-location-mapping.component';
+import { RoleMasterComponent } from './role-master/provider-admin-role-master.component';
+import { ProviderAdminRoleService } from './activities/services/state-serviceline-role.service';
 
 @NgModule({
   declarations: [
@@ -86,7 +87,8 @@ import { WorkLocationMappingComponent } from './work-location-mapping/work-locat
     EditLocationModalComponent,
     EmployeeMasterNewComponent,
     LanguageMappingComponent,
-    WorkLocationMappingComponent
+    WorkLocationMappingComponent,
+    RoleMasterComponent,
   ],
   imports: [
     BrowserModule,
@@ -116,6 +118,7 @@ import { WorkLocationMappingComponent } from './work-location-mapping/work-locat
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
     HttpClient,
+    ProviderAdminRoleService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpInterceptorService,

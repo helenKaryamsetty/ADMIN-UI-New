@@ -45,7 +45,16 @@ export class LocationServicelineMappingComponent implements OnInit {
   // dataSource = new MatTableDataSource<any>();
   filteredworkLocations = new MatTableDataSource<any>();
   userID: any;
-  displayedColumns: string[] = ['activePage', 'locationName', 'serviceName', 'address','stateName','districtName','edit','action'];
+  displayedColumns: string[] = [
+    'activePage',
+    'locationName',
+    'serviceName',
+    'address',
+    'stateName',
+    'districtName',
+    'edit',
+    'action',
+  ];
   // ngModels
   state: any;
   district: any;
@@ -96,7 +105,7 @@ export class LocationServicelineMappingComponent implements OnInit {
     this.servicelines = [];
     this.workLocations = [];
     this.filteredworkLocations.data = [];
-
+    console.log('service provider id', this.commonDataService);
     console.log('USER ID IS', this.userID);
     this.showForm = false;
   }

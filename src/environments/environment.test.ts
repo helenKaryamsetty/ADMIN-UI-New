@@ -19,8 +19,33 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see https://www.gnu.org/licenses/.
  */
+// The file contents for the current environment will overwrite these during build.
+// The build system defaults to the dev environment which uses `environment.ts`, but if you do
+// `ng build --env=prod` then `environment.prod.ts` will be used instead.
+// The list of which env maps to which file can be found in `.angular-cli.json`.
+
+const ADMIN_API = 'https://amritwprdev.piramalswasthya.org/';
+const COMMON_API = 'https://amritwprdev.piramalswasthya.org/';
+const adminBaseUrl = `${ADMIN_API}adminapi-v0.1/`;
+const superadminBaseURL = `${ADMIN_API}adminapi-v0.1/`;
+const _commonBaseURL = `${COMMON_API}commonapi-v0.1/`;
+
 export const environment = {
   production: true,
-  adminIP: 'http://10.208.122.38:8080/',
-  commonIP: 'http://10.208.122.38:8080/',
+
+  adminBaseUrl: adminBaseUrl,
+  superadminBaseURL: superadminBaseURL,
+  _commonBaseURL: _commonBaseURL,
+
+  //Role Master APIs
+  get_State_Url: `${adminBaseUrl}m/role/state`,
+  get_Service_Url: `${adminBaseUrl}m/role/service`,
+  find_Roles_By_State_Service_Url: `${adminBaseUrl}m/role/search`,
+  create_Roles_Url: `${adminBaseUrl}m/role/addRole`,
+  delete_Role_Url: `${adminBaseUrl}m/role/deleteRole`,
+  edit_Role_Url: `${adminBaseUrl}m/role/editRole`,
+  getFeaturesUrl: `${adminBaseUrl}m/searchFeature`,
+  updateFeatureToRole_Url: `${adminBaseUrl}mapExterafeature`,
+  getServiceLines_new_url: `${adminBaseUrl}m/role/serviceNew`,
+  getStates_new_url: `${adminBaseUrl}m/role/stateNew`,
 };
