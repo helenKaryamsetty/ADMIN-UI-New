@@ -27,17 +27,14 @@ import { environment } from 'src/environments/environment';
 // import 'rxjs/add/operator/catch';
 // import 'rxjs/add/operator/map';
 
-const adminIP = environment.adminIP;
-const commonIP = environment.commonIP;
+const adminIP = environment.adminBaseUrl;
+const commonIP = environment._commonBaseURL;
 
 @Injectable()
 export class ConfigService {
-  private adminBaseUrl = `${adminIP}adminapi-v0.1/`;
-  // private adminBaseUrl: String = `http://localhost:8082/`;
-  private superadminBaseURL = `${adminIP}adminapi-v0.1/`;
-  // private superadminBaseURL: String = `http://localhost:8082/`;
-  private _commonBaseURL = `${commonIP}commonapi-v0.1/`;
-  // private _commonBaseURL: String = `http://localhost:8080/`;
+  private adminBaseUrl = adminIP;
+  private superadminBaseURL = adminIP;
+  private _commonBaseURL = commonIP;
 
   getCommonBaseURL() {
     return this._commonBaseURL;

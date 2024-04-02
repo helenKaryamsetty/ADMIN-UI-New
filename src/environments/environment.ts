@@ -26,21 +26,26 @@
 
 const ADMIN_API = 'https://amritwprdev.piramalswasthya.org/';
 const COMMON_API = 'https://amritwprdev.piramalswasthya.org/';
+const adminBaseUrl = `${ADMIN_API}adminapi-v0.1/`;
+const superadminBaseURL = `${ADMIN_API}adminapi-v0.1/`;
+const _commonBaseURL = `${COMMON_API}commonapi-v0.1/`;
 
 export const environment = {
   production: false,
 
+  adminBaseUrl: adminBaseUrl,
+  superadminBaseURL: superadminBaseURL,
+  _commonBaseURL: _commonBaseURL,
+
   //Role Master APIs
-  get_State_Url: `${ADMIN_API}m/role/state`,
-  get_Service_Url: `${ADMIN_API}m/role/service`,
-  find_Roles_By_State_Service_Url: `${ADMIN_API}m/role/search`,
-  create_Roles_Url: `${ADMIN_API}m/role/addRole`,
-  delete_Role_Url: `${ADMIN_API}m/role/deleteRole`,
-  edit_Role_Url: `${ADMIN_API}m/role/editRole`,
-  getFeaturesUrl: `${ADMIN_API}m/searchFeature`,
-  updateFeatureToRole_Url: `${ADMIN_API}mapExterafeature`,
-  getServiceLines_new_url: `${ADMIN_API}m/role/serviceNew`,
-  getStates_new_url: `${ADMIN_API}m/role/stateNew`,
-
-
+  get_State_Url: `${adminBaseUrl}m/role/state`,
+  get_Service_Url: `${adminBaseUrl}m/role/service`,
+  find_Roles_By_State_Service_Url: `${adminBaseUrl}m/role/search`,
+  create_Roles_Url: `${adminBaseUrl}m/role/addRole`,
+  delete_Role_Url: `${adminBaseUrl}m/role/deleteRole`,
+  edit_Role_Url: `${adminBaseUrl}m/role/editRole`,
+  getFeaturesUrl: `${adminBaseUrl}m/searchFeature`,
+  updateFeatureToRole_Url: `${adminBaseUrl}mapExterafeature`,
+  getServiceLines_new_url: `${adminBaseUrl}m/role/serviceNew`,
+  getStates_new_url: `${adminBaseUrl}m/role/stateNew`,
 };

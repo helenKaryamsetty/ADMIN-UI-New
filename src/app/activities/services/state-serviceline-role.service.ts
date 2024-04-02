@@ -28,7 +28,6 @@ import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class ProviderAdminRoleService {
-
   constructor(
     private http: HttpClient,
     public basepaths: ConfigService,
@@ -57,11 +56,15 @@ export class ProviderAdminRoleService {
     });
   }
   getServiceLinesNew(userID: any) {
-    return this.http.post(environment.getServiceLines_new_url, { userID: userID });
+    return this.http.post(environment.getServiceLines_new_url, {
+      userID: userID,
+    });
   }
 
   getServiceLinesCalibrationNew(userID: any) {
-    return this.http.post(environment.getServiceLines_new_url, { userID: userID });
+    return this.http.post(environment.getServiceLines_new_url, {
+      userID: userID,
+    });
   }
 
   getFeature(serviceID: any) {
