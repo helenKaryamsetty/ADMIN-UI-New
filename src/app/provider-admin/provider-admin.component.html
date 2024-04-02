@@ -405,29 +405,47 @@
       Configuration
     </button>
     <mat-menu #Configuration="matMenu">
-      <button mat-menu-item>Agent List Creation</button>
-      <button mat-menu-item>User-Role AgentID Mapping</button>
-      <button mat-menu-item>Hospital-Institute Directory Mapping</button>
-      <button mat-menu-item>Email Configuration</button>
-      <button mat-menu-item>Email and Contact Number Configuration</button>
-      <button mat-menu-item>Reset User Password</button>
-      <button mat-menu-item>User Swymed Mapping</button>
-      <button mat-menu-item>Wrapup Time Configuration</button>
-      <button mat-menu-item>User Signature Mapping</button>
+      <button mat-menu-item (click)="show('24')">Agent List Creation</button>
+      <button mat-menu-item (click)="show('26')">
+        User-Role AgentID Mapping
+      </button>
+      <button mat-menu-item (click)="show('23')">
+        Hospital-Institute Directory Mapping
+      </button>
+      <button mat-menu-item (click)="show('53')">Email Configuration</button>
+      <button mat-menu-item (click)="show('66')">
+        Email and Contact Number Configuration
+      </button>
+      <button mat-menu-item (click)="show('55')">Reset User Password</button>
+      <button mat-menu-item (click)="show('60')">User Swymed Mapping</button>
+      <button mat-menu-item (click)="show('61')">
+        Wrapup Time Configuration
+      </button>
+      <button mat-menu-item (click)="show('62')">User Signature Mapping</button>
       <button mat-menu-item [matMenuTriggerFor]="OutreachConfigurations">
         Outreach Configurations
       </button>
       <mat-menu #OutreachConfigurations="matMenu">
-        <button mat-menu-item>Service Point Village Mapping</button>
-        <button mat-menu-item>Van Service Point Mapping</button>
-        <button mat-menu-item>User Parking Place Mapping</button>
-        <button mat-menu-item>Procedure Component Mapping</button>
-        <button mat-menu-item>Van Spoke Mapping</button>
-        <button mat-menu-item>Spoke Fetosense Device ID Mapping</button>
+        <button mat-menu-item (click)="show('11')">
+          Service Point Village Mapping
+        </button>
+        <button mat-menu-item (click)="show('16')">
+          Van Service Point Mapping
+        </button>
+        <button mat-menu-item (click)="show('17')">
+          User Parking Place Mapping
+        </button>
+        <button mat-menu-item (click)="show('31')">
+          Procedure Component Mapping
+        </button>
+        <button mat-menu-item (click)="show('67')">Van Spoke Mapping</button>
+        <button mat-menu-item (click)="show('71')">
+          Spoke Fetosense Device ID Mapping
+        </button>
       </mat-menu>
-      <button mat-menu-item>SMS Templates</button>
-      <button mat-menu-item>CDI Questionnaire</button>
-      <button mat-menu-item>Mapping Snomed CT Code</button>
+      <button mat-menu-item (click)="show('63')">SMS Templates</button>
+      <button mat-menu-item (click)="show('64')">CDI Questionnaire</button>
+      <button mat-menu-item (click)="show('65')">Mapping Snomed CT Code</button>
     </mat-menu>
     <button mat-button>Inventory</button>
     <!-- <div class="panel-body card p-a-0 bg-white sm-m-b-35 xs-m-b-35"> -->
