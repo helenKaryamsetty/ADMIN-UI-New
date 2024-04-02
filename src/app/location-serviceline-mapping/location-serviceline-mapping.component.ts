@@ -52,6 +52,8 @@ export class LocationServicelineMappingComponent implements OnInit {
     'address',
     'stateName',
     'districtName',
+    'edit',
+    'action',
   ];
   // ngModels
   state: any;
@@ -483,8 +485,8 @@ export class LocationServicelineMappingComponent implements OnInit {
 
     // this.search_serviceline=this.service_ID; we can use this also if we want to find for specific
 
-    jQuery('#locationForm').trigger('reset');
-
+    // jQuery('#locationForm').trigger('reset');
+    this.form.resetForm();
     this.findLocations(
       this.search_state.stateID,
       this.search_serviceline.serviceID,
