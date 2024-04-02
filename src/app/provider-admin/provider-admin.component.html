@@ -324,7 +324,7 @@
       <button mat-menu-item (click)="show('2')">Role Master</button>
       <button mat-menu-item (click)="show('27')">Employee Master</button>
       <button mat-menu-item (click)="show('28')">Language Mapping</button>
-      <button mat-menu-item (click)="show('28')">Work Location Mapping</button>
+      <button mat-menu-item (click)="show('32')">Work Location Mapping</button>
       <button mat-menu-item (click)="show('59')">Specialist Mapping</button>
       <button mat-menu-item (click)="show('4')">
         Call Disposition Type Master
@@ -419,6 +419,13 @@
         <app-location-serviceline-mapping
           *ngSwitchCase="1"
         ></app-location-serviceline-mapping>
+        <app-employee-master-new
+                *ngSwitchCase="27"
+              ></app-employee-master-new>
+              <app-language-mapping *ngSwitchCase="28"></app-language-mapping>
+              <app-work-location-mapping
+                *ngSwitchCase="32"
+              ></app-work-location-mapping>
         <!-- <app-provider-admin-role-master
                 *ngSwitchCase="2"
               ></app-provider-admin-role-master>

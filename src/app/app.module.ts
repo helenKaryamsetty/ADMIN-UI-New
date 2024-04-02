@@ -64,6 +64,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { EmployeeMasterNewComponent } from './employee-master-new/employee-master-new.component';
+import { MatInputModule } from '@angular/material/input';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { LanguageMappingComponent } from './language-mapping/language-mapping.component';
+import { WorkLocationMappingComponent } from './work-location-mapping/work-location-mapping.component';
 
 @NgModule({
   declarations: [
@@ -79,6 +84,9 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     SuperAdminComponent,
     LocationServicelineMappingComponent,
     EditLocationModalComponent,
+    EmployeeMasterNewComponent,
+    LanguageMappingComponent,
+    WorkLocationMappingComponent
   ],
   imports: [
     BrowserModule,
@@ -99,6 +107,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatSelectModule,
     MatTableModule,
     MatPaginatorModule,
+    MatInputModule,
+    MatExpansionModule
   ],
   // UserLoginModule,
   //DataSYNCModule,
