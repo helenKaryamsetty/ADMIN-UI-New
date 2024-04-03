@@ -70,6 +70,7 @@ import { LanguageMappingComponent } from './language-mapping/language-mapping.co
 import { WorkLocationMappingComponent } from './work-location-mapping/work-location-mapping.component';
 import { RoleMasterComponent } from './role-master/provider-admin-role-master.component';
 import { ProviderAdminRoleService } from './activities/services/state-serviceline-role.service';
+import { SpecialistMappingComponent } from './specialist-mapping/specialist-mapping.component';
 
 @NgModule({
   declarations: [
@@ -89,6 +90,7 @@ import { ProviderAdminRoleService } from './activities/services/state-servicelin
     LanguageMappingComponent,
     WorkLocationMappingComponent,
     RoleMasterComponent,
+    SpecialistMappingComponent
   ],
   imports: [
     BrowserModule,

@@ -25,8 +25,6 @@ import { ConfigService } from '../config/config.service';
 // import { SecurityInterceptedHttp } from '../../http.securityinterceptor';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
 @Injectable()
 export class SpecialistMappingService {
   private providerAdmin_Base_Url: any;
@@ -65,7 +63,7 @@ export class SpecialistMappingService {
     //  .catch(this.handleError);
   }
 
-  getDoctorList(serviceproviderID: any, screenName: any) {
+  getDoctorList(serviceproviderID: any, screenName: any):Observable<any> {
     return this.http.post(this._getUserTMURL, {
       serviceproviderID,
       screenName,
