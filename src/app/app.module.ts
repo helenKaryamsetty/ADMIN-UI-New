@@ -71,6 +71,19 @@ import { WorkLocationMappingComponent } from './work-location-mapping/work-locat
 import { RoleMasterComponent } from './role-master/provider-admin-role-master.component';
 import { ProviderAdminRoleService } from './activities/services/state-serviceline-role.service';
 import { SpecialistMappingComponent } from './specialist-mapping/specialist-mapping.component';
+import { SupplierMasterComponent } from './supplier-master/supplier-master.component';
+import { ManufacturerMasterComponent } from './manufacturer-master/manufacturer-master.component';
+import { CommonServices } from './core/services/inventory-services/commonServices';
+import { SuppliermasterService } from './core/services/inventory-services/suppliermaster.service';
+import { dataService } from './core/services/dataService/data.service';
+import { ConfirmationDialogsService } from './core/services/dialog/confirmation.service';
+import { ManufacturemasterService } from './core/services/inventory-services/manufacturemaster.service';
+import { PharmacologicalCategoryMasterComponent } from './pharmacological-category-master/pharmacological-category-master.component';
+import { PharmacologicalMasterService } from './core/services/inventory-services/pharmacological-category-service';
+import { ItemCategoryMasterComponent } from './item-category-master/item-category-master.component';
+import { ItemService } from './core/services/inventory-services/item.service';
+import { ItemCategoryService } from './core/services/inventory-services/item-category.service';
+import { EditItemCategoryComponent } from './item-category-master/edit-item-category/edit-item-category.component';
 
 @NgModule({
   declarations: [
@@ -90,7 +103,12 @@ import { SpecialistMappingComponent } from './specialist-mapping/specialist-mapp
     LanguageMappingComponent,
     WorkLocationMappingComponent,
     RoleMasterComponent,
-    SpecialistMappingComponent
+    SpecialistMappingComponent,
+    SupplierMasterComponent,
+    ManufacturerMasterComponent,
+    PharmacologicalCategoryMasterComponent,
+    ItemCategoryMasterComponent,
+    EditItemCategoryComponent,
   ],
   imports: [
     BrowserModule,
@@ -119,8 +137,17 @@ import { SpecialistMappingComponent } from './specialist-mapping/specialist-mapp
   // CoreModule.forRoot()
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
+    CommonServices,
+    SuppliermasterService,
+    dataService,
+    ConfirmationDialogsService,
+    ManufacturemasterService,
     HttpClient,
     ProviderAdminRoleService,
+    PharmacologicalMasterService,
+    ItemService,
+    ItemCategoryService,
+
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpInterceptorService,
