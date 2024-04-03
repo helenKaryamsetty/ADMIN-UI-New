@@ -21,20 +21,20 @@
  */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EmployeeMasterNewComponent } from './employee-master-new.component';
+import { ExpiryDateAlertConfigurationComponent } from './expiry-date-alert-configuration.component';
 
-describe('EmployeeMasterNewComponent', () => {
-  let component: EmployeeMasterNewComponent;
-  let fixture: ComponentFixture<EmployeeMasterNewComponent>;
+describe('ExpiryDateAlertConfigurationComponent', () => {
+  let component: ExpiryDateAlertConfigurationComponent;
+  let fixture: ComponentFixture<ExpiryDateAlertConfigurationComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [EmployeeMasterNewComponent],
+      declarations: [ExpiryDateAlertConfigurationComponent],
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EmployeeMasterNewComponent);
+    fixture = TestBed.createComponent(ExpiryDateAlertConfigurationComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -59,7 +59,7 @@ import { VillageMasterService } from './services/adminServices/AdminVillage/vill
     EmployeeMasterNewServices,
     LanguageMapping,
     WorkLocationMapping,
-    VillageMasterService
+    VillageMasterService,
   ],
 })
 export class CoreModule {

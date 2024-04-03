@@ -21,20 +21,20 @@
  */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EmployeeMasterNewComponent } from './employee-master-new.component';
+import { CreateUomMasterComponent } from './create-uom-master.component';
 
-describe('EmployeeMasterNewComponent', () => {
-  let component: EmployeeMasterNewComponent;
-  let fixture: ComponentFixture<EmployeeMasterNewComponent>;
+describe('CreateUomMasterComponent', () => {
+  let component: CreateUomMasterComponent;
+  let fixture: ComponentFixture<CreateUomMasterComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [EmployeeMasterNewComponent],
+      declarations: [CreateUomMasterComponent],
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EmployeeMasterNewComponent);
+    fixture = TestBed.createComponent(CreateUomMasterComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

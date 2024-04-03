@@ -83,6 +83,13 @@ import { ItemCategoryMasterComponent } from './item-category-master/item-categor
 import { ItemService } from './core/services/inventory-services/item.service';
 import { ItemCategoryService } from './core/services/inventory-services/item-category.service';
 import { EditItemCategoryComponent } from './item-category-master/edit-item-category/edit-item-category.component';
+import { SearchUomMasterComponent } from './uom-master/search-uom-master/search-uom-master.component';
+import { UomMasterService } from './core/services/inventory-services/uom-master.service';
+import { UpdateUomMasterComponent } from './uom-master/update-uom-master/update-uom-master.component';
+import { CreateUomMasterComponent } from './uom-master/create-uom-master/create-uom-master.component';
+import { ItemIssueMethodConfigComponent } from './item-issue-method-config/item-issue-method-config.component';
+import { Mainstroreandsubstore } from './core/services/inventory-services/mainstoreandsubstore.service';
+import { ExpiryDateAlertConfigurationComponent } from './expiry-date-alert-configuration/expiry-date-alert-configuration.component';
 
 @NgModule({
   declarations: [
@@ -107,6 +114,11 @@ import { EditItemCategoryComponent } from './item-category-master/edit-item-cate
     PharmacologicalCategoryMasterComponent,
     ItemCategoryMasterComponent,
     EditItemCategoryComponent,
+    SearchUomMasterComponent,
+    UpdateUomMasterComponent,
+    CreateUomMasterComponent,
+    ItemIssueMethodConfigComponent,
+    ExpiryDateAlertConfigurationComponent,
   ],
   imports: [
     BrowserModule,
@@ -128,7 +140,7 @@ import { EditItemCategoryComponent } from './item-category-master/edit-item-cate
     MatTableModule,
     MatPaginatorModule,
     MatInputModule,
-    MatExpansionModule
+    MatExpansionModule,
   ],
   // UserLoginModule,
   //DataSYNCModule,
@@ -145,7 +157,8 @@ import { EditItemCategoryComponent } from './item-category-master/edit-item-cate
     PharmacologicalMasterService,
     ItemService,
     ItemCategoryService,
-
+    UomMasterService,
+    Mainstroreandsubstore,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpInterceptorService,
