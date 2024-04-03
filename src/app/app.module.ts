@@ -70,6 +70,7 @@ import { LanguageMappingComponent } from './language-mapping/language-mapping.co
 import { WorkLocationMappingComponent } from './work-location-mapping/work-location-mapping.component';
 import { RoleMasterComponent } from './role-master/provider-admin-role-master.component';
 import { ProviderAdminRoleService } from './activities/services/state-serviceline-role.service';
+import { SpecialistMappingComponent } from './specialist-mapping/specialist-mapping.component';
 import { SupplierMasterComponent } from './supplier-master/supplier-master.component';
 import { ManufacturerMasterComponent } from './manufacturer-master/manufacturer-master.component';
 import { CommonServices } from './core/services/inventory-services/commonServices';
@@ -109,6 +110,7 @@ import { ExpiryDateAlertConfigurationComponent } from './expiry-date-alert-confi
     LanguageMappingComponent,
     WorkLocationMappingComponent,
     RoleMasterComponent,
+    SpecialistMappingComponent,
     SupplierMasterComponent,
     ManufacturerMasterComponent,
     PharmacologicalCategoryMasterComponent,
