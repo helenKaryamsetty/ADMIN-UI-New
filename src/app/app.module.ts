@@ -63,6 +63,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { EmployeeMasterNewComponent } from './employee-master-new/employee-master-new.component';
+import { MatInputModule } from '@angular/material/input';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { LanguageMappingComponent } from './language-mapping/language-mapping.component';
+import { WorkLocationMappingComponent } from './work-location-mapping/work-location-mapping.component';
 import { RoleMasterComponent } from './role-master/provider-admin-role-master.component';
 import { ProviderAdminRoleService } from './activities/services/state-serviceline-role.service';
 import { SupplierMasterComponent } from './supplier-master/supplier-master.component';
@@ -93,6 +98,9 @@ import { EditItemCategoryComponent } from './item-category-master/edit-item-cate
     SuperAdminComponent,
     LocationServicelineMappingComponent,
     EditLocationModalComponent,
+    EmployeeMasterNewComponent,
+    LanguageMappingComponent,
+    WorkLocationMappingComponent,
     RoleMasterComponent,
     SupplierMasterComponent,
     ManufacturerMasterComponent,
@@ -119,6 +127,8 @@ import { EditItemCategoryComponent } from './item-category-master/edit-item-cate
     MatSelectModule,
     MatTableModule,
     MatPaginatorModule,
+    MatInputModule,
+    MatExpansionModule
   ],
   // UserLoginModule,
   //DataSYNCModule,
