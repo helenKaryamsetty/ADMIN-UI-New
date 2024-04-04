@@ -341,7 +341,7 @@
       <button mat-menu-item (click)="show('22')">
         Institute Subdirectory Master
       </button>
-      <button mat-menu-item [matMenuTriggerFor]="FeedbackComplaintTypeMaster">
+      <button mat-menu-item (click)="show('18')">
         Feedback/Complaint Type Master
       </button>
       <button mat-menu-item (click)="show('58')">
@@ -479,6 +479,18 @@
             <app-item-category-master
               *ngSwitchCase="46"
             ></app-item-category-master>
+            <app-call-disposition-type-master
+                *ngSwitchCase="4"
+              ></app-call-disposition-type-master>
+              <app-serviceline-cdss-mapping
+              *ngSwitchCase="77"
+            ></app-serviceline-cdss-mapping>
+            <app-category-subcategory-provisioning
+                *ngSwitchCase="5"
+              ></app-category-subcategory-provisioning>
+              <app-feedback-type-master
+                *ngSwitchCase="18"
+              ></app-feedback-type-master>
         <!-- <app-provider-admin-role-master
                 *ngSwitchCase="2"
               ></app-provider-admin-role-master>

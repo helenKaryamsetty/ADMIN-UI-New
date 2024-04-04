@@ -26,6 +26,10 @@ import { LanguageMapping } from './services/ProviderAdminServices/language-mappi
 import { WorkLocationMapping } from './services/ProviderAdminServices/work-location-mapping.service';
 import { VillageMasterService } from './services/adminServices/AdminVillage/village-master-service.service';
 import { SpecialistMappingService } from './services/ProviderAdminServices/specialist-mapping.service';
+import { CallTypeSubtypeService } from './services/ProviderAdminServices/calltype-subtype-master-service.service';
+import { InstituteDirectoryMasterService } from './services/ProviderAdminServices/institute-directory-master-service.service';
+import { CategorySubcategoryService } from './services/ProviderAdminServices/category-subcategory-master-service.service';
+import { FeedbackTypeService } from './services/ProviderAdminServices/feedback-type-master-service.service';
 // import { ProviderAdminComponent } from './components/provider-admin/provider-admin.component';
 
 @NgModule({
@@ -62,6 +66,10 @@ import { SpecialistMappingService } from './services/ProviderAdminServices/speci
     WorkLocationMapping,
     VillageMasterService,
     SpecialistMappingService,
+    CallTypeSubtypeService,
+    InstituteDirectoryMasterService,
+    CategorySubcategoryService,
+    FeedbackTypeService
   ],
 })
 export class CoreModule {

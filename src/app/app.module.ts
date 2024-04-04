@@ -84,6 +84,11 @@ import { ItemCategoryMasterComponent } from './item-category-master/item-categor
 import { ItemService } from './core/services/inventory-services/item.service';
 import { ItemCategoryService } from './core/services/inventory-services/item-category.service';
 import { EditItemCategoryComponent } from './item-category-master/edit-item-category/edit-item-category.component';
+import { CallDispositionTypeMasterComponent, EditCallType } from './call-disposition-type-master/call-disposition-type-master.component';
+import { ServicelineCdssMapping } from './serviceline-cdss-mapping/servicelineCdssMapping.component';
+import { CategorySubcategoryProvisioningComponent } from './category-subcategory-provisioning/category-subcategory-provisioning.component';
+import { EditCategorySubcategoryComponent } from './category-subcategory-provisioning/edit-category-subcategory/edit-category-subcategory.component';
+import { EditFeedbackModal, FeedbackTypeMasterComponent } from './feedback-type-master/feedback-type-master.component';
 
 @NgModule({
   declarations: [
@@ -109,6 +114,13 @@ import { EditItemCategoryComponent } from './item-category-master/edit-item-cate
     PharmacologicalCategoryMasterComponent,
     ItemCategoryMasterComponent,
     EditItemCategoryComponent,
+    CallDispositionTypeMasterComponent,
+    EditCallType,
+    ServicelineCdssMapping,
+    CategorySubcategoryProvisioningComponent,
+    EditCategorySubcategoryComponent,
+    FeedbackTypeMasterComponent,
+    EditFeedbackModal
   ],
   imports: [
     BrowserModule,
