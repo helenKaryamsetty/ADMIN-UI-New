@@ -344,13 +344,13 @@ export class EmployeeMasterNewComponent implements OnInit {
 
   setGenderOnCondition() {
     if (
-      this.titleID == 2 ||
-      this.titleID == 4 ||
-      this.titleID == 5 ||
+      this.titleID === 2 ||
+      this.titleID === 4 ||
+      this.titleID === 5 ||
       this.titleID === 13
     ) {
       this.genderID = 2;
-    } else if (this.titleID == 3 || this.titleID == 8) {
+    } else if (this.titleID === 3 || this.titleID === 8) {
       this.genderID = 1;
     } else {
       this.genderID = '';
@@ -374,17 +374,17 @@ export class EmployeeMasterNewComponent implements OnInit {
 
   checkUsernameSuccessHandeler(response: any) {
     console.log('username existance status', response);
-    if (response.response == 'userexist') {
+    if (response.response === 'userexist') {
       this.username_status = 'User ID exists';
       this.showHint = true;
       this.username_dependent_flag = true;
       // this.username = null;
     }
-    if (response.response == 'usernotexist') {
+    if (response.response === 'usernotexist') {
       if (
-        this.username != '' &&
-        this.username != undefined &&
-        this.username != null
+        this.username !== '' &&
+        this.username !== undefined &&
+        this.username !== null
       ) {
         console.log('if response', response);
         this.showHint = false;
@@ -408,15 +408,15 @@ export class EmployeeMasterNewComponent implements OnInit {
 
   checkempIdSuccessHandeler(response: any) {
     console.log('employee ID existance status', response);
-    if (response.response == 'true') {
+    if (response.response === 'true') {
       this.empID_status = 'Employee ID exists';
       this.empIdshowHint = true;
     }
-    if (response.response == 'false') {
+    if (response.response === 'false') {
       if (
-        this.employee_ID != '' &&
-        this.employee_ID != undefined &&
-        this.employee_ID != null
+        this.employee_ID !== '' &&
+        this.employee_ID !== undefined &&
+        this.employee_ID !== null
       ) {
         this.empIdshowHint = false;
       }
@@ -434,19 +434,19 @@ export class EmployeeMasterNewComponent implements OnInit {
     let count = 0;
     let countFlag = false;
     if (
-      healthProfessinalIdValue != '' &&
-      healthProfessinalIdValue != undefined &&
-      healthProfessinalIdValue != null
+      healthProfessinalIdValue !== '' &&
+      healthProfessinalIdValue !== undefined &&
+      healthProfessinalIdValue !== null
     ) {
       const hprId = healthProfessinalIdValue;
-      if (hprId.charAt(hprId.length - 1) == '.') {
+      if (hprId.charAt(hprId.length - 1) === '.') {
         this.errorMessageForHPID = null;
         this.errorValidationMsgForHPId = true;
       } else {
         for (let i = 0; i < hprId.length; i++) {
           if (!this.is_numeric(hprId.charAt(i))) {
             if (!this.isLetter(hprId.charAt(i))) {
-              if (hprId.charAt(i) == '.') count++;
+              if (hprId.charAt(i) === '.') count++;
               else {
                 countFlag = true;
                 break;
@@ -479,7 +479,7 @@ export class EmployeeMasterNewComponent implements OnInit {
     this.disabled = false;
     if (date != undefined) {
       let age = this.today.getFullYear() - date.getFullYear();
-      if (this.objs.data.length == 0) {
+      if (this.objs.data.length === 0) {
         this.age = age;
         this.userCreationForm.form.patchValue({ user_age: age });
       } else {
@@ -489,7 +489,7 @@ export class EmployeeMasterNewComponent implements OnInit {
       const month = this.today.getMonth() - date.getMonth();
       if (month < 0 || (month === 0 && this.today.getDate() < date.getDate())) {
         age--; //age is ng-model of AGE
-        if (this.objs.data.length == 0) {
+        if (this.objs.data.length === 0) {
           this.age = age;
           this.userCreationForm.form.patchValue({ user_age: age });
         } else {
@@ -537,7 +537,7 @@ export class EmployeeMasterNewComponent implements OnInit {
     }
 
     if (
-      this.editMode == true &&
+      this.editMode === true &&
       this.aadharNumber !== undefined &&
       this.aadharNumber !== null &&
       this.selfAadharNo !== undefined &&
@@ -546,7 +546,7 @@ export class EmployeeMasterNewComponent implements OnInit {
     ) {
       this.validateAadharNo();
     } else if (
-      this.editMode == true &&
+      this.editMode === true &&
       this.aadharNumber !== undefined &&
       this.aadharNumber !== null &&
       (this.selfAadharNo === undefined || this.selfAadharNo === null)
@@ -559,7 +559,7 @@ export class EmployeeMasterNewComponent implements OnInit {
   }
   validateAadharNo() {
     console.log('aadharNumber', this.aadharNumber);
-    if (this.aadharNumber.length == 12) {
+    if (this.aadharNumber.length === 12) {
       this.employeeMasterNewService.validateAadhar(this.aadharNumber).subscribe(
         (response: any) => {
           if (response) {
@@ -578,7 +578,7 @@ export class EmployeeMasterNewComponent implements OnInit {
     }
   }
   checkAadharSuccessHandler(response: any) {
-    if (response.response == 'true') {
+    if (response.response === 'true') {
       this.isExistAadhar = true;
       this.errorMessageForAadhar = 'Aadhar Number Already Exists';
     } else {
@@ -600,7 +600,7 @@ export class EmployeeMasterNewComponent implements OnInit {
       this.validatePanNo();
     }
     if (
-      this.editMode == true &&
+      this.editMode === true &&
       this.panNumber !== undefined &&
       this.panNumber !== null &&
       this.selfPanNo !== undefined &&
@@ -609,7 +609,7 @@ export class EmployeeMasterNewComponent implements OnInit {
     ) {
       this.validatePanNo();
     } else if (
-      this.editMode == true &&
+      this.editMode === true &&
       this.panNumber !== undefined &&
       this.panNumber !== null &&
       (this.selfPanNo === undefined || this.selfPanNo === null)
@@ -621,7 +621,7 @@ export class EmployeeMasterNewComponent implements OnInit {
     }
   }
   validatePanNo() {
-    if (this.panNumber.length == 10) {
+    if (this.panNumber.length === 10) {
       this.employeeMasterNewService.validatePan(this.panNumber).subscribe(
         (response) => {
           if (response) {
@@ -641,7 +641,7 @@ export class EmployeeMasterNewComponent implements OnInit {
     }
   }
   checkPanSuccessHandler(response: any) {
-    if (response.response == 'true') {
+    if (response.response === 'true') {
       this.isExistPan = true;
       this.errorMessageForPan = 'Pan Number Already Exists';
     } else {
@@ -662,7 +662,7 @@ export class EmployeeMasterNewComponent implements OnInit {
     }
 
     if (
-      this.editMode == true &&
+      this.editMode === true &&
       this.healthProfessionalID !== undefined &&
       this.healthProfessionalID !== null &&
       this.selfHealthProfessionalID !== undefined &&
@@ -672,7 +672,7 @@ export class EmployeeMasterNewComponent implements OnInit {
     ) {
       this.validateHealthProfessionalID();
     } else if (
-      this.editMode == true &&
+      this.editMode === true &&
       this.healthProfessionalID !== undefined &&
       this.healthProfessionalID !== null &&
       (this.selfHealthProfessionalID === undefined ||
@@ -708,7 +708,7 @@ export class EmployeeMasterNewComponent implements OnInit {
     }
   }
   checkHealthProfessionalIDSuccessHandler(response: any) {
-    if (response == 'true') {
+    if (response === 'true') {
       this.isHPIdExist = true;
       this.errorMessageForHPID = 'Health Professional ID Already Exists';
     } else {
@@ -904,7 +904,7 @@ export class EmployeeMasterNewComponent implements OnInit {
     } else {
       for (let i = 0; i < this.objs.data.length; i++) {
         if (
-          this.objs.data[i].aadharNumber != undefined &&
+          this.objs.data[i].aadharNumber !== undefined &&
           tempObj.aadharNumber !== undefined &&
           tempObj.aadharNumber !== null &&
           this.objs.data[i].aadharNumber === tempObj.aadharNumber
@@ -913,7 +913,7 @@ export class EmployeeMasterNewComponent implements OnInit {
           console.log('duplicateAadhar', duplicateAadhar);
         }
         if (
-          this.objs.data[i].panNumber != undefined &&
+          this.objs.data[i].panNumber !== undefined &&
           tempObj.panNumber !== undefined &&
           tempObj.panNumber !== null &&
           this.objs.data[i].panNumber === tempObj.panNumber
@@ -922,21 +922,21 @@ export class EmployeeMasterNewComponent implements OnInit {
           console.log('duplicatePan', duplicatePan);
         }
         if (
-          this.objs.data[i].username != undefined &&
+          this.objs.data[i].username !== undefined &&
           this.objs.data[i].username === tempObj.username
         ) {
           duplicateName = duplicateName + 1;
           console.log('this.duplicateName', duplicateName);
         }
         if (
-          this.objs.data[i].employeeID != undefined &&
+          this.objs.data[i].employeeID !== undefined &&
           this.objs.data[i].employeeID === tempObj.employeeID
         ) {
           duplicateEmployeeID = duplicateEmployeeID + 1;
           console.log('this.duplicateemployeeID', duplicateName);
         }
         if (
-          this.objs.data[i].healthProfessionalID != undefined &&
+          this.objs.data[i].healthProfessionalID !== undefined &&
           tempObj.healthProfessionalID !== undefined &&
           tempObj.healthProfessionalID !== null &&
           this.objs.data[i].healthProfessionalID.toLowerCase() ===
@@ -1146,7 +1146,7 @@ export class EmployeeMasterNewComponent implements OnInit {
       this.objs.data[i].dob.setSeconds(0);
       this.objs.data[i].dob.setMilliseconds(0);
       /*doj*/
-      if (this.objs.data[i].isExternal == false) {
+      if (this.objs.data[i].isExternal === false) {
         this.objs.data[i].doj.setHours(0);
         this.objs.data[i].doj.setMinutes(0);
         this.objs.data[i].doj.setSeconds(0);
@@ -1262,7 +1262,7 @@ export class EmployeeMasterNewComponent implements OnInit {
     console.log('Data to be edit', data);
     this.disabled = false;
     this.showEditForm();
-    if (this.formMode == true && this.editMode == true) {
+    if (this.formMode === true && this.editMode === true) {
       this.employeeMasterNewService.getCommonRegistrationData().subscribe(
         (res) => this.showGenderOnCondition(res.data),
         (err) => console.log('error', err),
@@ -1309,11 +1309,11 @@ export class EmployeeMasterNewComponent implements OnInit {
     this.selfPanNo = null;
     console.log('data', data);
     this.isExternal = data.isExternal;
-    if (data.stateID != null && data.stateID) {
+    if (data.stateID !== null && data.stateID) {
       this.currentState = data.stateID;
       this.getCurrentDistricts(this.currentState);
       this.getPermanentDistricts(data.permStateID);
-      if (this.currentDistricts && this.currentDistricts != null) {
+      if (this.currentDistricts && this.currentDistricts !== null) {
         this.communicationDetailsForm.form.patchValue({
           address: {
             current_addressLine1: data.addressLine1,
@@ -1331,15 +1331,15 @@ export class EmployeeMasterNewComponent implements OnInit {
       }
     }
     if (
-      data.addressLine1 == data.permAddressLine1 &&
-      data.addressLine2 == data.permAddressLine2 &&
-      data.stateID == data.permStateID &&
-      data.districtID == data.permDistrictID &&
-      data.pinCode == data.permPinCode
+      data.addressLine1 === data.permAddressLine1 &&
+      data.addressLine2 === data.permAddressLine2 &&
+      data.stateID === data.permStateID &&
+      data.districtID === data.permDistrictID &&
+      data.pinCode === data.permPinCode
     ) {
       this.checkAddress = true;
     }
-    if (this.isExternal == false) {
+    if (this.isExternal === false) {
       this.patchDojOnEdit = data.dOJ;
       this.manipulateEMpIDAndDOJ = false;
     } else {
@@ -1431,7 +1431,7 @@ export class EmployeeMasterNewComponent implements OnInit {
     let doj: any = '';
     let dob: any = '';
     let editDoj: any;
-    if (this.isExternal == false) {
+    if (this.isExternal === false) {
       if (typeof userCreationFormValue.doj === 'string') {
         doj = new Date(userCreationFormValue.doj);
       } else {
@@ -1564,10 +1564,10 @@ export class EmployeeMasterNewComponent implements OnInit {
       this.searchResult.forEach((item: any) => {
         for (const key in item) {
           if (
-            key == 'userName' ||
-            key == 'emergencyContactNo' ||
-            key == 'emailID' ||
-            key == 'designationName'
+            key === 'userName' ||
+            key === 'emergencyContactNo' ||
+            key === 'emailID' ||
+            key === 'designationName'
           ) {
             const value: string = '' + item[key];
             if (value.toLowerCase().indexOf(searchTerm.toLowerCase()) >= 0) {
