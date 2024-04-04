@@ -290,8 +290,8 @@ export class ManufacturerMasterComponent implements OnInit, AfterViewInit {
   editManufacture(editformvalues: any) {
     this.edit_Serviceline = this.serviceline;
     this.edit_State = this.state;
-    console.log("this.edit_State", this.edit_State);
-    console.log("states_array",this.states_array)
+    console.log('this.edit_State', this.edit_State);
+    console.log('states_array', this.states_array);
     this.manufactureId = editformvalues.manufacturerID;
     this.getAllStates(editformvalues.countryID);
     this.getDistricts(editformvalues.stateID);

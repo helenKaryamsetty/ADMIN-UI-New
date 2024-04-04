@@ -214,7 +214,7 @@ export class PharmacologicalCategoryMasterComponent
   editPharm(editformvalues: any) {
     this.edit_Serviceline = this.serviceline;
     this.edit_State = this.state;
-    console.log("this.edit_State", this.edit_State);
+    console.log('this.edit_State', this.edit_State);
     this.pharmCategoryID = editformvalues.pharmacologyCategoryID;
     this.edit_pharmaCode = editformvalues.pharmCategoryCode;
     this.edit_pharmaName = editformvalues.pharmCategoryName;

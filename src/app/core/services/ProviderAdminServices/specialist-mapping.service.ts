@@ -63,7 +63,7 @@ export class SpecialistMappingService {
     //  .catch(this.handleError);
   }
 
-  getDoctorList(serviceproviderID: any, screenName: any):Observable<any> {
+  getDoctorList(serviceproviderID: any, screenName: any): Observable<any> {
     return this.http.post(this._getUserTMURL, {
       serviceproviderID,
       screenName,

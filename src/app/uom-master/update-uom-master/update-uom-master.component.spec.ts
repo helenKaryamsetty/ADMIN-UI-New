@@ -21,20 +21,20 @@
  */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SpecialistMappingComponent } from './specialist-mapping.component';
+import { UpdateUomMasterComponent } from './update-uom-master.component';
 
-describe('SpecialistMappingComponent', () => {
-  let component: SpecialistMappingComponent;
-  let fixture: ComponentFixture<SpecialistMappingComponent>;
+describe('UpdateUomMasterComponent', () => {
+  let component: UpdateUomMasterComponent;
+  let fixture: ComponentFixture<UpdateUomMasterComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [SpecialistMappingComponent],
+      declarations: [UpdateUomMasterComponent],
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SpecialistMappingComponent);
+    fixture = TestBed.createComponent(UpdateUomMasterComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

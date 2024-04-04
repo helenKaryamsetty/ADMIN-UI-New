@@ -67,7 +67,7 @@ import { EmployeeMasterNewComponent } from './employee-master-new/employee-maste
 import { MatInputModule } from '@angular/material/input';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { LanguageMappingComponent } from './language-mapping/language-mapping.component';
-import { WorkLocationMappingComponent } from './work-location-mapping/work-location-mapping.component';
+
 import { RoleMasterComponent } from './role-master/provider-admin-role-master.component';
 import { ProviderAdminRoleService } from './activities/services/state-serviceline-role.service';
 import { SpecialistMappingComponent } from './specialist-mapping/specialist-mapping.component';
@@ -90,6 +90,11 @@ import { CategorySubcategoryProvisioningComponent } from './category-subcategory
 import { EditCategorySubcategoryComponent } from './category-subcategory-provisioning/edit-category-subcategory/edit-category-subcategory.component';
 import { EditFeedbackModal, FeedbackTypeMasterComponent } from './feedback-type-master/feedback-type-master.component';
 
+import { InstituteDirectoryMasterComponent } from './institute-directory-master/institute-directory-master/institute-directory-master.component';
+import { EditInstituteDirectoryComponent } from './institute-directory-master/edit-institute-directory/edit-institute-directory.component';
+import { WorkLocationMappingComponent } from './work-location-mapping/work-location-mapping.component';
+import { AgentListCreationComponent } from './agent-list-creation/agent-list-creation.component';
+import { AgentListCreationService } from './core/services/ProviderAdminServices/agent-list-creation-service.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -106,7 +111,6 @@ import { EditFeedbackModal, FeedbackTypeMasterComponent } from './feedback-type-
     EditLocationModalComponent,
     EmployeeMasterNewComponent,
     LanguageMappingComponent,
-    WorkLocationMappingComponent,
     RoleMasterComponent,
     SpecialistMappingComponent,
     SupplierMasterComponent,
@@ -120,7 +124,12 @@ import { EditFeedbackModal, FeedbackTypeMasterComponent } from './feedback-type-
     CategorySubcategoryProvisioningComponent,
     EditCategorySubcategoryComponent,
     FeedbackTypeMasterComponent,
-    EditFeedbackModal
+    EditFeedbackModal,
+    InstituteDirectoryMasterComponent,
+    EditInstituteDirectoryComponent,
+    WorkLocationMappingComponent,
+    InstituteDirectoryMasterComponent,
+    AgentListCreationComponent,
   ],
   imports: [
     BrowserModule,
@@ -142,7 +151,7 @@ import { EditFeedbackModal, FeedbackTypeMasterComponent } from './feedback-type-
     MatTableModule,
     MatPaginatorModule,
     MatInputModule,
-    MatExpansionModule
+    MatExpansionModule,
   ],
   // UserLoginModule,
   //DataSYNCModule,
@@ -159,6 +168,7 @@ import { EditFeedbackModal, FeedbackTypeMasterComponent } from './feedback-type-
     PharmacologicalMasterService,
     ItemService,
     ItemCategoryService,
+    AgentListCreationService,
 
     {
       provide: HTTP_INTERCEPTORS,

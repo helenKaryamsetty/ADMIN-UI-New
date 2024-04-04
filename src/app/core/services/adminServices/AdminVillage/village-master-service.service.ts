@@ -21,7 +21,6 @@
  */
 import { Injectable } from '@angular/core';
 
-
 import { ConfigService } from '../../config/config.service';
 import { HttpClient } from '@angular/common/http';
 
@@ -59,51 +58,44 @@ export class VillageMasterService {
   }
 
   getStates(countryId: number) {
-    return this._http
-      .get(this._getStateListURL + countryId)
-      // .map(this.handleSuccess)
-      // .catch(this.handleError);
+    return this._http.get(this._getStateListURL + countryId);
+    // .map(this.handleSuccess)
+    // .catch(this.handleError);
   }
 
   getDistricts(stateId: number) {
-    return this._http
-      .get(this._getDistrictListURL + stateId)
-      // .map(this.handleSuccess)
-      // .catch(this.handleError);
+    return this._http.get(this._getDistrictListURL + stateId);
+    // .map(this.handleSuccess)
+    // .catch(this.handleError);
   }
-  getTaluks(districtId:any) {
-    return this._http
-      .get(this._getTalukListURL + districtId)
-      // .map(this.handleSuccess)
-      // .catch(this.handleError);
+  getTaluks(districtId: any) {
+    return this._http.get(this._getTalukListURL + districtId);
+    // .map(this.handleSuccess)
+    // .catch(this.handleError);
   }
 
-  getBranches(data:any) {
-    return this._http
-      .post(this._getBranchListURL, data)
-      // .map(this.handleSuccess)
-      // .catch(this.handleError);
+  getBranches(data: any) {
+    return this._http.post(this._getBranchListURL, data);
+    // .map(this.handleSuccess)
+    // .catch(this.handleError);
   }
 
-  storeVillages(data:any) {
-    return this._http
-      .post(this.storeVillagesURL, data)
-      // .map(this.handleSuccess)
-      // .catch(this.handleError);
+  storeVillages(data: any) {
+    return this._http.post(this.storeVillagesURL, data);
+    // .map(this.handleSuccess)
+    // .catch(this.handleError);
   }
 
-  updateVillageStatus(data:any) {
-    return this._http
-      .post(this.deleteVillageURL, data)
-      // .map(this.handleSuccess)
-      // .catch(this.handleError);
+  updateVillageStatus(data: any) {
+    return this._http.post(this.deleteVillageURL, data);
+    // .map(this.handleSuccess)
+    // .catch(this.handleError);
   }
 
-  updateVillageData(data:any) {
-    return this._http
-      .post(this.updateVillageDataURL, data)
-      // .map(this.handleSuccess)
-      // .catch(this.handleError);
+  updateVillageData(data: any) {
+    return this._http.post(this.updateVillageDataURL, data);
+    // .map(this.handleSuccess)
+    // .catch(this.handleError);
   }
 
   // handleSuccess(res: Response) {
@@ -119,10 +111,9 @@ export class VillageMasterService {
   //   return Observable.throw(error);
   // }
 
-  getVillage(requestObj:any) {
-    return this._http
-      .post(this._getBranchListURL, requestObj)
-      // .map(this.handleSuccess)
-      // .catch(this.handleError);
+  getVillage(requestObj: any) {
+    return this._http.post(this._getBranchListURL, requestObj);
+    // .map(this.handleSuccess)
+    // .catch(this.handleError);
   }
 }

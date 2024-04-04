@@ -85,98 +85,98 @@ export class EmployeeMasterNewServices {
       this.providerAdmin_base_url + '/m/FindEmployeeDetails';
   }
   // User Details related methods for fetching all dropdown data
-  getCommonRegistrationData():Observable<any> {
+  getCommonRegistrationData(): Observable<any> {
     return this.http.post(this.getRegistrationDataUrl, {});
     // .map(this.extractData)
     // .catch(this.handleError);
   }
-  getAllUsers(serviceProviderID: any):Observable<any> {
+  getAllUsers(serviceProviderID: any): Observable<any> {
     return this.http.post(this.getAllUsersUrl, {
       serviceProviderID: serviceProviderID,
     });
     // .map(this.extractData)
     // .catch(this.handleError)
   }
-  checkUserAvailability(name: any):Observable<any>{
+  checkUserAvailability(name: any): Observable<any> {
     return this.http.post(this.checkUserAvailabilityUrl, {
       userName: name,
     });
     // .map(this.extractData)
     // .catch(this.handleError)
   }
-  checkEmpIdAvailability(empID: any):Observable<any>{
+  checkEmpIdAvailability(empID: any): Observable<any> {
     return this.http.post(this.checkEmpIdAvailabilityUrl, {
       employeeID: empID,
     });
     // .map(this.extractData)
     // .catch(this.handleError)
   }
-  getAllDesignations():Observable<any>{
+  getAllDesignations(): Observable<any> {
     return this.http.post(this.getAllDesignationsUrl, {});
     // .map(this.extractData)
     // .catch(this.handleError)
   }
-  getAllMaritalStatuses():Observable<any>{
+  getAllMaritalStatuses(): Observable<any> {
     return this.http.post(this.getAllMaritalStatusesUrl, {});
     // .map(this.extractData)
     // .catch(this.handleError)
   }
-  getAllQualifications():Observable<any>{
+  getAllQualifications(): Observable<any> {
     return this.http.post(this.getAllQualificationsUrl, {});
     // .map(this.extractData)
     // .catch(this.handleError)
   }
-  getAllCommunities():Observable<any>{
+  getAllCommunities(): Observable<any> {
     return this.http.post(this.getAllCommunitiesUrl, {});
     // .map(this.extractData)
     // .catch(this.handleError)
   }
-  getAllReligions():Observable<any>{
+  getAllReligions(): Observable<any> {
     return this.http.post(this.getAllReligionsUrl, {});
     // .map(this.extractData)
     // .catch(this.handleError)
   }
-  getAllStates(countryId: any):Observable<any>{
+  getAllStates(countryId: any): Observable<any> {
     console.log('COuntryID:', countryId);
     return this.http.get(this.getAllStatesUrl + countryId);
     // .map(this.extractData)
     // .catch(this.handleError)
   }
-  getAllDistricts(stateID: any):Observable<any>{
+  getAllDistricts(stateID: any): Observable<any> {
     console.log('stateID', stateID);
 
     return this.http.get(this.getAllDistrictsUrl + stateID);
     // .map(this.extractData)
     // .catch(this.handleError)
   }
-  validateAadhar(idNumber: any):Observable<any>{
+  validateAadhar(idNumber: any): Observable<any> {
     return this.http.post(this.checkID, { aadhaarNo: idNumber });
     // .map(this.extractCustomData)
     // .catch(this.handleError);
   }
-  validatePan(idNumber: any):Observable<any>{
+  validatePan(idNumber: any): Observable<any> {
     return this.http.post(this.checkID, { pAN: idNumber });
     // .map(this.extractCustomData)
     // .catch(this.handleError);
   }
-  validateHealthProfessionalID(idNumber: any):Observable<any>{
+  validateHealthProfessionalID(idNumber: any): Observable<any> {
     return this.http.post(this.checkID, { healthProfessionalID: idNumber });
     // .map(this.extractCustomData)
     // .catch(this.handleError);
   }
-  createNewUser(reqObject: any):Observable<any>{
+  createNewUser(reqObject: any): Observable<any> {
     console.log('service', reqObject);
 
     return this.http.post(this.createNewUserUrl, reqObject);
     // .map(this.extractData)
     // .catch(this.handleError)
   }
-  editUserDetails(updateObj: any):Observable<any>{
+  editUserDetails(updateObj: any): Observable<any> {
     return this.http.post(this.editUserDetailsUrl, updateObj);
     // .map(this.extractData)
     // .catch(this.handleError)
   }
-  userActivationDeactivation(toggle_obj: any):Observable<any>{
+  userActivationDeactivation(toggle_obj: any): Observable<any> {
     console.log('toggle_obj', toggle_obj);
     return this.http.post(this.userActivationDeactivationUrl, toggle_obj);
     // .map(this.extractData)

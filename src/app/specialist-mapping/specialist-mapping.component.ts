@@ -1,40 +1,40 @@
 /*
-* AMRIT – Accessible Medical Records via Integrated Technology 
-* Integrated EHR (Electronic Health Records) Solution 
-*
-* Copyright (C) "Piramal Swasthya Management and Research Institute" 
-*
-* This file is part of AMRIT.
-*
-* This program is free software: you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
-* (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU General Public License for more details.
-*
-* You should have received a copy of the GNU General Public License
-* along with this program.  If not, see https://www.gnu.org/licenses/.
-*/
+ * AMRIT – Accessible Medical Records via Integrated Technology
+ * Integrated EHR (Electronic Health Records) Solution
+ *
+ * Copyright (C) "Piramal Swasthya Management and Research Institute"
+ *
+ * This file is part of AMRIT.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see https://www.gnu.org/licenses/.
+ */
 
-import { Component, OnInit, ViewChild } from "@angular/core";
-import { FormBuilder } from "@angular/forms";
-import { ProviderAdminRoleService } from "../activities/services/state-serviceline-role.service";
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { ProviderAdminRoleService } from '../activities/services/state-serviceline-role.service';
 // import { ProcedureMasterServiceService } from "../core/services/ProviderAdminServices/procedure-master-service.service";
 // import { ServicePointMasterService } from "../core/services/ProviderAdminServices/service-point-master-services.service";
-import { SpecialistMappingService } from "../core/services/ProviderAdminServices/specialist-mapping.service";
-import { dataService } from "../core/services/dataService/data.service";
-import { ConfirmationDialogsService } from "../core/services/dialog/confirmation.service";
-import { MatPaginator } from "@angular/material/paginator";
-import { MatTableDataSource } from "@angular/material/table";
+import { SpecialistMappingService } from '../core/services/ProviderAdminServices/specialist-mapping.service';
+import { dataService } from '../core/services/dataService/data.service';
+import { ConfirmationDialogsService } from '../core/services/dialog/confirmation.service';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-specialist-mapping',
   templateUrl: './specialist-mapping.component.html',
-  styleUrls: ['./specialist-mapping.component.css']
+  styleUrls: ['./specialist-mapping.component.css'],
 })
 export class SpecialistMappingComponent implements OnInit {
   [x: string]: any;
@@ -45,13 +45,13 @@ export class SpecialistMappingComponent implements OnInit {
   uname: any;
   screenName = 'TC Specialist';
 
-  tableMode: Boolean = false;
-  creationMode: Boolean = false;
+  tableMode = false;
+  creationMode = false;
 
   specializationList: any;
   // filteredspecializationList: any;
 
-  alreadyExist: Boolean = false;
+  alreadyExist = false;
   bufferArray: any = [];
   services_array: any = [];
 
@@ -59,25 +59,22 @@ export class SpecialistMappingComponent implements OnInit {
   users: any;
   filterUsers: any;
 
-
   userSelected: any;
   specializationSelected: any;
 
-  displayedColumns: string[] = ['SNo', 'UserName', 'Specialization','action'];
+  displayedColumns: string[] = ['SNo', 'UserName', 'Specialization', 'action'];
 
-
-  constructor(private commonDataService: dataService,
+  constructor(
+    private commonDataService: dataService,
     public alertService: ConfirmationDialogsService,
     private fb: FormBuilder,
     public providerAdminRoleService: ProviderAdminRoleService,
     // private procedureMasterServiceService: ProcedureMasterServiceService,
     // public stateandservices: ServicePointMasterService,
-    private specialistMappingService: SpecialistMappingService) {
-
-  }
+    private specialistMappingService: SpecialistMappingService,
+  ) {}
 
   ngOnInit() {
-
     this.initiateTable();
     this.getSpecializationsList();
     this.getUsersList();
@@ -85,105 +82,117 @@ export class SpecialistMappingComponent implements OnInit {
   }
   /**
    * Initiate Form
-  */
+   */
   initiateTable() {
-
     // provide service provider ID, (As of now hardcoded, but to be fetched from login response)
-    this.serviceProviderID = (this.commonDataService.service_providerID).toString();
+    this.serviceProviderID =
+      this.commonDataService.service_providerID.toString();
     this.uname = this.commonDataService.uname;
 
     this.specializationList = [];
     this.filteredspecializationList.data = [];
     this.getAvailableMapping();
-
   }
 
-
   getSpecializationsList() {
-    this.specialistMappingService.getSpecializationList()
-      .subscribe((res:any) => this.specializations = res.data);
-
+    this.specialistMappingService
+      .getSpecializationList()
+      .subscribe((res: any) => (this.specializations = res.data));
   }
 
   getUsersList() {
-    this.specialistMappingService.getDoctorList(this.serviceProviderID, this.screenName)
-      .subscribe((res:any) => { console.log(res); this.users = res.data });
-
+    this.specialistMappingService
+      .getDoctorList(this.serviceProviderID, this.screenName)
+      .subscribe((res: any) => {
+        console.log(res);
+        this.users = res.data;
+      });
   }
 
-
-
   getAvailableMapping() {
-    this.specialistMappingService.getCurrentMappings(this.serviceProviderID)
-      .subscribe((res:any) => {
+    this.specialistMappingService
+      .getCurrentMappings(this.serviceProviderID)
+      .subscribe((res: any) => {
         console.log(res, 'current mappings');
         this.specializationList = this.successhandeler(res.data);
         this.filteredspecializationList.data = this.successhandeler(res.data);
         this.tableMode = true;
       });
-
   }
 
-  activateMapping(id:any, obj:any, val:any) {
+  activateMapping(id: any, obj: any, val: any) {
     if (!obj.specializationDeleted && !obj.userDeleted) {
-
-      this.alertService.confirm('Confirm', 'Are you sure you want to Activate?').subscribe(response => {
-        if (response) {
-
-          this.specialistMappingService.toggleMapping(id, val, this.uname)
-            .subscribe((res) => {
-              if (res) {
-                this.filteredspecializationList.data[obj].deleted = val;
-                this.setChangeMainList(id, val);
-                if (!val) {
-                  this.alertService.alert('Activated successfully', 'success');
+      this.alertService
+        .confirm('Confirm', 'Are you sure you want to Activate?')
+        .subscribe((response) => {
+          if (response) {
+            this.specialistMappingService
+              .toggleMapping(id, val, this.uname)
+              .subscribe((res) => {
+                if (res) {
+                  this.filteredspecializationList.data[obj].deleted = val;
+                  this.setChangeMainList(id, val);
+                  if (!val) {
+                    this.alertService.alert(
+                      'Activated successfully',
+                      'success',
+                    );
+                  }
                 }
-              }
-            })
-        }
-      });
+              });
+          }
+        });
     } else {
       if (obj.specializationDeleted) {
         this.alertService.alert('Specialization is not Active');
       } else {
-        this.alertService.alert('User is not Active.')
+        this.alertService.alert('User is not Active.');
       }
     }
   }
-  deActivateMapping(id:any, obj:any, val:any) {
-    this.alertService.confirm('Confirm', 'Are you sure you want to Deactivate?').subscribe(response => {
-      if (response) {
-
-        this.specialistMappingService.toggleMapping(id, val, this.uname)
-          .subscribe((res) => {
-            if (res) {
-              this.filteredspecializationList.data[obj].deleted = val;
-              this.setChangeMainList(id, val);
-              if (val) {
-                this.alertService.alert('Deactivated successfully', 'success');
+  deActivateMapping(id: any, obj: any, val: any) {
+    this.alertService
+      .confirm('Confirm', 'Are you sure you want to Deactivate?')
+      .subscribe((response) => {
+        if (response) {
+          this.specialistMappingService
+            .toggleMapping(id, val, this.uname)
+            .subscribe((res) => {
+              if (res) {
+                this.filteredspecializationList.data[obj].deleted = val;
+                this.setChangeMainList(id, val);
+                if (val) {
+                  this.alertService.alert(
+                    'Deactivated successfully',
+                    'success',
+                  );
+                }
               }
-            }
-          })
-      }
-    });
+            });
+        }
+      });
   }
 
-  setChangeMainList(id:any, val:any) {
+  setChangeMainList(id: any, val: any) {
     this.specializationList.map((element: any) => {
       if (element.userSpecializationMapID === id) {
-        element.deleted = val
+        element.deleted = val;
       }
     });
-    console.log(this.specializationList)
+    console.log(this.specializationList);
   }
 
-
   back() {
-    this.alertService.confirm('Confirm', 'Do you really want to cancel? Any unsaved data would be lost').subscribe(res => {
-      if (res) {
-        this.showTable();
-      }
-    })
+    this.alertService
+      .confirm(
+        'Confirm',
+        'Do you really want to cancel? Any unsaved data would be lost',
+      )
+      .subscribe((res) => {
+        if (res) {
+          this.showTable();
+        }
+      });
   }
   showTable() {
     this.clearForm();
@@ -208,7 +217,7 @@ export class SpecialistMappingComponent implements OnInit {
     //       element.userID === elem.userID)
     //   });
     // })
-    console.log(this.filterUsers)
+    console.log(this.filterUsers);
   }
 
   proceed() {
@@ -217,58 +226,56 @@ export class SpecialistMappingComponent implements OnInit {
     if (exists) {
       this.alertService.alert('Already exists');
     } else {
-      const apiObj = [{
-        specializationID: this.specializationSelected,
-        userID: this.userSelected,
-        createdBy: this.uname,
-        deleted: false
-      }];
-      this.specialistMappingService.saveMappings(apiObj)
-        .subscribe((res) => {
-          this.alertService.alert('Mapping saved successfully', 'success');
-          this.getAvailableMapping();
-          this.showTable();
-        })
-
+      const apiObj = [
+        {
+          specializationID: this.specializationSelected,
+          userID: this.userSelected,
+          createdBy: this.uname,
+          deleted: false,
+        },
+      ];
+      this.specialistMappingService.saveMappings(apiObj).subscribe((res) => {
+        this.alertService.alert('Mapping saved successfully', 'success');
+        this.getAvailableMapping();
+        this.showTable();
+      });
     }
   }
 
   checkExists() {
     let exists = false;
-    console.log(this.specializationList, 'listed')
-    this.specializationList.map((element:  any) => {
-      if (element.userID == this.userSelected && element.specializationID == this.specializationSelected) {
+    console.log(this.specializationList, 'listed');
+    this.specializationList.map((element: any) => {
+      if (
+        element.userID == this.userSelected &&
+        element.specializationID == this.specializationSelected
+      ) {
         exists = true;
       }
-    })
+    });
     return exists;
   }
 
-  successhandeler(response:any) {
+  successhandeler(response: any) {
     return response;
   }
-
-
-
 
   filterSpecializationList(searchTerm?: string) {
     if (!searchTerm) {
       this.filteredspecializationList.data = this.specializationList;
     } else {
       this.filteredspecializationList.data = [];
-      this.specializationList.forEach((item:any) => {
-        for (let key in item) {
+      this.specializationList.forEach((item: any) => {
+        for (const key in item) {
           if (key == 'userName' || key == 'specializationName') {
-            let value: string = '' + item[key];
+            const value: string = '' + item[key];
             if (value.toLowerCase().indexOf(searchTerm.toLowerCase()) >= 0) {
-              this.filteredspecializationList.data.push(item); break;
+              this.filteredspecializationList.data.push(item);
+              break;
             }
           }
         }
       });
     }
-
   }
-
-
 }
