@@ -20,6 +20,12 @@ import { CommonDialogComponent } from './components/common-dialog/common-dialog.
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { LocationServicelineMapping } from './services/ProviderAdminServices/location-serviceline-mapping.service';
+
+import { EmployeeMasterNewServices } from './services/ProviderAdminServices/employee-master-new-services.service';
+import { LanguageMapping } from './services/ProviderAdminServices/language-mapping.service';
+import { WorkLocationMapping } from './services/ProviderAdminServices/work-location-mapping.service';
+import { VillageMasterService } from './services/adminServices/AdminVillage/village-master-service.service';
+import { SpecialistMappingService } from './services/ProviderAdminServices/specialist-mapping.service';
 // import { ProviderAdminComponent } from './components/provider-admin/provider-admin.component';
 
 @NgModule({
@@ -51,6 +57,11 @@ import { LocationServicelineMapping } from './services/ProviderAdminServices/loc
     ScreenService,
     ServicemasterService,
     LocationServicelineMapping,
+    EmployeeMasterNewServices,
+    LanguageMapping,
+    WorkLocationMapping,
+    VillageMasterService,
+    SpecialistMappingService,
   ],
 })
 export class CoreModule {

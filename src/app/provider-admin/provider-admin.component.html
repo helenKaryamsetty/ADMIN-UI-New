@@ -324,7 +324,7 @@
       <button mat-menu-item (click)="show('2')">Role Master</button>
       <button mat-menu-item (click)="show('27')">Employee Master</button>
       <button mat-menu-item (click)="show('28')">Language Mapping</button>
-      <button mat-menu-item (click)="show('28')">Work Location Mapping</button>
+      <button mat-menu-item (click)="show('32')">Work Location Mapping</button>
       <button mat-menu-item (click)="show('59')">Specialist Mapping</button>
       <button mat-menu-item (click)="show('4')">
         Call Disposition Type Master
@@ -447,7 +447,33 @@
       <button mat-menu-item (click)="show('64')">CDI Questionnaire</button>
       <button mat-menu-item (click)="show('65')">Mapping Snomed CT Code</button>
     </mat-menu>
-    <button mat-button>Inventory</button>
+    <button mat-button [matMenuTriggerFor]="Inventory" class="top-element">
+      Inventory
+    </button>
+    <!-- <mat-menu #Inventory="matMenu">
+      <button mat-menu-item (click)="show('1')">
+        Job Location-ServiceLine Mapping Master
+      </button> -->
+    <!-- <button mat-button>Inventory</button> -->
+    <mat-menu #Inventory="matMenu">
+      <button mat-menu-item [matMenuTriggerFor]="typeMaster">Master</button>
+    </mat-menu>
+    <mat-menu #typeMaster="matMenu">
+      <button mat-menu-item (click)="show('43')">Supplier Master</button>
+      <button mat-menu-item (click)="show('44')">Manufacturer Master</button>
+      <button mat-menu-item (click)="show('45')">
+        Pharmacological Category Master
+      </button>
+      <button mat-menu-item (click)="show('46')">Item Category Master</button>
+      <button mat-menu-item (click)="show('50')">Unit of Measure Master</button>
+      <button mat-menu-item (click)="show('41')">
+        Item Issue Method Config
+      </button>
+      <button mat-menu-item (click)="show('54')">
+        Expiry Date Alert Config
+      </button>
+    </mat-menu>
+
     <!-- <div class="panel-body card p-a-0 bg-white sm-m-b-35 xs-m-b-35"> -->
     <!-- <div class="container-fluid p-a-0 overflow-y" style="height: 510px"> -->
     <!-- <div class="b-t-2-w"> -->
@@ -458,9 +484,48 @@
         <app-location-serviceline-mapping
           *ngSwitchCase="1"
         ></app-location-serviceline-mapping>
+        <app-employee-master-new *ngSwitchCase="27"></app-employee-master-new>
+        <app-language-mapping *ngSwitchCase="28"></app-language-mapping>
+        <app-work-location-mapping
+          *ngSwitchCase="32"
+        ></app-work-location-mapping>
+        <app-supplier-master *ngSwitchCase="43"></app-supplier-master>
+        <app-manufacturer-master *ngSwitchCase="44"></app-manufacturer-master>
+        <app-pharmacological-category-master
+          *ngSwitchCase="45"
+        ></app-pharmacological-category-master>
+        <app-item-category-master *ngSwitchCase="46"></app-item-category-master>
+        <app-search-uom-master *ngSwitchCase="50"></app-search-uom-master>
+        <app-item-issue-method-config
+          *ngSwitchCase="41"
+        ></app-item-issue-method-config>
+        <app-expiry-date-alert-configuration
+          *ngSwitchCase="54"
+        ></app-expiry-date-alert-configuration>
+        <app-employee-master-new
+                *ngSwitchCase="27"
+              ></app-employee-master-new>
+              <app-language-mapping *ngSwitchCase="28"></app-language-mapping>
+              <app-work-location-mapping
+                *ngSwitchCase="32"
+              ></app-work-location-mapping>
+              <app-specialist-mapping
+                *ngSwitchCase="59"
+              ></app-specialist-mapping>
+        <!-- <app-provider-admin-role-master
+                *ngSwitchCase="2"
+              ></app-provider-admin-role-master>
+              <app-call-disposition-type-master
         <app-provider-admin-role-master
           *ngSwitchCase="2"
         ></app-provider-admin-role-master>
+        <app-call-disposition-type-master
+        <app-supplier-master *ngSwitchCase="43"></app-supplier-master>
+        <app-manufacturer-master *ngSwitchCase="44"></app-manufacturer-master>
+        <app-pharmacological-category-master
+          *ngSwitchCase="45"
+        ></app-pharmacological-category-master>
+        <app-item-category-master *ngSwitchCase="46"></app-item-category-master>
         <!-- <app-call-disposition-type-master
                 *ngSwitchCase="4"
               ></app-call-disposition-type-master>

@@ -63,8 +63,34 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { EmployeeMasterNewComponent } from './employee-master-new/employee-master-new.component';
+import { MatInputModule } from '@angular/material/input';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { LanguageMappingComponent } from './language-mapping/language-mapping.component';
+import { WorkLocationMappingComponent } from './work-location-mapping/work-location-mapping.component';
 import { RoleMasterComponent } from './role-master/provider-admin-role-master.component';
 import { ProviderAdminRoleService } from './activities/services/state-serviceline-role.service';
+import { SpecialistMappingComponent } from './specialist-mapping/specialist-mapping.component';
+import { SupplierMasterComponent } from './supplier-master/supplier-master.component';
+import { ManufacturerMasterComponent } from './manufacturer-master/manufacturer-master.component';
+import { CommonServices } from './core/services/inventory-services/commonServices';
+import { SuppliermasterService } from './core/services/inventory-services/suppliermaster.service';
+import { dataService } from './core/services/dataService/data.service';
+import { ConfirmationDialogsService } from './core/services/dialog/confirmation.service';
+import { ManufacturemasterService } from './core/services/inventory-services/manufacturemaster.service';
+import { PharmacologicalCategoryMasterComponent } from './pharmacological-category-master/pharmacological-category-master.component';
+import { PharmacologicalMasterService } from './core/services/inventory-services/pharmacological-category-service';
+import { ItemCategoryMasterComponent } from './item-category-master/item-category-master.component';
+import { ItemService } from './core/services/inventory-services/item.service';
+import { ItemCategoryService } from './core/services/inventory-services/item-category.service';
+import { EditItemCategoryComponent } from './item-category-master/edit-item-category/edit-item-category.component';
+import { SearchUomMasterComponent } from './uom-master/search-uom-master/search-uom-master.component';
+import { UomMasterService } from './core/services/inventory-services/uom-master.service';
+import { UpdateUomMasterComponent } from './uom-master/update-uom-master/update-uom-master.component';
+import { CreateUomMasterComponent } from './uom-master/create-uom-master/create-uom-master.component';
+import { ItemIssueMethodConfigComponent } from './item-issue-method-config/item-issue-method-config.component';
+import { Mainstroreandsubstore } from './core/services/inventory-services/mainstoreandsubstore.service';
+import { ExpiryDateAlertConfigurationComponent } from './expiry-date-alert-configuration/expiry-date-alert-configuration.component';
 
 @NgModule({
   declarations: [
@@ -80,7 +106,21 @@ import { ProviderAdminRoleService } from './activities/services/state-servicelin
     SuperAdminComponent,
     LocationServicelineMappingComponent,
     EditLocationModalComponent,
+    EmployeeMasterNewComponent,
+    LanguageMappingComponent,
+    WorkLocationMappingComponent,
     RoleMasterComponent,
+    SpecialistMappingComponent,
+    SupplierMasterComponent,
+    ManufacturerMasterComponent,
+    PharmacologicalCategoryMasterComponent,
+    ItemCategoryMasterComponent,
+    EditItemCategoryComponent,
+    SearchUomMasterComponent,
+    UpdateUomMasterComponent,
+    CreateUomMasterComponent,
+    ItemIssueMethodConfigComponent,
+    ExpiryDateAlertConfigurationComponent,
   ],
   imports: [
     BrowserModule,
@@ -101,14 +141,26 @@ import { ProviderAdminRoleService } from './activities/services/state-servicelin
     MatSelectModule,
     MatTableModule,
     MatPaginatorModule,
+    MatInputModule,
+    MatExpansionModule,
   ],
   // UserLoginModule,
   //DataSYNCModule,
   // CoreModule.forRoot()
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
+    CommonServices,
+    SuppliermasterService,
+    dataService,
+    ConfirmationDialogsService,
+    ManufacturemasterService,
     HttpClient,
     ProviderAdminRoleService,
+    PharmacologicalMasterService,
+    ItemService,
+    ItemCategoryService,
+    UomMasterService,
+    Mainstroreandsubstore,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpInterceptorService,

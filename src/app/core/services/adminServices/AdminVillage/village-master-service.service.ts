@@ -20,16 +20,9 @@
  * along with this program.  If not, see https://www.gnu.org/licenses/.
  */
 import { Injectable } from '@angular/core';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
-
-import { Observable } from 'rxjs/Observable';
-
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
 
 import { ConfigService } from '../../config/config.service';
-import { InterceptedHttp } from './../../../http.interceptor';
-import { SecurityInterceptedHttp } from './../../../http.securityinterceptor';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class VillageMasterService {
@@ -46,9 +39,8 @@ export class VillageMasterService {
   updateVillageDataURL: any;
 
   constructor(
-    private _http: SecurityInterceptedHttp,
+    private _http: HttpClient,
     public configService: ConfigService,
-    private httpInterceptor: InterceptedHttp,
   ) {
     this.admin_base_url = this.configService.getAdminBaseUrl();
     this._commonBaseURL = this.configService.getCommonBaseURL();
@@ -66,70 +58,62 @@ export class VillageMasterService {
   }
 
   getStates(countryId: number) {
-    return this._http
-      .get(this._getStateListURL + countryId)
-      .map(this.handleSuccess)
-      .catch(this.handleError);
+    return this._http.get(this._getStateListURL + countryId);
+    // .map(this.handleSuccess)
+    // .catch(this.handleError);
   }
 
   getDistricts(stateId: number) {
-    return this._http
-      .get(this._getDistrictListURL + stateId)
-      .map(this.handleSuccess)
-      .catch(this.handleError);
+    return this._http.get(this._getDistrictListURL + stateId);
+    // .map(this.handleSuccess)
+    // .catch(this.handleError);
   }
-  getTaluks(districtId) {
-    return this._http
-      .get(this._getTalukListURL + districtId)
-      .map(this.handleSuccess)
-      .catch(this.handleError);
+  getTaluks(districtId: any) {
+    return this._http.get(this._getTalukListURL + districtId);
+    // .map(this.handleSuccess)
+    // .catch(this.handleError);
   }
 
-  getBranches(data) {
-    return this._http
-      .post(this._getBranchListURL, data)
-      .map(this.handleSuccess)
-      .catch(this.handleError);
+  getBranches(data: any) {
+    return this._http.post(this._getBranchListURL, data);
+    // .map(this.handleSuccess)
+    // .catch(this.handleError);
   }
 
-  storeVillages(data) {
-    return this._http
-      .post(this.storeVillagesURL, data)
-      .map(this.handleSuccess)
-      .catch(this.handleError);
+  storeVillages(data: any) {
+    return this._http.post(this.storeVillagesURL, data);
+    // .map(this.handleSuccess)
+    // .catch(this.handleError);
   }
 
-  updateVillageStatus(data) {
-    return this._http
-      .post(this.deleteVillageURL, data)
-      .map(this.handleSuccess)
-      .catch(this.handleError);
+  updateVillageStatus(data: any) {
+    return this._http.post(this.deleteVillageURL, data);
+    // .map(this.handleSuccess)
+    // .catch(this.handleError);
   }
 
-  updateVillageData(data) {
-    return this._http
-      .post(this.updateVillageDataURL, data)
-      .map(this.handleSuccess)
-      .catch(this.handleError);
+  updateVillageData(data: any) {
+    return this._http.post(this.updateVillageDataURL, data);
+    // .map(this.handleSuccess)
+    // .catch(this.handleError);
   }
 
-  handleSuccess(res: Response) {
-    console.log(res.json().data, '--- in zone master SERVICE');
-    if (res.json().data) {
-      return res.json().data;
-    } else {
-      return Observable.throw(res.json());
-    }
-  }
+  // handleSuccess(res: Response) {
+  //   console.log(res.json().data, '--- in zone master SERVICE');
+  //   if (res.json().data) {
+  //     return res.json().data;
+  //   } else {
+  //     return Observable.throw(res.json());
+  //   }
+  // }
 
-  handleError(error: Response | any) {
-    return Observable.throw(error);
-  }
+  // handleError(error: Response | any) {
+  //   return Observable.throw(error);
+  // }
 
-  getVillage(requestObj) {
-    return this._http
-      .post(this._getBranchListURL, requestObj)
-      .map(this.handleSuccess)
-      .catch(this.handleError);
+  getVillage(requestObj: any) {
+    return this._http.post(this._getBranchListURL, requestObj);
+    // .map(this.handleSuccess)
+    // .catch(this.handleError);
   }
 }
