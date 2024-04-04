@@ -87,7 +87,8 @@ import { EditItemCategoryComponent } from './item-category-master/edit-item-cate
 import { InstituteDirectoryMasterComponent } from './institute-directory-master/institute-directory-master/institute-directory-master.component';
 import { EditInstituteDirectoryComponent } from './institute-directory-master/edit-institute-directory/edit-institute-directory.component';
 import { WorkLocationMappingComponent } from './work-location-mapping/work-location-mapping.component';
-
+import { AgentListCreationComponent } from './agent-list-creation/agent-list-creation.component';
+import { AgentListCreationService } from './core/services/ProviderAdminServices/agent-list-creation-service.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -115,6 +116,7 @@ import { WorkLocationMappingComponent } from './work-location-mapping/work-locat
     EditInstituteDirectoryComponent,
     WorkLocationMappingComponent,
     InstituteDirectoryMasterComponent,
+    AgentListCreationComponent,
   ],
   imports: [
     BrowserModule,
@@ -153,6 +155,7 @@ import { WorkLocationMappingComponent } from './work-location-mapping/work-locat
     PharmacologicalMasterService,
     ItemService,
     ItemCategoryService,
+    AgentListCreationService,
 
     {
       provide: HTTP_INTERCEPTORS,

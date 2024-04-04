@@ -200,7 +200,7 @@ export class AgentListCreationComponent implements OnInit, AfterViewInit {
   validate_one(agentID: any) {
     this.resultArray = [];
 
-    if (agentID != '' || agentID != null || agentID != undefined) {
+    if (agentID !== '' || agentID !== null || agentID !== undefined) {
       // var obj=
       // {
       // 	"agentID":agentID
@@ -265,7 +265,7 @@ export class AgentListCreationComponent implements OnInit, AfterViewInit {
         createdBy: this.commonDataService.uname,
       };
 
-      if (this.resultArray.length == 0) {
+      if (this.resultArray.length === 0) {
         this.resultArray.push(obj);
       } else {
         let count = 0;
@@ -307,7 +307,7 @@ export class AgentListCreationComponent implements OnInit, AfterViewInit {
 
     const hyphen_items = agentID.split('-');
     if (
-      hyphen_items.length == 2 &&
+      hyphen_items.length === 2 &&
       hyphen_items[0].length > 0 &&
       hyphen_items[1].length > 0 &&
       parseInt(hyphen_items[1]) > parseInt(hyphen_items[0])
@@ -328,7 +328,7 @@ export class AgentListCreationComponent implements OnInit, AfterViewInit {
           createdBy: this.commonDataService.uname,
         };
 
-        if (this.resultArray.length == 0) {
+        if (this.resultArray.length === 0) {
           this.resultArray.push(obj);
         } else {
           let count = 0;
@@ -400,7 +400,7 @@ export class AgentListCreationComponent implements OnInit, AfterViewInit {
         this.showFormFlag = false;
         this.getAllAgents(this.providerServiceMapID);
       }
-      if (response.length == 0) {
+      if (response.length === 0) {
         this.alertService.alert('Mapping  already exists');
       }
     }
@@ -477,7 +477,7 @@ export class AgentListCreationComponent implements OnInit, AfterViewInit {
       this.dataSource.paginator = this.paginator;
       this.agentLists.forEach((item: any) => {
         for (const key in item) {
-          if (key == 'agentID' || key == 'cti_CampaignName') {
+          if (key === 'agentID' || key === 'cti_CampaignName') {
             const value: string = '' + item[key];
             if (value.toLowerCase().indexOf(searchTerm.toLowerCase()) >= 0) {
               this.dataSource.data.push(item);
