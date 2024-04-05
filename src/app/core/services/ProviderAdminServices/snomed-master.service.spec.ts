@@ -21,7 +21,7 @@
  */
 import { TestBed, inject } from '@angular/core/testing';
 
-import { SnomedMasterService } from './snomed-master.service';
+import { SnomedMasterService } from '../../../configurations/services/snomed-master.service';
 
 describe('SnomedMasterService', () => {
   beforeEach(() => {

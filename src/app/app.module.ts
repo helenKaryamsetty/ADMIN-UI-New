@@ -49,8 +49,6 @@ import { SetSecurityQuestionsComponent } from './user-login/set-security-questio
 import { UserLoginModule } from './user-login/user-login.module';
 import { CoreModule } from './core/core.module';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
-import { AddQuestionnaireComponent } from './activities/questionnaire/add-questionnaire/add-questionnaire.component';
-import { EditQuestionnaireComponent } from './activities/questionnaire/edit-questionnaire/edit-questionnaire.component';
 import { ProviderAdminComponent } from './provider-admin/provider-admin.component';
 import { MultiRoleScreenComponent } from './multi-role-screen/multi-role-screen.component';
 import { SuperAdminComponent } from './super-admin/super-admin.component';
@@ -65,6 +63,17 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { RoleMasterComponent } from './role-master/provider-admin-role-master.component';
 import { ProviderAdminRoleService } from './activities/services/state-serviceline-role.service';
+import { SnomedCodeSearchComponent } from './snomed-code-search/snomed-code-search.component';
+import { MapSnommedCTCodeComponent } from './map-snommed-ctcode/map-snommed-ctcode.component';
+import { ItemService } from './activities/services/item.service';
+import { SnomedMasterService } from './configurations/services/snomed-master.service';
+import { AddQuestionnaireComponent } from './questionnaire/add-questionnaire/add-questionnaire.component';
+import { EditQuestionnaireComponent } from './questionnaire/edit-questionnaire/edit-questionnaire.component';
+import { QuestionnaireServiceService } from './configurations/services/questionnaire-service.service';
+import { adminDataService } from './core/services/adminServices/SMSMaster/data.service';
+import { AgentListCreationService } from './configurations/services/agent-list-creation-service.service';
+import { SmsTemplateService } from './activities/services/sms-template-service.service';
+import { SmsTemplateComponent } from './sms-template/sms-template.component';
 
 @NgModule({
   declarations: [
@@ -81,6 +90,9 @@ import { ProviderAdminRoleService } from './activities/services/state-servicelin
     LocationServicelineMappingComponent,
     EditLocationModalComponent,
     RoleMasterComponent,
+    SnomedCodeSearchComponent,
+    MapSnommedCTCodeComponent,
+    SmsTemplateComponent,
   ],
   imports: [
     BrowserModule,
@@ -109,12 +121,19 @@ import { ProviderAdminRoleService } from './activities/services/state-servicelin
   providers: [
     HttpClient,
     ProviderAdminRoleService,
+    ItemService,
+    SnomedMasterService,
+    QuestionnaireServiceService,
+    adminDataService,
+    AgentListCreationService,
+    SmsTemplateService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpInterceptorService,
       multi: true,
     },
   ],
+
   // entryComponents: [
   //   CommonDialogComponent,
   //   ViewVersionDetailsComponent,

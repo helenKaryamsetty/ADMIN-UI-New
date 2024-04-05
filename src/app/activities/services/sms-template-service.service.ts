@@ -21,14 +21,8 @@
  */
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-// import { Observable } from 'rxjs';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
-
-import { ConfigService } from '../../config/config.service';
-// import { InterceptedHttp } from 'app/http.interceptor';
-// import { SecurityInterceptedHttp } from 'app/http.securityinterceptor';
-import { adminDataService } from './data.service';
+import { ConfigService } from '../../core/services/config/config.service';
+import { adminDataService } from '../../core/services/adminServices/SMSMaster/data.service';
 
 @Injectable()
 export class SmsTemplateService {

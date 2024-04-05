@@ -425,9 +425,9 @@
         <button mat-menu-item>Van Spoke Mapping</button>
         <button mat-menu-item>Spoke Fetosense Device ID Mapping</button>
       </mat-menu>
-      <button mat-menu-item>SMS Templates</button>
-      <button mat-menu-item>CDI Questionnaire</button>
-      <button mat-menu-item>Mapping Snomed CT Code</button>
+      <button mat-menu-item (click)="show('63')">SMS Templates</button>
+      <button mat-menu-item (click)="show('64')">CDI Questionnaire</button>
+      <button mat-menu-item (click)="show('65')">Mapping Snomed CT Code</button>
     </mat-menu>
     <button mat-button>Inventory</button>
     <!-- <div class="panel-body card p-a-0 bg-white sm-m-b-35 xs-m-b-35"> -->
@@ -575,13 +575,11 @@
               ></app-wrapup-time-configuration>
               <app-user-signature-mapping
                 *ngSwitchCase="62"
-              ></app-user-signature-mapping>
-              <app-sms-template *ngSwitchCase="63"></app-sms-template>
-              <app-add-questionnaire *ngSwitchCase="64"></app-add-questionnaire>
-              <app-map-snommed-ctcode
-                *ngSwitchCase="65"
-              ></app-map-snommed-ctcode>
-              <app-nodal-officer-configuration
+              ></app-user-signature-mapping> -->
+        <app-sms-template *ngSwitchCase="63"></app-sms-template>
+        <app-add-questionnaire *ngSwitchCase="64"></app-add-questionnaire>
+        <app-map-snommed-ctcode *ngSwitchCase="65"></app-map-snommed-ctcode>
+        <!-- <app-nodal-officer-configuration
                 *ngSwitchCase="66"
               ></app-nodal-officer-configuration>
               <app-van-spoke-mapping *ngSwitchCase="67"></app-van-spoke-mapping>

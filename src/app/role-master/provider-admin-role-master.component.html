@@ -366,46 +366,6 @@
         showFirstLastButtons
       >
       </mat-paginator>
-
-      <!-- <table [md2Data]="objs" #md2="md2DataTable" class="table table-striped table-hover" [rowsPerPage]="3">
-        <thead>
-          <tr>
-            <th width="5%">S.No.</th>
-            <th width="15%">Role</th>
-            <th width="25%">Description</th>
-            <th width="20%">Feature Name</th>
-            <th width="15%">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngIf="objs.length === 0" class="record-not-found">
-            <td colspan="5" align="center">No records found</td>
-          </tr>
-          <tr *ngFor="let obj of md2.data; let i=index">
-            <td>{{objs.indexOf(obj)+1}}</td>
-            <td>{{obj.roleName}}</td>
-            <td>{{obj.roleDesc}}</td>
-            <td>
-              <ul class="p-l-15">
-                <li class="p-l-5" *ngFor="let screen of obj.screen_name;let j=index ">
-                  {{screen}}
-                  <mat-icon class="cursorPointer" matTooltip="Remove {{screen}}" (click)="removeFeature(objs.indexOf(obj),j)">cancel</mat-icon>
-                </li>
-              </ul>
-            </td>
-            <td>
-              <mat-icon class="cursorPointer" matTooltip="delete" (click)="remove_obj(objs.indexOf(obj))">delete</mat-icon>
-            </td>
-          </tr>
-        </tbody>
-        <tfoot>
-          <tr>
-            <td colspan="5">
-              <md2-pagination></md2-pagination>
-            </td>
-          </tr>
-        </tfoot>
-      </table> -->
     </div>
   </div>
 

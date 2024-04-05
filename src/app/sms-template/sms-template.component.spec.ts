@@ -19,21 +19,27 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see https://www.gnu.org/licenses/.
  */
-import { TestBed, inject } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { QuestionnaireServiceService } from '../../configurations/services/questionnaire-service.service';
+import { SmsTemplateComponent } from './sms-template.component';
 
-describe('QuestionnaireServiceService', () => {
-  beforeEach(() => {
+describe('SmsTemplateComponent', () => {
+  let component: SmsTemplateComponent;
+  let fixture: ComponentFixture<SmsTemplateComponent>;
+
+  beforeEach(async(() => {
     TestBed.configureTestingModule({
-      providers: [QuestionnaireServiceService],
-    });
+      declarations: [SmsTemplateComponent],
+    }).compileComponents();
+  }));
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(SmsTemplateComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
   });
 
-  it('should be created', inject(
-    [QuestionnaireServiceService],
-    (service: QuestionnaireServiceService) => {
-      expect(service).toBeTruthy();
-    },
-  ));
+  it('should be created', () => {
+    expect(component).toBeTruthy();
+  });
 });

@@ -12,6 +12,9 @@ import { MatTableModule } from '@angular/material/table';
 import { MaterialModule } from '../core/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProviderAdminRoleService } from './services/state-serviceline-role.service';
+import { ItemService } from './services/item.service';
+import { SnomedMasterService } from '../configurations/services/snomed-master.service';
+import { SmsTemplateService } from './services/sms-template-service.service';
 // import { EditLocationModalComponent } from '../location-serviceline-mapping/location-serviceline-mapping.component';
 // import { EditLocationModalComponent } from '../location-serviceline-mapping/location-serviceline-mapping.component';
 
@@ -34,6 +37,11 @@ import { ProviderAdminRoleService } from './services/state-serviceline-role.serv
     FormsModule,
     ReactiveFormsModule,
   ],
-  providers: [ProviderAdminRoleService],
+  providers: [
+    ProviderAdminRoleService,
+    ItemService,
+    SnomedMasterService,
+    SmsTemplateService,
+  ],
 })
 export class ActivitiesModule {}

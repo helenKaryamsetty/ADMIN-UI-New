@@ -22,9 +22,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { QuestionnaireServiceService } from 'src/app/configurations/services/questionnaire-service.service';
 import { dataService } from 'src/app/core/services/dataService/data.service';
 import { ConfirmationDialogsService } from 'src/app/core/services/dialog/confirmation.service';
-import { QuestionnaireServiceService } from '../../services/questionnaire-service.service';
 
 @Component({
   selector: 'app-edit-questionnaire',

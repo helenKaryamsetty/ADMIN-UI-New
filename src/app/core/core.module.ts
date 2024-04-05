@@ -20,6 +20,7 @@ import { CommonDialogComponent } from './components/common-dialog/common-dialog.
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { LocationServicelineMapping } from './services/ProviderAdminServices/location-serviceline-mapping.service';
+import { CommonServices } from './services/inventory-services/commonServices';
 // import { ProviderAdminComponent } from './components/provider-admin/provider-admin.component';
 
 @NgModule({
@@ -51,6 +52,7 @@ import { LocationServicelineMapping } from './services/ProviderAdminServices/loc
     ScreenService,
     ServicemasterService,
     LocationServicelineMapping,
+    CommonServices,
   ],
 })
 export class CoreModule {

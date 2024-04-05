@@ -19,58 +19,72 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see https://www.gnu.org/licenses/.
  */
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormControl, FormArray, FormBuilder } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
-import { EditQuestionnaireComponent } from '../edit-questionnaire/edit-questionnaire.component';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
-import { AgentListCreationService } from 'src/app/core/services/ProviderAdminServices/agent-list-creation-service.service';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import {
+  FormGroup,
+  FormControl,
+  FormArray,
+  FormBuilder,
+  AbstractControl,
+} from '@angular/forms';
+import { AgentListCreationService } from 'src/app/configurations/services/agent-list-creation-service.service';
+import { QuestionnaireServiceService } from 'src/app/configurations/services/questionnaire-service.service';
 import { dataService } from 'src/app/core/services/dataService/data.service';
 import { ConfirmationDialogsService } from 'src/app/core/services/dialog/confirmation.service';
-import { QuestionnaireServiceService } from 'src/app/activities/services/questionnaire-service.service';
+import { EditQuestionnaireComponent } from '../edit-questionnaire/edit-questionnaire.component';
+import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-add-questionnaire',
   templateUrl: './add-questionnaire.component.html',
   styleUrls: ['./add-questionnaire.component.css'],
 })
-export class AddQuestionnaireComponent implements OnInit {
+export class AddQuestionnaireComponent implements OnInit, AfterViewInit {
   showAdd = false;
   // questionTypes:any=["Qualitative","Utility","Quantitative"];
-  @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
-  dataSource = new MatTableDataSource<any>();
-
   answerTypes: any = ['Radio', 'Dropdown', 'Free Text'];
   questionnaireForm!: FormGroup;
   questionArrayList: any;
-  questionOptionList!: any[];
+  questionOptionList: any = [];
   questiontype: any = null;
   disabledFlag: any = true;
   saveDisabled = true;
   minwght = 0;
   maxwght = 100;
   questionsList: any;
-  questionrows: any = [];
-  // questionlists: any = [];
+  // questionrows: any = [];
+  questionlists: any = [];
   providerServiceMapID: any;
   questionlistValue: any = [];
   rankArray: any = [];
   questionrowsfilter: any = [];
   services: any = [];
-  state!: string;
+  state: any;
   states: any = [];
   userID: any;
   showtype = false;
   questionTypeArray: any = [];
-  questiontypeID: number | undefined;
-  questionnaireType: string | undefined;
-  service: string | undefined;
+  questiontypeID = 0;
+  questionnaireType: any;
+  service: any;
   // qindex:number=0
   // sum: number=0;
   delVar = false;
   enableOptionArray: any = [];
-  allQuestions: any = [];
+  displayedColumns = [
+    'sno',
+    'question',
+    'questionWeightage',
+    'answerType',
+    'edit',
+    'delete',
+  ];
+
+  @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
+  dataSource = new MatTableDataSource<any>();
+
   constructor(
     private formBuilder: FormBuilder,
     public commonDialogService: ConfirmationDialogsService,
@@ -85,45 +99,47 @@ export class AddQuestionnaireComponent implements OnInit {
     this.userID = this.data_service.uid;
     this.getServices(this.userID);
     this.getQuestionType();
-    this.getQusetionsNew();
   }
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+  }
+
   getQuestionType() {
     this.questionnaire_service
       .getQuestionTypes()
-      .subscribe((response: any) =>
-        this.getQuestionTypeSuccessHandeler(response),
-      );
+      .subscribe((response) => this.getQuestionTypeSuccessHandeler(response));
   }
   getQuestionTypeSuccessHandeler(response: any) {
     console.log('*QUESTION TYPES*', response);
-    this.questionTypeArray = response;
+    this.questionTypeArray = response.data;
   }
 
   getServices(userID: any) {
     this.questionnaire_service.getServices(userID).subscribe(
-      (response: any) => this.getServicesSuccessHandeler(response),
-      (err: any) => console.log('Error', err),
+      (response) => this.getServicesSuccessHandeler(response),
+      (err) => console.log('Error', err),
     ); //
   }
 
   getServicesSuccessHandeler(response: any) {
     console.log('SERVICES', response);
-    this.services = response;
+    this.services = response.data;
   }
   getStates(serviceID: any, isNational: any) {
     this.state = '';
     this._getproviderService
       .getStates(this.userID, serviceID, isNational)
       .subscribe(
-        (response: any) => this.getStatesSuccessHandeler(response, isNational),
-        (err: any) => console.log('Error', err),
+        (response) => this.getStatesSuccessHandeler(response, isNational),
+        (err) => console.log('Error', err),
       );
     //this.alertService.alert(err, 'error'));
   }
 
   getStatesSuccessHandeler(response: any, isNational: any) {
     console.log('STATE', response);
-    this.states = response;
+    this.states = response.data;
     if (isNational) {
       this.setProviderServiceMapID(this.states[0].providerServiceMapID);
     }
@@ -134,6 +150,20 @@ export class AddQuestionnaireComponent implements OnInit {
     this.showtype = true;
     this.createQuestionList(this.providerServiceMapID);
   }
+
+  getNewQuestionsList(): AbstractControl[] | null {
+    const newQuestionsControl = this.questionnaireForm.get('newQuestions');
+    return newQuestionsControl instanceof FormArray
+      ? newQuestionsControl.controls
+      : null;
+  }
+  getAnswerOptionsList(newQuestion: any): AbstractControl[] | null {
+    const answerOptionsControl = newQuestion.get('answerOptions');
+    return answerOptionsControl instanceof FormArray
+      ? answerOptionsControl.controls
+      : null;
+  }
+
   createQuestionList(providerServiceMapID: any) {
     this.questionnaire_service
       .fetchQuestionnaire({
@@ -143,12 +173,12 @@ export class AddQuestionnaireComponent implements OnInit {
         (response: any) => {
           console.log('Hello', response);
           if (response.statusCode === 200) {
-            this.dataSource = response.data;
+            this.questionlists = response.data;
 
-            console.log('Successfull Message', this.dataSource);
+            console.log('Successfull Message', this.questionlists);
           }
         },
-        (error: any) => {
+        (error) => {
           console.log(error);
           // this.commonDialogService.alert(error.errorMessage, 'error');
         },
@@ -186,9 +216,6 @@ export class AddQuestionnaireComponent implements OnInit {
   get newQuestions(): FormArray {
     return this.questionnaireForm.get('newQuestions') as FormArray;
   }
-  getQusetionsNew() {
-    this.allQuestions = this.newQuestions;
-  }
   addOptionField(i: any) {
     this.questionOptionList = [];
 
@@ -210,7 +237,7 @@ export class AddQuestionnaireComponent implements OnInit {
       deleted: this.delVar,
     });
   }
-  deleteOptionField(i: any, idx: number) {
+  deleteOptionField(i: any, idx: any) {
     const control = <FormArray>(
       this.questionnaireForm.get(['newQuestions', i, 'answerOptions'])
     );
@@ -259,7 +286,7 @@ export class AddQuestionnaireComponent implements OnInit {
           console.log('Successfull Message');
         }
       },
-      (err: { errorMessage: string }) => {
+      (err) => {
         this.commonDialogService.alert(err.errorMessage, 'error');
         // this.successhandler();
       },
@@ -267,25 +294,12 @@ export class AddQuestionnaireComponent implements OnInit {
   }
   // this.sum=0;
   // }
-  iterateArray(questionlistValue: { newQuestions: any[] }) {
+  iterateArray(questionlistValue: any) {
     console.log('QuestionTypeID', this.questiontypeID);
-    const postQuestionList: {
-      questionnaireDetail: {
-        questionTypeID: number | undefined;
-        questionType: any;
-        question: any;
-        questionRank: any;
-        questionWeightage: any;
-        answerType: any;
-        questionOptions: any;
-        providerServiceMapID: any;
-        createdBy: any;
-        deleted: boolean;
-      };
-    }[] = [];
+    const postQuestionList: any = [];
     const reqObj = {};
 
-    questionlistValue.newQuestions.forEach((question) => {
+    questionlistValue.newQuestions.forEach((question: any) => {
       // question.answerOptions.deleted.patchValue({"deleted": false });
       // this.answerOptions[0].patchValue({"deleted": false });
       if (question.questionWeight === ' ') {
@@ -335,10 +349,8 @@ export class AddQuestionnaireComponent implements OnInit {
     this.showAdd = true;
   }
   weightFlag: any = true;
-  weightageInput(index: number) {
+  weightageInput(index: any) {
     const value = this.newQuestions.at(index).value.questionWeight;
-    // if (value == undefined) {
-    // }
     if (value >= 0 && value <= 100) {
       this.weightFlag = false;
       console.log('wght', this.weightFlag);
@@ -355,14 +367,12 @@ export class AddQuestionnaireComponent implements OnInit {
     }
   }
   optionweightFlag: any = true;
-  optionweightage(index: number, mainIndex: number) {
+  optionweightage(index: any, mainIndex: any) {
     console.log('Index', index);
     const questionvalue = this.newQuestions.at(mainIndex).value.answerOptions;
     console.log('ValueIndex', questionvalue);
     const value = questionvalue[index].optionWeightage;
     console.log('Valueee', value);
-    // if (value == undefined) {
-    // }
     if (value >= 0 && value <= 100) {
       this.optionweightFlag = false;
       console.log('wght', this.optionweightFlag);
@@ -379,20 +389,22 @@ export class AddQuestionnaireComponent implements OnInit {
     }
   }
   setQuestionType(value: any) {
-    // this.dataSource = this.dataSource.data.sort((a: any, b: any) =>
-    //   a.questionRank < b.questionRank ? -1 : 1,
-    // );
-    console.log('questionrows', this.dataSource);
+    this.questionlists = this.questionlists.sort((a: any, b: any) =>
+      a.questionRank < b.questionRank ? -1 : 1,
+    );
+    console.log('questionrows', this.questionlists);
     console.log('questiontyepvalue', value);
-    this.questionrows = [];
+    this.dataSource.data = [];
+    this.dataSource.paginator = this.paginator;
     this.questionrowsfilter = [];
-    for (let i = 0; i < this.dataSource.data.length; i++) {
-      if (value === this.dataSource.data[i].questionType) {
-        this.questionrows.push(this.dataSource.data[i]);
-        this.questionrowsfilter.push(this.dataSource.data[i]);
+    for (let i = 0; i < this.questionlists.length; i++) {
+      if (value === this.questionlists[i].questionType) {
+        this.dataSource.data.push(this.questionlists[i]);
+        this.questionrowsfilter.push(this.questionlists[i]);
       }
     }
-    console.log('questionrows1', this.questionrows);
+    this.dataSource.paginator = this.paginator;
+    console.log('questionrows1', this.dataSource.data);
     console.log('questionrows2', this.questionrowsfilter);
 
     if (value === null) {
@@ -448,10 +460,10 @@ export class AddQuestionnaireComponent implements OnInit {
       .subscribe(
         (respon: any) => {
           // this.listDisplay = true;
-          this.dataSource = respon.data;
+          this.questionlists = respon.data;
           this.setQuestionType(this.questiontype);
         },
-        (error: any) => {
+        (error) => {
           console.log(error);
         },
       );
@@ -487,11 +499,11 @@ export class AddQuestionnaireComponent implements OnInit {
             .subscribe(
               (respon: any) => {
                 // this.listDisplay = true;
-                this.dataSource = respon.data;
+                this.questionlists = respon.data;
 
                 this.setQuestionType(response.questionType);
               },
-              (error: any) => {
+              (error) => {
                 console.log(error);
               },
             );
@@ -503,11 +515,11 @@ export class AddQuestionnaireComponent implements OnInit {
             .subscribe(
               (respon: any) => {
                 // this.listDisplay = true;
-                this.dataSource = respon.data;
+                this.questionlists = respon.data;
 
                 this.setQuestionType(this.questiontype);
               },
-              (error: any) => {
+              (error) => {
                 console.log(error);
               },
             );
@@ -524,7 +536,7 @@ export class AddQuestionnaireComponent implements OnInit {
     console.log(row);
     this.commonDialogService
       .confirm('', 'Are you sure you want to delete?')
-      .subscribe((response: any) => {
+      .subscribe((response) => {
         if (response) {
           this.questionnaire_service
             .deleteQuestionaire({
@@ -550,17 +562,17 @@ export class AddQuestionnaireComponent implements OnInit {
                     .subscribe(
                       (respon: any) => {
                         // this.listDisplay = true;
-                        this.dataSource = respon.data;
+                        this.questionlists = respon.data;
 
                         this.setQuestionType(this.questiontype);
                       },
-                      (error: any) => {
+                      (error) => {
                         console.log(error);
                       },
                     );
                 }
               },
-              (error: any) => {
+              (error) => {
                 this.commonDialogService.alert(error.errorMessage, 'error');
               },
             );
@@ -577,8 +589,6 @@ export class AddQuestionnaireComponent implements OnInit {
       this.rankArray[index] = '';
     }
 
-    // if (value == undefined) {
-    // }
     if (value > 0) {
       if (this.rankArray.length === 0) {
         this.rankFlag = false;
@@ -600,9 +610,9 @@ export class AddQuestionnaireComponent implements OnInit {
 
       console.log('Rank', value);
       if (setRank === false) {
-        for (let i = 0; i < this.dataSource.data.length; i++) {
+        for (let i = 0; i < this.questionlists.length; i++) {
           // console.log("qiestioList", this.questionlists[i].questionnaireDetail.questionRank);
-          if (value === this.dataSource.data[i].questionRank) {
+          if (value === this.questionlists[i].questionRank) {
             // this.rankFlag = true;
             // setRank=true;
             // this.commonDialogService.alert("Question with same rank is already exist", 'error');
@@ -612,7 +622,7 @@ export class AddQuestionnaireComponent implements OnInit {
                 '',
                 'Question with same rank is already exist.Are you sure want to proceed with the same rank?(Further higher rank questions will incremented by 1)',
               )
-              .subscribe((response: any) => {
+              .subscribe((response) => {
                 if (response) {
                   this.rankFlag = false;
                 } else {
@@ -644,9 +654,12 @@ export class AddQuestionnaireComponent implements OnInit {
     }
   }
   filterQuestionList(searchTerm: string) {
-    if (!searchTerm) this.questionrows = this.questionrowsfilter;
-    else {
-      this.questionrows = [];
+    if (!searchTerm) {
+      this.dataSource.data = this.questionrowsfilter;
+      this.dataSource.paginator = this.paginator;
+    } else {
+      this.dataSource.data = [];
+      this.dataSource.paginator = this.paginator;
       console.log('questionrowsfilter', this.questionrowsfilter);
       this.questionrowsfilter.forEach((item: any) => {
         for (const key in item) {
@@ -654,16 +667,17 @@ export class AddQuestionnaireComponent implements OnInit {
           if (key === 'questionRank') {
             const value: string = '' + item[key];
             if (value.toLowerCase().indexOf(searchTerm.toLowerCase()) >= 0) {
-              this.questionrows.push(item);
+              this.dataSource.data.push(item);
               break;
             }
           } else if (key === 'question') {
             const value: string = '' + item[key];
             if (value.toLowerCase().indexOf(searchTerm.toLowerCase()) >= 0) {
-              this.questionrows.push(item);
+              this.dataSource.data.push(item);
               break;
             }
           }
+          this.dataSource.paginator = this.paginator;
         }
       });
     }
