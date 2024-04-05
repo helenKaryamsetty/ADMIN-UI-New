@@ -22,8 +22,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
 // import { InterceptedHttp } from '../../http.interceptor';
 import { ConfigService } from '../config/config.service';
 // import { SecurityInterceptedHttp } from '../../http.securityinterceptor';
@@ -68,7 +66,7 @@ export class InstituteDirectoryMasterService {
     this.getStates_new_url = this.admin_Base_Url + 'm/role/stateNew';
   }
 
-  getStatesNew(obj: any) {
+  getStatesNew(obj: any):Observable<any> {
     return this.http.post(this.getStates_new_url, obj);
     // .map(this.handleSuccess)
     // 	.catch(this.handleError);

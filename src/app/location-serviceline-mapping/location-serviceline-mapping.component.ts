@@ -99,7 +99,7 @@ export class LocationServicelineMappingComponent implements OnInit {
     private alertService: ConfirmationDialogsService,
   ) {
     this.userID = this.commonDataService.uid;
-    this.serviceProviderID = this.commonDataService.service_providerID; //pass this value dynamically
+    this.serviceProviderID = this.commonDataService.providerServiceMapID_104; //pass this value dynamically
     this.states = [];
     this.districts = [];
     this.servicelines = [];
@@ -276,7 +276,7 @@ export class LocationServicelineMappingComponent implements OnInit {
 
   findLocations(stateID: any, serviceID: any) {
     const reqOBJ = {
-      serviceProviderID: 1,
+      serviceProviderID: this.serviceProviderID,
       stateID: stateID,
       serviceID: serviceID,
       isNational: this.nationalFlag,

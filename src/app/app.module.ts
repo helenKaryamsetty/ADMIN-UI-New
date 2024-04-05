@@ -61,6 +61,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { EmployeeMasterNewComponent } from './employee-master-new/employee-master-new.component';
+import { MatInputModule } from '@angular/material/input';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { LanguageMappingComponent } from './language-mapping/language-mapping.component';
+
 import { RoleMasterComponent } from './role-master/provider-admin-role-master.component';
 import { ProviderAdminRoleService } from './activities/services/state-serviceline-role.service';
 import { SnomedCodeSearchComponent } from './snomed-code-search/snomed-code-search.component';
@@ -74,7 +79,29 @@ import { adminDataService } from './core/services/adminServices/SMSMaster/data.s
 import { AgentListCreationService } from './configurations/services/agent-list-creation-service.service';
 import { SmsTemplateService } from './activities/services/sms-template-service.service';
 import { SmsTemplateComponent } from './sms-template/sms-template.component';
+import { SpecialistMappingComponent } from './specialist-mapping/specialist-mapping.component';
+import { SupplierMasterComponent } from './supplier-master/supplier-master.component';
+import { ManufacturerMasterComponent } from './manufacturer-master/manufacturer-master.component';
+import { CommonServices } from './core/services/inventory-services/commonServices';
+import { SuppliermasterService } from './core/services/inventory-services/suppliermaster.service';
+import { dataService } from './core/services/dataService/data.service';
+import { ConfirmationDialogsService } from './core/services/dialog/confirmation.service';
+import { ManufacturemasterService } from './core/services/inventory-services/manufacturemaster.service';
+import { PharmacologicalCategoryMasterComponent } from './pharmacological-category-master/pharmacological-category-master.component';
+import { PharmacologicalMasterService } from './core/services/inventory-services/pharmacological-category-service';
+import { ItemCategoryMasterComponent } from './item-category-master/item-category-master.component';
+import { ItemCategoryService } from './core/services/inventory-services/item-category.service';
+import { EditItemCategoryComponent } from './item-category-master/edit-item-category/edit-item-category.component';
+import { CallDispositionTypeMasterComponent, EditCallType } from './call-disposition-type-master/call-disposition-type-master.component';
+import { ServicelineCdssMapping } from './serviceline-cdss-mapping/servicelineCdssMapping.component';
+import { CategorySubcategoryProvisioningComponent } from './category-subcategory-provisioning/category-subcategory-provisioning.component';
+import { EditCategorySubcategoryComponent } from './category-subcategory-provisioning/edit-category-subcategory/edit-category-subcategory.component';
+import { EditFeedbackModal, FeedbackTypeMasterComponent } from './feedback-type-master/feedback-type-master.component';
 
+import { InstituteDirectoryMasterComponent } from './institute-directory-master/institute-directory-master/institute-directory-master.component';
+import { EditInstituteDirectoryComponent } from './institute-directory-master/edit-institute-directory/edit-institute-directory.component';
+import { WorkLocationMappingComponent } from './work-location-mapping/work-location-mapping.component';
+import { AgentListCreationComponent } from './agent-list-creation/agent-list-creation.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -89,10 +116,30 @@ import { SmsTemplateComponent } from './sms-template/sms-template.component';
     SuperAdminComponent,
     LocationServicelineMappingComponent,
     EditLocationModalComponent,
+    EmployeeMasterNewComponent,
+    LanguageMappingComponent,
     RoleMasterComponent,
     SnomedCodeSearchComponent,
     MapSnommedCTCodeComponent,
     SmsTemplateComponent,
+    SpecialistMappingComponent,
+    SupplierMasterComponent,
+    ManufacturerMasterComponent,
+    PharmacologicalCategoryMasterComponent,
+    ItemCategoryMasterComponent,
+    EditItemCategoryComponent,
+    CallDispositionTypeMasterComponent,
+    EditCallType,
+    ServicelineCdssMapping,
+    CategorySubcategoryProvisioningComponent,
+    EditCategorySubcategoryComponent,
+    FeedbackTypeMasterComponent,
+    EditFeedbackModal,
+    InstituteDirectoryMasterComponent,
+    EditInstituteDirectoryComponent,
+    WorkLocationMappingComponent,
+    InstituteDirectoryMasterComponent,
+    AgentListCreationComponent,
   ],
   imports: [
     BrowserModule,
@@ -113,12 +160,19 @@ import { SmsTemplateComponent } from './sms-template/sms-template.component';
     MatSelectModule,
     MatTableModule,
     MatPaginatorModule,
+    MatInputModule,
+    MatExpansionModule,
   ],
   // UserLoginModule,
   //DataSYNCModule,
   // CoreModule.forRoot()
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
+    CommonServices,
+    SuppliermasterService,
+    dataService,
+    ConfirmationDialogsService,
+    ManufacturemasterService,
     HttpClient,
     ProviderAdminRoleService,
     ItemService,
@@ -127,6 +181,11 @@ import { SmsTemplateComponent } from './sms-template/sms-template.component';
     adminDataService,
     AgentListCreationService,
     SmsTemplateService,
+    PharmacologicalMasterService,
+    ItemService,
+    ItemCategoryService,
+    AgentListCreationService,
+
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpInterceptorService,

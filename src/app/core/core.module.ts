@@ -21,6 +21,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { LocationServicelineMapping } from './services/ProviderAdminServices/location-serviceline-mapping.service';
 import { CommonServices } from './services/inventory-services/commonServices';
+
+import { EmployeeMasterNewServices } from './services/ProviderAdminServices/employee-master-new-services.service';
+import { LanguageMapping } from './services/ProviderAdminServices/language-mapping.service';
+import { WorkLocationMapping } from './services/ProviderAdminServices/work-location-mapping.service';
+import { VillageMasterService } from './services/adminServices/AdminVillage/village-master-service.service';
+import { SpecialistMappingService } from './services/ProviderAdminServices/specialist-mapping.service';
+import { CallTypeSubtypeService } from './services/ProviderAdminServices/calltype-subtype-master-service.service';
+import { InstituteDirectoryMasterService } from './services/ProviderAdminServices/institute-directory-master-service.service';
+import { CategorySubcategoryService } from './services/ProviderAdminServices/category-subcategory-master-service.service';
+import { FeedbackTypeService } from './services/ProviderAdminServices/feedback-type-master-service.service';
 // import { ProviderAdminComponent } from './components/provider-admin/provider-admin.component';
 
 @NgModule({
@@ -53,6 +63,15 @@ import { CommonServices } from './services/inventory-services/commonServices';
     ServicemasterService,
     LocationServicelineMapping,
     CommonServices,
+    EmployeeMasterNewServices,
+    LanguageMapping,
+    WorkLocationMapping,
+    VillageMasterService,
+    SpecialistMappingService,
+    CallTypeSubtypeService,
+    InstituteDirectoryMasterService,
+    CategorySubcategoryService,
+    FeedbackTypeService
   ],
 })
 export class CoreModule {
