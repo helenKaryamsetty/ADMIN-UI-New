@@ -28,7 +28,7 @@ import { environment } from 'src/environments/environment';
 // import 'rxjs/add/operator/map';
 
 const adminIP = environment.adminBaseUrl;
-const commonIP = environment._commonBaseURL;
+const commonIP = environment.commonBaseURL;
 
 @Injectable()
 export class ConfigService {

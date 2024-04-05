@@ -25,81 +25,43 @@ import { ConfigService } from '../../core/services/config/config.service';
 // import { SecurityInterceptedHttp } from '../../http.securityinterceptor';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 // import 'rxjs/add/operator/catch';
 // import 'rxjs/add/operator/map';
 
 @Injectable()
 export class SnomedMasterService {
-  providerAdmin_Base_Url: any;
-  common_Base_Url: any;
 
-  getSnomedRecord: any;
-  getmasterList: any;
-  saveMappingList: any;
-  editMappingList: any;
-  updateBlockStatus: any;
   constructor(
     private http: HttpClient,
     public basepaths: ConfigService,
-  ) {
-    this.providerAdmin_Base_Url = this.basepaths.getAdminBaseUrl();
-    this.common_Base_Url = this.basepaths.getCommonBaseURL();
-
-    this.getSnomedRecord =
-      this.common_Base_Url + 'snomed/getSnomedCTRecordList';
-    this.getmasterList =
-      this.providerAdmin_Base_Url + 'snomed/fetchSnomedWorklist';
-    this.saveMappingList =
-      this.providerAdmin_Base_Url + 'snomed/saveSnomedMappingData';
-    this.editMappingList =
-      this.providerAdmin_Base_Url + 'snomed/editSnomedMappingData';
-    this.updateBlockStatus =
-      this.providerAdmin_Base_Url + 'snomed/updateStatus';
-  }
-
+  ) {}
   searchSnomedRecord(searchTerm: any, pageNo: any) {
     const body = {
       term: searchTerm,
       pageNo: pageNo,
     };
 
-    return this.http.post(this.getSnomedRecord, body);
-    // .map(res => res.json());
+    return this.http.post(environment.getSnomedRecord, body);
   }
 
   getMasterList(masterType: any) {
     const body = {
       masterType: masterType,
     };
-    return this.http.post(this.getmasterList, body);
-    // .map(res => res.json());
+    return this.http.post(environment.getmasterList, body);
   }
 
   saveSctMapping(mapping: any) {
-    return this.http.post(this.saveMappingList, mapping);
-    // .map(res => res.json());
+    return this.http.post(environment.saveMappingList, mapping);
   }
 
   editSctMapping(mapping: any) {
-    return this.http.post(this.editMappingList, mapping);
-    // .map(res => res.json());
+    return this.http.post(environment.editMappingList, mapping);
   }
 
   updateBlock(status: any) {
-    return this.http.post(this.updateBlockStatus, status);
-    // .map(res => res.json());
+    return this.http.post(environment.updateBlockStatus, status);
   }
 
-  // handleSuccess(res: Response) {
-  //   console.log(res.json(), 'calltype-subtype service file success response');
-  //   if (res.json().data) {
-  //     return res.json().data;
-  //   } else {
-  //     return Observable.throw(res.json());
-  //   }
-  // }
-
-  // handleError(error: Response | any) {
-  //   return Observable.throw(error.json());
-  // }
 }

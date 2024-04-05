@@ -22,98 +22,48 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ConfigService } from '../../core/services/config/config.service';
-import { adminDataService } from '../../core/services/adminServices/SMSMaster/data.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class SmsTemplateService {
-  commonBaseURL: any;
-
-  getSMStemplates_url: any;
-  saveSMStemplate_url: any;
-  updateSMStemplate_url: any;
-
-  getSMStypes_url: any;
-  getSMSparameters_url: any;
-
-  getFullSMSTemplate_url: any;
-
-  sendSMS_url: any;
 
   constructor(
     private _http: HttpClient,
     public _config: ConfigService,
-    private dataService: adminDataService,
-  ) {
-    this.commonBaseURL = this._config.getCommonBaseURL();
-
-    this.getSMStemplates_url = this.commonBaseURL + 'sms/getSMSTemplates';
-    this.saveSMStemplate_url = this.commonBaseURL + 'sms/saveSMSTemplate';
-    this.updateSMStemplate_url = this.commonBaseURL + 'sms/updateSMSTemplate';
-
-    this.getSMStypes_url = this.commonBaseURL + 'sms/getSMSTypes';
-    this.getSMSparameters_url = this.commonBaseURL + 'sms/getSMSParameters';
-    this.getFullSMSTemplate_url = this.commonBaseURL + 'sms/getFullSMSTemplate';
-
-    this.sendSMS_url = this.commonBaseURL + 'sms/sendSMS';
-  }
+  ) {}
 
   getSMStemplates(providerServiceMapID: any, smsTypeID?: any) {
-    return this._http.post(this.getSMStemplates_url, {
+    return this._http.post(environment.getSMStemplates_url, {
       providerServiceMapID: providerServiceMapID,
       smsTemplateTypeID: smsTypeID ? smsTypeID : undefined,
     });
-    // .map(this.handleSuccess)
-    // .catch(this.handleError);
   }
 
   getFullSMSTemplate(providerServiceMapID: any, smsTemplateID: any) {
-    return this._http.post(this.getFullSMSTemplate_url, {
+    return this._http.post(environment.getFullSMSTemplate_url, {
       providerServiceMapID: providerServiceMapID,
       smsTemplateID: smsTemplateID,
     });
-    // .map(this.handleSuccess)
-    // .catch(this.handleError);
   }
 
   getSMStypes(serviceID: any) {
-    return this._http.post(this.getSMStypes_url, { serviceID: serviceID });
-    // .map(this.handleSuccess)
-    // .catch(this.handleError);
+    return this._http.post(environment.getSMStypes_url, { serviceID: serviceID });
   }
 
   getSMSparameters(serviceID: any) {
-    return this._http.post(this.getSMSparameters_url, { serviceID: serviceID });
-    // .map(this.handleSuccess)
-    // .catch(this.handleError);
+    return this._http.post(environment.getSMSparameters_url, { serviceID: serviceID });
   }
 
   saveSMStemplate(obj: any) {
-    return this._http.post(this.saveSMStemplate_url, obj);
-    // .map(this.handleSuccess)
-    // .catch(this.handleError);
+    return this._http.post(environment.saveSMStemplate_url, obj);
   }
 
   updateSMStemplate(obj: any) {
-    return this._http.post(this.updateSMStemplate_url, obj);
-    // .map(this.handleSuccess)
-    // .catch(this.handleError);
+    return this._http.post(environment.updateSMStemplate_url, obj);
   }
 
   sendSMS(obj: any) {
-    return this._http.post(this.sendSMS_url, obj);
-    // .map(this.handleSuccess)
-    // .catch(this.handleError);
+    return this._http.post(environment.sendSMS_url, obj);
   }
 
-  // handleSuccess(response: Response) {
-  //     if (response.json().data) {
-  //         return response.json().data;
-  //     } else {
-  //         return Observable.throw(response.json());
-  //     }
-  // }
-
-  // private handleError(error: Response | any) {
-  //     return Observable.throw(error.json());
-  // }
 }
