@@ -44,7 +44,7 @@ export class CommonDialogComponent {
 
   // ngOnInit(): void {}
 
-  Confirm() {
+  confirm() {
     this.cancelEvent.emit(null);
   }
 

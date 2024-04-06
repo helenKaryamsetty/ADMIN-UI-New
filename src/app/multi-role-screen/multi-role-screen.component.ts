@@ -26,9 +26,8 @@ import { PlatformLocation } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { ViewVersionDetailsComponent } from '../core/components/view-version-details/view-version-details.component';
 import { ConfigService } from '../core/services/config/config.service';
-import { dataService } from '../core/services/dataService/data.service';
-import { loginService } from '../core/services/loginService/login.service';
 import { HttpServices } from '../core/services/http-services/http_services.service';
+import { loginService } from '../user-login/loginService/login.service';
 
 declare let jQuery: any;
 
@@ -45,7 +44,6 @@ export class MultiRoleScreenComponent implements OnInit {
   uiVersionDetails: any;
 
   constructor(
-    public getCommonData: dataService,
     public router: Router,
     location: PlatformLocation,
     public HttpServices: HttpServices,
@@ -56,8 +54,8 @@ export class MultiRoleScreenComponent implements OnInit {
     location.onPopState((e: any) => {
       window.history.forward();
     });
-    this.role = this.getCommonData.role;
-    this.id = this.getCommonData.uid;
+    this.role = sessionStorage.getItem('role');
+    this.id = sessionStorage.getItem('uid');
     console.log(this.role, 'ROLE NAME AS OF NOW');
   }
 
@@ -72,7 +70,7 @@ export class MultiRoleScreenComponent implements OnInit {
 
   ngOnInit() {
     this.language_change = 'english';
-    this.data = this.getCommonData.Userdata;
+    this.data = sessionStorage.getItem('Userdata');
     // this.router.navigate(['/MultiRoleScreenComponent']);
     this.getLanguageObject(this.language_change);
     this.getLicense();

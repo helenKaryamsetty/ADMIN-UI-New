@@ -21,9 +21,9 @@
  */
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { dataService } from 'src/app/core/services/dataService/data.service';
 import { ConfirmationDialogsService } from 'src/app/core/services/dialog/confirmation.service';
-import { loginService } from 'src/app/core/services/loginService/login.service';
+import { loginService } from '../loginService/login.service';
+import { dataService } from 'src/app/core/services/dataService/data.service';
 
 @Component({
   selector: 'app-reset-component',

@@ -28,16 +28,16 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class dataService {
-  Userdata: any;
-  userPriveliges: any;
-  uid: any;
-  uname: any;
-  benData: any;
-  role: any;
-  beneficiaryData: any = {};
-  callData: any = {};
-  service_providerID: any;
-  provider_serviceMapID: any;
+  Userdata: any = sessionStorage.getItem('Userdata');
+  userPriveliges: any = sessionStorage.getItem('userPriveliges');
+  uid: any = sessionStorage.getItem('uid');
+  uname: any = sessionStorage.getItem('uname');
+  benData: any = sessionStorage.getItem('benData');
+  role: any = sessionStorage.getItem('role');
+  beneficiaryData: any = sessionStorage.getItem('beneficiaryData');
+  callData: any = sessionStorage.getItem('callData');
+  service_providerID: any = sessionStorage.getItem('service_providerID');
+  provider_serviceMapID: any = sessionStorage.getItem('provider_serviceMapID');
   serviceID104: any = 3;
   serviceIDMMU: any = 2;
   currentLanguage: any;

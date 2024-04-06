@@ -25,9 +25,8 @@ import * as CryptoJS from 'crypto-js';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { ConfigService } from 'src/app/core/services/config/config.service';
-import { dataService } from 'src/app/core/services/dataService/data.service';
 import { ConfirmationDialogsService } from 'src/app/core/services/dialog/confirmation.service';
-import { loginService } from 'src/app/core/services/loginService/login.service';
+import { loginService } from '../loginService/login.service';
 
 @Component({
   selector: 'app-set-password',
@@ -40,7 +39,6 @@ export class SetPasswordComponent {
 
   constructor(
     public http_calls: HttpClient,
-    public getUserData: dataService,
     private configService: ConfigService,
     public router: Router,
     private alertService: ConfirmationDialogsService,
@@ -56,7 +54,7 @@ export class SetPasswordComponent {
   newpwd: any;
   confirmpwd: any;
 
-  uname: any = this.getUserData.uname;
+  uname: any = sessionStorage.getItem('uname');
 
   dynamictype: any = 'password';
   key: any;

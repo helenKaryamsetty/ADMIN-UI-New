@@ -65,7 +65,7 @@ export class SuperAdminComponent implements OnInit, OnChanges {
     if (this.Activity_Number !== '0' && this.Activity_Number !== value) {
       this.alertService
         .confirm(
-          'Confirm',
+          'confirm',
           'Do you really want to navigate? Any unsaved data would be lost',
         )
         .subscribe((response) => {

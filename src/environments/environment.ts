@@ -37,6 +37,8 @@ export const environment = {
   superadminBaseURL: superadminBaseURL,
   commonBaseURL: commonBaseURL,
 
+  extendSessionUrl: `${COMMON_API}common/extend/redisSession`,
+
   //Role Master APIs
   get_State_Url: `${adminBaseUrl}m/role/state`,
   get_Service_Url: `${adminBaseUrl}m/role/service`,
@@ -70,8 +72,6 @@ export const environment = {
   deleteQuestionnaire_url: `${adminBaseUrl}deleteQuestionnaire`,
   getQuestionnaire_url: `${adminBaseUrl}getQuestionnaireList`,
   get_Services_Url: `${adminBaseUrl}m/role/serviceNew`,
-  getQuestionType_url:`${commonBaseURL}questionTypeController/get/questionTypeList`,
+  getQuestionType_url: `${commonBaseURL}questionTypeController/get/questionTypeList`,
   editQuestionnaire_url: `${adminBaseUrl}editQuestionnaire`,
-
-  
-}
+};

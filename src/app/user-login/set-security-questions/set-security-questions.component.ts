@@ -22,11 +22,10 @@
 import { Component, OnInit } from '@angular/core';
 import * as CryptoJS from 'crypto-js';
 import { HttpClient } from '@angular/common/http';
-import { dataService } from 'src/app/core/services/dataService/data.service';
 import { Router } from '@angular/router';
 import { ConfigService } from 'src/app/core/services/config/config.service';
 import { ConfirmationDialogsService } from 'src/app/core/services/dialog/confirmation.service';
-import { loginService } from 'src/app/core/services/loginService/login.service';
+import { loginService } from '../loginService/login.service';
 
 declare let jQuery: any;
 
@@ -40,7 +39,6 @@ export class SetSecurityQuestionsComponent implements OnInit {
     /^(?=.*[0-9])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,12}$/;
 
   constructor(
-    public getUserData: dataService,
     public http_calls: HttpClient,
     public router: Router,
     private configService: ConfigService,
@@ -77,10 +75,10 @@ export class SetSecurityQuestionsComponent implements OnInit {
     console.log('error', this.questions);
   }
 
-  uid: any = this.getUserData.uid;
+  uid: any = sessionStorage.getItem('uid');
   passwordSection = false;
   questionsection = true;
-  uname: any = this.getUserData.uname;
+  uname: any = sessionStorage.getItem('uname');
   key: any;
   iv: any;
   SALT = 'RandomInitVector';

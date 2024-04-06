@@ -156,7 +156,7 @@ export class ConfirmationDialogsService {
     values: any,
     titleAlign = 'center',
     messageAlign = 'center',
-    btnOkText = 'Confirm',
+    btnOkText = 'confirm',
     btnCancelText = 'Cancel',
   ): Observable<any> {
     const config = {

@@ -7,7 +7,6 @@ import { DashboardHttpServices } from './services/dashboard-service/dashboard-se
 import { dataService } from './services/dataService/data.service';
 import { ConfirmationDialogsService } from './services/dialog/confirmation.service';
 import { HttpServices } from './services/http-services/http_services.service';
-import { loginService } from './services/loginService/login.service';
 import { SpinnerService } from './services/spinnerService/spinner.service';
 import { LanguageService } from './services/adminServices/AdminLanguage/language.service';
 import { RoleService } from './services/adminServices/AdminRole/role.service';
@@ -19,19 +18,7 @@ import { AuthService } from './services/authentication/auth.service';
 import { CommonDialogComponent } from './components/common-dialog/common-dialog.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { LocationServicelineMapping } from './services/ProviderAdminServices/location-serviceline-mapping.service';
 import { CommonServices } from './services/inventory-services/commonServices';
-
-import { EmployeeMasterNewServices } from './services/ProviderAdminServices/employee-master-new-services.service';
-import { LanguageMapping } from './services/ProviderAdminServices/language-mapping.service';
-import { WorkLocationMapping } from './services/ProviderAdminServices/work-location-mapping.service';
-import { VillageMasterService } from './services/adminServices/AdminVillage/village-master-service.service';
-import { SpecialistMappingService } from './services/ProviderAdminServices/specialist-mapping.service';
-import { CallTypeSubtypeService } from './services/ProviderAdminServices/calltype-subtype-master-service.service';
-import { InstituteDirectoryMasterService } from './services/ProviderAdminServices/institute-directory-master-service.service';
-import { CategorySubcategoryService } from './services/ProviderAdminServices/category-subcategory-master-service.service';
-import { FeedbackTypeService } from './services/ProviderAdminServices/feedback-type-master-service.service';
-// import { ProviderAdminComponent } from './components/provider-admin/provider-admin.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +36,6 @@ import { FeedbackTypeService } from './services/ProviderAdminServices/feedback-t
   exports: [CommonDialogComponent],
   providers: [
     HttpClient,
-    loginService,
     ConfigService,
     ConfirmationDialogsService,
     dataService,
@@ -61,17 +47,7 @@ import { FeedbackTypeService } from './services/ProviderAdminServices/feedback-t
     RoleService,
     ScreenService,
     ServicemasterService,
-    LocationServicelineMapping,
     CommonServices,
-    EmployeeMasterNewServices,
-    LanguageMapping,
-    WorkLocationMapping,
-    VillageMasterService,
-    SpecialistMappingService,
-    CallTypeSubtypeService,
-    InstituteDirectoryMasterService,
-    CategorySubcategoryService,
-    FeedbackTypeService
   ],
 })
 export class CoreModule {

@@ -35,6 +35,7 @@ import { Router } from '@angular/router';
 import { throwError } from 'rxjs/internal/observable/throwError';
 import { ConfirmationDialogsService } from '../dialog/confirmation.service';
 import { SpinnerService } from '../spinnerService/spinner.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -42,7 +43,6 @@ import { SpinnerService } from '../spinnerService/spinner.service';
 export class HttpInterceptorService implements HttpInterceptor {
   timerRef: any;
   currentLanguageSet: any;
-  private dologout: any = null;
   constructor(
     private spinnerService: SpinnerService,
     private router: Router,
@@ -97,7 +97,7 @@ export class HttpInterceptorService implements HttpInterceptor {
       sessionStorage.clear();
       localStorage.clear();
       setTimeout(() => this.router.navigate(['/']), 0);
-      this.confirmationService.confirm('alert', response.errorMessage);
+      this.confirmationService.alert('error', response.errorMessage);
     } else {
       this.startTimer();
     }
@@ -118,13 +118,12 @@ export class HttpInterceptorService implements HttpInterceptor {
             )
             .afterClosed()
             .subscribe((result: any) => {
-              // if (result.action == 'continue') {
-              //   this.http.post(environment.extendSessionUrl, {}).subscribe(
-              //     (res: any) => {},
-              //     (err: any) => {},
-              //   );
-              // } else
-              if (result.action === 'timeout') {
+              if (result.action === 'continue') {
+                this.http.post(environment.extendSessionUrl, {}).subscribe(
+                  (res: any) => {},
+                  (err: any) => {},
+                );
+              } else if (result.action === 'timeout') {
                 clearTimeout(this.timerRef);
                 sessionStorage.clear();
                 localStorage.clear();
@@ -150,12 +149,5 @@ export class HttpInterceptorService implements HttpInterceptor {
       },
       27 * 60 * 1000,
     );
-  }
-  logoutUserFromPreviousSession = new BehaviorSubject(this.dologout);
-  logoutUserFromPreviousSessions$ =
-    this.logoutUserFromPreviousSession.asObservable();
-  dologoutUsrFromPreSession(dologout: any) {
-    this.dologout = dologout;
-    this.logoutUserFromPreviousSession.next(dologout);
   }
 }

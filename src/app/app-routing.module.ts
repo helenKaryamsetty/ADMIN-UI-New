@@ -5,9 +5,9 @@ import { loginContentClassComponent } from './user-login/login/login.component';
 import { ResetComponent } from './user-login/resetPassword/resetPassword.component';
 import { SetPasswordComponent } from './user-login/set-password/set-password.component';
 import { SetSecurityQuestionsComponent } from './user-login/set-security-questions/set-security-questions.component';
-import { ProviderAdminComponent } from './provider-admin/provider-admin.component';
 import { MultiRoleScreenComponent } from './multi-role-screen/multi-role-screen.component';
 import { SuperAdminComponent } from './super-admin/super-admin.component';
+import { ProviderAdminComponent } from './app-provider-admin/provider-admin/provider-admin.component';
 
 const routes: Routes = [
   {

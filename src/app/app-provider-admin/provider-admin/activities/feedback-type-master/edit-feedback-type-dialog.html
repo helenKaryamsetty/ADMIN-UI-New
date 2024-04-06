@@ -1,0 +1,85 @@
+<div class="row">
+  <div class="pull-left m-l-15">
+    <h4 class="modal-title">Edit Feedback Type</h4>
+  </div>
+  <div class="pull-right">
+    <button mat-button [mat-dialog-close]="true">
+      <mat-icon
+        matTooltip="close"
+        class="mat-icon material-icons pull-right"
+        role="img"
+        aria-hidden="true"
+        style="cursor: pointer"
+        >clear</mat-icon
+      >
+    </button>
+  </div>
+</div>
+<div class="m-t-20">
+  <form #f1="ngForm" autocomplete="off">
+    <div *ngIf="service != '3'">
+      <mat-form-field style="width: 100%">
+        <input
+          matInput
+          placeholder="Feedback Name"
+          name="feedbackName"
+          [(ngModel)]="feedbackName"
+          (keyup)="validateFeedback(feedbackName)"
+          #fbName="ngModel"
+          required
+        />
+        <mat-hint *ngIf="fbName.errors && fbName.touched">
+          <span class="error_text">Feedback Name is required</span>
+        </mat-hint>
+        <mat-hint *ngIf="feedbackExists && fbName.touched">
+          <span class="error_text">{{ msg }}</span>
+        </mat-hint>
+      </mat-form-field>
+    </div>
+    <div *ngIf="service === '3'">
+      <mat-select
+        placeholder="Feedback Name"
+        [style.width]="'100%'"
+        [(ngModel)]="feedbackName"
+        name="feedbackName"
+        required
+        (change)="validateFeedback(feedbackName)"
+        #fbName="ngModel"
+      >
+        <mat-option value="Generic Complaint">Generic Complaint</mat-option>
+        <mat-option value="Asha Complaints">Asha Complaints</mat-option>
+        <mat-option value="Epidemic Complaints">Epidemic Complaints</mat-option>
+        <mat-option value="Foodsafety Complaints"
+          >Food Safety Complaints</mat-option
+        >
+        <mat-option value="Bal Vivah Complaints"
+          >Bal Vivah Complaints</mat-option
+        >
+      </mat-select>
+    </div>
+    <div class="m-t-20">
+      <mat-form-field style="width: 100%">
+        <input
+          matInput
+          placeholder="Feedback Desc"
+          name="feedbackDesc"
+          [(ngModel)]="feedbackDesc"
+          #fbDesc="ngModel"
+          maxlength="100"
+        />
+      </mat-form-field>
+    </div>
+
+    <div class="m-t-20">
+      <button
+        mat-raised-button
+        color="accent"
+        class="pull-right"
+        (click)="update()"
+        [disabled]="f1.invalid || feedbackExists"
+      >
+        Update
+      </button>
+    </div>
+  </form>
+</div>

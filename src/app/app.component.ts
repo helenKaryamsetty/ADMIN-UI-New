@@ -21,10 +21,6 @@
  */
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-
-import { Subscription } from 'rxjs';
-// import 'rxjs/Rx';
-// import { SecurityInterceptedHttp } from './http.securityinterceptor';
 import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { merge, of, fromEvent, map } from 'rxjs';
 

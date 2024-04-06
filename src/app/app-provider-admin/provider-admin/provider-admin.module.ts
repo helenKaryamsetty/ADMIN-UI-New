@@ -1,0 +1,48 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ActivitiesModule } from './activities/activities.module';
+import { ConfigurationsModule } from './configurations/configurations.module';
+import { InventoryModule } from './inventory/inventory.module';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { BrowserModule } from '@angular/platform-browser';
+import { MaterialModule } from 'src/app/core/material.module';
+import { MapSnommedCTCodeComponent } from './configurations/map-snommed-ctcode/map-snommed-ctcode.component';
+import { AddQuestionnaireComponent } from './configurations/questionnaire/add-questionnaire/add-questionnaire.component';
+import { EditQuestionnaireComponent } from './configurations/questionnaire/edit-questionnaire/edit-questionnaire.component';
+import { SmsTemplateComponent } from './configurations/sms-template/sms-template.component';
+import { SnomedCodeSearchComponent } from './configurations/snomed-code-search/snomed-code-search.component';
+import { ProviderAdminComponent } from './provider-admin.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatNativeDateModule } from '@angular/material/core';
+
+@NgModule({
+  declarations: [
+    ProviderAdminComponent,
+    // AddQuestionnaireComponent,
+    // EditQuestionnaireComponent,
+    // SnomedCodeSearchComponent,
+    // MapSnommedCTCodeComponent,
+    // SmsTemplateComponent,
+  ],
+  imports: [
+    CommonModule,
+    ActivitiesModule,
+    ConfigurationsModule,
+    InventoryModule,
+    BrowserModule,
+    FormsModule,
+    MatIconModule,
+    MatFormFieldModule,
+    MatTableModule,
+    ReactiveFormsModule,
+    FormsModule,
+    HttpClientModule,
+    MaterialModule,
+    MatNativeDateModule,
+  ],
+  exports: [ProviderAdminComponent],
+})
+export class ProviderAdminModule {}

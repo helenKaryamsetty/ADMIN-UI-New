@@ -28,14 +28,16 @@ const ADMIN_API = 'https://amritwprdev.piramalswasthya.org/';
 const COMMON_API = 'https://amritwprdev.piramalswasthya.org/';
 const adminBaseUrl = `${ADMIN_API}adminapi-v0.1/`;
 const superadminBaseURL = `${ADMIN_API}adminapi-v0.1/`;
-const _commonBaseURL = `${COMMON_API}commonapi-v0.1/`;
+const commonBaseURL = `${COMMON_API}commonapi-v0.1/`;
 
 export const environment = {
   production: true,
 
   adminBaseUrl: adminBaseUrl,
   superadminBaseURL: superadminBaseURL,
-  _commonBaseURL: _commonBaseURL,
+  commonBaseURL: commonBaseURL,
+
+  extendSessionUrl: `${COMMON_API}common/extend/redisSession`,
 
   //Role Master APIs
   get_State_Url: `${adminBaseUrl}m/role/state`,
@@ -48,4 +50,28 @@ export const environment = {
   updateFeatureToRole_Url: `${adminBaseUrl}mapExterafeature`,
   getServiceLines_new_url: `${adminBaseUrl}m/role/serviceNew`,
   getStates_new_url: `${adminBaseUrl}m/role/stateNew`,
+
+  //SMS Template APIs
+  getSMStemplates_url: `${commonBaseURL}sms/getSMSTemplates`,
+  saveSMStemplate_url: `${commonBaseURL}sms/saveSMSTemplate`,
+  updateSMStemplate_url: `${commonBaseURL}sms/updateSMSTemplate`,
+  getSMStypes_url: `${commonBaseURL}sms/getSMSTypes`,
+  getSMSparameters_url: `${commonBaseURL}sms/getSMSParameters`,
+  getFullSMSTemplate_url: `${commonBaseURL}sms/getFullSMSTemplate`,
+  sendSMS_url: `${commonBaseURL}sms/sendSMS`,
+
+  //snomed ct code
+  getSnomedRecord: `${commonBaseURL}snomed/getSnomedCTRecordList`,
+  getmasterList: `${adminBaseUrl}snomed/fetchSnomedWorklist`,
+  saveMappingList: `${adminBaseUrl}snomed/saveSnomedMappingData`,
+  editMappingList: `${adminBaseUrl}snomed/editSnomedMappingData`,
+  updateBlockStatus: `${adminBaseUrl}snomed/updateStatus`,
+
+  //Questionnaire APIs
+  saveQuestionnaire_url: `${adminBaseUrl}saveQuestionnaire`,
+  deleteQuestionnaire_url: `${adminBaseUrl}deleteQuestionnaire`,
+  getQuestionnaire_url: `${adminBaseUrl}getQuestionnaireList`,
+  get_Services_Url: `${adminBaseUrl}m/role/serviceNew`,
+  getQuestionType_url: `${commonBaseURL}questionTypeController/get/questionTypeList`,
+  editQuestionnaire_url: `${adminBaseUrl}editQuestionnaire`,
 };
