@@ -23,6 +23,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ConfigService } from 'src/app/core/services/config/config.service';
+import { environment } from 'src/environments/environment';
 // import 'rxjs/add/operator/catch';
 // import 'rxjs/add/operator/map';
 // import { InterceptedHttp } from './../../http.interceptor';
@@ -100,104 +101,64 @@ export class ZoneMasterService {
       this.providerAdmin_Base_Url + '/zonemaster/edit/zoneDistrictMapping';
   }
 
-  saveZones(data: any) {
-    return this.http.post(this.saveZonesURL, data);
-    // .map(this.handleSuccess)
-    // .catch(this.handleError);
+saveZones(data: any) {
+    return this.http.post(environment.saveZonesURL, data);
+ 
   }
 
   getZones(data: any) {
-    return this.http.post(this.getZonesURL, data);
-    // .map(this.handleSuccess)
-    // .catch(this.handleError);
+    return this.http.post(environment.getZonesURL, data);
+ 
   }
 
   saveZoneDistrictMappings(data: any) {
-    return this.http.post(this.saveZoneDistrictMappingURL, data);
-    // .map(this.handleSuccess)
-    // .catch(this.handleError);
+    return this.http.post(environment.saveZoneDistrictMappingURL, data);
+ 
   }
 
   getZoneDistrictMappings(data: any) {
-    return this.http.post(this.getZoneDistrictMappingURL, data);
-    // .map(this.handleSuccess)
-    // .catch(this.handleError);
+    return this.http.post(environment.getZoneDistrictMappingURL, data);
+ 
   }
 
   updateZoneStatus(data: any) {
-    return this.http.post(this.updateZOneStatusURL, data);
-    // .map(this.handleSuccess)
-    // .catch(this.handleError);
+    return this.http.post(environment.updateZOneStatusURL, data);
+ 
   }
   updateZoneMappingData(data: any) {
-    return this.http.post(this.updateZoneMappingDataUrl, data);
-    // .map(this.handleSuccess)
-    // .catch(this.handleError);
+    return this.http.post(environment.updateZoneMappingDataUrl, data);
+ 
   }
   updateZoneMappingStatus(data: any) {
-    return this.http.post(this.updateZOneDistrictMappingURL, data);
-    // .map(this.handleSuccess)
-    // .catch(this.handleError);
+    return this.http.post(environment.updateZOneDistrictMappingURL, data);
+ 
   }
 
   updateZoneData(data: any) {
-    return this.http.post(this.updateZoneDataURL, data);
-    // .map(this.handleSuccess)
-    // .catch(this.handleError);
+    return this.http.post(environment.updateZoneDataURL, data);
+ 
   }
   getServiceLinesNew(userID: any) {
-    return this.http.post(this.getServiceLines_new_url, { userID: userID });
+    return this.http.post(environment.getServiceLines_new_url, { userID: userID });
     // .map(this.handleState_n_ServiceSuccess)
     // .catch(this.handleError);
   }
   getStatesNew(obj: any) {
-    return this.http.post(this.getStates_new_url, obj);
-    // .map(this.handleSuccess)
-    // .catch(this.handleError);
+    return this.http.post(environment.getStateszone_new_url, obj);
   }
   getDistricts(stateId: number) {
-    return this.http.get(this._getDistrictListURL + stateId);
-    // .map(this.handleSuccess)
-    // .catch(this.handleError);
+    return this.http.get(environment.getDistrictZoneListURL + stateId);
   }
   getTaluks(districtId: number) {
-    return this.http.get(this._getTalukListURL + districtId);
-    // .map(this.handleSuccess)
-    // .catch(this.handleError);
+    return this.http.get(environment.getTalukZoneListURL + districtId);
+ 
   }
   getSTBs(talukId: number) {
-    return this.http.get(this._getBlockListURL + talukId);
-    // .map(this.handleSuccess)
-    // .catch(this.handleError);
+    return this.http.get(environment._getBlockListURL + talukId);
+ 
   }
 
   getBranches(blockId: number) {
-    return this.http.get(this._getBranchListURL + blockId);
-    // .map(this.handleSuccess)
-    // .catch(this.handleError);
+    return this.http.get(environment._getBranchListURL + blockId);
   }
-
-  // handleSuccess(response: Response) {
-  //     console.log(response.json().data, "--- in zone master SERVICE");
-  //     if (response.json().data) {
-  //         return response.json().data;
-  //     } else {
-  //         return Observable.throw(response.json());
-  //     }
-  // }
-  // handleState_n_ServiceSuccess(response: Response) {
-
-  //     console.log(response.json().data, 'role service file success response');
-  //     let result = [];
-  //     result = response.json().data.filter(function (item) {
-  //         if (item.serviceID == 2 || item.serviceID == 4 || item.serviceID == 9) {
-  //             return item;
-  //         }
-  //     });
-  //     return result;
-  // }
-
-  // handleError(error: Response | any) {
-  //     return Observable.throw(error);
-  // }
 }

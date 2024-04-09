@@ -19,6 +19,7 @@ import { CommonDialogComponent } from './components/common-dialog/common-dialog.
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { CommonServices } from './services/inventory-services/commonServices';
+import { VanMasterService } from './services/ProviderAdminServices/van-master-service.service';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { CommonServices } from './services/inventory-services/commonServices';
     ScreenService,
     ServicemasterService,
     CommonServices,
+    VanMasterService
   ],
 })
 export class CoreModule {

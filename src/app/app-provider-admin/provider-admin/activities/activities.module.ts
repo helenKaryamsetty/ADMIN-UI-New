@@ -45,6 +45,19 @@ import { LanguageMapping } from './services/language-mapping.service';
 import { LocationServicelineMapping } from './services/location-serviceline-mapping.service';
 import { SpecialistMappingService } from './services/specialist-mapping.service';
 import { WorkLocationMapping } from './services/work-location-mapping.service';
+import { ServicePointMasterService } from './services/service-point-master-services.service';
+import { ProcedureMasterServiceService } from '../inventory/services/procedure-master-service.service';
+import { ParkingPlaceMasterService } from 'src/app/core/services/ProviderAdminServices/parking-place-master-services.service';
+import { BlockSubcenterMappingService } from './services/block-subcenter-mapping-service';
+import { DataMappingBlockSubcenterComponent } from './data-mapping-block-subcenter/data-mapping-block-subcenter.component';
+import { ZoneComponent } from './zone-list/zone.component';
+import { ZoneDistrictMappingComponent } from './zone-district-mapping/zone-district-mapping.component';
+import { ParkingPlaceComponent } from './parking-place-master/parking-place-master.component';
+import { ParkingPlaceSubDistrictMappingComponent } from './parking-place-sub-district-mapping/parking-place-sub-district-mapping.component';
+import { ServicePointComponent } from './service-point-master/service-point.component';
+import { VanComponent } from './van-master/van-master.component';
+import { ProcedureMasterComponent } from './procedure-master/procedure-master.component';
+import { ZoneMasterService } from './services/zone-master-services.service';
 
 @NgModule({
   declarations: [
@@ -65,6 +78,14 @@ import { WorkLocationMapping } from './services/work-location-mapping.service';
     EditInstituteDirectoryComponent,
     WorkLocationMappingComponent,
     InstituteDirectoryMasterComponent,
+    DataMappingBlockSubcenterComponent,
+    ZoneComponent,
+    ZoneDistrictMappingComponent,
+    ParkingPlaceComponent,
+    ParkingPlaceSubDistrictMappingComponent,
+    ServicePointComponent,
+    VanComponent,
+    ProcedureMasterComponent
   ],
   imports: [
     CommonModule,
@@ -95,6 +116,11 @@ import { WorkLocationMapping } from './services/work-location-mapping.service';
     InstituteDirectoryMasterService,
     CategorySubcategoryService,
     FeedbackTypeService,
+    ServicePointMasterService,
+    ProcedureMasterServiceService,
+    ParkingPlaceMasterService,
+    BlockSubcenterMappingService,
+    ZoneMasterService
   ],
   exports: [
     LocationServicelineMappingComponent,
@@ -114,6 +140,14 @@ import { WorkLocationMapping } from './services/work-location-mapping.service';
     EditInstituteDirectoryComponent,
     WorkLocationMappingComponent,
     InstituteDirectoryMasterComponent,
+    DataMappingBlockSubcenterComponent,
+    ZoneComponent,
+    ZoneDistrictMappingComponent,
+    ParkingPlaceComponent,
+    ParkingPlaceSubDistrictMappingComponent,
+    ServicePointComponent,
+    VanComponent,
+    ProcedureMasterComponent
   ],
 })
 export class ActivitiesModule {}

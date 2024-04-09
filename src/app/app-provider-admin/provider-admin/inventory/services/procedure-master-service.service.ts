@@ -23,10 +23,8 @@ import { Injectable } from '@angular/core';
 // import { InterceptedHttp } from '../../http.interceptor';
 // import { SecurityInterceptedHttp } from '../../http.securityinterceptor';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
 import { ConfigService } from 'src/app/core/services/config/config.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class ProcedureMasterServiceService {
@@ -58,44 +56,30 @@ export class ProcedureMasterServiceService {
   }
 
   getCurrentProcedures(providerServiceMapID: any) {
-    return this.http.get(`${this._getProcedureListURL}${providerServiceMapID}`);
+    return this.http.get(`${environment._getProcedureListURL}${providerServiceMapID}`);
     // .map(this.handleSuccess)
     //   .catch(this.handleError);
   }
 
   postProcedureData(reqObject: any) {
-    return this.http.post(this._postProcedureURL, reqObject);
+    return this.http.post(environment._postProcedureURL, reqObject);
     // .map(this.handleSuccess)
     //   .catch(this.handleError);
   }
 
   updateProcedureData(reqObject: any) {
-    return this.http.post(this._updateProcedureURL, reqObject);
+    return this.http.post(environment._updateProcedureURL, reqObject);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
 
   toggleProcedure(reqObject: any) {
-    return this.http.post(this._toggleProcedureURL, reqObject);
-    // .map(this.handleSuccess)
-    // .catch(this.handleError);
+    return this.http.post(environment._toggleProcedureURL, reqObject);
+
   }
 
-  // handleSuccess(res: Response) {
-  //   console.log(res.json(), 'calltype-subtype service file success response');
-  //   if (res.json().data) {
-  //     return res.json().data;
-  //   } else {
-  //     return Observable.throw(res.json());
-  //   }
-  // }
-
-  // handleError(error: Response | any) {
-  //   return Observable.throw(error.json());
-  // }
-
   getDiagnosticProcedure() {
-    return this.http.post(this._iotProcedureURL, {});
+    return this.http.post(environment._iotProcedureURL, {});
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }

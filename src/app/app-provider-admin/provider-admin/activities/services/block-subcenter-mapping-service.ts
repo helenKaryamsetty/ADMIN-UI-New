@@ -25,6 +25,7 @@ import { HttpClient } from '@angular/common/http';
 // import { SecurityInterceptedHttp } from "app/http.securityinterceptor";
 import { Observable, throwError } from 'rxjs';
 import { ConfigService } from 'src/app/core/services/config/config.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class BlockSubcenterMappingService {
@@ -44,7 +45,7 @@ export class BlockSubcenterMappingService {
   }
 
   uploadData(formData: any) {
-    return this.http.post(this.getBlockSubcentreDataUploadUrl, formData);
+    return this.http.post(environment.getBlockSubcentreDataUploadUrl, formData);
     // .map((res) => res.json());
   }
 
