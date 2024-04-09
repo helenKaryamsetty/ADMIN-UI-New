@@ -23,6 +23,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ConfigService } from 'src/app/core/services/config/config.service';
+import { environment } from 'src/environments/environment';
 // import 'rxjs/add/operator/catch';
 // import 'rxjs/add/operator/map';
 
@@ -76,13 +77,13 @@ export class ServicePointMasterService {
       this.providerAdmin_Base_Url + '/servicePointMaster/edit/servicePoint';
   }
   getServices(userID: any) {
-    return this.http.post(this._getServiceLineURL, { userID: userID });
+    return this.http.post(environment._getServiceLineURL, { userID: userID });
     // .map(this.handleState_n_ServiceSuccess)
     // .catch(this.handleError);
   }
 
   getStates(userID: any, serviceID: any, isNationalFlag: any) {
-    return this.http.post(this._getStateListURL, {
+    return this.http.post(environment._getStateListURL, {
       userID: userID,
       serviceID: serviceID,
       isNational: isNationalFlag,
@@ -92,85 +93,48 @@ export class ServicePointMasterService {
   }
 
   getZones(data: any) {
-    return this.http.post(this._getZonesURL, data);
+    return this.http.post(environment._getZonesURL, data);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
 
   getParkingPlaces(data: any) {
-    return this.http.post(this.getParkingPlacesURL, data);
+    return this.http.post(environment.getParkingPlacesURL, data);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
   getDistricts(zoneID: any) {
-    return this.http.post(this._getDistrictListURL, { zoneID: zoneID });
+    return this.http.post(environment._getDistrictZoneListURL, { zoneID: zoneID });
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
 
   getServicePoints(data: any) {
-    return this.http.post(this.getServicePointsURL, data);
+    return this.http.post(environment.getServicePointsURL, data);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
 
   getTaluks(talukObj: any) {
-    return this.http.post(this._getTalukListURL, talukObj);
+    return this.http.post(environment._getTalukServiceListURL, talukObj);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
 
   saveServicePoint(data: any) {
-    return this.http.post(this.saveServicePointsURL, data);
+    return this.http.post(environment.saveServicePointsURL, data);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
   updateServicePoint(data: any) {
-    return this.http.post(this.updateServicePointsURL, data);
+    return this.http.post(environment.updateServicePointsURL, data);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
 
   updateServicePointStatus(data: any) {
-    return this.http.post(this.updateServicePointStatusURL, data);
+    return this.http.post(environment.updateServicePointStatusURL, data);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
-
-  // handleState_n_ServiceSuccess(response: Response) {
-
-  //     console.log(response.json().data, 'service point file success response');
-  //     let result = [];
-  //     result = response.json().data.filter(function (item) {
-  //         if (item.serviceID == 2 || item.serviceID == 4 || item.serviceID == 9) {
-  //             return item;
-  //         }
-  //     });
-  //     return result;
-  // }
-  // handleState_n_parkingplaces(response: Response) {
-
-  //     console.log(response.json().data, 'service point file success response');
-  //     let result = [];
-  //     result = response.json().data.filter(function (item) {
-  //         if (!item.deleted) {
-  //             return item;
-  //         }
-  //     });
-  //     return result;
-  // }
-
-  // handleSuccess(res: Response) {
-  //     console.log(res.json().data, '--- in service point master SERVICE');
-  //     if (res.json().data) {
-  //         return res.json().data;
-  //     } else {
-  //         return Observable.throw(res.json());
-  //     }
-  // }
-
-  // handleError(error: Response | any) {
-  //     return Observable.throw(error.json());
-
-  // }
 }

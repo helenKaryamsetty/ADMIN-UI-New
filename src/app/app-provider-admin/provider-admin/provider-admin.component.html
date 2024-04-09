@@ -54,8 +54,8 @@
       <button mat-menu-item [matMenuTriggerFor]="OutreachMaster">
         Outreach Master
       </button>
-      <button mat-menu-item (click)="show('4')">
-        Data Mapping Blocking to Subcenter
+      <button mat-menu-item (click)="show('72')">
+        Data Mapping Block to Subcenter
       </button>
     </mat-menu>
     <mat-menu #FetosenseMaster="matMenu">
@@ -78,6 +78,8 @@
         Parking Place Master
       </button>
       <button mat-menu-item (click)="show('9')">Service Point Master</button>
+      <button mat-menu-item (click)="show('14')">Van Master</button>
+      <button mat-menu-item (click)="show('29')">Procedure Master</button>
     </mat-menu>
     <mat-menu #ZoneMaster="matMenu">
       <button mat-menu-item (click)="show('36')">Zone List</button>
@@ -212,6 +214,20 @@
     <app-severity-type *ngSwitchCase="12"></app-severity-type>
     <app-fetosense-test-master *ngSwitchCase = "68"></app-fetosense-test-master>
       <app-device-id-master *ngSwitchCase = "70"></app-device-id-master>
+        <app-data-mapping-block-subcenter
+        *ngSwitchCase="72"
+      ></app-data-mapping-block-subcenter>
+      <app-zone *ngSwitchCase="36"></app-zone>
+      <app-zone-district-mapping
+                *ngSwitchCase="37"
+              ></app-zone-district-mapping>
+              <app-parking-place *ngSwitchCase="8"></app-parking-place>
+              <app-parking-place-sub-district-mapping
+              *ngSwitchCase="57"
+            ></app-parking-place-sub-district-mapping>
+            <app-service-point *ngSwitchCase="9"></app-service-point>
+            <app-van-master *ngSwitchCase="14"></app-van-master>
+            <app-procedure-master *ngSwitchCase="29"></app-procedure-master>
         <!-- <app-zone *ngSwitchCase="36"></app-zone>
         <app-zone-district-mapping
           *ngSwitchCase="37"

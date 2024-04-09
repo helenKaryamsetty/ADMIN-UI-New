@@ -26,6 +26,7 @@ import { Observable } from 'rxjs';
 // import 'rxjs/add/operator/map';
 
 import { ConfigService } from '../config/config.service';
+import { environment } from 'src/environments/environment';
 // import { InterceptedHttp } from '../../http.interceptor';
 // import { SecurityInterceptedHttp } from '../../http.securityinterceptor';
 
@@ -103,45 +104,37 @@ export class ParkingPlaceMasterService {
   }
   /*common services*/
   getServiceLinesNew(userID: any) {
-    return this.http.post(this.getServiceLines_new_url, { userID: userID });
-    // .map(this.handleState_n_ServiceSuccess)
-    // .catch(this.handleError);
+    return this.http.post(environment.getServiceLines_newrole_url, { userID: userID });
   }
   getStatesNew(obj: any) {
     return this.http.post(this.getStates_new_url, obj);
-    // .map(this.handleSuccess)
-    // .catch(this.handleError);
+ 
   }
   getZones(data: any) {
-    return this.http.post(this._getZonesURL, data);
-    // .map(this.handleSuccess)
-    // .catch(this.handleError);
+    return this.http.post(environment._getZonesParkURL, data);
+ 
   }
   /* End common services*/
 
   /* parking place master services*/
   saveParkingPlace(data: any) {
-    return this.http.post(this.saveParkingPlacesURL, data);
-    // .map(this.handleSuccess)
-    // .catch(this.handleError);
+    return this.http.post(environment.saveParkingPlacesURL, data);
+ 
   }
 
   getParkingPlaces(data: any) {
-    return this.http.post(this.getParkingPlacesURL, data);
-    // .map(this.handleSuccess)
-    // .catch(this.handleError);
+    return this.http.post(environment.getParkingPlacesURL, data);
+ 
   }
 
   updateParkingPlaceStatus(data: any) {
-    return this.http.post(this.updateParkingPlaceStatusURL, data);
-    // .map(this.handleSuccess)
-    // .catch(this.handleError);
+    return this.http.post(environment.updateParkingPlaceStatusURL, data);
+ 
   }
 
   updateParkingPlaceDetails(data: any) {
-    return this.http.post(this.updateParkingPlaceDetailsURL, data);
-    // .map(this.handleSuccess)
-    // .catch(this.handleError);
+    return this.http.post(environment.updateParkingPlaceDetailsURL, data);
+ 
   }
   /* End parking place master*/
 
@@ -149,65 +142,33 @@ export class ParkingPlaceMasterService {
 
   getAllParkingPlaceSubDistrictMapping(mappedReqObj: any) {
     return this.http.post(
-      this.getAllParkingPlaceSubDistrictMapping_url,
+      environment.getAllParkingPlaceSubDistrictMapping_url,
       mappedReqObj,
     );
-    // .map(this.handleSuccess)
-    // .catch(this.handleError);
+ 
   }
   getDistricts(zoneID: any) {
-    return this.http.post(this._getDistrictListURL, { zoneID: zoneID });
-    // .map(this.handleSuccess)
-    // .catch(this.handleError);
+    return this.http.post(environment._getDistrictListURL, { zoneID: zoneID });
+ 
   }
   getTaluks(districtID: any) {
-    return this.http.get(this._getTalukListURL + districtID);
-    // .map(this.handleSuccess)
-    // .catch(this.handleError);
+    return this.http.get(environment._getTalukListURL + districtID);
+ 
   }
   filterMappedTaluks(unmappedObject: any) {
-    return this.http.post(this.filterMappedTaluks_url, unmappedObject);
-    // .map(this.handleSuccess)
-    // .catch(this.handleError);
+    return this.http.post(environment.filterMappedTaluks_url, unmappedObject);
+ 
   }
   saveParkingPlaceSubDistrictMapping(reqObj: any) {
-    return this.http.post(this.saveParkingPlaceSubDistrictMapping_url, reqObj);
-    // .map(this.handleSuccess)
-    // .catch(this.handleError);
+    return this.http.post(environment.saveParkingPlaceSubDistrictMapping_url, reqObj);
+ 
   }
   updateTalukMapping(updateObj: any) {
-    return this.http.post(this.updateTalukMapping_url, updateObj);
-    // .map(this.handleSuccess)
-    // .catch(this.handleError);
+    return this.http.post(environment.updateTalukMapping_url, updateObj);
+ 
   }
   mappingActivationDeactivation(activateObj: any) {
-    return this.http.post(this.mappingActivationDeactivation_url, activateObj);
-    // .map(this.handleSuccess)
-    // .catch(this.handleError);
+    return this.http.post(environment.mappingActivationDeactivation_url, activateObj);
+ 
   }
-
-  // handleSuccess(res: Response) {
-  //     console.log(res.json().data, '--- in parking place SERVICE');
-  //     if (res.json().data) {
-  //         return res.json().data;
-  //     } else {
-  //         return Observable.throw(res.json());
-  //     }
-  // }
-  // handleState_n_ServiceSuccess(response: Response) {
-
-  //     console.log(response.json().data, 'role service file success response');
-  //     let result = [];
-  //     result = response.json().data.filter(function (item) {
-  //         if (item.serviceID == 2 || item.serviceID == 4 || item.serviceID == 9) {
-  //             return item;
-  //         }
-  //     });
-  //     return result;
-  // }
-
-  // handleError(error: Response | any) {
-  //     return Observable.throw(error);
-
-  // }
 }

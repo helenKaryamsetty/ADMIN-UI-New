@@ -58,6 +58,19 @@ import { DeviceIdMasterComponent } from './device-id-master/device-id-master.com
 import { FetosenseDeviceIdMasterService } from './services/fetosense-device-id-master-service.service';
 import { FetosenseTestMasterComponent } from './fetosense-test-master/fetosense-test-master.component';
 import { ProviderAdminFetosenseTestMasterService } from './services/fetosense-test-master-service.service';
+import { ServicePointMasterService } from './services/service-point-master-services.service';
+import { ProcedureMasterServiceService } from '../inventory/services/procedure-master-service.service';
+import { ParkingPlaceMasterService } from 'src/app/core/services/ProviderAdminServices/parking-place-master-services.service';
+import { BlockSubcenterMappingService } from './services/block-subcenter-mapping-service';
+import { DataMappingBlockSubcenterComponent } from './data-mapping-block-subcenter/data-mapping-block-subcenter.component';
+import { ZoneComponent } from './zone-list/zone.component';
+import { ZoneDistrictMappingComponent } from './zone-district-mapping/zone-district-mapping.component';
+import { ParkingPlaceComponent } from './parking-place-master/parking-place-master.component';
+import { ParkingPlaceSubDistrictMappingComponent } from './parking-place-sub-district-mapping/parking-place-sub-district-mapping.component';
+import { ServicePointComponent } from './service-point-master/service-point.component';
+import { VanComponent } from './van-master/van-master.component';
+import { ProcedureMasterComponent } from './procedure-master/procedure-master.component';
+import { ZoneMasterService } from './services/zone-master-services.service';
 
 @NgModule({
   declarations: [
@@ -88,7 +101,15 @@ import { ProviderAdminFetosenseTestMasterService } from './services/fetosense-te
     SeverityTypeComponent,
     EditSeverityModalComponent,
     DeviceIdMasterComponent,
-    FetosenseTestMasterComponent
+    FetosenseTestMasterComponent,
+    DataMappingBlockSubcenterComponent,
+    ZoneComponent,
+    ZoneDistrictMappingComponent,
+    ParkingPlaceComponent,
+    ParkingPlaceSubDistrictMappingComponent,
+    ServicePointComponent,
+    VanComponent,
+    ProcedureMasterComponent
   ],
   imports: [
     CommonModule,
@@ -124,7 +145,12 @@ import { ProviderAdminFetosenseTestMasterService } from './services/fetosense-te
     HospitalMasterService,
     SeverityTypeService,
     FetosenseDeviceIdMasterService,
-    ProviderAdminFetosenseTestMasterService
+    ProviderAdminFetosenseTestMasterService,
+    ServicePointMasterService,
+    ProcedureMasterServiceService,
+    ParkingPlaceMasterService,
+    BlockSubcenterMappingService,
+    ZoneMasterService
   ],
   exports: [
     LocationServicelineMappingComponent,
@@ -153,7 +179,15 @@ import { ProviderAdminFetosenseTestMasterService } from './services/fetosense-te
     SeverityTypeComponent,
     EditSeverityModalComponent,
     DeviceIdMasterComponent,
-    FetosenseTestMasterComponent
+    FetosenseTestMasterComponent,
+    DataMappingBlockSubcenterComponent,
+    ZoneComponent,
+    ZoneDistrictMappingComponent,
+    ParkingPlaceComponent,
+    ParkingPlaceSubDistrictMappingComponent,
+    ServicePointComponent,
+    VanComponent,
+    ProcedureMasterComponent
   ],
 })
 export class ActivitiesModule {}
