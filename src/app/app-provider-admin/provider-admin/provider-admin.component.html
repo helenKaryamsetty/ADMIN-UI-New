@@ -30,9 +30,20 @@
       <button mat-menu-item (click)="show('18')">
         Feedback/Complaint Type Master
       </button>
-      <button mat-menu-item (click)="show('58')">
-        Nature Of Complaint-Category Mapping
+      <button mat-menu-item [matMenuTriggerFor]="FeedbackComplaintTypeMaster">
+        Feedback/Complaint Nature Master
       </button>
+      <mat-menu #FeedbackComplaintTypeMaster="matMenu">
+        <button mat-menu-item (click)="show('19')">
+          Nature Of Complaints List
+        </button>
+        <button mat-menu-item (click)="show('58')">
+          Nature Of Complaint-Category Mapping
+        </button>
+      </mat-menu>
+      <!-- <button mat-menu-item (click)="show('58')">
+        Nature Of Complaint-Category Mapping
+      </button> -->
       <button mat-menu-item (click)="show('25')">Institute Type Master</button>
       <button mat-menu-item (click)="show('21')">Institute Master</button>
       <button mat-menu-item (click)="show('12')">Severity Type</button>
@@ -47,17 +58,9 @@
         Data Mapping Blocking to Subcenter
       </button>
     </mat-menu>
-    <mat-menu #FeedbackComplaintTypeMaster="matMenu">
-      <button mat-menu-item (click)="show('19')">
-        Nature Of Complaints List
-      </button>
-      <button mat-menu-item (click)="show('58')">
-        Nature Of Complaint-Category Mapping
-      </button>
-    </mat-menu>
     <mat-menu #FetosenseMaster="matMenu">
-      <button mat-menu-item (click)="show('68')">Device ID Master</button>
-      <button mat-menu-item (click)="show('58')">Fetosense Test Master</button>
+      <button mat-menu-item (click)="show('70')">Device ID Master</button>
+      <button mat-menu-item (click)="show('68')">Fetosense Test Master</button>
     </mat-menu>
     <mat-menu #DrugGroup="matMenu">
       <button mat-menu-item (click)="show('33')">Drug Group Master</button>
@@ -196,6 +199,19 @@
         <app-provider-admin-role-master
           *ngSwitchCase="2"
         ></app-provider-admin-role-master>
+        <app-feedback-complaint-nature-master
+        *ngSwitchCase="19"
+      ></app-feedback-complaint-nature-master>
+      <app-nature-of-complaint-category-mapping
+        *ngSwitchCase="58"
+      ></app-nature-of-complaint-category-mapping>
+      <app-institute-type-master
+      *ngSwitchCase="25"
+    ></app-institute-type-master>
+    <app-hospital-master *ngSwitchCase="21"></app-hospital-master>
+    <app-severity-type *ngSwitchCase="12"></app-severity-type>
+    <app-fetosense-test-master *ngSwitchCase = "68"></app-fetosense-test-master>
+      <app-device-id-master *ngSwitchCase = "70"></app-device-id-master>
         <!-- <app-zone *ngSwitchCase="36"></app-zone>
         <app-zone-district-mapping
           *ngSwitchCase="37"

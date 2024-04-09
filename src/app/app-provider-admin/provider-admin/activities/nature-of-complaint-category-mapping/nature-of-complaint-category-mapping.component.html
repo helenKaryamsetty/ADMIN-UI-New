@@ -1,0 +1,163 @@
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <h4 *ngIf="showListOfCategorymapping">Nature Of Complaint-Category Mapping</h4>
+    <h4 *ngIf="!editable && !showListOfCategorymapping">Nature Of Complaint-Category Mapping</h4>
+    <h4 *ngIf="editable && !showListOfCategorymapping">Edit Nature Of Complaint-Category Mapping </h4>
+  </div>
+  <form #searchForm="ngForm" autocomplete="off">
+    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 m-t-15">
+      <mat-select placeholder="Serviceline" class="width100" [(ngModel)]="serviceline" name="serviceline" (selectionChange)="getStates(serviceline)"
+        [disabled]="disableSelection" required>
+        <mat-option *ngFor="let service of servicelines" [value]="service">
+          {{service.serviceName}}
+        </mat-option>
+      </mat-select>
+    </div>
+    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 m-t-15">
+      <mat-select placeholder="State" class="width100" [(ngModel)]="state" name="state" (selectionChange)="getFeedbackTypes(state.providerServiceMapID)"
+        [disabled]="disableSelection" required>
+        <mat-option *ngFor="let state of states" [value]="state">
+          {{state.stateName}}
+        </mat-option>
+      </mat-select>
+    </div>
+    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 m-t-15">
+      <mat-select placeholder="Feedback Type" class="width100" [(ngModel)]="feedbacktype" name="feedbacktype" (selectionChange)="getFeedbackNature(feedbacktype.feedbackTypeID)"
+        [disabled]="disableSelection" required>
+        <mat-option *ngFor="let feedback of feedbackTypes" [value]="feedback">
+          {{feedback.feedbackTypeName}}
+        </mat-option>
+      </mat-select>
+    </div>
+    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 m-t-15">
+      <mat-select placeholder="Nature Of Complaint" class="width100" [(ngModel)]="complaintType" name="complaintType" (selectionChange)="getComplaintTypeCategoryMapping(state.providerServiceMapID, complaintType.feedbackNatureID)"
+        [disabled]="disableSelection" required>
+        <mat-option *ngFor="let complaint of natureTypes" [value]="complaint">
+          {{complaint.feedbackNature}}
+        </mat-option>
+      </mat-select>
+    </div>
+  </form>
+</div>
+<div class="pull-right m-t-10" *ngIf="mappings.length!==0 && showListOfCategorymapping">
+  <mat-form-field id="filterbox">
+    <input matInput placeholder="In-Table Search" #filterTerm (keyup)="filterComponentList(filterTerm.value)">
+    <mat-icon matSuffix>search</mat-icon>
+  </mat-form-field>
+</div>
+<div class="row" *ngIf="showListOfCategorymapping && showTable && !editable">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-15">
+    <div class="table-responsive">
+     
+      <table mat-table [dataSource]="this.filteredMappings.data" 
+      class="table table-striped table-hover"
+    >
+    <ng-container matColumnDef="SNo">
+      <th mat-header-cell *matHeaderCellDef>S.No.</th>
+      <td mat-cell *matCellDef="let element; let i = index">
+        {{ i + 1 }}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="NatureOfComplaint">
+      <th mat-header-cell *matHeaderCellDef>Nature Of Complaint</th>
+      <td mat-cell *matCellDef="let element">{{ element.feedbackNature }}</td>
+    </ng-container>
+    <ng-container matColumnDef="Category">
+      <th mat-header-cell *matHeaderCellDef>Category</th>
+      <td mat-cell *matCellDef="let element">{{ element.categoryName }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="edit">
+      <th mat-header-cell *matHeaderCellDef>
+        Edit
+      </th>
+      <td mat-cell *matCellDef="let element">
+        <mat-icon matTooltip="Edit" class="mat-icon material-icons" role="img" aria-hidden="true" style="cursor:pointer" *ngIf="!element.deleted"
+                (click)="editCategoryMapping(element)">edit</mat-icon>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        Action
+      </th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-raised-button color="accent" (click)="unmappingCategory(element.categoryID)">Unmap</button>
+
+      </td>
+      <!-- <td colspan="4" class="p-r-0" mat-cell>
+        <button md-raised-button color="primary" [disabled]="searchForm.invalid" class="pull-right" (click)="changeTableFlag(false)">Add Work Location</button>
+      </td> -->
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <div>
+      <button mat-raised-button color="primary" class="pull-right" [disabled]="!createButton" (click)="showForm()">Add Category Mapping</button>
+    </div>
+    <mat-paginator
+      [hidden]="filteredMappings.data.length === 0"
+      [pageSizeOptions]="[5, 10, 25]"
+      [pageSize]="5"
+      showFirstLastButtons
+    ></mat-paginator>
+    </div>
+  </div>
+</div>
+<div class="row" *ngIf="(!showListOfCategorymapping && !showTable)">
+  <form #categoryForm="ngForm" autocomplete="off">
+    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 m-t-15">
+      <mat-select placeholder="Category" class="width100" [(ngModel)]="category" name="category" #categoryType='ngModel' required>
+        <mat-option *ngFor="let item of availableCategory" [value]="item">
+          {{item.categoryName}}
+        </mat-option>
+      </mat-select>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 m-t-20">
+      <button mat-mini-fab color="primary" *ngIf="categoryForm.valid && !editable" class="xs-pull-right sm-pull-right md-pull-left lg-pull-left"
+        (click)="addMappingObject(category)">
+        <mat-icon matSuffix class="mat-icon material-icons" role="img" aria-hidden="true" style="cursor: pointer">add</mat-icon>
+      </button>
+    </div>
+  </form>
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-15" *ngIf="complaintCategoryMappingList.data">
+    <div class="table-responsive">
+      
+      <table mat-table [dataSource]="this.complaintCategoryMappingList.data" 
+        class="table table-striped table-hover"
+      >
+      <ng-container matColumnDef="SNo">
+        <th mat-header-cell *matHeaderCellDef>S.No.</th>
+        <td mat-cell *matCellDef="let element; let i = index">
+          {{ i + 1 }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="NatureOfComplaint">
+        <th mat-header-cell *matHeaderCellDef>Nature Of Complaint</th>
+        <td mat-cell *matCellDef="let element">{{ element.feedbackNature }}</td>
+      </ng-container>
+      <ng-container matColumnDef="Category">
+        <th mat-header-cell *matHeaderCellDef>Category</th>
+        <td mat-cell *matCellDef="let element">{{ element.categoryName }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="edit">
+        <th mat-header-cell *matHeaderCellDef>
+          Delete
+        </th>
+        <td mat-cell *matCellDef="let element">
+          <mat-icon class="cursorPointer" matTooltip="delete" (click)="remove_obj(complaintCategoryMappingList.data.indexOf(element))">delete</mat-icon>
+
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns1;"></tr>
+      </table>
+    </div>
+  </div>
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-20 m-b-10">
+    <button mat-raised-button color="primary" class="pull-left" (click)="back()">Back</button>
+    <button *ngIf="!editable" [disabled]="complaintCategoryMappingList.data.length == 0" mat-raised-button color="accent" class="pull-right m-t-10"
+      (click)="saveCategoryMapping()">Save</button>
+    <button *ngIf="editable" [disabled]="categoryForm.invalid" mat-raised-button color="accent" class="pull-right" (click)="updateCategoryMapping(categoryForm.value)">Update</button>
+  </div>
+</div>
