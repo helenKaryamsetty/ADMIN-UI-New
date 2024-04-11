@@ -40,45 +40,6 @@
 <div class="row" *ngIf="search && firstPage">
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-15">
     <div class="table-responsive">
-      <!-- <table class="table table-striped" [md2Data]="filtereddata" #md2="md2DataTable" [rowsPerPage]="4">
-        <thead>
-          <tr>
-            <th width="5%">S.No.</th>
-            <th width="30%">Severity Name</th>
-            <th width="35%">Severity Description</th>
-            <th width="10%">Edit</th>
-            <th width="15%">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngIf="md2.data.length == 0" class="record-not-found">
-            <td colspan="5" align="center">No records found</td>
-          </tr>
-          <tr *ngFor="let sev of md2.data; let i=index">
-            <td>{{(md2.activePage-1)*4+i+1}}</td>
-            <td>{{sev.severityTypeName}}</td>
-            <td>{{sev.severityDesc}}</td>
-            <td>
-              <mat-icon *ngIf="!sev.deleted" mdTooltip="Edit" class="mat-icon material-icons" role="img" aria-hidden="true" style="cursor: pointer"
-                (click)="editSeverity(sev)">edit</mat-icon>
-            </td>
-            <td>
-              <button *ngIf="sev.deleted" md-raised-button color="accent" (click)="deleteSeverity(sev.severityID, false)">Activate</button>
-              <button *ngIf="!sev.deleted" md-raised-button color="primary" (click)="deleteSeverity(sev.severityID, true)">Deactivate</button>
-            </td>
-          </tr>
-        </tbody>
-        <tfoot>
-          <tr>
-            <td colspan="2">
-              <md2-pagination></md2-pagination>
-            </td>
-            <td colspan="3" class="p-r-0">
-              <button md-raised-button color="primary" class="pull-right" [disabled]="searchForm.invalid" (click)="showAddScreen()">Add Severity</button>
-            </td>
-          </tr>
-        </tfoot>
-      </table> -->
       <table
         mat-table
         [dataSource]="this.filtereddata.data"
@@ -163,36 +124,6 @@
 <div class="row">
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-15" *ngIf="severityArray.data.length >0">
     <div class="table-responsive">
-      <!-- <table [md2Data]="severityArray" #md2="md2DataTable" class="table table-striped table-hover" [rowsPerPage]="3">
-        <thead>
-          <tr>
-            <th width="5%">S.No.</th>
-            <th width="15%">Severity Type</th>
-            <th width="25%">Severity Description</th>
-            <th width="15%">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngIf="severityArray.length == 0">
-            <td colspan="5">NO RECORD FOUND!!</td>
-          </tr>
-          <tr *ngFor="let obj of md2.data; let i=index">
-            <td>{{severityArray.indexOf(obj)+1}}</td>
-            <td>{{obj.severityTypeName}}</td>
-            <td>{{obj.severityDesc}}</td>
-            <td>
-              <mat-icon mdTooltip="delete" (click)="removeObj(severityArray.indexOf(obj))">delete</mat-icon>
-            </td>
-          </tr>
-        </tbody>
-        <tfoot>
-          <tr>
-            <td colspan="4">
-              <md2-pagination></md2-pagination>
-            </td>
-          </tr>
-        </tfoot>
-      </table> -->
       <table
             mat-table
             [dataSource]="this.severityArray.data"
@@ -229,25 +160,6 @@
     </div>
   </div>
 </div>
-<!-- <div class="row m-t-10" *ngIf="(severityArray?.length !=0) && !firstPage">
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-a-0 " *ngFor="let obj of severityArray; let i=index ">
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-5">
-        <md-chip-list>
-          <md-chip color="accent" selected="true">{{obj.severityTypeName}}</md-chip>
-        </md-chip-list>
-      </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-5">
-        <md-chip-list>
-          <md-chip color="accent" selected="true">{{obj.severityDesc}}</md-chip>
-        </md-chip-list>
-      </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-5">
-        <button md-mini-fab>
-          <mat-icon matSuffix class="mat-icon material-icons" role="img" aria-hidden="true" style="cursor: pointer" (click)="removeObj(i)">clear</mat-icon>
-        </button>
-      </div>
-    </div>
-  </div> -->
 <div class="row" *ngIf="!firstPage">
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10">
     <button mat-raised-button color="primary" class="pull-left" (click)="back()">Back</button>

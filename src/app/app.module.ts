@@ -40,6 +40,11 @@ import { SuperAdminComponent } from './super-admin/super-admin.component';
 import { loginService } from './user-login/loginService/login.service';
 import { ProviderAdminModule } from './app-provider-admin/provider-admin/provider-admin.module';
 import { SuperAdminModule } from './app-provider-admin/super-admin/super-admin.module';
+import { UomMasterService } from './core/services/inventory-services/uom-master.service';
+import { Mainstroreandsubstore } from './core/services/inventory-services/mainstoreandsubstore.service';
+import { FacilityMasterService } from './core/services/inventory-services/facilitytypemaster.service';
+import { ItemFacilityMappingService } from './core/services/inventory-services/item-facility-mapping.service';
+import { StoreMappingService } from './core/services/inventory-services/store-mapping.service';
 
 @NgModule({
   declarations: [
@@ -85,7 +90,11 @@ import { SuperAdminModule } from './app-provider-admin/super-admin/super-admin.m
     PharmacologicalMasterService,
     ItemCategoryService,
     loginService,
-
+    UomMasterService,
+    Mainstroreandsubstore,
+    FacilityMasterService,
+    ItemFacilityMappingService,
+    StoreMappingService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpInterceptorService,
