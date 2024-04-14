@@ -5,43 +5,72 @@
     </h4>
   </div>
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-a-0">
-
     <form id="form" #storeSearchForm="ngForm" autocomplete="off">
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
         <mat-form-field class="hide_underline" [style.width]="'100%'">
-          <input matInput style="display:none">
-          <mat-select required name="Services" placeholder="Serviceline" [style.width]="'100%'" [(ngModel)]="serviceline" (selectionChange)="getstates(serviceline)">
+          <input matInput style="display: none" />
+          <mat-select
+            required
+            name="Services"
+            placeholder="Serviceline"
+            [style.width]="'100%'"
+            [(ngModel)]="serviceline"
+            (selectionChange)="getstates(serviceline)"
+          >
             <mat-option *ngFor="let item of services_array" [value]="item">
-              {{item.serviceName}}
+              {{ item.serviceName }}
             </mat-option>
           </mat-select>
         </mat-form-field>
       </div>
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
         <mat-form-field class="hide_underline" [style.width]="'100%'">
-          <input matInput style="display:none">
-          <mat-select required name="state" placeholder="State" [style.width]="'100%'" [(ngModel)]="state">
-            <mat-option *ngFor="let item of states_array" [value]="item" (click)="getAllStores(item.providerServiceMapID)">
-              {{item.stateName}}
+          <input matInput style="display: none" />
+          <mat-select
+            required
+            name="state"
+            placeholder="State"
+            [style.width]="'100%'"
+            [(ngModel)]="state"
+          >
+            <mat-option
+              *ngFor="let item of states_array"
+              [value]="item"
+              (click)="getAllStores(item.providerServiceMapID)"
+            >
+              {{ item.stateName }}
             </mat-option>
           </mat-select>
         </mat-form-field>
       </div>
-      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-6" *ngIf="tableMode && providerServiceMapID">
+      <div
+        class="col-xs-12 col-sm-12 col-md-4 col-lg-6"
+        *ngIf="tableMode && providerServiceMapID"
+      >
         <div class="row" *ngIf="storesList?.length > 0" class="pull-right">
           <mat-form-field id="filterbox">
-            <input matInput placeholder="In-Table Search" name="filterTerm" [(ngModel)]="create_filterTerm" #filterTerm (keyup)="filterstoreList(filterTerm.value)">
+            <input
+              matInput
+              placeholder="In-Table Search"
+              name="filterTerm"
+              [(ngModel)]="create_filterTerm"
+              #filterTerm
+              (keyup)="filterstoreList(filterTerm.value)"
+            />
             <mat-icon matSuffix>search</mat-icon>
           </mat-form-field>
         </div>
       </div>
     </form>
-
   </div>
   <!-- pre-populated table showing the number of providers available -->
   <div class="col-xs-12 col-sm-12">
     <div class="table-responsive">
-      <mat-table [dataSource]="filteredstoresList" *ngIf="showTableFlag" class="mat-elevation-z8">
+      <mat-table
+        [dataSource]="filteredstoresList"
+        *ngIf="showTableFlag"
+        class="mat-elevation-z8"
+      >
         <!-- S.No. Column -->
         <ng-container matColumnDef="sno">
           <mat-header-cell *matHeaderCellDef>S.No.</mat-header-cell>
@@ -51,17 +80,13 @@
         <!-- Category Code Column -->
         <ng-container matColumnDef="facilityName">
           <mat-header-cell *matHeaderCellDef>Facility Name</mat-header-cell>
-          <mat-cell *matCellDef="let item">{{
-            item.facilityName
-          }}</mat-cell>
+          <mat-cell *matCellDef="let item">{{ item.facilityName }}</mat-cell>
         </ng-container>
 
         <!-- Category Name Column -->
         <ng-container matColumnDef="facilityCode">
           <mat-header-cell *matHeaderCellDef>Facility Code</mat-header-cell>
-          <mat-cell *matCellDef="let item">{{
-            item.facilityCode
-          }}</mat-cell>
+          <mat-cell *matCellDef="let item">{{ item.facilityCode }}</mat-cell>
         </ng-container>
 
         <!-- Category Description Column -->
@@ -69,16 +94,12 @@
           <mat-header-cell *matHeaderCellDef
             >Facility Description</mat-header-cell
           >
-          <mat-cell *matCellDef="let item">{{
-            item.facilityDesc
-          }}</mat-cell>
+          <mat-cell *matCellDef="let item">{{ item.facilityDesc }}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="location">
           <mat-header-cell *matHeaderCellDef>Location</mat-header-cell>
-          <mat-cell *matCellDef="let item">{{
-            item.location
-          }}</mat-cell>
+          <mat-cell *matCellDef="let item">{{ item.location }}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="physicalLocation">
@@ -90,17 +111,23 @@
 
         <ng-container matColumnDef="storeType">
           <mat-header-cell *matHeaderCellDef>Store Type</mat-header-cell>
-          <mat-cell *matCellDef="let item">{{
-            item.storeType
-          }}</mat-cell>
+          <mat-cell *matCellDef="let item">{{ item.storeType }}</mat-cell>
         </ng-container>
 
         <!-- Edit Column -->
         <ng-container matColumnDef="edit">
           <mat-header-cell *matHeaderCellDef>Edit</mat-header-cell>
           <mat-cell *matCellDef="let item">
-            <mat-icon mdTooltip="Edit" class="mat-icon material-icons" role="img" aria-hidden="true" style="cursor:pointer" *ngIf="!item.deleted"
-                (click)="editFacility(item)">edit</mat-icon>
+            <mat-icon
+              mdTooltip="Edit"
+              class="mat-icon material-icons"
+              role="img"
+              aria-hidden="true"
+              style="cursor: pointer"
+              *ngIf="!item.deleted"
+              (click)="editFacility(item)"
+              >edit</mat-icon
+            >
           </mat-cell>
         </ng-container>
 
@@ -108,8 +135,24 @@
         <ng-container matColumnDef="action">
           <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
           <mat-cell *matCellDef="let item">
-            <button mat-raised-button color="accent" *ngIf="item.deleted" class=" m-r-10" (click)="activateDeactivate(item.facilityID,false)">Activate</button>
-            <button mat-raised-button color="primary" *ngIf="!item.deleted" class=" m-r-10" (click)="activateDeactivate(item.facilityID,true)">Deactivate</button>
+            <button
+              mat-raised-button
+              color="accent"
+              *ngIf="item.deleted"
+              class="m-r-10"
+              (click)="activateDeactivate(item.facilityID, false)"
+            >
+              Activate
+            </button>
+            <button
+              mat-raised-button
+              color="primary"
+              *ngIf="!item.deleted"
+              class="m-r-10"
+              (click)="activateDeactivate(item.facilityID, true)"
+            >
+              Deactivate
+            </button>
           </mat-cell>
         </ng-container>
         <mat-header-row
@@ -129,26 +172,37 @@
           *matRowDef="
             let row;
             columns: [
-            'sno',
-            'facilityName',
-            'facilityCode',
-            'facilityDesc',
-            'location',
-            'physicalLocation',
-            'storeType',
-            'edit',
-            'action'
+              'sno',
+              'facilityName',
+              'facilityCode',
+              'facilityDesc',
+              'location',
+              'physicalLocation',
+              'storeType',
+              'edit',
+              'action'
             ]
           "
         ></mat-row>
       </mat-table>
       <div>
-        <button mat-raised-button color="primary" *ngIf="createButton " class="pull-right" (click)="showForm()">Create Store</button>
-
+        <button
+          mat-raised-button
+          color="primary"
+          *ngIf="createButton"
+          class="pull-right"
+          (click)="showForm()"
+        >
+          Create Store
+        </button>
       </div>
       <!-- Pagination -->
       <div
-        *ngIf="filteredstoresList && filteredstoresList.data.length === 0 && showTableFlag"
+        *ngIf="
+          filteredstoresList &&
+          filteredstoresList.data.length === 0 &&
+          showTableFlag
+        "
         style="text-align: center; font-size: 16px"
       >
         <strong>No records found</strong>
@@ -169,117 +223,231 @@
     </h4>
   </div>
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-a-0">
-
     <form id="addform" #storeAddForm1="ngForm" autocomplete="off">
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
         <mat-form-field class="hide_underline" [style.width]="'100%'">
-          <input matInput style="display:none">
-          <mat-select required name="Services" placeholder="Serviceline" [disabled]="true" [style.width]="'100%'" [(ngModel)]="serviceline"
-            (change)="getstates(serviceline)">
+          <input matInput style="display: none" />
+          <mat-select
+            required
+            name="Services"
+            placeholder="Serviceline"
+            [disabled]="true"
+            [style.width]="'100%'"
+            [(ngModel)]="serviceline"
+            (change)="getstates(serviceline)"
+          >
             <mat-option *ngFor="let item of services_array" [value]="item">
-              {{item.serviceName}}
+              {{ item.serviceName }}
             </mat-option>
           </mat-select>
         </mat-form-field>
       </div>
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
         <mat-form-field class="hide_underline" [style.width]="'100%'">
-          <input matInput style="display:none">
-          <mat-select required name="state" placeholder="State" [style.width]="'100%'" [disabled]="true" [(ngModel)]="state">
+          <input matInput style="display: none" />
+          <mat-select
+            required
+            name="state"
+            placeholder="State"
+            [style.width]="'100%'"
+            [disabled]="true"
+            [(ngModel)]="state"
+          >
             <mat-option *ngFor="let item of states_array" [value]="item">
-              {{item.stateName}}
+              {{ item.stateName }}
             </mat-option>
           </mat-select>
         </mat-form-field>
       </div>
     </form>
 
-    <div class="clearfix  visible-lg"></div>
+    <div class="clearfix visible-lg"></div>
 
     <form id="inputform" #storeAddForm="ngForm" autocomplete="off">
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t--25">
         <mat-form-field class="hide_underline" [style.width]="'100%'">
-          <input matInput style="display:none">
-          <mat-select required name="facilityType" placeholder="Facility Type" [style.width]="'100%'" [(ngModel)]="create_facilityType">
+          <input matInput style="display: none" />
+          <mat-select
+            required
+            name="facilityType"
+            placeholder="Facility Type"
+            [style.width]="'100%'"
+            [(ngModel)]="create_facilityType"
+          >
             <mat-option *ngFor="let item of facilityType_array" [value]="item">
-              {{item.facilityTypeName}}
+              {{ item.facilityTypeName }}
             </mat-option>
           </mat-select>
         </mat-form-field>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
         <mat-form-field [style.width]="'100%'">
-          <input matInput required placeholder="Facility Code" (blur)="checkExistance(create_facilityCode)" PanWithCopyPaste [(ngModel)]="create_facilityCode"
-            maxlength="15" name="facilityCode" #facilityTypeCode="ngModel">
+          <input
+            matInput
+            required
+            placeholder="Facility Code"
+            (blur)="checkExistance(create_facilityCode)"
+            PanWithCopyPaste
+            [(ngModel)]="create_facilityCode"
+            maxlength="15"
+            name="facilityCode"
+            #facilityTypeCode="ngModel"
+          />
           <mat-hint>
-            <span class="error_text" *ngIf="!facilityTypeCode.valid  && ( facilityTypeCode.dirty || facilityTypeCode.touched)">Facility Code is required</span>
-            <span class="error_text" *ngIf="facilityTypeCode.valid && FacilityCodeExist">Facility Code already exists</span>
+            <span
+              class="error_text"
+              *ngIf="
+                !facilityTypeCode.valid &&
+                (facilityTypeCode.dirty || facilityTypeCode.touched)
+              "
+              >Facility Code is required</span
+            >
+            <span
+              class="error_text"
+              *ngIf="facilityTypeCode.valid && FacilityCodeExist"
+              >Facility Code already exists</span
+            >
           </mat-hint>
         </mat-form-field>
       </div>
-      <div class="clearfix  visible-sm"></div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
+      <div class="clearfix visible-sm"></div>
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
         <mat-form-field [style.width]="'100%'">
-          <input matInput required placeholder="Facility Name" vehicleNoSpecialCharWithCopyPaste [(ngModel)]="create_facilityName" maxlength="100" name="facilityName"
-            #facilityTypeName="ngModel">
+          <input
+            matInput
+            required
+            placeholder="Facility Name"
+            vehicleNoSpecialCharWithCopyPaste
+            [(ngModel)]="create_facilityName"
+            maxlength="100"
+            name="facilityName"
+            #facilityTypeName="ngModel"
+          />
           <mat-hint>
-            <span class="error_text" *ngIf="!facilityTypeName.valid  && ( facilityTypeName.dirty || facilityTypeName.touched)">Facility Name is required</span>
+            <span
+              class="error_text"
+              *ngIf="
+                !facilityTypeName.valid &&
+                (facilityTypeName.dirty || facilityTypeName.touched)
+              "
+              >Facility Name is required</span
+            >
           </mat-hint>
         </mat-form-field>
       </div>
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
         <mat-form-field [style.width]="'100%'">
-          <input matInput placeholder="Facility Description" vehicleNoCopyPaste [(ngModel)]="create_facilityDiscription" maxlength="100" name="facilityDescription">
+          <input
+            matInput
+            placeholder="Facility Description"
+            vehicleNoCopyPaste
+            [(ngModel)]="create_facilityDiscription"
+            maxlength="100"
+            name="facilityDescription"
+          />
         </mat-form-field>
       </div>
-      <div class="clearfix  visible-lg"></div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
+      <div class="clearfix visible-lg"></div>
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
         <mat-form-field [style.width]="'100%'">
-          <input matInput placeholder="Location" vehicleNoCopyPaste [(ngModel)]="create_location" maxlength="100" name="createlocation" #location="ngModel">
+          <input
+            matInput
+            placeholder="Location"
+            vehicleNoCopyPaste
+            [(ngModel)]="create_location"
+            maxlength="100"
+            name="createlocation"
+            #location="ngModel"
+          />
           <mat-hint>
-            <span class="error_text" *ngIf="!location.valid  && ( location.dirty || location.touched)">Please enter location</span>
+            <span
+              class="error_text"
+              *ngIf="!location.valid && (location.dirty || location.touched)"
+              >Please enter location</span
+            >
           </mat-hint>
         </mat-form-field>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
         <mat-form-field [style.width]="'100%'">
-          <input matInput placeholder="Physical Location" vehicleNoCopyPaste [(ngModel)]="create_physicalLocation" maxlength="100" name="physicalLocation"
-            #physicalLocation="ngModel">
+          <input
+            matInput
+            placeholder="Physical Location"
+            vehicleNoCopyPaste
+            [(ngModel)]="create_physicalLocation"
+            maxlength="100"
+            name="physicalLocation"
+            #physicalLocation="ngModel"
+          />
         </mat-form-field>
       </div>
-      <div class="clearfix  visible-sm "></div>
+      <div class="clearfix visible-sm"></div>
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
         <label class="f-s-n-b">Store Type</label>
         <mat-radio-group required>
-          <mat-radio-button color="primary" class="p-l-10" [checked]="create_Main_Store_radiobutton" (change)="disbleDropdown(true)"
-            [value]=true>Main Store</mat-radio-button>
-          <mat-radio-button color="primary" class="p-l-10" [checked]="create_Sub_Store_radiobutton" (change)="disbleDropdown(false)"
-            [value]=false>Sub Store</mat-radio-button>
+          <mat-radio-button
+            color="primary"
+            class="p-l-10"
+            [checked]="create_Main_Store_radiobutton"
+            (change)="disbleDropdown(true)"
+            [value]="true"
+            >Main Store</mat-radio-button
+          >
+          <mat-radio-button
+            color="primary"
+            class="p-l-10"
+            [checked]="create_Sub_Store_radiobutton"
+            (change)="disbleDropdown(false)"
+            [value]="false"
+            >Sub Store</mat-radio-button
+          >
         </mat-radio-group>
       </div>
 
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t--25">
         <mat-form-field class="hide_underline" [style.width]="'100%'">
-          <input matInput style="display:none">
-          <mat-select name="store" [required]="!mainStoreDropdownState" [disabled]="mainStoreDropdownState" placeholder="Main Store" [style.width]="'100%'" [(ngModel)]="create_store">
-            <mat-option *ngFor="let item of storeType_array" [value]="item.facilityID">
-              {{item.facilityName}}
+          <input matInput style="display: none" />
+          <mat-select
+            name="store"
+            [required]="!mainStoreDropdownState"
+            [disabled]="mainStoreDropdownState"
+            placeholder="Main Store"
+            [style.width]="'100%'"
+            [(ngModel)]="create_store"
+          >
+            <mat-option
+              *ngFor="let item of storeType_array"
+              [value]="item.facilityID"
+            >
+              {{ item.facilityName }}
             </mat-option>
           </mat-select>
         </mat-form-field>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-12 m-t-10 ">
-        <button mat-mini-fab class="xs-pull-right sm-pull-right md-pull-left lg-pull-right" *ngIf="!editMode && storeAddForm.valid"
-          color="primary" (click)="add2bufferArray(storeAddForm.value);this.storeAddForm.reset();">
-          <mat-icon matSuffix class="mat-icon material-icons" role="img" aria-hidden="true" style="cursor: pointer">add</mat-icon>
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-12 m-t-10">
+        <button
+          mat-mini-fab
+          class="xs-pull-right sm-pull-right md-pull-left lg-pull-right"
+          *ngIf="!editMode && storeAddForm.valid"
+          color="primary"
+          (click)="
+            add2bufferArray(storeAddForm.value); this.storeAddForm.reset()
+          "
+        >
+          <mat-icon
+            matSuffix
+            class="mat-icon material-icons"
+            role="img"
+            aria-hidden="true"
+            style="cursor: pointer"
+            >add</mat-icon
+          >
         </button>
       </div>
     </form>
-
   </div>
-  <div class="col-xs-12 col-sm-12  m-t-15" *ngIf="bufferArray.data.length>0">
+  <div class="col-xs-12 col-sm-12 m-t-15" *ngIf="bufferArray.data.length > 0">
     <div class="table-responsive">
-      
       <mat-table [dataSource]="bufferArray" class="mat-elevation-z8">
         <!-- S.No. Column -->
         <ng-container matColumnDef="sno">
@@ -289,25 +457,19 @@
 
         <ng-container matColumnDef="facilityType">
           <mat-header-cell *matHeaderCellDef>Facility Type</mat-header-cell>
-          <mat-cell *matCellDef="let item">{{
-            item.facilityType
-          }}</mat-cell>
+          <mat-cell *matCellDef="let item">{{ item.facilityType }}</mat-cell>
         </ng-container>
 
         <!-- Category Code Column -->
         <ng-container matColumnDef="facilityName">
           <mat-header-cell *matHeaderCellDef>Facility Name</mat-header-cell>
-          <mat-cell *matCellDef="let item">{{
-            item.facilityName
-          }}</mat-cell>
+          <mat-cell *matCellDef="let item">{{ item.facilityName }}</mat-cell>
         </ng-container>
 
         <!-- Category Name Column -->
         <ng-container matColumnDef="facilityCode">
           <mat-header-cell *matHeaderCellDef>Facility Code</mat-header-cell>
-          <mat-cell *matCellDef="let item">{{
-            item.facilityCode
-          }}</mat-cell>
+          <mat-cell *matCellDef="let item">{{ item.facilityCode }}</mat-cell>
         </ng-container>
 
         <!-- Category Description Column -->
@@ -315,16 +477,12 @@
           <mat-header-cell *matHeaderCellDef
             >Facility Description</mat-header-cell
           >
-          <mat-cell *matCellDef="let item">{{
-            item.facilityDesc
-          }}</mat-cell>
+          <mat-cell *matCellDef="let item">{{ item.facilityDesc }}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="location">
           <mat-header-cell *matHeaderCellDef>Location</mat-header-cell>
-          <mat-cell *matCellDef="let item">{{
-            item.location
-          }}</mat-cell>
+          <mat-cell *matCellDef="let item">{{ item.location }}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="physicalLocation">
@@ -336,15 +494,17 @@
 
         <ng-container matColumnDef="storeType">
           <mat-header-cell *matHeaderCellDef>Store Type</mat-header-cell>
-          <mat-cell *matCellDef="let item">{{
-            item.storeType
-          }}</mat-cell>
+          <mat-cell *matCellDef="let item">{{ item.storeType }}</mat-cell>
         </ng-container>
         <!-- Action Column -->
         <ng-container matColumnDef="action">
           <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
           <mat-cell *matCellDef="let item; let i = index">
-            <button mat-icon-button matTooltip="Delete" (click)="removeRow(bufferArray.data.indexOf(item))">
+            <button
+              mat-icon-button
+              matTooltip="Delete"
+              (click)="removeRow(bufferArray.data.indexOf(item))"
+            >
               <mat-icon>delete</mat-icon>
             </button>
           </mat-cell>
@@ -367,15 +527,15 @@
           *matRowDef="
             let row;
             columns: [
-            'sno',
-            'facilityType',
-            'facilityName',
-            'facilityCode',
-            'facilityDesc',
-            'location',
-            'physicalLocation',
-            'storeType',
-            'action'
+              'sno',
+              'facilityType',
+              'facilityName',
+              'facilityCode',
+              'facilityDesc',
+              'location',
+              'physicalLocation',
+              'storeType',
+              'action'
             ]
           "
         ></mat-row>
@@ -390,10 +550,31 @@
     </div>
   </div>
   <div class="col-xs-12 col-sm-12 m-t-15 m-b-10">
-    <button mat-raised-button color="primary" class="pull-left" (click)="showTable();storeAddForm.reset();">Back</button>
-    <button mat-raised-button color="accent" [disabled]="!(bufferArray.data.length>0)" class="pull-right" (click)="saveStores();storeAddForm.reset();">Save</button>
-    <button mat-raised-button color="primary" class="pull-right m-r-5" (click)="storeAddForm.reset()">Clear</button>
-
+    <button
+      mat-raised-button
+      color="primary"
+      class="pull-left"
+      (click)="showTable(); storeAddForm.reset()"
+    >
+      Back
+    </button>
+    <button
+      mat-raised-button
+      color="accent"
+      [disabled]="!(bufferArray.data.length > 0)"
+      class="pull-right"
+      (click)="saveStores(); storeAddForm.reset()"
+    >
+      Save
+    </button>
+    <button
+      mat-raised-button
+      color="primary"
+      class="pull-right m-r-5"
+      (click)="storeAddForm.reset()"
+    >
+      Clear
+    </button>
   </div>
 </div>
 <div class="row" *ngIf="editMode">
@@ -403,16 +584,21 @@
     </h4>
   </div>
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-a-0">
-
     <form autocomplete="off" id="editform" #storeEditForm="ngForm">
-
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
         <mat-form-field class="hide_underline" [style.width]="'100%'">
-          <input matInput style="display:none">
-          <mat-select required name="Services" placeholder="Serviceline" [disabled]="true" [style.width]="'100%'" [(ngModel)]="edit_Serviceline"
-            (change)="getProviderStatesInService()">
+          <input matInput style="display: none" />
+          <mat-select
+            required
+            name="Services"
+            placeholder="Serviceline"
+            [disabled]="true"
+            [style.width]="'100%'"
+            [(ngModel)]="edit_Serviceline"
+            (change)="getProviderStatesInService()"
+          >
             <mat-option *ngFor="let item of services_array" [value]="item">
-              {{item.serviceName}}
+              {{ item.serviceName }}
             </mat-option>
           </mat-select>
         </mat-form-field>
@@ -420,93 +606,215 @@
 
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
         <mat-form-field class="hide_underline" [style.width]="'100%'">
-          <input matInput style="display:none">
-          <mat-select required name="state" placeholder="State" [style.width]="'100%'" [disabled]="true" [(ngModel)]="edit_State">
+          <input matInput style="display: none" />
+          <mat-select
+            required
+            name="state"
+            placeholder="State"
+            [style.width]="'100%'"
+            [disabled]="true"
+            [(ngModel)]="edit_State"
+          >
             <mat-option *ngFor="let item of states_array" [value]="item">
-              {{item.stateName}}
+              {{ item.stateName }}
             </mat-option>
           </mat-select>
         </mat-form-field>
       </div>
-      <div class="clearfix  visible-lg"></div>
+      <div class="clearfix visible-lg"></div>
 
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
         <mat-form-field class="hide_underline" [style.width]="'100%'">
-          <input matInput style="display:none">
-          <mat-select required name="facilityType" placeholder="Facility Type" [disabled]="true" [style.width]="'100%'" [(ngModel)]="edit_facilityType">
-            <mat-option *ngFor="let item of facilityType_array" [value]="item.facilityTypeID">
-              {{item.facilityTypeName}}
+          <input matInput style="display: none" />
+          <mat-select
+            required
+            name="facilityType"
+            placeholder="Facility Type"
+            [disabled]="true"
+            [style.width]="'100%'"
+            [(ngModel)]="edit_facilityType"
+          >
+            <mat-option
+              *ngFor="let item of facilityType_array"
+              [value]="item.facilityTypeID"
+            >
+              {{ item.facilityTypeName }}
             </mat-option>
           </mat-select>
         </mat-form-field>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
         <mat-form-field [style.width]="'100%'">
-          <input matInput required placeholder="Facility Code" [disabled]="true" myProviderName maxlength="15" [(ngModel)]="edit_facilityCode"
-            name="facilityCode" #facilityTypeCode="ngModel">
+          <input
+            matInput
+            required
+            placeholder="Facility Code"
+            [disabled]="true"
+            myProviderName
+            maxlength="15"
+            [(ngModel)]="edit_facilityCode"
+            name="facilityCode"
+            #facilityTypeCode="ngModel"
+          />
           <mat-hint>
-            <span class="error_text" *ngIf="!facilityTypeCode.valid  && ( facilityTypeCode.dirty || facilityTypeCode.touched)">Please enter Facility Type Code</span>
+            <span
+              class="error_text"
+              *ngIf="
+                !facilityTypeCode.valid &&
+                (facilityTypeCode.dirty || facilityTypeCode.touched)
+              "
+              >Please enter Facility Type Code</span
+            >
           </mat-hint>
         </mat-form-field>
       </div>
-      <div class="clearfix  visible-sm"></div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
+      <div class="clearfix visible-sm"></div>
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
         <mat-form-field [style.width]="'100%'">
-          <input matInput required placeholder="Facility Name" [disabled]="true" vehicleNoSpecialCharWithCopyPaste [(ngModel)]="edit_facilityName" maxlength="100"
-            name="facilityName" #facilityTypeName="ngModel">
+          <input
+            matInput
+            required
+            placeholder="Facility Name"
+            [disabled]="true"
+            vehicleNoSpecialCharWithCopyPaste
+            [(ngModel)]="edit_facilityName"
+            maxlength="100"
+            name="facilityName"
+            #facilityTypeName="ngModel"
+          />
           <mat-hint>
-            <span class="error_text" *ngIf="!facilityTypeName.valid  && ( facilityTypeName.dirty || facilityTypeName.touched)">Please enter Facility Type Name</span>
+            <span
+              class="error_text"
+              *ngIf="
+                !facilityTypeName.valid &&
+                (facilityTypeName.dirty || facilityTypeName.touched)
+              "
+              >Please enter Facility Type Name</span
+            >
           </mat-hint>
         </mat-form-field>
       </div>
 
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
         <mat-form-field [style.width]="'100%'">
-          <input matInput placeholder="Facility Description" vehicleNoCopyPaste maxlength="100" [(ngModel)]="edit_facilityDiscription" name="facilityDescription">
+          <input
+            matInput
+            placeholder="Facility Description"
+            vehicleNoCopyPaste
+            maxlength="100"
+            [(ngModel)]="edit_facilityDiscription"
+            name="facilityDescription"
+          />
         </mat-form-field>
       </div>
-      <div class="clearfix  visible-lg"></div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
+      <div class="clearfix visible-lg"></div>
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
         <mat-form-field [style.width]="'100%'">
-          <input matInput maxlength="100" placeholder="Location" vehicleNoCopyPaste [(ngModel)]="edit_location" name="createlocation" #location="ngModel">
+          <input
+            matInput
+            maxlength="100"
+            placeholder="Location"
+            vehicleNoCopyPaste
+            [(ngModel)]="edit_location"
+            name="createlocation"
+            #location="ngModel"
+          />
           <mat-hint>
-            <span class="error_text" *ngIf="!location.valid  && ( location.dirty || location.touched)">Please enter location</span>
+            <span
+              class="error_text"
+              *ngIf="!location.valid && (location.dirty || location.touched)"
+              >Please enter location</span
+            >
           </mat-hint>
         </mat-form-field>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
         <mat-form-field [style.width]="'100%'">
-          <input matInput maxlength="100" placeholder="Physical Location" vehicleNoCopyPaste [(ngModel)]="edit_physicalLocation" name="physicalLocation"
-            #physicalLocation="ngModel">
+          <input
+            matInput
+            maxlength="100"
+            placeholder="Physical Location"
+            vehicleNoCopyPaste
+            [(ngModel)]="edit_physicalLocation"
+            name="physicalLocation"
+            #physicalLocation="ngModel"
+          />
           <mat-hint>
-            <span class="error_text" *ngIf="!physicalLocation.valid  && ( physicalLocation.dirty || physicalLocation.touched)">Please enter Physical Location</span>
+            <span
+              class="error_text"
+              *ngIf="
+                !physicalLocation.valid &&
+                (physicalLocation.dirty || physicalLocation.touched)
+              "
+              >Please enter Physical Location</span
+            >
           </mat-hint>
         </mat-form-field>
       </div>
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
         <label class="f-s-n-b">Store Type</label>
         <mat-radio-group>
-          <mat-radio-button color="primary" class="p-l-10" [checked]="edit_mainstore" [disabled]="true" [value]=true>Main Store</mat-radio-button>&nbsp;
-          <mat-radio-button color="primary" class="p-l-10" [checked]="edit_substore" [disabled]="true" [value]=false>Sub Store</mat-radio-button>
+          <mat-radio-button
+            color="primary"
+            class="p-l-10"
+            [checked]="edit_mainstore"
+            [disabled]="true"
+            [value]="true"
+            >Main Store</mat-radio-button
+          >&nbsp;
+          <mat-radio-button
+            color="primary"
+            class="p-l-10"
+            [checked]="edit_substore"
+            [disabled]="true"
+            [value]="false"
+            >Sub Store</mat-radio-button
+          >
         </mat-radio-group>
       </div>
-      <div class="clearfix visible-md "></div>
+      <div class="clearfix visible-md"></div>
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
         <mat-form-field class="hide_underline" [style.width]="'100%'">
-          <input matInput style="display:none">
-          <mat-select name="store" [required]="!edit_mainstore" placeholder="Main Store" [style.width]="'100%'" [(ngModel)]="edit_store"
-            [disabled]="true">
-            <mat-option *ngFor="let item of storeType_arrayEdit" [value]="item.facilityID">
-              {{item.facilityName}}
+          <input matInput style="display: none" />
+          <mat-select
+            name="store"
+            [required]="!edit_mainstore"
+            placeholder="Main Store"
+            [style.width]="'100%'"
+            [(ngModel)]="edit_store"
+            [disabled]="true"
+          >
+            <mat-option
+              *ngFor="let item of storeType_arrayEdit"
+              [value]="item.facilityID"
+            >
+              {{ item.facilityName }}
             </mat-option>
           </mat-select>
         </mat-form-field>
       </div>
     </form>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10">
-      <button mat-raised-button color="primary" class="pull-left" (click)="showTable()" style="margin-top: -3%;">Back</button>
-      <button *ngIf="editMode" mat-raised-button color="accent" style="margin-top: -5%;" class="pull-right" [disabled]="storeEditForm.invalid" (click)="updateFacilityType(storeEditForm.value)">Update</button>
-
+      <button
+        mat-raised-button
+        color="primary"
+        class="pull-left"
+        (click)="showTable()"
+        style="margin-top: -3%"
+      >
+        Back
+      </button>
+      <button
+        *ngIf="editMode"
+        mat-raised-button
+        color="accent"
+        style="margin-top: -5%"
+        class="pull-right"
+        [disabled]="storeEditForm.invalid"
+        (click)="updateFacilityType(storeEditForm.value)"
+      >
+        Update
+      </button>
     </div>
   </div>
 </div>

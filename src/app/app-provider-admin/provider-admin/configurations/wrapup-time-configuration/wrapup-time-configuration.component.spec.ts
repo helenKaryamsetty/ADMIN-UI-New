@@ -21,20 +21,20 @@
  */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SeverityTypeComponent } from './severity-type.component';
+import { WrapupTimeConfigurationComponent } from './wrapup-time-configuration.component';
 
-describe('SeverityTypeComponent', () => {
-  let component: SeverityTypeComponent;
-  let fixture: ComponentFixture<SeverityTypeComponent>;
+describe('WrapupTimeConfigurationComponent', () => {
+  let component: WrapupTimeConfigurationComponent;
+  let fixture: ComponentFixture<WrapupTimeConfigurationComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [SeverityTypeComponent],
+      declarations: [WrapupTimeConfigurationComponent],
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SeverityTypeComponent);
+    fixture = TestBed.createComponent(WrapupTimeConfigurationComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -21,20 +21,20 @@
  */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SeverityTypeComponent } from './severity-type.component';
+import { UserSignatureMappingComponent } from './user-signature-mapping.component';
 
-describe('SeverityTypeComponent', () => {
-  let component: SeverityTypeComponent;
-  let fixture: ComponentFixture<SeverityTypeComponent>;
+describe('UserSignatureMappingComponent', () => {
+  let component: UserSignatureMappingComponent;
+  let fixture: ComponentFixture<UserSignatureMappingComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [SeverityTypeComponent],
+      declarations: [UserSignatureMappingComponent],
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SeverityTypeComponent);
+    fixture = TestBed.createComponent(UserSignatureMappingComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

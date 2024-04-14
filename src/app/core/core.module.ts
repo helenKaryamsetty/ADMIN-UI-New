@@ -49,7 +49,7 @@ import { VanMasterService } from './services/ProviderAdminServices/van-master-se
     ScreenService,
     ServicemasterService,
     CommonServices,
-    VanMasterService
+    VanMasterService,
   ],
 })
 export class CoreModule {

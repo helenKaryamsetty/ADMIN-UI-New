@@ -1,17 +1,25 @@
 <div class="row">
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <h4 *ngIf="showListOfZones">Zone Master</h4>
-    <h4 *ngIf="!editable && !showListOfZones">Create Zone </h4>
-    <h4 *ngIf="editable && !showListOfZones">Edit Zone </h4>
+    <h4 *ngIf="!editable && !showListOfZones">Create Zone</h4>
+    <h4 *ngIf="editable && !showListOfZones">Edit Zone</h4>
     <form #searchForm="ngForm" autocomplete="off">
       <div class="row">
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
           <!-- <md-input-container class="hide_underline width100">
             <input matInput style="display:none"> -->
-          <mat-select placeholder="Serviceline" (selectionChange)="getStates(service)" class="width100" [(ngModel)]="service" name="service"
-            required #bindService="ngModel" disabled={{disableSelection}}>
+          <mat-select
+            placeholder="Serviceline"
+            (selectionChange)="getStates(service)"
+            class="width100"
+            [(ngModel)]="service"
+            name="service"
+            required
+            #bindService="ngModel"
+            disabled="{{ disableSelection }}"
+          >
             <mat-option *ngFor="let item of services" [value]="item">
-              {{item.serviceName}}
+              {{ item.serviceName }}
             </mat-option>
           </mat-select>
           <!-- <md-hint [hidden]=bindService.valid *ngIf="showListOfZones">
@@ -22,10 +30,20 @@
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
           <!-- <md-input-container class="hide_underline width100">
             <input matInput style="display:none"> -->
-          <mat-select placeholder="State" class="width100" [(ngModel)]="state" [disabled]="disableSelection" (selectionChange)="setProviderServiceMapID(state.providerServiceMapID)"
-            name="state" #bindState="ngModel" required>
+          <mat-select
+            placeholder="State"
+            class="width100"
+            [(ngModel)]="state"
+            [disabled]="disableSelection"
+            (selectionChange)="
+              setProviderServiceMapID(state.providerServiceMapID)
+            "
+            name="state"
+            #bindState="ngModel"
+            required
+          >
             <mat-option *ngFor="let item of states" [value]="item">
-              {{item.stateName}}
+              {{ item.stateName }}
             </mat-option>
           </mat-select>
           <!-- <md-hint [hidden]=bindState.valid *ngIf="showListOfZones">
@@ -37,16 +55,28 @@
     </form>
   </div>
 </div>
-<div class="pull-right" *ngIf="availableZones.length!==0 && showListOfZones && !editable">
+<div
+  class="pull-right"
+  *ngIf="availableZones.length !== 0 && showListOfZones && !editable"
+>
   <mat-form-field class="input-full-width mat_form_field_width_one">
-    <input matInput placeholder="In-Table Search" #filterTerm (keyup)="filterComponentList(filterTerm.value)">
+    <input
+      matInput
+      placeholder="In-Table Search"
+      #filterTerm
+      (keyup)="filterComponentList(filterTerm.value)"
+    />
     <mat-icon matSuffix>search</mat-icon>
-</mat-form-field>
+  </mat-form-field>
 </div>
 <div class="row" *ngIf="showTableFlag && showListOfZones && !editable">
-  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" >
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <div class="table-responsive">
-      <table  mat-table class="mat-elevation-z8" [dataSource]="filteredavailableZones">
+      <table
+        mat-table
+        class="mat-elevation-z8"
+        [dataSource]="filteredavailableZones"
+      >
         <ng-container matColumnDef="sno">
           <th mat-header-cell *matHeaderCellDef>SNo.</th>
           <td mat-cell *matCellDef="let element; let i = index">{{ i + 1 }}</td>
@@ -61,7 +91,9 @@
         </ng-container>
         <ng-container matColumnDef="Address">
           <th mat-header-cell *matHeaderCellDef>Zone Description</th>
-          <td mat-cell *matCellDef="let element">{{ element.zoneHQAddress }}</td>
+          <td mat-cell *matCellDef="let element">
+            {{ element.zoneHQAddress }}
+          </td>
         </ng-container>
         <ng-container matColumnDef="edit">
           <th mat-header-cell *matHeaderCellDef>Edit</th>
@@ -100,12 +132,12 @@
           </td>
         </ng-container>
 
-        
         <tfoot>
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-        </table>
-        <div
+        </tfoot>
+      </table>
+      <div
         class="pull-center"
         style="margin-top: 35px; text-align: center"
         *ngIf="filteredavailableZones.data.length === 0"
@@ -120,8 +152,15 @@
       >
       </mat-paginator>
       <div>
-              <button mat-raised-button color="primary" class="pull-right" (click)="showForm()">Add Zone </button>
-            </div>
+        <button
+          mat-raised-button
+          color="primary"
+          class="pull-right"
+          (click)="showForm()"
+        >
+          Add Zone
+        </button>
+      </div>
     </div>
   </div>
 </div>
@@ -130,20 +169,47 @@
   <div class="row">
     <form #zoneForm="ngForm" autocomplete="off">
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
-        <mat-form-field class="input-full-width mat_form_field_width_one" myProviderName>
-          <input matInput placeholder="Zone Name" [(ngModel)]="zoneName" name="zoneName" #zoneN="ngModel" (keyup)="checkExistance(zoneName)"
-            minlength="1" maxlength="50" required>
+        <mat-form-field
+          class="input-full-width mat_form_field_width_one"
+          myProviderName
+        >
+          <input
+            matInput
+            placeholder="Zone Name"
+            [(ngModel)]="zoneName"
+            name="zoneName"
+            #zoneN="ngModel"
+            (keyup)="checkExistance(zoneName)"
+            minlength="1"
+            maxlength="50"
+            required
+          />
           <mat-hint>
-            <span class="error_text" *ngIf="!zoneN.valid  && ( zoneN.dirty || zoneN.touched)">Zone Name is required</span>
-            <span class="error_text" *ngIf="zoneN.valid && zoneNameExist">Zone already exists</span>
+            <span
+              class="error_text"
+              *ngIf="!zoneN.valid && (zoneN.dirty || zoneN.touched)"
+              >Zone Name is required</span
+            >
+            <span class="error_text" *ngIf="zoneN.valid && zoneNameExist"
+              >Zone already exists</span
+            >
           </mat-hint>
-      </mat-form-field>
+        </mat-form-field>
       </div>
       <!-- <div class="clearfix visible-lg visible-sm"></div> -->
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
-        <mat-form-field class="input-full-width mat_form_field_width_one" myProviderName>
-          <input matInput placeholder="Description" [(ngModel)]="zoneDesc" name="zoneDesc" maxlength="100">
-      </mat-form-field>
+        <mat-form-field
+          class="input-full-width mat_form_field_width_one"
+          myProviderName
+        >
+          <input
+            matInput
+            placeholder="Description"
+            [(ngModel)]="zoneDesc"
+            name="zoneDesc"
+            maxlength="100"
+          />
+        </mat-form-field>
       </div>
       <!-- Commented - for zone creation these fields are not required-->
       <!-- <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
@@ -184,26 +250,54 @@
       </div> -->
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
         <mat-form-field class="input-full-width mat_form_field_width_one">
-          <input matInput myAddress  placeholder="Address" [(ngModel)]="zoneHQAddress" name="zoneHQAddress" #zoneAddress="ngModel" minlength="2"
-            maxlength="300">
-      </mat-form-field>
+          <input
+            matInput
+            myAddress
+            placeholder="Address"
+            [(ngModel)]="zoneHQAddress"
+            name="zoneHQAddress"
+            #zoneAddress="ngModel"
+            minlength="2"
+            maxlength="300"
+          />
+        </mat-form-field>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-12 col-lg-3 m-t-20" *ngIf="zoneForm.valid && !zoneNameExist ">
-        <button md-mini-fab color="primary" *ngIf="!editable" (click)="addZoneToList(zoneForm.value);zoneForm.reset()" class="xs-pull-right sm-pull-left md-pull-right lg-pull-left">
-          <mat-icon matSuffix class="mat-icon material-icons" role="img" aria-hidden="true" style="cursor: pointer">add</mat-icon>
+      <div
+        class="col-xs-12 col-sm-6 col-md-12 col-lg-3 m-t-20"
+        *ngIf="zoneForm.valid && !zoneNameExist"
+      >
+        <button
+          md-mini-fab
+          color="primary"
+          *ngIf="!editable"
+          (click)="addZoneToList(zoneForm.value); zoneForm.reset()"
+          class="xs-pull-right sm-pull-left md-pull-right lg-pull-left"
+        >
+          <mat-icon
+            matSuffix
+            class="mat-icon material-icons"
+            role="img"
+            aria-hidden="true"
+            style="cursor: pointer"
+            >add</mat-icon
+          >
         </button>
       </div>
     </form>
 
     <!-- <div class="cleartext"></div> -->
 
-
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-5" *ngIf="zoneList.data.length>0">
+    <div
+      class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-5"
+      *ngIf="zoneList.data.length > 0"
+    >
       <div class="table-responsive">
         <table mat-table [dataSource]="zoneList" class="mat-elevation-z8">
           <ng-container matColumnDef="sno">
             <th mat-header-cell *matHeaderCellDef>SNo.</th>
-            <td mat-cell *matCellDef="let element; let i = index">{{ i + 1 }}</td>
+            <td mat-cell *matCellDef="let element; let i = index">
+              {{ i + 1 }}
+            </td>
           </ng-container>
           <ng-container matColumnDef="zoneName">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Zone</th>
@@ -219,7 +313,9 @@
           </ng-container>
           <ng-container matColumnDef="zoneHQAddress">
             <th mat-header-cell *matHeaderCellDef>Address</th>
-            <td mat-cell *matCellDef="let element">{{ element.zoneHQAddress }}</td>
+            <td mat-cell *matCellDef="let element">
+              {{ element.zoneHQAddress }}
+            </td>
           </ng-container>
           <ng-container matColumnDef="action">
             <th mat-header-cell *matHeaderCellDef>Action</th>
@@ -233,14 +329,14 @@
             </td>
           </ng-container>
           <tr mat-header-row *matHeaderRowDef="displayAddedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayAddedColumns"></tr>
-        <mat-paginator
-        [hidden]="zoneList.data.length === 0"
-        [pageSizeOptions]="[5, 10, 20]"
-        [pageSize]="5"
-        showFirstLastButtons
-      >
-      </mat-paginator>
+          <tr mat-row *matRowDef="let row; columns: displayAddedColumns"></tr>
+          <mat-paginator
+            [hidden]="zoneList.data.length === 0"
+            [pageSizeOptions]="[5, 10, 20]"
+            [pageSize]="5"
+            showFirstLastButtons
+          >
+          </mat-paginator>
           <!-- <thead>
             <tr>
               <th width="5%">S.No.</th>
@@ -269,10 +365,34 @@
     </div>
 
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10 m-b-10">
-      <button mat-raised-button color="primary" class="pull-left" (click)="back()">Back</button>
-      <button [disabled]="!(zoneList.data.length >0)" *ngIf="!editable" mat-raised-button color="accent" class="pull-right" (click)="storezone()">Save</button>
-      <button *ngIf="editable" mat-raised-button color="accent" class="pull-right" [disabled]="zoneForm.invalid || zoneNameExist"
-        (click)="updateZoneData(zoneForm.value)">Update</button>
+      <button
+        mat-raised-button
+        color="primary"
+        class="pull-left"
+        (click)="back()"
+      >
+        Back
+      </button>
+      <button
+        [disabled]="!(zoneList.data.length > 0)"
+        *ngIf="!editable"
+        mat-raised-button
+        color="accent"
+        class="pull-right"
+        (click)="storezone()"
+      >
+        Save
+      </button>
+      <button
+        *ngIf="editable"
+        mat-raised-button
+        color="accent"
+        class="pull-right"
+        [disabled]="zoneForm.invalid || zoneNameExist"
+        (click)="updateZoneData(zoneForm.value)"
+      >
+        Update
+      </button>
     </div>
   </div>
 </div>

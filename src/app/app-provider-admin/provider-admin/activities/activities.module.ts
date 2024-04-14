@@ -45,14 +45,26 @@ import { LanguageMapping } from './services/language-mapping.service';
 import { LocationServicelineMapping } from './services/location-serviceline-mapping.service';
 import { SpecialistMappingService } from './services/specialist-mapping.service';
 import { WorkLocationMapping } from './services/work-location-mapping.service';
-import { EditFeedbackNatureModal, FeedbackComplaintNatureMasterComponent } from './feedback-complaint-nature-master/feedback-complaint-nature-master.component';
+import {
+  EditFeedbackNatureModal,
+  FeedbackComplaintNatureMasterComponent,
+} from './feedback-complaint-nature-master/feedback-complaint-nature-master.component';
 import { NatureOfComplaintCategoryMappingComponent } from './nature-of-complaint-category-mapping/nature-of-complaint-category-mapping.component';
 import { NatureOfCompaintCategoryMappingService } from './services/nature-of-complaint-category-mapping.service';
-import { EditInstituteType, InstituteTypeMasterComponent } from './institute-type-master/institute-type-master.component';
+import {
+  EditInstituteType,
+  InstituteTypeMasterComponent,
+} from './institute-type-master/institute-type-master.component';
 import { InstituteTypeMasterService } from './services/institute-type-master-service.service';
-import { EditHospitalModal, HospitalMasterComponent } from './hospital-master/hospital-master.component';
+import {
+  EditHospitalModal,
+  HospitalMasterComponent,
+} from './hospital-master/hospital-master.component';
 import { HospitalMasterService } from './services/hospital-master-service.service';
-import { EditSeverityModalComponent, SeverityTypeComponent } from './severity-type/severity-type.component';
+import {
+  EditSeverityModalComponent,
+  SeverityTypeComponent,
+} from './severity-type/severity-type.component';
 import { SeverityTypeService } from 'src/app/core/services/ProviderAdminServices/severity-type-service';
 import { DeviceIdMasterComponent } from './device-id-master/device-id-master.component';
 import { FetosenseDeviceIdMasterService } from './services/fetosense-device-id-master-service.service';
@@ -109,7 +121,7 @@ import { ZoneMasterService } from './services/zone-master-services.service';
     ParkingPlaceSubDistrictMappingComponent,
     ServicePointComponent,
     VanComponent,
-    ProcedureMasterComponent
+    ProcedureMasterComponent,
   ],
   imports: [
     CommonModule,
@@ -150,7 +162,7 @@ import { ZoneMasterService } from './services/zone-master-services.service';
     ProcedureMasterServiceService,
     ParkingPlaceMasterService,
     BlockSubcenterMappingService,
-    ZoneMasterService
+    ZoneMasterService,
   ],
   exports: [
     LocationServicelineMappingComponent,
@@ -187,7 +199,7 @@ import { ZoneMasterService } from './services/zone-master-services.service';
     ParkingPlaceSubDistrictMappingComponent,
     ServicePointComponent,
     VanComponent,
-    ProcedureMasterComponent
+    ProcedureMasterComponent,
   ],
 })
 export class ActivitiesModule {}

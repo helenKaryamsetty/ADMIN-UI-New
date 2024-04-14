@@ -104,7 +104,9 @@ export class ServicePointMasterService {
     // .catch(this.handleError);
   }
   getDistricts(zoneID: any) {
-    return this.http.post(environment._getDistrictZoneListURL, { zoneID: zoneID });
+    return this.http.post(environment._getDistrictZoneListURL, {
+      zoneID: zoneID,
+    });
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }

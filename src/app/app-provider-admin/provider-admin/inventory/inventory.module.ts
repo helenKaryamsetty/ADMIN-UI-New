@@ -15,7 +15,10 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MaterialModule } from 'src/app/core/material.module';
 import { MatTableModule } from '@angular/material/table';
-import { EditItemMasterModal, ItemMasterComponent } from './item-master/item-master.component';
+import {
+  EditItemMasterModal,
+  ItemMasterComponent,
+} from './item-master/item-master.component';
 import { FacilityTypeMasterComponent } from './facility-type-master/facility-type-master.component';
 import { MainStoreAndSubStoreComponent } from './main-store-and-sub-store/main-store-and-sub-store.component';
 import { ItemToStoreMappingComponent } from './item-to-store-mapping/item-to-store-mapping.component';
@@ -42,7 +45,7 @@ import { CreateStoreMappingComponent } from './store-mapping/create-store-mappin
     ItemToStoreMappingComponent,
     ViewStoreMappingComponent,
     UpdateStoreMappingComponent,
-    CreateStoreMappingComponent
+    CreateStoreMappingComponent,
   ],
   imports: [
     CommonModule,
@@ -71,7 +74,7 @@ import { CreateStoreMappingComponent } from './store-mapping/create-store-mappin
     ItemToStoreMappingComponent,
     ViewStoreMappingComponent,
     UpdateStoreMappingComponent,
-    CreateStoreMappingComponent
+    CreateStoreMappingComponent,
   ],
 })
 export class InventoryModule {}

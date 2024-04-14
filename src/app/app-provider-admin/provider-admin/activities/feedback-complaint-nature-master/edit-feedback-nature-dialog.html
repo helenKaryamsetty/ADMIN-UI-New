@@ -1,11 +1,17 @@
 <div class="row">
-
   <div class="pull-left m-l-15">
     <h4 class="modal-title">Edit Complaint Nature</h4>
   </div>
   <div class="pull-right">
     <button mat-button class="pull-right" [mat-dialog-close]="true">
-      <mat-icon matTooltip="close" class="mat-icon material-icons pull-right" role="img" aria-hidden="true" style="cursor: pointer">clear</mat-icon>
+      <mat-icon
+        matTooltip="close"
+        class="mat-icon material-icons pull-right"
+        role="img"
+        aria-hidden="true"
+        style="cursor: pointer"
+        >clear</mat-icon
+      >
     </button>
   </div>
 </div>
@@ -13,29 +19,50 @@
   <form #f1="ngForm" autocomplete="off">
     <div class="m-t-15">
       <mat-form-field style="width: 100%">
-        <input mdInput placeholder="Nature of Complaint" name="feedbackNature" [(ngModel)]="feedbackNature" (keyup)="validateFeedback(feedbackNature)"
-          #fbNature="ngModel" maxlength="50" required>
+        <input
+          mdInput
+          placeholder="Nature of Complaint"
+          name="feedbackNature"
+          [(ngModel)]="feedbackNature"
+          (keyup)="validateFeedback(feedbackNature)"
+          #fbNature="ngModel"
+          maxlength="50"
+          required
+        />
         <mat-hint *ngIf="fbNature.errors && fbNature.touched">
           <span class="error_text">Nature of complaint is required</span>
         </mat-hint>
         <mat-hint *ngIf="natureExists && fbNature.touched">
-          <span class="error_text">{{msg}}</span>
+          <span class="error_text">{{ msg }}</span>
         </mat-hint>
       </mat-form-field>
     </div>
     <div class="m-t-15">
       <mat-form-field style="width: 100%">
-        <input mdInput textAreaValidator  placeholder="Feedback Nature Description" name="feedbackNatureDesc" [(ngModel)]="feedbackNatureDesc" #fbNatureDesc="ngModel" maxlength="100">
+        <input
+          mdInput
+          textAreaValidator
+          placeholder="Feedback Nature Description"
+          name="feedbackNatureDesc"
+          [(ngModel)]="feedbackNatureDesc"
+          #fbNatureDesc="ngModel"
+          maxlength="100"
+        />
         <!-- <mat-hint *ngIf="fbNatureDesc.errors && fbNatureDesc.touched">
               <span class="error_text">Feedback Nature Description is required</span>
           </mat-hint> -->
       </mat-form-field>
     </div>
-    <div class=" m-t-20">
-      <button mat-raised-button color="accent" class="pull-right" (click)="update()" [disabled]="f1.invalid || natureExists">
+    <div class="m-t-20">
+      <button
+        mat-raised-button
+        color="accent"
+        class="pull-right"
+        (click)="update()"
+        [disabled]="f1.invalid || natureExists"
+      >
         Update
       </button>
-
     </div>
   </form>
 </div>

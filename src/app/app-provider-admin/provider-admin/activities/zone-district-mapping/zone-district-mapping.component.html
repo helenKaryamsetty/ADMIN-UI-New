@@ -2,19 +2,29 @@
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <h4 *ngIf="showListOfZonemapping">Zone District Mapping</h4>
     <h4 *ngIf="!editable && !showListOfZonemapping">Zone District Mapping</h4>
-    <h4 *ngIf="editable && !showListOfZonemapping">Edit Zone District Mapping </h4>
+    <h4 *ngIf="editable && !showListOfZonemapping">
+      Edit Zone District Mapping
+    </h4>
     <form #searchForm="ngForm" autocomplete="off">
       <div class="row">
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
           <!-- <md-input-container class="hide_underline width100">
             <input mdInput style="display:none"> -->
-            <mat-select placeholder="Serviceline" (selectionChange)="getStates(service)" class="width100" [(ngModel)]="service" name="service"
-              required #bindService="ngModel" disabled={{disableSelection}}>
-              <mat-option *ngFor="let item of services" [value]="item">
-                {{item.serviceName}}
-              </mat-option>
-            </mat-select>
-            <!-- <md-hint [hidden]=bindService.valid *ngIf="showListOfZonemapping">
+          <mat-select
+            placeholder="Serviceline"
+            (selectionChange)="getStates(service)"
+            class="width100"
+            [(ngModel)]="service"
+            name="service"
+            required
+            #bindService="ngModel"
+            disabled="{{ disableSelection }}"
+          >
+            <mat-option *ngFor="let item of services" [value]="item">
+              {{ item.serviceName }}
+            </mat-option>
+          </mat-select>
+          <!-- <md-hint [hidden]=bindService.valid *ngIf="showListOfZonemapping">
               <span class="error_text" *ngIf="!bindService.required  && ( bindService.dirty || bindService.touched)">Please select serviceline</span>
             </md-hint> -->
           <!-- </md-input-container> -->
@@ -22,13 +32,23 @@
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
           <!-- <md-input-container class="hide_underline width100">
             <input mdInput style="display:none"> -->
-            <mat-select placeholder="State" class="width100" [(ngModel)]="state" [disabled]="disableSelection" (selectionChange)="setProviderServiceMapID(state.providerServiceMapID)"
-              name="state" #bindState="ngModel" required>
-              <mat-option *ngFor="let item of states" [value]="item">
-                {{item.stateName}}
-              </mat-option>
-            </mat-select>
-            <!-- <md-hint [hidden]=bindState.valid *ngIf="showListOfZonemapping">
+          <mat-select
+            placeholder="State"
+            class="width100"
+            [(ngModel)]="state"
+            [disabled]="disableSelection"
+            (selectionChange)="
+              setProviderServiceMapID(state.providerServiceMapID)
+            "
+            name="state"
+            #bindState="ngModel"
+            required
+          >
+            <mat-option *ngFor="let item of states" [value]="item">
+              {{ item.stateName }}
+            </mat-option>
+          </mat-select>
+          <!-- <md-hint [hidden]=bindState.valid *ngIf="showListOfZonemapping">
               <span class="error_text" *ngIf="!bindState.required  && ( bindState.dirty || bindState.touched)">Please select state</span>
             </md-hint> -->
           <!-- </md-input-container> -->
@@ -38,24 +58,43 @@
   </div>
 </div>
 <div>
-  <div class="pull-right" *ngIf="availableZoneDistrictMappings.length!==0 && showMappings && !editable">
+  <div
+    class="pull-right"
+    *ngIf="
+      availableZoneDistrictMappings.length !== 0 && showMappings && !editable
+    "
+  >
     <mat-form-field class="input-full-width mat_form_field_width_one">
-      <input matInput placeholder="In-Table Search" #filterTerm (keyup)="filterComponentList(filterTerm.value)">
+      <input
+        matInput
+        placeholder="In-Table Search"
+        #filterTerm
+        (keyup)="filterComponentList(filterTerm.value)"
+      />
       <mat-icon mdSuffix>search</mat-icon>
-  </mat-form-field>
+    </mat-form-field>
   </div>
 </div>
 <div class="row">
-  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="showListOfZonemapping && showMappings && !editable">
+  <div
+    class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
+    *ngIf="showListOfZonemapping && showMappings && !editable"
+  >
     <div class="table-responsive">
-       <table mat-table class="mat-elevation-z8" [dataSource]="filteredavailableZoneDistrictMappings">
+      <table
+        mat-table
+        class="mat-elevation-z8"
+        [dataSource]="filteredavailableZoneDistrictMappings"
+      >
         <ng-container matColumnDef="sno">
           <th mat-header-cell *matHeaderCellDef>SNo.</th>
           <td mat-cell *matCellDef="let element; let i = index">{{ i + 1 }}</td>
         </ng-container>
         <ng-container matColumnDef="stateName">
           <th mat-header-cell *matHeaderCellDef>State</th>
-          <td mat-cell *matCellDef="let element">{{ element.m_providerServiceMapping.state.stateName }}</td>
+          <td mat-cell *matCellDef="let element">
+            {{ element.m_providerServiceMapping.state.stateName }}
+          </td>
         </ng-container>
         <ng-container matColumnDef="zoneName">
           <th mat-header-cell *matHeaderCellDef>Zone</th>
@@ -84,15 +123,15 @@
           <th mat-header-cell *matHeaderCellDef>Action</th>
           <td mat-cell *matCellDef="let element">
             <button
-            *ngIf="element.deleted"
+              *ngIf="element.deleted"
               mat-raised-button
               color="accent"
-              (click)="updateZoneMappingStatus(element, element.zoneDeleted )"
+              (click)="updateZoneMappingStatus(element, element.zoneDeleted)"
             >
               Activate
             </button>
             <button
-            *ngIf="!element.deleted"
+              *ngIf="!element.deleted"
               mat-raised-button
               color="primary"
               (click)="updateZoneMappingStatus(element, true)"
@@ -133,120 +172,191 @@
           </tr>
         </tbody> -->
         <tfoot>
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-        </table>
-          
-        <div>
-            <td colspan="3" class="p-r-0 m-t-10">
-              <button mat-raised-button color="primary" class="pull-right" (click)="showForm()">Create Zone Mapping </button>
-            </td>
-            </div>
-            <div
-            class="pull-center"
-            style="margin-top: 35px; text-align: center"
-            *ngIf="filteredavailableZoneDistrictMappings.data.length === 0"
+        </tfoot>
+      </table>
+
+      <div>
+        <td colspan="3" class="p-r-0 m-t-10">
+          <button
+            mat-raised-button
+            color="primary"
+            class="pull-right"
+            (click)="showForm()"
           >
-            <strong>No Records Found</strong>
-          </div>
-          <mat-paginator
-            [hidden]="filteredavailableZoneDistrictMappings.data.length === 0"
-            [pageSizeOptions]="[5, 10, 20]"
-            [pageSize]="5"
-            showFirstLastButtons
-          >
-          </mat-paginator>
-            
+            Create Zone Mapping
+          </button>
+        </td>
+      </div>
+      <div
+        class="pull-center"
+        style="margin-top: 35px; text-align: center"
+        *ngIf="filteredavailableZoneDistrictMappings.data.length === 0"
+      >
+        <strong>No Records Found</strong>
+      </div>
+      <mat-paginator
+        [hidden]="filteredavailableZoneDistrictMappings.data.length === 0"
+        [pageSizeOptions]="[5, 10, 20]"
+        [pageSize]="5"
+        showFirstLastButtons
+      >
+      </mat-paginator>
     </div>
-</div>
+  </div>
 
-
-<div class="row">
-  <div *ngIf="!showListOfZonemapping && (!showMappings)">
-    <form #zoneDistrictMappingForm="ngForm" autocomplete="off">
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-        <!-- <md-input-container class="hide_underline width100">
+  <div class="row">
+    <div *ngIf="!showListOfZonemapping && !showMappings">
+      <form #zoneDistrictMappingForm="ngForm" autocomplete="off">
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
+          <!-- <md-input-container class="hide_underline width100">
           <input mdInput style="display:none"> -->
-          <mat-select required placeholder="Zone" [style.width]="'100%'" [(ngModel)]="zoneID" name="zoneID" #zoneG="ngModel" (selectionChange)="checkZone(zoneID.zoneID,service,state)">
+          <mat-select
+            required
+            placeholder="Zone"
+            [style.width]="'100%'"
+            [(ngModel)]="zoneID"
+            name="zoneID"
+            #zoneG="ngModel"
+            (selectionChange)="checkZone(zoneID.zoneID, service, state)"
+          >
             <mat-option *ngFor="let zone of availableZones" [value]="zone">
-              {{zone.zoneName}}
+              {{ zone.zoneName }}
             </mat-option>
           </mat-select>
-      </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15" *ngIf="!editable">
-        <!-- <md-input-container class="hide_underline width100">
-          <input mdInput style="display:none"> -->
-          <mat-select multiple placeholder="District" class="width100" [(ngModel)]="districtID" name="districtID" #districtV="ngModel"
-            required>
-            <mat-option *ngFor="let district of availableDistricts" [value]="district">
-              {{district.districtName}}
-            </mat-option>
-          </mat-select>
-          <!-- <md-hint [hidden]=districtV.valid>
-            <span class="error_text" *ngIf="!districtV.required  && ( districtV.dirty || districtV.touched)">Please select district</span>
-          </md-hint>
-        </md-input-container> -->
-      </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15" *ngIf="editable">
-        <!-- <md-input-container class="hide_underline width100">
-          <input mdInput style="display:none"> -->
-          <mat-select placeholder="District" class="width100" [(ngModel)]="districtID" name="districtID" #districtV="ngModel" required>
-            <mat-option *ngFor="let district of availableDistricts" [value]="district">
-              {{district.districtName}}
-            </mat-option>
-          </mat-select>
-          <!-- <md-hint [hidden]=districtV.valid>
-            <span class="error_text" *ngIf="!districtV.required  && ( districtV.dirty || districtV.touched)">Please select district</span>
-          </md-hint>
-        </md-input-container> -->
-      </div>
-      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 m-t-15">
-        <button md-mini-fab color="primary" *ngIf="zoneDistrictMappingForm.valid && !editable" class="xs-pull-right sm-pull-right md-pull-left lg-pull-left"
-          (click)="addZoneDistrictMappingToList(zoneDistrictMappingForm.value)">
-          <mat-icon mdSuffix class="mat-icon material-icons" role="img" aria-hidden="true" style="cursor: pointer">add</mat-icon>
-        </button>
-      </div>
-    </form>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="zoneDistrictMappingList.data.length>0">
-      <div class="table-responsive">
-         <table mat-table [dataSource]="zoneDistrictMappingList" class="mat-elevation-z8">
-          <ng-container matColumnDef="sno">
-            <th mat-header-cell *matHeaderCellDef>SNo.</th>
-            <td mat-cell *matCellDef="let element; let i = index">{{ i + 1 }}</td>
-          </ng-container>
-          <ng-container matColumnDef="zoneName">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Zone</th>
-            <td mat-cell *matCellDef="let element">{{ element.zoneName }}</td>
-          </ng-container>
-          <ng-container matColumnDef="stateName">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>State</th>
-            <td mat-cell *matCellDef="let element">{{ element.stateName }}</td>
-          </ng-container>
-          <ng-container matColumnDef="districtName">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>District</th>
-            <td mat-cell *matCellDef="let element">{{ element.districtName }}</td>
-          </ng-container>
-          <ng-container matColumnDef="action">
-            <th mat-header-cell *matHeaderCellDef>Action</th>
-            <td mat-cell *matCellDef="let element; let i = index">
-              <mat-icon
-                class="cursorPointer"
-                matTooltip="delete"
-                (click)="remove_obj(zoneDistrictMappingList.data.indexOf(element))"
-                >delete</mat-icon
-              >
-            </td>
-          </ng-container>
-          <tr mat-header-row *matHeaderRowDef="displayAddedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayAddedColumns"></tr>
-          <mat-paginator
-          [hidden]="zoneDistrictMappingList.data.length === 0"
-          [pageSizeOptions]="[5, 10, 20]"
-          [pageSize]="5"
-          showFirstLastButtons
+        </div>
+        <div
+          class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15"
+          *ngIf="!editable"
         >
-        </mat-paginator>
-          <!-- <thead>
+          <!-- <md-input-container class="hide_underline width100">
+          <input mdInput style="display:none"> -->
+          <mat-select
+            multiple
+            placeholder="District"
+            class="width100"
+            [(ngModel)]="districtID"
+            name="districtID"
+            #districtV="ngModel"
+            required
+          >
+            <mat-option
+              *ngFor="let district of availableDistricts"
+              [value]="district"
+            >
+              {{ district.districtName }}
+            </mat-option>
+          </mat-select>
+          <!-- <md-hint [hidden]=districtV.valid>
+            <span class="error_text" *ngIf="!districtV.required  && ( districtV.dirty || districtV.touched)">Please select district</span>
+          </md-hint>
+        </md-input-container> -->
+        </div>
+        <div
+          class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15"
+          *ngIf="editable"
+        >
+          <!-- <md-input-container class="hide_underline width100">
+          <input mdInput style="display:none"> -->
+          <mat-select
+            placeholder="District"
+            class="width100"
+            [(ngModel)]="districtID"
+            name="districtID"
+            #districtV="ngModel"
+            required
+          >
+            <mat-option
+              *ngFor="let district of availableDistricts"
+              [value]="district"
+            >
+              {{ district.districtName }}
+            </mat-option>
+          </mat-select>
+          <!-- <md-hint [hidden]=districtV.valid>
+            <span class="error_text" *ngIf="!districtV.required  && ( districtV.dirty || districtV.touched)">Please select district</span>
+          </md-hint>
+        </md-input-container> -->
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 m-t-15">
+          <button
+            md-mini-fab
+            color="primary"
+            *ngIf="zoneDistrictMappingForm.valid && !editable"
+            class="xs-pull-right sm-pull-right md-pull-left lg-pull-left"
+            (click)="
+              addZoneDistrictMappingToList(zoneDistrictMappingForm.value)
+            "
+          >
+            <mat-icon
+              mdSuffix
+              class="mat-icon material-icons"
+              role="img"
+              aria-hidden="true"
+              style="cursor: pointer"
+              >add</mat-icon
+            >
+          </button>
+        </div>
+      </form>
+      <div
+        class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
+        *ngIf="zoneDistrictMappingList.data.length > 0"
+      >
+        <div class="table-responsive">
+          <table
+            mat-table
+            [dataSource]="zoneDistrictMappingList"
+            class="mat-elevation-z8"
+          >
+            <ng-container matColumnDef="sno">
+              <th mat-header-cell *matHeaderCellDef>SNo.</th>
+              <td mat-cell *matCellDef="let element; let i = index">
+                {{ i + 1 }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="zoneName">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Zone</th>
+              <td mat-cell *matCellDef="let element">{{ element.zoneName }}</td>
+            </ng-container>
+            <ng-container matColumnDef="stateName">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>State</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.stateName }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="districtName">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                District
+              </th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.districtName }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="action">
+              <th mat-header-cell *matHeaderCellDef>Action</th>
+              <td mat-cell *matCellDef="let element; let i = index">
+                <mat-icon
+                  class="cursorPointer"
+                  matTooltip="delete"
+                  (click)="
+                    remove_obj(zoneDistrictMappingList.data.indexOf(element))
+                  "
+                  >delete</mat-icon
+                >
+              </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayAddedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayAddedColumns"></tr>
+            <mat-paginator
+              [hidden]="zoneDistrictMappingList.data.length === 0"
+              [pageSizeOptions]="[5, 10, 20]"
+              [pageSize]="5"
+              showFirstLastButtons
+            >
+            </mat-paginator>
+            <!-- <thead>
             <tr>
               <th width="5%">S.No.</th>
               <th width="25%">Zone</th>
@@ -264,15 +374,39 @@
                 <md-icon class="cursorPointer" mdTooltip="delete" (click)="remove_obj(zoneDistrictMappingList.indexOf(zone))">delete</md-icon>
               </td>
             </tr> -->
-        </table> 
+          </table>
+        </div>
       </div>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-20 m-b-10">
-      <button mat-raised-button color="primary" class="pull-left" (click)="back()">Back</button>
-      <button *ngIf="!editable" [disabled]="zoneDistrictMappingList.data.length == 0" mat-raised-button color="accent" class="pull-right m-t-10"
-        (click)="storezoneMappings()">Save</button>
-      <button *ngIf="editable" mat-raised-button color="accent" class="pull-right" [disabled]="zoneDistrictMappingForm.invalid"
-        (click)="updateZoneMappingData(zoneDistrictMappingForm.value)">Update</button>
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-20 m-b-10">
+        <button
+          mat-raised-button
+          color="primary"
+          class="pull-left"
+          (click)="back()"
+        >
+          Back
+        </button>
+        <button
+          *ngIf="!editable"
+          [disabled]="zoneDistrictMappingList.data.length == 0"
+          mat-raised-button
+          color="accent"
+          class="pull-right m-t-10"
+          (click)="storezoneMappings()"
+        >
+          Save
+        </button>
+        <button
+          *ngIf="editable"
+          mat-raised-button
+          color="accent"
+          class="pull-right"
+          [disabled]="zoneDistrictMappingForm.invalid"
+          (click)="updateZoneMappingData(zoneDistrictMappingForm.value)"
+        >
+          Update
+        </button>
+      </div>
     </div>
   </div>
 </div>

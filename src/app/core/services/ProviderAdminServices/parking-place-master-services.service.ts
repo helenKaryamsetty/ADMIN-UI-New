@@ -104,37 +104,33 @@ export class ParkingPlaceMasterService {
   }
   /*common services*/
   getServiceLinesNew(userID: any) {
-    return this.http.post(environment.getServiceLines_newrole_url, { userID: userID });
+    return this.http.post(environment.getServiceLines_newrole_url, {
+      userID: userID,
+    });
   }
   getStatesNew(obj: any) {
     return this.http.post(this.getStates_new_url, obj);
- 
   }
   getZones(data: any) {
     return this.http.post(environment._getZonesParkURL, data);
- 
   }
   /* End common services*/
 
   /* parking place master services*/
   saveParkingPlace(data: any) {
     return this.http.post(environment.saveParkingPlacesURL, data);
- 
   }
 
   getParkingPlaces(data: any) {
     return this.http.post(environment.getParkingPlacesURL, data);
- 
   }
 
   updateParkingPlaceStatus(data: any) {
     return this.http.post(environment.updateParkingPlaceStatusURL, data);
- 
   }
 
   updateParkingPlaceDetails(data: any) {
     return this.http.post(environment.updateParkingPlaceDetailsURL, data);
- 
   }
   /* End parking place master*/
 
@@ -145,30 +141,29 @@ export class ParkingPlaceMasterService {
       environment.getAllParkingPlaceSubDistrictMapping_url,
       mappedReqObj,
     );
- 
   }
   getDistricts(zoneID: any) {
     return this.http.post(environment._getDistrictListURL, { zoneID: zoneID });
- 
   }
   getTaluks(districtID: any) {
     return this.http.get(environment._getTalukListURL + districtID);
- 
   }
   filterMappedTaluks(unmappedObject: any) {
     return this.http.post(environment.filterMappedTaluks_url, unmappedObject);
- 
   }
   saveParkingPlaceSubDistrictMapping(reqObj: any) {
-    return this.http.post(environment.saveParkingPlaceSubDistrictMapping_url, reqObj);
- 
+    return this.http.post(
+      environment.saveParkingPlaceSubDistrictMapping_url,
+      reqObj,
+    );
   }
   updateTalukMapping(updateObj: any) {
     return this.http.post(environment.updateTalukMapping_url, updateObj);
- 
   }
   mappingActivationDeactivation(activateObj: any) {
-    return this.http.post(environment.mappingActivationDeactivation_url, activateObj);
- 
+    return this.http.post(
+      environment.mappingActivationDeactivation_url,
+      activateObj,
+    );
   }
 }

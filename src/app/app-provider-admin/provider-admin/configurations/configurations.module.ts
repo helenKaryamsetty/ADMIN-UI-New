@@ -16,6 +16,10 @@ import { MaterialModule } from 'src/app/core/material.module';
 import { MatIconModule } from '@angular/material/icon';
 import { AgentListCreationComponent } from './agent-list-creation/agent-list-creation.component';
 import { MatNativeDateModule } from '@angular/material/core';
+import { UserSignatureMappingComponent } from './user-signature-mapping/user-signature-mapping.component';
+import { EmployeeParkingPlaceMappingService } from '../activities/services/employee-parking-place-mapping.service';
+import { WrapupTimeConfigurationComponent } from './wrapup-time-configuration/wrapup-time-configuration.component';
+import { WrapupTimeConfigurationService } from 'src/app/core/services/ProviderAdminServices/wrapup-time-configuration.service';
 
 @NgModule({
   declarations: [
@@ -25,6 +29,8 @@ import { MatNativeDateModule } from '@angular/material/core';
     SnomedCodeSearchComponent,
     MapSnommedCTCodeComponent,
     SmsTemplateComponent,
+    UserSignatureMappingComponent,
+    WrapupTimeConfigurationComponent,
   ],
   imports: [
     CommonModule,
@@ -41,6 +47,8 @@ import { MatNativeDateModule } from '@angular/material/core';
     QuestionnaireServiceService,
     AgentListCreationService,
     SmsTemplateService,
+    EmployeeParkingPlaceMappingService,
+    WrapupTimeConfigurationService,
   ],
   exports: [
     AgentListCreationComponent,
@@ -49,6 +57,8 @@ import { MatNativeDateModule } from '@angular/material/core';
     SnomedCodeSearchComponent,
     MapSnommedCTCodeComponent,
     SmsTemplateComponent,
+    UserSignatureMappingComponent,
+    WrapupTimeConfigurationComponent,
   ],
 })
 export class ConfigurationsModule {}
