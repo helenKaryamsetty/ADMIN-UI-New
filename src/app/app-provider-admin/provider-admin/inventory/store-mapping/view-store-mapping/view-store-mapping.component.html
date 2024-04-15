@@ -37,7 +37,8 @@
       class="col-xs-12 col-sm-12 col-md-4 col-lg-6"
       *ngIf="
         (storeList.length > 0 || filteredStoreList.data.length > 0) &&
-        mode == 'view'"
+        mode === 'view'
+      "
     >
       <div class="row" class="pull-right">
         <mat-form-field class="input-full-width">
