@@ -20,38 +20,16 @@
  * along with this program.  If not, see https://www.gnu.org/licenses/.
  */
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ConfigService } from 'src/app/core/services/config/config.service';
+import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 // import { InterceptedHttp } from '../../http.interceptor';
 // import { SecurityInterceptedHttp } from '../../http.securityinterceptor';
 
 @Injectable()
 export class EmployeeParkingPlaceMappingService {
-  getUsernamesURL: string;
-  deleteEmployeesURL: string;
-  providerAdmin_Base_Url: any;
-  common_Base_Url: any;
-
-  saveEmployeeParkingPlaceMappingURL: any;
-  updateEmployeeParkingPlaceMappingURL: any;
-  userNameURL: any;
-  getEmployeeURL: any;
-  _getStateListBYServiceIDURL: any;
-  _getServiceLineURL: any;
-  getParkingPlacesURL: any;
-  getDesignationsURL: any;
-  getEmployeesURL: any;
-  _getZonesURL: any;
-  getVansURL: any;
-  getMappedVansListURL: any;
-  removeMappedVanURL: any;
-
-  /* user signature upload service */
-  getUsernamesBasedDesigUrl: any;
-  checkUsersignExistUrl: any;
-  uploadSignUrl: any;
-  downloadSignUrl: any;
   headers = new Headers(
     { 'Content-Type': 'application/json' },
     //  ,{'Access-Control-Allow-Headers': 'X-Requested-With, content-type'}
@@ -64,179 +42,86 @@ export class EmployeeParkingPlaceMappingService {
   constructor(
     private http: HttpClient,
     public basepaths: ConfigService,
-  ) {
-    this.providerAdmin_Base_Url = this.basepaths.getAdminBaseUrl();
-    this.common_Base_Url = this.basepaths.getCommonBaseURL();
-
-    this._getStateListBYServiceIDURL =
-      this.providerAdmin_Base_Url + 'm/role/stateNew';
-    this._getServiceLineURL = this.providerAdmin_Base_Url + 'm/role/serviceNew';
-    this._getZonesURL = this.providerAdmin_Base_Url + 'zonemaster/get/zones';
-    this.getParkingPlacesURL =
-      this.providerAdmin_Base_Url +
-      'parkingPlaceMaster/get/parkingPlacesbyzoneid';
-    this.getDesignationsURL = this.providerAdmin_Base_Url + 'm/getDesignation';
-    this.getEmployeesURL =
-      this.providerAdmin_Base_Url + 'parkingPlaceMaster/get/userParkingPlaces1';
-    this.deleteEmployeesURL =
-      this.providerAdmin_Base_Url +
-      'parkingPlaceMaster/delete/userParkingPlaces1';
-    this.getUsernamesURL =
-      this.providerAdmin_Base_Url + '/parkingPlaceMaster/get/unmappeduser';
-    this.saveEmployeeParkingPlaceMappingURL =
-      this.providerAdmin_Base_Url + 'parkingPlaceMaster/save/userParkingPlaces';
-    this.updateEmployeeParkingPlaceMappingURL =
-      this.providerAdmin_Base_Url +
-      '/parkingPlaceMaster/edit/userParkingPlaces1';
-    this.userNameURL = '';
-    this.getVansURL = this.providerAdmin_Base_Url + 'vanMaster/get/vanDetails';
-    this.getMappedVansListURL =
-      this.providerAdmin_Base_Url + 'parkingPlaceMaster/get/mappedvan/';
-    this.removeMappedVanURL =
-      this.providerAdmin_Base_Url + 'parkingPlaceMaster/delete/mappedvan';
-
-    /* user signature upload service */
-    this.getUsernamesBasedDesigUrl =
-      this.providerAdmin_Base_Url + 'm/getEmployeeByDesignation';
-    this.checkUsersignExistUrl =
-      this.providerAdmin_Base_Url + 'signature1/signexist/';
-    this.uploadSignUrl = this.providerAdmin_Base_Url + 'signature1/upload';
-    this.downloadSignUrl = this.providerAdmin_Base_Url + 'signature1/';
-  }
+  ) {}
   getServices(userID: any) {
-    return this.http.post(this._getServiceLineURL, { userID: userID });
-    // .map(this.handleState_n_ServiceSuccess)
-    // .catch(this.handleError);
+    return this.http.post(environment._getServiceLineURL, { userID: userID });
   }
 
   getStates(userID: any, serviceID: any, isNationalFlag: any) {
-    return this.http.post(this._getStateListBYServiceIDURL, {
+    return this.http.post(environment._getStateListBYServiceIDURL, {
       userID: userID,
       serviceID: serviceID,
       isNational: isNationalFlag,
     });
-    // .map(this.handleSuccess)
-    // .catch(this.handleError);
   }
   getZones(data: any) {
-    return this.http.post(this._getZonesURL, data);
-    // .map(this.handleSuccess)
-    // .catch(this.handleError);
+    return this.http.post(environment._getZonesURL, data);
   }
 
   getParkingPlaces(data: any) {
-    return this.http.post(this.getParkingPlacesURL, data);
+    return this.http.post(environment.getParkingPlacesURL, data);
     // .map(this.CommonSuccessHandler)
     // .catch(this.handleError);
   }
 
   DeleteEmpParkingMapping(requestObject: any) {
-    return this.http.post(this.deleteEmployeesURL, requestObject);
+    return this.http.post(environment.deleteEmployeesURL, requestObject);
     // .map(this.handleSuccessForActivationUser)
     // .catch(this.handleError);
   }
   getUsernames(userObj: any) {
-    return this.http.post(this.getUsernamesURL, userObj);
+    return this.http.post(environment.getUsernamesURL, userObj);
     // .map(this.CommonSuccessHandler)
     // .catch(this.handleError);
   }
 
   getDesignations() {
-    return this.http.post(this.getDesignationsURL, {});
-    // .map(this.handleSuccess)
-    // .catch(this.handleError);
+    return this.http.post(environment.getDesignationsURL, {});
   }
 
   getEmployees(requestObject: any) {
-    return this.http.post(this.getEmployeesURL, requestObject);
-    // .map(this.handleSuccess)
-    // .catch(this.handleError);
+    return this.http.post(environment.getEmployeesURL, requestObject);
   }
   getVans(reqObj: any) {
-    return this.http.post(this.getVansURL, reqObj);
-    // .map(this.handleSuccess)
-    // .catch(this.handleError);
+    return this.http.post(environment.getVansURL, reqObj);
   }
 
   saveEmployeeParkingPlaceMappings(data: any) {
-    return this.http.post(this.saveEmployeeParkingPlaceMappingURL, data);
-    // .map(this.handleSuccess)
-    // .catch(this.handleError);
+    return this.http.post(environment.saveEmployeeParkingPlaceMappingURL, data);
   }
   getMappedVansList(userParkingPlaceMapID: any) {
     return this.http.post(
-      this.getMappedVansListURL + userParkingPlaceMapID,
+      environment.getMappedVansListURL + userParkingPlaceMapID,
       {},
     );
     // .map((res: Response) => res.json());
   }
   removeMappedVan(removeVanObj: any) {
-    return this.http.post(this.removeMappedVanURL, removeVanObj);
+    return this.http.post(environment.removeMappedVanURL, removeVanObj);
     // .map((res: Response) => res.json());
   }
   updateEmployeeParkingPlaceMappings(data: any) {
-    return this.http.post(this.updateEmployeeParkingPlaceMappingURL, data);
-    // .map(this.handleSuccess)
-    // .catch(this.handleError);
+    return this.http.post(
+      environment.updateEmployeeParkingPlaceMappingURL,
+      data,
+    );
   }
-
-  // CommonSuccessHandler(response: Response) {
-
-  //     console.log(response.json().data, 'employee parking place master SERVICE');
-  //     let result = [];
-  //     result = response.json().data.filter(function (item) {
-  //         if (!item.deleted) {
-  //             return item;
-  //         }
-  //     });
-  //     return result;
-  // }
-  // handleSuccess(res: Response) {
-  //     console.log(res.json().data, '--- in employee parking place master SERVICE');
-  //     if (res.json().data) {
-  //         return res.json().data;
-  //     } else {
-  //         return Observable.throw(res.json());
-  //     }
-  // }
-  // handleSuccessForActivationUser(res: Response) {
-  //     console.log(res.json(), '--- in employee parking place master SERVICE check');
-  //     return res.json()
-  // }
-  // handleState_n_ServiceSuccess(response: Response) {
-
-  //     console.log(response.json().data, 'employee parking place master SERVICE');
-  //     let result = [];
-  //     result = response.json().data.filter(function (item) {
-  //         if (item.serviceID == 2 || item.serviceID == 4 || item.serviceID == 9) {
-  //             return item;
-  //         }
-  //     });
-  //     return result;
-  // }
-  // handleError(error: Response | any) {
-  //     return Observable.throw(error.json());
-  // }
 
   /* User signature upload services*/
   getUserNameBasedOnDesig(reqObj: any) {
-    return this.http.post(this.getUsernamesBasedDesigUrl, reqObj);
-    // .map(this.handleSuccess)
-    // .catch(this.handleError);
+    return this.http.post(environment.getUsernamesBasedDesigUrl, reqObj);
   }
   checkUsersignatureExist(userID: any) {
-    return this.http.get(this.checkUsersignExistUrl + userID);
-    // .map(this.handleSuccess)
-    // .catch(this.handleError);
+    return this.http.get(environment.checkUsersignExistUrl + userID);
   }
   uploadSignature(signObj: any) {
-    return this.http.post(this.uploadSignUrl, signObj);
-    // .map(this.handleSuccess)
-    // .catch(this.handleError);
+    return this.http.post(environment.uploadSignUrl, signObj);
   }
-  downloadSign(userID: any) {
-    //  options : any =({ headers: this.headers });
-    return this.http.get(this.downloadSignUrl + userID, this.option);
-    // .map((res) =>  res);
+  downloadSign(userID: any): Observable<HttpResponse<Blob>> {
+    // let option = new RequestOptions({ responseType: ResponseContentType.Blob});
+    return this.http.get(environment.downloadSignUrl + userID, {
+      responseType: 'blob',
+      observe: 'response',
+    });
   }
 }

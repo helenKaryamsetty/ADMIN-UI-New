@@ -14,14 +14,14 @@ import { ProviderAdminRoleService } from './services/state-serviceline-role.serv
 import { MaterialModule } from 'src/app/core/material.module';
 import {
   CallDispositionTypeMasterComponent,
-  EditCallType,
+  EditCallTypeComponent,
 } from './call-disposition-type-master/call-disposition-type-master.component';
 import { CategorySubcategoryProvisioningComponent } from './category-subcategory-provisioning/category-subcategory-provisioning.component';
 import { EditCategorySubcategoryComponent } from './category-subcategory-provisioning/edit-category-subcategory/edit-category-subcategory.component';
 import { EmployeeMasterNewComponent } from './employee-master-new/employee-master-new.component';
 import {
   FeedbackTypeMasterComponent,
-  EditFeedbackModal,
+  EditFeedbackModalComponent,
 } from './feedback-type-master/feedback-type-master.component';
 import { EditInstituteDirectoryComponent } from './institute-directory-master/edit-institute-directory/edit-institute-directory.component';
 import { InstituteDirectoryMasterComponent } from './institute-directory-master/institute-directory-master/institute-directory-master.component';
@@ -31,7 +31,7 @@ import {
   EditLocationModalComponent,
 } from './location-serviceline-mapping/location-serviceline-mapping.component';
 import { RoleMasterComponent } from './role-master/provider-admin-role-master.component';
-import { ServicelineCdssMapping } from './serviceline-cdss-mapping/servicelineCdssMapping.component';
+import { ServicelineCdssMappingComponent } from './serviceline-cdss-mapping/servicelineCdssMapping.component';
 import { SpecialistMappingComponent } from './specialist-mapping/specialist-mapping.component';
 import { WorkLocationMappingComponent } from './work-location-mapping/work-location-mapping.component';
 import { VillageMasterService } from 'src/app/core/services/adminServices/AdminVillage/village-master-service.service';
@@ -45,14 +45,26 @@ import { LanguageMapping } from './services/language-mapping.service';
 import { LocationServicelineMapping } from './services/location-serviceline-mapping.service';
 import { SpecialistMappingService } from './services/specialist-mapping.service';
 import { WorkLocationMapping } from './services/work-location-mapping.service';
-import { EditFeedbackNatureModal, FeedbackComplaintNatureMasterComponent } from './feedback-complaint-nature-master/feedback-complaint-nature-master.component';
+import {
+  EditFeedbackNatureModalComponent,
+  FeedbackComplaintNatureMasterComponent,
+} from './feedback-complaint-nature-master/feedback-complaint-nature-master.component';
 import { NatureOfComplaintCategoryMappingComponent } from './nature-of-complaint-category-mapping/nature-of-complaint-category-mapping.component';
 import { NatureOfCompaintCategoryMappingService } from './services/nature-of-complaint-category-mapping.service';
-import { EditInstituteType, InstituteTypeMasterComponent } from './institute-type-master/institute-type-master.component';
+import {
+  EditInstituteTypeComponent,
+  InstituteTypeMasterComponent,
+} from './institute-type-master/institute-type-master.component';
 import { InstituteTypeMasterService } from './services/institute-type-master-service.service';
-import { EditHospitalModal, HospitalMasterComponent } from './hospital-master/hospital-master.component';
+import {
+  EditHospitalModalComponent,
+  HospitalMasterComponent,
+} from './hospital-master/hospital-master.component';
 import { HospitalMasterService } from './services/hospital-master-service.service';
-import { EditSeverityModalComponent, SeverityTypeComponent } from './severity-type/severity-type.component';
+import {
+  EditSeverityModalComponent,
+  SeverityTypeComponent,
+} from './severity-type/severity-type.component';
 import { SeverityTypeService } from 'src/app/core/services/ProviderAdminServices/severity-type-service';
 import { DeviceIdMasterComponent } from './device-id-master/device-id-master.component';
 import { FetosenseDeviceIdMasterService } from './services/fetosense-device-id-master-service.service';
@@ -81,23 +93,23 @@ import { ZoneMasterService } from './services/zone-master-services.service';
     RoleMasterComponent,
     SpecialistMappingComponent,
     CallDispositionTypeMasterComponent,
-    EditCallType,
-    ServicelineCdssMapping,
+    EditCallTypeComponent,
+    ServicelineCdssMappingComponent,
     CategorySubcategoryProvisioningComponent,
     EditCategorySubcategoryComponent,
     FeedbackTypeMasterComponent,
-    EditFeedbackModal,
+    EditFeedbackModalComponent,
     InstituteDirectoryMasterComponent,
     EditInstituteDirectoryComponent,
     WorkLocationMappingComponent,
     InstituteDirectoryMasterComponent,
     FeedbackComplaintNatureMasterComponent,
-    EditFeedbackNatureModal,
+    EditFeedbackNatureModalComponent,
     NatureOfComplaintCategoryMappingComponent,
     InstituteTypeMasterComponent,
-    EditInstituteType,
+    EditInstituteTypeComponent,
     HospitalMasterComponent,
-    EditHospitalModal,
+    EditHospitalModalComponent,
     SeverityTypeComponent,
     EditSeverityModalComponent,
     DeviceIdMasterComponent,
@@ -109,7 +121,7 @@ import { ZoneMasterService } from './services/zone-master-services.service';
     ParkingPlaceSubDistrictMappingComponent,
     ServicePointComponent,
     VanComponent,
-    ProcedureMasterComponent
+    ProcedureMasterComponent,
   ],
   imports: [
     CommonModule,
@@ -150,7 +162,7 @@ import { ZoneMasterService } from './services/zone-master-services.service';
     ProcedureMasterServiceService,
     ParkingPlaceMasterService,
     BlockSubcenterMappingService,
-    ZoneMasterService
+    ZoneMasterService,
   ],
   exports: [
     LocationServicelineMappingComponent,
@@ -160,21 +172,21 @@ import { ZoneMasterService } from './services/zone-master-services.service';
     RoleMasterComponent,
     SpecialistMappingComponent,
     CallDispositionTypeMasterComponent,
-    EditCallType,
-    ServicelineCdssMapping,
+    EditCallTypeComponent,
+    ServicelineCdssMappingComponent,
     CategorySubcategoryProvisioningComponent,
     EditCategorySubcategoryComponent,
     FeedbackTypeMasterComponent,
-    EditFeedbackModal,
+    EditFeedbackModalComponent,
     InstituteDirectoryMasterComponent,
     EditInstituteDirectoryComponent,
     WorkLocationMappingComponent,
     InstituteDirectoryMasterComponent,
     FeedbackComplaintNatureMasterComponent,
-    EditFeedbackNatureModal,
+    EditFeedbackNatureModalComponent,
     NatureOfComplaintCategoryMappingComponent,
     InstituteTypeMasterComponent,
-    EditInstituteType,
+    EditInstituteTypeComponent,
     HospitalMasterComponent,
     SeverityTypeComponent,
     EditSeverityModalComponent,
@@ -187,7 +199,7 @@ import { ZoneMasterService } from './services/zone-master-services.service';
     ParkingPlaceSubDistrictMappingComponent,
     ServicePointComponent,
     VanComponent,
-    ProcedureMasterComponent
+    ProcedureMasterComponent,
   ],
 })
 export class ActivitiesModule {}

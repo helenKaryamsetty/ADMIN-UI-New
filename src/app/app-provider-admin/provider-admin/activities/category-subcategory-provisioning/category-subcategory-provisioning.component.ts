@@ -216,9 +216,9 @@ export class CategorySubcategoryProvisioningComponent implements OnInit {
 
   getSubServices(value: any) {
     this.sub_service = undefined;
-    if (value == 'get') {
+    if (value === 'get') {
       this.servicesGetting(this.state.providerServiceMapID);
-    } else if (value == true) {
+    } else if (value === true) {
       this.servicesGetting(this.states[0].providerServiceMapID);
     } else {
       this.servicesGetting(this.state.providerServiceMapID);
@@ -235,8 +235,8 @@ export class CategorySubcategoryProvisioningComponent implements OnInit {
         if (this.selected_service_id === 1) {
           this.subServices = response.data.filter(function (item: any) {
             if (
-              item.subServiceName != null &&
-              item.subServiceName != undefined
+              item.subServiceName !== null &&
+              item.subServiceName !== undefined
             ) {
               return item;
             }
@@ -332,8 +332,8 @@ export class CategorySubcategoryProvisioningComponent implements OnInit {
   // }
   searchReqObjChange(choice: any) {
     console.log(choice, 'search choice');
-    if (this.nationalFlag != undefined) {
-      if (choice == 1) {
+    if (this.nationalFlag !== undefined) {
+      if (choice === 1) {
         this.showCategoryTable = false;
         if (this.nationalFlag) {
           this.getSubCategory(
@@ -760,10 +760,10 @@ export class CategorySubcategoryProvisioningComponent implements OnInit {
         if (response) {
           console.log(response, 'subCategory');
           this.subCat = response.data.filter(function (item: any) {
-            return item != null;
+            return item !== null;
           });
           this.filteredsubCat = response.data.filter(function (item: any) {
-            return item != null;
+            return item !== null;
           });
           console.log(this.subCat);
         }
@@ -953,7 +953,7 @@ export class CategorySubcategoryProvisioningComponent implements OnInit {
   checkCategory(event: any) {
     const categoryName = event.target.value;
     let categoriesExist;
-    if (categoryName && categoryName != '') {
+    if (categoryName && categoryName !== '') {
       console.log(categoryName, 'categoryName here');
       console.log('categories', this.categories);
 
@@ -966,9 +966,9 @@ export class CategorySubcategoryProvisioningComponent implements OnInit {
     }
     console.log('category', this.categoryExist, 'ca5tegories', categoriesExist);
 
-    if (categoriesExist != undefined && categoriesExist.length > 0) {
+    if (categoriesExist !== undefined && categoriesExist.length > 0) {
       this.categoryExist = true;
-    } else if (categoryName.trim().length == 0) {
+    } else if (categoryName.trim().length === 0) {
       this.categoryExist = false;
     } else {
       this.categoryExist = false;
@@ -1003,14 +1003,14 @@ export class CategorySubcategoryProvisioningComponent implements OnInit {
               }
             });
             if (
-              subCategoriesExist != undefined &&
+              subCategoriesExist !== undefined &&
               subCategoriesExist.length > 0
             ) {
               this.subCategoryExist = true;
             } else if (
               subCategoryName !== undefined &&
               subCategoryName !== null &&
-              subCategoryName.trim().length == 0
+              subCategoryName.trim().length === 0
             ) {
               this.categoryExist = true;
             } else {
@@ -1032,7 +1032,7 @@ export class CategorySubcategoryProvisioningComponent implements OnInit {
       this.filtereddata.data = [];
       this.data.forEach((item: any) => {
         for (const key in item) {
-          if (key == 'callGroupType' || key == 'callType') {
+          if (key === 'callGroupType' || key === 'callType') {
             const value: string = '' + item[key];
             if (value.toLowerCase().indexOf(searchTerm.toLowerCase()) >= 0) {
               this.filtereddata.data.push(item);

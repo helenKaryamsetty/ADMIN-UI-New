@@ -107,7 +107,7 @@
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Action</th>
           <td mat-cell *matCellDef="let element">
             <button
-              *ngIf="element.deleted == true"
+              *ngIf="element.deleted === true"
               mat-raised-button
               color="accent"
               (click)="activeDeactivate(element.feedbackTypeID, false)"
@@ -115,7 +115,7 @@
               Activate
             </button>
             <button
-              *ngIf="element.deleted == false"
+              *ngIf="element.deleted === false"
               mat-raised-button
               color="primary"
               (click)="activeDeactivate(element.feedbackTypeID, true)"
@@ -204,7 +204,7 @@
       <div class="row">
         <div
           class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20"
-          *ngIf="search_serviceline != '3'"
+          *ngIf="search_serviceline !== '3'"
         >
           <mat-form-field [style.width]="'100%'">
             <input
@@ -289,7 +289,7 @@
         </div>
       </div>
 
-      <div class="m-t-15" *ngIf="objs.data.length != 0">
+      <div class="m-t-15" *ngIf="objs.data.length !== 0">
         <div class="table-responsive">
           <table
             mat-table

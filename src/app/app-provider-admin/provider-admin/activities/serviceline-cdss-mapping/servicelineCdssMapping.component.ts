@@ -9,7 +9,7 @@ import { dataService } from 'src/app/core/services/dataService/data.service';
   templateUrl: './servicelineCdssMapping.component.html',
   styleUrls: ['./servicelineCdssMapping.component.css'],
 })
-export class ServicelineCdssMapping implements OnInit {
+export class ServicelineCdssMappingComponent implements OnInit {
   services: any = [];
   states: any = [];
   userID: any;
@@ -157,7 +157,7 @@ export class ServicelineCdssMapping implements OnInit {
     if (
       value.isCdss !== null &&
       value.isCdss !== undefined &&
-      value.isCdss == true
+      value.isCdss === true
     ) {
       this.showActivateFlag = false;
       this.showDeactivateFalg = true;

@@ -1,0 +1,77 @@
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <h4>User Signature Mapping</h4>
+  </div>
+  <form [formGroup]="signUploadForm" autocomplete="off">
+    <div class="col-xs-12 col-md-4 col-sm-6 col-lg-3">
+      <mat-select
+        placeholder="Designation"
+        name="designation"
+        formControlName="designation"
+        class="width100"
+        (selectionChange)="getUserNames()"
+      >
+        <mat-option *ngFor="let item of designations" [value]="item">
+          {{ item.designationName }}
+        </mat-option>
+      </mat-select>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+      <mat-select
+        placeholder="UserName"
+        name="username"
+        formControlName="username"
+        class="width100"
+        (selectionChange)="checkUsersignExist()"
+      >
+        <mat-option *ngFor="let item of userNames" [value]="item">
+          {{ item.userName }}
+        </mat-option>
+      </mat-select>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+      <button
+        mat-raised-button
+        color="primary"
+        class="pull-right"
+        [disabled]="!signExist"
+        (click)="file.click()"
+      >
+        Select Sign
+      </button>
+      <span class="span-style">
+        <input
+          type="file"
+          #file
+          (change)="preview(file.files)"
+          accept="image/*"
+          class="pull-right"
+        />
+      </span>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-50" *ngIf="imgURL">
+      <img [src]="imgURL" alt="img" height="80" />
+      <button
+        mat-raised-button
+        color="primary"
+        class="m-l-50"
+        (click)="uploadSign()"
+      >
+        Upload
+      </button>
+    </div>
+    <div
+      class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-50"
+      *ngIf="enableDownloadButton"
+    >
+      <button
+        mat-raised-button
+        color="primary"
+        class="m-l-50 pull-right"
+        (click)="downloadSign()"
+      >
+        Download signature
+      </button>
+    </div>
+  </form>
+</div>

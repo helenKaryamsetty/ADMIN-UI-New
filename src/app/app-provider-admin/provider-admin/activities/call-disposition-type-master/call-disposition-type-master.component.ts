@@ -235,7 +235,7 @@ export class CallDispositionTypeMasterComponent implements OnInit {
     if (
       this.isInbound === false &&
       this.isOutbound === false &&
-      this.service.serviceID != 6
+      this.service.serviceID !== 6
     ) {
       this.alertService.alert('Select checkbox Inbound/Outbound/Both');
       this.fitToBlock = false;
@@ -333,7 +333,7 @@ export class CallDispositionTypeMasterComponent implements OnInit {
     this.data.forEach((element: { callGroupType: string }) => {
       console.log('element', element);
 
-      if (element.callGroupType != 'Wrapup Exceeds') {
+      if (element.callGroupType !== 'Wrapup Exceeds') {
         // this.data = [];
         this.dataWithoutWrapUp.push(element);
       }
@@ -353,14 +353,14 @@ export class CallDispositionTypeMasterComponent implements OnInit {
     this.service = '';
     this.provider_services = response.data.filter(function (obj: any) {
       return (
-        obj.serviceID == 1 ||
-        obj.serviceID == 3 ||
-        obj.serviceID == 6 ||
-        obj.serviceID == 10
+        obj.serviceID === 1 ||
+        obj.serviceID === 3 ||
+        obj.serviceID === 6 ||
+        obj.serviceID === 10
       );
     });
 
-    if (this.provider_services.length == 0) {
+    if (this.provider_services.length === 0) {
       this.alertService.alert('No servicelines mapped');
     }
   }
@@ -406,7 +406,7 @@ export class CallDispositionTypeMasterComponent implements OnInit {
     this.callSubType = '';
     this.showCallType = true;
     this.tempCorrespondingSubCallType = this.data.filter(function (obj: any) {
-      return obj.callGroupType == callType;
+      return obj.callGroupType === callType;
     });
     console.log(this.data);
     console.log(this.tempCorrespondingSubCallType);
@@ -418,7 +418,7 @@ export class CallDispositionTypeMasterComponent implements OnInit {
       if (
         value !== undefined &&
         value !== null &&
-        value.trim().toLowerCase() ==
+        value.trim().toLowerCase() ===
           this.tempCorrespondingSubCallType[i].callType.toLowerCase()
       ) {
         this.subCallTypeExist = true;
@@ -438,7 +438,7 @@ export class CallDispositionTypeMasterComponent implements OnInit {
     //     b = false;
     //   }
     // }
-    if (a == false) {
+    if (a === false) {
       this.subCallTypeExist = false;
     }
   }
@@ -496,7 +496,7 @@ export class CallDispositionTypeMasterComponent implements OnInit {
 
   editCallDisposition(obj: any) {
     obj['service'] = this.service.serviceID;
-    const dialogReff = this.dialog.open(EditCallType, {
+    const dialogReff = this.dialog.open(EditCallTypeComponent, {
       // height: '500px',
       width: '700px',
       disableClose: true,
@@ -527,7 +527,7 @@ export class CallDispositionTypeMasterComponent implements OnInit {
       this.filtereddata.data = [];
       this.data.forEach((item: any) => {
         for (const key in item) {
-          if (key == 'callGroupType' || key == 'callType') {
+          if (key === 'callGroupType' || key === 'callType') {
             const value: string = '' + item[key];
             if (value.toLowerCase().indexOf(searchTerm.toLowerCase()) >= 0) {
               this.filtereddata.data.push(item);
@@ -540,10 +540,10 @@ export class CallDispositionTypeMasterComponent implements OnInit {
   }
 }
 @Component({
-  selector: 'edit-call-type',
+  selector: 'app-edit-call-type',
   templateUrl: './edit-call-type-model.html',
 })
-export class EditCallType {
+export class EditCallTypeComponent implements OnInit {
   note!: string;
   callType: any;
   callSubType: any;
@@ -569,7 +569,7 @@ export class EditCallType {
     public dialog: MatDialog,
     public callTypeSubtypeService: CallTypeSubtypeService,
     public commonDataService: dataService,
-    public dialogReff: MatDialogRef<EditCallType>,
+    public dialogReff: MatDialogRef<EditCallTypeComponent>,
     private alertService: ConfirmationDialogsService,
   ) {}
 
@@ -584,7 +584,7 @@ export class EditCallType {
     this.existingName = this.data.callType;
     this.isInbound = this.data.isInbound;
     this.isOutbound = this.data.isOutbound;
-    if (this.data.maxRedial != undefined) {
+    if (this.data.maxRedial !== undefined) {
       this.maxRedial = this.data.maxRedial.toString();
     }
 
@@ -610,7 +610,7 @@ export class EditCallType {
     this.tempCorrespondingSubCallType = this.tableData.filter(function (
       obj: any,
     ) {
-      return obj.callGroupType == callType;
+      return obj.callGroupType === callType;
     });
 
     console.log(this.tempCorrespondingSubCallType, 'array to check dupes from');
@@ -656,7 +656,7 @@ export class EditCallType {
     this.tempCorrespondingSubCallType = this.tableData.filter(function (
       obj: any,
     ) {
-      return obj.callGroupType == callType;
+      return obj.callGroupType === callType;
     });
 
     console.log(this.tempCorrespondingSubCallType, 'array to check dupes from');
@@ -669,7 +669,7 @@ export class EditCallType {
       if (
         value !== undefined &&
         value !== null &&
-        value.trim().toLowerCase() ==
+        value.trim().toLowerCase() ===
           this.tempCorrespondingSubCallType[i].callType.toLowerCase()
       ) {
         this.subCallTypeExist = true;
@@ -689,10 +689,10 @@ export class EditCallType {
     // 		b = false;
     // 	}
     // }
-    if (a == false) {
+    if (a === false) {
       this.subCallTypeExist = false;
     }
-    if (value !== undefined && value !== null && value.trim().length == 0) {
+    if (value !== undefined && value !== null && value.trim().length === 0) {
       this.subCallTypeExist = true;
     }
     if (

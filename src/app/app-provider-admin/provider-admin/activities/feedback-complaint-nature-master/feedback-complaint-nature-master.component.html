@@ -3,35 +3,68 @@
     <h4 class="m-b-30">Feedback/Complaint Nature Master</h4>
     <form #searchCNForm="ngForm" autocomplete="off">
       <div class="row">
-
         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
           <!-- <mat-form-field class="hide_underline" [style.width]="'100%'">
             <input matInput style="display:none"> -->
-            <mat-select placeholder="Serviceline" [style.width]="'100%'" [(ngModel)]="search_serviceline" name="serviceline" required>
-              <mat-option *ngFor="let service of servicelines" value="{{service.serviceID}}" (click)="getStates(service.serviceID,service.isNational);setIsNational(service.isNational)">
-                {{service.serviceName}}
-              </mat-option>
-            </mat-select>
+          <mat-select
+            placeholder="Serviceline"
+            [style.width]="'100%'"
+            [(ngModel)]="search_serviceline"
+            name="serviceline"
+            required
+          >
+            <mat-option
+              *ngFor="let service of servicelines"
+              value="{{ service.serviceID }}"
+              (click)="
+                getStates(service.serviceID, service.isNational);
+                setIsNational(service.isNational)
+              "
+            >
+              {{ service.serviceName }}
+            </mat-option>
+          </mat-select>
           <!-- </mat-form-field> -->
         </div>
         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
           <!-- <mat-form-field class="hide_underline" [style.width]="'100%'">
             <input matInput style="display:none"> -->
-            <mat-select placeholder="State" [style.width]="'100%'" [disabled]="isNational" [(ngModel)]="search_state" name="state" [required]='!isNational'>
-              <mat-option *ngFor="let state of states" value="{{state.stateID}}" (click)="findFeedbackTypes(state.providerServiceMapID)">
-                {{state.stateName}}
-              </mat-option>
-            </mat-select>
+          <mat-select
+            placeholder="State"
+            [style.width]="'100%'"
+            [disabled]="isNational"
+            [(ngModel)]="search_state"
+            name="state"
+            [required]="!isNational"
+          >
+            <mat-option
+              *ngFor="let state of states"
+              value="{{ state.stateID }}"
+              (click)="findFeedbackTypes(state.providerServiceMapID)"
+            >
+              {{ state.stateName }}
+            </mat-option>
+          </mat-select>
           <!-- </mat-form-field> -->
         </div>
         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
           <!-- <mat-form-field class="hide_underline" [style.width]="'100%'">
             <input matInput style="display:none"> -->
-            <mat-select placeholder="Feedback Type" [style.width]="'100%'" [(ngModel)]="search_feedbacktype" name="feedbacktype" required>
-              <mat-option *ngFor="let feedback of feedbackTypes" value="{{feedback.feedbackTypeID}}" (click)="findFeedbackNature(feedback.feedbackTypeID)">
-                {{feedback.feedbackTypeName}}
-              </mat-option>
-            </mat-select>
+          <mat-select
+            placeholder="Feedback Type"
+            [style.width]="'100%'"
+            [(ngModel)]="search_feedbacktype"
+            name="feedbacktype"
+            required
+          >
+            <mat-option
+              *ngFor="let feedback of feedbackTypes"
+              value="{{ feedback.feedbackTypeID }}"
+              (click)="findFeedbackNature(feedback.feedbackTypeID)"
+            >
+              {{ feedback.feedbackTypeName }}
+            </mat-option>
+          </mat-select>
           <!-- </mat-form-field> -->
         </div>
         <!-- <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
@@ -41,63 +74,101 @@
     </form>
   </div>
 </div>
-<div class="pull-right" *ngIf="natureTypes.length!==0 && searchForm && showTable">
+<div
+  class="pull-right"
+  *ngIf="natureTypes.length !== 0 && searchForm && showTable"
+>
   <mat-form-field id="filterbox">
-    <input matInput placeholder="In-Table Search" #filterTerm (keyup)="filterComponentList(filterTerm.value)">
+    <input
+      matInput
+      placeholder="In-Table Search"
+      #filterTerm
+      (keyup)="filterComponentList(filterTerm.value)"
+    />
     <mat-icon mdSuffix>search</mat-icon>
   </mat-form-field>
 </div>
 <div class="row" *ngIf="searchForm">
   <!--table area-->
-  <div class="col-xs-12 col-sm-12  m-t-15" *ngIf="showTable">
+  <div class="col-xs-12 col-sm-12 m-t-15" *ngIf="showTable">
     <div class="table-responsive">
-      
-      <table mat-table [dataSource]="this.filterednatureTypes.data" 
+      <table
+        mat-table
+        [dataSource]="this.filterednatureTypes.data"
         class="table table-striped table-hover"
       >
-      <ng-container matColumnDef="SNo">
-        <th mat-header-cell *matHeaderCellDef>S.No.</th>
-        <td mat-cell *matCellDef="let element; let i = index">
-          {{ i + 1 }}
-        </td>
-      </ng-container>
-      <ng-container matColumnDef="FeedbackNature">
-        <th mat-header-cell *matHeaderCellDef>Feedback Nature</th>
-        <td mat-cell *matCellDef="let element">{{ element.feedbackNature }}</td>
-      </ng-container>
-      <ng-container matColumnDef="FeedbackNaturekDescription">
-        <th mat-header-cell *matHeaderCellDef>Feedback Nature Description</th>
-        <td mat-cell *matCellDef="let element">{{ element.feedbackNatureDesc }}</td>
-      </ng-container>
+        <ng-container matColumnDef="SNo">
+          <th mat-header-cell *matHeaderCellDef>S.No.</th>
+          <td mat-cell *matCellDef="let element; let i = index">
+            {{ i + 1 }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="FeedbackNature">
+          <th mat-header-cell *matHeaderCellDef>Feedback Nature</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.feedbackNature }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="FeedbackNaturekDescription">
+          <th mat-header-cell *matHeaderCellDef>Feedback Nature Description</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.feedbackNatureDesc }}
+          </td>
+        </ng-container>
 
-      <ng-container matColumnDef="edit">
-        <th mat-header-cell *matHeaderCellDef>
-          Edit
-        </th>
-        <td mat-cell *matCellDef="let element">
-          <mat-icon matTooltip="Edit" class="mat-icon material-icons" role="img" aria-hidden="true" style="cursor:pointer" *ngIf="!element.deleted"
-                (click)="editFeedbackNature(element)">edit</mat-icon>
-        </td>
-      </ng-container>
-      <ng-container matColumnDef="action">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>
-          Action
-        </th>
-        <td mat-cell *matCellDef="let element">
-          <button *ngIf="element.deleted == true" mat-raised-button color="accent" (click)="activeDeactivate(element.feedbackNatureID,false)">Activate</button>
-          <button *ngIf="element.deleted == false" mat-raised-button color="primary" (click)="activeDeactivate(element.feedbackNatureID,true)">Deactivate</button>
-
-        </td>
-        <!-- <td colspan="4" class="p-r-0" mat-cell>
+        <ng-container matColumnDef="edit">
+          <th mat-header-cell *matHeaderCellDef>Edit</th>
+          <td mat-cell *matCellDef="let element">
+            <mat-icon
+              matTooltip="Edit"
+              class="mat-icon material-icons"
+              role="img"
+              aria-hidden="true"
+              style="cursor: pointer"
+              *ngIf="!element.deleted"
+              (click)="editFeedbackNature(element)"
+              >edit</mat-icon
+            >
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Action</th>
+          <td mat-cell *matCellDef="let element">
+            <button
+              *ngIf="element.deleted === true"
+              mat-raised-button
+              color="accent"
+              (click)="activeDeactivate(element.feedbackNatureID, false)"
+            >
+              Activate
+            </button>
+            <button
+              *ngIf="element.deleted === false"
+              mat-raised-button
+              color="primary"
+              (click)="activeDeactivate(element.feedbackNatureID, true)"
+            >
+              Deactivate
+            </button>
+          </td>
+          <!-- <td colspan="4" class="p-r-0" mat-cell>
           <button md-raised-button color="primary" [disabled]="searchForm.invalid" class="pull-right" (click)="changeTableFlag(false)">Add Work Location</button>
         </td> -->
-      </ng-container>
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
       </table>
       <div>
-        <button class="pull-right" mat-raised-button color="primary" [disabled]="(!search_state && !isNational) || !search_feedbacktype "
-        (click)="changeTableFlag1(false);">Add Feedback Type</button></div>
+        <button
+          class="pull-right"
+          mat-raised-button
+          color="primary"
+          [disabled]="(!search_state && !isNational) || !search_feedbacktype"
+          (click)="changeTableFlag1(false)"
+        >
+          Add Feedback Type
+        </button>
+      </div>
       <mat-paginator
         [hidden]="filterednatureTypes.data.length === 0"
         [pageSizeOptions]="[5, 10, 25]"
@@ -108,40 +179,72 @@
   </div>
 </div>
 <!--new feedback page-->
-<div class="row" *ngIf="!(searchForm)">
-  <div class="col-xs-12 col-sm-12 ">
+<div class="row" *ngIf="!searchForm">
+  <div class="col-xs-12 col-sm-12">
     <h4 class="width100">Add Feedback/Complaint Nature</h4>
     <form #addForm="ngForm" autocomplete="off">
       <div class="row">
-
         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 m-t-15">
           <!-- <mat-form-field class="hide_underline" [style.width]="'100%'">
             <input matInput style="display:none"> -->
-            <mat-select placeholder="Serviceline" [style.width]="'100%'" [(ngModel)]="search_serviceline" name="serviceline" [disabled]="true">
-              <mat-option *ngFor="let service of servicelines" value="{{service.serviceID}}" (click)="getStates(service.serviceID,service.isNational);setIsNational(service.isNational)">
-                {{service.serviceName}}
-              </mat-option>
-            </mat-select>
+          <mat-select
+            placeholder="Serviceline"
+            [style.width]="'100%'"
+            [(ngModel)]="search_serviceline"
+            name="serviceline"
+            [disabled]="true"
+          >
+            <mat-option
+              *ngFor="let service of servicelines"
+              value="{{ service.serviceID }}"
+              (click)="
+                getStates(service.serviceID, service.isNational);
+                setIsNational(service.isNational)
+              "
+            >
+              {{ service.serviceName }}
+            </mat-option>
+          </mat-select>
           <!-- </mat-form-field> -->
         </div>
         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 m-t-15">
           <!-- <mat-form-field class="hide_underline" [style.width]="'100%'">
             <input matInput style="display:none"> -->
-            <mat-select placeholder="State" [style.width]="'100%'" [(ngModel)]="search_state" name="state" [disabled]="true">
-              <mat-option *ngFor="let state of states" value="{{state.stateID}}" (click)="findFeedbackTypes(state.providerServiceMapID)">
-                {{state.stateName}}
-              </mat-option>
-            </mat-select>
+          <mat-select
+            placeholder="State"
+            [style.width]="'100%'"
+            [(ngModel)]="search_state"
+            name="state"
+            [disabled]="true"
+          >
+            <mat-option
+              *ngFor="let state of states"
+              value="{{ state.stateID }}"
+              (click)="findFeedbackTypes(state.providerServiceMapID)"
+            >
+              {{ state.stateName }}
+            </mat-option>
+          </mat-select>
           <!-- </mat-form-field> -->
         </div>
         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 m-t-15">
           <!-- <mat-form-field class="hide_underline" [style.width]="'100%'">
             <input matInput style="display:none"> -->
-            <mat-select placeholder="Feedback Type" [style.width]="'100%'" [(ngModel)]="search_feedbacktype" name="feedbacktype" [disabled]="true">
-              <mat-option *ngFor="let feedback of feedbackTypes" value="{{feedback.feedbackTypeID}}" (click)="findFeedbackNature(feedback.feedbackTypeID)">
-                {{feedback.feedbackTypeName}}
-              </mat-option>
-            </mat-select>
+          <mat-select
+            placeholder="Feedback Type"
+            [style.width]="'100%'"
+            [(ngModel)]="search_feedbacktype"
+            name="feedbacktype"
+            [disabled]="true"
+          >
+            <mat-option
+              *ngFor="let feedback of feedbackTypes"
+              value="{{ feedback.feedbackTypeID }}"
+              (click)="findFeedbackNature(feedback.feedbackTypeID)"
+            >
+              {{ feedback.feedbackTypeName }}
+            </mat-option>
+          </mat-select>
           <!-- </mat-form-field> -->
         </div>
       </div>
@@ -150,68 +253,131 @@
       <div class="row">
         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 m-t-20">
           <mat-form-field class="width100" VehicleNONew>
-            <input matInput name="feedbackNature" placeholder="Nature of Complaint" [(ngModel)]="feedbackNature" #newFeedbackNature="ngModel"
-              (keyup)="validateFeedbackNature(feedbackNature)" maxlength="50" required>
+            <input
+              matInput
+              name="feedbackNature"
+              placeholder="Nature of Complaint"
+              [(ngModel)]="feedbackNature"
+              #newFeedbackNature="ngModel"
+              (keyup)="validateFeedbackNature(feedbackNature)"
+              maxlength="50"
+              required
+            />
             <mat-hint>
-              <span class="error_text" *ngIf="newFeedbackNature.touched && newFeedbackNature.errors ">Nature of Complaint is required</span>
-              <span class="error_text" *ngIf="natureExists && newFeedbackNature.touched">{{msg}}</span>
+              <span
+                class="error_text"
+                *ngIf="newFeedbackNature.touched && newFeedbackNature.errors"
+                >Nature of Complaint is required</span
+              >
+              <span
+                class="error_text"
+                *ngIf="natureExists && newFeedbackNature.touched"
+                >{{ msg }}</span
+              >
             </mat-hint>
           </mat-form-field>
         </div>
         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 m-t-20">
           <mat-form-field class="width100">
-            <input matInput textAreaValidator  name="feedbackDesc" placeholder="Feedback Nature Description" [(ngModel)]="feedbackNatureDesc" #newFeedbackNatureDesc="ngModel"
-              maxlength="100">
+            <input
+              matInput
+              textAreaValidator
+              name="feedbackDesc"
+              placeholder="Feedback Nature Description"
+              [(ngModel)]="feedbackNatureDesc"
+              #newFeedbackNatureDesc="ngModel"
+              maxlength="100"
+            />
           </mat-form-field>
         </div>
-        <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12 m-t-20" *ngIf="editForm.valid && !natureExists">
-          <button mat-mini-fab color="primary" class="xs-pull-right sm-pull-right md-pull-left lg-pull-left" (click)="add_obj(feedbackNature,feedbackNatureDesc);editForm.reset();">
-            <mat-icon mdSuffix class="mat-icon material-icons" role="img" aria-hidden="true" style="cursor: pointer">add</mat-icon>
+        <div
+          class="col-lg-3 col-md-4 col-sm-12 col-xs-12 m-t-20"
+          *ngIf="editForm.valid && !natureExists"
+        >
+          <button
+            mat-mini-fab
+            color="primary"
+            class="xs-pull-right sm-pull-right md-pull-left lg-pull-left"
+            (click)="
+              add_obj(feedbackNature, feedbackNatureDesc); editForm.reset()
+            "
+          >
+            <mat-icon
+              mdSuffix
+              class="mat-icon material-icons"
+              role="img"
+              aria-hidden="true"
+              style="cursor: pointer"
+              >add</mat-icon
+            >
           </button>
         </div>
       </div>
     </form>
-    <div class="m-t-15" *ngIf="(objs.data.length !=0)">
+    <div class="m-t-15" *ngIf="objs.data.length !== 0">
       <div class="table-responsive">
-       
-        <table mat-table [dataSource]="this.objs.data" 
-        class="table table-striped table-hover"
-      >
-      <ng-container matColumnDef="SNo">
-        <th mat-header-cell *matHeaderCellDef>S.No.</th>
-        <td mat-cell *matCellDef="let element; let i = index">
-          {{ i + 1 }}
-        </td>
-      </ng-container>
-      <ng-container matColumnDef="FeedbackNature">
-        <th mat-header-cell *matHeaderCellDef>Feedback Nature</th>
-        <td mat-cell *matCellDef="let element">{{ element.feedbackNature }}</td>
-      </ng-container>
-      <ng-container matColumnDef="FeedbackNaturekDescription">
-        <th mat-header-cell *matHeaderCellDef>Feedback Nature Description</th>
-        <td mat-cell *matCellDef="let element">{{ element.feedbackNatureDesc }}</td>
-      </ng-container>
+        <table
+          mat-table
+          [dataSource]="this.objs.data"
+          class="table table-striped table-hover"
+        >
+          <ng-container matColumnDef="SNo">
+            <th mat-header-cell *matHeaderCellDef>S.No.</th>
+            <td mat-cell *matCellDef="let element; let i = index">
+              {{ i + 1 }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="FeedbackNature">
+            <th mat-header-cell *matHeaderCellDef>Feedback Nature</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.feedbackNature }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="FeedbackNaturekDescription">
+            <th mat-header-cell *matHeaderCellDef>
+              Feedback Nature Description
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.feedbackNatureDesc }}
+            </td>
+          </ng-container>
 
-      <ng-container matColumnDef="edit">
-        <th mat-header-cell *matHeaderCellDef>
-          Delete
-        </th>
-        <td mat-cell *matCellDef="let element">
-          <mat-icon class="cursorPointer" mdTooltip="delete" (click)="remove_obj(objs.data.indexOf(element))">delete</mat-icon>
-
-        </td>
-      </ng-container>
-      <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns1;"></tr>
-      </table>
+          <ng-container matColumnDef="edit">
+            <th mat-header-cell *matHeaderCellDef>Delete</th>
+            <td mat-cell *matCellDef="let element">
+              <mat-icon
+                class="cursorPointer"
+                mdTooltip="delete"
+                (click)="remove_obj(objs.data.indexOf(element))"
+                >delete</mat-icon
+              >
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns1"></tr>
+        </table>
       </div>
     </div>
     <div class="row">
       <div class="col-xs-12 col-sm-12 m-t-10 m-b-10">
-        <button class="pull-right " mat-raised-button color="accent" (click)="saveComplaintNature();" [disabled]="!(objs.data.length!=0)">Save</button>
-        <button class="pull-left" mat-raised-button color="primary" (click)="back();">Back</button>
+        <button
+          class="pull-right"
+          mat-raised-button
+          color="accent"
+          (click)="saveComplaintNature()"
+          [disabled]="!(objs.data.length !== 0)"
+        >
+          Save
+        </button>
+        <button
+          class="pull-left"
+          mat-raised-button
+          color="primary"
+          (click)="back()"
+        >
+          Back
+        </button>
       </div>
     </div>
-
   </div>
 </div>

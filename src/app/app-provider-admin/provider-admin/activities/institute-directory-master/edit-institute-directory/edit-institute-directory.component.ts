@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import {
   MAT_DIALOG_DATA,
   MatDialog,
@@ -10,7 +10,7 @@ import { InstituteDirectoryMasterService } from '../../services/institute-direct
 import { dataService } from 'src/app/core/services/dataService/data.service';
 
 @Component({
-  selector: 'edit-institute-directory',
+  selector: 'app-edit-institute-directory',
   templateUrl: './edit-institute-directory-model.html',
   styleUrls: ['./edit-institute-directory.component.css'],
 })
@@ -18,7 +18,7 @@ import { dataService } from 'src/app/core/services/dataService/data.service';
 // 	selector: 'edit-institute-directory',
 // 	templateUrl: './edit-institute-directory-model.html'
 // })
-export class EditInstituteDirectoryComponent {
+export class EditInstituteDirectoryComponent implements OnInit {
   instituteDirectory: any;
   description: any;
 

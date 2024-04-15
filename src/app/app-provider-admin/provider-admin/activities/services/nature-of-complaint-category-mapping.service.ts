@@ -66,7 +66,7 @@ export class NatureOfCompaintCategoryMappingService {
     this.filterMappedCategory_url =
       this.providerAdmin_Base_Url + '/m/getunmappedCategoryforFeedbackNature';
   }
-  getServiceLines(userID: any):Observable<any> {
+  getServiceLines(userID: any): Observable<any> {
     return this.http.post(this.getServiceLines_url, { userID: userID });
     // .map(this.handleState_n_ServiceSuccess)
     // .catch(this.handleError);

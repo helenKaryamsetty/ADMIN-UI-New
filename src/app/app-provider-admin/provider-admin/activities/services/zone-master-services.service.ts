@@ -101,45 +101,39 @@ export class ZoneMasterService {
       this.providerAdmin_Base_Url + '/zonemaster/edit/zoneDistrictMapping';
   }
 
-saveZones(data: any) {
+  saveZones(data: any) {
     return this.http.post(environment.saveZonesURL, data);
- 
   }
 
   getZones(data: any) {
     return this.http.post(environment.getZonesURL, data);
- 
   }
 
   saveZoneDistrictMappings(data: any) {
     return this.http.post(environment.saveZoneDistrictMappingURL, data);
- 
   }
 
   getZoneDistrictMappings(data: any) {
     return this.http.post(environment.getZoneDistrictMappingURL, data);
- 
   }
 
   updateZoneStatus(data: any) {
     return this.http.post(environment.updateZOneStatusURL, data);
- 
   }
   updateZoneMappingData(data: any) {
     return this.http.post(environment.updateZoneMappingDataUrl, data);
- 
   }
   updateZoneMappingStatus(data: any) {
     return this.http.post(environment.updateZOneDistrictMappingURL, data);
- 
   }
 
   updateZoneData(data: any) {
     return this.http.post(environment.updateZoneDataURL, data);
- 
   }
   getServiceLinesNew(userID: any) {
-    return this.http.post(environment.getServiceLines_new_url, { userID: userID });
+    return this.http.post(environment.getServiceLines_new_url, {
+      userID: userID,
+    });
     // .map(this.handleState_n_ServiceSuccess)
     // .catch(this.handleError);
   }
@@ -151,11 +145,9 @@ saveZones(data: any) {
   }
   getTaluks(districtId: number) {
     return this.http.get(environment.getTalukZoneListURL + districtId);
- 
   }
   getSTBs(talukId: number) {
     return this.http.get(environment._getBlockListURL + talukId);
- 
   }
 
   getBranches(blockId: number) {

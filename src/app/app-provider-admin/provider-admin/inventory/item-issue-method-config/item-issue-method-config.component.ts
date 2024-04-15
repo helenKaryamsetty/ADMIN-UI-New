@@ -115,13 +115,13 @@ export class ItemIssueMethodConfigComponent implements OnInit, AfterViewInit {
           console.log('All Item Categories success based on service', response);
           this.itemCategory_array = response.data.filter(
             (category: any) =>
-              category.deleted != true && category.issueType != undefined,
+              category.deleted !== true && category.issueType !== undefined,
           );
           this.filteredItemCategory_array.data = this.itemCategory_array;
           this.filteredItemCategory_array.paginator = this.paginator;
           this.filterItemCategory = response.data.filter(
             (category: any) =>
-              category.issueType == undefined && category.deleted != true,
+              category.issueType === undefined && category.deleted !== true,
           );
           this.displayTable = true;
           this.setItemIssue();
@@ -147,10 +147,10 @@ export class ItemIssueMethodConfigComponent implements OnInit, AfterViewInit {
   }
   getIssueType(itemCategoryID: any) {
     const item = this.itemCategory_array.filter(
-      (category: any) => category.itemCategoryID == itemCategoryID,
+      (category: any) => category.itemCategoryID === itemCategoryID,
     );
     const issueType = this.ItemIssue_array.filter(
-      (itemissue: any) => itemissue.Name == item[0].issueType,
+      (itemissue: any) => itemissue.Name === item[0].issueType,
     );
     this.itemIssue = issueType;
   }
@@ -167,9 +167,9 @@ export class ItemIssueMethodConfigComponent implements OnInit, AfterViewInit {
       this.itemCategory_array.forEach((item: any) => {
         for (const key in item) {
           if (
-            key == 'issueType' ||
-            key == 'itemCategoryCode' ||
-            key == 'itemCategoryName'
+            key === 'issueType' ||
+            key === 'itemCategoryCode' ||
+            key === 'itemCategoryName'
           ) {
             const value: string = '' + item[key];
             if (value.toLowerCase().indexOf(searchTerm.toLowerCase()) >= 0) {
@@ -220,7 +220,7 @@ export class ItemIssueMethodConfigComponent implements OnInit, AfterViewInit {
     } else {
       for (let i = 0; i < this.bufferArray.data.length; i++) {
         if (
-          this.bufferArray.data[i].itemCategoryName == object.itemCategoryName
+          this.bufferArray.data[i].itemCategoryName === object.itemCategoryName
         ) {
           duplicateStatus = duplicateStatus + 1;
           this.dialogService.alert('Item Category is already added in list');

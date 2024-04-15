@@ -185,7 +185,7 @@ export class EmployeeMasterNewComponent implements OnInit {
     this.createdBy = this.dataServiceValue.uname;
     console.log('createdBY', this.createdBy);
 
-    this.serviceProviderID = this.dataServiceValue.providerServiceMapID_104;
+    this.serviceProviderID = this.dataServiceValue.service_providerID;
     this.getAllUserDetails();
     this.minDate_doj = new Date();
   }
@@ -197,7 +197,7 @@ export class EmployeeMasterNewComponent implements OnInit {
     console.log('serviceProvider', this.serviceProviderID);
 
     this.employeeMasterNewService.getAllUsers(this.serviceProviderID).subscribe(
-      (response) => {
+      (response: any) => {
         if (response) {
           console.log('All details of the user', response);
           this.searchResult = response.data;
@@ -471,7 +471,7 @@ export class EmployeeMasterNewComponent implements OnInit {
    */
   calculateAge(date: any) {
     this.disabled = false;
-    if (date != undefined) {
+    if (date !== undefined) {
       let age = this.today.getFullYear() - date.getFullYear();
       if (this.objs.data.length === 0) {
         this.age = age;
@@ -1401,7 +1401,7 @@ export class EmployeeMasterNewComponent implements OnInit {
    * calculate age based on the DOB
    */
   calculateAgeInEdit(dateOfBirth: any) {
-    if (dateOfBirth != undefined) {
+    if (dateOfBirth !== undefined) {
       const existDobAge = new Date(dateOfBirth);
       this.age = this.today.getFullYear() - existDobAge.getFullYear();
       const month = this.today.getMonth() - existDobAge.getMonth();

@@ -38,11 +38,11 @@
           disabled
         >
           <mat-option value="Valid">Valid</mat-option>
-          <mat-option value="Transfer" *ngIf="service == 1 || service == 3"
+          <mat-option value="Transfer" *ngIf="service === 1 || service === 3"
             >Transfer</mat-option
           >
-          <mat-option value="Invalid" *ngIf="service == 1">Invalid</mat-option>
-          <mat-option value="Incomplete" *ngIf="service == 3"
+          <mat-option value="Invalid" *ngIf="service === 1">Invalid</mat-option>
+          <mat-option value="Incomplete" *ngIf="service === 3"
             >Incomplete</mat-option
           >
         </mat-select>
@@ -68,7 +68,7 @@
       </mat-form-field>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 m-t-10">
-      <label class="f-s-n-b">Fit To Block</label>
+      <span class="f-s-n-b">Fit To Block</span>
       <mat-radio-group
         [(ngModel)]="fitToBlock"
         (change)="fitToBlocks(fitToBlock)"
@@ -91,7 +91,7 @@
       </mat-radio-group>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 m-t-10">
-      <label class="f-s-n-b">Fit For Follow-up</label>
+      <span class="f-s-n-b">Fit For Follow-up</span>
       <mat-radio-group
         [(ngModel)]="fitForFollowup"
         (change)="fitForFollowups(fitForFollowup)"
@@ -148,7 +148,7 @@
           <mat-option value="9">9</mat-option>
           <mat-option value="10">10</mat-option>
         </mat-select>
-        <label class="maxRedialNote">{{ note }}</label>
+        <span class="maxRedialNote">{{ note }}</span>
       </mat-form-field>
     </div>
   </form>

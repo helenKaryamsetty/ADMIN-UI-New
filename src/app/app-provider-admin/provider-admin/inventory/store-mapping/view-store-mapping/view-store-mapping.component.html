@@ -1,37 +1,65 @@
 <form [formGroup]="storeSearchForm" autocomplete="off">
-  <div class="row" *ngIf="mode == 'view'">
+  <div class="row" *ngIf="mode === 'view'">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
       <h4>
         <strong>Van/Parking Place to Store Mapping</strong>
       </h4>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
-      <mat-select class="input-full-width" placeholder="Serviceline" formControlName="service" name="service" required [disabled]="mode != 'view'">
+      <mat-select
+        class="input-full-width"
+        placeholder="Serviceline"
+        formControlName="service"
+        name="service"
+        required
+        [disabled]="mode !== 'view'"
+      >
         <mat-option *ngFor="let service of serviceLineList" [value]="service">
-          {{service.serviceName}}
+          {{ service.serviceName }}
         </mat-option>
       </mat-select>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
-      <mat-select class="input-full-width" placeholder="State" formControlName="state" name="state" required [disabled]="mode != 'view'">
+      <mat-select
+        class="input-full-width"
+        placeholder="State"
+        formControlName="state"
+        name="state"
+        required
+        [disabled]="mode !== 'view'"
+      >
         <mat-option *ngFor="let state of stateList" [value]="state">
-          {{state.stateName}}
+          {{ state.stateName }}
         </mat-option>
       </mat-select>
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-6" *ngIf="(storeList.length > 0 || filteredStoreList.data.length > 0 )&& mode == 'view'">
-        <div class="row" class="pull-right">
-      <mat-form-field class="input-full-width">
-        <input matInput placeholder="In-Table Search" #filterTerm (keyup)="filterStoreList(filterTerm.value)">
-        <mat-icon matSuffix>search</mat-icon>
-      </mat-form-field>
+    <div
+      class="col-xs-12 col-sm-12 col-md-4 col-lg-6"
+      *ngIf="
+        (storeList.length > 0 || filteredStoreList.data.length > 0) &&
+        mode === 'view'
+      "
+    >
+      <div class="row" class="pull-right">
+        <mat-form-field class="input-full-width">
+          <input
+            matInput
+            placeholder="In-Table Search"
+            #filterTerm
+            (keyup)="filterStoreList(filterTerm.value)"
+          />
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+      </div>
     </div>
-  </div>
   </div>
 </form>
 
-<ng-container *ngIf="mode == 'view'">
-  <div class="row m-t-20" *ngIf="storeSearchForm.value.service && storeSearchForm.value.state">
+<ng-container *ngIf="mode === 'view'">
+  <div
+    class="row m-t-20"
+    *ngIf="storeSearchForm.value.service && storeSearchForm.value.state"
+  >
     <div class="col-xs-12">
       <mat-table [dataSource]="filteredStoreList" class="mat-elevation-z8">
         <!-- S.No. Column -->
@@ -43,19 +71,13 @@
         <!-- Category Code Column -->
         <ng-container matColumnDef="facilityName">
           <mat-header-cell *matHeaderCellDef>Facility Name</mat-header-cell>
-          <mat-cell *matCellDef="let item">{{
-            item.facilityName
-          }}</mat-cell>
+          <mat-cell *matCellDef="let item">{{ item.facilityName }}</mat-cell>
         </ng-container>
 
         <!-- Category Description Column -->
         <ng-container matColumnDef="storeType">
-          <mat-header-cell *matHeaderCellDef
-            >Store Type</mat-header-cell
-          >
-          <mat-cell *matCellDef="let item">{{
-            item.storeType
-          }}</mat-cell>
+          <mat-header-cell *matHeaderCellDef>Store Type</mat-header-cell>
+          <mat-cell *matCellDef="let item">{{ item.storeType }}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="parkingPlaceName">
@@ -68,27 +90,36 @@
         </ng-container>
 
         <ng-container matColumnDef="vanName">
-          <mat-header-cell *matHeaderCellDef
-            >Van Name</mat-header-cell
-          >
-          <mat-cell *matCellDef="let item">{{
-            item.vanName
-          }}</mat-cell>
+          <mat-header-cell *matHeaderCellDef>Van Name</mat-header-cell>
+          <mat-cell *matCellDef="let item">{{ item.vanName }}</mat-cell>
         </ng-container>
         <!-- Edit Column -->
         <ng-container matColumnDef="edit">
           <mat-header-cell *matHeaderCellDef>Edit</mat-header-cell>
           <mat-cell *matCellDef="let item">
-            <mat-icon *ngIf="item && (item.parkingPlaceName || item.vanName)" matTooltip="Edit" class="mat-icon material-icons" style="cursor: pointer"
-                (click)="switchToUpdateMode(item)">edit</mat-icon>
+            <mat-icon
+              *ngIf="item && (item.parkingPlaceName || item.vanName)"
+              matTooltip="Edit"
+              class="mat-icon material-icons"
+              style="cursor: pointer"
+              (click)="switchToUpdateMode(item)"
+              >edit</mat-icon
+            >
           </mat-cell>
         </ng-container>
-       
+
         <!-- Action Column -->
         <ng-container matColumnDef="action">
           <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
           <mat-cell *matCellDef="let item">
-            <button *ngIf="item && (item.parkingPlaceName || item.vanName)" mat-raised-button color="accent" (click)="deleteMapping(item)">Unmap</button>
+            <button
+              *ngIf="item && (item.parkingPlaceName || item.vanName)"
+              mat-raised-button
+              color="accent"
+              (click)="deleteMapping(item)"
+            >
+              Unmap
+            </button>
           </mat-cell>
         </ng-container>
         <!-- Header and Row Definitions -->
@@ -107,19 +138,26 @@
           *matRowDef="
             let row;
             columns: [
-            'sno',
-            'facilityName',
-            'storeType',
-            'parkingPlaceName',
-            'vanName',
-            'edit',
-            'action'
+              'sno',
+              'facilityName',
+              'storeType',
+              'parkingPlaceName',
+              'vanName',
+              'edit',
+              'action'
             ]
           "
         ></mat-row>
       </mat-table>
       <div>
-        <button mat-raised-button color="primary" class="pull-right" (click)="switchToCreateMode()">Map Store</button>
+        <button
+          mat-raised-button
+          color="primary"
+          class="pull-right"
+          (click)="switchToCreateMode()"
+        >
+          Map Store
+        </button>
       </div>
       <!-- Pagination -->
       <div
@@ -137,10 +175,16 @@
     </div>
   </div>
 </ng-container>
-<ng-container *ngIf="mode == 'create'">
-  <app-create-store-mapping [otherDetails]="otherDetails" (modeChange)="switchToViewMode()"></app-create-store-mapping>
+<ng-container *ngIf="mode === 'create'">
+  <app-create-store-mapping
+    [otherDetails]="otherDetails"
+    (modeChange)="switchToViewMode()"
+  ></app-create-store-mapping>
 </ng-container>
 
-<ng-container *ngIf="mode == 'update'">
-  <app-update-store-mapping [storeDetails]="storeDetails" (modeChange)="switchToViewMode()"></app-update-store-mapping>
+<ng-container *ngIf="mode === 'update'">
+  <app-update-store-mapping
+    [storeDetails]="storeDetails"
+    (modeChange)="switchToViewMode()"
+  ></app-update-store-mapping>
 </ng-container>

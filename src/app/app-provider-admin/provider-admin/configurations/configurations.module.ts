@@ -29,6 +29,9 @@ import { VanSpokeMappingComponent } from './van-spoke-mapping/van-spoke-mapping.
 import { VanSpokeMappingService } from 'src/app/core/services/ProviderAdminServices/van-spoke-mapping.service';
 import { VanDeviceIdMappingComponent } from './van-device-id-mapping/van-device-id-mapping.component';
 import { FetosenseDeviceIdMasterService } from '../activities/services/fetosense-device-id-master-service.service';
+import { UserSignatureMappingComponent } from './user-signature-mapping/user-signature-mapping.component';
+import { WrapupTimeConfigurationComponent } from './wrapup-time-configuration/wrapup-time-configuration.component';
+import { WrapupTimeConfigurationService } from 'src/app/core/services/ProviderAdminServices/wrapup-time-configuration.service';
 
 @NgModule({
   declarations: [
@@ -44,7 +47,9 @@ import { FetosenseDeviceIdMasterService } from '../activities/services/fetosense
     MappedVansComponent,
     ProcedureComponentMappingComponent,
     VanSpokeMappingComponent,
-    VanDeviceIdMappingComponent
+    VanDeviceIdMappingComponent,
+    UserSignatureMappingComponent,
+    WrapupTimeConfigurationComponent,
   ],
   imports: [
     CommonModule,
@@ -66,7 +71,9 @@ import { FetosenseDeviceIdMasterService } from '../activities/services/fetosense
     EmployeeParkingPlaceMappingService,
     ProcedureComponentMappingServiceService,
     VanSpokeMappingService,
-    FetosenseDeviceIdMasterService
+    FetosenseDeviceIdMasterService,
+    EmployeeParkingPlaceMappingService,
+    WrapupTimeConfigurationService,
   ],
   exports: [
     AgentListCreationComponent,
@@ -81,7 +88,9 @@ import { FetosenseDeviceIdMasterService } from '../activities/services/fetosense
     MappedVansComponent,
     ProcedureComponentMappingComponent,
     VanSpokeMappingComponent,
-    VanDeviceIdMappingComponent
+    VanDeviceIdMappingComponent,
+    UserSignatureMappingComponent,
+    WrapupTimeConfigurationComponent,
   ],
 })
 export class ConfigurationsModule {}

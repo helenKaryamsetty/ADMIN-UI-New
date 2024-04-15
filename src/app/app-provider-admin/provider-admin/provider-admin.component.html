@@ -158,21 +158,13 @@
       <button mat-menu-item (click)="show('54')">
         Expiry Date Alert Config
       </button>
-      <button mat-menu-item (click)="show('38')">
-       Item Master
-      </button>
-      <button mat-menu-item (click)="show('39')">
-        Facility Type Master
-       </button>
-       <button mat-menu-item (click)="show('40')">
-        Main Store & Sub Store
-       </button>
-       <button mat-menu-item (click)="show('42')">
-        Item To Store Mapping
-       </button>
-       <button mat-menu-item (click)="show('51')">
+      <button mat-menu-item (click)="show('38')">Item Master</button>
+      <button mat-menu-item (click)="show('39')">Facility Type Master</button>
+      <button mat-menu-item (click)="show('40')">Main Store & Sub Store</button>
+      <button mat-menu-item (click)="show('42')">Item To Store Mapping</button>
+      <button mat-menu-item (click)="show('51')">
         Van/Parking Place to Store Mapping
-       </button>
+      </button>
     </mat-menu>
 
     <div [ngSwitch]="Activity_Number" class="col-xs-12 col-sm-12">
@@ -217,43 +209,79 @@
           *ngSwitchCase="2"
         ></app-provider-admin-role-master>
         <app-feedback-complaint-nature-master
-        *ngSwitchCase="19"
-      ></app-feedback-complaint-nature-master>
-      <app-nature-of-complaint-category-mapping
-        *ngSwitchCase="58"
-      ></app-nature-of-complaint-category-mapping>
-      <app-institute-type-master
-      *ngSwitchCase="25"
-    ></app-institute-type-master>
-    <app-hospital-master *ngSwitchCase="21"></app-hospital-master>
-    <app-severity-type *ngSwitchCase="12"></app-severity-type>
-    <app-fetosense-test-master *ngSwitchCase = "68"></app-fetosense-test-master>
-      <app-device-id-master *ngSwitchCase = "70"></app-device-id-master>
+          *ngSwitchCase="19"
+        ></app-feedback-complaint-nature-master>
+        <app-nature-of-complaint-category-mapping
+          *ngSwitchCase="58"
+        ></app-nature-of-complaint-category-mapping>
+        <app-institute-type-master
+          *ngSwitchCase="25"
+        ></app-institute-type-master>
+        <app-hospital-master *ngSwitchCase="21"></app-hospital-master>
+        <app-severity-type *ngSwitchCase="12"></app-severity-type>
+        <app-fetosense-test-master
+          *ngSwitchCase="68"
+        ></app-fetosense-test-master>
+        <app-device-id-master *ngSwitchCase="70"></app-device-id-master>
         <app-data-mapping-block-subcenter
-        *ngSwitchCase="72"
-      ></app-data-mapping-block-subcenter>
-      <app-zone *ngSwitchCase="36"></app-zone>
-      <app-zone-district-mapping
-                *ngSwitchCase="37"
-              ></app-zone-district-mapping>
-              <app-parking-place *ngSwitchCase="8"></app-parking-place>
-              <app-parking-place-sub-district-mapping
-              *ngSwitchCase="57"
-            ></app-parking-place-sub-district-mapping>
-            <app-service-point *ngSwitchCase="9"></app-service-point>
-            <app-van-master *ngSwitchCase="14"></app-van-master>
-            <app-procedure-master *ngSwitchCase="29"></app-procedure-master>
-            <app-item-master *ngSwitchCase="38"></app-item-master>
-            <app-facility-type-master *ngSwitchCase="39"></app-facility-type-master>
-            <app-main-store-and-sub-store *ngSwitchCase="40"></app-main-store-and-sub-store>
-            <app-item-to-store-mapping *ngSwitchCase="42"></app-item-to-store-mapping>
-            <app-view-store-mapping *ngSwitchCase="51"></app-view-store-mapping>
-            <app-service-point-village-mapping *ngSwitchCase="11"></app-service-point-village-mapping>
-            <app-van-service-point-mapping *ngSwitchCase="16"></app-van-service-point-mapping>
-            <app-employee-parking-place-mapping *ngSwitchCase="17"></app-employee-parking-place-mapping>
-            <app-procedure-component-mapping *ngSwitchCase="31"></app-procedure-component-mapping>
-            <app-van-spoke-mapping *ngSwitchCase = "67"></app-van-spoke-mapping>
-            <app-van-device-id-mapping *ngSwitchCase = "71"></app-van-device-id-mapping>
+          *ngSwitchCase="72"
+        ></app-data-mapping-block-subcenter>
+        <app-zone *ngSwitchCase="36"></app-zone>
+        <app-zone-district-mapping
+          *ngSwitchCase="37"
+        ></app-zone-district-mapping>
+        <app-parking-place *ngSwitchCase="8"></app-parking-place>
+        <app-parking-place-sub-district-mapping
+          *ngSwitchCase="57"
+        ></app-parking-place-sub-district-mapping>
+        <app-service-point *ngSwitchCase="9"></app-service-point>
+        <app-van-master *ngSwitchCase="14"></app-van-master>
+        <app-procedure-master *ngSwitchCase="29"></app-procedure-master>
+        <app-item-master *ngSwitchCase="38"></app-item-master>
+        <app-facility-type-master *ngSwitchCase="39"></app-facility-type-master>
+        <app-main-store-and-sub-store
+          *ngSwitchCase="40"
+        ></app-main-store-and-sub-store>
+        <app-item-to-store-mapping
+          *ngSwitchCase="42"
+        ></app-item-to-store-mapping>
+        <app-view-store-mapping *ngSwitchCase="51"></app-view-store-mapping>
+        <app-service-point-village-mapping
+          *ngSwitchCase="11"
+        ></app-service-point-village-mapping>
+        <app-van-service-point-mapping
+          *ngSwitchCase="16"
+        ></app-van-service-point-mapping>
+        <app-employee-parking-place-mapping
+          *ngSwitchCase="17"
+        ></app-employee-parking-place-mapping>
+        <app-procedure-component-mapping
+          *ngSwitchCase="31"
+        ></app-procedure-component-mapping>
+        <app-van-spoke-mapping *ngSwitchCase="67"></app-van-spoke-mapping>
+        <app-van-device-id-mapping
+          *ngSwitchCase="71"
+        ></app-van-device-id-mapping>
+        <app-zone *ngSwitchCase="36"></app-zone>
+        <app-zone-district-mapping
+          *ngSwitchCase="37"
+        ></app-zone-district-mapping>
+        <app-parking-place *ngSwitchCase="8"></app-parking-place>
+        <app-parking-place-sub-district-mapping
+          *ngSwitchCase="57"
+        ></app-parking-place-sub-district-mapping>
+        <app-service-point *ngSwitchCase="9"></app-service-point>
+        <app-van-master *ngSwitchCase="14"></app-van-master>
+        <app-procedure-master *ngSwitchCase="29"></app-procedure-master>
+        <app-item-master *ngSwitchCase="38"></app-item-master>
+        <app-facility-type-master *ngSwitchCase="39"></app-facility-type-master>
+        <app-main-store-and-sub-store
+          *ngSwitchCase="40"
+        ></app-main-store-and-sub-store>
+        <app-item-to-store-mapping
+          *ngSwitchCase="42"
+        ></app-item-to-store-mapping>
+        <app-view-store-mapping *ngSwitchCase="51"></app-view-store-mapping>
         <!-- <app-zone *ngSwitchCase="36"></app-zone>
         <app-zone-district-mapping
           *ngSwitchCase="37"
@@ -263,6 +291,12 @@
         <app-parking-place-sub-district-mapping
         *ngSwitchCase="57"
       ></app-parking-place-sub-district-mapping> -->
+        <app-wrapup-time-configuration
+          *ngSwitchCase="61"
+        ></app-wrapup-time-configuration>
+        <app-user-signature-mapping
+          *ngSwitchCase="62"
+        ></app-user-signature-mapping>
         <app-sms-template *ngSwitchCase="63"></app-sms-template>
         <app-add-questionnaire *ngSwitchCase="64"></app-add-questionnaire>
         <app-map-snommed-ctcode *ngSwitchCase="65"></app-map-snommed-ctcode>

@@ -1,46 +1,77 @@
 <div class="row">
-  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="showFetosenseTestMaster">
+  <div
+    class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
+    *ngIf="showFetosenseTestMaster"
+  >
     <h4 class="pull-left">Fetosense Test Master</h4>
   </div>
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="showTestCreation">
     <h4 class="pull-left">Create Test</h4>
   </div>
-  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="!showTestCreation && !showFetosenseTestMaster">
+  <div
+    class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
+    *ngIf="!showTestCreation && !showFetosenseTestMaster"
+  >
     <h4 class="pull-left">Edit Test</h4>
   </div>
 
-<form #stateService="ngForm" autocomplete="off">
-  <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-    <mat-select placeholder="Serviceline" disabled={{disableSelection}} [style.width]="'100%'" [(ngModel)]="serviceLine" name="serviceLine"
-      #serviceLines="ngModel" required (selectionChange)="getStates(serviceLine)">
-      <mat-option *ngFor="let service of services" [value]="service">
-        {{service.serviceName}}
-      </mat-option>
-    </mat-select>
-  </div>
-  <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-    <mat-select placeholder="State" disabled={{disableSelection}} [style.width]="'100%'" [(ngModel)]="state" name="state"
-      #stateList required (selectionChange)="testWorklist(state)">
-      <mat-option *ngFor="let state of states" [value]="state">
-        {{state.stateName}}
-      </mat-option>
-    </mat-select>
-  </div>
-</form>
+  <form #stateService="ngForm" autocomplete="off">
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
+      <mat-select
+        placeholder="Serviceline"
+        disabled="{{ disableSelection }}"
+        [style.width]="'100%'"
+        [(ngModel)]="serviceLine"
+        name="serviceLine"
+        #serviceLines="ngModel"
+        required
+        (selectionChange)="getStates(serviceLine)"
+      >
+        <mat-option *ngFor="let service of services" [value]="service">
+          {{ service.serviceName }}
+        </mat-option>
+      </mat-select>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
+      <mat-select
+        placeholder="State"
+        disabled="{{ disableSelection }}"
+        [style.width]="'100%'"
+        [(ngModel)]="state"
+        name="state"
+        #stateList
+        required
+        (selectionChange)="testWorklist(state)"
+      >
+        <mat-option *ngFor="let state of states" [value]="state">
+          {{ state.stateName }}
+        </mat-option>
+      </mat-select>
+    </div>
+  </form>
 </div>
 
-<div class="pull-right" *ngIf="searchedFetosenseTests.length!==0 && showWorklist">
-<mat-form-field id="filterbox">
-  <input matInput placeholder="In-Table Search" #filterTerm [(ngModel)]="searchTest" name="searchTest" (keyup)="filterTestsList(filterTerm.value)">
-  <mat-icon matSuffix>search</mat-icon>
-</mat-form-field>
+<div
+  class="pull-right"
+  *ngIf="searchedFetosenseTests.length !== 0 && showWorklist"
+>
+  <mat-form-field id="filterbox">
+    <input
+      matInput
+      placeholder="In-Table Search"
+      #filterTerm
+      [(ngModel)]="searchTest"
+      name="searchTest"
+      (keyup)="filterTestsList(filterTerm.value)"
+    />
+    <mat-icon matSuffix>search</mat-icon>
+  </mat-form-field>
 </div>
 
 <div class="row" *ngIf="showWorklist">
-<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10">
-  <div class="table-responsive">
-    
-    <table
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10">
+    <div class="table-responsive">
+      <table
         mat-table
         [dataSource]="this.filteredFetosenseTests.data"
         class="table table-striped table-hover"
@@ -65,15 +96,37 @@
         <ng-container matColumnDef="edit">
           <th mat-header-cell *matHeaderCellDef>Edit</th>
           <td mat-cell *matCellDef="let element">
-            <mat-icon matTooltip="Edit" class="mat-icon material-icons" role="img" aria-hidden="true" style="cursor: pointer" *ngIf="!element.deleted"
-              (click)="editTest(element)">edit</mat-icon>
+            <mat-icon
+              matTooltip="Edit"
+              class="mat-icon material-icons"
+              role="img"
+              aria-hidden="true"
+              style="cursor: pointer"
+              *ngIf="!element.deleted"
+              (click)="editTest(element)"
+              >edit</mat-icon
+            >
           </td>
         </ng-container>
         <ng-container matColumnDef="action">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Action</th>
           <td mat-cell *matCellDef="let element">
-            <button  mat-raised-button color="accent" *ngIf="element.deleted" (click)="deleteTest(element.foetalMonitorTestID, false)">Activate</button>
-            <button  mat-raised-button color="primary" *ngIf="!element.deleted" (click)="deleteTest(element.foetalMonitorTestID, true)">Deactivate</button>
+            <button
+              mat-raised-button
+              color="accent"
+              *ngIf="element.deleted"
+              (click)="deleteTest(element.foetalMonitorTestID, false)"
+            >
+              Activate
+            </button>
+            <button
+              mat-raised-button
+              color="primary"
+              *ngIf="!element.deleted"
+              (click)="deleteTest(element.foetalMonitorTestID, true)"
+            >
+              Deactivate
+            </button>
           </td>
           <!-- <td colspan="4" class="p-r-0" mat-cell>
           <button md-raised-button color="primary" [disabled]="searchForm.invalid" class="pull-right" (click)="changeTableFlag(false)">Add Work Location</button>
@@ -83,8 +136,15 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
       </table>
       <div>
-        <button md-raised-button color="primary" class="pull-right" [disabled]="stateService.invalid" (click)="createTest()">Create Test</button>
-
+        <button
+          md-raised-button
+          color="primary"
+          class="pull-right"
+          [disabled]="stateService.invalid"
+          (click)="createTest()"
+        >
+          Create Test
+        </button>
       </div>
       <mat-paginator
         [hidden]="filteredFetosenseTests.data.length === 0"
@@ -92,76 +152,142 @@
         [pageSize]="5"
         showFirstLastButtons
       ></mat-paginator>
+    </div>
   </div>
-</div>
 </div>
 
 <div class="row" *ngIf="showTestCreationForm">
-<form #addingTestsForm="ngForm" id="testsAddingForm" name="testsAddingForm" autocomplete="off">
-  <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
-    <mat-form-field style="width: 100%">
-      <input matInput inputFieldValidator placeholder="Test Name" [(ngModel)]="test" minlength="1" maxlength="100" name="test" (keyup)="validateTest(test)"
-        required #tests="ngModel">
-      <mat-hint *ngIf="tests.touched">
-        <span class="error_text" *ngIf="othersExist">Test already exists</span>
-        <span class="error_text" *ngIf="tests.invalid">Test is required</span>
-      </mat-hint>
-    </mat-form-field>
-  </div>
-  <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
-    <mat-form-field style="width: 100%">
-      <input matInput textAreaValidator  placeholder="Test Description" [(ngModel)]="description" name="description" maxlength="100" #testDescription="ngModel">
-    </mat-form-field>
-  </div>
-</form>
-
-<div class="col-xs-12 col-sm-6 col-md-12 col-lg-3 m-t-15" *ngIf="addingTestsForm.valid && !othersExist && addButton">
-  <button mat-mini-fab color="primary" (click)="addTests(test,description);addingTestsForm.reset()" class="xs-pull-right sm-pull-left md-pull-right lg-pull-left">
-    <mat-icon matSuffix class="mat-icon material-icons" role="img" aria-hidden="true" style="cursor: pointer">add</mat-icon>
-  </button>
-</div>
-<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-15" *ngIf="saveTest">
-  <div class="table-responsive">
-   
-    <table
-            mat-table
-            [dataSource]="this.addedFetosenseTests.data"
-            class="table table-striped table-hover"
+  <form
+    #addingTestsForm="ngForm"
+    id="testsAddingForm"
+    name="testsAddingForm"
+    autocomplete="off"
+  >
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
+      <mat-form-field style="width: 100%">
+        <input
+          matInput
+          inputFieldValidator
+          placeholder="Test Name"
+          [(ngModel)]="test"
+          minlength="1"
+          maxlength="100"
+          name="test"
+          (keyup)="validateTest(test)"
+          required
+          #tests="ngModel"
+        />
+        <mat-hint *ngIf="tests.touched">
+          <span class="error_text" *ngIf="othersExist"
+            >Test already exists</span
           >
-            <ng-container matColumnDef="SNo">
-              <th mat-header-cell *matHeaderCellDef>S.No.</th>
-              <td mat-cell *matCellDef="let element; let i = index">
-                {{ i + 1 }}
-              </td>
-            </ng-container>
-            <ng-container matColumnDef="TestName">
-              <th mat-header-cell *matHeaderCellDef>Test Name</th>
-              <td mat-cell *matCellDef="let element">
-                {{ element.testName }}
-              </td>
-            </ng-container>
-            <ng-container matColumnDef="TestDescription">
-              <th mat-header-cell *matHeaderCellDef>Test Description</th>
-              <td mat-cell *matCellDef="let element">{{ element.testDesc }}</td>
-            </ng-container>
+          <span class="error_text" *ngIf="tests.invalid">Test is required</span>
+        </mat-hint>
+      </mat-form-field>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
+      <mat-form-field style="width: 100%">
+        <input
+          matInput
+          textAreaValidator
+          placeholder="Test Description"
+          [(ngModel)]="description"
+          name="description"
+          maxlength="100"
+          #testDescription="ngModel"
+        />
+      </mat-form-field>
+    </div>
+  </form>
 
-            <ng-container matColumnDef="edit">
-              <th mat-header-cell *matHeaderCellDef>Delete</th>
-              <td mat-cell *matCellDef="let element">
-                <mat-icon class="cursorPointer" matTooltip="delete" (click)="removeTest(addedFetosenseTests.data.indexOf(element))">delete</mat-icon>
-
-              </td>
-            </ng-container>
-            <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns1"></tr>
-          </table>
+  <div
+    class="col-xs-12 col-sm-6 col-md-12 col-lg-3 m-t-15"
+    *ngIf="addingTestsForm.valid && !othersExist && addButton"
+  >
+    <button
+      mat-mini-fab
+      color="primary"
+      (click)="addTests(test, description); addingTestsForm.reset()"
+      class="xs-pull-right sm-pull-left md-pull-right lg-pull-left"
+    >
+      <mat-icon
+        matSuffix
+        class="mat-icon material-icons"
+        role="img"
+        aria-hidden="true"
+        style="cursor: pointer"
+        >add</mat-icon
+      >
+    </button>
   </div>
-</div>
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-15" *ngIf="saveTest">
+    <div class="table-responsive">
+      <table
+        mat-table
+        [dataSource]="this.addedFetosenseTests.data"
+        class="table table-striped table-hover"
+      >
+        <ng-container matColumnDef="SNo">
+          <th mat-header-cell *matHeaderCellDef>S.No.</th>
+          <td mat-cell *matCellDef="let element; let i = index">
+            {{ i + 1 }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="TestName">
+          <th mat-header-cell *matHeaderCellDef>Test Name</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.testName }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="TestDescription">
+          <th mat-header-cell *matHeaderCellDef>Test Description</th>
+          <td mat-cell *matCellDef="let element">{{ element.testDesc }}</td>
+        </ng-container>
 
-<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-15 m-b-10">
-  <button mat-raised-button color="primary" class="pull-left" (click)="back()">Back</button>
-   <button mat-raised-button color="accent" class="pull-right" *ngIf="saveTest" (click)="saveTests()">Save</button>
-   <button mat-raised-button color="accent" class="pull-right" [disabled]="(tests.errors || othersExist || !addingTestsForm.dirty)" *ngIf="updateTest"
-    (click)="updateTestChanges()">Update</button>
-</div>
+        <ng-container matColumnDef="edit">
+          <th mat-header-cell *matHeaderCellDef>Delete</th>
+          <td mat-cell *matCellDef="let element">
+            <mat-icon
+              class="cursorPointer"
+              matTooltip="delete"
+              (click)="removeTest(addedFetosenseTests.data.indexOf(element))"
+              >delete</mat-icon
+            >
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns1"></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-15 m-b-10">
+    <button
+      mat-raised-button
+      color="primary"
+      class="pull-left"
+      (click)="back()"
+    >
+      Back
+    </button>
+    <button
+      mat-raised-button
+      color="accent"
+      class="pull-right"
+      *ngIf="saveTest"
+      (click)="saveTests()"
+    >
+      Save
+    </button>
+    <button
+      mat-raised-button
+      color="accent"
+      class="pull-right"
+      [disabled]="tests.errors || othersExist || !addingTestsForm.dirty"
+      *ngIf="updateTest"
+      (click)="updateTestChanges()"
+    >
+      Update
+    </button>
+  </div>
 </div>

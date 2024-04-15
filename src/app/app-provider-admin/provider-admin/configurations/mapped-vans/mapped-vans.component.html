@@ -4,7 +4,14 @@
   </div>
   <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
     <button mat-button class="pull-right p-r-0" [mat-dialog-close]="true">
-      <mat-icon matTooltip="close" class="mat-icon material-icons pull-right" role="img" aria-hidden="true" style="cursor: pointer">clear</mat-icon>
+      <mat-icon
+        matTooltip="close"
+        class="mat-icon material-icons pull-right"
+        role="img"
+        aria-hidden="true"
+        style="cursor: pointer"
+        >clear</mat-icon
+      >
     </button>
   </div>
 </div>
@@ -39,32 +46,36 @@
       </tfoot>
     </table> -->
     <table
-            mat-table
-            [dataSource]="this.mappedVans.data"
-            class="table table-striped table-hover"
+      mat-table
+      [dataSource]="this.mappedVans.data"
+      class="table table-striped table-hover"
+    >
+      <ng-container matColumnDef="SNo">
+        <th mat-header-cell *matHeaderCellDef>S.No.</th>
+        <td mat-cell *matCellDef="let element; let i = index">
+          {{ i + 1 }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="vanName">
+        <th mat-header-cell *matHeaderCellDef>Mapped Vans</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element?.van.vanName }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="edit">
+        <th mat-header-cell *matHeaderCellDef>Delete</th>
+        <td mat-cell *matCellDef="let element; let i = index">
+          <mat-icon
+            class="icon-remove cursorPointer"
+            matTooltip="Delete"
+            (click)="removeVan(i, element)"
+            >delete</mat-icon
           >
-            <ng-container matColumnDef="SNo">
-              <th mat-header-cell *matHeaderCellDef>S.No.</th>
-              <td mat-cell *matCellDef="let element; let i = index">
-                {{ i + 1 }}
-              </td>
-            </ng-container>
-            <ng-container matColumnDef="vanName">
-                <th mat-header-cell *matHeaderCellDef>Mapped Vans</th>
-                <td mat-cell *matCellDef="let element">
-                  {{ element?.van.vanName }}
-                </td>
-              </ng-container>
-
-            <ng-container matColumnDef="edit">
-              <th mat-header-cell *matHeaderCellDef>Delete</th>
-              <td mat-cell *matCellDef="let element; let i = index">
-                <mat-icon class="icon-remove cursorPointer" matTooltip="Delete" (click)="removeVan(i,element)">delete</mat-icon>
-
-              </td>
-            </ng-container>
-            <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns1"></tr>
-          </table>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns1"></tr>
+    </table>
   </div>
 </mat-dialog-content>

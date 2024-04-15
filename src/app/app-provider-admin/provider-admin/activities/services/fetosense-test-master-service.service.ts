@@ -54,7 +54,7 @@ export class ProviderAdminFetosenseTestMasterService {
       '/fetosense/updateFetosenseTestMasterStatus';
   }
 
-  getServices(userID: any):Observable<any> {
+  getServices(userID: any): Observable<any> {
     return this.http.post(this._getServiceLineURL, { userID: userID });
     // .map(this.handleState_n_ServiceSuccess)
     // .catch(this.handleError);

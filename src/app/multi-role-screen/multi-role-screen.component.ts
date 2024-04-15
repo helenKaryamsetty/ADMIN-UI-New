@@ -70,6 +70,7 @@ export class MultiRoleScreenComponent implements OnInit {
 
   ngOnInit() {
     this.language_change = 'english';
+    console.log('userdata', sessionStorage.getItem('Userdata'));
     this.data = sessionStorage.getItem('Userdata');
     // this.router.navigate(['/MultiRoleScreenComponent']);
     this.getLanguageObject(this.language_change);

@@ -97,14 +97,14 @@ export class CreateUomMasterComponent implements OnInit, AfterViewInit {
     const temp = JSON.parse(JSON.stringify(this.UOMMasterForm.value));
     if (temp.UOM.uOMCode) {
       const arr = this.UOMMasterList.data.filter(
-        (item: any) => item.uOMCode == temp.UOM.uOMCode,
+        (item: any) => item.uOMCode === temp.UOM.uOMCode,
       );
       this.UOMMasterList.paginator = this.paginator;
       this.uomMasterService
         .checkForUniqueUOMCode(temp.UOM.uOMCode, this.providerServiceMapID)
         .subscribe((response: any) => {
           const flag = response.response;
-          if (flag == 'true' || arr.length > 0) {
+          if (flag === 'true' || arr.length > 0) {
             (<FormGroup>this.UOMMasterForm.controls['UOM']).controls[
               'uOMCode'
             ].setErrors({ unique: true });

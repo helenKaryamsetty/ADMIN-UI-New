@@ -1,29 +1,29 @@
 /*
-* AMRIT – Accessible Medical Records via Integrated Technology 
-* Integrated EHR (Electronic Health Records) Solution 
-*
-* Copyright (C) "Piramal Swasthya Management and Research Institute" 
-*
-* This file is part of AMRIT.
-*
-* This program is free software: you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
-* (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU General Public License for more details.
-*
-* You should have received a copy of the GNU General Public License
-* along with this program.  If not, see https://www.gnu.org/licenses/.
-*/
+ * AMRIT – Accessible Medical Records via Integrated Technology
+ * Integrated EHR (Electronic Health Records) Solution
+ *
+ * Copyright (C) "Piramal Swasthya Management and Research Institute"
+ *
+ * This file is part of AMRIT.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see https://www.gnu.org/licenses/.
+ */
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ProviderAdminRoleService } from '../../activities/services/state-serviceline-role.service'; 
-import { dataService } from 'src/app/core/services/dataService/data.service'; 
-import { VanServicePointMappingService } from 'src/app/core/services/ProviderAdminServices/van-service-point-mapping.service'; 
-import { ConfirmationDialogsService } from 'src/app/core/services/dialog/confirmation.service'; 
+import { ProviderAdminRoleService } from '../../activities/services/state-serviceline-role.service';
+import { dataService } from 'src/app/core/services/dataService/data.service';
+import { VanServicePointMappingService } from 'src/app/core/services/ProviderAdminServices/van-service-point-mapping.service';
+import { ConfirmationDialogsService } from 'src/app/core/services/dialog/confirmation.service';
 import { FormsModule, NgForm } from '@angular/forms';
 import { FormGroup, FormControl, FormBuilder, FormArray } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
@@ -31,17 +31,22 @@ import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-van-service-point-mapping',
-  templateUrl: './van-service-point-mapping.component.html'
+  templateUrl: './van-service-point-mapping.component.html',
 })
 export class VanServicePointMappingComponent implements OnInit {
-
   // [x: string]: any;
   // filteredsearchResultArray = new MatTableDataSource<any>();
   // bufferArray = new MatTableDataSource<any>();
   @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
-  displayedColumns: string[] = ['sNo', 'servicePoint', 'district','talukSubDistrict','fullDay'];
-  
-  showTable: boolean = false;
+  displayedColumns: string[] = [
+    'sNo',
+    'servicePoint',
+    'district',
+    'talukSubDistrict',
+    'fullDay',
+  ];
+
+  showTable = false;
   userID: any;
   service: any;
   state: any;
@@ -89,117 +94,123 @@ export class VanServicePointMappingComponent implements OnInit {
   searForm1!: NgForm;
   @ViewChild('searchDistrictsForm')
   searchDistrictsForm!: NgForm;
-disableSelection: any;
+  disableSelection: any;
 
-  constructor(public providerAdminRoleService: ProviderAdminRoleService,
+  constructor(
+    public providerAdminRoleService: ProviderAdminRoleService,
     public commonDataService: dataService,
     public vanServicePointMappingService: VanServicePointMappingService,
-    private alertMessage: ConfirmationDialogsService) {
+    private alertMessage: ConfirmationDialogsService,
+  ) {
     this.data = [];
     this.service_provider_id = this.commonDataService.service_providerID;
     this.countryID = 1; // hardcoded as country is INDIA
     this.serviceID = this.commonDataService.serviceIDMMU;
     this.createdBy = this.commonDataService.uname;
-
   }
 
   ngOnInit() {
     this.userID = this.commonDataService.uid;
     this.MappingForm = this.formBuilder.group({
-      mappings: this.formBuilder.array([])
+      mappings: this.formBuilder.array([]),
     });
     this.getServiceLines();
   }
 
   getServiceLines() {
-    this.vanServicePointMappingService.getServiceLinesNew(this.userID).subscribe((response:any) => {
-      this.getServicesSuccessHandeler(response),
-        (err:any) => {
-          console.log("ERROR in fetching serviceline", err);
-          // this.alertMessage.alert(err, 'error');
-        }
-    });
+    this.vanServicePointMappingService
+      .getServiceLinesNew(this.userID)
+      .subscribe((response: any) => {
+        this.getServicesSuccessHandeler(response),
+          (err: any) => {
+            console.log('ERROR in fetching serviceline', err);
+            // this.alertMessage.alert(err, 'error');
+          };
+      });
   }
-  getServicesSuccessHandeler(response:any) {
+  getServicesSuccessHandeler(response: any) {
     this.services = response.data;
   }
-  getStates(value:any) {
+  getStates(value: any) {
     this.resetArrays();
     this.zones = [];
     this.parkingPlaces = [];
-    if (value.serviceID == 4) {
-      this.parkAndHub = "Hub";
-      this.vanAndSpoke = "Spoke";
-      this.code = "Spoke Code";
-      this.codeType = "Spoke Type";
-
+    if (value.serviceID === 4) {
+      this.parkAndHub = 'Hub';
+      this.vanAndSpoke = 'Spoke';
+      this.code = 'Spoke Code';
+      this.codeType = 'Spoke Type';
     } else {
-      this.parkAndHub = "Parking Place";
-      this.vanAndSpoke = "Van";
-      this.code = "Vehicle No.";
-      this.codeType = "Van Type";
+      this.parkAndHub = 'Parking Place';
+      this.vanAndSpoke = 'Van';
+      this.code = 'Vehicle No.';
+      this.codeType = 'Van Type';
     }
-    let obj = {
-      'userID': this.userID,
-      'serviceID': value.serviceID,
-      'isNational': value.isNational
-    }
-    this.vanServicePointMappingService.getStatesNew(obj).
-      subscribe((response:any) => {
+    const obj = {
+      userID: this.userID,
+      serviceID: value.serviceID,
+      isNational: value.isNational,
+    };
+    this.vanServicePointMappingService
+      .getStatesNew(obj)
+      .subscribe((response: any) => {
         this.getStatesSuccessHandeler(response),
-          (err:any) => {
-            console.log("error in fetching states", err);
-          }
+          (err: any) => {
+            console.log('error in fetching states', err);
+          };
         //this.alertMessage.alert(err, 'error');
       });
-
   }
 
-  getStatesSuccessHandeler(response:any) {
+  getStatesSuccessHandeler(response: any) {
     this.states = response.data;
-
   }
   resetArrays() {
     this.searForm1.resetForm();
     this.taluks = [];
     this.availableVans = [];
     this.MappingForm = this.formBuilder.group({
-      mappings: this.formBuilder.array([])
+      mappings: this.formBuilder.array([]),
     });
   }
-  setProviderServiceMapID(providerServiceMapID:any) {
+  setProviderServiceMapID(providerServiceMapID: any) {
     this.availableVanServicePointMappings = [];
     this.resetFieldsOnStateChange();
     this.providerServiceMapID = providerServiceMapID;
     this.getAvailableZones(this.providerServiceMapID);
-
   }
-  getAvailableZones(providerServiceMapID:any) {
+  getAvailableZones(providerServiceMapID: any) {
     this.vanServicePointMappingList = [];
-    this.vanServicePointMappingService.getZones({ "providerServiceMapID": providerServiceMapID }).subscribe((response:any) => this.getZonesSuccessHandler(response));
+    this.vanServicePointMappingService
+      .getZones({ providerServiceMapID: providerServiceMapID })
+      .subscribe((response: any) => this.getZonesSuccessHandler(response));
   }
-  getZonesSuccessHandler(response:any) {
-    if (response.data != undefined) {
-      for (let zone of response.data) {
+  getZonesSuccessHandler(response: any) {
+    if (response.data !== undefined) {
+      for (const zone of response.data) {
         if (!zone.deleted) {
           this.zones.push(zone);
         }
       }
     }
   }
-  getParkingPlaces(zoneID:any, providerServiceMapID:any) {
+  getParkingPlaces(zoneID: any, providerServiceMapID: any) {
     this.resetArrays();
-    let parkingPlaceObj = {
-      "zoneID": zoneID,
-      "providerServiceMapID": providerServiceMapID
+    const parkingPlaceObj = {
+      zoneID: zoneID,
+      providerServiceMapID: providerServiceMapID,
     };
-    this.vanServicePointMappingService.getParkingPlaces(parkingPlaceObj).subscribe((response:any) => this.getParkingPlaceSuccessHandler(response));
+    this.vanServicePointMappingService
+      .getParkingPlaces(parkingPlaceObj)
+      .subscribe((response: any) =>
+        this.getParkingPlaceSuccessHandler(response),
+      );
   }
 
-  getParkingPlaceSuccessHandler(response:any) {
+  getParkingPlaceSuccessHandler(response: any) {
     this.parkingPlaces = response.data;
     this.reseArray();
-    for (let parkingPlaces of this.parkingPlaces) {
+    for (const parkingPlaces of this.parkingPlaces) {
       if (parkingPlaces.deleted) {
         const index: number = this.parkingPlaces.indexOf(parkingPlaces);
         if (index !== -1) {
@@ -243,28 +254,36 @@ disableSelection: any;
   getVanTypes() {
     this.obj = {};
     this.obj.providerServiceMapID = this.providerServiceMapID;
-    this.vanServicePointMappingService.getVanTypes(this.obj).subscribe((response:any) => this.getVanTypesSuccessHandler(response));
+    this.vanServicePointMappingService
+      .getVanTypes(this.obj)
+      .subscribe((response: any) => this.getVanTypesSuccessHandler(response));
   }
 
-  getVanTypesSuccessHandler(response:any) {
+  getVanTypesSuccessHandler(response: any) {
     this.availableVanTypes = response.data;
     this.filteredVanTypes = [];
-    this.availableVanTypes.filter((vanTypes:any) => {
-      if (this.service.serviceName == "TM" && vanTypes.vanTypeID == 3) {
+    this.availableVanTypes.filter((vanTypes: any) => {
+      if (this.service.serviceName === 'TM' && vanTypes.vanTypeID === 3) {
         this.filteredVanTypes.push(vanTypes);
-      } else if (this.service.serviceName == "MMU" && vanTypes.vanTypeID != 3){
-          this.filteredVanTypes.push(vanTypes);
-      }  else if (this.service.serviceName == "HWC" && vanTypes.vanTypeID != 3){
+      } else if (
+        this.service.serviceName === 'MMU' &&
+        vanTypes.vanTypeID !== 3
+      ) {
+        this.filteredVanTypes.push(vanTypes);
+      } else if (
+        this.service.serviceName === 'HWC' &&
+        vanTypes.vanTypeID !== 3
+      ) {
         this.filteredVanTypes.push(vanTypes);
       }
-    })
+    });
     this.availableVanServicePointMappings = [];
     this.reseArray();
   }
 
   getVans(providerServiceMapID: any, parkingPlaceID: any, vanTypeID: any) {
     this.MappingForm = this.formBuilder.group({
-      mappings: this.formBuilder.array([])
+      mappings: this.formBuilder.array([]),
     });
     this.vanObj = {};
     //this.vanObj.stateID = stateID;
@@ -272,86 +291,99 @@ disableSelection: any;
     this.vanObj.parkingPlaceID = parkingPlaceID;
     this.vanObj.vanTypeID = vanTypeID;
     this.vanObj.providerServiceMapID = providerServiceMapID;
-    this.vanServicePointMappingService.getVans(this.vanObj).subscribe((response:any) => this.getVanSuccessHandler(response));
-
+    this.vanServicePointMappingService
+      .getVans(this.vanObj)
+      .subscribe((response: any) => this.getVanSuccessHandler(response));
   }
 
-  getVanSuccessHandler(response:any) {
+  getVanSuccessHandler(response: any) {
     this.availableVans = response.data;
     this.vanID = undefined;
     this.reseArray();
-    for (let availableVan of this.availableVans) {
+    for (const availableVan of this.availableVans) {
       this.availableVanNames.push(availableVan.vanName);
     }
   }
-  vanServicePointMappingSuccessHandler(response:any) {
+  vanServicePointMappingSuccessHandler(response: any) {
     this.vanServicePointMappingList = [];
-    this.alertMessage.alert("Mapping saved successfully", 'success');
+    this.alertMessage.alert('Mapping saved successfully', 'success');
   }
 
   getVanServicePointMappings(parkingPlaceID: any, vanID: any) {
-    console.log("van service point mapping", parkingPlaceID, vanID);
+    console.log('van service point mapping', parkingPlaceID, vanID);
     this.vanObj = {};
     // this.vanObj.stateID = stateID;
     // this.vanObj.districtID = districtID;
     this.vanObj.parkingPlaceID = parkingPlaceID;
     this.vanObj.vanID = vanID;
     this.vanObj.providerServiceMapID = this.providerServiceMapID;
-    this.vanServicePointMappingService.getVanServicePointMappings(this.vanObj).subscribe((response:any) => this.getVanServicePointMappingsSuccessHandler(response));
+    this.vanServicePointMappingService
+      .getVanServicePointMappings(this.vanObj)
+      .subscribe((response: any) =>
+        this.getVanServicePointMappingsSuccessHandler(response),
+      );
   }
 
   availableVanServicePointMappings: any = [];
   remainingMaps: any = [];
   reseArray() {
-    let temp = this.MappingForm.controls['mappings'] as FormArray;
+    const temp = this.MappingForm.controls['mappings'] as FormArray;
     temp.reset();
     temp.removeAt(0);
   }
 
-  getVanServicePointMappingsSuccessHandler(response:any) {
+  getVanServicePointMappingsSuccessHandler(response: any) {
     this.showTable = true;
     this.availableVanServicePointMappings = [];
     this.availableVanServicePointMappings = response.data;
-    let temp = this.MappingForm.controls['mappings'] as FormArray;
+    const temp = this.MappingForm.controls['mappings'] as FormArray;
     temp.reset();
     this.servicePointIDList = [];
     console.log('temp', temp);
-    let tempLength = temp.length
+    const tempLength = temp.length;
     if (tempLength > 0) {
       for (let i = 0; i <= tempLength; i++) {
         temp.removeAt(0);
       }
     }
 
-    let remainarray: any = [];
+    const remainarray: any = [];
 
-    for (var i = 0; i < this.availableVanServicePointMappings.length; i++) {
-      if (this.availableVanServicePointMappings[i].vanID === undefined || this.availableVanServicePointMappings[i].vanID === null || this.vanID == this.availableVanServicePointMappings[i].vanID) {
-        this.servicePointIDList.push(this.availableVanServicePointMappings[i].servicePointID);
-        (temp).push(this.createItem(this.availableVanServicePointMappings[i]));
+    for (let i = 0; i < this.availableVanServicePointMappings.length; i++) {
+      if (
+        this.availableVanServicePointMappings[i].vanID === undefined ||
+        this.availableVanServicePointMappings[i].vanID === null ||
+        this.vanID === this.availableVanServicePointMappings[i].vanID
+      ) {
+        this.servicePointIDList.push(
+          this.availableVanServicePointMappings[i].servicePointID,
+        );
+        temp.push(this.createItem(this.availableVanServicePointMappings[i]));
       } else {
-
         remainarray.push(this.availableVanServicePointMappings[i]);
       }
     }
     this.remainingMaps = remainarray;
-    for (var i = 0; i < this.remainingMaps.length; i++) {
-      if (this.servicePointIDList.indexOf(this.remainingMaps[i].servicePointID) == -1 || this.servicePointIDList.indexOf(this.remainingMaps[i].servicePointID) == null) {
+    for (let i = 0; i < this.remainingMaps.length; i++) {
+      if (
+        this.servicePointIDList.indexOf(
+          this.remainingMaps[i].servicePointID,
+        ) === -1 ||
+        this.servicePointIDList.indexOf(
+          this.remainingMaps[i].servicePointID,
+        ) === null
+      ) {
         this.servicePointIDList.push(this.remainingMaps[i].servicePointID);
-        (temp).push(this.createItem(this.remainingMaps[i]));
+        temp.push(this.createItem(this.remainingMaps[i]));
       }
     }
-
   }
 
-
-
   servicePointIDList: any = [];
-  createItem(obj:any): FormGroup {
-
-    let vanSession: any = "";
+  createItem(obj: any): FormGroup {
+    let vanSession: any = '';
     let vanServicePointMapID: any;
-    if (this.vanID == obj.vanID || obj.vanID == undefined) {
+    if (this.vanID === obj.vanID || obj.vanID === undefined) {
       vanSession = obj.vanSession;
       vanServicePointMapID = obj.vanServicePointMapID;
     }
@@ -367,13 +399,11 @@ disableSelection: any;
       vanSession: vanSession,
       providerServiceMapID: obj.providerServiceMapID,
       deleted: obj.deleted,
-      isChanged: "",
-      vanSession1: (vanSession == '1' || vanSession == '3'),
-      vanSession2: (vanSession == '2' || vanSession == '3'),
-      vanSession3: (vanSession == '3')
-
-    })
-
+      isChanged: '',
+      vanSession1: vanSession === '1' || vanSession === '3',
+      vanSession2: vanSession === '2' || vanSession === '3',
+      vanSession3: vanSession === '3',
+    });
   }
 
   // servicePointObj: any;
@@ -393,53 +423,62 @@ disableSelection: any;
   // }
 
   vanID: any;
-  selectedVan(van:any) {
-    this.vanID = van.vanID,
+  selectedVan(van: any) {
+    (this.vanID = van.vanID),
       // this.district = van.districtID,
-      this.parkingPlaceID = van.parkingPlaceID
-
+      (this.parkingPlaceID = van.parkingPlaceID);
   }
 
   vanServicePointMappingObj: any;
   vanServicePointMappingList: any = [];
   storeVanServicePointMapping() {
     console.log(this.MappingForm.value);
-    let mappings = this.MappingForm.value.mappings;
-    let mappingArray = <FormArray>this.MappingForm.controls['mappings'];
+    const mappings = this.MappingForm.value.mappings;
+    const mappingArray = <FormArray>this.MappingForm.controls['mappings'];
     for (let i = 0; i < mappings.length; i++) {
-
-      let mappingGroup = <FormGroup>(mappingArray).controls[i];
+      const mappingGroup = <FormGroup>mappingArray.controls[i];
 
       console.log(mappingGroup.controls['vanSession1'].touched);
-      if ((mappingGroup.controls['vanSession1'].touched || mappingGroup.controls['vanSession2'].touched )) {
+      if (
+        mappingGroup.controls['vanSession1'].touched ||
+        mappingGroup.controls['vanSession2'].touched
+      ) {
         this.vanServicePointMappingObj = {};
-        this.vanServicePointMappingObj.vanServicePointMapID = mappings[i].vanServicePointMapID
+        this.vanServicePointMappingObj.vanServicePointMapID =
+          mappings[i].vanServicePointMapID;
         this.vanServicePointMappingObj.vanID = this.vanID;
-        this.vanServicePointMappingObj.servicePointID = mappings[i].servicePointID;
+        this.vanServicePointMappingObj.servicePointID =
+          mappings[i].servicePointID;
         if (mappings[i].vanSession1) {
           this.vanServicePointMappingObj.vanSession = 1;
         }
         if (mappings[i].vanSession2) {
           this.vanServicePointMappingObj.vanSession = 2;
         }
-        if ((mappings[i].vanSession1 && mappings[i].vanSession2) ){
+        if (mappings[i].vanSession1 && mappings[i].vanSession2) {
           this.vanServicePointMappingObj.vanSession = 3;
         }
-        this.vanServicePointMappingObj.providerServiceMapID = this.providerServiceMapID;
+        this.vanServicePointMappingObj.providerServiceMapID =
+          this.providerServiceMapID;
 
         this.vanServicePointMappingObj.createdBy = this.createdBy;
 
         this.vanServicePointMappingList.push(this.vanServicePointMappingObj);
       }
     }
-    let obj = { "vanServicePointMappings": this.vanServicePointMappingList };
-    this.vanServicePointMappingService.saveVanServicePointMappings(obj).subscribe((response:any) => this.saveMappingSuccessHandler(response));
+    const obj = { vanServicePointMappings: this.vanServicePointMappingList };
+    this.vanServicePointMappingService
+      .saveVanServicePointMappings(obj)
+      .subscribe((response: any) => this.saveMappingSuccessHandler(response));
   }
 
-  saveMappingSuccessHandler(response:any) {
+  saveMappingSuccessHandler(response: any) {
     if (response.data.length > 0) {
-      this.getVanServicePointMappings(this.parking_place.parkingPlaceID, this.vanID);
-      this.alertMessage.alert("Mapping saved successfully", 'success');
+      this.getVanServicePointMappings(
+        this.parking_place.parkingPlaceID,
+        this.vanID,
+      );
+      this.alertMessage.alert('Mapping saved successfully', 'success');
     }
   }
   resetFieldsOnStateChange() {
@@ -451,25 +490,24 @@ disableSelection: any;
     this.taluks = [];
     this.availableVans = [];
     this.MappingForm = this.formBuilder.group({
-      mappings: this.formBuilder.array([])
+      mappings: this.formBuilder.array([]),
     });
   }
   resetFields() {
     this.searForm1.resetForm();
     this.availableVans = [];
     this.MappingForm = this.formBuilder.group({
-      mappings: this.formBuilder.array([])
+      mappings: this.formBuilder.array([]),
     });
   }
 
-  setvansession(i: any,value: any){
-    let mappingArray = <FormArray>this.MappingForm.controls['mappings'];
-    let mappingGroup = <FormGroup>(mappingArray).controls[i];
+  setvansession(i: any, value: any) {
+    const mappingArray = <FormArray>this.MappingForm.controls['mappings'];
+    const mappingGroup = <FormGroup>mappingArray.controls[i];
     mappingGroup.controls['vanSession1'].markAsTouched();
     mappingGroup.controls['vanSession2'].markAsTouched();
-    
-      mappingGroup.controls['vanSession1'].patchValue(!value)
-      mappingGroup.controls['vanSession2'].patchValue(!value)
-    
+
+    mappingGroup.controls['vanSession1'].patchValue(!value);
+    mappingGroup.controls['vanSession2'].patchValue(!value);
   }
 }
