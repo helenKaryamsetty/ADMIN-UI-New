@@ -16,6 +16,19 @@ import { MaterialModule } from 'src/app/core/material.module';
 import { MatIconModule } from '@angular/material/icon';
 import { AgentListCreationComponent } from './agent-list-creation/agent-list-creation.component';
 import { MatNativeDateModule } from '@angular/material/core';
+import { ServicePointVillageMapComponent } from './service-point-village-mapping/service-point-village-mapping.component';
+import { ServicePointVillageMapService } from 'src/app/core/services/ProviderAdminServices/service-point-village-map.service';
+import { VanServicePointMappingComponent } from './van-service-point-mapping/van-service-point-mapping.component';
+import { VanServicePointMappingService } from 'src/app/core/services/ProviderAdminServices/van-service-point-mapping.service';
+import { EmployeeParkingPlaceMappingComponent } from './employee-parking-place-mapping/employee-parking-place-mapping.component';
+import { MappedVansComponent } from './mapped-vans/mapped-vans.component';
+import { EmployeeParkingPlaceMappingService } from '../activities/services/employee-parking-place-mapping.service';
+import { ProcedureComponentMappingComponent } from './procedure-component-mapping/procedure-component-mapping.component';
+import { ProcedureComponentMappingServiceService } from '../inventory/services/procedure-component-mapping-service.service';
+import { VanSpokeMappingComponent } from './van-spoke-mapping/van-spoke-mapping.component';
+import { VanSpokeMappingService } from 'src/app/core/services/ProviderAdminServices/van-spoke-mapping.service';
+import { VanDeviceIdMappingComponent } from './van-device-id-mapping/van-device-id-mapping.component';
+import { FetosenseDeviceIdMasterService } from '../activities/services/fetosense-device-id-master-service.service';
 
 @NgModule({
   declarations: [
@@ -25,6 +38,13 @@ import { MatNativeDateModule } from '@angular/material/core';
     SnomedCodeSearchComponent,
     MapSnommedCTCodeComponent,
     SmsTemplateComponent,
+    ServicePointVillageMapComponent,
+    VanServicePointMappingComponent,
+    EmployeeParkingPlaceMappingComponent,
+    MappedVansComponent,
+    ProcedureComponentMappingComponent,
+    VanSpokeMappingComponent,
+    VanDeviceIdMappingComponent
   ],
   imports: [
     CommonModule,
@@ -41,6 +61,12 @@ import { MatNativeDateModule } from '@angular/material/core';
     QuestionnaireServiceService,
     AgentListCreationService,
     SmsTemplateService,
+    ServicePointVillageMapService,
+    VanServicePointMappingService,
+    EmployeeParkingPlaceMappingService,
+    ProcedureComponentMappingServiceService,
+    VanSpokeMappingService,
+    FetosenseDeviceIdMasterService
   ],
   exports: [
     AgentListCreationComponent,
@@ -49,6 +75,13 @@ import { MatNativeDateModule } from '@angular/material/core';
     SnomedCodeSearchComponent,
     MapSnommedCTCodeComponent,
     SmsTemplateComponent,
+    ServicePointVillageMapComponent,
+    VanServicePointMappingComponent,
+    EmployeeParkingPlaceMappingComponent,
+    MappedVansComponent,
+    ProcedureComponentMappingComponent,
+    VanSpokeMappingComponent,
+    VanDeviceIdMappingComponent
   ],
 })
 export class ConfigurationsModule {}
