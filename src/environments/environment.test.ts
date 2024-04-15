@@ -146,7 +146,7 @@ export const environment = {
   getUsernamesBasedDesigUrl: `${adminBaseUrl}m/getEmployeeByDesignation`,
   checkUsersignExistUrl: `${adminBaseUrl}signature1/signexist/`,
   uploadSignUrl: `${adminBaseUrl}signature1/upload`,
-  downloadSignUrl: `${adminBaseUrl}signature1`,
+  downloadSignUrl: `${adminBaseUrl}signature1/`,
 
   /* serviceline and state */
   getRolesUrl: `${adminBaseUrl}/m/role/search/active`,
