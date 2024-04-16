@@ -27,93 +27,63 @@ import { Observable } from 'rxjs';
 // import { InterceptedHttp } from './../../http.interceptor';
 // import { SecurityInterceptedHttp } from '../../http.securityinterceptor';
 import { ConfigService } from '../config/config.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class WrapupTimeConfigurationService {
-  providerAdmin_Base_Url: any;
-  common_Base_Url: any;
-  getServiceLines_new_url: any;
-  getStates_new_url: any;
-  getRolesUrl: any;
-  saveUrl: any;
-
   constructor(
     private http: HttpClient,
     public basepaths: ConfigService,
-  ) {
-    this.providerAdmin_Base_Url = this.basepaths.getAdminBaseUrl();
-    this.common_Base_Url = this.basepaths.getCommonBaseURL();
-
-    /* serviceline and state */
-
-    this.getServiceLines_new_url =
-      this.providerAdmin_Base_Url + 'm/role/serviceNew';
-    this.getStates_new_url = this.providerAdmin_Base_Url + 'm/role/stateNew';
-    this.getRolesUrl = this.providerAdmin_Base_Url + '/m/role/search/active';
-    this.saveUrl = this.providerAdmin_Base_Url + '/m/role/configWrap';
-  }
+  ) {}
   getServiceLines(userID: any) {
-    return this.http.post(this.getServiceLines_new_url, { userID: userID });
-    // .map(this.handleState_n_ServiceSuccess)
-    // .catch(this.handleError);
+    return this.http.post(environment.getServiceLines_new_url, {
+      userID: userID,
+    });
   }
   getStates(obj: any) {
-    return this.http.post(this.getStates_new_url, obj);
-    // .map(this.handleSuccess)
-    // .catch(this.handleError);
+    return this.http.post(environment.getStates_new_url, obj);
   }
   getActiveRoles(providerServiceMapID: any) {
-    return this.http.post(this.getRolesUrl, {
+    return this.http.post(environment.getRolesUrl, {
       providerServiceMapID: providerServiceMapID,
     });
-    // .map(this.handleSuccess)
-    // .catch(this.handleError);
   }
   saveWrapUpTime(roleObj: any) {
-    return this.http.post(this.saveUrl, roleObj);
-    // .map(this.handleSuccess)
-    // .catch(this.handleError);
+    return this.http.post(environment.saveUrl, roleObj);
   }
-  // handleSuccess(response: Response) {
-  //     console.log(response.json().data, "--- in wrapup time service");
-  //     if (response.json().data) {
-  //         return response.json().data;
-  //     } else {
-  //         return Observable.throw(response.json());
-  //     }
-  // }
 
-  // handleState_n_ServiceSuccess(response: Response) {
-  //     console.log(response.json().data, 'role service file success response');
-  //     let result = [];
-  //     if (response.json().data) {
-  //         result = response.json().data.filter(function (item) {
-  //             if (item.serviceID == 3) {
-  //                 return item;
-  //             }
-  //         });
-  //         return result;
-  //     }
-  // }
+  handleState_n_ServiceSuccess(response: any) {
+    console.log(response.data, 'role service file success response');
+    let result = [];
+    if (response.data) {
+      result = response.data.filter(function (item: any) {
+        if (item.serviceID === 3) {
+          return item;
+        }
+      });
+      return result;
+    }
+  }
   //Shubham Shekhar,24-0802021,Wrapup configuaration to be enabled in MCTS and 1097
   getServiceLinesWrapup(userID: any) {
-    return this.http.post(this.getServiceLines_new_url, { userID: userID });
-    // .map(this.handleState_n_ServiceSuccessWrapup)
-    // .catch(this.handleError);
+    return this.http.post(environment.getServiceLines_new_url, {
+      userID: userID,
+    });
   }
-  //    handleState_n_ServiceSuccessWrapup(response: Response) {
-  //     console.log(response.json().data, 'role service file success response');
-  //     let result = [];
-  //     if (response.json().data) {
-  //         result = response.json().data.filter(function (item) {
-  //             if (item.serviceID == 3 ||item.serviceID == 6 ||item.serviceID == 1) {
-  //                 return item;
-  //             }
-  //         });
-  //         return result;
-  //     }
-  // }
-  // handleError(error: Response | any) {
-  //     return Observable.throw(error);
-  // }
+  handleState_n_ServiceSuccessWrapup(response: any) {
+    console.log(response.data, 'role service file success response');
+    let result = [];
+    if (response.data) {
+      result = response.data.filter(function (item: any) {
+        if (
+          item.serviceID === 3 ||
+          item.serviceID === 6 ||
+          item.serviceID === 1
+        ) {
+          return item;
+        }
+      });
+      return result;
+    }
+  }
 }

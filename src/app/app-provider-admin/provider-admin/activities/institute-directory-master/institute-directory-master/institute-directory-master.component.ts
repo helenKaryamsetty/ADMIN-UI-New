@@ -213,7 +213,7 @@ export class InstituteDirectoryMasterComponent
       this.dataSource.paginator = this.paginator;
       this.searchResultArray.forEach((item: any) => {
         for (const key in item) {
-          if (key == 'instituteDirectoryName') {
+          if (key === 'instituteDirectoryName') {
             const value: string = '' + item[key];
             if (value.toLowerCase().indexOf(searchTerm.toLowerCase()) >= 0) {
               this.dataSource.data.push(item);
@@ -262,9 +262,9 @@ export class InstituteDirectoryMasterComponent
     };
 
     if (
-      this.bufferArray.length == 0 &&
-      obj.instituteDirectoryName != '' &&
-      obj.instituteDirectoryName != undefined
+      this.bufferArray.length === 0 &&
+      obj.instituteDirectoryName !== '' &&
+      obj.instituteDirectoryName !== undefined
     ) {
       this.bufferArray.push(obj);
     } else {
@@ -277,10 +277,11 @@ export class InstituteDirectoryMasterComponent
           count = count + 1;
         }
       }
+
       if (
-        count == 0 &&
-        obj.instituteDirectoryName != '' &&
-        obj.instituteDirectoryName != undefined
+        count === 0 &&
+        obj.instituteDirectoryName !== '' &&
+        obj.instituteDirectoryName !== undefined
       ) {
         this.bufferArray.push(obj);
       } else {

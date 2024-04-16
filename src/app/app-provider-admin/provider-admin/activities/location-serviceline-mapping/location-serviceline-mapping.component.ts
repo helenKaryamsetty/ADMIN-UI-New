@@ -99,7 +99,7 @@ export class LocationServicelineMappingComponent implements OnInit {
     private alertService: ConfirmationDialogsService,
   ) {
     this.userID = this.commonDataService.uid;
-    this.serviceProviderID = this.commonDataService.providerServiceMapID_104; //pass this value dynamically
+    this.serviceProviderID = this.commonDataService.service_providerID; //pass this value dynamically
     this.states = [];
     this.districts = [];
     this.servicelines = [];
@@ -202,7 +202,7 @@ export class LocationServicelineMappingComponent implements OnInit {
     this.provider_admin_location_serviceline_mapping
       .getStatesNew(obj)
       .subscribe(
-        (response) => this.getStatesSuccessHandeler(response.data, value),
+        (response: any) => this.getStatesSuccessHandeler(response.data, value),
         (err) => {
           console.log('error in fetching states');
           // this.alertService.alert(err, 'error');
@@ -244,7 +244,7 @@ export class LocationServicelineMappingComponent implements OnInit {
     this.provider_admin_location_serviceline_mapping
       .getDistricts(serviceProviderID, stateID)
       .subscribe(
-        (response) => this.getDistrictsSuccessHandeler(response),
+        (response: any) => this.getDistrictsSuccessHandeler(response),
         (err) => {
           console.log('error', err);
           //this.alertService.alert(err, 'error')
@@ -256,7 +256,7 @@ export class LocationServicelineMappingComponent implements OnInit {
     this.provider_admin_location_serviceline_mapping
       .getServiceLines(serviceProviderID, stateID)
       .subscribe(
-        (response) => this.servicesSuccesshandeler(response),
+        (response: any) => this.servicesSuccesshandeler(response),
         (err) => {
           console.log('error', err);
           //this.alertService.alert(err, 'error')

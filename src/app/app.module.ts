@@ -41,6 +41,11 @@ import { loginService } from './user-login/loginService/login.service';
 import { ProviderAdminModule } from './app-provider-admin/provider-admin/provider-admin.module';
 import { SuperAdminModule } from './app-provider-admin/super-admin/super-admin.module';
 import { UtcDatePipe } from './app-provider-admin/provider-admin/configurations/utc-date.pipe';
+import { UomMasterService } from './core/services/inventory-services/uom-master.service';
+import { Mainstroreandsubstore } from './core/services/inventory-services/mainstoreandsubstore.service';
+import { FacilityMasterService } from './core/services/inventory-services/facilitytypemaster.service';
+import { ItemFacilityMappingService } from './core/services/inventory-services/item-facility-mapping.service';
+import { StoreMappingService } from './core/services/inventory-services/store-mapping.service';
 
 @NgModule({
   declarations: [
@@ -86,7 +91,11 @@ import { UtcDatePipe } from './app-provider-admin/provider-admin/configurations/
     PharmacologicalMasterService,
     ItemCategoryService,
     loginService,
-
+    UomMasterService,
+    Mainstroreandsubstore,
+    FacilityMasterService,
+    ItemFacilityMappingService,
+    StoreMappingService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpInterceptorService,

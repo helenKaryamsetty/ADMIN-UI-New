@@ -1,0 +1,333 @@
+<div class="row">
+  <div class="col-xs-12 col-sm-12" *ngIf="!showFormFlag && !editFormFlag">
+    <h4 class="pull-left">Device ID Master</h4>
+  </div>
+  <div class="col-xs-12 col-sm-12" *ngIf="showFormFlag">
+    <h4 class="pull-left">Create Device ID</h4>
+  </div>
+  <div class="col-xs-12 col-sm-12" *ngIf="editFormFlag">
+    <h4 class="pull-left">Edit Device ID</h4>
+  </div>
+
+  <form #searchFields="ngForm" autocomplete="off">
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
+      <mat-select
+        placeholder="Serviceline"
+        [disabled]="disableSelection"
+        [style.width]="'100%'"
+        [(ngModel)]="service"
+        name="service"
+        required
+        (selectionChange)="getStates(service.serviceID, service.isNational)"
+      >
+        <mat-option *ngFor="let item of services" [value]="item">
+          {{ item.serviceName }}
+        </mat-option>
+      </mat-select>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
+      <mat-select
+        placeholder="State"
+        [disabled]="disableSelection"
+        [style.width]="'100%'"
+        [(ngModel)]="state"
+        name="state"
+        required
+        (selectionChange)="setProviderServiceMapID(state.providerServiceMapID)"
+      >
+        <mat-option *ngFor="let item of states" [value]="item">
+          {{ item.stateName }}
+        </mat-option>
+      </mat-select>
+    </div>
+  </form>
+</div>
+
+<br />
+<div class="pull-right" *ngIf="searchResultArray.length !== 0 && showTableFlag">
+  <mat-form-field id="filterbox">
+    <input
+      matInput
+      placeholder="In-Table Search"
+      [(ngModel)]="searchTerm"
+      #filterTerm
+      (keyup)="filterComponentList(filterTerm.value)"
+    />
+    <mat-icon matSuffix>search</mat-icon>
+  </mat-form-field>
+</div>
+
+<div class="row">
+  <div class="col-xs-12 col-sm-12" *ngIf="showTableFlag">
+    <div class="table responsive">
+      <table
+        mat-table
+        [dataSource]="this.filteredsearchResultArray.data"
+        class="table table-striped table-hover"
+      >
+        <ng-container matColumnDef="SNo">
+          <th mat-header-cell *matHeaderCellDef>S.No.</th>
+          <td mat-cell *matCellDef="let element; let i = index">
+            {{ i + 1 }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="deviceID">
+          <th mat-header-cell *matHeaderCellDef>Device ID</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.deviceID }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="DeviceName">
+          <th mat-header-cell *matHeaderCellDef>Device Name</th>
+          <td mat-cell *matCellDef="let element">{{ element.deviceName }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="edit">
+          <th mat-header-cell *matHeaderCellDef>Edit</th>
+          <td mat-cell *matCellDef="let element">
+            <mat-icon
+              mdTooltip="edit"
+              *ngIf="!element.deleted"
+              class="mat-icon material-icons"
+              role="img"
+              aria-hidden="true"
+              style="cursor: pointer"
+              (click)="openEditForm(element)"
+              >edit</mat-icon
+            >
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Action</th>
+          <td mat-cell *matCellDef="let element">
+            <button
+              *ngIf="element.deleted"
+              md-raised-button
+              color="accent"
+              (click)="toggleActivate(element, false)"
+            >
+              Activate
+            </button>
+            <button
+              *ngIf="!element.deleted"
+              md-raised-button
+              color="primary"
+              (click)="toggleDeactivate(element, true)"
+            >
+              Deactivate
+            </button>
+          </td>
+          <!-- <td colspan="4" class="p-r-0" mat-cell>
+          <button md-raised-button color="primary" [disabled]="searchForm.invalid" class="pull-right" (click)="changeTableFlag(false)">Add Work Location</button>
+        </td> -->
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+      <div>
+        <button
+          md-raised-button
+          color="primary"
+          class="pull-right"
+          (click)="showCreateForm()"
+        >
+          Add Device ID
+        </button>
+      </div>
+      <mat-paginator
+        [hidden]="filteredsearchResultArray.data.length === 0"
+        [pageSizeOptions]="[5, 10, 25]"
+        [pageSize]="5"
+        showFirstLastButtons
+      ></mat-paginator>
+    </div>
+  </div>
+</div>
+<div class="row" *ngIf="showFormFlag">
+  <form #createDeviceIdForm="ngForm" autocomplete="off">
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
+      <mat-form-field style="width: 100%" VehicleNONew>
+        <input
+          matInput
+          placeholder="Device ID"
+          [(ngModel)]="deviceID"
+          name="deviceID"
+          minlength="3"
+          maxlength="100"
+          #device="ngModel"
+          required
+        />
+        <mat-hint>
+          <span
+            class="error_text"
+            *ngIf="device.touched && device.errors && device !== null"
+            >Device Id is required</span
+          >
+        </mat-hint>
+      </mat-form-field>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
+      <mat-form-field style="width: 100%">
+        <input
+          matInput
+          usernameValidator
+          placeholder="Device Name"
+          [(ngModel)]="deviceName"
+          name="deviceName"
+          minlength="3"
+          maxlength="100"
+          #deviceNames="ngModel"
+        />
+      </mat-form-field>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 m-t-20">
+      <button
+        md-mini-fab
+        color="primary"
+        *ngIf="createDeviceIdForm.valid"
+        class="xs-pull-right sm-pull-right md-pull-left lg-pull-left"
+        (click)="addObj(deviceID, deviceName)"
+      >
+        <mat-icon
+          matSuffix
+          class="mat-icon material-icons"
+          role="img"
+          aria-hidden="true"
+          style="cursor: pointer"
+          >add</mat-icon
+        >
+      </button>
+    </div>
+  </form>
+
+  <div class="col-xs-12 col-sm-12 m-t-15">
+    <div class="table-responsive" *ngIf="bufferArray.data">
+      <table
+        mat-table
+        [dataSource]="this.bufferArray.data"
+        class="table table-striped table-hover"
+      >
+        <ng-container matColumnDef="SNo">
+          <th mat-header-cell *matHeaderCellDef>S.No.</th>
+          <td mat-cell *matCellDef="let element; let i = index">
+            {{ i + 1 }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="deviceID">
+          <th mat-header-cell *matHeaderCellDef>Device ID</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.deviceID }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="DeviceName">
+          <th mat-header-cell *matHeaderCellDef>Device Name</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.deviceName }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="edit">
+          <th mat-header-cell *matHeaderCellDef>Delete</th>
+          <td mat-cell *matCellDef="let element">
+            <mat-icon
+              class="cursorPointer"
+              mdTooltip="delete"
+              (click)="removeObj(bufferArray.data.indexOf(element))"
+              >delete</mat-icon
+            >
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns1"></tr>
+      </table>
+    </div>
+  </div>
+  <div class="col-xs-12 col-sm-12 m-t-10">
+    <button
+      mat-raised-button
+      [disabled]="bufferArray.data.length === 0"
+      class="pull-right"
+      color="accent"
+      (click)="saveDeviceMasterDetails()"
+    >
+      Save
+    </button>
+
+    <button
+      mat-raised-button
+      class="pull-left"
+      color="primary"
+      (click)="navigateToPrev()"
+    >
+      Back
+    </button>
+  </div>
+</div>
+
+<div class="row" *ngIf="editFormFlag">
+  <form #editDeviceIdForm="ngForm" autocomplete="off">
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
+      <mat-form-field style="width: 100%" VehicleNONew>
+        <input
+          matInput
+          placeholder="Device ID"
+          [(ngModel)]="deviceID"
+          name="deviceID"
+          minlength="3"
+          maxlength="100"
+          (keyup)="checkExistance(deviceID)"
+          #device="ngModel"
+          required
+        />
+
+        <mat-hint>
+          <span
+            class="error_text"
+            *ngIf="device.touched && device.errors && device !== null"
+            >Device Id is required</span
+          >
+          <span class="error_text" *ngIf="device.valid && deviceIdExist"
+            >Device ID already exists</span
+          >
+        </mat-hint>
+      </mat-form-field>
+    </div>
+
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
+      <mat-form-field style="width: 100%">
+        <input
+          matInput
+          placeholder="Device Name"
+          [(ngModel)]="deviceName"
+          name="deviceName"
+          #deviceNames="ngModel"
+          minlength="3"
+          maxlength="100"
+        />
+      </mat-form-field>
+    </div>
+
+    <div class="col-xs-12 col-sm-12 m-t-10">
+      <button
+        mat-raised-button
+        color="accent"
+        class="pull-right"
+        [disabled]="
+          !editDeviceIdForm.valid || !editDeviceIdForm.dirty || deviceIdExist
+        "
+        (click)="updateDeviceMasterDetails(deviceID, deviceName)"
+      >
+        Update
+      </button>
+
+      <button
+        mat-raised-button
+        class="pull-left"
+        color="primary"
+        (click)="navigateToPrev()"
+      >
+        Back
+      </button>
+    </div>
+  </form>
+</div>

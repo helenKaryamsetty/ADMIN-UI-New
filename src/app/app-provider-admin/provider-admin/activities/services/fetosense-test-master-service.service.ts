@@ -22,8 +22,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
 import { ConfigService } from 'src/app/core/services/config/config.service';
 // import { InterceptedHttp } from '../../http.interceptor';
 // import { SecurityInterceptedHttp } from '../../http.securityinterceptor';
@@ -56,7 +54,7 @@ export class ProviderAdminFetosenseTestMasterService {
       '/fetosense/updateFetosenseTestMasterStatus';
   }
 
-  getServices(userID: any) {
+  getServices(userID: any): Observable<any> {
     return this.http.post(this._getServiceLineURL, { userID: userID });
     // .map(this.handleState_n_ServiceSuccess)
     // .catch(this.handleError);

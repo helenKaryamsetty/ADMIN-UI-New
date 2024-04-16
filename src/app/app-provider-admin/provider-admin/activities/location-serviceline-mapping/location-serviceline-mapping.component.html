@@ -18,7 +18,7 @@
         required
         [(ngModel)]="search_serviceline"
         name="serviceline"
-        (ngModelChange)="getStates(search_serviceline)"
+        (selectionChange)="getStates(search_serviceline)"
       >
         <mat-option *ngFor="let service of servicelines" [value]="service">
           {{ service.serviceName }}
@@ -38,7 +38,7 @@
         class="width100"
         [(ngModel)]="search_state"
         name="state"
-        (ngModelChange)="
+        (selectionChange)="
           findLocations(search_state.stateID, search_serviceline.serviceID);
           setPSMID(search_state.providerServiceMapID);
           setPSMID_onStateSeletion(search_state.providerServiceMapID)

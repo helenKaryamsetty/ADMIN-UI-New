@@ -100,7 +100,7 @@ export class FeedbackTypeMasterComponent implements OnInit {
 
   setIsNational(value: any) {
     this.isNational = value;
-    if (this.isNational == true) {
+    if (this.isNational === true) {
       this.search_state = undefined;
     }
   }
@@ -172,7 +172,7 @@ export class FeedbackTypeMasterComponent implements OnInit {
 
   editFeedback(feedbackObj: any) {
     console.log('feedbackObj', feedbackObj);
-    const dialog_Ref = this.dialog.open(EditFeedbackModal, {
+    const dialog_Ref = this.dialog.open(EditFeedbackModalComponent, {
       width: '500px',
       disableClose: true,
       data: {
@@ -256,7 +256,7 @@ export class FeedbackTypeMasterComponent implements OnInit {
     let count = 0;
     for (let i = 0; i < this.searchFeedbackArray.length; i++) {
       if (
-        feedback.toUpperCase() ==
+        feedback.toUpperCase() ===
         this.searchFeedbackArray[i].feedbackTypeName.toUpperCase()
       ) {
         count++;
@@ -277,14 +277,14 @@ export class FeedbackTypeMasterComponent implements OnInit {
         createdBy: 'Admin',
       };
 
-      if (this.objs.data[i].feedbackTypeName == 'Generic Complaint') {
+      if (this.objs.data[i].feedbackTypeName === 'Generic Complaint') {
         tempObj['feedbackTypeCode'] = 'GC';
-      } else if (this.objs.data[i].feedbackTypeName == 'Asha Complaints') {
+      } else if (this.objs.data[i].feedbackTypeName === 'Asha Complaints') {
         tempObj['feedbackTypeCode'] = 'AC';
-      } else if (this.objs.data[i].feedbackTypeName == 'Epidemic Complaints') {
+      } else if (this.objs.data[i].feedbackTypeName === 'Epidemic Complaints') {
         tempObj['feedbackTypeCode'] = 'EC';
       } else if (
-        this.objs.data[i].feedbackTypeName == 'Foodsafety Complaints'
+        this.objs.data[i].feedbackTypeName === 'Foodsafety Complaints'
       ) {
         tempObj['feedbackTypeCode'] = 'FC';
       }
@@ -319,8 +319,8 @@ export class FeedbackTypeMasterComponent implements OnInit {
       feedbackDesc: desc,
     };
     console.log(tempObj);
-    if (this.objs.data.length == 0) {
-      var count = 0;
+    if (this.objs.data.length === 0) {
+      let count = 0;
       for (let i = 0; i < this.feedbackTypes.length; i++) {
         if (
           this.feedbackTypes[i].feedbackTypeName.toUpperCase() ===
@@ -330,7 +330,7 @@ export class FeedbackTypeMasterComponent implements OnInit {
         }
       }
 
-      if (count == 0) {
+      if (count === 0) {
         this.objs.data.push(tempObj);
         this.editForm.resetForm();
       } else {
@@ -338,7 +338,7 @@ export class FeedbackTypeMasterComponent implements OnInit {
         this.alertService.alert('Already exists');
       }
     } else {
-      var count = 0;
+      let count = 0;
       for (let i = 0; i < this.objs.data.length; i++) {
         if (
           this.objs.data[i].feedbackTypeName.toUpperCase() ===
@@ -357,7 +357,7 @@ export class FeedbackTypeMasterComponent implements OnInit {
         }
       }
 
-      if (count == 0) {
+      if (count === 0) {
         this.objs.data.push(tempObj);
         this.editForm.resetForm();
       } else {
@@ -380,7 +380,7 @@ export class FeedbackTypeMasterComponent implements OnInit {
       this.filteredfeedbackTypes.data = [];
       this.feedbackTypes.forEach((item: any) => {
         for (const key in item) {
-          if (key == 'feedbackTypeName') {
+          if (key === 'feedbackTypeName') {
             const value: string = '' + item[key];
             if (value.toLowerCase().indexOf(searchTerm.toLowerCase()) >= 0) {
               this.filteredfeedbackTypes.data.push(item);
@@ -394,10 +394,10 @@ export class FeedbackTypeMasterComponent implements OnInit {
 }
 
 @Component({
-  selector: 'editFeedbackModal',
+  selector: 'app-edit-feedback-modal',
   templateUrl: './edit-feedback-type-dialog.html',
 })
-export class EditFeedbackModal {
+export class EditFeedbackModalComponent implements OnInit {
   feedbackName: any;
   feedbackDesc: any;
   originalName: any;
@@ -411,7 +411,7 @@ export class EditFeedbackModal {
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialog: MatDialog,
     public FeedbackTypeService: FeedbackTypeService,
-    public dialog_Ref: MatDialogRef<EditFeedbackModal>,
+    public dialog_Ref: MatDialogRef<EditFeedbackModalComponent>,
     private alertService: ConfirmationDialogsService,
   ) {}
 
@@ -432,15 +432,15 @@ export class EditFeedbackModal {
       feedbackDesc: this.feedbackDesc,
       modifiedBy: this.data.feedbackObj.createdBy,
     };
-    if (this.feedbackName == 'Generic Complaint') {
+    if (this.feedbackName === 'Generic Complaint') {
       tempObj['FeedbackTypeCode'] = 'GC';
-    } else if (this.feedbackName == 'Asha Complaints') {
+    } else if (this.feedbackName === 'Asha Complaints') {
       tempObj['FeedbackTypeCode'] = 'AC';
-    } else if (this.feedbackName == 'Epidemic Complaints') {
+    } else if (this.feedbackName === 'Epidemic Complaints') {
       tempObj['FeedbackTypeCode'] = 'EC';
-    } else if (this.feedbackName == 'Foodsafety Complaints') {
+    } else if (this.feedbackName === 'Foodsafety Complaints') {
       tempObj['FeedbackTypeCode'] = 'FC';
-    } else if (this.feedbackName == 'Bal Vivah Complaints') {
+    } else if (this.feedbackName === 'Bal Vivah Complaints') {
       tempObj['FeedbackTypeCode'] = 'BV';
     }
 
@@ -465,7 +465,7 @@ export class EditFeedbackModal {
       if (
         feedback.toUpperCase() ===
           this.searchFeedbackArray[i].feedbackTypeName.toUpperCase() &&
-        feedback.toUpperCase() != this.originalName.toUpperCase()
+        feedback.toUpperCase() !== this.originalName.toUpperCase()
       ) {
         count++;
       }

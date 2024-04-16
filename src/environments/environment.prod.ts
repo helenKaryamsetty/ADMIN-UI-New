@@ -129,4 +129,26 @@ export const environment = {
   _toggleProcedureURL: `${adminBaseUrl}labModule/updateProcedureStatus`,
   _updateProcedureURL: `${adminBaseUrl}labModule/updateProcedureMaster`,
   _iotProcedureURL: `${adminBaseUrl}diagnostics/getDiagnosticProcedure`,
+
+  _getStateListBYServiceIDURL: `${adminBaseUrl}m/role/stateNew`,
+  getDesignationsURL: `${adminBaseUrl}m/getDesignation`,
+  getEmployeesURL: `${adminBaseUrl}parkingPlaceMaster/get/userParkingPlaces1`,
+  deleteEmployeesURL: `${adminBaseUrl}parkingPlaceMaster/delete/userParkingPlaces1`,
+  getUsernamesURL: `${adminBaseUrl}parkingPlaceMaster/get/unmappeduser`,
+  saveEmployeeParkingPlaceMappingURL: `${adminBaseUrl}parkingPlaceMaster/save/userParkingPlaces`,
+  updateEmployeeParkingPlaceMappingURL: `${adminBaseUrl}parkingPlaceMaster/edit/userParkingPlaces1`,
+  userNameURL: '',
+  getVansURL: `${adminBaseUrl}vanMaster/get/vanDetails`,
+  getMappedVansListURL: `${adminBaseUrl}parkingPlaceMaster/get/mappedvan/`,
+  removeMappedVanURL: `${adminBaseUrl}parkingPlaceMaster/delete/mappedvan`,
+
+  /* user signature upload service */
+  getUsernamesBasedDesigUrl: `${adminBaseUrl}m/getEmployeeByDesignation`,
+  checkUsersignExistUrl: `${adminBaseUrl}signature1/signexist/`,
+  uploadSignUrl: `${adminBaseUrl}signature1/upload`,
+  downloadSignUrl: `${adminBaseUrl}signature1/`,
+
+  /* serviceline and state */
+  getRolesUrl: `${adminBaseUrl}/m/role/search/active`,
+  saveUrl: `${adminBaseUrl}/m/role/configWrap`,
 };

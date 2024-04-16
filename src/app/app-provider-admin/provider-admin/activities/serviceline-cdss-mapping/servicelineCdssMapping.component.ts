@@ -9,7 +9,7 @@ import { dataService } from 'src/app/core/services/dataService/data.service';
   templateUrl: './servicelineCdssMapping.component.html',
   styleUrls: ['./servicelineCdssMapping.component.css'],
 })
-export class ServicelineCdssMapping implements OnInit {
+export class ServicelineCdssMappingComponent implements OnInit {
   services: any = [];
   states: any = [];
   userID: any;

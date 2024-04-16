@@ -152,7 +152,7 @@
           <th mat-header-cell *matHeaderCellDef>Edit</th>
           <td mat-cell *matCellDef="let element">
             <mat-icon
-              *ngIf="element.deleted == false"
+              *ngIf="element.deleted === false"
               mdTooltip="Edit"
               class="mat-icon material-icons"
               role="img"
@@ -167,7 +167,7 @@
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Action</th>
           <td mat-cell *matCellDef="let element">
             <button
-              *ngIf="element.deleted == true"
+              *ngIf="element.deleted === true"
               mat-raised-button
               color="accent"
               (click)="deleteCategory(element.categoryID, false)"
@@ -176,7 +176,7 @@
             </button>
 
             <button
-              *ngIf="element.deleted == false"
+              *ngIf="element.deleted === false"
               mat-raised-button
               color="primary"
               (click)="deleteCategory(element.categoryID, true)"
@@ -441,7 +441,7 @@
             required
           />
           <mat-hint *ngIf="!categoryExist && categoryRef.touched">
-            <span class="error_text" *ngIf="category_name?.length == 0"
+            <span class="error_text" *ngIf="category_name?.length === 0"
               >Category is required</span
             >
             <!-- <span class="error_text" *ngIf="categoryRef.errors?.minlength">Enter minimum 2 characters</span> -->
@@ -674,7 +674,7 @@
       mat-raised-button
       color="accent"
       [disabled]="
-        serviceSubCatList.data.length == 0 && serviceList.data.length == 0
+        serviceSubCatList.data.length === 0 && serviceList.data.length === 0
       "
       (click)="finalsave()"
     >

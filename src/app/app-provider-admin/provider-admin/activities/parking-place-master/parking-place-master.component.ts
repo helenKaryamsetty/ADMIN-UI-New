@@ -19,7 +19,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see https://www.gnu.org/licenses/.
  */
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 
 import { NgForm } from '@angular/forms';
 
@@ -35,7 +35,7 @@ import { ConfirmationDialogsService } from 'src/app/core/services/dialog/confirm
   selector: 'app-parking-place',
   templateUrl: './parking-place-master.component.html',
 })
-export class ParkingPlaceComponent implements OnInit {
+export class ParkingPlaceComponent implements OnInit, AfterViewInit {
   status!: string;
   userID: any;
   service: any;
@@ -133,7 +133,7 @@ export class ParkingPlaceComponent implements OnInit {
     this.userID = this.commonDataService.uid;
     this.getServiceLines();
   }
-  AfterViewInit() {
+  ngAfterViewInit() {
     this.filteredavailableParkingPlaces.paginator = this.paginator;
     this.filteredavailableParkingPlaces.sort = this.sort;
   }

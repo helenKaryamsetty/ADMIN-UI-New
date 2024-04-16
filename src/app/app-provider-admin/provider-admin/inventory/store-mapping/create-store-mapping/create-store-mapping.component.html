@@ -1,0 +1,217 @@
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <h4>
+      <strong>Van/Parking Place to Store Mapping</strong>
+    </h4>
+  </div>
+</div>
+<form [formGroup]="storeMappingForm" autocomplete="off">
+  <div class="row m-t-20" formGroupName="storeMapping">
+    <div class="col-xs-12 col-sm-6 box">
+      <label class="control-label" for="isMainFacility">Store Type:</label>
+      <mat-radio-group
+        placeholder="Main Store"
+        formControlName="isMainFacility"
+        name="isMainFacility"
+      >
+        <mat-radio-button [value]="true">Main Store</mat-radio-button>
+        <mat-radio-button [value]="false">Sub Store</mat-radio-button>
+      </mat-radio-group>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <ng-container
+      *ngIf="isMainFacility !== undefined || isMainFacility !== null"
+    >
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 box">
+        <mat-select
+          class="input-full-width"
+          placeholder="Main Store"
+          formControlName="facilityName"
+          name="facilityName"
+          [required]="true"
+        >
+          <mat-option *ngFor="let store of mainStoreList" [value]="store">
+            {{ store.facilityName }}
+          </mat-option>
+        </mat-select>
+      </div>
+
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 box">
+        <mat-select
+          class="input-full-width"
+          placeholder="{{ parkAndHub }}"
+          formControlName="parkingPlaceName"
+          name="parkingPlaceName"
+          [disabled]="isMainFacility === false"
+          [required]="true"
+        >
+          <mat-option
+            *ngFor="let parkingPlace of parkingPlaceList"
+            [value]="parkingPlace"
+          >
+            {{ parkingPlace.parkingPlaceName }}
+          </mat-option>
+        </mat-select>
+      </div>
+
+      <div
+        class="col-xs-12 col-sm-6 col-md-4 col-lg-3 box"
+        *ngIf="isMainFacility === false"
+      >
+        <mat-select
+          class="input-full-width"
+          placeholder="Sub Store"
+          formControlName="subFacilityName"
+          name="subFacilityName"
+        >
+          <mat-option *ngFor="let store of subStoreList" [value]="store">
+            {{ store.facilityName }}
+          </mat-option>
+        </mat-select>
+      </div>
+
+      <div
+        class="col-xs-12 col-sm-6 col-md-4 col-lg-3 box"
+        *ngIf="isMainFacility === false"
+      >
+        <mat-select
+          class="input-full-width"
+          placeholder="{{ vanAndSpoke }}"
+          formControlName="vanName"
+          name="vanName"
+        >
+          <mat-option *ngFor="let van of vanList" [value]="van">
+            {{ van.vanName }}
+          </mat-option>
+        </mat-select>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 box">
+        <button
+          *ngIf="checkValidity()"
+          type="button"
+          mat-mini-fab
+          color="primary"
+          (click)="addToStoreMappingList()"
+        >
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+    </ng-container>
+  </div>
+</form>
+
+<div class="row m-t-20" *ngIf="storeMappingList.data.length > 0">
+  <div class="col-xs-12">
+    <mat-table [dataSource]="storeMappingList" class="mat-elevation-z8">
+      <!-- S.No. Column -->
+      <ng-container matColumnDef="sno">
+        <mat-header-cell *matHeaderCellDef>S.No.</mat-header-cell>
+        <mat-cell *matCellDef="let item; let i = index">{{ i + 1 }}</mat-cell>
+      </ng-container>
+      <!-- Category Code Column -->
+      <ng-container matColumnDef="isMainFacility">
+        <mat-header-cell *matHeaderCellDef>Store Type</mat-header-cell>
+        <mat-cell *matCellDef="let item">
+          {{ item?.isMainFacility === true ? "MAIN" : "SUB" }}</mat-cell
+        >
+      </ng-container>
+
+      <!-- Category Name Column -->
+      <ng-container matColumnDef="facilityName">
+        <mat-header-cell *matHeaderCellDef>Store</mat-header-cell>
+        <mat-cell *matCellDef="let item">{{ item.facilityName }}</mat-cell>
+      </ng-container>
+
+      <!-- Category Description Column -->
+      <ng-container matColumnDef="parkingPlaceName">
+        <mat-header-cell *matHeaderCellDef>Park And Hub</mat-header-cell>
+        <mat-cell *matCellDef="let item">{{ item.parkingPlaceName }}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="vanName">
+        <mat-header-cell *matHeaderCellDef>Van And Spoke</mat-header-cell>
+        <mat-cell *matCellDef="let item">{{ item.vanName }}</mat-cell>
+      </ng-container>
+
+      <!-- Action Column -->
+      <ng-container matColumnDef="action">
+        <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
+        <mat-cell *matCellDef="let item; let i = index">
+          <mat-icon
+            matTooltip="Delete"
+            class="mat-icon material-icons"
+            style="cursor: pointer"
+            (click)="deleteFromStoreList(i)"
+            >delete</mat-icon
+          >
+        </mat-cell>
+      </ng-container>
+
+      <!-- Header and Row Definitions -->
+      <mat-header-row
+        *matHeaderRowDef="[
+          'sno',
+          'isMainFacility',
+          'facilityName',
+          'parkingPlaceName',
+          'vanName',
+          'action'
+        ]"
+      ></mat-header-row>
+      <mat-row
+        *matRowDef="
+          let row;
+          columns: [
+            'sno',
+            'isMainFacility',
+            'facilityName',
+            'parkingPlaceName',
+            'vanName',
+            'action'
+          ]
+        "
+      ></mat-row>
+    </mat-table>
+
+    <!-- Pagination -->
+    <mat-paginator
+      [length]="storeMappingList.data.length"
+      [pageSize]="4"
+      [pageSizeOptions]="[4, 10, 20]"
+    ></mat-paginator>
+  </div>
+</div>
+
+<div class="row m-t-20">
+  <div class="col-xs-12">
+    <button
+      type="button"
+      mat-raised-button
+      color="accent"
+      class="pull-right"
+      [disabled]="!(storeMappingList.data.length > 0)"
+      (click)="submitStoreMapping(); storeMappingForm.reset()"
+    >
+      Save
+    </button>
+    <button
+      type="button"
+      mat-raised-button
+      color="primary"
+      class="pull-left"
+      (click)="switchToViewMode()"
+    >
+      Back
+    </button>
+    <button
+      type="button"
+      mat-raised-button
+      color="primary"
+      class="pull-right m-r-5"
+      (click)="storeMappingForm.reset()"
+    >
+      Clear
+    </button>
+  </div>
+</div>

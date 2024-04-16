@@ -237,7 +237,6 @@ export class ProcedureMasterComponent implements OnInit {
     return this.procedureForm.controls['name'].value;
   }
   saveProcedure() {
-    // debugger;
     const apiObject: any = this.objectManipulate();
     let count = 0;
     console.log('here to check available', apiObject);
@@ -305,7 +304,6 @@ export class ProcedureMasterComponent implements OnInit {
    * Manipulate Form Object to as per API Need
    */
   objectManipulate() {
-    // debugger;
     const obj = Object.assign({}, this.procedureForm.value);
 
     console.log('this.procedureForm.value', this.procedureForm.value, obj);

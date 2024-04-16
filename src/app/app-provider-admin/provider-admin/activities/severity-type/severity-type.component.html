@@ -1,0 +1,279 @@
+<!-- <md-card> -->
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <h4 *ngIf="firstPage" class="pull-left">Severity Type</h4>
+    <h4 *ngIf="!firstPage" class="pull-left">Add Severity Type</h4>
+  </div>
+  <form #searchForm="ngForm" autocomplete="off">
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
+      <!-- <mat-form-field class="hide_underline width100">
+        <input matInput style="display:none"> -->
+      <mat-select
+        placeholder="Serviceline"
+        disabled="{{ !firstPage }}"
+        class="width100"
+        [(ngModel)]="service"
+        name="service"
+        #servicess
+        required
+        (selectionChange)="
+          getProviderStates(service.serviceID, service.isNational)
+        "
+      >
+        <mat-option *ngFor="let ser of services" [value]="ser">
+          {{ ser.serviceName }}
+        </mat-option>
+      </mat-select>
+      <!-- </mat-form-field> -->
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
+      <!-- <mat-form-field class="hide_underline width100">
+        <input matInput style="display:none"> -->
+      <mat-select
+        placeholder="State"
+        [disabled]="!firstPage || isNational"
+        class="width100"
+        [(ngModel)]="stateId"
+        (selectionChange)="findSeverity(stateId.providerServiceMapID)"
+        name="state"
+        #statess
+        required
+      >
+        <mat-option *ngFor="let stat of states" [value]="stat">
+          {{ stat.stateName }}
+        </mat-option>
+      </mat-select>
+      <!-- </mat-form-field> -->
+    </div>
+  </form>
+</div>
+<div class="pull-right" *ngIf="data.length !== 0 && search && firstPage">
+  <mat-form-field id="filterbox">
+    <input
+      matInput
+      placeholder="In-Table Search"
+      #filterTerm
+      (keyup)="filterComponentList(filterTerm.value)"
+    />
+    <mat-icon matSuffix>search</mat-icon>
+  </mat-form-field>
+</div>
+<div class="row" *ngIf="search && firstPage">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-15">
+    <div class="table-responsive">
+      <table
+        mat-table
+        [dataSource]="this.filtereddata.data"
+        class="table table-striped table-hover"
+      >
+        <ng-container matColumnDef="SNo">
+          <th mat-header-cell *matHeaderCellDef>S.No.</th>
+          <td mat-cell *matCellDef="let element; let i = index">
+            {{ i + 1 }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="Severity">
+          <th mat-header-cell *matHeaderCellDef>Severity Name</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.severityTypeName }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="SeverityDescription">
+          <th mat-header-cell *matHeaderCellDef>Severity Description</th>
+          <td mat-cell *matCellDef="let element">{{ element.severityDesc }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="edit">
+          <th mat-header-cell *matHeaderCellDef>Edit</th>
+          <td mat-cell *matCellDef="let element">
+            <mat-icon
+              *ngIf="!element.deleted"
+              matTooltip="Edit"
+              class="mat-icon material-icons"
+              role="img"
+              aria-hidden="true"
+              style="cursor: pointer"
+              (click)="editSeverity(element)"
+              >edit</mat-icon
+            >
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Action</th>
+          <td mat-cell *matCellDef="let element">
+            <button
+              *ngIf="element.deleted"
+              mat-raised-button
+              color="accent"
+              (click)="deleteSeverity(element.severityID, false)"
+            >
+              Activate
+            </button>
+            <button
+              *ngIf="!element.deleted"
+              mat-raised-button
+              color="primary"
+              (click)="deleteSeverity(element.severityID, true)"
+            >
+              Deactivate
+            </button>
+          </td>
+          <!-- <td colspan="4" class="p-r-0" mat-cell>
+          <button md-raised-button color="primary" [disabled]="searchForm.invalid" class="pull-right" (click)="changeTableFlag(false)">Add Work Location</button>
+        </td> -->
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+      <div>
+        <button
+          mat-raised-button
+          color="primary"
+          class="pull-right"
+          [disabled]="searchForm.invalid"
+          (click)="showAddScreen()"
+        >
+          Add Severity
+        </button>
+      </div>
+      <mat-paginator
+        [hidden]="filtereddata.data.length === 0"
+        [pageSizeOptions]="[5, 10, 25]"
+        [pageSize]="5"
+        showFirstLastButtons
+      ></mat-paginator>
+    </div>
+  </div>
+</div>
+<div class="row m-t-15" *ngIf="!firstPage">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-a-0">
+    <form #severityAdding="ngForm" autocomplete="off">
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" myProviderName>
+        <mat-form-field class="width100">
+          <input
+            matInput
+            placeholder="Severity Type"
+            name="severity"
+            [(ngModel)]="severity"
+            (keyup)="addSeverity(severity)"
+            #newSeverity="ngModel"
+            minlength="2"
+            maxlength="20"
+            required
+          />
+          <mat-hint>
+            <span
+              class="error_text"
+              *ngIf="newSeverity.touched && newSeverity.errors"
+              >Severity type is required</span
+            >
+            <span
+              class="error_text"
+              *ngIf="severityAdding.valid && alreadyExist"
+              >Severity already exist</span
+            >
+          </mat-hint>
+        </mat-form-field>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+        <mat-form-field class="width100" myProviderName>
+          <input
+            matInput
+            placeholder="Description"
+            name="description"
+            [(ngModel)]="description"
+            maxlength="100"
+          />
+        </mat-form-field>
+      </div>
+      <div
+        class="col-xs-12 col-sm-12 col-md-4 col-lg-3"
+        *ngIf="severityAdding.valid && !alreadyExist"
+      >
+        <button
+          mat-mini-fab
+          color="primary"
+          (click)="add(severityAdding.value)"
+          class="xs-pull-right sm-pull-right md-pull-left"
+        >
+          <mat-icon
+            matSuffix
+            class="mat-icon material-icons"
+            role="img"
+            aria-hidden="true"
+            style="cursor: pointer"
+            >add</mat-icon
+          >
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="row">
+  <div
+    class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-15"
+    *ngIf="severityArray.data.length > 0"
+  >
+    <div class="table-responsive">
+      <table
+        mat-table
+        [dataSource]="this.severityArray.data"
+        class="table table-striped table-hover"
+      >
+        <ng-container matColumnDef="SNo">
+          <th mat-header-cell *matHeaderCellDef>S.No.</th>
+          <td mat-cell *matCellDef="let element; let i = index">
+            {{ i + 1 }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="Severity">
+          <th mat-header-cell *matHeaderCellDef>Severity Name</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.severityTypeName }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="SeverityDescription">
+          <th mat-header-cell *matHeaderCellDef>Severity Description</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.severityDesc }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="edit">
+          <th mat-header-cell *matHeaderCellDef>Delete</th>
+          <td mat-cell *matCellDef="let element">
+            <mat-icon
+              matTooltip="delete"
+              (click)="removeObj(severityArray.data.indexOf(element))"
+              >delete</mat-icon
+            >
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns1"></tr>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="row" *ngIf="!firstPage">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10">
+    <button
+      mat-raised-button
+      color="primary"
+      class="pull-left"
+      (click)="back()"
+    >
+      Back
+    </button>
+    <button
+      [disabled]="severityArray.data.length === 0"
+      mat-raised-button
+      color="accent"
+      class="pull-right"
+      (click)="finalSubmit()"
+    >
+      Save
+    </button>
+  </div>
+</div>
+<!-- </md-card> -->

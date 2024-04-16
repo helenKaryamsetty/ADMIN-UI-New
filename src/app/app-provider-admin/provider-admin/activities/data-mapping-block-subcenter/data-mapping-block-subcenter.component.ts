@@ -75,7 +75,7 @@ export class DataMappingBlockSubcenterComponent implements OnInit {
     this.file = ev.target.files[0];
 
     //this.file = undefined;
-    if (this.fileList.length == 0) {
+    if (this.fileList.length === 0) {
       this.error1 = true;
       this.error2 = false;
       this.invalid_file_flag = false;
@@ -160,7 +160,7 @@ export class DataMappingBlockSubcenterComponent implements OnInit {
     console.log('FILE DETAILS', file);
     if (file) {
       const array_after_split = file.name.split('.');
-      if (array_after_split.length == 2) {
+      if (array_after_split.length === 2) {
         const file_extension = array_after_split[array_after_split.length - 1];
         for (let i = 0; i < this.valid_file_extensions.length; i++) {
           if (

@@ -161,7 +161,7 @@
                 name="language"
                 placeholder="Languages"
                 [style.width]="'100%'"
-                (change)="
+                (selectionChange)="
                   Language(language);
                   checkInDb(username, language);
                   resetweightageDropdowns()
@@ -187,7 +187,7 @@
                       <mat-checkbox
                         color="primary"
                         [checked]="isCheckedRead"
-                        (change)="setRead($event)"
+                        (selec)="setRead($event)"
                         #readCheckbox
                         >Read</mat-checkbox
                       >
@@ -198,7 +198,7 @@
                       <mat-select
                         [(ngModel)]="readweightage"
                         name="readweightage"
-                        (change)="readWeightage()"
+                        (selectionChange)="readWeightage()"
                         placeholder="Select Weightage"
                         [style.width]="'100%'"
                       >
@@ -218,7 +218,7 @@
                       <mat-checkbox
                         color="primary"
                         [checked]="isCheckedWrite"
-                        (change)="setWrite($event)"
+                        (selectionChange)="setWrite($event)"
                         #writeCheckbox
                         >Write</mat-checkbox
                       >
@@ -229,7 +229,7 @@
                       <mat-select
                         [(ngModel)]="writeweightage"
                         name="writeweightage"
-                        (change)="writeWeightage()"
+                        (selectionChange)="writeWeightage()"
                         placeholder="Select Weightage"
                         [style.width]="'100%'"
                       >
@@ -249,7 +249,7 @@
                       <mat-checkbox
                         color="primary"
                         [checked]="isCheckedSpeak"
-                        (change)="setSpeak($event)"
+                        (selectionChange)="setSpeak($event)"
                         #speakCheckbox
                         >Speak</mat-checkbox
                       >
@@ -260,7 +260,7 @@
                       <mat-select
                         [(ngModel)]="speakweightage"
                         name="speakweightage"
-                        (change)="speakWeightage()"
+                        (selectionChange)="speakWeightage()"
                         placeholder="Select Weightage"
                         [style.width]="'100%'"
                       >
@@ -441,7 +441,7 @@
                 name="language"
                 placeholder="Select Language "
                 [style.width]="'100%'"
-                (change)="editLanguage(languageID_edit)"
+                (selectionChange)="editLanguage(languageID_edit)"
                 required
               >
                 <mat-option
@@ -461,7 +461,7 @@
                       <mat-checkbox
                         color="primary"
                         [checked]="isCheckedRead"
-                        (change)="setRead($event)"
+                        (selectionChange)="setRead($event)"
                         #readCheckbox
                         >Read</mat-checkbox
                       >
@@ -471,7 +471,7 @@
                         <input mdInput style="display:none"> -->
                       <mat-select
                         [(ngModel)]="edit_Details.weightageRead"
-                        (change)="readWeightage()"
+                        (selectionChange)="readWeightage()"
                         name="read_weightage"
                         placeholder="Select Weightage"
                         [style.width]="'100%'"
@@ -492,7 +492,7 @@
                       <mat-checkbox
                         color="primary"
                         [checked]="isCheckedWrite"
-                        (change)="setWrite($event)"
+                        (selectionChange)="setWrite($event)"
                         #writeCheckbox
                         >Write</mat-checkbox
                       >
@@ -502,7 +502,7 @@
                         <input mdInput style="display:none"> -->
                       <mat-select
                         [(ngModel)]="edit_Details.weightageWrite"
-                        (change)="writeWeightage()"
+                        (selectionChange)="writeWeightage()"
                         name="write_weightage"
                         placeholder="Select Weightage"
                         [style.width]="'100%'"
@@ -523,7 +523,7 @@
                       <mat-checkbox
                         color="primary"
                         [checked]="isCheckedSpeak"
-                        (change)="setSpeak($event)"
+                        (selectionChange)="setSpeak($event)"
                         #speakCheckbox
                         >Speak</mat-checkbox
                       >
@@ -534,7 +534,7 @@
                       <mat-select
                         [(ngModel)]="edit_Details.weightageSpeak"
                         class="pull-left"
-                        (change)="speakWeightage()"
+                        (selectionChange)="speakWeightage()"
                         name="speak_weightage"
                         placeholder="Select Weightage"
                         [style.width]="'100%'"

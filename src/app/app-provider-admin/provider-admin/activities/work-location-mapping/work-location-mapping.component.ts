@@ -147,6 +147,7 @@ export class WorkLocationMappingComponent implements OnInit {
   villageid: any;
   villageIdValue: any;
   item: any;
+  workplaceform: any;
 
   constructor(
     private alertService: ConfirmationDialogsService,
@@ -2161,7 +2162,7 @@ export class WorkLocationMappingComponent implements OnInit {
           workLocations.state !== mappedWorkLocations.stateID &&
           workLocations.district !== mappedWorkLocations.workingDistrictID &&
           workLocations.ServiceEditblock !== mappedWorkLocations.blockID &&
-          mappedWorkLocations.userID == this.userID_duringEdit &&
+          mappedWorkLocations.userID === this.userID_duringEdit &&
           mappedWorkLocations.uSRMappingID !== this.uSRMappingID
         ) {
           if (!mappedWorkLocations.userServciceRoleDeleted) {
@@ -2295,7 +2296,7 @@ export class WorkLocationMappingComponent implements OnInit {
 
   getBlockMaster(District: any) {
     this.villagemasterService.getTaluks(District.districtID).subscribe(
-      (response: any) => this.getTalukSuccessHandeler(response),
+      (response: any) => this.getTalukSuccessHandeler(response.data),
       (err: any) => {
         console.log('Error', err);
       },

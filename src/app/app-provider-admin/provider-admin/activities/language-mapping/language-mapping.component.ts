@@ -125,7 +125,7 @@ export class LanguageMappingComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.serviceProviderID = this.saved_data.providerServiceMapID_104;
+    this.serviceProviderID = this.saved_data.service_providerID;
     this.createdBy = this.createdBy = this.saved_data.uname;
     this.WeightageList = [
       { value: 10, Name: '25%' },
@@ -404,19 +404,17 @@ export class LanguageMappingComponent implements OnInit {
         userName: formValues.username.userName,
         userID: formValues.username.userID,
         createdBy: this.createdBy,
-        weightage_Read: ([] =
-          this.readweightage === undefined
-            ? 0
-            : formValues.readweightage.value),
-        weightage_Write: ([] =
+        weightage_Read:
+          this.readweightage === undefined ? 0 : formValues.readweightage.value,
+        weightage_Write:
           this.writeweightage === undefined
             ? 0
-            : formValues.writeweightage.value),
-        weightage_Speak: ([] =
+            : formValues.writeweightage.value,
+        weightage_Speak:
           this.speakweightage === undefined
             ? 0
-            : formValues.speakweightage.value),
-        languageID: ([] = formValues.language.languageID),
+            : formValues.speakweightage.value,
+        languageID: formValues.language.languageID,
         canRead: this.readweightage === undefined ? false : this.read,
         canWrite: this.writeweightage === undefined ? false : this.write,
         canSpeak: this.speakweightage === undefined ? false : this.speak,
@@ -470,13 +468,13 @@ export class LanguageMappingComponent implements OnInit {
     let count = 0;
     for (let a = 0; a < this.LanguageMappedList.length; a++) {
       if (
-        this.LanguageMappedList[a].userID == user.userID &&
-        this.LanguageMappedList[a].languageID == langId.languageID
+        this.LanguageMappedList[a].userID === user.userID &&
+        this.LanguageMappedList[a].languageID === langId.languageID
       ) {
         count = count + 1;
       }
     }
-    if (count == 0) this.checkduplication = false;
+    if (count === 0) this.checkduplication = false;
     else {
       this.checkduplication = true;
       this.alertService.alert('Already exists');
@@ -487,13 +485,13 @@ export class LanguageMappingComponent implements OnInit {
     let count = 0;
     for (let a = 0; a < this.LanguageMappedList.length; a++) {
       if (
-        this.LanguageMappedList[a].userID == this.userID &&
-        this.LanguageMappedList[a].languageID == langId &&
-        this.LanguageMappedList[a].weightage_Read ==
+        this.LanguageMappedList[a].userID === this.userID &&
+        this.LanguageMappedList[a].languageID === langId &&
+        this.LanguageMappedList[a].weightage_Read ===
           editedvalues.read_weightage &&
-        this.LanguageMappedList[a].weightage_Write ==
+        this.LanguageMappedList[a].weightage_Write ===
           editedvalues.write_weightage &&
-        this.LanguageMappedList[a].weightage_Speak ==
+        this.LanguageMappedList[a].weightage_Speak ===
           editedvalues.speak_weightage
       ) {
         count = count + 1;
@@ -530,7 +528,7 @@ export class LanguageMappingComponent implements OnInit {
       const index: number = duplicateArray.indexOf(
         this.bufferArray.data[i].userID,
       );
-      if (index == -1) {
+      if (index === -1) {
         obj['serviceProviderID'] = this.serviceProviderID;
         obj['languageName'] = this.bufferArray.data[i].languageName;
         obj['userName'] = this.bufferArray.data[i].userName;
@@ -737,7 +735,7 @@ export class LanguageMappingComponent implements OnInit {
       this.filteredLanguageMappedList.data = [];
       this.LanguageMappedList.forEach((item: any) => {
         for (const key in item) {
-          if (key == 'userName' || key == 'languageName') {
+          if (key === 'userName' || key === 'languageName') {
             const value: string = '' + item[key];
             if (value.toLowerCase().indexOf(searchTerm.toLowerCase()) >= 0) {
               this.filteredLanguageMappedList.data.push(item);

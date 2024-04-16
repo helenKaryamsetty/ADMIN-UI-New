@@ -19,7 +19,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see https://www.gnu.org/licenses/.
  */
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { FormBuilder, FormArray, FormGroup } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -32,7 +38,9 @@ import { UomMasterService } from 'src/app/core/services/inventory-services/uom-m
   templateUrl: './search-uom-master.component.html',
   styleUrls: ['./search-uom-master.component.css'],
 })
-export class SearchUomMasterComponent implements OnInit, AfterViewInit {
+export class SearchUomMasterComponent
+  implements OnInit, AfterViewInit, OnDestroy
+{
   uomMasterSearchForm!: FormGroup;
   providerID!: any;
   createdBy!: any;
