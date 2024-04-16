@@ -242,8 +242,8 @@ export class SpecialistMappingComponent implements OnInit {
     console.log(this.specializationList, 'listed');
     this.specializationList.map((element: any) => {
       if (
-        element.userID == this.userSelected &&
-        element.specializationID == this.specializationSelected
+        element.userID === this.userSelected &&
+        element.specializationID === this.specializationSelected
       ) {
         exists = true;
       }
@@ -262,7 +262,7 @@ export class SpecialistMappingComponent implements OnInit {
       this.filteredspecializationList.data = [];
       this.specializationList.forEach((item: any) => {
         for (const key in item) {
-          if (key == 'userName' || key == 'specializationName') {
+          if (key === 'userName' || key === 'specializationName') {
             const value: string = '' + item[key];
             if (value.toLowerCase().indexOf(searchTerm.toLowerCase()) >= 0) {
               this.filteredspecializationList.data.push(item);

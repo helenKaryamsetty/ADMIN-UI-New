@@ -40,6 +40,7 @@ import { SuperAdminComponent } from './super-admin/super-admin.component';
 import { loginService } from './user-login/loginService/login.service';
 import { ProviderAdminModule } from './app-provider-admin/provider-admin/provider-admin.module';
 import { SuperAdminModule } from './app-provider-admin/super-admin/super-admin.module';
+import { UtcDatePipe } from './app-provider-admin/provider-admin/configurations/utc-date.pipe';
 
 @NgModule({
   declarations: [

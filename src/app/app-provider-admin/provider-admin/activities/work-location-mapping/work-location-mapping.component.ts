@@ -301,8 +301,8 @@ export class WorkLocationMappingComponent implements OnInit {
         console.log('mappedroles of tm', response);
         response.data.forEach((mappedRolesOfTm: any) => {
           if (
-            mappedRolesOfTm.screenName == 'TC Specialist' ||
-            mappedRolesOfTm.screenName == 'Supervisor'
+            mappedRolesOfTm.screenName === 'TC Specialist' ||
+            mappedRolesOfTm.screenName === 'Supervisor'
           ) {
             this.alertService.alert(
               'This user is already mapped to supervisor/TC Specialist',
@@ -314,10 +314,10 @@ export class WorkLocationMappingComponent implements OnInit {
     if (this.bufferArray.data.length > 0) {
       this.bufferArray.data.forEach((bufferScreenList: any) => {
         if (
-          bufferScreenList.providerServiceMapID == providerServiceMapID &&
-          bufferScreenList.userID == userID &&
-          (bufferScreenList.roleID1[0].screenName == 'TC Specialist' ||
-            bufferScreenList.roleID1[0].screenName == 'Supervisor')
+          bufferScreenList.providerServiceMapID === providerServiceMapID &&
+          bufferScreenList.userID === userID &&
+          (bufferScreenList.roleID1[0].screenName === 'TC Specialist' ||
+            bufferScreenList.roleID1[0].screenName === 'Supervisor')
         ) {
           this.alertService.alert(
             'This user is already mapped to supervisor/TC Specialist',
@@ -353,7 +353,7 @@ export class WorkLocationMappingComponent implements OnInit {
 
   getAllRoles(serviceID: any, providerServiceMapID: any, userID: any) {
     // if value passed is undefined, means NGMODEL is not set, i.e undefined. So, getting the PSMID from the states array
-    if (serviceID == 4) {
+    if (serviceID === 4) {
       this.worklocationmapping.getAllRolesForTM(providerServiceMapID).subscribe(
         (response: any) => {
           console.log(response, 'get all roles success handeler');
@@ -399,9 +399,9 @@ export class WorkLocationMappingComponent implements OnInit {
     this.mappedWorkLocationsList.forEach((mappedWorkLocations: any) => {
       if (
         mappedWorkLocations.serviceName === 'ECD' &&
-        mappedWorkLocations.providerServiceMapID != undefined &&
-        mappedWorkLocations.providerServiceMapID == providerServiceMapID &&
-        mappedWorkLocations.userID == userID
+        mappedWorkLocations.providerServiceMapID !== undefined &&
+        mappedWorkLocations.providerServiceMapID === providerServiceMapID &&
+        mappedWorkLocations.userID === userID
       ) {
         if (!mappedWorkLocations.userServciceRoleDeleted) {
           // this.existingRoles.push(mappedWorkLocations.roleID); // existing roles has roles which are already mapped.
@@ -410,9 +410,9 @@ export class WorkLocationMappingComponent implements OnInit {
           return;
         }
       } else if (
-        mappedWorkLocations.providerServiceMapID != undefined &&
-        mappedWorkLocations.providerServiceMapID == providerServiceMapID &&
-        mappedWorkLocations.userID == userID
+        mappedWorkLocations.providerServiceMapID !== undefined &&
+        mappedWorkLocations.providerServiceMapID === providerServiceMapID &&
+        mappedWorkLocations.userID === userID
       ) {
         if (!mappedWorkLocations.userServciceRoleDeleted) {
           this.existingRoles.push(mappedWorkLocations.roleID); // existing roles has roles which are already mapped.
@@ -434,14 +434,14 @@ export class WorkLocationMappingComponent implements OnInit {
     if (this.bufferArray.data.length > 0) {
       this.bufferArray.data.forEach((bufferList: any) => {
         if (
-          bufferList.userID == userID &&
-          bufferList.providerServiceMapID == providerServiceMapID
+          bufferList.userID === userID &&
+          bufferList.providerServiceMapID === providerServiceMapID
         ) {
           if (bufferList.roleID1.length > 0) {
             this.availableRoles.forEach((removeScreenNameOfSupAndSpec: any) => {
               if (
-                removeScreenNameOfSupAndSpec.screenName == 'TC Specialist' ||
-                removeScreenNameOfSupAndSpec.screenName == 'Supervisor'
+                removeScreenNameOfSupAndSpec.screenName === 'TC Specialist' ||
+                removeScreenNameOfSupAndSpec.screenName === 'Supervisor'
               ) {
                 this.bufferSupAndSpecScreenNames.push(
                   removeScreenNameOfSupAndSpec.screenName,
@@ -454,8 +454,8 @@ export class WorkLocationMappingComponent implements OnInit {
     }
     this.availableRoles.forEach((removeScreenNameOfSupAndSpec: any) => {
       if (
-        removeScreenNameOfSupAndSpec.screenName == 'TC Specialist' ||
-        removeScreenNameOfSupAndSpec.screenName == 'Supervisor'
+        removeScreenNameOfSupAndSpec.screenName === 'TC Specialist' ||
+        removeScreenNameOfSupAndSpec.screenName === 'Supervisor'
       ) {
         this.supAndSpecScreenNames.push(
           removeScreenNameOfSupAndSpec.screenName,
@@ -482,12 +482,12 @@ export class WorkLocationMappingComponent implements OnInit {
       this.bufferArray.data.forEach((bufferArrayList: any) => {
         if (
           bufferArrayList.serviceName === 'ECD' &&
-          bufferArrayList.userID == userID &&
-          bufferArrayList.providerServiceMapID == providerServiceMapID
+          bufferArrayList.userID === userID &&
+          bufferArrayList.providerServiceMapID === providerServiceMapID
         ) {
           this.disableSelectRoles = true;
           return;
-        } else if (bufferArrayList.userID == userID) {
+        } else if (bufferArrayList.userID === userID) {
           this.bufferArrayTemp.push(bufferArrayList.roleID1);
         }
       });
@@ -639,7 +639,7 @@ export class WorkLocationMappingComponent implements OnInit {
     } else if (providerServiceMappingDeleted) {
       this.alertService.alert('State is inactive');
     } else {
-      if (serviceID == 4) {
+      if (serviceID === 4) {
         this.alertService
           .confirm('confirm', 'Are you sure you want to Activate?')
           .subscribe((response: any) => {
@@ -670,10 +670,10 @@ export class WorkLocationMappingComponent implements OnInit {
                 );
             }
           });
-      } else if (serviceID == 9) {
+      } else if (serviceID === 9) {
         const result = false;
         this.foundDuplicate = false;
-        if (this.mappedWorkLocationsList.length != 0) {
+        if (this.mappedWorkLocationsList.length !== 0) {
           this.mappedWorkLocationsList.forEach((mappedWorkLocations: any) => {
             if (
               serviceID === 9 &&
@@ -681,8 +681,8 @@ export class WorkLocationMappingComponent implements OnInit {
               stateID === mappedWorkLocations.stateID &&
               workingDistrictID === mappedWorkLocations.workingDistrictID &&
               blockID === mappedWorkLocations.blockID &&
-              mappedWorkLocations.userID == userID &&
-              uSRMappingID != mappedWorkLocations.uSRMappingID &&
+              mappedWorkLocations.userID === userID &&
+              uSRMappingID !== mappedWorkLocations.uSRMappingID &&
               roleID === mappedWorkLocations.roleID
             ) {
               if (!mappedWorkLocations.userServciceRoleDeleted) {
@@ -691,16 +691,16 @@ export class WorkLocationMappingComponent implements OnInit {
             }
           });
         }
-        if (this.mappedWorkLocationsList.length != 0) {
+        if (this.mappedWorkLocationsList.length !== 0) {
           this.mappedWorkLocationsList.forEach((mappedWorkLocations: any) => {
             if (
               serviceID === 9 &&
               serviceID === mappedWorkLocations.serviceID &&
-              stateID != mappedWorkLocations.stateID &&
-              workingDistrictID != mappedWorkLocations.workingDistrictID &&
-              blockID != mappedWorkLocations.blockID &&
-              mappedWorkLocations.userID == userID &&
-              uSRMappingID != mappedWorkLocations.uSRMappingID
+              stateID !== mappedWorkLocations.stateID &&
+              workingDistrictID !== mappedWorkLocations.workingDistrictID &&
+              blockID !== mappedWorkLocations.blockID &&
+              mappedWorkLocations.userID === userID &&
+              uSRMappingID !== mappedWorkLocations.uSRMappingID
             ) {
               if (!mappedWorkLocations.userServciceRoleDeleted) {
                 this.foundDuplicate = true;
@@ -708,7 +708,7 @@ export class WorkLocationMappingComponent implements OnInit {
             }
           });
         }
-        if (this.foundDuplicate == false) {
+        if (this.foundDuplicate === false) {
           this.alertService
             .confirm('confirm', 'Are you sure you want to Activate?')
             .subscribe((response: any) => {
@@ -777,7 +777,7 @@ export class WorkLocationMappingComponent implements OnInit {
     }
   }
   deactivate(serviceID: any, uSRMappingID: any) {
-    if (serviceID == 4) {
+    if (serviceID === 4) {
       this.alertService
         .confirm('confirm', 'Are you sure you want to Deactivate?')
         .subscribe((response: any) => {
@@ -849,7 +849,7 @@ export class WorkLocationMappingComponent implements OnInit {
       if (
         (this.isInbound === false ||
           this.isInbound === null ||
-          this.isInbound == undefined) &&
+          this.isInbound === undefined) &&
         (this.isOutbound === false ||
           this.isOutbound === null ||
           this.isOutbound === undefined) &&
@@ -863,7 +863,7 @@ export class WorkLocationMappingComponent implements OnInit {
           objectToBeAdded.role.some(
             (item: any) => item.roleName.toLowerCase() === 'supervisor',
           ) &&
-          (this.isOutbound == true || this.isInbound == true)
+          (this.isOutbound === true || this.isInbound === true)
         ) {
           this.alertService.alert(
             "Supervisor doesn't have the privilege for Inbound/Outbound",
@@ -871,7 +871,7 @@ export class WorkLocationMappingComponent implements OnInit {
         }
 
         if (objectToBeAdded.role.length > 0) {
-          if (objectToBeAdded.role.length == 1) {
+          if (objectToBeAdded.role.length === 1) {
             for (let a = 0; a < objectToBeAdded.role.length; a++) {
               const obj = {
                 roleID1: objectToBeAdded.role[a].roleID,
@@ -895,8 +895,8 @@ export class WorkLocationMappingComponent implements OnInit {
             if (objectToBeAdded.role.length > 1) {
               for (let i = 0; i < objectToBeAdded.role.length; i++) {
                 if (
-                  objectToBeAdded.role[i].screenName == 'TC Specialist' ||
-                  objectToBeAdded.role[i].screenName == 'Supervisor'
+                  objectToBeAdded.role[i].screenName === 'TC Specialist' ||
+                  objectToBeAdded.role[i].screenName === 'Supervisor'
                 ) {
                   this.Role = null;
                   // roleArray = [];
@@ -964,13 +964,13 @@ export class WorkLocationMappingComponent implements OnInit {
     } else if (objectToBeAdded.serviceline.serviceName === 'HWC') {
       const result: boolean = this.checkHWCDuplicateBufferArray();
       const result2: boolean = this.checkHWCDuplicateMainArray();
-      if (result === true || result2 == true) {
+      if (result === true || result2 === true) {
         this.alertService.alert(
           'Same User Already Mapped with different State and District',
         );
       } else {
         if (objectToBeAdded.role.length > 0) {
-          if (objectToBeAdded.role.length == 1) {
+          if (objectToBeAdded.role.length === 1) {
             for (let a = 0; a < objectToBeAdded.role.length; a++) {
               const obj = {
                 roleID1: objectToBeAdded.role[a].roleID,
@@ -990,8 +990,8 @@ export class WorkLocationMappingComponent implements OnInit {
             if (objectToBeAdded.role.length > 1) {
               for (let i = 0; i < objectToBeAdded.role.length; i++) {
                 if (
-                  objectToBeAdded.role[i].screenName == 'TC Specialist' ||
-                  objectToBeAdded.role[i].screenName == 'Supervisor'
+                  objectToBeAdded.role[i].screenName === 'TC Specialist' ||
+                  objectToBeAdded.role[i].screenName === 'Supervisor'
                 ) {
                   this.Role = null;
                   // roleArray = [];
@@ -1030,15 +1030,15 @@ export class WorkLocationMappingComponent implements OnInit {
       }
     } else {
       if (objectToBeAdded.role.length > 0) {
-        if (objectToBeAdded.role.length == 1) {
+        if (objectToBeAdded.role.length === 1) {
           for (let a = 0; a < objectToBeAdded.role.length; a++) {
             const obj = {
               roleID1: objectToBeAdded.role[a].roleID,
               roleName: objectToBeAdded.role[a].roleName,
               screenName: objectToBeAdded.role[a].screenName,
               isSanjeevani:
-                objectToBeAdded.serviceline.serviceName != 'HWC' &&
-                objectToBeAdded.role[a].roleName.toLowerCase() != 'nurse' &&
+                objectToBeAdded.serviceline.serviceName !== 'HWC' &&
+                objectToBeAdded.role[a].roleName.toLowerCase() !== 'nurse' &&
                 !this.isSanjeevani
                   ? false
                   : true,
@@ -1050,8 +1050,8 @@ export class WorkLocationMappingComponent implements OnInit {
           if (objectToBeAdded.role.length > 1) {
             for (let i = 0; i < objectToBeAdded.role.length; i++) {
               if (
-                objectToBeAdded.role[i].screenName == 'TC Specialist' ||
-                objectToBeAdded.role[i].screenName == 'Supervisor'
+                objectToBeAdded.role[i].screenName === 'TC Specialist' ||
+                objectToBeAdded.role[i].screenName === 'Supervisor'
               ) {
                 this.Role = null;
                 // roleArray = [];
@@ -1063,8 +1063,9 @@ export class WorkLocationMappingComponent implements OnInit {
                   roleName: objectToBeAdded.role[i].roleName,
                   screenName: objectToBeAdded.role[i].screenName,
                   isSanjeevani:
-                    objectToBeAdded.serviceline.serviceName != 'HWC' &&
-                    objectToBeAdded.role[i].roleName.toLowerCase() != 'nurse' &&
+                    objectToBeAdded.serviceline.serviceName !== 'HWC' &&
+                    objectToBeAdded.role[i].roleName.toLowerCase() !==
+                      'nurse' &&
                     !this.isSanjeevani
                       ? false
                       : true,
@@ -1130,7 +1131,7 @@ export class WorkLocationMappingComponent implements OnInit {
     // villageArr.push(villageObj);
     const roleArr = [];
     roleArr.push(obj);
-    if (objectToBeAdded.Serviceblock != undefined) {
+    if (objectToBeAdded.Serviceblock !== undefined) {
       objectToBeAdded.Servicevillage.filter((item: any) => {
         villageNameArr.push(item.villageName);
         villageIDArr.push(item.districtBranchID);
@@ -1211,28 +1212,28 @@ export class WorkLocationMappingComponent implements OnInit {
 
       // 'district': objectToBeAdded.district ? objectToBeAdded.district.districtName : '-',
       blockName:
-        objectToBeAdded.Serviceblock != undefined &&
-        objectToBeAdded.Serviceblock.blockName != undefined &&
-        objectToBeAdded.Serviceblock.blockName != '' &&
-        objectToBeAdded.Serviceblock.blockName != null
+        objectToBeAdded.Serviceblock !== undefined &&
+        objectToBeAdded.Serviceblock.blockName !== undefined &&
+        objectToBeAdded.Serviceblock.blockName !== '' &&
+        objectToBeAdded.Serviceblock.blockName !== null
           ? objectToBeAdded.Serviceblock.blockName
           : null,
       blockID:
-        objectToBeAdded.Serviceblock != undefined &&
-        objectToBeAdded.Serviceblock.blockID != undefined &&
-        objectToBeAdded.Serviceblock.blockID != null
+        objectToBeAdded.Serviceblock !== undefined &&
+        objectToBeAdded.Serviceblock.blockID !== undefined &&
+        objectToBeAdded.Serviceblock.blockID !== null
           ? objectToBeAdded.Serviceblock.blockID
           : null,
       workingLocation: objectToBeAdded.worklocation.locationName,
       roleID1: roleArr,
       // 'villageID': villageNameArr,
       villageName:
-        villageNameArr != undefined && villageNameArr.length > 0
+        villageNameArr !== undefined && villageNameArr.length > 0
           ? villageNameArr
           : null,
       // 'villageID' : (villageIDArr!=undefined && villageIDArr!=null)?villageIDArr:null ,
       villageID:
-        villageIDArr != undefined && villageIDArr.length > 0
+        villageIDArr !== undefined && villageIDArr.length > 0
           ? villageIDArr
           : null,
       Inbound:
@@ -1266,7 +1267,7 @@ export class WorkLocationMappingComponent implements OnInit {
     else {
       workLocationObj['stateName'] = 'All States';
     }
-    if (objectToBeAdded.district != undefined) {
+    if (objectToBeAdded.district !== undefined) {
       workLocationObj['district'] = objectToBeAdded.district.districtName;
     } else {
       workLocationObj['district'] = null;
@@ -1338,7 +1339,7 @@ export class WorkLocationMappingComponent implements OnInit {
 
     for (let i = 0; i < this.bufferArray.data.length; i++) {
       const allRoleArr = [];
-      if (this.Role != undefined) {
+      if (this.Role !== undefined) {
         this.Role.filter((item: any) => {
           allRoleArr.push(item.roleName);
         });
@@ -1355,12 +1356,12 @@ export class WorkLocationMappingComponent implements OnInit {
                 isSanjeevani: this.bufferArray.data[i].isSanjeevani[0],
 
                 inbound:
-                  this.bufferArray.data[i].serviceName == '1097'
+                  this.bufferArray.data[i].serviceName === '1097'
                     ? this.bufferArray.data[i].Inbound
                     : null,
 
                 outbound:
-                  this.bufferArray.data[i].serviceName == '1097'
+                  this.bufferArray.data[i].serviceName === '1097'
                     ? this.bufferArray.data[i].Outbound
                     : null,
               },
@@ -1509,7 +1510,7 @@ export class WorkLocationMappingComponent implements OnInit {
       if (
         this.edit_Details.isSanjeevani !== undefined &&
         this.edit_Details.isSanjeevani !== null &&
-        this.edit_Details.isSanjeevani == true
+        this.edit_Details.isSanjeevani === true
       ) {
         this.eSanjivaniEditFlag = true;
 
@@ -1665,10 +1666,10 @@ export class WorkLocationMappingComponent implements OnInit {
 
           //on edit - populate roles
 
-          if (this.edit_Details != undefined) {
+          if (this.edit_Details !== undefined) {
             if (this.RolesList) {
               const edit_role = this.RolesList.filter((mappedRole: any) => {
-                if (this.edit_Details.roleID == mappedRole.roleID) {
+                if (this.edit_Details.roleID === mappedRole.roleID) {
                   return mappedRole;
                 }
               })[0];
@@ -1966,10 +1967,10 @@ export class WorkLocationMappingComponent implements OnInit {
 
           //on edit - populate roles
 
-          if (this.edit_Details != undefined) {
+          if (this.edit_Details !== undefined) {
             if (this.RolesList) {
               const edit_role = this.RolesList.filter((mappedRole: any) => {
-                if (this.edit_Details.roleID == mappedRole.roleID) {
+                if (this.edit_Details.roleID === mappedRole.roleID) {
                   return mappedRole;
                 }
               })[0];
@@ -1993,7 +1994,7 @@ export class WorkLocationMappingComponent implements OnInit {
       this.checkHWCDuplicateMainArrayForEditScreen(workLocations);
     if (workLocations.serviceID === 1) {
       const updateRoleName = this.RolesList.filter((response: any) => {
-        if (workLocations.role == response.roleID) {
+        if (workLocations.role === response.roleID) {
           return response;
         }
       })[0];
@@ -2011,19 +2012,19 @@ export class WorkLocationMappingComponent implements OnInit {
       } else {
         this.updateData(workLocations, updateRoleName.roleName);
       }
-    } else if (workLocations.serviceID === 9 && duplicate == true) {
+    } else if (workLocations.serviceID === 9 && duplicate === true) {
       this.alertService.alert('Same User already Mapped with different State');
     } else {
       const editVillageIdArray: any = [];
 
       if (
-        this.serviceEditvillage != undefined &&
-        this.serviceEditvillage != null &&
+        this.serviceEditvillage !== undefined &&
+        this.serviceEditvillage !== null &&
         this.serviceEditvillage.length > 0
       ) {
         this.serviceEditvillage.filter((item: any) => {
           this.editVillageArr.filter((itemValue: any) => {
-            if (item == itemValue.villageName) {
+            if (item === itemValue.villageName) {
               editVillageIdArray.push(itemValue.districtBranchID);
             }
           });
@@ -2153,15 +2154,15 @@ export class WorkLocationMappingComponent implements OnInit {
   }
   checkHWCDuplicateMainArrayForEditScreen(workLocations: any) {
     let result = false;
-    if (this.mappedWorkLocationsList.length != 0) {
+    if (this.mappedWorkLocationsList.length !== 0) {
       this.mappedWorkLocationsList.forEach((mappedWorkLocations: any) => {
         if (
           mappedWorkLocations.serviceID === 9 &&
           workLocations.state !== mappedWorkLocations.stateID &&
-          workLocations.district != mappedWorkLocations.workingDistrictID &&
-          workLocations.ServiceEditblock != mappedWorkLocations.blockID &&
+          workLocations.district !== mappedWorkLocations.workingDistrictID &&
+          workLocations.ServiceEditblock !== mappedWorkLocations.blockID &&
           mappedWorkLocations.userID == this.userID_duringEdit &&
-          mappedWorkLocations.uSRMappingID != this.uSRMappingID
+          mappedWorkLocations.uSRMappingID !== this.uSRMappingID
         ) {
           if (!mappedWorkLocations.userServciceRoleDeleted) {
             result = true;
@@ -2180,14 +2181,14 @@ export class WorkLocationMappingComponent implements OnInit {
       this.mappedWorkLocationsList.forEach((item: any) => {
         for (const key in item) {
           if (
-            key == 'userName' ||
-            key == 'serviceName' ||
-            key == 'stateName' ||
-            key == 'workingDistrictName' ||
-            key == 'blockName' ||
-            key == 'villageName' ||
-            key == 'locationName' ||
-            key == 'roleName'
+            key === 'userName' ||
+            key === 'serviceName' ||
+            key === 'stateName' ||
+            key === 'workingDistrictName' ||
+            key === 'blockName' ||
+            key === 'villageName' ||
+            key === 'locationName' ||
+            key === 'roleName'
           ) {
             const value: string = '' + item[key];
             if (value.toLowerCase().indexOf(searchTerm.toLowerCase()) >= 0) {
@@ -2238,7 +2239,7 @@ export class WorkLocationMappingComponent implements OnInit {
     // this.isOutbound=null;
     this.isInbound = false;
     this.isOutbound = false;
-    if (value == '1097') this.showInOutBound = true;
+    if (value === '1097') this.showInOutBound = true;
     else this.showInOutBound = false;
   }
 
@@ -2256,7 +2257,7 @@ export class WorkLocationMappingComponent implements OnInit {
 
   showInboundOutboundEdit(value: any, role: any) {
     const editRoleName = this.RolesList.filter((response: any) => {
-      if (role == response.roleID) {
+      if (role === response.roleID) {
         return response;
       }
     })[0];
@@ -2279,7 +2280,7 @@ export class WorkLocationMappingComponent implements OnInit {
   }
 
   showEditBlockDrop(serviceID_duringEdit: any) {
-    if (serviceID_duringEdit != 'FLW' || serviceID_duringEdit != 'HWC') {
+    if (serviceID_duringEdit !== 'FLW' || serviceID_duringEdit !== 'HWC') {
       this.enableEditBlockFlag = false;
       this.enableEditVillageFlag = false;
       this.ServiceEditblock = null;
@@ -2446,7 +2447,7 @@ export class WorkLocationMappingComponent implements OnInit {
 
   handleSelectionChanges() {
     const roleSanjArry: any = [];
-    if (this.Role != undefined) {
+    if (this.Role !== undefined) {
       this.Role.filter((item: any) => {
         roleSanjArry.push(item.roleName.toLowerCase());
       });
@@ -2516,7 +2517,7 @@ export class WorkLocationMappingComponent implements OnInit {
 
   eSanjeevaniEditSaveFunction(value: any, role: any) {
     const editRoleName = this.RolesList.filter((response: any) => {
-      if (role == response.roleID) {
+      if (role === response.roleID) {
         return response;
       }
     })[0];
@@ -2538,10 +2539,10 @@ export class WorkLocationMappingComponent implements OnInit {
       this.bufferArray.data.forEach((bufferArrayList: any) => {
         if (
           bufferArrayList.serviceName === 'HWC' &&
-          this.State.stateName != bufferArrayList.stateName &&
-          this.District.districtName != bufferArrayList.district &&
-          this.Serviceblock.blockID != bufferArrayList.blockID &&
-          bufferArrayList.userID == this.User.userID
+          this.State.stateName !== bufferArrayList.stateName &&
+          this.District.districtName !== bufferArrayList.district &&
+          this.Serviceblock.blockID !== bufferArrayList.blockID &&
+          bufferArrayList.userID === this.User.userID
         ) {
           result = true;
         }
@@ -2552,15 +2553,15 @@ export class WorkLocationMappingComponent implements OnInit {
   checkHWCDuplicateMainArray() {
     let result = false;
 
-    if (this.mappedWorkLocationsList.length != 0) {
+    if (this.mappedWorkLocationsList.length !== 0) {
       this.mappedWorkLocationsList.forEach((mappedWorkLocations: any) => {
         if (
           mappedWorkLocations.serviceName === 'HWC' &&
           this.State.stateName !== mappedWorkLocations.stateName &&
-          this.District.districtName !=
+          this.District.districtName !==
             mappedWorkLocations.workingDistrictName &&
-          this.Serviceblock.blockID != mappedWorkLocations.blockID &&
-          mappedWorkLocations.userID == this.User.userID
+          this.Serviceblock.blockID !== mappedWorkLocations.blockID &&
+          mappedWorkLocations.userID === this.User.userID
         ) {
           if (!mappedWorkLocations.userServciceRoleDeleted) {
             result = true;

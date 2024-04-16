@@ -68,7 +68,7 @@ export class SearchUomMasterComponent implements OnInit, AfterViewInit {
     this.filteredUOMMasterList.paginator = this.paginator;
   }
 
-  ngOnDestroy() {
+  OnDestroy() {
     if (this.serviceLineSubs) this.serviceLineSubs.unsubscribe();
   }
 
@@ -160,10 +160,10 @@ export class SearchUomMasterComponent implements OnInit, AfterViewInit {
       this.filteredUOMMasterList.paginator = this.paginator;
       this.UOMMasterList.forEach((item: any) => {
         for (const key in item) {
-          if (key == 'uOMCode' || key == 'uOMName' || key == 'uOMDesc') {
+          if (key === 'uOMCode' || key === 'uOMName' || key === 'uOMDesc') {
             const value: string = '' + item[key];
             if (value.toLowerCase().indexOf(searchTerm.toLowerCase()) >= 0) {
-              if (this.filteredUOMMasterList.data.indexOf(item) == -1)
+              if (this.filteredUOMMasterList.data.indexOf(item) === -1)
                 this.filteredUOMMasterList.data.push(item);
               this.filteredUOMMasterList = new MatTableDataSource<any>(
                 this.filteredUOMMasterList.data,

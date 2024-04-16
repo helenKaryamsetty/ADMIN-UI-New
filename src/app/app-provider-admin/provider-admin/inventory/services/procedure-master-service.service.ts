@@ -56,7 +56,9 @@ export class ProcedureMasterServiceService {
   }
 
   getCurrentProcedures(providerServiceMapID: any) {
-    return this.http.get(`${environment._getProcedureListURL}${providerServiceMapID}`);
+    return this.http.get(
+      `${environment._getProcedureListURL}${providerServiceMapID}`,
+    );
     // .map(this.handleSuccess)
     //   .catch(this.handleError);
   }
@@ -75,7 +77,6 @@ export class ProcedureMasterServiceService {
 
   toggleProcedure(reqObject: any) {
     return this.http.post(environment._toggleProcedureURL, reqObject);
-
   }
 
   getDiagnosticProcedure() {

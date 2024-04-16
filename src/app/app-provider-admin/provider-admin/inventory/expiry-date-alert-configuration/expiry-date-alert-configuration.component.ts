@@ -96,12 +96,14 @@ export class ExpiryDateAlertConfigurationComponent implements OnInit {
         if (response) {
           this.unmappedItemCategory = response.data.filter(
             (category: any) =>
-              category.deleted != true && category.alertBeforeDays == undefined,
+              category.deleted !== true &&
+              category.alertBeforeDays === undefined,
           );
 
           this.itemCategory_array = response.data.filter(
             (category: any) =>
-              category.deleted != true && category.alertBeforeDays != undefined,
+              category.deleted !== true &&
+              category.alertBeforeDays !== undefined,
           );
 
           this.filteredItemCategory_array.data =
@@ -125,9 +127,9 @@ export class ExpiryDateAlertConfigurationComponent implements OnInit {
           let flag = false;
           for (const key in item) {
             if (
-              key == 'itemCategoryCode' ||
-              key == 'itemCategoryName' ||
-              key == 'alertBeforeDays'
+              key === 'itemCategoryCode' ||
+              key === 'itemCategoryName' ||
+              key === 'alertBeforeDays'
             ) {
               const value: string = '' + item[key];
               if (value.toLowerCase().indexOf(filterTerm.toLowerCase()) >= 0) {
@@ -192,7 +194,7 @@ export class ExpiryDateAlertConfigurationComponent implements OnInit {
   checkDuplicateExpiryAlertConfig(expiryAlertConfig: any) {
     const temp = this.expiryAlertConfigList.data.filter((item: any) => {
       return (
-        item.itemCategory.itemCategoryID ==
+        item.itemCategory.itemCategoryID ===
         expiryAlertConfig.itemCategory.itemCategoryID
       );
     });

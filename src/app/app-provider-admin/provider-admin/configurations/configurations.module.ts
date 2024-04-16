@@ -16,6 +16,15 @@ import { MaterialModule } from 'src/app/core/material.module';
 import { MatIconModule } from '@angular/material/icon';
 import { AgentListCreationComponent } from './agent-list-creation/agent-list-creation.component';
 import { MatNativeDateModule } from '@angular/material/core';
+import { AgentIDMappingModal, UserRoleAgentIDMappingComponent } from './user-role-agent-id-mapping/user-role-agent-id-mapping.component';
+import { UserRoleAgentID_MappingService } from './services/user-role-agentID-mapping-service.service';
+import { HospitalInstituteDirectorySubdirectoryMappingComponent } from './hospital-institute-directory-subdirectory-mapping/hospital-institute-directory-subdirectory-mapping.component';
+import { HospitalInstituteMappingService } from '../activities/services/hospital-institute-mapping-service.service';
+import { ResetUserPasswordService } from 'src/app/core/services/ProviderAdminServices/reset-user-password.service';
+import { UtcDatePipe } from './utc-date.pipe';
+import { ResetUserPasswordComponent } from './reset-user-password/reset-user-password.component';
+import { SwymedUserMappingComponent } from './swymed-user-mapping/swymed-user-mapping.component';
+import { SwymedUserConfigurationService } from './services/swymed-user-service';
 
 @NgModule({
   declarations: [
@@ -25,6 +34,12 @@ import { MatNativeDateModule } from '@angular/material/core';
     SnomedCodeSearchComponent,
     MapSnommedCTCodeComponent,
     SmsTemplateComponent,
+    UserRoleAgentIDMappingComponent,
+    AgentIDMappingModal,
+    HospitalInstituteDirectorySubdirectoryMappingComponent,
+    ResetUserPasswordComponent,
+    SwymedUserMappingComponent,
+    UtcDatePipe
   ],
   imports: [
     CommonModule,
@@ -41,6 +56,10 @@ import { MatNativeDateModule } from '@angular/material/core';
     QuestionnaireServiceService,
     AgentListCreationService,
     SmsTemplateService,
+    UserRoleAgentID_MappingService,
+    HospitalInstituteMappingService,
+    ResetUserPasswordService,
+    SwymedUserConfigurationService
   ],
   exports: [
     AgentListCreationComponent,
@@ -49,6 +68,12 @@ import { MatNativeDateModule } from '@angular/material/core';
     SnomedCodeSearchComponent,
     MapSnommedCTCodeComponent,
     SmsTemplateComponent,
+    UserRoleAgentIDMappingComponent,
+    AgentIDMappingModal,
+    HospitalInstituteDirectorySubdirectoryMappingComponent,
+    ResetUserPasswordComponent,
+    SwymedUserMappingComponent,
+    UtcDatePipe
   ],
 })
 export class ConfigurationsModule {}

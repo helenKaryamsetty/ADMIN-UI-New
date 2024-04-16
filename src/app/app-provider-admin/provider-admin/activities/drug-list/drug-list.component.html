@@ -1,0 +1,224 @@
+<div class="row" *ngIf="showDrugs && !editable">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <h4 class="pull-left">Drug Master</h4>
+  </div>
+</div>
+<div class="pull-right m-t-15" *ngIf="availableDrugs.length!==0 && showDrugs && !editable">
+  <mat-form-field class="input-full-width mat_form_field_width_one" id="filterbox">
+    <input matInput placeholder="In-Table Search" #filterTerm (keyup)="filterComponentList(filterTerm.value)">
+    <mat-icon matSuffix>search</mat-icon>
+  </mat-form-field>
+</div>
+<div class="row" *ngIf="showDrugs && !editable">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-15">
+    <div class="table-responsive">
+      <table  mat-table class="mat-elevation-z8" [dataSource]="fileteredavailableDrugs">
+        <ng-container matColumnDef="sno">
+          <th mat-header-cell *matHeaderCellDef>SNo.</th>
+          <td mat-cell *matCellDef="let element; let i = index">{{ i + 1 }}</td>
+        </ng-container>
+        <ng-container matColumnDef="drugName">
+          <th mat-header-cell *matHeaderCellDef>Drug Name</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.drugName }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="drugDesc">
+          <th mat-header-cell *matHeaderCellDef>Description</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.drugDesc }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="remarks">
+          <th mat-header-cell *matHeaderCellDef>Remarks</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.remarks }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="edit">
+          <th mat-header-cell *matHeaderCellDef>Edit</th>
+          <td mat-cell *matCellDef="let element">
+            <mat-icon
+              matTooltip="Edit"
+              class="mat-icon material-icons"
+              role="img"
+              aria-hidden="true"
+              style="cursor: pointer"
+              *ngIf="!element.deleted"
+              (click)="editDrugData(element)"
+              >edit</mat-icon
+            >
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef>Action</th>
+          <td mat-cell *matCellDef="let element">
+            <button
+            *ngIf="element.deleted=='1'"
+              mat-raised-button
+              color="accent"
+              (click)="updateDrugStatus(element)"
+            >
+              Activate
+            </button>
+            <button
+            *ngIf="element.deleted=='0'"
+              mat-raised-button
+              color="primary"
+              (click)="updateDrugStatus(element)"
+            >
+              Deactivate
+            </button>
+          </td>
+        </ng-container>
+        <!-- <thead>
+          <tr>
+            <th width="10%">S.No.</th>
+            <th width="25%">Drug Name</th>
+            <th width="35%">Description</th>
+            <th width="25%">Remarks</th>
+            <th width="15%">Edit</th>
+            <th width="20%">Action</th>
+          </tr>
+        </thead> -->
+        <!-- <tbody>
+          <tr *ngIf="md2.data.length == 0" class="record-not-found">
+            <td colspan="6" align="center">No records found</td>
+          </tr>
+          <tr *ngFor="let drug of md2.data; let i= index">
+            <td>{{fileteredavailableDrugs.indexOf(drug)+1}}</td>
+            <td>{{drug.drugName}}</td>
+            <td>{{drug.drugDesc}}</td>
+            <td>{{drug.remarks}}</td>
+            <td>
+              <mat-icon mdTooltip="Edit" class="mat-icon material-icons" role="img" aria-hidden="true" style="cursor:pointer" *ngIf="!drug.deleted"
+                (click)="editDrugData(drug)">edit</mat-icon>
+            </td>
+            <td>
+              <button *ngIf="drug.deleted=='1'" mat-raised-button color="accent" (click)="updateDrugStatus(drug)">Activate</button>
+              <button *ngIf="drug.deleted=='0'" mat-raised-button color="primary" (click)="updateDrugStatus(drug)">Deactivate</button>
+            </td>
+          </tr>
+        </tbody> -->
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+      <div>
+        <button mat-raised-button color="primary" class="pull-right" (click)="showForm()">Create Drug</button>
+      </div>
+      <div
+      class="pull-center"
+      style="margin-top: 35px; text-align: center"
+      *ngIf="fileteredavailableDrugs.data.length === 0"
+    >
+      <strong>No Records Found</strong>
+    </div>
+    <mat-paginator
+      [hidden]="fileteredavailableDrugs.data.length === 0"
+      [pageSizeOptions]="[5, 10, 20]"
+      [pageSize]="5"
+      showFirstLastButtons
+    >
+    </mat-paginator>
+    </div>
+  </div>
+  <!-- <pagination-controls (pageChange)="b = $event" id="drugListResult"></pagination-controls> 
+   <div>
+    <button class="btn pull-right " (click)="showForm()">Add Drug </button>
+  </div> -->
+</div>
+<div *ngIf="!showDrugs || editable">
+  <h4 *ngIf="!editable">Create Drug</h4>
+  <h4 *ngIf="editable">Edit Drug</h4>
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-l-0">
+      <form #drugForm="ngForm" autocomplete="off">
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+          <mat-form-field class="input-full-width mat_form_field_width_one">
+            <input matInput itemNameMasterValidator  required placeholder="Drug Name " [(ngModel)]="drugName" name="drugName" #drugN="ngModel" (keyup)="checkExistance(drugName)"
+              minlength="1" maxlength="50" pattern="^([a-zA-Z0-9&()_-]+\s?)*\s*$">
+            <mat-hint>
+              <span class="error_text" *ngIf="(!drugN.valid  && ( drugN.dirty || drugN.touched)) || inValidDrugName">Please enter valid Drug Name </span>
+              <span class="error_text" *ngIf="drugNameExist">Drug Already Exists</span>
+            </mat-hint>
+          </mat-form-field>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+          <mat-form-field class="input-full-width mat_form_field_width_one">
+            <input matInput textAreaValidator  required placeholder="Drug Description" [(ngModel)]="drugDesc" name="drugDesc" #drugD="ngModel" minlength="1"
+              maxlength="100" (keyup)="checkForValidDrugDesc(drugDesc)">
+            <mat-hint>
+              <span class="error_text" *ngIf="(!drugD.valid  && ( drugD.dirty || drugD.touched)) || invalidDrugDesc">Please enter drug Description</span>
+            </mat-hint>
+          </mat-form-field>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+          <mat-form-field class="input-full-width mat_form_field_width_one">
+            <input matInput textAreaValidator  placeholder="Remarks" [(ngModel)]="remarks" name="remarks" maxlength="100">
+          </mat-form-field>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-12 col-lg-3" *ngIf="drugN.valid && drugD.valid && !drugNameExist && !inValidDrugName && !invalidDrugDesc">
+          <button *ngIf="!editable" md-mini-fab color="primary" class="xs-pull-right sm-pull-left md-pull-right lg-pull-left" (click)="addDrugToList(drugForm.value);drugForm.reset()  ">
+            <mat-icon matSuffix class="mat-icon material-icons" role="img" aria-hidden="true" style="cursor: pointer">add</mat-icon>
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="drugList.data.length>0">
+      <div class="table-responsive">
+        <table mat-table [dataSource]="drugList" class="mat-elevation-z8">
+          <ng-container matColumnDef="sno">
+            <th mat-header-cell *matHeaderCellDef>SNo.</th>
+            <td mat-cell *matCellDef="let element; let i = index">
+              {{ i + 1 }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="drugName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Drug Name</th>
+            <td mat-cell *matCellDef="let element">{{ element.drugName }}</td>
+          </ng-container>
+          <ng-container matColumnDef="drugDesc">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Description</th>
+            <td mat-cell *matCellDef="let element">{{ element.drugDesc }}</td>
+          </ng-container>
+          <ng-container matColumnDef="remarks">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Remarks</th>
+            <td mat-cell *matCellDef="let element">{{ element.remarks }}</td>
+          </ng-container>
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef>Action</th>
+            <td mat-cell *matCellDef="let element; let i = index">
+              <mat-icon
+                class="cursorPointer"
+                matTooltip="delete"
+                (click)="
+                  remove_obj(drugList.data.indexOf(element))
+                "
+                >delete</mat-icon
+              >
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayAddedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayAddedColumns"></tr>
+          <mat-paginator
+            [hidden]="drugList.data.length === 0"
+            [pageSizeOptions]="[5, 10, 20]"
+            [pageSize]="5"
+            showFirstLastButtons
+          >
+          </mat-paginator>
+      </table>
+      </div>
+      <!-- <pagination-controls (pageChange)="b = $event" id="drugsResult"></pagination-controls>  -->
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10">
+      <button mat-raised-button color="primary" class="pull-left" (click)="back()">Back</button>
+      <button [disabled]="drugList.data.length == 0" *ngIf="!editable" mat-raised-button color="accent" class="pull-right" (click)="storedrug()">Save</button>
+      <button *ngIf="editable" mat-raised-button color="accent" [disabled]="drugForm.invalid || drugNameExist || inValidDrugName || invalidDrugDesc" class="pull-right"
+        (click)="updateDrugData(drugForm.value);drugForm.reset()">Update</button>
+    </div>
+  </div>
+</div>

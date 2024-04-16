@@ -157,7 +157,7 @@ export class ServicelineCdssMapping implements OnInit {
     if (
       value.isCdss !== null &&
       value.isCdss !== undefined &&
-      value.isCdss == true
+      value.isCdss === true
     ) {
       this.showActivateFlag = false;
       this.showDeactivateFalg = true;
