@@ -2,6 +2,7 @@
   <div class="mainbar mainbar-rad">
     <button mat-button [matMenuTriggerFor]="Activities" class="top-element">
       Activities
+      <span class="caret"></span>
     </button>
     <mat-menu #Activities="matMenu">
       <button mat-menu-item (click)="show('1')">
@@ -91,9 +92,13 @@
         Parking Place Sub-District Mapping
       </button>
     </mat-menu>
-    <button mat-button>Reports</button>
-    <button mat-button [matMenuTriggerFor]="Configuration">
+    <button mat-button class="top-element">
+      Reports
+      <span class="caret"></span>
+    </button>
+    <button mat-button [matMenuTriggerFor]="Configuration" class="top-element">
       Configuration
+      <span class="caret"></span>
     </button>
     <mat-menu #Configuration="matMenu">
       <button mat-menu-item (click)="show('24')">Agent List Creation</button>
@@ -140,6 +145,7 @@
     </mat-menu>
     <button mat-button [matMenuTriggerFor]="Inventory" class="top-element">
       Inventory
+      <span class="caret"></span>
     </button>
     <mat-menu #Inventory="matMenu">
       <button mat-menu-item [matMenuTriggerFor]="typeMaster">Master</button>
