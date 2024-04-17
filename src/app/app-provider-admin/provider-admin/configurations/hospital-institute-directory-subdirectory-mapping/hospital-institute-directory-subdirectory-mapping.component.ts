@@ -1,24 +1,24 @@
 /*
-* AMRIT – Accessible Medical Records via Integrated Technology 
-* Integrated EHR (Electronic Health Records) Solution 
-*
-* Copyright (C) "Piramal Swasthya Management and Research Institute" 
-*
-* This file is part of AMRIT.
-*
-* This program is free software: you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
-* (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU General Public License for more details.
-*
-* You should have received a copy of the GNU General Public License
-* along with this program.  If not, see https://www.gnu.org/licenses/.
-*/
+ * AMRIT – Accessible Medical Records via Integrated Technology
+ * Integrated EHR (Electronic Health Records) Solution
+ *
+ * Copyright (C) "Piramal Swasthya Management and Research Institute"
+ *
+ * This file is part of AMRIT.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see https://www.gnu.org/licenses/.
+ */
 import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { NgForm } from '@angular/forms';
@@ -28,14 +28,17 @@ import { ConfirmationDialogsService } from 'src/app/core/services/dialog/confirm
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 
-
 @Component({
   selector: 'app-hospital-institute-directory-subdirectory-mapping',
-  templateUrl: './hospital-institute-directory-subdirectory-mapping.component.html',
-  styleUrls: ['./hospital-institute-directory-subdirectory-mapping.component.css']
+  templateUrl:
+    './hospital-institute-directory-subdirectory-mapping.component.html',
+  styleUrls: [
+    './hospital-institute-directory-subdirectory-mapping.component.css',
+  ],
 })
-export class HospitalInstituteDirectorySubdirectoryMappingComponent implements OnInit {
-
+export class HospitalInstituteDirectorySubdirectoryMappingComponent
+  implements OnInit
+{
   /*ngModels*/
   userID: any;
   serviceProviderID: any;
@@ -60,23 +63,14 @@ export class HospitalInstituteDirectorySubdirectoryMappingComponent implements O
 
   searchResultArray: any = [];
 
-
   /*flags*/
   showTableFlag = false;
   showFormFlag = false;
   disableSelection = false;
 
-  displayedColumns = [
-    'sno',
-    'institutionName',
-    'action',
-  ];
+  displayedColumns = ['sno', 'institutionName', 'action'];
 
-  displayAddedColumns = [
-    'sno',
-    'institutionName',
-    'action',
-  ];
+  displayAddedColumns = ['sno', 'institutionName', 'action'];
 
   paginator!: MatPaginator;
   @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
@@ -90,11 +84,13 @@ export class HospitalInstituteDirectorySubdirectoryMappingComponent implements O
   }
   bufferArray = new MatTableDataSource<any>();
 
-  @ViewChild('hospitalForm') hospitalForm !: NgForm;
-  @ViewChild('hospitalForm2') hospitalForm2 !: NgForm;
-  constructor(public hospitalInstituteMappingService: HospitalInstituteMappingService,
+  @ViewChild('hospitalForm') hospitalForm!: NgForm;
+  @ViewChild('hospitalForm2') hospitalForm2!: NgForm;
+  constructor(
+    public hospitalInstituteMappingService: HospitalInstituteMappingService,
     public commonDataService: dataService,
-    public alertService: ConfirmationDialogsService) {
+    public alertService: ConfirmationDialogsService,
+  ) {
     this.serviceProviderID = this.commonDataService.service_providerID;
   }
 
@@ -103,38 +99,42 @@ export class HospitalInstituteDirectorySubdirectoryMappingComponent implements O
     this.getServices(this.userID);
   }
 
-  getServices(userID:any) {
-    this.state = "";
-    this.district = "";
-    this.taluk = "";
-    this.institute_directory = "",
-      this.institute_subdirectory = "";
+  getServices(userID: any) {
+    this.state = '';
+    this.district = '';
+    this.taluk = '';
+    (this.institute_directory = ''), (this.institute_subdirectory = '');
 
     this.institute_directories = [];
     this.institute_subdirectories = [];
     this.taluks = [];
 
-    this.hospitalInstituteMappingService.getServices(userID)
-      .subscribe((response:any) => this.getServiceSuccessHandeler(response), err => {
+    this.hospitalInstituteMappingService.getServices(userID).subscribe(
+      (response: any) => this.getServiceSuccessHandeler(response),
+      (err) => {
         console.log('error while fetching service', err);
         //this.alertService.alert(err, 'error');
-      });
+      },
+    );
   }
 
-  getServiceSuccessHandeler(response:any) {
+  getServiceSuccessHandeler(response: any) {
     if (response) {
       this.services = response.data;
     }
   }
-  getStates(serviceID:any, isNational:any) {
-    this.hospitalInstituteMappingService.getStates(this.userID, serviceID, isNational)
-      .subscribe((response:any) => this.getStatesSuccessHandeler(response), err => {
-        console.log("error", err);
-        // this.alertService.alert(err, 'error');
-      });
-
+  getStates(serviceID: any, isNational: any) {
+    this.hospitalInstituteMappingService
+      .getStates(this.userID, serviceID, isNational)
+      .subscribe(
+        (response: any) => this.getStatesSuccessHandeler(response),
+        (err) => {
+          console.log('error', err);
+          // this.alertService.alert(err, 'error');
+        },
+      );
   }
-  getStatesSuccessHandeler(response:any) {
+  getStatesSuccessHandeler(response: any) {
     this.hospitalForm.controls['state'].reset();
     this.hospitalForm2.resetForm();
     this.districts = [];
@@ -157,7 +157,7 @@ export class HospitalInstituteDirectorySubdirectoryMappingComponent implements O
     this.showTableFlag = true;
     this.showFormFlag = false;
     /*reset the input fields of the form*/
-    this.hospital = "";
+    this.hospital = '';
     this.bufferArray.data = [];
 
     this.disableSelection = false;
@@ -165,14 +165,14 @@ export class HospitalInstituteDirectorySubdirectoryMappingComponent implements O
 
   clear() {
     /*resetting the search fields*/
-    this.state = "";
-    this.service = "";
-    this.providerServiceMapID = "";
-    this.district = "";
-    this.taluk = "";
-    this.hospital = "";
-    this.institute_directory = "";
-    this.institute_subdirectory = "";
+    this.state = '';
+    this.service = '';
+    this.providerServiceMapID = '';
+    this.district = '';
+    this.taluk = '';
+    this.hospital = '';
+    this.institute_directory = '';
+    this.institute_subdirectory = '';
 
     this.states = [];
     this.districts = [];
@@ -188,35 +188,34 @@ export class HospitalInstituteDirectorySubdirectoryMappingComponent implements O
     this.filteredsearchResultArray.data = [];
   }
 
-
-
-  getDistrict(stateID:any) {
+  getDistrict(stateID: any) {
     this.hospitalForm2.resetForm();
     this.taluks = [];
     this.institute_directories = [];
     this.institute_subdirectories = [];
     this.searchResultArray = [];
-    this.hospitalInstituteMappingService.getDistricts(stateID)
-      .subscribe((response:any) => this.getDistrictSuccessHandeler(response), err => {
-        console.log("error", err);
+    this.hospitalInstituteMappingService.getDistricts(stateID).subscribe(
+      (response: any) => this.getDistrictSuccessHandeler(response),
+      (err) => {
+        console.log('error', err);
         // this.alertService.alert(err, 'error');
-      });
-
+      },
+    );
   }
 
-  getDistrictSuccessHandeler(response:any) {
-    console.log(response, "Districts");
+  getDistrictSuccessHandeler(response: any) {
+    console.log(response, 'Districts');
     if (response) {
       this.districts = response.data;
     }
   }
 
-  setProviderServiceMapID(providerServiceMapID:any) {
+  setProviderServiceMapID(providerServiceMapID: any) {
     this.providerServiceMapID = providerServiceMapID;
     this.getInstituteDirectory();
   }
 
-  getTaluk(districtID:any) {
+  getTaluk(districtID: any) {
     this.hospitalForm2.controls['taluk'].reset();
     this.hospitalForm2.controls['institute_directory'].reset();
     this.hospitalForm2.controls['institute_subdirectory'].reset();
@@ -224,65 +223,69 @@ export class HospitalInstituteDirectorySubdirectoryMappingComponent implements O
     this.institute_subdirectories = [];
     this.searchResultArray = [];
 
-    this.hospitalInstituteMappingService.getTaluks(districtID)
-      .subscribe((response:any) => this.getTalukSuccessHandeler(response), err => {
-        console.log("error", err);
+    this.hospitalInstituteMappingService.getTaluks(districtID).subscribe(
+      (response: any) => this.getTalukSuccessHandeler(response),
+      (err) => {
+        console.log('error', err);
         //this.alertService.alert(err, 'error');
-      });
+      },
+    );
   }
 
-  getTalukSuccessHandeler(response:any) {
-    console.log(response, "Taluk")
+  getTalukSuccessHandeler(response: any) {
+    console.log(response, 'Taluk');
     if (response) {
       this.taluks = response.data;
     }
-
   }
 
-
   getInstitutions() {
-
     this.institute_subdirectories = [];
     this.searchResultArray = [];
 
-    let request_obj = {
-      "providerServiceMapID": this.providerServiceMapID,
-      "stateID": this.state,
-      "districtID": this.district,
-      "blockID": this.taluk
-    }
+    const request_obj = {
+      providerServiceMapID: this.providerServiceMapID,
+      stateID: this.state,
+      districtID: this.district,
+      blockID: this.taluk,
+    };
 
-    console.log("request obj to get", request_obj);
-    this.hospitalInstituteMappingService.getInstitutions(request_obj)
-      .subscribe((response:any) => this.getInstitutionSuccessHandeler(response), err => {
-        console.log("error", err);
+    console.log('request obj to get', request_obj);
+    this.hospitalInstituteMappingService.getInstitutions(request_obj).subscribe(
+      (response: any) => this.getInstitutionSuccessHandeler(response),
+      (err) => {
+        console.log('error', err);
         //this.alertService.alert(err, 'error');
-      });
+      },
+    );
     this.hospitalForm2.controls['institute_directory'].reset();
     this.hospitalForm2.controls['institute_subdirectory'].reset();
   }
 
-  getInstitutionSuccessHandeler(response:any) {
-    console.log(response, "GET HOSPITAL LIST");
+  getInstitutionSuccessHandeler(response: any) {
+    console.log(response, 'GET HOSPITAL LIST');
     if (response) {
       this.hospitals = response.data;
     }
-
   }
 
   getInstituteDirectory() {
-    this.hospitalInstituteMappingService.getInstituteDirectory(this.providerServiceMapID)
-      .subscribe((response:any) => this.getInstituteDirectorySuccessHandeler(response), err => {
-        console.log("error", err);
-        // this.alertService.alert(err, 'error');
-      });
+    this.hospitalInstituteMappingService
+      .getInstituteDirectory(this.providerServiceMapID)
+      .subscribe(
+        (response: any) => this.getInstituteDirectorySuccessHandeler(response),
+        (err) => {
+          console.log('error', err);
+          // this.alertService.alert(err, 'error');
+        },
+      );
   }
 
-  getInstituteDirectorySuccessHandeler(response:any) {
+  getInstituteDirectorySuccessHandeler(response: any) {
     this.institute_directory = '';
     if (response) {
-      console.log("institute directory", response);
-      this.institute_directories = response.data.filter(function (item:any) {
+      console.log('institute directory', response);
+      this.institute_directories = response.data.filter(function (item: any) {
         if (item.deleted === false) {
           return item;
         }
@@ -290,92 +293,99 @@ export class HospitalInstituteDirectorySubdirectoryMappingComponent implements O
     }
   }
 
-  getInstituteSubdirectory(institute_directory:any) {
+  getInstituteSubdirectory(institute_directory: any) {
     this.searchResultArray = [];
-    let data = {
-      "instituteDirectoryID": institute_directory,
-      "providerServiceMapId": this.providerServiceMapID
-    }
+    const data = {
+      instituteDirectoryID: institute_directory,
+      providerServiceMapId: this.providerServiceMapID,
+    };
 
-    this.hospitalInstituteMappingService.getInstituteSubDirectory(data)
-      .subscribe((response:any) => this.getInstituteSubDirectorySuccessHandeler(response), err => {
-        console.log("error", err);
-        // this.alertService.alert(err, 'error');
-      });
-
-
+    this.hospitalInstituteMappingService
+      .getInstituteSubDirectory(data)
+      .subscribe(
+        (response: any) =>
+          this.getInstituteSubDirectorySuccessHandeler(response),
+        (err) => {
+          console.log('error', err);
+          // this.alertService.alert(err, 'error');
+        },
+      );
   }
 
-  getInstituteSubDirectorySuccessHandeler(response:any) {
+  getInstituteSubDirectorySuccessHandeler(response: any) {
     this.hospitalForm2.controls['institute_subdirectory'].reset();
     if (response) {
-      console.log("INSTITUTE SUB DIRECTORY", response);
-      this.institute_subdirectories = response.data.filter(function (item:any) {
+      console.log('INSTITUTE SUB DIRECTORY', response);
+      this.institute_subdirectories = response.data.filter(function (
+        item: any,
+      ) {
         if (item.deleted === false) {
           return item;
         }
       });
     }
-
   }
 
   getMappingHistory() {
     this.searchResultArray = [];
-    let reqObj = {
-      "instituteDirectoryID": this.institute_directory,
-      "instituteSubDirectoryID": this.institute_subdirectory,
-      "blockID": this.taluk,
-      "stateID": this.state,
-      "districtID": this.district
-    }
+    const reqObj = {
+      instituteDirectoryID: this.institute_directory,
+      instituteSubDirectoryID: this.institute_subdirectory,
+      blockID: this.taluk,
+      stateID: this.state,
+      districtID: this.district,
+    };
 
-    if (reqObj.blockID === undefined || reqObj.blockID === null || reqObj.blockID === "") {
-      this.alertService.alert("Please select taluk as well");
-    }
-    else {
-      console.log("GET REQ OBJ FOR GETTING MAPPINGS", reqObj);
-      this.hospitalInstituteMappingService.getMappingList(reqObj)
-        .subscribe((response:any) => this.mappingHistorySuccessHandeler(response), err => {
-          console.log("error", err);
+    if (
+      reqObj.blockID === undefined ||
+      reqObj.blockID === null ||
+      reqObj.blockID === ''
+    ) {
+      this.alertService.alert('Please select taluk as well');
+    } else {
+      console.log('GET REQ OBJ FOR GETTING MAPPINGS', reqObj);
+      this.hospitalInstituteMappingService.getMappingList(reqObj).subscribe(
+        (response: any) => this.mappingHistorySuccessHandeler(response),
+        (err) => {
+          console.log('error', err);
           //this.alertService.alert(err, 'error');
-        });
+        },
+      );
     }
-
-
   }
 
-  mappingHistorySuccessHandeler(response:any) {
-    console.log("HISTORY OF MAPPING", response);
+  mappingHistorySuccessHandeler(response: any) {
+    console.log('HISTORY OF MAPPING', response);
     this.showTableFlag = true;
     this.searchResultArray = response.data;
     this.filteredsearchResultArray.data = response.data;
   }
 
-  add_obj(hospital:any) {
-    let obj = {
+  add_obj(hospital: any) {
+    const obj = {
+      institutionID: hospital,
+      hospital_name: this.hospital_name,
+      instituteDirectoryID: this.institute_directory,
+      instituteSubDirectoryID: this.institute_subdirectory,
+      providerServiceMapID: this.providerServiceMapID,
+      createdBy: this.commonDataService.uname,
+    };
 
-      "institutionID": hospital,
-      "hospital_name": this.hospital_name,
-      "instituteDirectoryID": this.institute_directory,
-      "instituteSubDirectoryID": this.institute_subdirectory,
-      "providerServiceMapID": this.providerServiceMapID,
-      "createdBy": this.commonDataService.uname
-    }
-
-    if (this.bufferArray.data.length == 0 && (obj.institutionID != "" && obj.institutionID != undefined)) {
-      var is_unique = this.preventDuplicateMapping(obj.institutionID);
+    if (
+      this.bufferArray.data.length === 0 &&
+      obj.institutionID !== '' &&
+      obj.institutionID !== undefined
+    ) {
+      const is_unique = this.preventDuplicateMapping(obj.institutionID);
 
       if (is_unique) {
         this.bufferArray.data.push(obj);
-      }
-      else {
+      } else {
         // this.alertService.alert("Already exist");
-        this.hospital = "";
+        this.hospital = '';
       }
-
-    }
-    else {
-      var is_unique = this.preventDuplicateMapping(obj.institutionID);
+    } else {
+      const is_unique = this.preventDuplicateMapping(obj.institutionID);
       if (is_unique) {
         let count = 0;
         for (let i = 0; i < this.bufferArray.data.length; i++) {
@@ -383,119 +393,135 @@ export class HospitalInstituteDirectorySubdirectoryMappingComponent implements O
             count = count + 1;
           }
         }
-        if (count == 0 && (obj.institutionID != "" && obj.institutionID != undefined)) {
+        if (
+          count === 0 &&
+          obj.institutionID !== '' &&
+          obj.institutionID !== undefined
+        ) {
           this.bufferArray.data.push(obj);
+        } else {
+          this.alertService.alert('Already exists');
         }
-        else {
-          this.alertService.alert("Already exists");
-        }
-
+      } else {
+        this.alertService.alert('Mapping for this hospital already exists');
+        this.hospital = '';
       }
-      else {
-        this.alertService.alert("Mapping for this hospital already exists");
-        this.hospital = "";
-      }
-
     }
     /*resetting fields after entering in buffer array/or if duplicate exist*/
-    this.hospital = "";
-
+    this.hospital = '';
   }
 
-  preventDuplicateMapping(hospital_id:any) {
+  preventDuplicateMapping(hospital_id: any) {
     if (this.searchResultArray.length === 0) {
-
       return true;
-    }
-    else {
-      var count = 0;
+    } else {
+      let count = 0;
       for (let i = 0; i < this.searchResultArray.length; i++) {
-        if (this.searchResultArray[i].institute.institutionID === parseInt(hospital_id)) {
-
+        if (
+          this.searchResultArray[i].institute.institutionID ===
+          parseInt(hospital_id)
+        ) {
           count = count + 1;
         }
-
       }
       if (count > 0) {
-        this.alertService.alert("Already exists");
+        this.alertService.alert('Already exists');
         return false;
-      }
-      else {
+      } else {
         return true;
       }
     }
-
   }
 
-  removeObj(index:any) {
+  removeObj(index: any) {
     this.bufferArray.data.splice(index, 1);
   }
 
-
   hospital_name: any;
-  setHospitalName(hospital_name:any) {
+  setHospitalName(hospital_name: any) {
     this.hospital_name = hospital_name;
   }
 
   save() {
-    console.log("buffer array", this.bufferArray);
-    this.hospitalInstituteMappingService.createMapping(this.bufferArray)
-      .subscribe((response:any) => this.saveSuccessHandeler(response), err => {
-        console.log("error", err);
-        // this.alertService.alert(err, 'error');
-      });
+    console.log('buffer array', this.bufferArray);
+    this.hospitalInstituteMappingService
+      .createMapping(this.bufferArray)
+      .subscribe(
+        (response: any) => this.saveSuccessHandeler(response),
+        (err) => {
+          console.log('error', err);
+          // this.alertService.alert(err, 'error');
+        },
+      );
   }
 
-  saveSuccessHandeler(response:any) {
-    console.log("response", response);
+  saveSuccessHandeler(response: any) {
+    console.log('response', response);
     if (response) {
-      this.alertService.alert("Mapping saved successfully", 'success');
+      this.alertService.alert('Mapping saved successfully', 'success');
       this.back();
       this.getMappingHistory();
     }
   }
 
-
-  toggle_activate(instituteDirMapID:any, isDeleted:any, directory:any) {
+  toggle_activate(instituteDirMapID: any, isDeleted: any, directory: any) {
     if (directory) {
-      this.alertService.alert("Institute is inactive");
-    }
-    else {
+      this.alertService.alert('Institute is inactive');
+    } else {
       if (isDeleted === true) {
-        this.alertService.confirm('Confirm', "Are you sure you want to Deactivate?").subscribe((response:any) => {
-          if (response) {
-            let obj = {
-              "instituteDirMapID": instituteDirMapID,
-              "deleted": isDeleted
-            };
+        this.alertService
+          .confirm('Confirm', 'Are you sure you want to Deactivate?')
+          .subscribe((response: any) => {
+            if (response) {
+              const obj = {
+                instituteDirMapID: instituteDirMapID,
+                deleted: isDeleted,
+              };
 
-            this.hospitalInstituteMappingService.toggleMappingStatus(obj)
-              .subscribe((response:any) => this.toggleMappingStatusSuccessHandeler(response, "Deactivated"), err => {
-                console.log("error", err);
-                //this.alertService.alert(err, 'error');
-              })
-          }
-        });
+              this.hospitalInstituteMappingService
+                .toggleMappingStatus(obj)
+                .subscribe(
+                  (response: any) =>
+                    this.toggleMappingStatusSuccessHandeler(
+                      response,
+                      'Deactivated',
+                    ),
+                  (err) => {
+                    console.log('error', err);
+                    //this.alertService.alert(err, 'error');
+                  },
+                );
+            }
+          });
       }
 
       if (isDeleted === false) {
-        this.alertService.confirm('Confirm', "Are you sure you want to Activate?").subscribe((response:any) => {
-          if (response) {
-            let obj = {
-              "instituteDirMapID": instituteDirMapID,
-              "deleted": isDeleted
-            };
+        this.alertService
+          .confirm('Confirm', 'Are you sure you want to Activate?')
+          .subscribe((response: any) => {
+            if (response) {
+              const obj = {
+                instituteDirMapID: instituteDirMapID,
+                deleted: isDeleted,
+              };
 
-            this.hospitalInstituteMappingService.toggleMappingStatus(obj)
-              .subscribe((response:any) => this.toggleMappingStatusSuccessHandeler(response, "Activated"), err => {
-                console.log("error", err);
-                //this.alertService.alert(err, 'error');
-              })
-          }
-        });
+              this.hospitalInstituteMappingService
+                .toggleMappingStatus(obj)
+                .subscribe(
+                  (response: any) =>
+                    this.toggleMappingStatusSuccessHandeler(
+                      response,
+                      'Activated',
+                    ),
+                  (err) => {
+                    console.log('error', err);
+                    //this.alertService.alert(err, 'error');
+                  },
+                );
+            }
+          });
       }
     }
-
   }
   filterComponentList(searchTerm?: string) {
     if (!searchTerm) {
@@ -504,28 +530,25 @@ export class HospitalInstituteDirectorySubdirectoryMappingComponent implements O
     } else {
       this.filteredsearchResultArray.data = [];
       this.filteredsearchResultArray.paginator = this.paginator;
-      this.searchResultArray.forEach((item:any) => {
-        for (let key in item.institute) {
-          if (key == 'institutionName') {
-            let value: string = '' + item.institute[key];
+      this.searchResultArray.forEach((item: any) => {
+        for (const key in item.institute) {
+          if (key === 'institutionName') {
+            const value: string = '' + item.institute[key];
             if (value.toLowerCase().indexOf(searchTerm.toLowerCase()) >= 0) {
-              this.filteredsearchResultArray.data.push(item); break;
+              this.filteredsearchResultArray.data.push(item);
+              break;
             }
-          } else {
-
           }
         }
       });
     }
-
   }
 
-  toggleMappingStatusSuccessHandeler(response:any, action:any) {
-    console.log(response, "delete Response");
+  toggleMappingStatusSuccessHandeler(response: any, action: any) {
+    console.log(response, 'delete Response');
     if (response) {
-      this.alertService.alert(action + " successfully", 'success');
+      this.alertService.alert(action + ' successfully', 'success');
       this.getMappingHistory();
     }
   }
-
 }

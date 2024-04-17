@@ -1,24 +1,24 @@
 /*
-* AMRIT – Accessible Medical Records via Integrated Technology 
-* Integrated EHR (Electronic Health Records) Solution 
-*
-* Copyright (C) "Piramal Swasthya Management and Research Institute" 
-*
-* This file is part of AMRIT.
-*
-* This program is free software: you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
-* (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU General Public License for more details.
-*
-* You should have received a copy of the GNU General Public License
-* along with this program.  If not, see https://www.gnu.org/licenses/.
-*/
+ * AMRIT – Accessible Medical Records via Integrated Technology
+ * Integrated EHR (Electronic Health Records) Solution
+ *
+ * Copyright (C) "Piramal Swasthya Management and Research Institute"
+ *
+ * This file is part of AMRIT.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see https://www.gnu.org/licenses/.
+ */
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ProviderAdminRoleService } from '../services/state-serviceline-role.service';
@@ -29,13 +29,11 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 
-
 @Component({
   selector: 'app-drug-group',
-  templateUrl: './drug-group.component.html'
+  templateUrl: './drug-group.component.html',
 })
 export class DrugGroupComponent implements OnInit {
-
   showDrugGroups: any = true;
   availableDrugGroups: any = [];
   data: any;
@@ -50,22 +48,11 @@ export class DrugGroupComponent implements OnInit {
   createdBy: any;
   sno: any = 0;
   invalidDrugDesc = false;
-  @ViewChild('drugGroupForm') drugGroupForm !: NgForm;
+  @ViewChild('drugGroupForm') drugGroupForm!: NgForm;
   drugGroupToEdit: any;
-  displayedColumns = [
-    'sno',
-    'drugGroup',
-    'drugGroupDesc',
-    'edit',
-    'action',
-  ];
+  displayedColumns = ['sno', 'drugGroup', 'drugGroupDesc', 'edit', 'action'];
 
-  displayAddedColumns = [
-    'sno',
-    'drugGroup',
-    'drugGroupDesc',
-    'action',
-  ];
+  displayAddedColumns = ['sno', 'drugGroup', 'drugGroupDesc', 'action'];
 
   paginator!: MatPaginator;
   @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
@@ -79,10 +66,12 @@ export class DrugGroupComponent implements OnInit {
   }
   drugGroupList = new MatTableDataSource<any>();
   @ViewChild(MatSort) sort: MatSort | null = null;
-  constructor(public providerAdminRoleService: ProviderAdminRoleService,
+  constructor(
+    public providerAdminRoleService: ProviderAdminRoleService,
     public commonDataService: dataService,
     public drugMasterService: DrugMasterService,
-    private alertMessage: ConfirmationDialogsService) {
+    private alertMessage: ConfirmationDialogsService,
+  ) {
     this.data = [];
     this.service_provider_id = this.commonDataService.service_providerID;
     this.serviceID104 = this.commonDataService.serviceID104;
@@ -92,68 +81,79 @@ export class DrugGroupComponent implements OnInit {
   ngOnInit() {
     this.getAvailableDrugs();
     this.getStatesByServiceID();
-
   }
 
-  stateSelection(stateID:any) {
+  stateSelection(stateID: any) {
     this.getServices(stateID);
   }
 
   getAvailableDrugs() {
     this.drugGroupObj = {};
     this.drugGroupObj.serviceProviderID = this.service_provider_id;
-    this.drugMasterService.getDrugGroups(this.drugGroupObj).subscribe((response:any) => this.getDrugGroupsSuccessHandeler(response),
+    this.drugMasterService.getDrugGroups(this.drugGroupObj).subscribe(
+      (response: any) => this.getDrugGroupsSuccessHandeler(response),
       (err) => {
-        console.log("error", err);
+        console.log('error', err);
         //this.alertMessage.alert(err, 'error')
-      });
+      },
+    );
   }
 
-  getDrugGroupsSuccessHandeler(response:any) {
+  getDrugGroupsSuccessHandeler(response: any) {
     this.availableDrugGroups = response.data;
     this.filteredavailableDrugGroups.data = response.data;
-    for (let availableDrugGroup of this.availableDrugGroups) {
+    for (const availableDrugGroup of this.availableDrugGroups) {
       this.availableDrugGroupNames.push(availableDrugGroup.drugGroup);
     }
   }
-  getServices(stateID:any) {
-    this.providerAdminRoleService.getServices(this.service_provider_id, stateID).subscribe((response:any) => this.getServicesSuccessHandeler(response),
-      (err) => {
-        console.log("error", err);
-        //this.alertMessage.alert(err, 'error')
-      });
+  getServices(stateID: any) {
+    this.providerAdminRoleService
+      .getServices(this.service_provider_id, stateID)
+      .subscribe(
+        (response: any) => this.getServicesSuccessHandeler(response),
+        (err) => {
+          console.log('error', err);
+          //this.alertMessage.alert(err, 'error')
+        },
+      );
   }
 
   getStates() {
-    this.providerAdminRoleService.getStates(this.service_provider_id).subscribe((response:any) => this.getStatesSuccessHandeler(response),
+    this.providerAdminRoleService.getStates(this.service_provider_id).subscribe(
+      (response: any) => this.getStatesSuccessHandeler(response),
       (err) => {
-        console.log("error", err);
+        console.log('error', err);
         //this.alertMessage.alert(err, 'error')
-      });
+      },
+    );
   }
 
   getStatesByServiceID() {
-    this.drugMasterService.getStatesByServiceID(this.serviceID104, this.service_provider_id).subscribe((response:any) => this.getStatesSuccessHandeler(response),
-      (err) => {
-        console.log("error", err);
-        //this.alertMessage.alert(err, 'error')
-      });
+    this.drugMasterService
+      .getStatesByServiceID(this.serviceID104, this.service_provider_id)
+      .subscribe(
+        (response: any) => this.getStatesSuccessHandeler(response),
+        (err) => {
+          console.log('error', err);
+          //this.alertMessage.alert(err, 'error')
+        },
+      );
   }
 
-  getStatesSuccessHandeler(response:any) {
+  getStatesSuccessHandeler(response: any) {
     this.provider_states = response.data;
   }
 
-  getServicesSuccessHandeler(response:any) {
+  getServicesSuccessHandeler(response: any) {
     this.provider_services = response.data;
-    for (let provider_service of this.provider_services) {
-      if ("104" == provider_service.serviceName) {
+    for (const provider_service of this.provider_services) {
+      if ('104' === provider_service.serviceName) {
         this.providerServiceMapID = provider_service.providerServiceMapID;
       }
     }
   }
 
-  responseHandler(response:any) {
+  responseHandler(response: any) {
     this.data = response;
   }
 
@@ -171,82 +171,89 @@ export class DrugGroupComponent implements OnInit {
   //   'createdBy':''
   // };
 
-  addDrugGroupToList(values:any) {
-    
-      this.drugGroupObj = {};
-      this.drugGroupObj.drugGroup = (values.drugGroup !== undefined && values.drugGroup !== null) ? values.drugGroup.trim() : null;
-      this.drugGroupObj.drugGroupDesc = (values.drugGroupDesc !== undefined && values.drugGroupDesc !== null) ? values.drugGroupDesc.trim() : null;
+  addDrugGroupToList(values: any) {
+    this.drugGroupObj = {};
+    this.drugGroupObj.drugGroup =
+      values.drugGroup !== undefined && values.drugGroup !== null
+        ? values.drugGroup.trim()
+        : null;
+    this.drugGroupObj.drugGroupDesc =
+      values.drugGroupDesc !== undefined && values.drugGroupDesc !== null
+        ? values.drugGroupDesc.trim()
+        : null;
 
-      this.drugGroupObj.serviceProviderID = this.service_provider_id;
-      this.drugGroupObj.createdBy = this.createdBy;
-      this.checkDuplicates(this.drugGroupObj);
+    this.drugGroupObj.serviceProviderID = this.service_provider_id;
+    this.drugGroupObj.createdBy = this.createdBy;
+    this.checkDuplicates(this.drugGroupObj);
   }
-  checkDuplicates(object:any) {
-    let duplicateStatus = 0
+  checkDuplicates(object: any) {
+    let duplicateStatus = 0;
     if (this.drugGroupList.data.length === 0) {
       this.drugGroupList.data.push(object);
-    }
-    else {
+    } else {
       for (let i = 0; i < this.drugGroupList.data.length; i++) {
-        if (this.drugGroupList.data[i].drugGroup === object.drugGroup
-        ) {
+        if (this.drugGroupList.data[i].drugGroup === object.drugGroup) {
           duplicateStatus = duplicateStatus + 1;
         }
       }
       if (duplicateStatus === 0) {
         this.drugGroupList.data.push(object);
-      }
-      else {
-        this.alertMessage.alert("Already exists");
+      } else {
+        this.alertMessage.alert('Already exists');
       }
     }
   }
   storeDrugGroup() {
-    let obj = { "drugGroups": this.drugGroupList.data };
-    this.drugMasterService.saveDrugGroups(JSON.stringify(obj)).subscribe((response:any) => this.successHandler(response));
+    const obj = { drugGroups: this.drugGroupList.data };
+    this.drugMasterService
+      .saveDrugGroups(JSON.stringify(obj))
+      .subscribe((response: any) => this.successHandler(response));
   }
 
-  successHandler(response:any) {
+  successHandler(response: any) {
     this.drugGroupList.data = [];
-    this.alertMessage.alert("Saved successfully", 'success');
+    this.alertMessage.alert('Saved successfully', 'success');
     this.getAvailableDrugs();
     this.clearEdit();
   }
   dataObj: any = {};
-  updateDrugGroupStatus(drugGroup:any) {
-    let flag = !drugGroup.deleted;
-    let status :any;
+  updateDrugGroupStatus(drugGroup: any) {
+    const flag = !drugGroup.deleted;
+    let status: any;
     if (flag === true) {
-      status = "Deactivate";
+      status = 'Deactivate';
     }
     if (flag === false) {
-      status = "Activate";
+      status = 'Activate';
     }
-    this.alertMessage.confirm('Confirm', "Are you sure you want to " + status + "?").subscribe(response => {
-      if (response) {
-
-        this.dataObj = {};
-        this.dataObj.drugGroupID = drugGroup.drugGroupID;
-        this.dataObj.deleted = !drugGroup.deleted;
-        this.dataObj.modifiedBy = this.createdBy;
-        this.drugMasterService.updateDrugStatus(this.dataObj).subscribe((response:any) => { this.alertMessage.alert(status + "d successfully", 'success') },
-          (err) => {
-            console.log("error", err);
-            //this.alertMessage.alert(err, 'error')
-          });
-        drugGroup.deleted = !drugGroup.deleted;
-
-      }
-
-    })
+    this.alertMessage
+      .confirm('Confirm', 'Are you sure you want to ' + status + '?')
+      .subscribe((response) => {
+        if (response) {
+          this.dataObj = {};
+          this.dataObj.drugGroupID = drugGroup.drugGroupID;
+          this.dataObj.deleted = !drugGroup.deleted;
+          this.dataObj.modifiedBy = this.createdBy;
+          this.drugMasterService.updateDrugStatus(this.dataObj).subscribe(
+            (response: any) => {
+              this.alertMessage.alert(status + 'd successfully', 'success');
+            },
+            (err) => {
+              console.log('error', err);
+              //this.alertMessage.alert(err, 'error')
+            },
+          );
+          drugGroup.deleted = !drugGroup.deleted;
+        }
+      });
   }
-  activePage :any;
+  activePage: any;
   // updateStatusHandler(response) {
 
   //   console.log("Drug Group status changed");
   // }
 
-  remove_obj(index:any) {
+  remove_obj(index: any) {
     this.drugGroupList.data.splice(index, 1);
   }
 
@@ -256,72 +263,99 @@ export class DrugGroupComponent implements OnInit {
   stateID: any;
 
   initializeObj() {
-    this.drugGroupID = "";
-    this.drugGroup = "";
-    this.drugGroupDesc = "";
-    this.stateID = "";
+    this.drugGroupID = '';
+    this.drugGroup = '';
+    this.drugGroupDesc = '';
+    this.stateID = '';
   }
-  editDrugGroup(drug:any) {
-    this.drugGroupID = ( drug.drugGroupID !==null && drug.drugGroupID !==undefined) ? parseInt(drug.drugGroupID):null;
-    this.drugGroup = (typeof drug.drugGroup === 'string' && drug.drugGroup.trim() !== '') ? drug.drugGroup.trim() : null;
-    this.drugGroupDesc = (typeof drug.drugGroupDesc === 'string' && drug.drugGroupDesc.trim() !== '') ?  drug.drugGroupDesc.trim() : null;
+  editDrugGroup(drug: any) {
+    this.drugGroupID =
+      drug.drugGroupID !== null && drug.drugGroupID !== undefined
+        ? parseInt(drug.drugGroupID)
+        : null;
+    this.drugGroup =
+      typeof drug.drugGroup === 'string' && drug.drugGroup.trim() !== ''
+        ? drug.drugGroup.trim()
+        : null;
+    this.drugGroupDesc =
+      typeof drug.drugGroupDesc === 'string' && drug.drugGroupDesc.trim() !== ''
+        ? drug.drugGroupDesc.trim()
+        : null;
     //this.stateID = drug.m_providerServiceMapping.state.stateID;
     this.editable = true;
     this.drugGroupToEdit = drug.drugGroup;
   }
 
-  updateDrugGroup(drugGroup:any) {
-    if (drugGroup.drugGroup !== undefined && drugGroup.drugGroup !== null && (drugGroup.drugGroup.trim() === "")) {
-
-      this.alertMessage.alert("Please enter valid Drug Group Name");
-    }
-
-    else {
+  updateDrugGroup(drugGroup: any) {
+    if (
+      drugGroup.drugGroup !== undefined &&
+      drugGroup.drugGroup !== null &&
+      drugGroup.drugGroup.trim() === ''
+    ) {
+      this.alertMessage.alert('Please enter valid Drug Group Name');
+    } else {
       this.dataObj = {};
-      this.dataObj.drugGroupID = (this.drugGroupID !== undefined && this.drugGroupID !== null) ? this.drugGroupID : null;
-      this.dataObj.drugGroup = (drugGroup.drugGroup !== undefined && drugGroup.drugGroup !== null) ? drugGroup.drugGroup.trim() : null;
-      this.dataObj.drugGroupDesc = (drugGroup.drugGroupDesc !== undefined && drugGroup.drugGroupDesc !== null) ? drugGroup.drugGroupDesc.trim() : null;
+      this.dataObj.drugGroupID =
+        this.drugGroupID !== undefined && this.drugGroupID !== null
+          ? this.drugGroupID
+          : null;
+      this.dataObj.drugGroup =
+        drugGroup.drugGroup !== undefined && drugGroup.drugGroup !== null
+          ? drugGroup.drugGroup.trim()
+          : null;
+      this.dataObj.drugGroupDesc =
+        drugGroup.drugGroupDesc !== undefined &&
+        drugGroup.drugGroupDesc !== null
+          ? drugGroup.drugGroupDesc.trim()
+          : null;
       //this.dataObj.providerServiceMapID = drugGroup.providerServiceMapID;
       this.dataObj.modifiedBy = this.createdBy;
-      this.drugMasterService.updateDrugGroup(this.dataObj).subscribe(response => {
-        if (response !== undefined && response !== null)
-          this.updateHandler(response)
-      },
+      this.drugMasterService.updateDrugGroup(this.dataObj).subscribe(
+        (response) => {
+          if (response !== undefined && response !== null)
+            this.updateHandler(response);
+        },
         (err) => {
-          console.log("error", err);
+          console.log('error', err);
           //this.alertMessage.alert(err, 'error')
-        });
+        },
+      );
     }
-
   }
 
-  updateHandler(response:any) {
+  updateHandler(response: any) {
     this.editable = false;
-    this.alertMessage.alert("Updated successfully", 'success');
+    this.alertMessage.alert('Updated successfully', 'success');
     this.getAvailableDrugs();
     this.availableDrugGroupNames = [];
   }
 
   groupNameExist: any = false;
   inValidDrugGroup = false;
-  checkExistance(drugGroup:any) {
+  checkExistance(drugGroup: any) {
     if (this.editable) {
-
-      if (drugGroup !== undefined && drugGroup !== null && (drugGroup.trim() !== this.drugGroupToEdit)) {
+      if (
+        drugGroup !== undefined &&
+        drugGroup !== null &&
+        drugGroup.trim() !== this.drugGroupToEdit
+      ) {
         this.checkWithDrugmaster(drugGroup);
       }
-
     } else {
-     this.checkWithDrugmaster(drugGroup);
+      this.checkWithDrugmaster(drugGroup);
     }
-
   }
-checkWithDrugmaster(drugGroup:any) {
-  if (drugGroup !== undefined && drugGroup !== null && (drugGroup.trim() !== "")) {
+  checkWithDrugmaster(drugGroup: any) {
+    if (
+      drugGroup !== undefined &&
+      drugGroup !== null &&
+      drugGroup.trim() !== ''
+    ) {
       this.inValidDrugGroup = false;
-      this.groupNameExist = this.availableDrugGroupNames.includes(drugGroup.trim());
-    }
-    else{
+      this.groupNameExist = this.availableDrugGroupNames.includes(
+        drugGroup.trim(),
+      );
+    } else {
       this.inValidDrugGroup = true;
       this.groupNameExist = false;
     }
@@ -341,35 +375,38 @@ checkWithDrugmaster(drugGroup:any) {
       this.filteredavailableDrugGroups.data = [];
       this.filteredavailableDrugGroups.paginator = this.paginator;
       this.filteredavailableDrugGroups.sort = this.sort;
-      this.availableDrugGroups.forEach((item:any) => {
-        for (let key in item) {
-          if (key == 'drugGroup') {
-            let value: string = '' + item[key];
+      this.availableDrugGroups.forEach((item: any) => {
+        for (const key in item) {
+          if (key === 'drugGroup') {
+            const value: string = '' + item[key];
             if (value.toLowerCase().indexOf(searchTerm.toLowerCase()) >= 0) {
-              this.filteredavailableDrugGroups.data.push(item); break;
+              this.filteredavailableDrugGroups.data.push(item);
+              break;
             }
           }
         }
       });
     }
-
   }
   back() {
-    this.alertMessage.confirm('Confirm', "Do you really want to cancel? Any unsaved data would be lost").subscribe(res => {
-      if (res) {
-        this.drugGroupForm.resetForm();
-        this.clearEdit();
-        this.drugGroupList.data = [];
-      }
-    })
+    this.alertMessage
+      .confirm(
+        'Confirm',
+        'Do you really want to cancel? Any unsaved data would be lost',
+      )
+      .subscribe((res) => {
+        if (res) {
+          this.drugGroupForm.resetForm();
+          this.clearEdit();
+          this.drugGroupList.data = [];
+        }
+      });
   }
-  checkForValidDrugDesc(drugDesc:any) {
-    if(drugDesc !== undefined && drugDesc !== null && (drugDesc.trim() === "")) {
+  checkForValidDrugDesc(drugDesc: any) {
+    if (drugDesc !== undefined && drugDesc !== null && drugDesc.trim() === '') {
       this.invalidDrugDesc = true;
     } else {
       this.invalidDrugDesc = false;
     }
-
   }
-
 }

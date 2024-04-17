@@ -72,14 +72,13 @@ export class SearchUomMasterComponent
     this.subscribeToStateChange();
     this.getServiceLine(this.userID);
   }
+
+  ngOnDestroy() {
+    if (this.serviceLineSubs) this.serviceLineSubs.unsubscribe();
+  }
   ngAfterViewInit() {
     this.filteredUOMMasterList.paginator = this.paginator;
   }
-
-  OnDestroy() {
-    if (this.serviceLineSubs) this.serviceLineSubs.unsubscribe();
-  }
-
   createUOMMasterSearchForm() {
     return this.fb.group({
       service: null,

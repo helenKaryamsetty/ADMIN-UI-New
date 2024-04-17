@@ -10,7 +10,7 @@
       </button>
       <button mat-menu-item (click)="show('27')">View Provider</button>
       <button mat-menu-item (click)="show('28')">Update Provider</button>
-      <button mat-menu-item (click)="show('32')">Provider Admin List</button>
+      <button mat-menu-item (click)="show('15')">Provider Admin List</button>
       <button mat-menu-item (click)="show('59')">
         Provider Admin-Provider Mapping
       </button>
@@ -24,6 +24,7 @@
       <app-provider-serviceline-state-mapping
         *ngSwitchCase="14"
       ></app-provider-serviceline-state-mapping>
+      <app-provider-admin-list *ngSwitchCase="15"></app-provider-admin-list>
       <div></div>
     </div>
   </div>

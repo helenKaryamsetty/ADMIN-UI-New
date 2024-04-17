@@ -14,11 +14,17 @@ import { MaterialModule } from 'src/app/core/material.module';
 import { ServiceProviderMasterComponent } from './service-provider-master/service-provider-master.component';
 import { SuperAdmin_ServiceProvider_Service } from 'src/app/core/services/adminServices/AdminServiceProvider/superadmin_serviceprovider.service';
 import { ProviderServicelineStateMappingComponent } from './provider-serviceline-state-mapping/provider-serviceline-state-mapping.component';
+import {
+  EditProviderAdminModalComponent,
+  ProviderAdminListComponent,
+} from './provider-admin-list/provider-admin-list.component';
 
 @NgModule({
   declarations: [
     ServiceProviderMasterComponent,
     ProviderServicelineStateMappingComponent,
+    ProviderAdminListComponent,
+    EditProviderAdminModalComponent,
   ],
   imports: [
     CommonModule,
@@ -40,6 +46,8 @@ import { ProviderServicelineStateMappingComponent } from './provider-serviceline
   exports: [
     ServiceProviderMasterComponent,
     ProviderServicelineStateMappingComponent,
+    ProviderAdminListComponent,
+    EditProviderAdminModalComponent,
   ],
 })
 export class ActivitiesModule {}

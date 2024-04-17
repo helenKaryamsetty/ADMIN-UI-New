@@ -17,7 +17,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { AgentListCreationComponent } from './agent-list-creation/agent-list-creation.component';
 import { MatNativeDateModule } from '@angular/material/core';
 import {
-  AgentIDMappingModal,
+  AgentIDMappingModalComponent,
   UserRoleAgentIDMappingComponent,
 } from './user-role-agent-id-mapping/user-role-agent-id-mapping.component';
 import { UserRoleAgentID_MappingService } from './services/user-role-agentID-mapping-service.service';
@@ -54,7 +54,7 @@ import { WrapupTimeConfigurationService } from 'src/app/core/services/ProviderAd
     MapSnommedCTCodeComponent,
     SmsTemplateComponent,
     UserRoleAgentIDMappingComponent,
-    AgentIDMappingModal,
+    AgentIDMappingModalComponent,
     HospitalInstituteDirectorySubdirectoryMappingComponent,
     ResetUserPasswordComponent,
     SwymedUserMappingComponent,
@@ -105,7 +105,7 @@ import { WrapupTimeConfigurationService } from 'src/app/core/services/ProviderAd
     MapSnommedCTCodeComponent,
     SmsTemplateComponent,
     UserRoleAgentIDMappingComponent,
-    AgentIDMappingModal,
+    AgentIDMappingModalComponent,
     HospitalInstituteDirectorySubdirectoryMappingComponent,
     ResetUserPasswordComponent,
     SwymedUserMappingComponent,
