@@ -218,28 +218,45 @@
           </mat-hint>
         </mat-form-field>
       </div>
+
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
-        <mat-datepicker
-          class="width100"
-          placeholder="Valid From"
-          min="today"
-          [(ngModel)]="validFrom"
-          required="true"
-          name="valid_from"
-          (keydown)="preventTyping($event)"
-        ></mat-datepicker>
+        <mat-form-field
+          class="input-full-width mat_form_field_background_color"
+        >
+          <mat-label>Valid From</mat-label>
+          <input
+            matInput
+            [matDatepicker]="validFromPicker"
+            name="valid_from"
+            min="today"
+            [(ngModel)]="validFrom"
+          />
+          <mat-datepicker-toggle
+            matPrefix
+            [for]="validFromPicker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #validFromPicker></mat-datepicker>
+        </mat-form-field>
       </div>
       <div class="clearfix visible-sm"></div>
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
-        <mat-datepicker
-          class="width100"
-          placeholder="Valid Till"
-          min="validFrom"
-          [(ngModel)]="validTill"
-          required="true"
-          name="valid_till"
-          (keydown)="preventTyping($event)"
-        ></mat-datepicker>
+        <mat-form-field
+          class="input-full-width mat_form_field_background_color"
+        >
+          <mat-label>Valid Till</mat-label>
+          <input
+            matInput
+            [matDatepicker]="validTillPicker"
+            name="valid_till"
+            min="validFrom"
+            [(ngModel)]="validTill"
+          />
+          <mat-datepicker-toggle
+            matPrefix
+            [for]="validTillPicker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #validTillPicker></mat-datepicker>
+        </mat-form-field>
       </div>
       <div class="clearfix visible-md"></div>
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">

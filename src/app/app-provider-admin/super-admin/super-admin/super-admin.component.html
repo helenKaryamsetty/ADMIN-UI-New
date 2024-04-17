@@ -8,8 +8,8 @@
       <button mat-menu-item (click)="show('14')">
         Provider Serviceline State Mapping
       </button>
-      <button mat-menu-item (click)="show('27')">View Provider</button>
-      <button mat-menu-item (click)="show('28')">Update Provider</button>
+      <button mat-menu-item (click)="show('2')">View Provider</button>
+      <button mat-menu-item (click)="show('10')">Update Provider</button>
       <button mat-menu-item (click)="show('32')">Provider Admin List</button>
       <button mat-menu-item (click)="show('59')">
         Provider Admin-Provider Mapping
@@ -24,6 +24,12 @@
       <app-provider-serviceline-state-mapping
         *ngSwitchCase="14"
       ></app-provider-serviceline-state-mapping>
+      <app-block-service-provider
+        *ngSwitchCase="2"
+      ></app-block-service-provider>
+      <app-update-service-provider
+        *ngSwitchCase="10"
+      ></app-update-service-provider>
       <div></div>
     </div>
   </div>

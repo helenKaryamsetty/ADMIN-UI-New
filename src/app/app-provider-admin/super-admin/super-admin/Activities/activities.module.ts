@@ -14,11 +14,18 @@ import { MaterialModule } from 'src/app/core/material.module';
 import { ServiceProviderMasterComponent } from './service-provider-master/service-provider-master.component';
 import { SuperAdmin_ServiceProvider_Service } from 'src/app/core/services/adminServices/AdminServiceProvider/superadmin_serviceprovider.service';
 import { ProviderServicelineStateMappingComponent } from './provider-serviceline-state-mapping/provider-serviceline-state-mapping.component';
+import { BlockServiceProviderComponent } from './block-service-provider/block-service-provider.component';
+import { BlockProvider } from 'src/app/core/services/adminServices/AdminServiceProvider/block-provider-service.service';
+import { UpdateServiceProviderComponent } from './update-service-provider/update-service-provider.component';
+import { EditProviderDetailsComponent } from './edit-provider-details/edit-provider-details.component';
 
 @NgModule({
   declarations: [
     ServiceProviderMasterComponent,
     ProviderServicelineStateMappingComponent,
+    BlockServiceProviderComponent,
+    UpdateServiceProviderComponent,
+    EditProviderDetailsComponent,
   ],
   imports: [
     CommonModule,
@@ -36,10 +43,13 @@ import { ProviderServicelineStateMappingComponent } from './provider-serviceline
     ReactiveFormsModule,
     MatNativeDateModule,
   ],
-  providers: [SuperAdmin_ServiceProvider_Service],
+  providers: [SuperAdmin_ServiceProvider_Service, BlockProvider],
   exports: [
     ServiceProviderMasterComponent,
     ProviderServicelineStateMappingComponent,
+    BlockServiceProviderComponent,
+    UpdateServiceProviderComponent,
+    EditProviderDetailsComponent,
   ],
 })
 export class ActivitiesModule {}
