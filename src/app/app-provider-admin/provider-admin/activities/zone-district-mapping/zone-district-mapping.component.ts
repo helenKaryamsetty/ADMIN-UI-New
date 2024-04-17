@@ -19,7 +19,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see https://www.gnu.org/licenses/.
  */
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { NgForm } from '@angular/forms';
 
@@ -35,7 +35,7 @@ import { ConfirmationDialogsService } from 'src/app/core/services/dialog/confirm
   selector: 'app-zone-district-mapping',
   templateUrl: './zone-district-mapping.component.html',
 })
-export class ZoneDistrictMappingComponent implements OnInit, AfterViewInit {
+export class ZoneDistrictMappingComponent implements OnInit {
   status!: string;
   userID: any;
   service: any;
@@ -119,7 +119,7 @@ export class ZoneDistrictMappingComponent implements OnInit, AfterViewInit {
     this.getServiceLines();
   }
 
-  ngAfterViewInit() {
+  AfterViewInit() {
     this.filteredavailableZoneDistrictMappings.paginator = this.paginator;
     this.filteredavailableZoneDistrictMappings.sort = this.sort;
   }

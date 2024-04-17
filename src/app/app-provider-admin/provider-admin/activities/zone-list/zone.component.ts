@@ -19,7 +19,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see https://www.gnu.org/licenses/.
  */
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 import { MatTableDataSource } from '@angular/material/table';
@@ -34,7 +34,7 @@ import { ZoneMasterService } from '../services/zone-master-services.service';
   selector: 'app-zone',
   templateUrl: './zone.component.html',
 })
-export class ZoneComponent implements OnInit, AfterViewInit {
+export class ZoneComponent implements OnInit {
   // filteredavailableZones: any = [];
   status!: string;
   data: any;
@@ -121,7 +121,7 @@ export class ZoneComponent implements OnInit, AfterViewInit {
     this.getServiceLines();
   }
 
-  ngAfterViewInit() {
+  AfterViewInit() {
     this.filteredavailableZones.paginator = this.paginator;
     this.filteredavailableZones.sort = this.sort;
   }

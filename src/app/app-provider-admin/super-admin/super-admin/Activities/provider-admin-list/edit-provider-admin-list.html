@@ -1,0 +1,360 @@
+<div class="row">
+  <div class="pull-left m-l-15">
+    <h4 class="modal-title">Edit Provider Admin Details</h4>
+  </div>
+  <div class="pull-right">
+    <button md-button class="pull-right" [mat-dialog-close]="true">
+      <mat-icon
+        mdTooltip="close"
+        class="mat-icon material-icons pull-right"
+        role="img"
+        aria-hidden="true"
+        style="cursor: pointer"
+        >clear
+      </mat-icon>
+    </button>
+  </div>
+</div>
+<div class="row" *ngIf="formMode">
+  <div>
+    <form #editAdminCreationForm="ngForm" autocomplete="off">
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
+        <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
+                    <input matInput style="display:none"> -->
+        <mat-select
+          placeholder="Title"
+          [style.width]="'100%'"
+          [(ngModel)]="titleID"
+          name="title_Id"
+          (selectionChange)="setGenderOnCondition()"
+          required
+        >
+          <mat-option *ngFor="let item of titles" [value]="item.titleID">
+            {{ item.titleName }}
+          </mat-option>
+        </mat-select>
+        <!-- </md-input-container> -->
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
+        <mat-form-field
+          class="input-full-width mat_form_field_width_one"
+          myName
+        >
+          <input
+            matInput
+            placeholder="First Name"
+            ngModel
+            name="providerAdmin"
+            [(ngModel)]="admin_firstName"
+            minlength="2"
+            maxlength="50"
+            #fname="ngModel"
+            required
+          />
+          <mat-hint *ngIf="fname.touched">
+            <span class="errorText" [hidden]="!fname.errors"
+              >Enter minimum 2 characters</span
+            >
+          </mat-hint>
+        </mat-form-field>
+      </div>
+      <div class="clearfix visible-sm"></div>
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
+        <mat-form-field
+          class="input-full-width mat_form_field_width_one"
+          myName
+        >
+          <input
+            matInput
+            placeholder="Middle Name"
+            ngModel
+            name="middleName"
+            [(ngModel)]="admin_middleName"
+            minlength="1"
+            maxlength="50"
+            #name="ngModel"
+          />
+        </mat-form-field>
+      </div>
+      <div class="clearfix visible-md"></div>
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
+        <mat-form-field
+          class="input-full-width mat_form_field_width_one"
+          myName
+        >
+          <input
+            matInput
+            placeholder="Last Name"
+            ngModel
+            name="lastName"
+            [(ngModel)]="admin_lastName"
+            minlength="1"
+            maxlength="50"
+            #lname="ngModel"
+            required
+          />
+          <mat-hint class="errorText" *ngIf="lname.errors && lname.touched"
+            >Enter minimum 1 characters
+          </mat-hint>
+        </mat-form-field>
+      </div>
+      <div class="clearfix visible-lg"></div>
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
+        <!-- <md-input-container [style.width]="'100%'" class="hide_underline">
+                    <input matInput style="display:none"> -->
+        <mat-select
+          placeholder="Gender"
+          [style.width]="'100%'"
+          [(ngModel)]="gender"
+          name="adminGender"
+          required
+        >
+          <mat-option *ngFor="let item of genders" [value]="item.genderID">
+            {{ item.genderName }}
+          </mat-option>
+        </mat-select>
+        <!-- </md-input-container> -->
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
+        <mat-form-field
+          class="input-full-width mat_form_field_width_one"
+          myMobileNumber
+        >
+          <input
+            matInput
+            placeholder="Contact Number"
+            ngModel
+            name="contact_number"
+            [(ngModel)]="primaryMobileNumber"
+            minlength="10"
+            maxlength="10"
+            #contactNo="ngModel"
+            required
+          />
+          <mat-hint
+            class="errorText"
+            *ngIf="contactNo.errors && contactNo.touched"
+            >Enter 10 digit mobile number
+          </mat-hint>
+        </mat-form-field>
+      </div>
+      <div class="clearfix visible-sm visible-md"></div>
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
+        <mat-datepicker
+          class="width100"
+          placeholder="Date of Birth"
+          [(ngModel)]="dob"
+          name="admin_dob"
+          min="mindate"
+          max="maxdate"
+          #dOB="ngModel"
+          (keydown)="preventTyping($event)"
+          (selectionChange)="calculateAge($event)"
+          required
+        ></mat-datepicker>
+        <mat-hint class="errorText" *ngIf="dOB.errors && dOB.touched"
+          >DOB is required</mat-hint
+        >
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
+        <mat-form-field
+          class="input-full-width mat_form_field_width_one"
+          myMobileNumber
+        >
+          <input
+            matInput
+            placeholder="Age"
+            ngModel
+            name="person_age"
+            [(ngModel)]="age"
+            minlength="1"
+            maxlength="2"
+            #personAge="ngModel"
+            disabled
+          />
+        </mat-form-field>
+      </div>
+      <div class="clearfix visible-lg"></div>
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
+        <mat-form-field
+          class="input-full-width mat_form_field_width_one"
+          myEmail
+        >
+          <input
+            matInput
+            placeholder="Email ID"
+            ngModel
+            [pattern]="emailPattern"
+            name="email"
+            [(ngModel)]="primaryEmail"
+            maxlength="30"
+            #validEmail="ngModel"
+            required
+          />
+          <mat-hint class="errorText" [hidden]="!validEmail.hasError('pattern')"
+            >Valid Email ID is required
+          </mat-hint>
+        </mat-form-field>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
+        <!-- <md-input-container [style.width]="'100%'" class="hide_underline">
+                    <input matInput style="display:none"> -->
+        <mat-select
+          placeholder="Marital Status"
+          [style.width]="'100%'"
+          [(ngModel)]="marital_status"
+          name="admin_maritalStatusId"
+        >
+          <mat-option
+            *ngFor="let item of maritalStatus.m_maritalStatuses"
+            [value]="item.maritalStatusID"
+          >
+            {{ item.status }}
+          </mat-option>
+        </mat-select>
+        <!-- </md-input-container> -->
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
+        <mat-form-field
+          class="input-full-width mat_form_field_width_one"
+          myMobileNumber
+        >
+          <input
+            matInput
+            placeholder="Aadhar Number"
+            ngModel
+            name="aadhar_number"
+            [(ngModel)]="aadharNumber"
+            minlength="12"
+            maxlength="12"
+            (keyup)="checkAadhar()"
+            #number="ngModel"
+          />
+          <mat-hint *ngIf="number.touched">
+            <span class="error_text" [hidden]="!number.errors"
+              >Required 12 digit aadhar number</span
+            >
+            <span class="error_text" *ngIf="isExistAadhar && !number.errors">{{
+              errorMessageForAadhar
+            }}</span>
+          </mat-hint>
+        </mat-form-field>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
+        <mat-form-field class="input-full-width mat_form_field_width_one">
+          <input
+            matInput
+            placeholder="PAN Card Number"
+            ngModel
+            name="pan_number"
+            [(ngModel)]="panNumber"
+            minlength="10"
+            maxlength="10"
+            #panNo="ngModel"
+            (keyup)="checkPan()"
+          />
+          <mat-hint *ngIf="panNo.touched">
+            <span class="error_text" [hidden]="!panNo.errors"
+              >Required 10 digit Pan number EX: alphanumeric</span
+            >
+            <span class="error_text" *ngIf="isExistPan && !panNo.errors">{{
+              errorMessageForPan
+            }}</span>
+          </mat-hint>
+        </mat-form-field>
+      </div>
+      <div class="clearfix"></div>
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
+        <!-- <md-input-container [style.width]="'100%'" class="hide_underline">
+                    <input matInput style="display:none"> -->
+        <mat-select
+          placeholder="Educational Qualification"
+          [style.width]="'100%'"
+          [(ngModel)]="edu_qualification"
+          name="admin_edu_qualification"
+          required
+        >
+          <mat-option
+            *ngFor="let item of eduQualification"
+            [value]="item.qualificationID"
+          >
+            {{ item.name }}
+          </mat-option>
+        </mat-select>
+        <!-- </md-input-container> -->
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
+        <mat-form-field
+          class="input-full-width mat_form_field_width_one"
+          myName
+        >
+          <input
+            matInput
+            placeholder="Emergency Contact Person"
+            ngModel
+            name="em_cont_person"
+            [(ngModel)]="emergency_cnt_person"
+            minlength="2"
+            maxlength="50"
+            #emergencyname="ngModel"
+            required
+          />
+          <mat-hint *ngIf="emergencyname.touched">
+            <span class="errorText" [hidden]="!emergencyname.errors"
+              >Enter atleast 2 characters</span
+            >
+          </mat-hint>
+        </mat-form-field>
+      </div>
+      <div class="clearfix visible-sm"></div>
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
+        <mat-form-field
+          class="input-full-width mat_form_field_width_one"
+          myMobileNumber
+        >
+          <input
+            matInput
+            placeholder="Emergency Contact Number"
+            ngModel
+            name="em_contact_number"
+            [(ngModel)]="emergencyMobileNumber"
+            minlength="10"
+            maxlength="10"
+            #emContactNo="ngModel"
+            required
+          />
+          <mat-hint
+            class="errorText"
+            *ngIf="emContactNo.errors && emContactNo.touched"
+            >Enter 10 digit mobile number
+          </mat-hint>
+        </mat-form-field>
+      </div>
+      <div class="clearfix visible-md"></div>
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
+        <mat-form-field class="input-full-width mat_form_field_width_one">
+          <input
+            matInput
+            placeholder="Remarks"
+            maxlength="100"
+            ngModel
+            name="remarks"
+            [(ngModel)]="admin_remarks"
+            #adminRemark="ngModel"
+          />
+        </mat-form-field>
+      </div>
+    </form>
+  </div>
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-20">
+    <button
+      mat-raised-button
+      color="accent"
+      class="pull-right"
+      (click)="update()"
+      [disabled]="editAdminCreationForm.invalid || isExistPan || isExistAadhar"
+    >
+      Update
+    </button>
+  </div>
+</div>

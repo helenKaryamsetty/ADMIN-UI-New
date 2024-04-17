@@ -1,0 +1,322 @@
+<div class="row">
+  <div class="col-xs-12 col-sm-12">
+    <h4 *ngIf="showMappings">Drug Group-Drug Mapping</h4>
+    <h4 *ngIf="!editable && !showMappings">Drug Group-Drug Mapping</h4>
+  </div>
+  <form #searchForm="ngForm" autocomplete="off">
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
+      <mat-select
+        placeholder="Serviceline"
+        (selectionChange)="getStates(service)"
+        class="width100"
+        [(ngModel)]="service"
+        name="service"
+        required
+        #bindService="ngModel"
+        disabled="{{ disableSelection }}"
+      >
+        <mat-option *ngFor="let item of services" [value]="item">
+          {{ item.serviceName }}
+        </mat-option>
+      </mat-select>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
+      <mat-select
+        placeholder="State"
+        class="width100"
+        [(ngModel)]="state"
+        [disabled]="disableSelection"
+        (selectionChange)="setProviderServiceMapID(state.providerServiceMapID)"
+        name="state"
+        #bindState="ngModel"
+        required
+      >
+        <mat-option *ngFor="let item of states" [value]="item">
+          {{ item.stateName }}
+        </mat-option>
+      </mat-select>
+    </div>
+  </form>
+</div>
+<div
+  class="pull-right"
+  *ngIf="availableDrugMappings.length !== 0 && showMappings && !editable"
+>
+  <mat-form-field
+    class="input-full-width mat_form_field_width_one"
+    id="filterbox"
+  >
+    <input
+      matInput
+      placeholder="In-Table Search"
+      #filterTerm
+      (keyup)="filterComponentList(filterTerm.value)"
+    />
+    <mat-icon matSuffix>search</mat-icon>
+  </mat-form-field>
+</div>
+<div class="row" *ngIf="showMappings && showDrudGroupMappedList && !editable">
+  <div class="col-xs-12 col-sm-12 m-t-10">
+    <div class="table-responsive">
+      <table
+        mat-table
+        class="mat-elevation-z8"
+        [dataSource]="filteredavailableDrugMappings"
+      >
+        <ng-container matColumnDef="sno">
+          <th mat-header-cell *matHeaderCellDef>SNo.</th>
+          <td mat-cell *matCellDef="let element; let i = index">{{ i + 1 }}</td>
+        </ng-container>
+        <ng-container matColumnDef="drugGroupName">
+          <th mat-header-cell *matHeaderCellDef>Drug Group Name</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.drugGroupName }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="drugName">
+          <th mat-header-cell *matHeaderCellDef>Drug Name</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.drugName }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="remarks">
+          <th mat-header-cell *matHeaderCellDef>Remarks</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.remarks }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef>Action</th>
+          <td mat-cell *matCellDef="let element">
+            <button
+              *ngIf="element.deleted === '1'"
+              mat-raised-button
+              color="accent"
+              (click)="
+                updateDrugMappingStatus(element, element.drugGroupDeleted)
+              "
+            >
+              Activate
+            </button>
+            <button
+              *ngIf="element.deleted === '0'"
+              mat-raised-button
+              color="primary"
+              (click)="updateDrugMappingStatus(element, false)"
+            >
+              Deactivate
+            </button>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+      <div>
+        <button
+          mat-raised-button
+          color="primary"
+          class="pull-right"
+          (click)="showForm()"
+        >
+          Create Drug Mapping
+        </button>
+      </div>
+      <div
+        class="pull-center"
+        style="margin-top: 35px; text-align: center"
+        *ngIf="filteredavailableDrugMappings.data.length === 0"
+      >
+        <strong>No Records Found</strong>
+      </div>
+      <mat-paginator
+        [hidden]="filteredavailableDrugMappings.data.length === 0"
+        [pageSizeOptions]="[5, 10, 20]"
+        [pageSize]="5"
+        showFirstLastButtons
+      >
+      </mat-paginator>
+    </div>
+  </div>
+</div>
+<div *ngIf="!showMappings || editable">
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-l-0">
+      <form #drugMappingForm="ngForm" autocomplete="off">
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
+          <mat-select
+            required
+            placeholder="Drug Group"
+            class="width100"
+            [(ngModel)]="drugGroupID"
+            name="drugGroupID"
+            #drugG="ngModel"
+            (selectionChange)="checkExistance(state, drugGroupID)"
+          >
+            <mat-option
+              *ngFor="let drugGroups of availableDrugGroups"
+              value="{{ drugGroups.drugGroupID }}-{{ drugGroups.drugGroup }}"
+            >
+              {{ drugGroups.drugGroup }}
+            </mat-option>
+          </mat-select>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
+          <mat-select
+            multiple
+            class="width100"
+            name="drugIdList"
+            placeholder="Drug"
+            [(ngModel)]="drugIdList"
+            #drug="ngModel"
+            required
+          >
+            <mat-option
+              *ngFor="let drugs of availableDrugs"
+              value="{{ drugs.drugID }}-{{ drugs.drugName }}"
+              >{{ drugs.drugName }}</mat-option
+            >
+          </mat-select>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
+          <mat-form-field
+            class="input-full-width mat_form_field_width_one"
+            myProviderName
+          >
+            <input
+              matInput
+              placeholder="Remarks"
+              [(ngModel)]="remarks"
+              name="remarks"
+              maxlength="100"
+            />
+          </mat-form-field>
+        </div>
+        <div
+          class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
+          *ngIf="drugMappingForm.valid"
+        >
+          <button
+            *ngIf="!editable"
+            md-mini-fab
+            color="primary"
+            class="xs-pull-right sm-pull-right md-pull-left lg-pull-right"
+            (click)="
+              addDrugToList(drugMappingForm.value); drugMappingForm.reset()
+            "
+          >
+            <mat-icon
+              matSuffix
+              class="mat-icon material-icons"
+              role="img"
+              aria-hidden="true"
+              style="cursor: pointer"
+              >add</mat-icon
+            >
+          </button>
+          <!--<button *ngIf="editable"  class="btn pull-right " (click)="updateDrugMapping(drugMappingForm.value);drugMappingForm.reset()  ">
+        <mat-icon matSuffix class="mat-icon material-icons" role="img" aria-hidden="true" style="cursor: pointer">update</mat-icon>
+      </button>-->
+        </div>
+      </form>
+    </div>
+    <div
+      class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10"
+      *ngIf="drugMapping.data.length > 0"
+    >
+      <div class="table-responsive">
+        <table mat-table [dataSource]="drugMapping" class="mat-elevation-z8">
+          <ng-container matColumnDef="sno">
+            <th mat-header-cell *matHeaderCellDef>SNo.</th>
+            <td mat-cell *matCellDef="let element; let i = index">
+              {{ i + 1 }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="stateName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>State</th>
+            <td mat-cell *matCellDef="let element">{{ element.stateName }}</td>
+          </ng-container>
+          <ng-container matColumnDef="drugGroupName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              Drug Group Name
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.drugGroupName }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="drugName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Drug Name</th>
+            <td mat-cell *matCellDef="let element">{{ element.drugName }}</td>
+          </ng-container>
+          <ng-container matColumnDef="remarks">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Remarks</th>
+            <td mat-cell *matCellDef="let element">{{ element.remarks }}</td>
+          </ng-container>
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef>Action</th>
+            <td mat-cell *matCellDef="let element; let i = index">
+              <mat-icon
+                class="cursorPointer"
+                matTooltip="delete"
+                (click)="remove_obj(drugMapping.data.indexOf(element))"
+                >delete</mat-icon
+              >
+            </td>
+          </ng-container>
+          <!-- <thead>
+            <tr>
+              <th width="5%">S.No.</th>
+              <th width="15%">State</th>
+              <th width="15%">Drug Group Name</th>
+              <th width="15%">Drug Name</th>
+              <th width="15%">Remarks</th>
+              <th width="10%">Action</th>
+            </tr>
+          </thead> -->
+          <!-- <tbody>
+            <tr *ngFor="let drug of md2.data; let i=index ">
+              <td>{{drugMapping.indexOf(drug)+1}}</td>
+              <td>{{drug.stateName}}</td>
+              <td>{{drug.drugGroupName}}</td>
+              <td>{{drug.drugName}}</td>
+              <td>{{drug.remarks}}</td>
+              <td>
+                <mat-icon class="cursorPointer" mdTooltip="delete" (click)="remove_obj(drugMapping.indexOf(drug))">delete</mat-icon>
+              </td>
+            </tr>
+          </tbody> -->
+          <tr mat-header-row *matHeaderRowDef="displayAddedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayAddedColumns"></tr>
+          <mat-paginator
+            [hidden]="drugMapping.data.length === 0"
+            [pageSizeOptions]="[5, 10, 20]"
+            [pageSize]="5"
+            showFirstLastButtons
+          >
+          </mat-paginator>
+        </table>
+        <!-- <pagination-controls (pageselectionChange)="b = $event" id="drugMappingListResult"></pagination-controls> -->
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10">
+      <button
+        mat-raised-button
+        color="primary"
+        class="pull-left"
+        (click)="back()"
+      >
+        Back
+      </button>
+      <button
+        [disabled]="drugMapping.data.length === 0"
+        mat-raised-button
+        color="accent"
+        class="pull-right"
+        (click)="storedrugMappings()"
+      >
+        Save
+      </button>
+    </div>
+  </div>
+</div>

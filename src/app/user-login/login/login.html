@@ -58,7 +58,12 @@
   <mat-grid-tile>
     <mat-card
       class="loginCard"
-      style="background-color: white; margin-left: auto; margin-right: auto"
+      style="
+        background-color: white;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 20px;
+      "
     >
       <mat-card-title>
         <div class="btn-center">
@@ -80,12 +85,12 @@
             </div>
             <div class="col-xs-11 col-md-11 col-sm-11">
               <mat-form-field class="full-width">
+                <mat-label>Enter User Name</mat-label>
                 <input
                   matInput
                   usernameValidator
                   type="text"
                   id="userID"
-                  placeholder="Enter User Name"
                   [(ngModel)]="userID"
                   name="userID"
                 />
@@ -98,11 +103,11 @@
             </div>
             <div class="col-xs-11 col-md-11 col-sm-11">
               <mat-form-field class="full-width">
+                <mat-label>Enter Password</mat-label>
                 <input
                   matInput
                   type="{{ dynamictype }}"
                   id="password"
-                  placeholder="Enter Password"
                   [(ngModel)]="password"
                   name="password"
                 />

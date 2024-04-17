@@ -2,6 +2,7 @@
   <div class="mainbar mainbar-rad">
     <button mat-button [matMenuTriggerFor]="Activities" class="top-element">
       Activities
+      <span class="caret"></span>
     </button>
     <mat-menu #Activities="matMenu">
       <button mat-menu-item (click)="show('1')">
@@ -80,6 +81,10 @@
       <button mat-menu-item (click)="show('9')">Service Point Master</button>
       <button mat-menu-item (click)="show('14')">Van Master</button>
       <button mat-menu-item (click)="show('29')">Procedure Master</button>
+      <button mat-menu-item (click)="show('30')">Component Master</button>
+      <button mat-menu-item (click)="show('69')">
+        Calibration Strip Master
+      </button>
     </mat-menu>
     <mat-menu #ZoneMaster="matMenu">
       <button mat-menu-item (click)="show('36')">Zone List</button>
@@ -91,9 +96,13 @@
         Parking Place Sub-District Mapping
       </button>
     </mat-menu>
-    <button mat-button>Reports</button>
-    <button mat-button [matMenuTriggerFor]="Configuration">
+    <button mat-button class="top-element">
+      Reports
+      <span class="caret"></span>
+    </button>
+    <button mat-button [matMenuTriggerFor]="Configuration" class="top-element">
       Configuration
+      <span class="caret"></span>
     </button>
     <mat-menu #Configuration="matMenu">
       <button mat-menu-item (click)="show('24')">Agent List Creation</button>
@@ -140,6 +149,7 @@
     </mat-menu>
     <button mat-button [matMenuTriggerFor]="Inventory" class="top-element">
       Inventory
+      <span class="caret"></span>
     </button>
     <mat-menu #Inventory="matMenu">
       <button mat-menu-item [matMenuTriggerFor]="typeMaster">Master</button>
@@ -237,6 +247,20 @@
         <app-service-point *ngSwitchCase="9"></app-service-point>
         <app-van-master *ngSwitchCase="14"></app-van-master>
         <app-procedure-master *ngSwitchCase="29"></app-procedure-master>
+        <app-calibration-master *ngSwitchCase="69"></app-calibration-master>
+        <app-drug-group *ngSwitchCase="33"></app-drug-group>
+        <app-drug-strength *ngSwitchCase="56"></app-drug-strength>
+        <app-drug-list *ngSwitchCase="34"></app-drug-list>
+        <app-drug-mapping *ngSwitchCase="35"></app-drug-mapping>
+        <app-user-role-agent-id-mapping
+          *ngSwitchCase="26"
+        ></app-user-role-agent-id-mapping>
+        <app-hospital-institute-directory-subdirectory-mapping
+          *ngSwitchCase="23"
+        ></app-hospital-institute-directory-subdirectory-mapping>
+        <app-reset-user-password *ngSwitchCase="55"></app-reset-user-password>
+        <app-swymed-user-mapping *ngSwitchCase="60"></app-swymed-user-mapping>
+        <app-component-master *ngSwitchCase="30"></app-component-master>
         <app-item-master *ngSwitchCase="38"></app-item-master>
         <app-facility-type-master *ngSwitchCase="39"></app-facility-type-master>
         <app-main-store-and-sub-store

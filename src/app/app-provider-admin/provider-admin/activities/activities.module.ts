@@ -83,6 +83,17 @@ import { ServicePointComponent } from './service-point-master/service-point.comp
 import { VanComponent } from './van-master/van-master.component';
 import { ProcedureMasterComponent } from './procedure-master/procedure-master.component';
 import { ZoneMasterService } from './services/zone-master-services.service';
+import { CallibrationMasterServiceService } from '../inventory/services/callibration-master-service.service';
+import { CalibrationMasterComponent } from './calibration-master/calibration-master.component';
+import { DrugMasterService } from '../inventory/services/drug-master-services.service';
+import { DrugGroupComponent } from './drug-group/drug-group.component';
+import { DrugStrengthService } from '../inventory/services/drug-strength.service';
+import { DrugStrengthComponent } from './drug-strength/drug-strength.component';
+import { DrugListComponent } from './drug-list/drug-list.component';
+import { DrugMappingComponent } from './drug-mapping/drug-mapping.component';
+import { ComponentMasterServiceService } from 'src/app/core/services/ProviderAdminServices/component-master-service.service';
+import { ComponentMasterComponent } from './component-master/component-master.component';
+import { ComponentNameSearchComponent } from './component-name-search/component-name-search.component';
 
 @NgModule({
   declarations: [
@@ -122,6 +133,13 @@ import { ZoneMasterService } from './services/zone-master-services.service';
     ServicePointComponent,
     VanComponent,
     ProcedureMasterComponent,
+    CalibrationMasterComponent,
+    DrugGroupComponent,
+    DrugStrengthComponent,
+    DrugListComponent,
+    DrugMappingComponent,
+    ComponentMasterComponent,
+    ComponentNameSearchComponent,
   ],
   imports: [
     CommonModule,
@@ -163,6 +181,10 @@ import { ZoneMasterService } from './services/zone-master-services.service';
     ParkingPlaceMasterService,
     BlockSubcenterMappingService,
     ZoneMasterService,
+    CallibrationMasterServiceService,
+    DrugMasterService,
+    DrugStrengthService,
+    ComponentMasterServiceService,
   ],
   exports: [
     LocationServicelineMappingComponent,
@@ -200,6 +222,13 @@ import { ZoneMasterService } from './services/zone-master-services.service';
     ServicePointComponent,
     VanComponent,
     ProcedureMasterComponent,
+    CalibrationMasterComponent,
+    DrugGroupComponent,
+    DrugStrengthComponent,
+    DrugListComponent,
+    DrugMappingComponent,
+    ComponentMasterComponent,
+    ComponentNameSearchComponent,
   ],
 })
 export class ActivitiesModule {}

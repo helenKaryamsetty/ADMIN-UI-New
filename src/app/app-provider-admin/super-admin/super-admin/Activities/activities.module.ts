@@ -18,6 +18,10 @@ import { BlockServiceProviderComponent } from './block-service-provider/block-se
 import { BlockProvider } from 'src/app/core/services/adminServices/AdminServiceProvider/block-provider-service.service';
 import { UpdateServiceProviderComponent } from './update-service-provider/update-service-provider.component';
 import { EditProviderDetailsComponent } from './edit-provider-details/edit-provider-details.component';
+import {
+  EditProviderAdminModalComponent,
+  ProviderAdminListComponent,
+} from './provider-admin-list/provider-admin-list.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +30,8 @@ import { EditProviderDetailsComponent } from './edit-provider-details/edit-provi
     BlockServiceProviderComponent,
     UpdateServiceProviderComponent,
     EditProviderDetailsComponent,
+    ProviderAdminListComponent,
+    EditProviderAdminModalComponent,
   ],
   imports: [
     CommonModule,
@@ -50,6 +56,8 @@ import { EditProviderDetailsComponent } from './edit-provider-details/edit-provi
     BlockServiceProviderComponent,
     UpdateServiceProviderComponent,
     EditProviderDetailsComponent,
+    ProviderAdminListComponent,
+    EditProviderAdminModalComponent,
   ],
 })
 export class ActivitiesModule {}

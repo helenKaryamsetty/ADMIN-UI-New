@@ -1,0 +1,144 @@
+<div class="title">
+  <h4>LOINC Code Selection</h4>
+  <button
+    mat-icon-button
+    matDialogClose
+    tooltip="Close"
+    class="pull-right exit width-20px"
+  >
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+<div class="container-fluid">
+  <div class="overlay" *ngIf="showProgressBar">
+    <div class="overlay-content">
+      <mat-spinner></mat-spinner>
+    </div>
+  </div>
+  <mat-dialog-content>
+    <div class="table-responsive">
+      <table mat-table class="mat-elevation-z8" [dataSource]="components">
+        <ng-container matColumnDef="loinc_Num">
+          <th mat-header-cell *matHeaderCellDef>LOINC No</th>
+          <td mat-cell *matCellDef="let element">{{ element.loinc_Num }}</td>
+        </ng-container>
+        <ng-container matColumnDef="component">
+          <th mat-header-cell *matHeaderCellDef>COMPONENT</th>
+          <td mat-cell *matCellDef="let element">{{ element.component }}</td>
+        </ng-container>
+        <ng-container matColumnDef="system">
+          <th mat-header-cell *matHeaderCellDef>SYSTEM</th>
+          <td mat-cell *matCellDef="let element">{{ element.system }}</td>
+        </ng-container>
+        <ng-container matColumnDef="class1">
+          <th mat-header-cell *matHeaderCellDef>CLASS</th>
+          <td mat-cell *matCellDef="let element">{{ element.class1 }}</td>
+        </ng-container>
+        <ng-container matColumnDef="long_common_name">
+          <th mat-header-cell *matHeaderCellDef>LONG COMMON NAME</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.long_common_name }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="radiobutton">
+          <mat-radio-group
+            name="componentValue"
+            *matCellDef="let element"
+            (change)="selectComponentName(element.loinc_Num, element.component)"
+          >
+            <mat-radio-button
+              [checked]="element.loinc_Num === selectedItem"
+              color="primary"
+              value="Yes"
+            >
+            </mat-radio-button>
+          </mat-radio-group>
+        </ng-container>
+        <!-- <thead>
+          <tr>
+            <th>LOINC No</th>
+            <th>COMPONENT</th>
+            <th>SYSTEM</th>
+            <th>CLASS</th>
+            <th>LONG COMMON NAME</th>
+            <th></th>
+          </tr>
+        </thead> -->
+        <!-- <tbody>
+          <tr *ngIf="components.length == 0">
+            <td colspan="5" class="text-center" style="text-align: center;">{{message}}</td>
+          </tr>
+          <tr *ngFor="let item of md2.data">
+            <td data-title="Concept ID">{{ item?.loinc_Num}} </td>
+            <td data-title="Term">{{ item?.component}} </td>
+            <td data-title="System">{{ item?.system}} </td>
+            <td data-title="Class">{{ item?.class1}} </td>
+            <td data-title="LongCommonName">{{ item?.long_common_name}} </td>
+            <td class="text-center">
+              <mat-radio-group name="componentValue"  (change)="selectComponentName(item?.loinc_Num,item?.component)">
+                <mat-radio-button [checked]="item?.loinc_Num == selectedItem" color="primary" value="Yes">
+                </mat-radio-button>
+               
+              </mat-radio-group>
+              
+             
+            </td>
+          </tr>
+        </tbody> -->
+
+        <tfoot>
+          <tr>
+            <td colspan="6" class="text-right">
+              <div *ngIf="components.length !== 0" class="pull-left m-t-40">
+                Total Pages: {{ pageCount }}
+              </div>
+              <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                <li [ngClass]="{ disabled: pager.currentPage <= 0 }">
+                  <button (keyup)="checkPager(pager, 0)"><<</button>
+                </li>
+                <li [ngClass]="{ disabled: pager.currentPage <= 0 }">
+                  <button (keyup)="setPage(pager.currentPage - 1)"><</button>
+                </li>
+                <li
+                  *ngFor="let page of pager.pages"
+                  [ngClass]="{ active: pager.currentPage === page }"
+                >
+                  <button (keyup)="setPage(page)">{{ page + 1 }}</button>
+                </li>
+                <li
+                  [ngClass]="{
+                    disabled: pager.currentPage >= pager.totalPages - 1
+                  }"
+                >
+                  <button (keyup)="setPage(pager.currentPage + 1)">></button>
+                </li>
+                <li
+                  [ngClass]="{
+                    disabled: pager.currentPage >= pager.totalPages - 1
+                  }"
+                >
+                  <button (keyup)="checkPager(pager, pager.totalPages - 1)">
+                    >>
+                  </button>
+                </li>
+              </ul>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+    <div class="row m-b-20">
+      <div class="col-xs-12" *ngIf="components.length !== 0">
+        <button
+          mat-raised-button
+          class="pull-right"
+          (click)="submitComponentList()"
+          [disabled]="selectedComponent === null"
+          color="primary"
+        >
+          Submit
+        </button>
+      </div>
+    </div>
+  </mat-dialog-content>
+</div>

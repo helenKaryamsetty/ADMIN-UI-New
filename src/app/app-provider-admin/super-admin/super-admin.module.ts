@@ -14,6 +14,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { SuperAdminComponent } from './super-admin/super-admin.component';
 import { ActivitiesModule } from './super-admin/Activities/activities.module';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 @NgModule({
   declarations: [SuperAdminComponent],
@@ -34,6 +35,7 @@ import { ActivitiesModule } from './super-admin/Activities/activities.module';
     MatNativeDateModule,
     MatMenuModule,
     MatButtonModule,
+    MatDatepickerModule,
   ],
   exports: [SuperAdminComponent],
 })
