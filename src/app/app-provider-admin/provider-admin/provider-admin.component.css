@@ -78,3 +78,23 @@
 .mainbar >>>.mat-elevation-z8, .mat-mdc-elevation-specific.mat-elevation-z8 {
     overflow: hidden !important;
 }
+
+ .top-element{
+    background-color: unset;
+    border: unset;
+    font-size: 16px;
+    color: #777;
+    font-family: SF-UI-Display-Regular !important;
+    padding: 15px;
+}
+.caret {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: 2px;
+    vertical-align: middle;
+    border-top: 4px dashed;
+    border-top: 4px solid;
+    border-right: 4px solid transparent;
+    border-left: 4px solid transparent;
+  }
