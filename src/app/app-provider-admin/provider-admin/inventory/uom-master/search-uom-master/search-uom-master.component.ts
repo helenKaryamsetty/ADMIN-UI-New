@@ -76,7 +76,7 @@ export class SearchUomMasterComponent
     this.filteredUOMMasterList.paginator = this.paginator;
   }
 
-  ngOnDestroy() {
+  OnDestroy() {
     if (this.serviceLineSubs) this.serviceLineSubs.unsubscribe();
   }
 

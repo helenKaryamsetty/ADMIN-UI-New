@@ -1,0 +1,211 @@
+<div class="row" *ngIf="tableMode">
+  <div class="col-xs-12 col-sm-12">
+    <h4>Drug Strength Master</h4>
+    <div class="pull-right m-t-10" *ngIf="drugStrength.length!==0 && tableMode">
+      <mat-form-field class="input-full-width mat_form_field_width_one" id="filterbox">
+        <input matInput placeholder="In-Table Search" #filterTerm (keyup)="filterComponentList(filterTerm.value)">
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="col-xs-12 col-sm-12 m-t-20">
+    <div class="table-responsive">
+      <table mat-table class="mat-elevation-z8" [dataSource]="filteredDrugStrength" >
+        <ng-container matColumnDef="sno">
+          <th mat-header-cell *matHeaderCellDef>SNo.</th>
+          <td mat-cell *matCellDef="let element; let i = index">{{ i + 1 }}</td>
+        </ng-container>
+        <ng-container matColumnDef="drugStrength">
+          <th mat-header-cell *matHeaderCellDef>Drug Strength</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.drugStrength }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="drugStrengthDesc">
+          <th mat-header-cell *matHeaderCellDef>Drug Strength Description</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.drugStrengthDesc }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="edit">
+          <th mat-header-cell *matHeaderCellDef>Edit</th>
+          <td mat-cell *matCellDef="let element">
+            <mat-icon
+              matTooltip="Edit"
+              class="mat-icon material-icons"
+              role="img"
+              aria-hidden="true"
+              style="cursor: pointer"
+              *ngIf="!element.deleted"
+              (click)="editDrugStrength(element)"
+              >edit</mat-icon
+            >
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef>Action</th>
+          <td mat-cell *matCellDef="let element">
+            <button
+            *ngIf="element.deleted=='1'"
+              mat-raised-button
+              color="accent"
+              (click)="activateDeactivate(element.drugStrengthID, false)"
+            >
+              Activate
+            </button>
+            <button
+            *ngIf="element.deleted=='0'"
+              mat-raised-button
+              color="primary"
+              (click)="activateDeactivate(element.drugStrengthID , true)"
+            >
+              Deactivate
+            </button>
+          </td>
+        </ng-container>
+        <!-- <thead>
+          <tr>
+            <th width="10%">S.No.</th>
+            <th width="25%">Drug Strength</th>
+            <th width="25%">Drug Strength Description</th>
+            <th width="10%">Edit</th>
+            <th width="15%">Action</th>
+          </tr>
+        </thead> -->
+        <!-- <tbody>
+          <tr *ngIf="md2.data.length == 0">
+            <td colspan="5" class="record-not-found">No records found</td>
+          </tr>
+          <tr *ngFor="let item of md2.data; let i= index">
+            <td>{{drugStrength.indexOf(item)+1}}</td>
+            <td>{{item.drugStrength}}</td>
+            <td>{{item.drugStrengthDesc}}</td>
+            <td>
+              <mat-icon mdTooltip="Edit" class="mat-icon material-icons" role="img" aria-hidden="true" style="cursor:pointer" *ngIf="!item.deleted"
+                (click)="editDrugStrength(item)">edit</mat-icon>
+            </td>
+            <td>
+              <button *ngIf="item.deleted" mat-raised-button color="accent" (click)="activateDeactivate(item.drugStrengthID, false)">Activate</button>
+              <button *ngIf="!item.deleted" mat-raised-button color="primary" (click)="activateDeactivate(item.drugStrengthID, true)">Deactivate</button>
+            </td>
+          </tr>
+        </tbody> -->
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+      <div>
+        <button mat-raised-button color="primary" class="pull-right" (click)="showForm()">Create Drug Strength</button>
+      </div>
+      <div
+      class="pull-center"
+      style="margin-top: 35px; text-align: center"
+      *ngIf="filteredDrugStrength.data.length === 0"
+    >
+      <strong>No Records Found</strong>
+    </div>
+    <mat-paginator
+      [hidden]="filteredDrugStrength.data.length === 0"
+      [pageSizeOptions]="[5, 10, 20]"
+      [pageSize]="5"
+      showFirstLastButtons
+    >
+    </mat-paginator>
+
+    </div>
+  </div>
+</div>
+<div class="row" *ngIf="formMode">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <h4 *ngIf="!editMode && !tableMode">Create Drug Strength</h4>
+    <h4 *ngIf="editMode && !tableMode">Edit Drug Strength</h4>
+  </div>
+  <form #drugStrengthForm="ngForm" autocomplete="off">
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
+      <mat-form-field class="input-full-width mat_form_field_width_one">
+        <input matInput placeholder="Drug Strength " [(ngModel)]="strength" name="strength" #drugStrength="ngModel" minlength="1"
+          maxlength="10" (keyup)="checkStrengthAvailability(strength)" required>
+        <mat-hint>
+          <span class="error_text" *ngIf="!drugStrength.valid  && ( drugStrength.dirty || drugStrength.touched)">Drug strength is required</span>
+          <span class="error_text" *ngIf="!drugStrength.errors && drugStrengthExist">Drug strength already exists</span>
+        </mat-hint>
+      </mat-form-field>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
+      <mat-form-field class="input-full-width mat_form_field_width_one">
+        <input matInput textAreaValidator  placeholder="Drug Strength Description" [(ngModel)]="strength_desc" name="strength_desc" #drugStrengthDesc="ngModel">
+      </mat-form-field>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
+      <button md-mini-fab color="primary" *ngIf="!editMode && drugStrengthForm.valid && !drugStrengthExist" class="pull-right-xs pull-right-sm pull-left-md pull-left-lg"
+        (click)="add_object(drugStrengthForm.value)">
+        <mat-icon matSuffix class="mat-icon material-icons" role="img" aria-hidden="true" style="cursor: pointer">add</mat-icon>
+      </button>
+    </div>
+  </form>
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="drugStrengthList.data.length>0">
+    <div class="table-responsive">
+      <table  mat-table [dataSource]="drugStrengthList" class="mat-elevation-z8">
+        <ng-container matColumnDef="sno">
+          <th mat-header-cell *matHeaderCellDef>SNo.</th>
+          <td mat-cell *matCellDef="let element; let i = index">
+            {{ i + 1 }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="drugStrength">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Drug Name</th>
+          <td mat-cell *matCellDef="let element">{{ element.drugStrength }}</td>
+        </ng-container>
+        <ng-container matColumnDef="drugStrengthDesc">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Description</th>
+          <td mat-cell *matCellDef="let element">{{ element.drugStrengthDesc }}</td>
+        </ng-container>
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef>Action</th>
+          <td mat-cell *matCellDef="let element; let i = index">
+            <mat-icon
+              class="cursorPointer"
+              matTooltip="delete"
+              (click)="
+                remove_obj(drugStrengthList.data.indexOf(element))
+              "
+              >delete</mat-icon
+            >
+          </td>
+        </ng-container>
+        <!-- <thead>
+          <tr>
+            <th width="10%">S.No.</th>
+            <th width="20%">Drug Name</th>
+            <th width="20%">Description</th>
+            <th width="10%">Action</th>
+          </tr>
+        </thead> -->
+        <!-- <tbody>
+          <tr *ngFor="let item of md2.data; let i=index">
+            <td>{{drugStrengthList.indexOf(item)+1}}</td>
+            <td>{{item.drugStrength}}</td>
+            <td>{{item.drugStrengthDesc}}</td>
+            <td>
+              <mat-icon class="cursorPointer" mdTooltip="delete" (click)="remove_obj(drugStrengthList.indexOf(item))">delete</mat-icon>
+            </td>
+          </tr>
+        </tbody> -->
+        <tr mat-header-row *matHeaderRowDef="displayAddedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayAddedColumns"></tr>
+        <mat-paginator
+          [hidden]="drugStrengthList.data.length === 0"
+          [pageSizeOptions]="[5, 10, 20]"
+          [pageSize]="5"
+          showFirstLastButtons
+        >
+        </mat-paginator>
+      </table>
+    </div>
+  </div>
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10">
+    <button mat-raised-button color="primary" class="pull-left" (click)="back()">Back</button>
+    <button mat-raised-button color="accent" *ngIf="!editMode" [disabled]="drugStrengthList.data.length == 0" class="pull-right" (click)="saveDrugStrength()">Save</button>
+    <button mat-raised-button color="accent" *ngIf="editMode" [disabled]="drugStrengthExist || drugStrengthForm.invalid" class="pull-right"
+      (click)="updateDrugStrength()">Update</button>
+  </div>
+</div>
