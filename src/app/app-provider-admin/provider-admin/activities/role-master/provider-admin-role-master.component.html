@@ -18,54 +18,61 @@
     <h4 class="pull-left">Edit Role</h4>
   </div>
 
-  <form #stateService="ngForm" autocomplete="off">
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-      <mat-label>Serviceline</mat-label>
-      <mat-select
-        disabled="{{ disableSelection }}"
-        [style.width]="'100%'"
-        [(ngModel)]="service"
-        name="service"
-        #servicess="ngModel"
-        required
-        (selectionChange)="getStates(service)"
-      >
-        <mat-option *ngFor="let ser of services" [value]="ser">
-          {{ ser.serviceName }}
-        </mat-option>
-      </mat-select>
-    </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-      <mat-label>State</mat-label>
-      <mat-select
-        [disabled]="disableSelection || nationalFlag"
-        [style.width]="'100%'"
-        [(ngModel)]="state"
-        name="state"
-        #statess
-        required
-        (selectionChange)="
-          findRoles(state.stateID, service.serviceID, true);
-          setProviderServiceMapID(state.providerServiceMapID)
-        "
-      >
-        <mat-option *ngFor="let stat of states" [value]="stat">
-          {{ stat.stateName }}
-        </mat-option>
-      </mat-select>
-    </div>
-  </form>
+  <div class="col-12">
+    <form #stateService="ngForm" autocomplete="off" class="row">
+      <div class="col-3 m-t-15">
+        <mat-form-field>
+          <mat-label>Serviceline</mat-label>
+          <mat-select
+            disabled="{{ disableSelection }}"
+            [style.width]="'100%'"
+            [(ngModel)]="service"
+            name="service"
+            #servicess="ngModel"
+            required
+            (selectionChange)="getStates(service)"
+          >
+            <mat-option *ngFor="let ser of services" [value]="ser">
+              {{ ser.serviceName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-3 m-t-15">
+        <mat-form-field>
+          <mat-label>State</mat-label>
+          <mat-select
+            [disabled]="disableSelection || nationalFlag"
+            [style.width]="'100%'"
+            [(ngModel)]="state"
+            name="state"
+            #statess
+            required
+            (selectionChange)="
+              findRoles(state.stateID, service.serviceID, true);
+              setProviderServiceMapID(state.providerServiceMapID)
+            "
+          >
+            <mat-option *ngFor="let stat of states" [value]="stat">
+              {{ stat.stateName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </form>
+  </div>
 </div>
 
 <div
-  class="pull-right"
+  style="text-align: end"
   *ngIf="searchresultarray.length !== 0 && showAddButtonFlag"
 >
   <mat-form-field id="filterbox">
-    <mat-label>In-Table Search</mat-label>
+    <!-- <mat-label>In-Table Search</mat-label> -->
     <input
       matInput
       #filterTerm
+      placeholder="In-Table Search"
       (keyup)="filterComponentList(filterTerm.value)"
     />
     <mat-icon mdSuffix>search</mat-icon>
@@ -78,7 +85,7 @@
   >
     <button
       *ngIf="showUpdateFeatureButtonFlag && service.serviceID === 3"
-      class="pull-right"
+      class="pull-right mat_blue"
       mat-raised-button
       color="primary"
       (click)="addMoreFeatures(toBeEditedRoleObj)"
@@ -160,7 +167,7 @@
       <button
         mat-raised-button
         color="primary"
-        class="pull-right"
+        class="pull-right mat_blue"
         [disabled]="stateService.invalid"
         (click)="setRoleFormFlag(true)"
       >
@@ -248,39 +255,43 @@
         hideAdd && !multipleFeaturesServiceList.includes(service.serviceID)
       "
     >
-      <mat-label>Feature</mat-label>
-      <mat-select
-        class="width100"
-        name="feature"
-        [(ngModel)]="feature"
-        required
-      >
-        <mat-option
-          *ngFor="let item of features"
-          matTooltip="{{ item.screenDesc }}"
-          [value]="item"
+      <mat-form-field>
+        <mat-label>Feature</mat-label>
+        <mat-select
+          class="width100"
+          name="feature"
+          [(ngModel)]="feature"
+          required
         >
-          {{ item.screenName }}
-        </mat-option>
-      </mat-select>
+          <mat-option
+            *ngFor="let item of features"
+            matTooltip="{{ item.screenDesc }}"
+            [value]="item"
+          >
+            {{ item.screenName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
 
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15" *ngIf="!hideAdd">
-      <mat-label>Feature</mat-label>
-      <mat-select
-        class="width100"
-        name="feature"
-        [(ngModel)]="editedFeatureID"
-        required
-      >
-        <mat-option
-          *ngFor="let item of editFeatures"
-          matTooltip="{{ item.screenDesc }}"
-          [value]="item.screenID"
+      <mat-form-field>
+        <mat-label>Feature</mat-label>
+        <mat-select
+          class="width100"
+          name="feature"
+          [(ngModel)]="editedFeatureID"
+          required
         >
-          {{ item.screenName }}
-        </mat-option>
-      </mat-select>
+          <mat-option
+            *ngFor="let item of editFeatures"
+            matTooltip="{{ item.screenDesc }}"
+            [value]="item.screenID"
+          >
+            {{ item.screenName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
   </form>
   <div
@@ -291,7 +302,7 @@
       md-mini-fab
       color="primary"
       (click)="add_obj(role, description, feature)"
-      class="xs-pull-right sm-pull-left md-pull-right lg-pull-left"
+      class="xs-pull-right sm-pull-left md-pull-right lg-pull-left mat_blue"
     >
       <mat-icon
         matSuffix
@@ -373,7 +384,7 @@
     <button
       mat-raised-button
       color="primary"
-      class="pull-left"
+      class="pull-left mat_blue"
       (click)="back(false)"
     >
       Back
@@ -381,7 +392,7 @@
     <button
       mat-raised-button
       color="accent"
-      class="pull-right"
+      class="pull-right mat_green"
       (click)="finalsave()"
       [disabled]="addRole.data.length === 0"
       *ngIf="!setEditSubmitButton"

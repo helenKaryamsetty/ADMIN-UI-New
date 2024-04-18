@@ -16,6 +16,8 @@
         <div class="row" *ngIf="questionsection">
           <form #form1="ngForm">
             <div class="col-xs-12 col-sm-12">
+              <mat-form-field></mat-form-field>
+              <mat-label></mat-label>
               <mat-select
                 placeholder="Question 1"
                 [(ngModel)]="question1"
@@ -35,10 +37,10 @@
             </div>
             <div class="col-xs-12 col-sm-12 m-t-10">
               <mat-form-field style="width: 100%">
+                <mat-label>Answer 1</mat-label>
                 <input
                   id="ans1"
                   matInput
-                  placeholder="Answer 1"
                   [(ngModel)]="answer1"
                   name="answer1"
                   required
