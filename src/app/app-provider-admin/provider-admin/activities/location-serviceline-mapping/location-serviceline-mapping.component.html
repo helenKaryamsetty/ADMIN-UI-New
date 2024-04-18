@@ -8,58 +8,66 @@
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="showForm">
       <h4 class="pull-left">Create Work Location</h4>
     </div>
-    <form #searchForm="ngForm" id="searchForm" autocomplete="off">
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <!-- <md-input-container class="hide_underline width100">
-        <input mdInput style="display:none"> -->
-        <mat-form-field>
-          <mat-label>Serviceline</mat-label>
-          <mat-select
-            [disabled]="disableSelection"
-            class="width100"
-            required
-            [(ngModel)]="search_serviceline"
-            name="serviceline"
-            (ngModelChange)="getStates(search_serviceline)"
-          >
-            <mat-option *ngFor="let service of servicelines" [value]="service">
-              {{ service.serviceName }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
+    <div class="col-12">
+      <form #searchForm="ngForm" id="searchForm" autocomplete="off" class="row">
+        <div class="col-3">
+          <!-- <md-input-container class="hide_underline width100">
+          <input mdInput style="display:none"> -->
+          <mat-form-field>
+            <mat-label>Serviceline</mat-label>
+            <mat-select
+              [disabled]="disableSelection"
+              class="width100"
+              required
+              [(ngModel)]="search_serviceline"
+              name="serviceline"
+              (ngModelChange)="getStates(search_serviceline)"
+            >
+              <mat-option
+                *ngFor="let service of servicelines"
+                [value]="service"
+              >
+                {{ service.serviceName }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
 
-        <!-- </md-input-container> -->
-      </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <!-- <md-input-container class="hide_underline width100">
-        <input mdInput style="display:none"> -->
-        <mat-form-field>
-          <mat-label>State</mat-label>
-          <mat-select
-            [disabled]="disableSelection || nationalFlag"
-            class="width100"
-            [(ngModel)]="search_state"
-            name="state"
-            (ngModelChange)="
-              findLocations(search_state.stateID, search_serviceline.serviceID);
-              setPSMID(search_state.providerServiceMapID);
-              setPSMID_onStateSeletion(search_state.providerServiceMapID)
-            "
-            required
-          >
-            <mat-option *ngFor="let item of states" [value]="item">
-              {{ item.stateName }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
+          <!-- </md-input-container> -->
+        </div>
+        <div class="col-3">
+          <!-- <md-input-container class="hide_underline width100">
+          <input mdInput style="display:none"> -->
+          <mat-form-field>
+            <mat-label>State</mat-label>
+            <mat-select
+              [disabled]="disableSelection || nationalFlag"
+              class="width100"
+              [(ngModel)]="search_state"
+              name="state"
+              (ngModelChange)="
+                findLocations(
+                  search_state.stateID,
+                  search_serviceline.serviceID
+                );
+                setPSMID(search_state.providerServiceMapID);
+                setPSMID_onStateSeletion(search_state.providerServiceMapID)
+              "
+              required
+            >
+              <mat-option *ngFor="let item of states" [value]="item">
+                {{ item.stateName }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
 
-        <!-- </md-input-container> -->
-      </div>
-    </form>
+          <!-- </md-input-container> -->
+        </div>
+      </form>
+    </div>
   </div>
 
-  <div class="pull-right" *ngIf="workLocations.length !== 0 && showTable">
-    <mat-form-field id="filterbox">
+  <div style="text-align: end" *ngIf="workLocations.length !== 0 && showTable">
+    <mat-form-field>
       <input
         matInput
         placeholder="In-Table Search"
@@ -70,7 +78,7 @@
     </mat-form-field>
   </div>
 
-  <div class="row">
+  <div class="row" style="margin-bottom: 15px">
     <div class="col-xs-12 col-sm-12 m-t-15" *ngIf="showTable">
       <!-- <div class="table-responsive"> -->
       <table
@@ -114,6 +122,7 @@
           <td mat-cell *matCellDef="let element">
             <button
               mat-icon-button
+              style="border: unset; background-color: unset"
               matTooltip="Click to Edit"
               class="iconbutton"
               color="primary"
@@ -131,6 +140,7 @@
             <button
               *ngIf="element.deleted === true"
               mat-raised-button
+              class="mat_blue"
               color="accent"
               (click)="activeDeactivate(element.pSAddMapID, false)"
             >
@@ -140,6 +150,7 @@
               *ngIf="element.deleted === false"
               mat-raised-button
               color="primary"
+              class="mat_blue"
               (click)="activeDeactivate(element.pSAddMapID, true)"
             >
               Deactivate
@@ -155,7 +166,7 @@
           mat-raised-button
           color="primary"
           [disabled]="searchForm.invalid"
-          class="pull-right"
+          class="pull-right mat_blue"
           (click)="changeTableFlag(false)"
         >
           Add Work Location
@@ -178,108 +189,108 @@
     <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <h4 class="pull-left">Add Work Location</h4>
   </div> -->
-    <form #f="ngForm" id="locationForm" autocomplete="off">
-      <div
-        class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15"
-        *ngIf="!nationalFlag"
-      >
-        <!-- <md-input-container class="hide_underline width100">
+    <div class="col-12">
+      <form #f="ngForm" id="locationForm" autocomplete="off" class="row">
+        <div class="col-3" *ngIf="!nationalFlag">
+          <!-- <md-input-container class="hide_underline width100">
         <input mdInput style="display:none"> -->
-        <mat-form-field>
-          <mat-label>District</mat-label>
-          <mat-select
-            class="width100"
-            [(ngModel)]="district"
-            name="district"
-            #District="ngModel"
-            required
-          >
-            <mat-option
-              *ngFor="let item of districts"
-              value="{{ item.districtID }}"
+          <mat-form-field>
+            <mat-label>District</mat-label>
+            <mat-select
+              class="width100"
+              [(ngModel)]="district"
+              name="district"
+              #District="ngModel"
+              required
             >
-              {{ item.districtName }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
+              <mat-option
+                *ngFor="let item of districts"
+                value="{{ item.districtID }}"
+              >
+                {{ item.districtName }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
 
-        <!-- </md-input-container> -->
-      </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
-        <mat-form-field class="width100" myProviderName>
-          <mat-label>Office Name</mat-label>
-          <input
-            matInput
-            [(ngModel)]="OfficeID"
-            name="OfficeID"
-            #officeId="ngModel"
-            required
-            maxlength="45"
-          />
-          <mat-hint>
-            <span *ngIf="officeId.touched && officeId.errors" class="error_text"
-              >Office Name is required</span
-            >
-            <span *ngIf="officeNameExist" class="error_text">{{ msg }}</span>
-          </mat-hint>
-        </mat-form-field>
-      </div>
-      <div class="clearfix visible-sm"></div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
-        <mat-form-field class="width100">
-          <mat-label>Office Address Line 1</mat-label>
-          <input
-            matInput
-            myAddress
-            maxlength="140"
-            [(ngModel)]="office_address1"
-            name="office_address1"
-            #officeAddress1="ngModel"
-            required
-          />
-          <mat-hint *ngIf="officeAddress1.errors && officeAddress1.touched">
-            <span class="error_text">Address1 is required</span>
-          </mat-hint>
-        </mat-form-field>
-      </div>
-      <div class="clearfix visible-md"></div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
-        <mat-form-field class="width100">
-          <mat-label>Office Address Line 2</mat-label>
-          <input
-            matInput
-            myAddress
-            maxlength="140"
-            [(ngModel)]="office_address2"
-            name="office_address2"
-            #officeAddress2="ngModel"
-            required
-          />
-          <mat-hint *ngIf="officeAddress2.errors && officeAddress2.touched">
-            <span class="error_text">Address2 is required</span>
-          </mat-hint>
-        </mat-form-field>
-      </div>
-      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10">
-        <button
-          class="pull-right"
-          mat-raised-button
-          color="accent"
-          (click)="saveOfficeAddress(f.value)"
-          [disabled]="f.invalid || officeNameExist"
-        >
-          Save
-        </button>
-        <!-- <button class="pull-left" md-raised-button color="primary" (click)="changeTableFlag(true)">Back</button> -->
-        <button
-          class="pull-left"
-          mat-raised-button
-          color="primary"
-          (click)="back(true)"
-        >
-          Back
-        </button>
-      </div>
-    </form>
+          <!-- </md-input-container> -->
+        </div>
+        <div class="col-3">
+          <mat-form-field class="width100" myProviderName>
+            <mat-label>Office Name</mat-label>
+            <input
+              matInput
+              [(ngModel)]="OfficeID"
+              name="OfficeID"
+              #officeId="ngModel"
+              required
+              maxlength="45"
+            />
+            <mat-hint>
+              <span
+                *ngIf="officeId.touched && officeId.errors"
+                class="error_text"
+                >Office Name is required</span
+              >
+              <span *ngIf="officeNameExist" class="error_text">{{ msg }}</span>
+            </mat-hint>
+          </mat-form-field>
+        </div>
+        <div class="col-3">
+          <mat-form-field class="width100">
+            <mat-label>Office Address Line 1</mat-label>
+            <input
+              matInput
+              myAddress
+              maxlength="140"
+              [(ngModel)]="office_address1"
+              name="office_address1"
+              #officeAddress1="ngModel"
+              required
+            />
+            <mat-hint *ngIf="officeAddress1.errors && officeAddress1.touched">
+              <span class="error_text">Address1 is required</span>
+            </mat-hint>
+          </mat-form-field>
+        </div>
+        <div class="col-3">
+          <mat-form-field class="width100">
+            <mat-label>Office Address Line 2</mat-label>
+            <input
+              matInput
+              myAddress
+              maxlength="140"
+              [(ngModel)]="office_address2"
+              name="office_address2"
+              #officeAddress2="ngModel"
+              required
+            />
+            <mat-hint *ngIf="officeAddress2.errors && officeAddress2.touched">
+              <span class="error_text">Address2 is required</span>
+            </mat-hint>
+          </mat-form-field>
+        </div>
+      </form>
+    </div>
+
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10">
+      <button
+        class="pull-right mat_green"
+        mat-raised-button
+        color="accent"
+        (click)="saveOfficeAddress(f.value)"
+        [disabled]="f.invalid || officeNameExist"
+      >
+        Save
+      </button>
+      <!-- <button class="pull-left" md-raised-button color="primary" (click)="changeTableFlag(true)">Back</button> -->
+      <button
+        class="pull-left mat_blue"
+        mat-raised-button
+        color="primary"
+        (click)="back(true)"
+      >
+        Back
+      </button>
+    </div>
   </div>
 </div>

@@ -52,3 +52,136 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .main-section[_ngcontent-ng-c273335657] {
   background-color: #ffffff;
 }
+
+
+.mat_blue {
+  background-color: #0277bd !important;
+  border-color: unset !important;
+  color: white;
+  border: unset;
+  border-radius: 3px;
+  line-height: 36px;
+  min-width: 88px;
+}
+.mat_blue:disabled {
+  background-color: #e0e0e0 !important;
+  border-color: unset !important;
+  color: rgba(0, 0, 0, 0.38);
+  border: unset;
+  border-radius: 3px;
+  line-height: 36px;
+  min-width: 88px;
+}
+.mat_green {
+  background-color: #43a047 !important;
+  border-color: unset !important;
+  color: white;
+  border: unset;
+  border-radius: 3px;
+  line-height: 36px;
+  min-width: 88px;
+}
+.mat_green:disabled {
+  background-color: #e0e0e0 !important;
+  border-color: unset !important;
+  color: rgba(0, 0, 0, 0.38);
+  border: unset;
+  border-radius: 3px;
+  line-height: 36px;
+  min-width: 88px;
+}
+
+.mat_gray {
+  background-color: #f0f0f0 !important;
+  border-color: unset !important;
+  color: black;
+  border: unset;
+  border-radius: 3px;
+  line-height: 36px;
+  min-width: 88px;
+}
+
+.mat_blue_circle {
+  background-color: #0277bd;
+  min-width: 0;
+  border-radius: 50%;
+  border-color: unset !important;
+  color: white;
+  border: unset;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  left: 20px;
+  bottom: 50px;
+  z-index: 3;
+}
+.mat_blue_circle:disabled {
+  background-color: #e0e0e0;
+  min-width: 0;
+  border-radius: 50%;
+  border-color: unset !important;
+  color: rgba(0, 0, 0, 0.38);
+  border: unset;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  left: 20px;
+  bottom: 50px;
+  z-index: 3;
+}
+.mat_gray_circle {
+  background-color: rgba(0, 0, 0, 0.12);
+  min-width: 0;
+  border-radius: 50%;
+  border-color: unset !important;
+  color:#00000061;
+  border: unset;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  left: 20px;
+  bottom: 50px;
+  z-index: 3;
+}
+.mat_warn_circle {
+  background-color: #ff5252;
+  min-width: 0;
+  border-radius: 50%;
+  border-color: unset !important;
+  color:white ;
+  border: unset;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  left: 20px;
+  bottom: 50px;
+  z-index: 3;
+}
+.mat_icon_blue{
+  background-color: white;
+  min-width: 0;
+  border-radius: 50%;
+  border-color: unset !important;
+  color:#0277bd ;
+  border: unset;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  left: 20px;
+  bottom: 50px;
+  z-index: 3;
+}
+.mat_icon_white{
+  background-color: #0277bd;
+  min-width: 0;
+  border-radius: 50%;
+  border-color: unset !important;
+  color:white ;
+  border: unset;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  left: 20px;
+  bottom: 50px;
+  z-index: 3;
+}
