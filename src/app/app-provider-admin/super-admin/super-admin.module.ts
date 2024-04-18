@@ -8,13 +8,13 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { BrowserModule } from '@angular/platform-browser';
 import { MaterialModule } from 'src/app/core/material.module';
-import { ConfigurationsModule } from '../provider-admin/configurations/configurations.module';
 import { InventoryModule } from '../provider-admin/inventory/inventory.module';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { SuperAdminComponent } from './super-admin/super-admin.component';
 import { ActivitiesModule } from './super-admin/Activities/activities.module';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { ConfigurationsModule } from './super-admin/configurations/congigurations.module';
 
 @NgModule({
   declarations: [SuperAdminComponent],

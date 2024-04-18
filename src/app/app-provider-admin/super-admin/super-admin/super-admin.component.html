@@ -10,15 +10,22 @@
       </button>
       <button mat-menu-item (click)="show('2')">View Provider</button>
       <button mat-menu-item (click)="show('10')">Update Provider</button>
-      <button mat-menu-item (click)="show('32')">Provider Admin List</button>
-      <button mat-menu-item (click)="show('27')">View Provider</button>
-      <button mat-menu-item (click)="show('28')">Update Provider</button>
       <button mat-menu-item (click)="show('15')">Provider Admin List</button>
-      <button mat-menu-item (click)="show('59')">
+      <!-- <button mat-menu-item (click)="show('27')">View Provider</button>
+      <button mat-menu-item (click)="show('28')">Update Provider</button>
+      <button mat-menu-item (click)="show('15')">Provider Admin List</button> -->
+      <button mat-menu-item (click)="show('16')">
         Provider Admin-Provider Mapping
       </button>
-      <button mat-menu-item (click)="show('4')">Sub Service</button>
-      <button mat-menu-item (click)="show('77')">Village Master</button>
+      <button mat-menu-item (click)="show('3')">Sub Service</button>
+      <button mat-menu-item (click)="show('12')">Village Master</button>
+    </mat-menu>
+    <button mat-button class="top-element">Reports</button>
+    <button mat-button [matMenuTriggerFor]="configuration" class="top-element">
+      configurations
+    </button>
+    <mat-menu #configuration="matMenu">
+      <button mat-menu-item (click)="show('11')">Provider CTI Mapping</button>
     </mat-menu>
     <div [ngSwitch]="Activity_Number" class="col-xs-12 col-sm-12">
       <app-service-provider-master
@@ -34,6 +41,12 @@
         *ngSwitchCase="10"
       ></app-update-service-provider>
       <app-provider-admin-list *ngSwitchCase="15"></app-provider-admin-list>
+      <app-mapping-provider-admin-to-provider
+        *ngSwitchCase="16"
+      ></app-mapping-provider-admin-to-provider>
+      <app-create-sub-service *ngSwitchCase="3"></app-create-sub-service>
+      <app-village-master *ngSwitchCase="12"></app-village-master>
+      <app-provide-cti-mapping *ngSwitchCase="11"></app-provide-cti-mapping>
       <div></div>
     </div>
   </div>

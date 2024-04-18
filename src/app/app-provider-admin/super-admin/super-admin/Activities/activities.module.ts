@@ -22,6 +22,12 @@ import {
   EditProviderAdminModalComponent,
   ProviderAdminListComponent,
 } from './provider-admin-list/provider-admin-list.component';
+import { MappingProviderAdminToProviderComponent } from './mapping-provider-admin-to-provider/mapping-provider-admin-to-provider.component';
+import { CreateSubServiceComponent } from './create-sub-service/create-sub-service.component';
+import {
+  EditVillageModalComponent,
+  VillageMasterComponent,
+} from './village-master/village-master.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +38,10 @@ import {
     EditProviderDetailsComponent,
     ProviderAdminListComponent,
     EditProviderAdminModalComponent,
+    MappingProviderAdminToProviderComponent,
+    CreateSubServiceComponent,
+    VillageMasterComponent,
+    EditVillageModalComponent,
   ],
   imports: [
     CommonModule,
@@ -58,6 +68,10 @@ import {
     EditProviderDetailsComponent,
     ProviderAdminListComponent,
     EditProviderAdminModalComponent,
+    MappingProviderAdminToProviderComponent,
+    CreateSubServiceComponent,
+    VillageMasterComponent,
+    EditVillageModalComponent,
   ],
 })
 export class ActivitiesModule {}

@@ -20,15 +20,9 @@
  * along with this program.  If not, see https://www.gnu.org/licenses/.
  */
 import { Injectable } from '@angular/core';
-import {
-  HttpClient,
-  HttpResponse,
-  HttpInterceptor,
-} from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { throwError } from 'rxjs';
 import { ConfigService } from '../config/config.service';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
 // import { InterceptedHttp } from './../../http.interceptor';
 // import { SecurityInterceptedHttp } from '../../http.securityinterceptor';
 
@@ -48,7 +42,6 @@ export class CallServices {
   constructor(
     private _http: HttpClient,
     private _config: ConfigService,
-    private _httpInterceptor: HttpInterceptor,
   ) {}
 
   getAllMappedServicelinesAndStates(serviceProviderID: any) {
