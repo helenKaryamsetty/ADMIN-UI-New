@@ -1,0 +1,131 @@
+/*
+ * AMRIT – Accessible Medical Records via Integrated Technology
+ * Integrated EHR (Electronic Health Records) Solution
+ *
+ * Copyright (C) "Piramal Swasthya Management and Research Institute"
+ *
+ * This file is part of AMRIT.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see https://www.gnu.org/licenses/.
+ */
+import { Component, OnInit, Inject } from '@angular/core';
+import {
+  MatDialog,
+  MatDialogRef,
+  MatDialogConfig,
+  MAT_DIALOG_DATA,
+} from '@angular/material/dialog';
+import { BlockProvider } from 'src/app/core/services/adminServices/AdminServiceProvider/block-provider-service.service';
+import { SuperAdmin_ServiceProvider_Service } from 'src/app/core/services/adminServices/AdminServiceProvider/superadmin_serviceprovider.service';
+import { ConfirmationDialogsService } from 'src/app/core/services/dialog/confirmation.service';
+@Component({
+  selector: 'app-edit-provider-details',
+  templateUrl: './edit-provider-details.component.html',
+  styleUrls: ['./edit-provider-details.component.css'],
+})
+export class EditProviderDetailsComponent implements OnInit {
+  // Ng Models
+  primaryName: any;
+  primaryEmail: any;
+  primaryNo: any;
+  primaryAddress: any;
+  secondaryName: any;
+  secondaryEmail: any;
+  secondaryNo: any;
+  secondaryAddress: any;
+  emailPattern: any;
+  providerNameExist: any = false;
+  providerID: any;
+  providerName: any;
+
+  constructor(
+    public dialogRef: MatDialogRef<EditProviderDetailsComponent>,
+    public super_admin_service: SuperAdmin_ServiceProvider_Service,
+    private message: ConfirmationDialogsService,
+    public dialog: MatDialog,
+    @Inject(MAT_DIALOG_DATA) public providerDetails: any,
+    private provider_services: BlockProvider,
+  ) {}
+
+  ngOnInit() {
+    const providerData = this.providerDetails;
+    this.setProviderDetails(providerData);
+    this.emailPattern =
+      /^[0-9a-zA-Z_.]+@[a-zA-Z_]+?\.\b(org|com|COM|IN|in|co.in)\b$/;
+  }
+  setProviderDetails(providerData: any) {
+    console.log(providerData);
+    this.providerID = providerData[0].serviceProviderId;
+    this.providerName = providerData[0].serviceProviderName;
+
+    this.primaryName = providerData[0].primaryContactName;
+    this.primaryEmail = providerData[0].primaryContactEmailID;
+    this.primaryNo = providerData[0].primaryContactNo;
+    this.primaryAddress = providerData[0].primaryContactAddress;
+    this.secondaryName = providerData[0].secondaryContactName;
+    this.secondaryEmail = providerData[0].secondaryContactEmailID;
+    this.secondaryNo = providerData[0].secondaryContactNo;
+    this.secondaryAddress = providerData[0].secondaryContactAddress;
+  }
+  Edit(item: any) {
+    const providerObj: any = {};
+    providerObj['serviceProviderId'] = this.providerID;
+    providerObj['serviceProviderName'] = this.providerName;
+
+    providerObj['primaryContactName'] = item.primaryName;
+    providerObj['primaryContactNo'] = item.primaryNo;
+    providerObj['primaryContactEmailID'] = item.primaryEmail;
+    providerObj['primaryContactAddress'] = item.primaryAddress;
+
+    providerObj['secondaryContactName'] = item.secondaryName;
+    providerObj['secondaryContactEmailID'] = item.secondaryEmail;
+    providerObj['secondaryContactNo'] = item.secondaryNo;
+    providerObj['secondaryContactAddress'] = item.secondaryAddress;
+
+    console.log(providerObj, 'EDITED OBJ');
+
+    this.provider_services.editProvider(providerObj).subscribe(
+      (res) => {
+        console.log(res, 'Response after edit');
+        this.message.alert('Updated successfully', 'success');
+
+        this.dialogRef.close();
+      },
+      (err) => {
+        console.log('error', err);
+        // this.message.alert(err, 'error');
+      },
+    );
+  }
+  checkProviderNameAvailability(service_provider_name: any) {
+    this.super_admin_service
+      .checkProviderNameAvailability(service_provider_name)
+      .subscribe(
+        (response: any) => this.checkProviderNameAvailibilityHandeler(response),
+        (err) => {
+          console.log('error', err);
+          // this.message.alert(err, 'error');
+        },
+      );
+  }
+
+  checkProviderNameAvailibilityHandeler(response: any) {
+    console.log(response.data, 'provider name availability');
+    if (response.data === 'provider_name_exists') {
+      this.providerNameExist = true;
+    } else {
+      this.providerNameExist = false;
+    }
+  }
+}

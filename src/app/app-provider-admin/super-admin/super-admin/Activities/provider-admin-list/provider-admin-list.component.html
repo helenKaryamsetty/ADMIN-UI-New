@@ -656,29 +656,7 @@
             >
           </td>
         </ng-container>
-        <!-- <thead>
-          <tr>
-            <th width="5%">S.No.</th>
-            <th width="15%">Username</th>
-            <th width="15%">Email ID</th>
-            <th width="15%">Mobile Number</th>
-            <th width="15%">Action</th>
-          </tr>
-        </thead> -->
-        <!-- <tbody>
-          <tr *ngIf="objs.length == 0">
-            <td colspan="5" class="record-not-found">No records found</td>
-          </tr>
-          <tr *ngFor="let obj of md2.data; let i=index">
-            <td>{{objs.indexOf(obj)+1}}</td>
-            <td>{{obj.username}}</td>
-            <td>{{obj.primaryEmail}}</td>
-            <td>{{obj.primaryMobileNumber}}</td>
-            <td>
-              <mat-icon class="cursorPointer" mdTooltip="delete" (click)="remove_obj(objs.indexOf(obj))">delete</mat-icon>
-            </td>
-          </tr>
-        </tbody> -->
+
         <tr mat-header-row *matHeaderRowDef="displayAddedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayAddedColumns"></tr>
         <mat-paginator

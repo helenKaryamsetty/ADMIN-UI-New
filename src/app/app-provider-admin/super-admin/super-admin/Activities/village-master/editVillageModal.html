@@ -1,0 +1,153 @@
+<div class="row">
+  <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 m-t--5">
+    <h4 class="pull-left">Edit Village Details</h4>
+  </div>
+  <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+    <button mat-button class="pull-right p-r-0" [mat-dialog-close]="true">
+      <mat-icon
+        matTooltip="close"
+        class="mat-icon material-icons pull-right"
+        role="img"
+        aria-hidden="true"
+        style="cursor: pointer"
+        >clear
+      </mat-icon>
+    </button>
+  </div>
+</div>
+<div class="row">
+  <form #editVillageform="ngForm" autocomplete="off">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 m-t-10">
+      <mat-form-field class="width100">
+        <input
+          matInput
+          required
+          placeholder="Village"
+          [(ngModel)]="villageName"
+          name="villageName"
+          #VillageN="ngModel"
+          (keyup)="checkExistance_edit(villageName)"
+          maxlength="30"
+          pattern="^([a-zA-Z]+\s?)*\s*$"
+        />
+        <mat-hint>
+          <span
+            class="error_text"
+            *ngIf="!VillageN.valid && (VillageN.dirty || VillageN.touched)"
+            >Please enter Village Name</span
+          >
+          <span class="error_text" *ngIf="VillageN.valid && villageExist"
+            >Village already exists</span
+          >
+        </mat-hint>
+      </mat-form-field>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 m-t-10">
+      <mat-form-field class="width100">
+        <input
+          matInput
+          placeholder="Panchayat"
+          [(ngModel)]="panchayatName"
+          maxlength="30"
+          name="panchayatName"
+          myName2
+        />
+      </mat-form-field>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 m-t-10">
+      <mat-form-field class="width100">
+        <input
+          matInput
+          placeholder="Habitat"
+          [(ngModel)]="habitat"
+          maxlength="30"
+          name="habitat"
+          myName2
+        />
+      </mat-form-field>
+    </div>
+
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 m-t-10">
+      <mat-form-field class="width100" myMobileNumber>
+        <input
+          matInput
+          placeholder="Pincode"
+          [(ngModel)]="pinCode"
+          name="pinCode"
+          maxlength="6"
+          minlength="6"
+          #PINC="ngModel"
+        />
+        <mat-hint [hidden]="PINC.valid">
+          <span
+            class="error_text"
+            *ngIf="!PINC.valid && (PINC.dirty || PINC.touched)"
+            >Please enter valid pincode</span
+          >
+        </mat-hint>
+      </mat-form-field>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 m-t-10">
+      <mat-form-field class="width100">
+        <input
+          matInput
+          placeholder="Village LGD Code"
+          [(ngModel)]="govVillageID"
+          name="govVillageID"
+          #VillageLGD="ngModel"
+          maxlength="6"
+          myMobileNumber
+          required
+        />
+        <mat-hint>
+          <span
+            class="error_text"
+            *ngIf="
+              !VillageLGD.valid && (VillageLGD.dirty || VillageLGD.touched)
+            "
+            >Please enter valid Village LGD Code</span
+          >
+        </mat-hint>
+      </mat-form-field>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 m-t-10">
+      <mat-form-field class="width100">
+        <input
+          matInput
+          placeholder="Sub District LGD Code"
+          [(ngModel)]="govSubDistrictID"
+          name="govSubDistrictID"
+          maxlength="6"
+          myMobileNumber
+        />
+      </mat-form-field>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 m-t-10">
+      <span class="f-s-n-b"><strong>Village Type</strong></span>
+      <mat-radio-group
+        [(ngModel)]="isRural"
+        name="isRural"
+        class="width100"
+        myMobileNumber
+      >
+        <mat-radio-button color="primary" class="p-l-10 f-s-12" [value]="true"
+          >Rural Area</mat-radio-button
+        >
+        <mat-radio-button color="primary" class="p-l-10 f-s-12" [value]="false"
+          >Urban Area</mat-radio-button
+        >
+      </mat-radio-group>
+    </div>
+  </form>
+</div>
+<div class="m-t-10">
+  <button
+    mat-raised-button
+    color="accent"
+    class="pull-right"
+    [disabled]="editVillageform.invalid || villageExist"
+    (click)="update(editVillageform.value)"
+  >
+    Update
+  </button>
+</div>

@@ -22,7 +22,8 @@ export class ConfirmationDialogsService {
     btnCancelText = 'Cancel',
   ): Observable<boolean> {
     const dialogRef = this.dialog.open(CommonDialogComponent, {
-      width: '420px',
+      width: 'auto',
+      height: 'auto',
       disableClose: false,
     });
     dialogRef.componentInstance.title = title;
@@ -46,7 +47,8 @@ export class ConfirmationDialogsService {
   ): Observable<boolean> {
     const config = new MatDialogConfig();
     const dialogRef = this.dialog.open(CommonDialogComponent, {
-      width: '420px',
+      width: 'auto',
+      height: 'auto',
       disableClose: false,
     });
     dialogRef.componentInstance.title = title;
@@ -68,7 +70,8 @@ export class ConfirmationDialogsService {
     btnOkText = 'OK',
   ): MatDialogRef<CommonDialogComponent> {
     const config = {
-      width: '420px',
+      width: 'auto',
+      height: 'auto',
     };
     const dialogRef = this.dialog.open(CommonDialogComponent, config);
     dialogRef.componentInstance.message = message;
@@ -91,7 +94,8 @@ export class ConfirmationDialogsService {
     btnCancelText = 'Cancel',
   ): Observable<any> {
     const config = {
-      width: '420px',
+      width: 'auto',
+      height: 'auto',
     };
     const dialogRef = this.dialog.open(CommonDialogComponent, config);
     dialogRef.componentInstance.message = message;
@@ -114,7 +118,9 @@ export class ConfirmationDialogsService {
     btnOkText = 'Submit',
     btnCancelText = 'Cancel',
   ): Observable<any> {
-    const dialogRef = this.dialog.open(CommonDialogComponent, { width: '60%' });
+    const dialogRef = this.dialog.open(CommonDialogComponent, {
+      width: 'auto',
+    });
     dialogRef.componentInstance.message = message;
     dialogRef.componentInstance.btnOkText = btnOkText;
     dialogRef.componentInstance.confirmAlert = false;
@@ -136,7 +142,8 @@ export class ConfirmationDialogsService {
     btnOkText = 'OK',
   ): Observable<any> {
     const config = {
-      width: '420px',
+      width: 'auto',
+      height: 'auto',
     };
     const dialogRef = this.dialog.open(CommonDialogComponent, config);
     dialogRef.componentInstance.message = message;
@@ -160,7 +167,8 @@ export class ConfirmationDialogsService {
     btnCancelText = 'Cancel',
   ): Observable<any> {
     const config = {
-      width: '420px',
+      width: 'auto',
+      height: 'auto',
     };
     const dialogRef = this.dialog.open(CommonDialogComponent, config);
     dialogRef.componentInstance.message = message;
@@ -185,7 +193,8 @@ export class ConfirmationDialogsService {
     btnCancelText = 'Cancel',
   ): Observable<any> {
     const dialogRef = this.dialog.open(CommonDialogComponent, {
-      width: '420px',
+      width: 'auto',
+      height: 'auto',
       disableClose: true,
     });
     dialogRef.componentInstance.title = title;
@@ -212,7 +221,8 @@ export class ConfirmationDialogsService {
     btnCancelText = 'Cancel',
   ): Observable<any> {
     const config = {
-      width: '420px',
+      width: 'auto',
+      height: 'auto',
     };
     const dialogRef = this.dialog.open(CommonDialogComponent, config);
     dialogRef.componentInstance.message = message;
@@ -246,7 +256,8 @@ export class ConfirmationDialogsService {
     btnOkText = 'OK',
   ): void {
     const config = {
-      width: '420px',
+      width: 'auto',
+      height: 'auto',
     };
     const dialogRef = this.dialog.open(CommonDialogComponent, config);
     dialogRef.componentInstance.message = message;
@@ -265,7 +276,8 @@ export class ConfirmationDialogsService {
     btnCancelText = 'No',
   ): Observable<boolean> {
     const dialogRef = this.dialog.open(CommonDialogComponent, {
-      width: '420px',
+      width: 'auto',
+      height: 'auto',
       disableClose: false,
     });
     dialogRef.componentInstance.title = title;
@@ -288,7 +300,8 @@ export class ConfirmationDialogsService {
     btnCancelText = 'Cancel',
   ): Observable<boolean> {
     const dialogRef = this.dialog.open(CommonDialogComponent, {
-      width: '420px',
+      width: 'auto',
+      height: 'auto',
       disableClose: false,
     });
     dialogRef.componentInstance.title = title;
@@ -313,7 +326,8 @@ export class ConfirmationDialogsService {
     btnCancelText = 'No',
   ): Observable<boolean> {
     const dialogRef = this.dialog.open(CommonDialogComponent, {
-      width: '420px',
+      width: 'auto',
+      height: 'auto',
       disableClose: false,
     });
     dialogRef.componentInstance.title = title;
