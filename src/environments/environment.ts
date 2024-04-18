@@ -24,11 +24,11 @@
 // `ng build --env=prod` then `environment.prod.ts` will be used instead.
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
-const ADMIN_API = 'https://amritwprdev.piramalswasthya.org/';
-const COMMON_API = 'https://amritwprdev.piramalswasthya.org/';
-const adminBaseUrl = `${ADMIN_API}adminapi-v0.1/`;
-const superadminBaseURL = `${ADMIN_API}adminapi-v0.1/`;
-const commonBaseURL = `${COMMON_API}commonapi-v0.1/`;
+const ADMIN_API = 'http://183.82.107.186:8080/';
+const COMMON_API = 'http://183.82.107.186:8080/';
+const adminBaseUrl = `${ADMIN_API}adminapi-v1.0/`;
+const superadminBaseURL = `${ADMIN_API}adminapi-v1.0/`;
+const commonBaseURL = `${COMMON_API}commonapi-v1.0/`;
 
 export const environment = {
   production: false,
@@ -82,23 +82,23 @@ export const environment = {
   saveParkingPlacesURL: `${adminBaseUrl}parkingPlaceMaster/create/parkingPlaces`,
   updateParkingPlaceStatusURL: `${adminBaseUrl}parkingPlaceMaster/remove/parkingPlace`,
   updateParkingPlaceDetailsURL: `${adminBaseUrl}parkingPlaceMaster/update/parkingPlaceDetails`,
-  getAllParkingPlaceSubDistrictMapping_url: `${adminBaseUrl}/parkingPlaceTalukMapping/getall/parkingPlacesTalukMapping`,
-  _getDistrictListURL: `${adminBaseUrl}/zonemaster/getdistrictMappedtoZone`,
+  getAllParkingPlaceSubDistrictMapping_url: `${adminBaseUrl}parkingPlaceTalukMapping/getall/parkingPlacesTalukMapping`,
+  _getDistrictListURL: `${adminBaseUrl}zonemaster/getdistrictMappedtoZone`,
   _getTalukListURL: `${commonBaseURL}location/taluks/`,
   filterMappedTaluks_url: `${adminBaseUrl}parkingPlaceTalukMapping/get/unmappedtaluk`,
-  saveParkingPlaceSubDistrictMapping_url: `${adminBaseUrl}/parkingPlaceTalukMapping/create/parkingPlacesTalukMapping`,
-  updateTalukMapping_url: `${adminBaseUrl}/parkingPlaceTalukMapping/update/parkingPlacesTalukMapping`,
-  mappingActivationDeactivation_url: `${adminBaseUrl}/parkingPlaceTalukMapping/activate/parkingPlacesTalukMapping`,
+  saveParkingPlaceSubDistrictMapping_url: `${adminBaseUrl}parkingPlaceTalukMapping/create/parkingPlacesTalukMapping`,
+  updateTalukMapping_url: `${adminBaseUrl}parkingPlaceTalukMapping/update/parkingPlacesTalukMapping`,
+  mappingActivationDeactivation_url: `${adminBaseUrl}parkingPlaceTalukMapping/activate/parkingPlacesTalukMapping`,
   _getServiceLineURL: `${adminBaseUrl}m/role/serviceNew`,
   _getStateListURL: `${adminBaseUrl}m/role/stateNew`,
   _getZonesURL: `${adminBaseUrl}zonemaster/get/zones`,
-  _getDistrictZoneListURL: `${adminBaseUrl}/zonemaster/getdistrictMappedtoZone`,
+  _getDistrictZoneListURL: `${adminBaseUrl}zonemaster/getdistrictMappedtoZone`,
   getServicePointsURL: `${adminBaseUrl}servicePointMaster/get/servicePoints`,
-  _getTalukZoneListURL: `${adminBaseUrl}/parkingPlaceTalukMapping/getbyppidanddid/parkingPlacesTalukMapping`,
+  _getTalukZoneListURL: `${adminBaseUrl}parkingPlaceTalukMapping/getbyppidanddid/parkingPlacesTalukMapping`,
   saveServicePointsURL: `${adminBaseUrl}servicePointMaster/create/servicePoints`,
   updateServicePointStatusURL: `${adminBaseUrl}servicePointMaster/remove/servicePoint`,
-  updateServicePointsURL: `${adminBaseUrl}/servicePointMaster/edit/servicePoint`,
-  _getTalukServiceListURL: `${adminBaseUrl}/parkingPlaceTalukMapping/getbyppidanddid/parkingPlacesTalukMapping`,
+  updateServicePointsURL: `${adminBaseUrl}servicePointMaster/edit/servicePoint`,
+  _getTalukServiceListURL: `${adminBaseUrl}parkingPlaceTalukMapping/getbyppidanddid/parkingPlacesTalukMapping`,
   saveZonesURL: `${adminBaseUrl}zonemaster/save/zone`,
   getZonesURL: `${adminBaseUrl}zonemaster/get/zones`,
 
@@ -122,7 +122,7 @@ export const environment = {
 
   getServiceLinesZone_new_url: `${adminBaseUrl}m/role/serviceNew`,
   getStateszone_new_url: `${adminBaseUrl}m/role/stateNew`,
-  updateZoneMappingDataUrl: `${adminBaseUrl}/zonemaster/edit/zoneDistrictMapping`,
+  updateZoneMappingDataUrl: `${adminBaseUrl}zonemaster/edit/zoneDistrictMapping`,
 
   _postProcedureURL: `${adminBaseUrl}labModule/createProcedureMaster`,
   _getProcedureListURL: `${adminBaseUrl}labModule/fetchProcedureMaster/`,
@@ -149,6 +149,6 @@ export const environment = {
   downloadSignUrl: `${adminBaseUrl}signature1/`,
 
   /* serviceline and state */
-  getRolesUrl: `${adminBaseUrl}/m/role/search/active`,
-  saveUrl: `${adminBaseUrl}/m/role/configWrap`,
+  getRolesUrl: `${adminBaseUrl}m/role/search/active`,
+  saveUrl: `${adminBaseUrl}m/role/configWrap`,
 };

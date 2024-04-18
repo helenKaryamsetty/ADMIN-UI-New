@@ -404,11 +404,9 @@ export class ZoneDistrictMappingComponent implements OnInit {
       let status;
       if (flag === true) {
         status = 'Deactivate';
-        this.status = 'Deactivate';
       }
       if (flag === false) {
         status = 'Activate';
-        this.status = 'Activate';
       }
       this.alertMessage
         .confirm('Confirm', 'Are you sure you want to ' + status + '?')

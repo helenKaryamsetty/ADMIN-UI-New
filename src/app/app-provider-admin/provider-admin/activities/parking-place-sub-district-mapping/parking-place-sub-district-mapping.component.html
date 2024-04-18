@@ -341,7 +341,7 @@
             <mat-icon
               class="cursorPointer"
               matTooltip="delete"
-              (click)="remove_obj(i)"
+              (click)="remove_obj(mappingList.data.indexOf(element))"
               >delete</mat-icon
             >
           </td>
@@ -349,26 +349,6 @@
 
         <tr mat-header-row *matHeaderRowDef="displayAddedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayAddedColumns"></tr>
-        <!-- <thead>
-          <tr>
-            <th width="5%">S.No.</th>
-            <th width="25%">Parking Place</th>
-            <th width="25%">District</th>
-            <th width="25%">Taluk</th>
-            <th width="20%">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let talukMapping of md2.data ; let i=index">
-            <td>{{mappingList.indexOf(talukMapping)+1}}</td>
-            <td>{{talukMapping.parkingPlaceName}}</td>
-            <td>{{talukMapping.districtName}}</td>
-            <td>{{talukMapping.districtBlockName}}</td>
-            <td>
-              <md-icon class="cursorPointer" mdTooltip="delete" (click)="remove_obj(mappingList.indexOf(talukMapping))">delete</md-icon>
-            </td>
-          </tr>
-        </tbody> -->
       </table>
       <mat-paginator
         [hidden]="mappingList.data.length === 0"

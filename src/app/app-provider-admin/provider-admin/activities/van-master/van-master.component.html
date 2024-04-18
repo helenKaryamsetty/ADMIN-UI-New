@@ -157,7 +157,7 @@
               role="img"
               aria-hidden="true"
               style="cursor: pointer"
-              *ngIf="element.deleted === '0'"
+              *ngIf="!element.deleted"
               (click)="editVanData(element)"
               >edit</mat-icon
             >

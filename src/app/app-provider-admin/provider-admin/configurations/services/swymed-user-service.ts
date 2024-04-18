@@ -46,7 +46,7 @@ export class SwymedUserConfigurationService {
     this.getAllDesignationsUrl =
       this.providerAdmin_base_url + 'm/getDesignation';
     this.getUserNameUrl =
-      this.providerAdmin_base_url + '/videoConsultation/getunmappedUser/';
+      this.providerAdmin_base_url + 'videoConsultation/getunmappedUser/';
     this.getVideoConsultationDomainUrl =
       this.providerAdmin_base_url + 'videoConsultation/getdomain/';
     this.saveSwymedUserDetailsUrl =

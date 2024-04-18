@@ -40,11 +40,11 @@ export class DrugStrengthService {
   ) {
     this.adminBaseUrl = this.basepaths.getAdminBaseUrl();
     this.commonbaseurl = this.basepaths.getCommonBaseURL();
-    this.getDrugStrengthUrl = this.adminBaseUrl + '/getDrugStrangth';
-    this.saveDrugStrengthUrl = this.adminBaseUrl + '/createDrugStrangth';
-    this.updateDrugStrengthUrl = this.adminBaseUrl + '/updateDrugStrangth';
+    this.getDrugStrengthUrl = this.adminBaseUrl + 'getDrugStrangth';
+    this.saveDrugStrengthUrl = this.adminBaseUrl + 'createDrugStrangth';
+    this.updateDrugStrengthUrl = this.adminBaseUrl + 'updateDrugStrangth';
     this.drugStrengthActivationDeactivationUrl =
-      this.adminBaseUrl + '/deleteDrugStrangth';
+      this.adminBaseUrl + 'deleteDrugStrangth';
   }
 
   getDrugStrength() {

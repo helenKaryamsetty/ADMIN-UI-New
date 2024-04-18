@@ -61,8 +61,16 @@ export class AgentListCreationComponent implements OnInit, AfterViewInit {
   @ViewChild('agentListCreationForm')
   agentListForm!: NgForm;
 
-  @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
+  paginator!: MatPaginator;
+  @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
+    this.paginator = mp;
+    this.setDataSourceAttributes();
+  }
   dataSource = new MatTableDataSource<any>();
+
+  setDataSourceAttributes() {
+    this.dataSource.paginator = this.paginator;
+  }
   agentsResponse: any;
 
   constructor(

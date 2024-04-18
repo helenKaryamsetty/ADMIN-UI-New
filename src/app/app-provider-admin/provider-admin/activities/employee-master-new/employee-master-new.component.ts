@@ -35,8 +35,6 @@ import { ConfirmationDialogsService } from 'src/app/core/services/dialog/confirm
 })
 export class EmployeeMasterNewComponent implements OnInit {
   // filteredsearchResult: any = [];
-  filteredsearchResult = new MatTableDataSource<any>();
-  @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
   // dataSource = new MatTableDataSource<any>();
   objs = new MatTableDataSource<any>();
   userId: any;
@@ -62,7 +60,16 @@ export class EmployeeMasterNewComponent implements OnInit {
     'EmergencyContact',
     'action',
   ];
+  paginator!: MatPaginator;
+  @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
+    this.paginator = mp;
+    this.setDataSourceAttributes();
+  }
+  filteredsearchResult = new MatTableDataSource<any>();
 
+  setDataSourceAttributes() {
+    this.filteredsearchResult.paginator = this.paginator;
+  }
   //ngModel
   titleID: any;
   firstname: any;
@@ -1555,6 +1562,7 @@ export class EmployeeMasterNewComponent implements OnInit {
       this.filteredsearchResult.paginator = this.paginator;
     } else {
       this.filteredsearchResult.data = [];
+      this.filteredsearchResult.paginator = this.paginator;
       this.searchResult.forEach((item: any) => {
         for (const key in item) {
           if (

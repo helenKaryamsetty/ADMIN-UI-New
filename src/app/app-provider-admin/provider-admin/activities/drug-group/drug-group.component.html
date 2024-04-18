@@ -63,7 +63,7 @@
           <th mat-header-cell *matHeaderCellDef>Action</th>
           <td mat-cell *matCellDef="let element">
             <button
-              *ngIf="element.deleted === '1'"
+              *ngIf="element.deleted"
               mat-raised-button
               color="accent"
               (click)="updateDrugGroupStatus(element)"
@@ -71,7 +71,7 @@
               Activate
             </button>
             <button
-              *ngIf="element.deleted === '0'"
+              *ngIf="!element.deleted"
               mat-raised-button
               color="primary"
               (click)="updateDrugGroupStatus(element)"

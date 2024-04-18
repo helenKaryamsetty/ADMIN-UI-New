@@ -38,7 +38,7 @@ export class CallServices {
   providerAdmin_Base_Url = this._config.getAdminBaseUrl();
   _closecallurl = 'services/closeCall/';
   _callsummaryurl = '/services/getCallSummary/';
-  _getCampaign = this._commoUrl + '/cti/getCampaignNames';
+  _getCampaign = this._commoUrl + 'cti/getCampaignNames';
   _addCampaign =
     this.providerAdmin_Base_Url + '/createCitMappingwithServiceLines';
   _getCampaignList =

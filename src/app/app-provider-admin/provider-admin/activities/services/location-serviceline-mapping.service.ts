@@ -68,7 +68,7 @@ export class LocationServicelineMapping {
     this.getWorkLocationsOnState_url =
       this.providerAdmin_Base_Url + '/m/location/getLocationByStateId';
     this.getOfficesUrl =
-      this.providerAdmin_Base_Url + '/m/location/getOfficeNameByMapId';
+      this.providerAdmin_Base_Url + 'm/location/getOfficeNameByMapId';
   }
 
   getStates(serviceProviderID: any): Observable<any> {

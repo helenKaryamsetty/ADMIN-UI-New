@@ -41,9 +41,17 @@ declare let jQuery: any;
 })
 export class LocationServicelineMappingComponent implements OnInit {
   [x: string]: any;
-  @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
   // dataSource = new MatTableDataSource<any>();
+  paginator!: MatPaginator;
+  @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
+    this.paginator = mp;
+    this.setDataSourceAttributes();
+  }
   filteredworkLocations = new MatTableDataSource<any>();
+
+  setDataSourceAttributes() {
+    this.filteredworkLocations.paginator = this.paginator;
+  }
   userID: any;
   displayedColumns: string[] = [
     'activePage',
@@ -127,6 +135,9 @@ export class LocationServicelineMappingComponent implements OnInit {
     // this.getAllWorkLocations();
   }
 
+  ngAfterViewInit() {
+    this.filteredworkLocations.paginator = this.paginator;
+  }
   last_searchServiceobj: any;
   saveSearchServicelineObj(obj: any) {
     this.last_searchServiceobj = obj;
@@ -214,6 +225,7 @@ export class LocationServicelineMappingComponent implements OnInit {
     this.states = response;
     this.workLocations = [];
     this.filteredworkLocations.data = [];
+    this.filteredworkLocations.paginator = this.paginator;
     if (value.isNational) {
       this.nationalFlag = value.isNational;
       this.setPSMID(response[0].providerServiceMapID);
@@ -586,6 +598,7 @@ export class LocationServicelineMappingComponent implements OnInit {
       this.filteredworkLocations.paginator = this.paginator;
     } else {
       this.filteredworkLocations.data = [];
+      this.filteredworkLocations.paginator = this.paginator;
       this.workLocations.forEach((item: any) => {
         for (const key in item) {
           if (key === 'locationName' || key === 'districtName') {

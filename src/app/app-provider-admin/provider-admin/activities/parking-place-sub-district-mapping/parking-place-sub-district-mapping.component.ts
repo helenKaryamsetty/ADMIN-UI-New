@@ -328,8 +328,8 @@ export class ParkingPlaceSubDistrictMappingComponent implements OnInit {
     }
   }
 
-  remove_obj(index: any) {
-    this.mappingList.data.splice(index, 1);
+  remove_obj(index: number) {
+    this.mappingList.data.splice(index, 1)[0];
     // this.getTaluks(this.district.districtID, this.state.providerServiceMapID);
   }
 

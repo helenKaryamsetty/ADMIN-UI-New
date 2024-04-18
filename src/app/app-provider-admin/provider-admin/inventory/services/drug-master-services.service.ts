@@ -75,7 +75,7 @@ export class DrugMasterService {
     this.updateDrugMappingsURL =
       this.providerAdmin_Base_Url + 'm/updateDrugMapping';
     this.getAllDrugStrengthsUrl =
-      this.providerAdmin_Base_Url + '/getDrugStrangth';
+      this.providerAdmin_Base_Url + 'getDrugStrangth';
 
     /*Drug Group - Drug Mapping*/
 
