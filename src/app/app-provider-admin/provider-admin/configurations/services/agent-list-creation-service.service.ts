@@ -55,8 +55,7 @@ export class AgentListCreationService {
 
     this.get_State_Url = this.admin_Base_Url + 'm/role/stateNew';
     this.get_Service_Url = this.admin_Base_Url + 'm/role/serviceNew';
-    this.get_Campaign_Names_Url =
-      this.common_Base_Url + '/cti/getCampaignNames';
+    this.get_Campaign_Names_Url = this.common_Base_Url + 'cti/getCampaignNames';
     this.save_AgentListMapping_Url =
       this.admin_Base_Url + 'createUSRAgentMapping';
     this.getAllAgents_Url = this.admin_Base_Url + 'getAllAgentIds';

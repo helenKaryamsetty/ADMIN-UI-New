@@ -293,7 +293,7 @@ export class AgentIDMappingModalComponent {
     public dialogReff: MatDialogRef<AgentIDMappingModalComponent>,
   ) {}
 
-  OnInit() {
+  ngOnInit() {
     console.log('dialog data', this.data);
     if (this.data.middleName === undefined || this.data.middleName === null) {
       this.employeeName = this.data.firstName + ' ' + this.data.lastName;

@@ -224,7 +224,7 @@
             </table> -->
       <table
         mat-table
-        [dataSource]="this.employeeParkingPlaceMappingList.data"
+        [dataSource]="employeeParkingPlaceMappingList"
         class="table table-striped table-hover"
       >
         <ng-container matColumnDef="SNo">
@@ -280,7 +280,6 @@
     >
       Save
     </button>
-
     <button
       mat-raised-button
       color="primary"

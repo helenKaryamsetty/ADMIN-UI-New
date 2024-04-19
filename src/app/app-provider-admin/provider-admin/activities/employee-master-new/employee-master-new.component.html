@@ -332,6 +332,24 @@
                             required></mat-datepicker> 
                         <mat-hint class="errorText" *ngIf="dOB.errors && dOB.touched">DOB is required</mat-hint> -->
           </div>
+          <!-- <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
+
+            <mat-form-field
+               class="input-full-width mat_form_field_background_color"
+             >
+               <mat-label>Date of Birth</mat-label>
+               <input matInput  required [matDatepicker]="dob"  name="user_dob" min="mindate" max="maxdate" [(ngModel)]="dob" 
+               (keydown)="preventTyping($event)" (change)="calculateAge($event)" (change)='calculateDoj(dob); resetDoj()' />
+               <mat-datepicker-toggle
+                 matPrefix
+                 [for]="dob"
+               ></mat-datepicker-toggle>
+     
+               <mat-datepicker #dob></mat-datepicker>
+     
+             </mat-form-field>
+     
+           </div> -->
           <div class="clearfix visible-md"></div>
           <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
             <mat-form-field class="width100">

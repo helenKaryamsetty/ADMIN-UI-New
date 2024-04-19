@@ -97,7 +97,7 @@ export class MapSnommedCTCodeComponent implements OnInit, AfterViewInit {
   edit_Description: any;
   itemID: any;
   drugType = false;
-  masterTypes = ['Immunization', 'Optional Vaccination', 'Family History'];
+  masterTypes: any = ['Immunization', 'Optional Vaccination', 'Family History'];
   masterType: any;
   masterNames: any = [];
   showSearch = false;
@@ -167,7 +167,7 @@ export class MapSnommedCTCodeComponent implements OnInit, AfterViewInit {
   getAllItemsList(type: any) {
     this.itemsSuccessHandler(type);
     this.sctService.getMasterList(type).subscribe(
-      (itemListResponse) => this.itemsSuccessHandler(itemListResponse),
+      (itemListResponse: any) => this.itemsSuccessHandler(itemListResponse),
       (err) => {
         console.log('Error Master Name not found', err);
       },
@@ -177,8 +177,8 @@ export class MapSnommedCTCodeComponent implements OnInit, AfterViewInit {
     console.log('All items', itemListResponse);
     // if(itemListResponse!=undefined)
     // {
-    this.allItems = itemListResponse.data; //for use in add mapping
-    this.itemsList = itemListResponse.data;
+    this.allItems = itemListResponse; //for use in add mapping
+    this.itemsList = itemListResponse;
     console.log('values', this.itemsList);
     //}
     if (this.itemsList !== undefined) {

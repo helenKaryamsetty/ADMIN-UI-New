@@ -380,8 +380,8 @@ export class EmployeeParkingPlaceMappingComponent implements OnInit {
     };
     this.employeeParkingPlaceMappingService
       .getVans(vanObj)
-      .subscribe((response) => {
-        this.availableVans = response;
+      .subscribe((response: any) => {
+        this.availableVans = response.data;
         if (this.editMode) {
           this.getMappedVans(this.userParkingPlaceMapID);
         }

@@ -445,7 +445,7 @@ export class HospitalInstituteDirectorySubdirectoryMappingComponent
   save() {
     console.log('buffer array', this.bufferArray);
     this.hospitalInstituteMappingService
-      .createMapping(this.bufferArray)
+      .createMapping(this.bufferArray.data)
       .subscribe(
         (response: any) => this.saveSuccessHandeler(response),
         (err) => {

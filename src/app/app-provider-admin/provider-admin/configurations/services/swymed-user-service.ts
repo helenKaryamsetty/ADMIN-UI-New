@@ -50,11 +50,11 @@ export class SwymedUserConfigurationService {
     this.getVideoConsultationDomainUrl =
       this.providerAdmin_base_url + 'videoConsultation/getdomain/';
     this.saveSwymedUserDetailsUrl =
-      this.providerAdmin_base_url + '/videoConsultation/createUser';
+      this.providerAdmin_base_url + 'videoConsultation/createUser';
     this.updateUserDetailsUrl =
       this.providerAdmin_base_url + 'videoConsultation/editUser';
     this.mappingActivationDeactivationUrl =
-      this.providerAdmin_base_url + '/videoConsultation/deleteUser/';
+      this.providerAdmin_base_url + 'videoConsultation/deleteUser/';
   }
 
   getSwymedUserDetails(serviceProviderID: any) {

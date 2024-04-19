@@ -108,23 +108,25 @@ export class AddQuestionnaireComponent implements OnInit, AfterViewInit {
   getQuestionType() {
     this.questionnaire_service
       .getQuestionTypes()
-      .subscribe((response) => this.getQuestionTypeSuccessHandeler(response));
+      .subscribe((response: any) =>
+        this.getQuestionTypeSuccessHandeler(response),
+      );
   }
   getQuestionTypeSuccessHandeler(response: any) {
     console.log('*QUESTION TYPES*', response);
-    this.questionTypeArray = response.data;
+    this.questionTypeArray = response;
   }
 
   getServices(userID: any) {
     this.questionnaire_service.getServices(userID).subscribe(
-      (response) => this.getServicesSuccessHandeler(response),
+      (response: any) => this.getServicesSuccessHandeler(response),
       (err) => console.log('Error', err),
     ); //
   }
 
   getServicesSuccessHandeler(response: any) {
     console.log('SERVICES', response);
-    this.services = response.data;
+    this.services = response;
   }
   getStates(serviceID: any, isNational: any) {
     this.state = '';

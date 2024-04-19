@@ -41,8 +41,8 @@ export class ResetUserPasswordService {
     this.commonbaseurl = this.basepaths.getCommonBaseURL();
     this.getUserListUrl = this.adminBaseUrl + 'm/SearchEmployee4';
     this.getUserDetailUrl =
-      this.adminBaseUrl + '/m/FindEmployeeDetailsByUserName';
-    this.resetUserPasswordUrl = this.adminBaseUrl + '/m/ResetUserPassword';
+      this.adminBaseUrl + 'm/FindEmployeeDetailsByUserName';
+    this.resetUserPasswordUrl = this.adminBaseUrl + 'm/ResetUserPassword';
   }
 
   getUserList(serviceProviderID: any) {

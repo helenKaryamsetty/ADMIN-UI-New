@@ -63,12 +63,12 @@ export class ServicePointVillageMapService {
       'servicePointMaster/create/servicePointVillageMaps';
     this.updateServicePointVillageMapsURL =
       this.providerAdmin_Base_Url +
-      '/servicePointMaster/edit/servicePointVillageMap';
+      'servicePointMaster/edit/servicePointVillageMap';
     this.updateServicePointVillageMapStatusURL =
       this.providerAdmin_Base_Url +
       'servicePointMaster/remove/servicePointVillageMap';
     this.filterMappedVillages_url =
-      this.providerAdmin_Base_Url + '/servicePointMaster/get/unmappedvillages';
+      this.providerAdmin_Base_Url + 'servicePointMaster/get/unmappedvillages';
   }
 
   getServicePoints(data: any) {
