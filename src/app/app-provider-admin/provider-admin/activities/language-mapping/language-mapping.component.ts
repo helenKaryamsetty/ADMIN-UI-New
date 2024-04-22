@@ -33,9 +33,6 @@ import { dataService } from 'src/app/core/services/dataService/data.service';
 })
 export class LanguageMappingComponent implements OnInit {
   [x: string]: any;
-  bufferArray = new MatTableDataSource<any>();
-  filteredLanguageMappedList = new MatTableDataSource<any>();
-  @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
   // filteredLanguageMappedList: any = [];
   languageID_edit: any;
   checkduplication_edit = false;
@@ -113,6 +110,17 @@ export class LanguageMappingComponent implements OnInit {
     'edit',
     'action',
   ];
+  paginator!: MatPaginator;
+  @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
+    this.paginator = mp;
+    this.setDataSourceAttributes();
+  }
+  filteredLanguageMappedList = new MatTableDataSource<any>();
+
+  setDataSourceAttributes() {
+    this.filteredLanguageMappedList.paginator = this.paginator;
+  }
+  bufferArray = new MatTableDataSource<any>();
 
   @ViewChild('editlanguagesForm')
   eForm!: NgForm;
@@ -127,12 +135,6 @@ export class LanguageMappingComponent implements OnInit {
   ngOnInit() {
     this.serviceProviderID = this.saved_data.service_providerID;
     this.createdBy = this.createdBy = this.saved_data.uname;
-    this.WeightageList = [
-      { value: 10, Name: '25%' },
-      { value: 20, Name: '50%' },
-      { value: 30, Name: '75%' },
-      { value: 40, Name: '100%' },
-    ];
     this.getUserName(this.serviceProviderID);
     this.getAllLanguagesList();
     this.getAllMappedLanguagesList();
@@ -157,6 +159,9 @@ export class LanguageMappingComponent implements OnInit {
           // this.alertService.alert(err, 'error');
         },
       );
+  }
+  ngAfterViewInit() {
+    this.filteredLanguageMappedList.paginator = this.paginator;
   }
   getAllLanguagesList() {
     this.languageMapping.getLanguageList().subscribe(
@@ -731,8 +736,10 @@ export class LanguageMappingComponent implements OnInit {
   filterComponentList(searchTerm?: string) {
     if (!searchTerm) {
       this.filteredLanguageMappedList.data = this.LanguageMappedList;
+      this.filteredLanguageMappedList.paginator = this.paginator;
     } else {
       this.filteredLanguageMappedList.data = [];
+      this.filteredLanguageMappedList.paginator = this.paginator;
       this.LanguageMappedList.forEach((item: any) => {
         for (const key in item) {
           if (key === 'userName' || key === 'languageName') {

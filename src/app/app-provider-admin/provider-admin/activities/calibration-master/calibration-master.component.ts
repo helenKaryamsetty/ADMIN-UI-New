@@ -147,6 +147,7 @@ export class CalibrationMasterComponent implements OnInit {
         console.log('stripdata', response);
         if (response.statusCode === 200) {
           this.searchresultarray = response.data.calibrationData;
+          this.filteredsearchresultarray.data = [];
           this.filteredsearchresultarray.data = response.data.calibrationData;
           console.log(
             'this.filteredsearchresultarray',

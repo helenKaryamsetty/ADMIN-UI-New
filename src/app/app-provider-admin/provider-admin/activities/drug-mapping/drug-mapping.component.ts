@@ -19,7 +19,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see https://www.gnu.org/licenses/.
  */
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 
 import { NgForm } from '@angular/forms';
 import { ProviderAdminRoleService } from '../services/state-serviceline-role.service';
@@ -89,6 +89,7 @@ export class DrugMappingComponent implements OnInit {
     public commonDataService: dataService,
     public drugMasterService: DrugMasterService,
     private alertMessage: ConfirmationDialogsService,
+    private cdr: ChangeDetectorRef,
   ) {
     this.data = [];
     this.service_provider_id = this.commonDataService.service_providerID;
@@ -369,7 +370,10 @@ export class DrugMappingComponent implements OnInit {
     console.log('Drug Mapping status changed');
   }
   remove_obj(index: any) {
-    this.drugMapping.data.splice(index, 1);
+    const newData = [...this.drugMapping.data];
+    newData.splice(index, 1);
+    this.drugMapping.data = newData;
+    this.cdr.detectChanges();
   }
   clearEdit() {
     this.showMappings = true;

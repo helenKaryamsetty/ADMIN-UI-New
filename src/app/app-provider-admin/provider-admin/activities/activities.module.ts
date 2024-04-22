@@ -24,7 +24,6 @@ import {
   EditFeedbackModalComponent,
 } from './feedback-type-master/feedback-type-master.component';
 import { EditInstituteDirectoryComponent } from './institute-directory-master/edit-institute-directory/edit-institute-directory.component';
-import { InstituteDirectoryMasterComponent } from './institute-directory-master/institute-directory-master/institute-directory-master.component';
 import { LanguageMappingComponent } from './language-mapping/language-mapping.component';
 import {
   LocationServicelineMappingComponent,
@@ -94,6 +93,13 @@ import { DrugMappingComponent } from './drug-mapping/drug-mapping.component';
 import { ComponentMasterServiceService } from 'src/app/core/services/ProviderAdminServices/component-master-service.service';
 import { ComponentMasterComponent } from './component-master/component-master.component';
 import { ComponentNameSearchComponent } from './component-name-search/component-name-search.component';
+import { InstituteDirectoryMasterComponent } from './institute-directory-master/institute-directory-master/institute-directory-master.component';
+
+import { InstituteSubDirectoryMasterService } from './services/institute-subdirectory-master-service.service';
+import {
+  EditInstituteSubDirectoryComponent,
+  InstituteSubdirectoryMasterComponent,
+} from './institute-subdirectory-master/institute-subdirectory-master.component';
 
 @NgModule({
   declarations: [
@@ -113,7 +119,6 @@ import { ComponentNameSearchComponent } from './component-name-search/component-
     InstituteDirectoryMasterComponent,
     EditInstituteDirectoryComponent,
     WorkLocationMappingComponent,
-    InstituteDirectoryMasterComponent,
     FeedbackComplaintNatureMasterComponent,
     EditFeedbackNatureModalComponent,
     NatureOfComplaintCategoryMappingComponent,
@@ -140,6 +145,8 @@ import { ComponentNameSearchComponent } from './component-name-search/component-
     DrugMappingComponent,
     ComponentMasterComponent,
     ComponentNameSearchComponent,
+    InstituteSubdirectoryMasterComponent,
+    EditInstituteSubDirectoryComponent,
   ],
   imports: [
     CommonModule,
@@ -185,6 +192,7 @@ import { ComponentNameSearchComponent } from './component-name-search/component-
     DrugMasterService,
     DrugStrengthService,
     ComponentMasterServiceService,
+    InstituteSubDirectoryMasterService,
   ],
   exports: [
     LocationServicelineMappingComponent,
@@ -203,7 +211,6 @@ import { ComponentNameSearchComponent } from './component-name-search/component-
     InstituteDirectoryMasterComponent,
     EditInstituteDirectoryComponent,
     WorkLocationMappingComponent,
-    InstituteDirectoryMasterComponent,
     FeedbackComplaintNatureMasterComponent,
     EditFeedbackNatureModalComponent,
     NatureOfComplaintCategoryMappingComponent,
@@ -229,6 +236,8 @@ import { ComponentNameSearchComponent } from './component-name-search/component-
     DrugMappingComponent,
     ComponentMasterComponent,
     ComponentNameSearchComponent,
+    InstituteSubdirectoryMasterComponent,
+    EditInstituteSubDirectoryComponent,
   ],
 })
 export class ActivitiesModule {}

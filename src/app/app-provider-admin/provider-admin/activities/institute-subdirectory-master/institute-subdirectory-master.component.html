@@ -1,0 +1,351 @@
+<!-- <md-card> -->
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="!showFormFlag">
+    <h4 class="pull-left">Institute Subdirectory Master</h4>
+  </div>
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="showFormFlag">
+    <h4 class="pull-left">Create Institute Subdirectory</h4>
+  </div>
+  <form #searchform="ngForm" autocomplete="off">
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
+      <mat-select
+        placeholder="Serviceline"
+        disabled="{{ disableSelection }}"
+        class="width100"
+        (selectionChange)="getStates(service)"
+        [(ngModel)]="service"
+        name="service"
+        required
+      >
+        <mat-option *ngFor="let item of services" [value]="item">
+          {{ item.serviceName }}
+        </mat-option>
+      </mat-select>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
+      <mat-select
+        placeholder="State"
+        [disabled]="disableSelection || nationalFlag"
+        class="width100"
+        (selectionChange)="setProviderServiceMapID(state.providerServiceMapID)"
+        [(ngModel)]="state"
+        name="state"
+        required
+      >
+        <mat-option *ngFor="let item of states" [value]="item">
+          {{ item.stateName }}
+        </mat-option>
+      </mat-select>
+    </div>
+
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
+      <mat-select
+        placeholder="Institute Directory"
+        class="width100"
+        [(ngModel)]="institute_directory"
+        disabled="{{ disableSelection }}"
+        name="institute_directory"
+        (selectionChange)="getInstituteSubdirectory(institute_directory)"
+        required
+      >
+        <mat-option
+          *ngFor="let item of instituteDirectories"
+          value="{{ item.instituteDirectoryID }}"
+        >
+          {{ item.instituteDirectoryName }}
+        </mat-option>
+      </mat-select>
+    </div>
+  </form>
+</div>
+<div class="m-t-10" *ngIf="showTableFlag">
+  <div class="col-3" *ngIf="searchResultArray.length !== 0" id="filterbox">
+    <mat-form-field>
+      <input
+        matInput
+        placeholder="In-Table Search"
+        #filterTerm
+        (keyup)="filterComponentList(filterTerm.value)"
+      />
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-15">
+      <div class="table-responsive">
+        <table
+          mat-table
+          class="mat-elevation-z8"
+          [dataSource]="filteredsearchResultArray"
+        >
+          <ng-container matColumnDef="sno">
+            <th mat-header-cell *matHeaderCellDef>SNo.</th>
+            <td mat-cell *matCellDef="let element; let i = index">
+              {{ i + 1 }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="instituteSubDirectoryName">
+            <th mat-header-cell *matHeaderCellDef>Institute Sub Directory</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.instituteSubDirectoryName }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="instituteSubDirectoryDesc">
+            <th mat-header-cell *matHeaderCellDef>Description</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.instituteSubDirectoryDesc }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="edit">
+            <th mat-header-cell *matHeaderCellDef>Edit</th>
+            <td mat-cell *matCellDef="let element">
+              <mat-icon
+                matTooltip="Edit"
+                class="mat-icon material-icons"
+                role="img"
+                aria-hidden="true"
+                style="cursor: pointer"
+                *ngIf="!element.deleted"
+                (click)="openEditModal(element)"
+                >edit</mat-icon
+              >
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef>Action</th>
+            <td mat-cell *matCellDef="let element">
+              <button
+                *ngIf="element.deleted"
+                mat-raised-button
+                color="accent"
+                (click)="
+                  toggle_activate(element.instituteSubDirectoryID, false)
+                "
+              >
+                Activate
+              </button>
+              <button
+                *ngIf="!element.deleted"
+                mat-raised-button
+                color="primary"
+                (click)="toggle_activate(element.instituteSubDirectoryID, true)"
+              >
+                Deactivate
+              </button>
+            </td>
+          </ng-container>
+          <!-- <thead>
+            <tr>
+              <th width="5%">S.No.</th>
+              <th width="40%">Institute Sub Directory</th>
+              <th width="40%">Description</th>
+              <th width="10%">Edit</th>
+              <th width="15%">Action</th>
+            </tr>
+          </thead> -->
+          <!-- <tbody>
+            <tr *ngIf="md2.data.length == 0" class="record-not-found">
+              <td colspan="5" align="center">No records found</td>
+            </tr>
+            <tr *ngFor="let item of md2.data; let i=index">
+              <td>{{(md2.activePage-1)*4+i+1}}</td>
+              <td>{{item.instituteSubDirectoryName}}</td>
+              <td>{{item.instituteSubDirectoryDesc}}</td>
+              <td>
+                <mat-icon mdTooltip="Edit" *ngIf="!item.deleted" class="mat-icon material-icons" role="img" aria-hidden="true" style="cursor: pointer"
+                  (click)="openEditModal(item)">edit</mat-icon>
+              </td>
+              <td>
+                <button *ngIf="item.deleted" mat-raised-button color="accent" (click)="toggle_activate(item.instituteSubDirectoryID,false)">Activate</button>
+                <button *ngIf="!item.deleted" mat-raised-button color="primary" (click)="toggle_activate(item.instituteSubDirectoryID,true)">Deactivate</button>
+              </td>
+            </tr>
+          </tbody> -->
+          <tfoot>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+          </tfoot>
+        </table>
+        <div>
+          <button
+            mat-raised-button
+            color="primary"
+            class="pull-right"
+            [disabled]="searchform.invalid"
+            (click)="showForm()"
+          >
+            Add Institute Sub Directory
+          </button>
+        </div>
+        <div
+          class="pull-center"
+          style="margin-top: 35px; text-align: center"
+          *ngIf="filteredsearchResultArray.data.length === 0"
+        >
+          <strong>No Records Found</strong>
+        </div>
+        <mat-paginator
+          [hidden]="filteredsearchResultArray.data.length === 0"
+          [pageSizeOptions]="[5, 10, 20]"
+          [pageSize]="5"
+          showFirstLastButtons
+        >
+        </mat-paginator>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="showFormFlag">
+  <div class="row">
+    <form #addInstitutueSubDirForm="ngForm" autocomplete="off">
+      <div class="col-3" myProviderName>
+        <mat-form-field>
+          <input
+            matInput
+            placeholder="Institute Sub Directory"
+            [(ngModel)]="institute_subdirectory"
+            name="institute_subdirectory"
+            minlength="2"
+            (keyup)="checkexistance(institute_subdirectory)"
+            maxlength="50"
+            required
+            #instituteSubDir="ngModel"
+          />
+          <mat-hint>
+            <span
+              class="error_text"
+              *ngIf="instituteSubDir.errors && instituteSubDir.touched"
+              >Institute sub directory name is required</span
+            >
+            <span
+              class="error_text"
+              *ngIf="!instituteSubDir.errors && instituteSubDirectoryExist"
+              >Institute sub directory already exist</span
+            >
+          </mat-hint>
+        </mat-form-field>
+      </div>
+      <div class="col-3" VehicleNO>
+        <mat-form-field>
+          <input
+            matInput
+            placeholder="Description"
+            [(ngModel)]="description"
+            name="description"
+            maxlength="100"
+          />
+        </mat-form-field>
+      </div>
+      <div
+        class="col-xs-12 col-sm-12 col-md-4 col-lg-3 m-t-20"
+        *ngIf="addInstitutueSubDirForm.valid && !instituteSubDirectoryExist"
+      >
+        <button
+          md-mini-fab
+          color="primary"
+          class="xs-pull-right sm-pull-right md-pull-left"
+          (click)="add_obj(institute_subdirectory, description)"
+        >
+          <mat-icon
+            matSuffix
+            class="mat-icon material-icons"
+            role="img"
+            aria-hidden="true"
+            style="cursor: pointer"
+            >add</mat-icon
+          >
+        </button>
+      </div>
+    </form>
+    <div
+      class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10"
+      *ngIf="bufferArray.data.length > 0"
+    >
+      <div class="table-responsive">
+        <table mat-table [dataSource]="bufferArray" class="mat-elevation-z8">
+          <ng-container matColumnDef="sno">
+            <th mat-header-cell *matHeaderCellDef>SNo.</th>
+            <td mat-cell *matCellDef="let element; let i = index">
+              {{ i + 1 }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="instituteSubDirectoryName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              Institute Sub Directory
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.instituteSubDirectoryName }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="instituteSubDirectoryDesc">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              Description
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.instituteSubDirectoryDesc }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef>Action</th>
+            <td mat-cell *matCellDef="let element; let i = index">
+              <mat-icon
+                class="cursorPointer"
+                matTooltip="delete"
+                (click)="removeObj(bufferArray.data.indexOf(element))"
+                >delete</mat-icon
+              >
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayAddedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayAddedColumns"></tr>
+          <mat-paginator
+            [hidden]="bufferArray.data.length === 0"
+            [pageSizeOptions]="[5, 10, 20]"
+            [pageSize]="5"
+            showFirstLastButtons
+          >
+          </mat-paginator>
+          <!-- <thead>
+            <tr>
+              <th>S.No.</th>
+              <th>Institute Sub Directory</th>
+              <th>Description</th>
+              <th>Action</th>
+            </tr>
+          </thead> -->
+          <!-- <tbody>
+            <tr *ngFor="let item of md2.data; let k=index; ">
+              <td>{{bufferArray.indexOf(item)+1}}</td>
+              <td>{{item.instituteSubDirectoryName}}</td>
+              <td>{{item.instituteSubDirectoryDesc}}</td>
+              <td>
+                <mat-icon class="cursorPointer" mdTooltip="delete" (click)="removeObj(bufferArray.indexOf(item))">delete</mat-icon>
+              </td>
+            </tr>
+          </tbody> -->
+        </table>
+      </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-12 col-sm-12 col-md-12 m-t-10">
+      <button
+        mat-raised-button
+        class="pull-right"
+        [disabled]="bufferArray.data.length < 1 && !searchform.valid"
+        color="accent"
+        (click)="save()"
+      >
+        Save
+      </button>
+      <button
+        mat-raised-button
+        class="pull-left"
+        color="primary"
+        (click)="back()"
+      >
+        Back
+      </button>
+    </div>
+  </div>
+</div>
+<!-- </md-card> -->

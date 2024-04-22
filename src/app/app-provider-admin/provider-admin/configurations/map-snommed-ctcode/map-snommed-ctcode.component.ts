@@ -177,8 +177,8 @@ export class MapSnommedCTCodeComponent implements OnInit, AfterViewInit {
     console.log('All items', itemListResponse);
     // if(itemListResponse!=undefined)
     // {
-    this.allItems = itemListResponse; //for use in add mapping
-    this.itemsList = itemListResponse;
+    this.allItems = itemListResponse.data; //for use in add mapping
+    this.itemsList = itemListResponse.data;
     console.log('values', this.itemsList);
     //}
     if (this.itemsList !== undefined) {

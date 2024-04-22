@@ -96,7 +96,7 @@ export class ResetUserPasswordComponent implements OnInit {
     this.resetUserPasswordService.getUserDetail(userName).subscribe(
       (response: any) => {
         this.userDetails = response.data;
-        this.dataSource.data = response.data;
+        this.dataSource.data = [response.data];
         this.tableMode = true;
       },
       (err) => {
