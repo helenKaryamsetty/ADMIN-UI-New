@@ -283,7 +283,7 @@
         formControlName="tm_serviceline"
         name="tm_serviceline"
         [disabled]="disableServiceline"
-        (change)="
+        (selectionChange)="
           getProviderMappedStates(tmSpokeDetailsForm.value.tm_serviceline, true)
         "
         required
@@ -299,7 +299,7 @@
         class="width100"
         formControlName="tm_state"
         name="tm_state"
-        (change)="
+        (selectionChange)="
           getProviderMappedZones(tmSpokeDetailsForm.value.tm_state, true)
         "
         required
@@ -315,7 +315,7 @@
         class="width100"
         formControlName="tm_zone"
         name="tm_zone"
-        (change)="
+        (selectionChange)="
           getProviderMappedParkingPlace(
             tmSpokeDetailsForm.value.tm_zone,
             tmSpokeDetailsForm.value.tm_state,
@@ -335,7 +335,7 @@
         class="width100"
         formControlName="tm_hub"
         name="tm_hub"
-        (change)="
+        (selectionChange)="
           getProviderMappedServicepoint(
             tmSpokeDetailsForm.value.tm_state,
             tmSpokeDetailsForm.value.tm_hub,
@@ -355,7 +355,7 @@
         class="width100"
         formControlName="tm_servicePoint"
         name="tm_servicePoint"
-        (change)="
+        (selectionChange)="
           getProviderMappedVanTypes(tmSpokeDetailsForm.value.tm_state, true)
         "
         required
@@ -374,7 +374,7 @@
         class="width100"
         formControlName="tm_vantype"
         name="tm_vantype"
-        (change)="
+        (selectionChange)="
           getProviderMappedVansOrSpokes(
             tmSpokeDetailsForm.value.tm_state,
             tmSpokeDetailsForm.value.tm_hub,

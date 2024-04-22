@@ -148,7 +148,7 @@ export class SuperAdmin_ServiceProvider_Service {
     this.getAllServiceLinesByProviderUrl =
       this.providerAdminBaseUrl + '/m/role/service';
     this.getAllProviderAdminUrl =
-      this.providerAdminBaseUrl + '/getProviderAdmin';
+      this.providerAdminBaseUrl + 'getProviderAdmin';
     this.getAllProviderAdminMappingsUrl =
       this.providerAdminBaseUrl + 'getmappingProviderAdmintoProvider';
     this.providerAdminActivateUrl =

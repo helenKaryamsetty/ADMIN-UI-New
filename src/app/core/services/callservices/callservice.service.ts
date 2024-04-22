@@ -36,7 +36,7 @@ export class CallServices {
   _addCampaign =
     this.providerAdmin_Base_Url + '/createCitMappingwithServiceLines';
   _getCampaignList =
-    this.providerAdmin_Base_Url + '/getMappedServiceLinesAndStatetoProvider';
+    this.providerAdmin_Base_Url + 'getMappedServiceLinesAndStatetoProvider';
 
   get_State_Url = this.providerAdmin_Base_Url + 'm/role/stateNew';
   constructor(
