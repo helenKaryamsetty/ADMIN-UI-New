@@ -19,11 +19,12 @@
 <div class="row">
   <form #f="ngForm" autocomplete="off">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10">
-      <mat-form-field class="width100">
+      <mat-form-field class="width100"
+        >\
+        <mat-label>Sub Service Name</mat-label>
         <input
           matInput
           [disabled]="true"
-          placeholder="Sub Service Name"
           [(ngModel)]="subService"
           name="subService"
         />
@@ -34,9 +35,9 @@
       *ngIf="categoryType"
     >
       <mat-form-field class="width100" myProviderName>
+        <mat-label>Category Name</mat-label>
         <input
           matInput
-          placeholder="Category Name"
           [(ngModel)]="category_name"
           name="category_name"
           required
@@ -50,9 +51,9 @@
       *ngIf="categoryType"
     >
       <mat-form-field class="width100" myProviderName>
+        <mat-label>Category Description</mat-label>
         <input
           matInput
-          placeholder="Category Description"
           [(ngModel)]="categorydesc"
           name="categorydesc"
           minlength="2"
@@ -66,10 +67,10 @@
       *ngIf="subCategoryType"
     >
       <mat-form-field class="width100">
+        <mat-label>Category Name</mat-label>
         <input
           matInput
           [disabled]="true"
-          placeholder="Category Name"
           [(ngModel)]="category_name"
           name="category_name"
           minlength="2"
@@ -83,9 +84,9 @@
       *ngIf="subCategoryType"
     >
       <mat-form-field class="width100" myProviderName>
+        <mat-label>Sub Category</mat-label>
         <input
           matInput
-          placeholder="Sub Category"
           [(ngModel)]="subCategory"
           name="subCategory"
           minlength="2"
@@ -101,9 +102,9 @@
       *ngIf="subCategoryType"
     >
       <mat-form-field class="width100" myProviderName>
+        <mat-label>Sub Category Desc</mat-label>
         <input
           matInput
-          placeholder="Sub Category Desc"
           [(ngModel)]="subCategoryDesc"
           name="subCategoryDesc"
           minlength="2"

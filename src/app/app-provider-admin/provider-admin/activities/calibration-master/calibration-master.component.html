@@ -16,36 +16,42 @@
   </div>
   <form #stateService="ngForm" autocomplete="off">
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-      <mat-select
-        placeholder="Serviceline"
-        disabled="{{ disableSelection }}"
-        [style.width]="'100%'"
-        [(ngModel)]="service"
-        name="service"
-        #servicess="ngModel"
-        required
-        (selectionChange)="getStates(service)"
-      >
-        <mat-option *ngFor="let ser of services" [value]="ser">
-          {{ ser.serviceName }}
-        </mat-option>
-      </mat-select>
+      <mat-form-field>
+        <mat-label>Serviceline</mat-label>
+        <mat-select
+          disabled="{{ disableSelection }}"
+          [style.width]="'100%'"
+          [(ngModel)]="service"
+          name="service"
+          #servicess="ngModel"
+          required
+          (selectionChange)="getStates(service)"
+        >
+          <mat-option *ngFor="let ser of services" [value]="ser">
+            {{ ser.serviceName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-      <mat-select
-        placeholder="State"
-        [disabled]="disableSelection || nationalFlag"
-        [style.width]="'100%'"
-        [(ngModel)]="state"
-        name="state"
-        #statess
-        required
-        (selectionChange)="setProviderServiceMapID(state.providerServiceMapID)"
-      >
-        <mat-option *ngFor="let stat of states" [value]="stat">
-          {{ stat.stateName }}
-        </mat-option>
-      </mat-select>
+      <mat-form-field>
+        <mat-label>State</mat-label>
+        <mat-select
+          [disabled]="disableSelection || nationalFlag"
+          [style.width]="'100%'"
+          [(ngModel)]="state"
+          name="state"
+          #statess
+          required
+          (selectionChange)="
+            setProviderServiceMapID(state.providerServiceMapID)
+          "
+        >
+          <mat-option *ngFor="let stat of states" [value]="stat">
+            {{ stat.stateName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
   </form>
 </div>
@@ -210,10 +216,10 @@
   <form #stripCodeForm="ngForm" autocomplete="off">
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
       <mat-form-field class="input-full-width mat_form_field_width_one">
+        <mat-label>Strip Code</mat-label>
         <input
           matInput
           alphanumeric
-          placeholder="Strip Code"
           disabled="{{ editMode }}"
           [(ngModel)]="stripCode"
           name="stripCode"
@@ -233,10 +239,10 @@
     </div>
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
       <mat-form-field [style.width]="'100%'">
+        <mat-label>Expiry Date</mat-label>
         <input
           matInput
           class="width100"
-          placeholder="Expiry Date"
           [matDatepicker]="picker"
           [(ngModel)]="expiryDate"
           [min]="today"

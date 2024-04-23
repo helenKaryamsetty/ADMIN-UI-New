@@ -19,24 +19,27 @@
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
       <!-- <mat-form-field class="hide_underline width100">
         <input matInput style="display:none"> -->
-      <mat-select
-        required
-        [(ngModel)]="service"
-        class="width100"
-        (selectionChange)="
-          getStates(service);
-          selected_service_id = service.serviceID;
-          search1.reset()
-        "
-        name="serviceName"
-        placeholder="Serviceline"
-      >
-        <mat-option
-          *ngFor="let serviceline of serviceLines"
-          [value]="serviceline"
-          >{{ serviceline.serviceName }}</mat-option
+      <mat-form-field>
+        <mat-label>Serviceline</mat-label>
+        <mat-select
+          required
+          [(ngModel)]="service"
+          class="width100"
+          (selectionChange)="
+            getStates(service);
+            selected_service_id = service.serviceID;
+            search1.reset()
+          "
+          name="serviceName"
         >
-      </mat-select>
+          <mat-option
+            *ngFor="let serviceline of serviceLines"
+            [value]="serviceline"
+            >{{ serviceline.serviceName }}</mat-option
+          >
+        </mat-select>
+      </mat-form-field>
+
       <!-- </mat-form-field> -->
     </div>
 
@@ -44,41 +47,47 @@
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
         <!-- <mat-form-field class="hide_underline width100">
           <input matInput style="display:none"> -->
-        <mat-select
-          [disabled]="nationalFlag"
-          required
-          [(ngModel)]="state"
-          class="width100"
-          placeholder="State "
-          name="stateName"
-          (selectionChange)="getSubServices('get')"
-        >
-          <mat-option *ngFor="let state of states" [value]="state">{{
-            state.stateName
-          }}</mat-option>
-        </mat-select>
+        <mat-form-field>
+          <mat-label>State</mat-label>
+          <mat-select
+            [disabled]="nationalFlag"
+            required
+            [(ngModel)]="state"
+            class="width100"
+            name="stateName"
+            (selectionChange)="getSubServices('get')"
+          >
+            <mat-option *ngFor="let state of states" [value]="state">{{
+              state.stateName
+            }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
         <!-- </mat-form-field> -->
       </div>
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
         <!-- <mat-form-field class="hide_underline width100">
           <input matInput style="display:none"> -->
-        <mat-select
-          required
-          [(ngModel)]="sub_service"
-          class="width100"
-          name="subserviceName"
-          placeholder="Sub Service"
-          (selectionChange)="
-            checkSubService(selected_service_id, sub_service.subServiceName);
-            getDetails(sub_service)
-          "
-        >
-          <mat-option
-            *ngFor="let subservice of subServices"
-            [value]="subservice"
-            >{{ subservice.subServiceName }}</mat-option
+        <mat-form-field>
+          <mat-label>Sub Service</mat-label>
+          <mat-select
+            required
+            [(ngModel)]="sub_service"
+            class="width100"
+            name="subserviceName"
+            (selectionChange)="
+              checkSubService(selected_service_id, sub_service.subServiceName);
+              getDetails(sub_service)
+            "
           >
-        </mat-select>
+            <mat-option
+              *ngFor="let subservice of subServices"
+              [value]="subservice"
+              >{{ subservice.subServiceName }}</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+
         <!-- </mat-form-field> -->
       </div>
     </form>
@@ -342,21 +351,26 @@
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
         <!-- <mat-form-field class="hide_underline width100">
           <input matInput style="display:none"> -->
-        <mat-select
-          required
-          [(ngModel)]="service"
-          class="width100"
-          (change)="getStates(service); selected_service_id = service.serviceID"
-          name="serviceName"
-          placeholder="Serviceline"
-          disabled
-        >
-          <mat-option
-            *ngFor="let serviceline of serviceLines"
-            [value]="serviceline"
-            >{{ serviceline.serviceName }}</mat-option
+        <mat-form-field>
+          <mat-label>Serviceline</mat-label>
+          <mat-select
+            required
+            [(ngModel)]="service"
+            class="width100"
+            (change)="
+              getStates(service); selected_service_id = service.serviceID
+            "
+            name="serviceName"
+            disabled
           >
-        </mat-select>
+            <mat-option
+              *ngFor="let serviceline of serviceLines"
+              [value]="serviceline"
+              >{{ serviceline.serviceName }}</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+
         <!-- </mat-form-field> -->
       </div>
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
@@ -364,42 +378,48 @@
           <input matInput style="display:none"> -->
         <!-- <mat-select [disabled]="nationalFlag" required [(ngModel)]="state" class="width100" placeholder="State " name="stateName"
             (change)="getSubServices('get')"> -->
-        <mat-select
-          required
-          [(ngModel)]="state"
-          class="width100"
-          placeholder="State "
-          name="stateName"
-          (change)="getSubServices('get')"
-          disabled
-        >
-          <mat-option *ngFor="let state of states" [value]="state">{{
-            state.stateName
-          }}</mat-option>
-        </mat-select>
+        <mat-form-field>
+          <mat-label>State</mat-label>
+          <mat-select
+            required
+            [(ngModel)]="state"
+            class="width100"
+            name="stateName"
+            (change)="getSubServices('get')"
+            disabled
+          >
+            <mat-option *ngFor="let state of states" [value]="state">{{
+              state.stateName
+            }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
         <!-- </mat-form-field> -->
       </div>
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
         <!-- <mat-form-field class="hide_underline width100">
           <input matInput style="display:none"> -->
-        <mat-select
-          required
-          [(ngModel)]="sub_service"
-          class="width100"
-          name="subserviceName"
-          placeholder="Sub Service"
-          (change)="
-            checkSubService(selected_service_id, sub_service.subServiceName);
-            getDetails(sub_service)
-          "
-          disabled
-        >
-          <mat-option
-            *ngFor="let subservice of subServices"
-            [value]="subservice"
-            >{{ subservice.subServiceName }}</mat-option
+        <mat-form-field>
+          <mat-label>Sub Service</mat-label>
+          <mat-select
+            required
+            [(ngModel)]="sub_service"
+            class="width100"
+            name="subserviceName"
+            (change)="
+              checkSubService(selected_service_id, sub_service.subServiceName);
+              getDetails(sub_service)
+            "
+            disabled
           >
-        </mat-select>
+            <mat-option
+              *ngFor="let subservice of subServices"
+              [value]="subservice"
+              >{{ subservice.subServiceName }}</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+
         <!-- </mat-form-field> -->
       </div>
     </form>
@@ -410,18 +430,23 @@
       >
         <!-- <mat-form-field class="hide_underline width100">
           <input matInput style="display:none"> -->
-        <mat-select
-          [disabled]="cateDisabled"
-          [(ngModel)]="category_ID"
-          name="category Name"
-          class="width100"
-          placeholder="Category"
-          required
-        >
-          <mat-option *ngFor="let category of categories" [value]="category">{{
-            category.categoryName
-          }}</mat-option>
-        </mat-select>
+        <mat-form-field>
+          <mat-label>Category</mat-label>
+          <mat-select
+            [disabled]="cateDisabled"
+            [(ngModel)]="category_ID"
+            name="category Name"
+            class="width100"
+            required
+          >
+            <mat-option
+              *ngFor="let category of categories"
+              [value]="category"
+              >{{ category.categoryName }}</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+
         <!-- </mat-form-field> -->
       </div>
       <div
@@ -429,10 +454,10 @@
         *ngIf="Add_Category_Subcategory_flag"
       >
         <mat-form-field class="width100" myProviderName>
+          <mat-label>Category Name</mat-label>
           <input
             #categoryRef="ngModel"
             matInput
-            placeholder="Category Name"
             [(ngModel)]="category_name"
             (keyup)="checkCategory($event)"
             name="category_name"
@@ -457,9 +482,9 @@
         *ngIf="Add_Category_Subcategory_flag"
       >
         <mat-form-field class="width100" myProviderName>
+          <mat-label>Category Description</mat-label>
           <input
             matInput
-            placeholder="Category Description"
             [(ngModel)]="categorydesc"
             name="categorydesc"
             maxlength="100"
@@ -471,10 +496,10 @@
         *ngIf="!Add_Category_Subcategory_flag"
       >
         <mat-form-field class="width100" myProviderName>
+          <mat-label>Sub Category Name</mat-label>
           <input
             required
             matInput
-            placeholder="Sub Category Name"
             #subCategories="ngModel"
             [(ngModel)]="subcategory"
             name="subcategory"
@@ -505,9 +530,9 @@
         *ngIf="!Add_Category_Subcategory_flag"
       >
         <mat-form-field class="width100" myProviderName>
+          <mat-label>Description</mat-label>
           <input
             matInput
-            placeholder="Description"
             [(ngModel)]="description"
             name="description"
             maxlength="100"
