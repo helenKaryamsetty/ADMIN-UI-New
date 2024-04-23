@@ -35,9 +35,33 @@ import { MatPaginator } from '@angular/material/paginator';
    Intention: Creates provider-service-state mappings
  */
 export class ProviderServicelineStateMappingComponent implements OnInit {
-  @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
-  bufferArray = new MatTableDataSource<any>();
+  paginator!: MatPaginator;
+  @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
+    this.paginator = mp;
+    this.setDataSourceAttributes();
+  }
   filteredsearchResult = new MatTableDataSource<any>();
+  bufferArray = new MatTableDataSource<any>();
+  setDataSourceAttributes() {
+    this.filteredsearchResult.paginator = this.paginator;
+  }
+  displayedColumns = [
+    'sno',
+    'serviceProviderName',
+    'serviceName',
+    'stateName',
+    'edit',
+    'action',
+  ];
+
+  displayAddedColumns = [
+    'sno',
+    'serviceProviderName',
+    'serviceName',
+    'stateName',
+    'action',
+  ];
+
   // filteredsearchResult: any = [];
   // ngModels
   provider: any;

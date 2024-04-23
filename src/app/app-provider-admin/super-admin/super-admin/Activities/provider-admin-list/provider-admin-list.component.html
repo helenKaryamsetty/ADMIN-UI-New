@@ -96,20 +96,20 @@
         </ng-container>
         <ng-container matColumnDef="action">
           <th mat-header-cell *matHeaderCellDef>Action</th>
-          <td mat-cell *matCellDef="let element">
+          <td mat-cell *matCellDef="let item">
             <button
-              *ngIf="element.deleted === '1'"
+              *ngIf="item.deleted"
               mat-raised-button
               color="accent"
-              (click)="activateDeactivate(element.userID, false)"
+              (click)="activateDeactivate(item.userID, false)"
             >
               Activate
             </button>
             <button
-              *ngIf="element.deleted === '0'"
+              *ngIf="!item.deleted"
               mat-raised-button
               color="primary"
-              (click)="activateDeactivate(element.userID, true)"
+              (click)="activateDeactivate(item.userID, true)"
             >
               Deactivate
             </button>

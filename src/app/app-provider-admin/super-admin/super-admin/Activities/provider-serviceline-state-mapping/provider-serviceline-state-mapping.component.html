@@ -6,7 +6,10 @@
   </div>
 </div>
 <div class="pull-right m-t-10" *ngIf="tableMode && searchResult.length !== 0">
-  <mat-form-field id="filterbox">
+  <mat-form-field
+    id="filterbox"
+    class="input-full-width mat_form_field_width_one"
+  >
     <input
       matInput
       placeholder="In-Table Search"
@@ -16,6 +19,7 @@
     <mat-icon matSuffix>search</mat-icon>
   </mat-form-field>
 </div>
+
 <!-- pre-populated table showing the mappings available of providers to serviceline and state -->
 <div class="row" *ngIf="tableMode">
   <div class="col-xs-12 col-sm-12">
@@ -61,32 +65,35 @@
           </tr>
         </tfoot>
       </table> -->
-      <mat-table [dataSource]="filteredsearchResult" class="mat-elevation-z8">
+      <table
+        mat-table
+        [dataSource]="filteredsearchResult"
+        class="mat-elevation-z8"
+      >
         <!-- S.No. Column -->
         <ng-container matColumnDef="sno">
-          <mat-header-cell *matHeaderCellDef>S.No.</mat-header-cell>
-          <mat-cell *matCellDef="let item; let i = index">{{ i + 1 }}</mat-cell>
+          <th mat-header-cell *matHeaderCellDef>S.No.</th>
+          <td mat-cell *matCellDef="let item; let i = index">{{ i + 1 }}</td>
         </ng-container>
         <!-- Category Code Column -->
         <ng-container matColumnDef="serviceProviderName">
-          <mat-header-cell *matHeaderCellDef>Provider Name</mat-header-cell>
-          <mat-cell *matCellDef="let item">
-            {{ item?.serviceProviderName }}</mat-cell
-          >
+          <th mat-header-cell *matHeaderCellDef>Provider Name</th>
+          <td mat-cell *matCellDef="let item">
+            {{ item?.serviceProviderName }}
+          </td>
         </ng-container>
-
         <!-- Category Name Column -->
         <ng-container matColumnDef="serviceName">
-          <mat-header-cell *matHeaderCellDef>Serviceline</mat-header-cell>
-          <mat-cell *matCellDef="let item">{{ item.serviceName }}</mat-cell>
+          <th mat-header-cell *matHeaderCellDef>Serviceline</th>
+          <td mat-cell *matCellDef="let item">{{ item.serviceName }}</td>
         </ng-container>
 
         <!-- Category Description Column -->
         <ng-container matColumnDef="stateName">
-          <mat-header-cell *matHeaderCellDef>State</mat-header-cell>
-          <mat-cell *matCellDef="let element">{{
-            element.stateName ? element.stateName : "All States"
-          }}</mat-cell>
+          <th mat-header-cell *matHeaderCellDef>State</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.stateName ? element.stateName : "All States" }}
+          </td>
         </ng-container>
 
         <!-- Action Column -->
@@ -132,30 +139,9 @@
         </ng-container>
 
         <!-- Header and Row Definitions -->
-        <mat-header-row
-          *matHeaderRowDef="[
-            'sno',
-            'serviceProviderName',
-            'serviceName',
-            'stateName',
-            'edit',
-            'action'
-          ]"
-        ></mat-header-row>
-        <mat-row
-          *matRowDef="
-            let row;
-            columns: [
-              'sno',
-              'serviceProviderName',
-              'serviceName',
-              'stateName',
-              'edit',
-              'action'
-            ]
-          "
-        ></mat-row>
-      </mat-table>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
       <div>
         <button
           mat-raised-button
@@ -163,8 +149,15 @@
           class="pull-right"
           (click)="showForm()"
         >
-          Create New Provider
+          Create New Mapping
         </button>
+      </div>
+      <div
+        class="pull-center"
+        style="margin-top: 35px; text-align: center"
+        *ngIf="filteredsearchResult.data.length === 0"
+      >
+        <strong>No Records Found</strong>
       </div>
       <!-- Pagination -->
       <mat-paginator
@@ -303,30 +296,38 @@
           </tr>
         </tfoot>
       </table> -->
-      <mat-table [dataSource]="bufferArray" class="mat-elevation-z8">
+      <table mat-table [dataSource]="bufferArray" class="mat-elevation-z8">
         <!-- S.No. Column -->
         <ng-container matColumnDef="sno">
-          <mat-header-cell *matHeaderCellDef>S.No.</mat-header-cell>
-          <mat-cell *matCellDef="let item; let i = index">{{ i + 1 }}</mat-cell>
+          <th mat-header-cell *matHeaderCellDef>S.No.</th>
+          <td mat-cell *matCellDef="let item; let i = index">{{ i + 1 }}</td>
         </ng-container>
         <!-- Category Code Column -->
         <ng-container matColumnDef="serviceProviderName">
-          <mat-header-cell *matHeaderCellDef>Provider Name</mat-header-cell>
-          <mat-cell *matCellDef="let item"> {{ item?.providerName }}</mat-cell>
+          <th mat-header-cell *matHeaderCellDef>Provider Name</th>
+          <td mat-cell *matCellDef="let item">{{ item?.providerName }}</td>
         </ng-container>
 
         <!-- Category Name Column -->
         <ng-container matColumnDef="serviceName">
-          <mat-header-cell *matHeaderCellDef>Serviceline</mat-header-cell>
-          <mat-cell *matCellDef="let item">{{ item.serviceName }}</mat-cell>
+          <th mat-header-cell *matHeaderCellDef>Serviceline</th>
+          <td mat-cell *matCellDef="let item">{{ item.serviceName }}</td>
         </ng-container>
 
         <!-- Category Description Column -->
         <ng-container matColumnDef="stateName">
-          <mat-header-cell *matHeaderCellDef>State</mat-header-cell>
-          <mat-cell *matCellDef="let element">{{
-            element.stateName ? element.stateName : "All States"
-          }}</mat-cell>
+          <th mat-header-cell *matHeaderCellDef>State</th>
+          <td mat-cell *matCellDef="let element; let j">
+            <ng-container *ngFor="let obj of element.stateID1">
+              {{ obj.stateName ? obj.stateName : "All States" }}
+              <mat-icon
+                class="cursorPointer"
+                matTooltip="Remove {{ obj.stateName }}"
+                (click)="removeState(bufferArray.data.indexOf(element), j)"
+                >cancel</mat-icon
+              ></ng-container
+            >
+          </td>
         </ng-container>
 
         <!-- Action Column -->
@@ -356,40 +357,10 @@
           <button md-raised-button color="primary" [disabled]="searchForm.invalid" class="pull-right" (click)="changeTableFlag(false)">Add Work Location</button>
         </td> -->
         </ng-container>
-
+        <tr mat-header-row *matHeaderRowDef="displayAddedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayAddedColumns"></tr>
         <!-- Header and Row Definitions -->
-        <mat-header-row
-          *matHeaderRowDef="[
-            'sno',
-            'serviceProviderName',
-            'serviceName',
-            'stateName',
-            'action'
-          ]"
-        ></mat-header-row>
-        <mat-row
-          *matRowDef="
-            let row;
-            columns: [
-              'sno',
-              'serviceProviderName',
-              'serviceName',
-              'stateName',
-              'action'
-            ]
-          "
-        ></mat-row>
-      </mat-table>
-      <div>
-        <button
-          mat-raised-button
-          color="primary"
-          class="pull-right"
-          (click)="showForm()"
-        >
-          Create New Provider
-        </button>
-      </div>
+      </table>
       <!-- Pagination -->
       <mat-paginator
         [length]="bufferArray.data.length"

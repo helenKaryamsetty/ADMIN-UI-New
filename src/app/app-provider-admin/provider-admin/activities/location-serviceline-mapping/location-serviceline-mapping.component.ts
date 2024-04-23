@@ -19,7 +19,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see https://www.gnu.org/licenses/.
  */
-import { Component, OnInit, Inject, ViewChild } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Inject,
+  ViewChild,
+  AfterViewInit,
+} from '@angular/core';
 import { NgForm } from '@angular/forms';
 import {
   MAT_DIALOG_DATA,
@@ -39,7 +45,9 @@ declare let jQuery: any;
   templateUrl: './location-serviceline-mapping.component.html',
   styleUrls: ['./location-serviceline-mapping.component.css'],
 })
-export class LocationServicelineMappingComponent implements OnInit {
+export class LocationServicelineMappingComponent
+  implements OnInit, AfterViewInit
+{
   [x: string]: any;
   // dataSource = new MatTableDataSource<any>();
   paginator!: MatPaginator;

@@ -62,41 +62,41 @@
           </tr>
         </tfoot>
       </table> -->
-      <mat-table [dataSource]="filteredsearchResult" class="mat-elevation-z8">
+      <table
+        mat-table
+        [dataSource]="filteredsearchResult"
+        class="mat-elevation-z8"
+      >
         <!-- S.No. Column -->
         <ng-container matColumnDef="sno">
-          <mat-header-cell *matHeaderCellDef>S.No.</mat-header-cell>
-          <mat-cell *matCellDef="let item; let i = index">{{ i + 1 }}</mat-cell>
+          <th mat-header-cell *matHeaderCellDef>S.No.</th>
+          <td mat-cell *matCellDef="let item; let i = index">{{ i + 1 }}</td>
         </ng-container>
         <!-- Category Code Column -->
         <ng-container matColumnDef="serviceProviderName">
-          <mat-header-cell *matHeaderCellDef>Provider Name</mat-header-cell>
-          <mat-cell *matCellDef="let item">
-            {{ item?.serviceProviderName }}</mat-cell
-          >
+          <th mat-header-cell *matHeaderCellDef>Provider Name</th>
+          <td mat-cell *matCellDef="let item">
+            {{ item?.serviceProviderName }}
+          </td>
         </ng-container>
 
         <!-- Category Name Column -->
         <ng-container matColumnDef="primaryContactName">
-          <mat-header-cell *matHeaderCellDef>Contact Person</mat-header-cell>
-          <mat-cell *matCellDef="let item">{{
-            item.primaryContactName
-          }}</mat-cell>
+          <th mat-header-cell *matHeaderCellDef>Contact Person</th>
+          <td mat-cell *matCellDef="let item">{{ item.primaryContactName }}</td>
         </ng-container>
 
         <!-- Category Description Column -->
         <ng-container matColumnDef="primaryContactNo">
-          <mat-header-cell *matHeaderCellDef>Contact Number</mat-header-cell>
-          <mat-cell *matCellDef="let item">{{
-            item.primaryContactNo
-          }}</mat-cell>
+          <th mat-header-cell *matHeaderCellDef>Contact Number</th>
+          <td mat-cell *matCellDef="let item">{{ item.primaryContactNo }}</td>
         </ng-container>
 
         <ng-container matColumnDef="primaryContactAddress">
-          <mat-header-cell *matHeaderCellDef>Address</mat-header-cell>
-          <mat-cell *matCellDef="let item">{{
-            item.primaryContactAddress
-          }}</mat-cell>
+          <th mat-header-cell *matHeaderCellDef>Address</th>
+          <td mat-cell *matCellDef="let item">
+            {{ item.primaryContactAddress }}
+          </td>
         </ng-container>
 
         <!-- Action Column -->
@@ -136,9 +136,10 @@
           <button md-raised-button color="primary" [disabled]="searchForm.invalid" class="pull-right" (click)="changeTableFlag(false)">Add Work Location</button>
         </td> -->
         </ng-container>
-
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
         <!-- Header and Row Definitions -->
-        <mat-header-row
+        <!-- <mat-header-row
           *matHeaderRowDef="[
             'sno',
             'serviceProviderName',
@@ -162,8 +163,8 @@
               'action'
             ]
           "
-        ></mat-row>
-      </mat-table>
+        ></mat-row> -->
+      </table>
       <div>
         <button
           mat-raised-button

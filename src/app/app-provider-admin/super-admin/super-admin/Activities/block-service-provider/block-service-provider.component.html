@@ -114,7 +114,9 @@
         <!-- Category Code Column -->
         <ng-container matColumnDef="serviceProviderName">
           <mat-header-cell *matHeaderCellDef>Provider Name</mat-header-cell>
-          <mat-cell *matCellDef="let item"> {{ item?.providerName }}</mat-cell>
+          <mat-cell *matCellDef="let item">
+            {{ item.serviceProviderName }}</mat-cell
+          >
         </ng-container>
 
         <!-- Category Name Column -->
