@@ -125,7 +125,7 @@
         <button
           mat-raised-button
           color="primary"
-          class="pull-right"
+          class="pull-right mat_blue"
           [disabled]="searchForm.invalid"
           (click)="showForm()"
         >
@@ -310,13 +310,13 @@
     <button
       mat-raised-button
       color="primary"
-      class="pull-left"
+      class="pull-left mat_blue"
       (click)="back()"
     >
       Back
     </button>
     <button
-      class="pull-right"
+      class="pull-right mat_green"
       type="button"
       mat-raised-button
       color="accent"
@@ -330,7 +330,7 @@
       *ngIf="editable"
       mat-raised-button
       color="accent"
-      class="pull-right"
+      class="pull-right mat_green"
       [disabled]="!agentListCreationForm.valid"
       (click)="updateAgent(agentListCreationForm.value)"
     >

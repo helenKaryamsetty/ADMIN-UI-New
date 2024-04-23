@@ -92,6 +92,7 @@
         <button
           type="button"
           mat-mini-fab
+          class="mat_blue"
           color="primary"
           *ngIf="
             UOMMasterForm.controls['UOM'].valid &&
@@ -196,7 +197,7 @@
       type="button"
       mat-raised-button
       color="primary"
-      class="pull-left"
+      class="pull-left mat_blue"
       (click)="switchToViewMode()"
     >
       Back
@@ -206,7 +207,7 @@
       [disabled]="UOMMasterList.data.length === 0"
       mat-raised-button
       color="accent"
-      class="pull-right"
+      class="pull-right mat_green"
       (click)="submitUOMForm(); UOMMasterForm.controls['UOM'].reset()"
     >
       Save
@@ -215,7 +216,7 @@
       type="button"
       mat-raised-button
       color="primary"
-      class="pull-right m-r-5"
+      class="pull-right m-r-5 mat_blue"
       (click)="UOMMasterForm.controls['UOM'].reset()"
     >
       Clear

@@ -137,6 +137,7 @@
           <td mat-cell *matCellDef="let element">
             <button
               mat-raised-button
+              class="mat_green"
               color="accent"
               (click)="unmappingCategory(element.categoryID)"
             >
@@ -154,7 +155,7 @@
         <button
           mat-raised-button
           color="primary"
-          class="pull-right"
+          class="pull-right mat_blue"
           [disabled]="!createButton"
           (click)="showForm()"
         >
@@ -191,7 +192,7 @@
         mat-mini-fab
         color="primary"
         *ngIf="categoryForm.valid && !editable"
-        class="xs-pull-right sm-pull-right md-pull-left lg-pull-left"
+        class="xs-pull-right sm-pull-right md-pull-left lg-pull-left mat_blue"
         (click)="addMappingObject(category)"
       >
         <mat-icon
@@ -254,7 +255,7 @@
     <button
       mat-raised-button
       color="primary"
-      class="pull-left"
+      class="pull-left mat_blue"
       (click)="back()"
     >
       Back
@@ -264,7 +265,7 @@
       [disabled]="complaintCategoryMappingList.data.length === 0"
       mat-raised-button
       color="accent"
-      class="pull-right m-t-10"
+      class="pull-right m-t-10 mat_green"
       (click)="saveCategoryMapping()"
     >
       Save
@@ -274,7 +275,7 @@
       [disabled]="categoryForm.invalid"
       mat-raised-button
       color="accent"
-      class="pull-right"
+      class="pull-right mat_green"
       (click)="updateCategoryMapping(categoryForm.value)"
     >
       Update

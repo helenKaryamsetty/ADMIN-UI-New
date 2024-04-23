@@ -126,6 +126,7 @@
               *ngIf="element.deleted"
               mat-raised-button
               color="accent"
+              class="mat_green"
               (click)="updateZoneMappingStatus(element, element.zoneDeleted)"
             >
               Activate
@@ -134,6 +135,7 @@
               *ngIf="!element.deleted"
               mat-raised-button
               color="primary"
+              class="mat_blue"
               (click)="updateZoneMappingStatus(element, false)"
             >
               Deactivate
@@ -182,7 +184,7 @@
           <button
             mat-raised-button
             color="primary"
-            class="pull-right"
+            class="pull-right mat_blue"
             (click)="showForm()"
           >
             Create Zone Mapping
@@ -284,7 +286,7 @@
             md-mini-fab
             color="primary"
             *ngIf="zoneDistrictMappingForm.valid && !editable"
-            class="xs-pull-right sm-pull-right md-pull-left lg-pull-left"
+            class="xs-pull-right sm-pull-right md-pull-left lg-pull-left mat_blue"
             (click)="
               addZoneDistrictMappingToList(zoneDistrictMappingForm.value)
             "
@@ -381,7 +383,7 @@
         <button
           mat-raised-button
           color="primary"
-          class="pull-left"
+          class="pull-left mat_blue"
           (click)="back()"
         >
           Back
@@ -391,7 +393,7 @@
           [disabled]="zoneDistrictMappingList.data.length === 0"
           mat-raised-button
           color="accent"
-          class="pull-right m-t-10"
+          class="pull-right m-t-10 mat_green"
           (click)="storezoneMappings()"
         >
           Save
@@ -400,7 +402,7 @@
           *ngIf="editable"
           mat-raised-button
           color="accent"
-          class="pull-right"
+          class="pull-right mat_green"
           [disabled]="zoneDistrictMappingForm.invalid"
           (click)="updateZoneMappingData(zoneDistrictMappingForm.value)"
         >

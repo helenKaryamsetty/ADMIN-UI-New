@@ -166,6 +166,7 @@
             <button
               *ngIf="element.deleted"
               mat-raised-button
+              class="mat_green"
               color="accent"
               (click)="toggleActivate(element.institutionID, false)"
             >
@@ -174,6 +175,7 @@
             <button
               *ngIf="!element.deleted"
               mat-raised-button
+              class="mat_blue"
               color="primary"
               (click)="toggleActivate(element.institutionID, true)"
             >
@@ -188,7 +190,7 @@
         <button
           mat-raised-button
           color="primary"
-          class="pull-right"
+          class="pull-right mat_blue"
           [disabled]="!taluk"
           (click)="showForm()"
         >
@@ -254,7 +256,7 @@
   <div class="m-t-20">
     <button
       mat-raised-button
-      class="pull-left"
+      class="pull-left mat_green"
       color="accent"
       type="submit"
       [disabled]="
@@ -515,7 +517,7 @@
     <button
       mat-raised-button
       color="primary"
-      class="pull-left"
+      class="pull-left mat_blue"
       (click)="back()"
     >
       Back
@@ -524,7 +526,7 @@
       mat-raised-button
       color="accent"
       [disabled]="!institutionForm1.valid"
-      class="pull-right"
+      class="pull-right mat_green"
       (click)="createInstitution()"
     >
       Save

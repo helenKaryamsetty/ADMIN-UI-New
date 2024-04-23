@@ -92,6 +92,7 @@
           *ngIf="checkValidity()"
           type="button"
           mat-mini-fab
+          class="mat_blue"
           color="primary"
           (click)="addToStoreMappingList()"
         >
@@ -189,7 +190,7 @@
       type="button"
       mat-raised-button
       color="accent"
-      class="pull-right"
+      class="pull-right mat_green"
       [disabled]="!(storeMappingList.data.length > 0)"
       (click)="submitStoreMapping(); storeMappingForm.reset()"
     >
@@ -199,7 +200,7 @@
       type="button"
       mat-raised-button
       color="primary"
-      class="pull-left"
+      class="pull-left mat_blue"
       (click)="switchToViewMode()"
     >
       Back
@@ -208,7 +209,7 @@
       type="button"
       mat-raised-button
       color="primary"
-      class="pull-right m-r-5"
+      class="pull-right m-r-5 mat_blue"
       (click)="storeMappingForm.reset()"
     >
       Clear

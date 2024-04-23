@@ -224,6 +224,7 @@
                 mappedVan.deleted || mappedVan.m_parkingPlaceMapped.deleted
               "
               md-raised-button
+              class="mat_green"
               color="accent"
               (click)="
                 mappingStatus(mappedVan, mappedVan.m_parkingPlaceMapped.deleted)
@@ -236,6 +237,7 @@
                 !mappedVan.deleted && !mappedVan.m_parkingPlaceMapped.deleted
               "
               md-raised-button
+              class="mat_blue"
               color="primary"
               (click)="
                 mappingStatus(mappedVan, mappedVan.m_parkingPlaceMapped.deleted)
@@ -255,7 +257,7 @@
         <button
           mat-raised-button
           color="primary"
-          class="pull-right"
+          class="pull-right mat_blue"
           (click)="showForm()"
         >
           Add Mapping
@@ -437,7 +439,7 @@
     <button
       mat-mini-fab
       color="primary"
-      class="xs-pull-right sm-pull-right md-pull-left lg-pull-right"
+      class="xs-pull-right sm-pull-right md-pull-left lg-pull-right mat_blue"
       (click)="
         addVanSpokeMapping(
           mmuVanDetailsForm.value,
@@ -544,7 +546,7 @@
       mat-raised-button
       color="primary"
       *ngIf="enabletmSpokeDetailsForm"
-      class="pull-left"
+      class="pull-left mat_blue"
       (click)="resetAllFormsdata()"
     >
       Back
@@ -553,7 +555,7 @@
       *ngIf="vanSpokeMappedData.data.length > 0"
       mat-raised-button
       color="accent"
-      class="pull-right m-t-10"
+      class="pull-right m-t-10 mat_green"
       (click)="saveVanSpokeMapping()"
     >
       Save

@@ -69,6 +69,7 @@
       <div class="m-t-20 col-xs-12 col-sm-12 col-md-3 col-lg-2 pull-right">
         <button
           mat-raised-button
+          class="mat_blue"
           color="primary"
           (click)="setQuestionType(questionnaireType)"
           type="submit"
@@ -172,6 +173,7 @@
       <div class="pull-right" *ngIf="!showAdd">
         <button
           mat-raised-button
+          class="mat_blue"
           color="primary"
           [disabled]="disabledFlag"
           (click)="showAddForm()"
@@ -309,6 +311,7 @@
                   </div>
                   <button
                     md-mini-fab
+                    class="mat_blue"
                     color="primary"
                     mdTooltip="add option"
                     (click)="addOptionField(i)"
@@ -333,6 +336,7 @@
                   <button
                     md-mini-fab
                     class="m-t-10"
+                    class="mat_blue"
                     color="primary"
                     mdTooltip="add question"
                     *ngIf="isLast"
@@ -373,7 +377,7 @@
           color="primary"
           type="button"
           (click)="navigateToPrev()"
-          class="pull-left m-r-10"
+          class="pull-left m-r-10 mat_blue"
         >
           Back
         </button>
@@ -388,7 +392,7 @@
             optionweightFlag ||
             rankFlag
           "
-          class="pull-right"
+          class="pull-right mat_blue"
         >
           Submit
         </button>

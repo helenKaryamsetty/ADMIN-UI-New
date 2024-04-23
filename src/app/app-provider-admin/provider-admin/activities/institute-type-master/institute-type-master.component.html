@@ -150,6 +150,7 @@
             <button
               *ngIf="element.deleted"
               mat-raised-button
+              class="mat_green"
               color="accent"
               (click)="toggle_activate(element.institutionTypeID, false)"
             >
@@ -158,6 +159,7 @@
             <button
               *ngIf="!element.deleted"
               mat-raised-button
+              class="mat_blue"
               color="primary"
               (click)="toggle_activate(element.institutionTypeID, true)"
             >
@@ -175,7 +177,7 @@
         <button
           mat-raised-button
           color="primary"
-          class="pull-right"
+          class="pull-right mat_blue"
           (click)="showForm()"
         >
           Add Institute Type
@@ -234,7 +236,7 @@
         mat-mini-fab
         color="primary"
         *ngIf="entryField.valid"
-        class="xs-pull-right sm-pull-right md-pull-left lg-pull-left"
+        class="xs-pull-right sm-pull-right md-pull-left lg-pull-left mat_blue"
         (click)="add_obj(instituteType, description)"
       >
         <mat-icon
@@ -322,7 +324,7 @@
     <button
       mat-raised-button
       [disabled]="bufferArray.data.length === 0"
-      class="pull-right"
+      class="pull-right mat_green"
       color="accent"
       (click)="save()"
     >
@@ -333,7 +335,7 @@
       </button> -->
     <button
       mat-raised-button
-      class="pull-left"
+      class="pull-left mat_blue"
       color="primary"
       (click)="navigateToPrev()"
     >

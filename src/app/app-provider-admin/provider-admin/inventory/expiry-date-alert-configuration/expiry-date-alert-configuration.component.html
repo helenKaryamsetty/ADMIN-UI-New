@@ -177,7 +177,7 @@
           mat-raised-button
           color="primary"
           *ngIf="mode === 'view'"
-          class="pull-right"
+          class="pull-right mat_blue"
           (click)="createExpiryAlertConfig()"
         >
           Create Expiry Date Alert Config
@@ -220,7 +220,7 @@
       <button
         *ngIf="expiryAlertConfigCreateForm.valid"
         mat-mini-fab
-        class="xs-pull-right sm-pull-right md-pull-right lg-pull-left"
+        class="xs-pull-right sm-pull-right md-pull-right lg-pull-left mat_blue"
         color="primary"
         (click)="addToExpiryAlertConfigList(expiryAlertConfigCreateForm)"
       >
@@ -332,7 +332,7 @@
         type="button"
         mat-raised-button
         color="primary"
-        class="pull-left"
+        class="pull-left mat_blue"
         (click)="viewExpiryAlertConfig(expiryAlertConfigCreateForm)"
       >
         Back
@@ -343,7 +343,7 @@
         color="accent"
         (click)="submitExpiryAlertConfig(expiryAlertConfigCreateForm)"
         [disabled]="!(expiryAlertConfigList.data.length > 0)"
-        class="pull-right"
+        class="pull-right mat_green"
       >
         Save
       </button>
@@ -351,7 +351,7 @@
         type="reset"
         mat-raised-button
         color="primary"
-        class="pull-right m-r-5"
+        class="pull-right m-r-5 mat_blue"
       >
         Clear
       </button>
@@ -397,7 +397,7 @@
         type="button"
         mat-raised-button
         color="primary"
-        class="pull-left"
+        class="pull-left mat_blue"
         (click)="viewExpiryAlertConfig()"
       >
         Back
@@ -406,7 +406,7 @@
         type="button"
         mat-raised-button
         color="accent"
-        class="pull-right"
+        class="pull-right mat_green"
         [disabled]="expiryAlertConfigEditForm.invalid"
         (click)="updateExpiryAlertConfig(expiryAlertConfigEditForm)"
       >

@@ -158,7 +158,7 @@
       <button
         mat-mini-fab
         color="primary"
-        class="xs-pull-right sm-pull-right md-pull-right lg-pull-left"
+        class="xs-pull-right sm-pull-right md-pull-right lg-pull-left mat_blue"
         *ngIf="formMode && searchForm.valid"
         (click)="
           addParkingPlaceMapping(searchForm.value); this.searchForm.reset()
@@ -274,7 +274,7 @@
       mat-raised-button
       color="accent"
       *ngIf="formMode"
-      class="pull-right"
+      class="pull-right mat_green"
       [disabled]="!(employeeParkingPlaceMappingList.data.length > 0)"
       (click)="saveParkingMpping()"
     >
@@ -284,7 +284,7 @@
       mat-raised-button
       color="primary"
       *ngIf="formMode || editMode"
-      class="pull-left"
+      class="pull-left mat_blue"
       (click)="back()"
     >
       Back
@@ -426,7 +426,7 @@
       mat-raised-button
       color="accent"
       *ngIf="editMode"
-      class="pull-right"
+      class="pull-right mat_green"
       [disabled]="updateForm.invalid"
       (click)="updateParkingPlace()"
     >
@@ -436,7 +436,7 @@
       mat-raised-button
       color="primary"
       *ngIf="editMode"
-      class="pull-left"
+      class="pull-left mat_blue"
       (click)="back()"
     >
       Back
@@ -581,7 +581,7 @@
                 md-raised-button
                 color="accent"
                 *ngIf="mapping.deleted || mapping.userDeleted"
-                class="m-r-10"
+                class="m-r-10 mat_green"
                 (click)="
                   activate(mapping.userParkingPlaceMapID, mapping.userDeleted)
                 "
@@ -592,7 +592,7 @@
                 md-raised-button
                 color="primary"
                 *ngIf="!mapping.deleted && !mapping.userDeleted"
-                class="m-r-10"
+                class="m-r-10 mat_blue"
                 (click)="deactivate(mapping.userParkingPlaceMapID)"
               >
                 Deactivate
@@ -611,7 +611,7 @@
             color="primary"
             id="addButton"
             [disabled]="!parking_Place || !designationID"
-            class="pull-right"
+            class="pull-right mat_blue"
             (click)="
               showForm(
                 searchStateID,

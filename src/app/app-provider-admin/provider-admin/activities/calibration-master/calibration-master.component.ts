@@ -315,7 +315,7 @@ export class CalibrationMasterComponent implements OnInit {
     );
     console.log('request object', this.stripCode, this.expiryDate);
   }
-  //}
+
   activateDeactivate(calibrationStripID: any, flag: any, stripCode: any) {
     const obj = {
       calibrationStripID: calibrationStripID,

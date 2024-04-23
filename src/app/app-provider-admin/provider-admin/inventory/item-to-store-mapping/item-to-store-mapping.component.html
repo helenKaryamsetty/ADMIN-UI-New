@@ -127,7 +127,7 @@
                 item.facilityDeleted ||
                 item.itemDeleted
               "
-              class=""
+              class="mat_green"
               (click)="
                 activate(
                   item.itemFacilityMapID,
@@ -148,7 +148,7 @@
                   item.itemDeleted
                 )
               "
-              class=""
+              class="mat_blue"
               (click)="
                 deactivate(
                   item.itemFacilityMapID,
@@ -192,7 +192,7 @@
         <button
           md-raised-button
           color="primary"
-          class="pull-right"
+          class="pull-right mat_blue"
           (click)="showForm()"
           [disabled]="!(state?.stateID > 0)"
         >
@@ -340,7 +340,7 @@
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-12 m-t-10">
       <button
         mat-mini-fab
-        class="xs-pull-right sm-pull-right md-pull-left lg-pull-right"
+        class="xs-pull-right sm-pull-right md-pull-left lg-pull-right mat_blue"
         *ngIf="
           ((storeType && mainStore?.facilityID > 0) ||
             (!storeType && subStore?.facilityID > 0)) &&
@@ -451,7 +451,7 @@
     <button
       mat-raised-button
       color="primary"
-      class="pull-left"
+      class="pull-left mat_blue"
       (click)="
         back(); itemCategoryselected = {}; itemselected = []; subStore = []
       "
@@ -461,7 +461,7 @@
     <button
       mat-raised-button
       color="accent"
-      class="pull-right"
+      class="pull-right mat_green"
       (click)="submitMapping()"
       [disabled]="bufferarray.data.length === 0"
     >
@@ -470,7 +470,7 @@
     <button
       mat-raised-button
       color="primary"
-      class="pull-right m-r-5"
+      class="pull-right m-r-5 mat_blue"
       (click)="
         resetForm(); itemCategoryselected = {}; itemselected = []; subStore = []
       "

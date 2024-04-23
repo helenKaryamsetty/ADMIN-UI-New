@@ -343,6 +343,7 @@
                 <span>
                   <button
                     mat-mini-fab
+                    class="mat_blue"
                     color="primary"
                     *ngIf="isLast"
                     (click)="addID(i)"
@@ -366,7 +367,7 @@
   <div align="right">
     <button
       color="primary"
-      class="pull-left"
+      class="pull-left mat_blue"
       id="backButton"
       mat-raised-button
       (click)="back()"
@@ -377,6 +378,7 @@
       *ngIf="!editMode"
       id="saveButton"
       mat-raised-button
+      class="mat_green"
       color="accent"
       [disabled]="!componentForm.valid || alreadyExist"
       (click)="saveComponent()"
@@ -387,6 +389,7 @@
       *ngIf="editMode"
       id="updateButton"
       mat-raised-button
+      class="mat_green"
       color="accent"
       [disabled]="!componentForm.valid || alreadyExist"
       (click)="updateComponent()"
@@ -467,6 +470,7 @@
               <button
                 *ngIf="element.deleted"
                 mat-raised-button
+                class="mat_green"
                 color="accent"
                 (click)="
                   toggleComponent(
@@ -481,6 +485,7 @@
               <button
                 *ngIf="!element.deleted"
                 mat-raised-button
+                class="mat_blue"
                 color="primary"
                 (click)="
                   toggleComponent(
@@ -531,7 +536,7 @@
           <button
             *ngIf="!editMode"
             id="resetButton"
-            class="pull-right"
+            class="pull-right mat_blue"
             color="primary"
             mat-raised-button
             (click)="showForm(); resetForm()"

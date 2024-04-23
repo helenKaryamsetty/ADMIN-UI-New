@@ -91,6 +91,7 @@
             <button
               *ngIf="element.deleted"
               mat-raised-button
+              class="mat_green"
               color="accent"
               (click)="
                 updateDrugMappingStatus(element, element.drugGroupDeleted)
@@ -101,6 +102,7 @@
             <button
               *ngIf="!element.deleted"
               mat-raised-button
+              class="mat_blue"
               color="primary"
               (click)="updateDrugMappingStatus(element, false)"
             >
@@ -115,7 +117,7 @@
         <button
           mat-raised-button
           color="primary"
-          class="pull-right"
+          class="pull-right mat_blue"
           (click)="showForm()"
         >
           Create Drug Mapping
@@ -199,7 +201,7 @@
             *ngIf="!editable"
             md-mini-fab
             color="primary"
-            class="xs-pull-right sm-pull-right md-pull-left lg-pull-right"
+            class="xs-pull-right sm-pull-right md-pull-left lg-pull-right mat_blue"
             (click)="
               addDrugToList(drugMappingForm.value); drugMappingForm.reset()
             "
@@ -303,7 +305,7 @@
       <button
         mat-raised-button
         color="primary"
-        class="pull-left"
+        class="pull-left mat_blue"
         (click)="back()"
       >
         Back
@@ -312,7 +314,7 @@
         [disabled]="drugMapping.data.length === 0"
         mat-raised-button
         color="accent"
-        class="pull-right"
+        class="pull-right mat_green"
         (click)="storedrugMappings()"
       >
         Save

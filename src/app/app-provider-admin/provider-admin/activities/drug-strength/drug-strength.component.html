@@ -63,6 +63,7 @@
             <button
               *ngIf="element.deleted"
               mat-raised-button
+              class="mat_green"
               color="accent"
               (click)="activateDeactivate(element.drugStrengthID, false)"
             >
@@ -71,6 +72,7 @@
             <button
               *ngIf="!element.deleted"
               mat-raised-button
+              class="mat_blue"
               color="primary"
               (click)="activateDeactivate(element.drugStrengthID, true)"
             >
@@ -112,7 +114,7 @@
         <button
           mat-raised-button
           color="primary"
-          class="pull-right"
+          class="pull-right mat_blue"
           (click)="showForm()"
         >
           Create Drug Strength
@@ -188,7 +190,7 @@
         md-mini-fab
         color="primary"
         *ngIf="!editMode && drugStrengthForm.valid && !drugStrengthExist"
-        class="pull-right-xs pull-right-sm pull-left-md pull-left-lg"
+        class="pull-right-xs pull-right-sm pull-left-md pull-left-lg mat_blue"
         (click)="add_object(drugStrengthForm.value)"
       >
         <mat-icon
@@ -269,7 +271,7 @@
     <button
       mat-raised-button
       color="primary"
-      class="pull-left"
+      class="pull-left mat_blue"
       (click)="back()"
     >
       Back
@@ -279,7 +281,7 @@
       color="accent"
       *ngIf="!editMode"
       [disabled]="drugStrengthList.data.length === 0"
-      class="pull-right"
+      class="pull-right mat_green"
       (click)="saveDrugStrength()"
     >
       Save
@@ -289,7 +291,7 @@
       color="accent"
       *ngIf="editMode"
       [disabled]="drugStrengthExist || drugStrengthForm.invalid"
-      class="pull-right"
+      class="pull-right mat_green"
       (click)="updateDrugStrength()"
     >
       Update

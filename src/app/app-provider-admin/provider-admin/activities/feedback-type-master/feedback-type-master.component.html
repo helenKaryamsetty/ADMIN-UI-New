@@ -109,6 +109,7 @@
             <button
               *ngIf="element.deleted === true"
               mat-raised-button
+              class="mat_green"
               color="accent"
               (click)="activeDeactivate(element.feedbackTypeID, false)"
             >
@@ -117,6 +118,7 @@
             <button
               *ngIf="element.deleted === false"
               mat-raised-button
+              class="mat_blue"
               color="primary"
               (click)="activeDeactivate(element.feedbackTypeID, true)"
             >
@@ -132,7 +134,7 @@
       </table>
       <div>
         <button
-          class="pull-right"
+          class="pull-right mat_blue"
           mat-raised-button
           color="primary"
           [disabled]="!search_state && !isNational"
@@ -273,7 +275,7 @@
           <button
             mat-mini-fab
             color="primary"
-            class="xs-pull-right sm-pull-right md-pull-left lg-pull-left"
+            class="xs-pull-right sm-pull-right md-pull-left lg-pull-left mat_blue"
             type="button"
             (click)="add_obj(feedbackName, feedbackDesc); this.editForm.reset()"
           >
@@ -337,13 +339,13 @@
             mat-raised-button
             color="accent"
             [disabled]="!(objs.data.length > 0)"
-            class="pull-right"
+            class="pull-right mat_green"
             (click)="saveFeedback()"
           >
             Save
           </button>
           <button
-            class="pull-left"
+            class="pull-left mat_blue"
             mat-raised-button
             color="primary"
             (click)="back(); this.editForm.reset()"

@@ -152,6 +152,7 @@
             <button
               *ngIf="item.deleted === '0'"
               mat-raised-button
+              class="mat_blue"
               color="primary"
               (click)="updateVillageStatus(item)"
             >
@@ -160,6 +161,7 @@
             <button
               *ngIf="item.deleted === '1'"
               mat-raised-button
+              class="mat_green"
               color="accent"
               (click)="updateVillageStatus(item)"
             >
@@ -174,7 +176,7 @@
         <button
           mat-raised-button
           color="primary"
-          class="pull-right"
+          class="pull-right mat_blue"
           [disabled]="searchFields.invalid"
           (click)="showForm()"
         >
@@ -351,7 +353,7 @@
     <button
       *ngIf="villageForm.valid && !villageNameExist"
       mat-mini-fab
-      class="xs-pull-right sm-pull-right md-pull-right lg-pull-left"
+      class="xs-pull-right sm-pull-right md-pull-right lg-pull-left mat_blue"
       color="primary"
       (click)="addVillageToList(villageForm.value); villageForm.reset()"
     >
@@ -439,7 +441,7 @@
   </div>
   <div class="col-xs-12 col-sm-12 m-t-10 m-b-10">
     <button
-      class="pull-left"
+      class="pull-left mat_blue"
       mat-raised-button
       color="primary"
       (click)="back()"
@@ -447,7 +449,7 @@
       Back
     </button>
     <button
-      class="pull-right"
+      class="pull-right mat_green"
       mat-raised-button
       color="accent"
       [disabled]="villageList.data.length < 1"

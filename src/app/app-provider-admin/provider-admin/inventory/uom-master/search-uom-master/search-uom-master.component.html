@@ -136,6 +136,7 @@
             <button
               mat-raised-button
               *ngIf="uom.deleted"
+              class="mat_green"
               color="accent"
               (click)="activateDeactivateUOM(uom.uOMID, false)"
             >
@@ -145,6 +146,7 @@
               mat-raised-button
               *ngIf="!uom.deleted"
               color="primary"
+              class="mat_blue"
               (click)="activateDeactivateUOM(uom.uOMID, true)"
             >
               Block
@@ -181,7 +183,7 @@
         <button
           mat-raised-button
           color="primary"
-          class="pull-right"
+          class="pull-right mat_blue"
           (click)="switchToCreateMode()"
         >
           Add UOM

@@ -118,6 +118,7 @@
             <button
               *ngIf="item.deleted"
               mat-raised-button
+              class="mat_green"
               color="accent"
               (click)="activate(item.serviceProviderId)"
             >
@@ -126,6 +127,7 @@
             <button
               *ngIf="!item.deleted"
               mat-raised-button
+              class="mat_blue"
               color="primary"
               (click)="deactivate(item.serviceProviderId)"
             >
@@ -168,7 +170,7 @@
         <button
           mat-raised-button
           color="primary"
-          class="pull-right"
+          class="pull-right mat_blue"
           (click)="showForm()"
         >
           Create New Provider
@@ -381,7 +383,7 @@
       <button
         mat-raised-button
         color="primary"
-        class="pull-left"
+        class="pull-left mat_blue"
         (click)="back()"
       >
         Back
@@ -390,7 +392,7 @@
         *ngIf="!editMode"
         mat-raised-button
         color="accent"
-        class="pull-right"
+        class="pull-right mat_green"
         [disabled]="providerCreationForm.invalid || providerNameExist"
         (click)="save(providerCreationForm.value)"
       >
@@ -400,7 +402,7 @@
         *ngIf="editMode"
         mat-raised-button
         color="accent"
-        class="pull-right"
+        class="pull-right mat_green"
         [disabled]="providerCreationForm.invalid || providerNameExist"
         (click)="update(providerCreationForm.value)"
       >

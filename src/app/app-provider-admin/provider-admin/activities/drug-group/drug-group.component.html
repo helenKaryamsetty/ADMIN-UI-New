@@ -65,6 +65,7 @@
             <button
               *ngIf="element.deleted"
               mat-raised-button
+              class="mat_green"
               color="accent"
               (click)="updateDrugGroupStatus(element)"
             >
@@ -73,6 +74,7 @@
             <button
               *ngIf="!element.deleted"
               mat-raised-button
+              class="mat_blue"
               color="primary"
               (click)="updateDrugGroupStatus(element)"
             >
@@ -118,7 +120,7 @@
         <button
           mat-raised-button
           color="primary"
-          class="pull-right"
+          class="pull-right mat_blue"
           (click)="showForm()"
         >
           Create Drug Group
@@ -215,7 +217,7 @@
           md-mini-fab
           color="primary"
           *ngIf="!editable"
-          class="xs-pull-right sm-pull-right md-pull-left"
+          class="xs-pull-right sm-pull-right md-pull-left mat_blue"
           (click)="
             addDrugGroupToList(drugGroupForm.value); drugGroupForm.reset()
           "
@@ -314,7 +316,7 @@
       <button
         mat-raised-button
         color="primary"
-        class="pull-left"
+        class="pull-left mat_blue"
         (click)="back()"
       >
         Back
@@ -324,7 +326,7 @@
         *ngIf="!editable"
         mat-raised-button
         color="accent"
-        class="pull-right"
+        class="pull-right mat_green"
         (click)="storeDrugGroup()"
       >
         Save
@@ -339,7 +341,7 @@
           inValidDrugGroup ||
           invalidDrugDesc
         "
-        class="pull-right"
+        class="pull-right mat_green"
         (click)="updateDrugGroup(drugGroupForm.value); drugGroupForm.reset()"
       >
         Update

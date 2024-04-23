@@ -78,6 +78,7 @@
             <button
               *ngIf="element.Deleted || element.userDeleted"
               mat-raised-button
+              class="mat_green"
               color="accent"
               (click)="activateDeactivateMapping(element, element.userDeleted)"
             >
@@ -86,6 +87,7 @@
             <button
               *ngIf="!element.Deleted && !element.userDeleted"
               mat-raised-button
+              class="mat_blue"
               color="primary"
               (click)="activateDeactivateMapping(element, false)"
             >
@@ -133,7 +135,7 @@
         <button
           mat-raised-button
           color="primary"
-          class="pull-right"
+          class="pull-right mat_blue"
           (click)="showForm()"
         >
           Add Mapping
@@ -269,7 +271,7 @@
     <button
       mat-raised-button
       color="primary"
-      class="pull-left"
+      class="pull-left mat_blue"
       (click)="back()"
     >
       Back
@@ -278,7 +280,7 @@
       mat-raised-button
       color="accent"
       *ngIf="!editMode"
-      class="pull-right"
+      class="pull-right mat_green"
       [disabled]="mappingForm.invalid"
       (click)="saveUserMapping(mappingForm.value)"
     >
@@ -288,7 +290,7 @@
       mat-raised-button
       color="accent"
       *ngIf="editMode"
-      class="pull-right"
+      class="pull-right mat_green"
       [disabled]="mappingForm.invalid"
       (click)="updateUsermapping(mappingForm.value)"
     >

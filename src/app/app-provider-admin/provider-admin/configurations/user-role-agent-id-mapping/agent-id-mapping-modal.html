@@ -96,13 +96,18 @@
       <button
         mat-raised-button
         color="accent"
-        class="m-r-10"
+        class="m-r-10 mat_green"
         [disabled]="!mappingForm.valid"
         (click)="mapAgentID(agentID)"
       >
         Update
       </button>
-      <button mat-raised-button color="primary" [mat-dialog-close]="true">
+      <button
+        mat-raised-button
+        class="mat_blue"
+        color="primary"
+        [mat-dialog-close]="true"
+      >
         Cancel
       </button>
     </div>
