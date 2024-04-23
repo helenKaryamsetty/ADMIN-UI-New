@@ -93,6 +93,7 @@
           </div>
           <button
             md-mini-fab
+            class="mat_blue"
             color="primary"
             (click)="addOptionField(idx)"
             *ngIf="this.deleteArray[idx] !== idx"
@@ -115,7 +116,7 @@
 <div class="col-xs-12 col-sm-12 m-b-10 m-t-10 p-r-0">
   <button
     mat-raised-button
-    class="pull-right m-l-15"
+    class="pull-right m-l-15 mat_green"
     color="accent"
     [disabled]="
       editQuestionnaireForm.invalid ||

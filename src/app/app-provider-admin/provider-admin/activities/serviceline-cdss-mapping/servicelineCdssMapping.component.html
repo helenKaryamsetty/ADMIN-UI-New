@@ -38,6 +38,7 @@
         <button
           mat-raised-button
           color="accent"
+          class="mat_green"
           style="margin-top: 26px; margin-left: 26px"
           *ngIf="showActivateFlag === true"
           (click)="activateDeactivateCdss()"
@@ -47,6 +48,7 @@
         <button
           *ngIf="showDeactivateFalg === true"
           mat-raised-button
+          class="mat_blue"
           color="primary"
           style="margin-top: 26px; margin-left: 26px"
           (click)="DeactivateCdss()"

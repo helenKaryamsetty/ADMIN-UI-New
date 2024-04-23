@@ -178,6 +178,7 @@
           <td mat-cell *matCellDef="let manufacture">
             <button
               mat-raised-button
+              class="mat_green"
               color="accent"
               *ngIf="manufacture.deleted"
               (click)="activate(manufacture.manufacturerID)"
@@ -186,6 +187,7 @@
             </button>
             <button
               mat-raised-button
+              class="mat_blue"
               color="primary"
               *ngIf="!manufacture.deleted"
               (click)="deactivate(manufacture.manufacturerID)"
@@ -224,7 +226,7 @@
           mat-raised-button
           color="primary"
           *ngIf="createButton"
-          class="pull-right"
+          class="pull-right mat_blue"
           (click)="showForm()"
         >
           Create Manufacturer
@@ -515,7 +517,7 @@
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 m-t-10">
         <button
           mat-mini-fab
-          class="xs-pull-right sm-pull-right md-pull-right lg-pull-left"
+          class="xs-pull-right sm-pull-right md-pull-right lg-pull-left mat_blue"
           *ngIf="!editMode && manufactureAddForm.valid"
           color="primary"
           (click)="
@@ -664,7 +666,7 @@
     <button
       mat-raised-button
       color="primary"
-      class="pull-left"
+      class="pull-left mat_blue"
       (click)="
         showTable();
         manufactureAddForm.reset();
@@ -678,7 +680,7 @@
       mat-raised-button
       color="accent"
       [disabled]="!(bufferArray.data.length > 0)"
-      class="pull-right"
+      class="pull-right mat_green"
       (click)="
         saveManufacture();
         manufactureAddForm.reset();
@@ -691,7 +693,7 @@
     <button
       mat-raised-button
       color="primary"
-      class="pull-right m-r-5"
+      class="pull-right m-r-5 mat_blue"
       (click)="
         manufactureAddForm.reset();
         permnantstates_array = [];
@@ -949,7 +951,7 @@
       <button
         mat-raised-button
         color="primary"
-        class="pull-left"
+        class="pull-left mat_blue"
         (click)="showTable(); permnantstates_array = []; districts_array = []"
       >
         Back
@@ -958,7 +960,7 @@
         *ngIf="editMode"
         mat-raised-button
         color="accent"
-        class="pull-right"
+        class="pull-right mat_green"
         [disabled]="manufactureEditForm.invalid"
         (click)="updatemanufactre(manufactureEditForm.value)"
       >

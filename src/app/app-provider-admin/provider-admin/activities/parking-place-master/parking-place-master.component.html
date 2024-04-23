@@ -154,6 +154,7 @@
             <button
               *ngIf="element.deleted"
               mat-raised-button
+              class="mat_green"
               color="accent"
               (click)="updateParkingPlaceStatus(element)"
             >
@@ -162,6 +163,7 @@
             <button
               *ngIf="!element.deleted"
               mat-raised-button
+              class="mat_blue"
               color="primary"
               (click)="updateParkingPlaceStatus(element)"
             >
@@ -207,7 +209,7 @@
         <button
           mat-raised-button
           color="primary"
-          class="pull-right"
+          class="pull-right mat_blue"
           [disabled]="!createButton"
           (click)="showForm()"
         >
@@ -313,7 +315,7 @@
         mat-mini-fab
         color="primary"
         *ngIf="parkingPlaceForm.valid && !parkingPlaceNameExist && !editable"
-        class="xs-pull-right sm-pull-left at-pull-right lg-pull-left"
+        class="xs-pull-right sm-pull-left at-pull-right lg-pull-left mat_blue"
         (click)="addParkingPlaceToList(parkingPlaceForm.value)"
       >
         <mat-icon
@@ -420,7 +422,7 @@
       <button
         mat-raised-button
         color="primary"
-        class="pull-left"
+        class="pull-left mat_blue"
         (click)="back()"
       >
         Back
@@ -430,7 +432,7 @@
         *ngIf="!editable"
         mat-raised-button
         color="accent"
-        class="pull-right"
+        class="pull-right mat_green"
         (click)="storeParkingPlaces()"
       >
         Save
@@ -440,7 +442,7 @@
         mat-raised-button
         color="accent"
         [disabled]="parkingPlaceForm.invalid || parkingPlaceNameExist"
-        class="pull-right"
+        class="pull-right mat_green"
         (click)="updateParkingPlaceData()"
       >
         Update

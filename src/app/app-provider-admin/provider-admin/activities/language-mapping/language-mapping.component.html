@@ -67,7 +67,7 @@
             <button
               mat-icon-button
               matTooltip="Click to Edit"
-              class="iconbutton"
+              class="iconbutton mat_blue"
               color="primary"
               (click)="editRow(element)"
             >
@@ -81,6 +81,7 @@
             <button
               *ngIf="element.deleted === true"
               mat-raised-button
+              class="mat_green"
               color="accent"
               (click)="activate(element.userLangID, element.userDeleted)"
             >
@@ -89,6 +90,7 @@
             <button
               *ngIf="element.deleted === false"
               mat-raised-button
+              class="mat_blue"
               color="primary"
               (click)="deactivate(element.userLangID)"
             >
@@ -103,7 +105,7 @@
         <button
           mat-raised-button
           color="primary"
-          class="pull-right"
+          class="pull-right mat_blue"
           (click)="showForm()"
         >
           Create New Mapping
@@ -282,7 +284,7 @@
                   <button
                     mat-mini-fab
                     color="primary"
-                    class="xs-pull-right sm-pull-left md-pull-right lg-pull-left"
+                    class="xs-pull-right sm-pull-left md-pull-right lg-pull-left mat_blue"
                     *ngIf="
                       showCheckboxes &&
                       !addButtonState &&
@@ -381,7 +383,7 @@
                 name="backBtn"
                 color="primary"
                 mat-raised-button
-                class="pull-left"
+                class="pull-left mat_blue"
                 (click)="back()"
               >
                 Back
@@ -391,7 +393,7 @@
                 [disabled]="!(bufferArray.data.length > 0)"
                 color="accent"
                 mat-raised-button
-                class="pull-right"
+                class="pull-right mat_green"
                 (click)="saveMapping()"
               >
                 Save
@@ -559,7 +561,7 @@
                   name="langBtn "
                   color="accent"
                   mat-raised-button
-                  class="pull-right"
+                  class="pull-right mat_green"
                   [disabled]="eform.invalid || (!read && !write && !speak)"
                   (click)="updateLanguage(eform.value, languageID_edit)"
                 >
@@ -569,7 +571,7 @@
                   name="backBtn "
                   color="primary"
                   mat-raised-button
-                  class="pull-left"
+                  class="pull-left mat_blue"
                   (click)="showTable()"
                 >
                   Back

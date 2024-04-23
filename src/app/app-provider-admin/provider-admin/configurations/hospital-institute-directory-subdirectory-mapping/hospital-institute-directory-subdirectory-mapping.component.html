@@ -178,7 +178,7 @@
         <button
           md-mini-fab
           *ngIf="showFormFlag && hospitalForm1.valid"
-          class="xs-pull-right sm-pull-left md-pull-left lg-pull-left"
+          class="xs-pull-right sm-pull-left md-pull-left lg-pull-left mat_blue"
           color="primary"
           (click)="add_obj(hospital); hospitalForm1.reset()"
         >
@@ -233,6 +233,7 @@
             <button
               *ngIf="element.deleted || element.institute.deleted"
               mat-raised-button
+              class="mat_green"
               color="accent"
               (click)="
                 toggle_activate(
@@ -247,6 +248,7 @@
             <button
               *ngIf="!element.deleted && !element.institute.deleted"
               mat-raised-button
+              class="mat_blue"
               color="primary"
               (click)="toggle_activate(element.instituteDirMapID, true, false)"
             >
@@ -283,7 +285,7 @@
         <button
           mat-raised-button
           color="primary"
-          class="pull-right"
+          class="pull-right mat_blue"
           [disabled]="hospitalForm2.invalid"
           (click)="showForm()"
         >
@@ -373,7 +375,7 @@
       <div class="col-xs-12 col-sm-12 m-t-15">
         <button
           mat-raised-button
-          class="pull-left"
+          class="pull-left mat_blue"
           color="primary"
           (click)="back()"
         >
@@ -381,7 +383,7 @@
         </button>
         <button
           mat-raised-button
-          class="pull-right"
+          class="pull-right mat_green"
           [disabled]="!(bufferArray.data.length > 0)"
           color="accent"
           (click)="save()"

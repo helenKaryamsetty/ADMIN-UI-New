@@ -248,6 +248,7 @@
             <button
               *ngIf="servicePointVillageMap.deleted === '1'"
               mat-raised-button
+              class="mat_green"
               color="accent"
               (click)="
                 updateServicePointVillageMapStatus(servicePointVillageMap)
@@ -258,6 +259,7 @@
             <button
               *ngIf="servicePointVillageMap.deleted === '0'"
               mat-raised-button
+              class="mat_blue"
               color="primary"
               (click)="
                 updateServicePointVillageMapStatus(servicePointVillageMap)
@@ -296,7 +298,7 @@
         <button
           mat-raised-button
           color="primary"
-          class="pull-right"
+          class="pull-right mat_blue"
           [disabled]="!createButton"
           (click)="showForm(zoneID.zoneID)"
         >
@@ -496,7 +498,7 @@
           *ngIf="servicePointVillage.valid && !editable"
           mat-mini-fab
           color="primary"
-          class="xs-pull-right sm-pull-right md-pull-left lg-pull-right"
+          class="xs-pull-right sm-pull-right md-pull-left lg-pull-right mat_blue"
           (click)="addServicePointVillageMapToList(servicePointVillage.value)"
         >
           <mat-icon
@@ -662,7 +664,7 @@
     <button
       mat-raised-button
       color="primary"
-      class="pull-left"
+      class="pull-left mat_blue"
       *ngIf="!showServicePointVillageMaps || editMode"
       (click)="back()"
     >
@@ -672,7 +674,7 @@
       [disabled]="servicePointVillageMapList.data.length === 0 || editMode"
       mat-raised-button
       color="accent"
-      class="pull-right"
+      class="pull-right mat_green"
       (click)="storeServicePointVillageMaps()"
     >
       Save
@@ -846,7 +848,7 @@
     <button
       mat-raised-button
       color="primary"
-      class="pull-left"
+      class="pull-left mat_blue"
       (click)="back(); servicePointVillage1.reset()"
     >
       Back
@@ -854,7 +856,7 @@
     <button
       mat-raised-button
       color="accent"
-      class="pull-right"
+      class="pull-right mat_green"
       [disabled]="servicePointVillage1.invalid"
       (click)="
         updateStoreServicePointVillageMaps(); servicePointVillage1.reset()

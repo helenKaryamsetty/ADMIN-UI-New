@@ -143,6 +143,7 @@
             <button
               *ngIf="element.deleted"
               mat-raised-button
+              class="mat_green"
               color="accent"
               (click)="deleteRole(element.roleID, false)"
             >
@@ -151,6 +152,7 @@
             <button
               *ngIf="!element.deleted"
               mat-raised-button
+              class="mat_blue"
               color="primary"
               (click)="deleteRole(element.roleID, true)"
             >
@@ -402,7 +404,7 @@
     <button
       mat-raised-button
       color="accent"
-      class="pull-right"
+      class="pull-right mat_green"
       [disabled]="roles.errors || othersExist"
       *ngIf="setEditSubmitButton"
       (click)="saveEditChanges()"
@@ -463,7 +465,7 @@
     <button
       mat-raised-button
       color="primary"
-      class="pull-left"
+      class="pull-left mat_blue"
       (click)="back(false)"
     >
       Back
@@ -471,7 +473,7 @@
     <button
       mat-raised-button
       color="accent"
-      class="pull-right"
+      class="pull-right mat_green"
       (click)="saveUpdateFeatureChanges()"
     >
       Update Features

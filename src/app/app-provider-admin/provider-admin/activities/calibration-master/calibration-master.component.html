@@ -124,6 +124,7 @@
               *ngIf="element.deleted"
               mat-raised-button
               color="accent"
+              class="mat_green"
               (click)="
                 activateDeactivate(
                   element.calibrationStripID,
@@ -137,6 +138,7 @@
             <button
               *ngIf="!element.deleted"
               mat-raised-button
+              class="mat_blue"
               color="primary"
               (click)="
                 activateDeactivate(
@@ -188,7 +190,7 @@
         <button
           mat-raised-button
           color="primary"
-          class="pull-right"
+          class="pull-right mat_blue"
           (click)="showForm(false)"
         >
           Create Calibration Strip
@@ -259,7 +261,7 @@
     <button
       mat-raised-button
       color="primary"
-      class="pull-left"
+      class="pull-left mat_blue"
       (click)="back()"
     >
       Back
@@ -269,7 +271,7 @@
       color="accent"
       *ngIf="!editMode"
       [disabled]="stripCodeExist || stripCodeForm.invalid"
-      class="pull-right"
+      class="pull-right mat_green"
       (click)="save_UpdateStripCode('save')"
     >
       Save
@@ -281,7 +283,7 @@
       [disabled]="
         stripCodeExist || stripCodeForm.invalid || !stripCodeForm.dirty
       "
-      class="pull-right"
+      class="pull-right mat_green"
       (click)="save_UpdateStripCode('edit')"
     >
       Update

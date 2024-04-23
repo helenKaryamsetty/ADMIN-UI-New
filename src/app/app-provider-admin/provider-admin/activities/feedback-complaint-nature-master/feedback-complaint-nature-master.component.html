@@ -137,6 +137,7 @@
             <button
               *ngIf="element.deleted === true"
               mat-raised-button
+              class="mat_green"
               color="accent"
               (click)="activeDeactivate(element.feedbackNatureID, false)"
             >
@@ -145,6 +146,7 @@
             <button
               *ngIf="element.deleted === false"
               mat-raised-button
+              class="mat_blue"
               color="primary"
               (click)="activeDeactivate(element.feedbackNatureID, true)"
             >
@@ -160,7 +162,7 @@
       </table>
       <div>
         <button
-          class="pull-right"
+          class="pull-right mat_blue"
           mat-raised-button
           color="primary"
           [disabled]="(!search_state && !isNational) || !search_feedbacktype"
@@ -297,7 +299,7 @@
           <button
             mat-mini-fab
             color="primary"
-            class="xs-pull-right sm-pull-right md-pull-left lg-pull-left"
+            class="xs-pull-right sm-pull-right md-pull-left lg-pull-left mat_blue"
             (click)="
               add_obj(feedbackNature, feedbackNatureDesc); editForm.reset()
             "
@@ -361,7 +363,7 @@
     <div class="row">
       <div class="col-xs-12 col-sm-12 m-t-10 m-b-10">
         <button
-          class="pull-right"
+          class="pull-right mat_green"
           mat-raised-button
           color="accent"
           (click)="saveComplaintNature()"
@@ -370,7 +372,7 @@
           Save
         </button>
         <button
-          class="pull-left"
+          class="pull-left mat_blue"
           mat-raised-button
           color="primary"
           (click)="back()"

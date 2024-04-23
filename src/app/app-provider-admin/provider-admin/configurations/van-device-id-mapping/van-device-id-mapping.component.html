@@ -210,6 +210,7 @@
             <button
               *ngIf="item.deactivated"
               md-raised-button
+              class="mat_green"
               color="accent"
               (click)="toggleActivate(item, false)"
             >
@@ -218,6 +219,7 @@
             <button
               *ngIf="!item.deactivated"
               md-raised-button
+              class="mat_blue"
               color="primary"
               (click)="toggleDeactivate(item, true)"
             >
@@ -235,7 +237,7 @@
         <button
           md-raised-button
           color="primary"
-          class="pull-right"
+          class="pull-right mat_blue"
           (click)="showCreateForm()"
         >
           Add Mapping
@@ -306,7 +308,7 @@
         mat-raised-button
         *ngIf="editFormFlag"
         color="accent"
-        class="pull-right"
+        class="pull-right mat_green"
         [disabled]="
           !spokeDeviceIdMappingForm.valid || !spokeDeviceIdMappingForm.dirty
         "
@@ -318,7 +320,7 @@
         mat-raised-button
         *ngIf="showFormFlag"
         [disabled]="!spokeDeviceIdMappingForm.valid"
-        class="pull-right"
+        class="pull-right mat_green"
         color="accent"
         (click)="saveSpokeDeviceIdMapping()"
       >
@@ -327,7 +329,7 @@
 
       <button
         mat-raised-button
-        class="pull-left"
+        class="pull-left mat_blue"
         color="primary"
         (click)="navigateToPrev()"
       >
