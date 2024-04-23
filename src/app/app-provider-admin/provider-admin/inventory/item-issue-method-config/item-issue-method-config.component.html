@@ -197,7 +197,7 @@
         <button
           mat-raised-button
           color="primary"
-          class="pull-right"
+          class="pull-right mat_blue"
           (click)="showForm()"
         >
           Create Item Config
@@ -291,7 +291,7 @@
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 m-t-10">
         <button
           mat-mini-fab
-          class="xs-pull-right sm-pull-right md-pull-right lg-pull-left"
+          class="xs-pull-right sm-pull-right md-pull-right lg-pull-left mat_blue"
           *ngIf="!editMode && ItemIssueAddForm.valid"
           color="primary"
           (click)="
@@ -407,7 +407,7 @@
       <button
         mat-raised-button
         color="primary"
-        class="pull-left"
+        class="pull-left mat_blue"
         (click)="showTable(); ItemIssueAddForm.reset()"
       >
         Back
@@ -417,14 +417,14 @@
         color="accent"
         (click)="saveConfig(); ItemIssueAddForm.reset()"
         [disabled]="!(bufferArray.data.length > 0)"
-        class="pull-right"
+        class="pull-right mat_green"
       >
         Save
       </button>
       <button
         mat-raised-button
         color="primary"
-        class="pull-right m-r-5"
+        class="pull-right m-r-5 mat_blue"
         (click)="ItemIssueAddForm.reset()"
       >
         Clear
@@ -517,7 +517,7 @@
     <button
       mat-raised-button
       color="primary"
-      class="pull-left"
+      class="pull-left mat_blue"
       (click)="showTable()"
     >
       Back
@@ -526,7 +526,7 @@
       *ngIf="editMode"
       mat-raised-button
       color="accent"
-      class="pull-right"
+      class="pull-right mat_green"
       [disabled]="ItemIssueeditForm.invalid"
       (click)="updateConfig(ItemIssueeditForm.value)"
     >

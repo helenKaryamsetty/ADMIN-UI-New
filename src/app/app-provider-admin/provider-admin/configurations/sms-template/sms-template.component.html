@@ -87,7 +87,7 @@
             *ngIf="!element.deleted"
             mat-raised-button
             color="primary"
-            class="pull-right m-r-0"
+            class="pull-right m-r-0 mat_blue"
             type="button"
             (click)="ActivateDeactivate(element, true)"
           >
@@ -98,7 +98,7 @@
             [disabled]="element.deleted"
             mat-raised-button
             color="primary"
-            class="pull-right m-r-0"
+            class="pull-right m-r-0 mat_blue"
             type="button"
             (click)="ActivateDeactivate(element, false)"
           >
@@ -129,7 +129,7 @@
     <button
       mat-raised-button
       color="primary"
-      class="pull-right m-r-0"
+      class="pull-right m-r-0 mat_blue"
       type="button"
       (click)="showForm()"
     >
@@ -247,7 +247,7 @@
       </div>
       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
         <button
-          class="m-t-10 pull-right"
+          class="m-t-10 pull-right mat_blue"
           color="primary"
           type="button"
           md-mini-fab
@@ -341,7 +341,7 @@
       mat-raised-button
       color="primary"
       type="button"
-      class="pull-left m-r-10"
+      class="pull-left m-r-10 mat_blue"
       (click)="showTable()"
     >
       Back
@@ -351,7 +351,7 @@
       mat-raised-button
       color="primary"
       type="button"
-      class="pull-left m-r-10 m-l-10"
+      class="pull-left m-r-10 m-l-10 mat_blue"
       (click)="cancel()"
     >
       Cancel
@@ -362,7 +362,7 @@
       color="primary"
       [disabled]="smsParameterData.data.length !== Parameters_count"
       type="button"
-      class="pull-right"
+      class="pull-right mat_blue"
       (click)="saveSMStemplate(smsForm.value)"
     >
       Submit
@@ -372,7 +372,7 @@
       color="primary"
       type="button"
       [disabled]="smsForm.invalid"
-      class="pull-right"
+      class="pull-right mat_blue"
       *ngIf="!showParameters"
       (click)="extractParameters(sms.value)"
     >
@@ -485,7 +485,7 @@
         mat-raised-button
         color="primary"
         type="button"
-        class="pull-right m-r-0"
+        class="pull-right m-r-0 mat_blue"
         (click)="showTable()"
       >
         Back

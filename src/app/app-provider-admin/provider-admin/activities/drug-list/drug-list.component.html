@@ -71,6 +71,7 @@
             <button
               *ngIf="element.deleted"
               mat-raised-button
+              class="mat_green"
               color="accent"
               (click)="updateDrugStatus(element)"
             >
@@ -79,6 +80,7 @@
             <button
               *ngIf="!element.deleted"
               mat-raised-button
+              class="mat_blue"
               color="primary"
               (click)="updateDrugStatus(element)"
             >
@@ -122,7 +124,7 @@
         <button
           mat-raised-button
           color="primary"
-          class="pull-right"
+          class="pull-right mat_blue"
           (click)="showForm()"
         >
           Create Drug
@@ -237,7 +239,7 @@
             *ngIf="!editable"
             md-mini-fab
             color="primary"
-            class="xs-pull-right sm-pull-left md-pull-right lg-pull-left"
+            class="xs-pull-right sm-pull-left md-pull-right lg-pull-left mat_blue"
             (click)="addDrugToList(drugForm.value); drugForm.reset()"
           >
             <mat-icon
@@ -309,7 +311,7 @@
       <button
         mat-raised-button
         color="primary"
-        class="pull-left"
+        class="pull-left mat_blue"
         (click)="back()"
       >
         Back
@@ -319,7 +321,7 @@
         *ngIf="!editable"
         mat-raised-button
         color="accent"
-        class="pull-right"
+        class="pull-right mat_green"
         (click)="storedrug()"
       >
         Save
@@ -334,7 +336,7 @@
           inValidDrugName ||
           invalidDrugDesc
         "
-        class="pull-right"
+        class="pull-right mat_green"
         (click)="updateDrugData(drugForm.value); drugForm.reset()"
       >
         Update

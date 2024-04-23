@@ -125,6 +125,7 @@
               "
               [disabled]="!role.controls.wrapUpTime.value"
               mat-raised-button
+              class="mat_green"
               color="accent"
               (click)="saveWrapupTime(role.value, 'Saved')"
             >
@@ -136,6 +137,7 @@
               "
               style="margin-left: 30px"
               mat-raised-button
+              class="mat_green"
               color="accent"
               (click)="saveWrapupTime(role.value, 'Updated')"
               [disabled]="!getTimingControl(i).dirty"

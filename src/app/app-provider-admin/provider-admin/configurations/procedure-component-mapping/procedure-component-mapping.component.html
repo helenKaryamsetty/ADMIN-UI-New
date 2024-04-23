@@ -185,7 +185,7 @@
         <div class="col-xs-12 col-sm-12">
           <button
             color="primary"
-            class="pull-left"
+            class="pull-left mat_blue"
             id="backButton"
             md-raised-button
             (click)="back()"
@@ -195,7 +195,7 @@
           <button
             *ngIf="saveMode"
             id="updateButton"
-            class="pull-right"
+            class="pull-right mat_green"
             md-raised-button
             color="accent"
             [disabled]="!selectedProcedure || !selectedComponent"
@@ -206,7 +206,7 @@
           <button
             *ngIf="editMode"
             id="postMapDataButton2"
-            class="pull-right"
+            class="pull-right mat_green"
             md-raised-button
             color="accent"
             (click)="updateComponentMapList()"
@@ -303,7 +303,7 @@
         </table>
         <div>
           <button
-            class="pull-right"
+            class="pull-right mat_blue"
             color="primary"
             id="resetButton"
             mat-raised-button

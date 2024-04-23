@@ -103,6 +103,7 @@
             <button
               *ngIf="element.deleted"
               md-raised-button
+              class="mat_green"
               color="accent"
               (click)="toggleActivate(element, false)"
             >
@@ -111,6 +112,7 @@
             <button
               *ngIf="!element.deleted"
               md-raised-button
+              class="mat_blue"
               color="primary"
               (click)="toggleDeactivate(element, true)"
             >
@@ -128,7 +130,7 @@
         <button
           md-raised-button
           color="primary"
-          class="pull-right"
+          class="pull-right mat_blue"
           (click)="showCreateForm()"
         >
           Add Device ID
@@ -185,7 +187,7 @@
         md-mini-fab
         color="primary"
         *ngIf="createDeviceIdForm.valid"
-        class="xs-pull-right sm-pull-right md-pull-left lg-pull-left"
+        class="xs-pull-right sm-pull-right md-pull-left lg-pull-left mat_blue"
         (click)="addObj(deviceID, deviceName)"
       >
         <mat-icon
@@ -246,7 +248,7 @@
     <button
       mat-raised-button
       [disabled]="bufferArray.data.length === 0"
-      class="pull-right"
+      class="pull-right mat_green"
       color="accent"
       (click)="saveDeviceMasterDetails()"
     >
@@ -255,7 +257,7 @@
 
     <button
       mat-raised-button
-      class="pull-left"
+      class="pull-left mat_blue"
       color="primary"
       (click)="navigateToPrev()"
     >
@@ -311,7 +313,7 @@
       <button
         mat-raised-button
         color="accent"
-        class="pull-right"
+        class="pull-right mat_green"
         [disabled]="
           !editDeviceIdForm.valid || !editDeviceIdForm.dirty || deviceIdExist
         "
@@ -322,7 +324,7 @@
 
       <button
         mat-raised-button
-        class="pull-left"
+        class="pull-left mat_blue"
         color="primary"
         (click)="navigateToPrev()"
       >

@@ -3,9 +3,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { EditInstituteDirectoryComponent } from '../edit-institute-directory/edit-institute-directory.component';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { InstituteDirectoryMasterService } from '../../services/institute-directory-master-service.service';
+
 import { ConfirmationDialogsService } from 'src/app/core/services/dialog/confirmation.service';
 import { dataService } from 'src/app/core/services/dataService/data.service';
+import { InstituteDirectoryMasterService } from '../../services/institute-directory-master-service.service';
 
 @Component({
   selector: 'app-institute-directory-master',

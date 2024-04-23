@@ -114,7 +114,7 @@ export class AddQuestionnaireComponent implements OnInit, AfterViewInit {
   }
   getQuestionTypeSuccessHandeler(response: any) {
     console.log('*QUESTION TYPES*', response);
-    this.questionTypeArray = response;
+    this.questionTypeArray = response.data;
   }
 
   getServices(userID: any) {

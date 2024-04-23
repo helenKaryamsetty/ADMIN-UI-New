@@ -116,7 +116,7 @@
               mat-raised-button
               color="accent"
               *ngIf="item.deleted || item.serviceProviderDeleted"
-              class=""
+              class="mat_green"
               (click)="
                 activate(item.providerServiceMapID, item.serviceProviderDeleted)
               "
@@ -127,7 +127,7 @@
               mat-raised-button
               color="primary"
               *ngIf="!item.deleted && !item.serviceProviderDeleted"
-              class=""
+              class="mat_blue"
               (click)="deactivate(item.providerServiceMapID)"
             >
               Deactivate
@@ -146,7 +146,7 @@
         <button
           mat-raised-button
           color="primary"
-          class="pull-right"
+          class="pull-right mat_blue"
           (click)="showForm()"
         >
           Create New Mapping
@@ -238,7 +238,7 @@
     <div class="col-xs-12 col-sm-6 col-md-12 col-lg-3 m-t-10">
       <button
         mat-mini-fab
-        class="xs-pull-right sm-pull-left md-pull-right lg-pull-left"
+        class="xs-pull-right sm-pull-left md-pull-right lg-pull-left mat_blue"
         *ngIf="!editMode && !mappingFieldsForm.invalid"
         color="primary"
         (click)="add2bufferArray(mappingFieldsForm.value)"
@@ -373,7 +373,7 @@
     <button
       mat-raised-button
       color="primary"
-      class="pull-left"
+      class="pull-right mat_blue"
       (click)="back()"
     >
       Back
@@ -382,7 +382,7 @@
       mat-raised-button
       color="accent"
       [disabled]="!(bufferArray.data.length > 0)"
-      class="pull-right"
+      class="pull-right mat_green"
       (click)="mapServicelineState()"
     >
       Save
@@ -459,7 +459,7 @@
         mat-raised-button
         color="accent"
         [disabled]="editMappingFieldsForm.invalid"
-        class="pull-right m-l-5 m-r-5"
+        class="pull-right m-l-5 m-r-5 mat_green"
         (click)="update(editMappingFieldsForm.value)"
       >
         Update
@@ -467,7 +467,7 @@
       <button
         mat-raised-button
         color="primary"
-        class="pull-left"
+        class="pull-left mat_blue"
         (click)="back()"
       >
         Back

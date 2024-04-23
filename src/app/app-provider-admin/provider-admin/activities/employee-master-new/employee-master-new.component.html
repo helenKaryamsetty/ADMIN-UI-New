@@ -70,7 +70,7 @@
             <button
               mat-icon-button
               matTooltip="Click to Edit"
-              class="iconbutton"
+              class="iconbutton mat_blue"
               color="primary"
               (click)="editUserDetails(element)"
               *ngIf="!element.deleted"
@@ -88,6 +88,7 @@
               *ngIf="element.deleted === true"
               mat-raised-button
               color="accent"
+              class="mat_green"
               (click)="activateDeactivate(element.userID, false)"
             >
               Activate
@@ -95,6 +96,7 @@
             <button
               *ngIf="element.deleted === false"
               mat-raised-button
+              class="mat_blue"
               color="primary"
               (click)="activateDeactivate(element.userID, true)"
             >
@@ -110,7 +112,7 @@
         <button
           mat-raised-button
           color="primary"
-          class="pull-right"
+          class="pull-right mat_blue"
           (click)="showForm()"
         >
           Create New User
@@ -147,7 +149,7 @@
               class="width100"
               [(ngModel)]="titleID"
               name="title_Id"
-              (change)="setGenderOnCondition()"
+              (selectionChange)="setGenderOnCondition()"
               required
             >
               <mat-option *ngFor="let item of titles" [value]="item.titleID">
@@ -260,7 +262,7 @@
               class="width100"
               [(ngModel)]="designationID"
               name="designation"
-              (change)="enableHPID()"
+              (selectionChange)="enableHPID()"
               required
             >
               <mat-option
@@ -328,7 +330,7 @@
           <!-- <div class="clearfix visible-lg visible-sm"></div> -->
           <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
             <!-- <mat-datepicker class="width100" placeholder="Date of Birth" [(ngModel)]="dob" name="user_dob" [min]="mindate" [max]="maxdate"
-                            #dOB="ngModel" (keydown)="preventTyping($event)" (change)="calculateAge($event)" (change)='calculateDoj(dob); resetDoj()'
+                            #dOB="ngModel" (keydown)="preventTyping($event)" (selectionChange)="calculateAge($event)" (selectionChange)='calculateDoj(dob); resetDoj()'
                             required></mat-datepicker> 
                         <mat-hint class="errorText" *ngIf="dOB.errors && dOB.touched">DOB is required</mat-hint> -->
           </div>
@@ -339,7 +341,7 @@
              >
                <mat-label>Date of Birth</mat-label>
                <input matInput  required [matDatepicker]="dob"  name="user_dob" min="mindate" max="maxdate" [(ngModel)]="dob" 
-               (keydown)="preventTyping($event)" (change)="calculateAge($event)" (change)='calculateDoj(dob); resetDoj()' />
+               (keydown)="preventTyping($event)" (selectionChange)="calculateAge($event)" (selectionChange)='calculateDoj(dob); resetDoj()' />
                <mat-datepicker-toggle
                  matPrefix
                  [for]="dob"
@@ -491,7 +493,7 @@
             <mat-radio-group
               [(ngModel)]="userType"
               name="userType"
-              (change)="changeUserType(userType)"
+              (selectionChange)="changeUserType(userType)"
             >
               <mat-radio-button
                 color="primary"
@@ -768,7 +770,7 @@
                   placeholder="State"
                   class="width100"
                   [(ngModel)]="currentState"
-                  (change)="getCurrentDistricts(currentState)"
+                  (selectionChange)="getCurrentDistricts(currentState)"
                   name="current_state"
                   required
                 >
@@ -789,7 +791,7 @@
                   class="width100"
                   [(ngModel)]="currentDistrict"
                   name="current_district"
-                  (change)="resetcheckBox()"
+                  (selectionChange)="resetcheckBox()"
                   required
                 >
                   <mat-option
@@ -832,14 +834,14 @@
                     [checked]="checkAddress"
                     name="check_address"
                     [disabled]="!addressCtrl.valid"
-                    (change)="addressCheck($event)"
+                    (selectionChange)="addressCheck($event)"
                     #myCheckBox
                     >Same as current address</mat-checkbox
                   >)
                 </div>
               </div>
               <!-- <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                            <md-checkbox color="primary" [(ngModel)]="checkAddress" name="check_address" [disabled]="!addressCtrl.valid" (change)="addressCheck($event)" #myCheckBox>Same as current address</md-checkbox>
+                            <md-checkbox color="primary" [(ngModel)]="checkAddress" name="check_address" [disabled]="!addressCtrl.valid" (selectionChange)="addressCheck($event)" #myCheckBox>Same as current address</md-checkbox>
 
                         </div> -->
               <div class="clearfix"></div>
@@ -886,7 +888,7 @@
                   placeholder="State"
                   class="width100"
                   [(ngModel)]="permanentState"
-                  (change)="getPermanentDistricts(permanentState)"
+                  (selectionChange)="getPermanentDistricts(permanentState)"
                   name="permanent_state"
                   required
                 >
@@ -966,7 +968,7 @@
           !empIdshowHint &&
           !username_dependent_flag
         "
-        class="pull-right"
+        class="pull-right mat_blue"
         (click)="
           add_object(
             userCreationForm.value,
@@ -1052,7 +1054,7 @@
       <button
         mat-raised-button
         color="primary"
-        class="pull-left"
+        class="pull- mat_blue"
         (click)="back()"
       >
         Back
@@ -1062,7 +1064,7 @@
         *ngIf="!editMode && objs.data.length > 0"
         mat-raised-button
         color="accent"
-        class="pull-right"
+        class="pull-right mat_green"
         [disabled]="!(objs.data.length !== 0)"
         (click)="createUser()"
       >
@@ -1072,7 +1074,7 @@
         *ngIf="editMode"
         mat-raised-button
         color="accent"
-        class="pull-right"
+        class="pull-right mat_green"
         [disabled]="
           userCreationForm.invalid ||
           demographicsDetailsForm.invalid ||

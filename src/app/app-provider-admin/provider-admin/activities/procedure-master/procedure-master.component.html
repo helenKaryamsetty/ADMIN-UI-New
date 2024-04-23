@@ -150,7 +150,7 @@
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <button
           color="primary"
-          class="pull-left"
+          class="pull-left mat_blue"
           id="backButton"
           mat-raised-button
           (click)="back()"
@@ -159,7 +159,7 @@
         </button>
         <button
           *ngIf="!editMode"
-          class="pull-right"
+          class="pull-right mat_green"
           id="saveButton"
           mat-raised-button
           color="accent"
@@ -170,7 +170,7 @@
         </button>
         <button
           *ngIf="editMode"
-          class="pull-right"
+          class="pull-right mat_green"
           id="updateButton"
           mat-raised-button
           color="accent"
@@ -262,6 +262,7 @@
               <button
                 *ngIf="element.deleted"
                 mat-raised-button
+                class="mat_green"
                 color="accent"
                 (click)="
                   toggleProcedure(
@@ -277,6 +278,7 @@
               <button
                 *ngIf="!element.deleted"
                 mat-raised-button
+                class="mat_blue"
                 color="primary"
                 (click)="
                   deactivatetoggleProcedure(
@@ -329,7 +331,7 @@
         <div>
           <button
             *ngIf="!editMode"
-            class="pull-right"
+            class="pull-right mat_blue"
             color="primary"
             id="resetButton"
             mat-raised-button

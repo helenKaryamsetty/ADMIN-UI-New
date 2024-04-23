@@ -26,7 +26,6 @@ export class EditInstituteDirectoryComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialog: MatDialog,
     public instituteDirectoryService: InstituteDirectoryMasterService,
-    public instituteDirectoryMasterComponent: InstituteDirectoryMasterComponent,
     public commonDataService: dataService,
     public alertService: ConfirmationDialogsService,
     public dialogReff: MatDialogRef<EditInstituteDirectoryComponent>,

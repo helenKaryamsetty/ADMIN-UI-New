@@ -179,6 +179,7 @@
             <button
               *ngIf="element.deleted"
               mat-raised-button
+              class="mat_green"
               color="accent"
               (click)="updateServicePointStatus(element)"
             >
@@ -187,6 +188,7 @@
             <button
               *ngIf="!element.deleted"
               mat-raised-button
+              class="mat_blue"
               color="primary"
               (click)="updateServicePointStatus(element)"
             >
@@ -242,7 +244,7 @@
             mat-raised-button
             color="primary"
             [disabled]="!createButton"
-            class="pull-right"
+            class="pull-right mat_blue"
             (click)="showForm()"
           >
             Create New Service Point
@@ -457,7 +459,7 @@
             <button
               mat-mini-fab
               color="primary"
-              class="xs-pull-right sm-pull-left md-pull-right lg-pull-left"
+              class="xs-pull-right sm-pull-left md-pull-right lg-pull-left mat_blue"
               *ngIf="
                 !editable && servicePointForm1.valid && !servicePointNameExist
               "
@@ -553,7 +555,7 @@
           *ngIf="formMode"
           [disabled]="!(servicePointList.data.length > 0)"
           color="accent"
-          class="pull-right m-t-10 m-b-10"
+          class="pull-right m-t-10 m-b-10 mat_green"
           (click)="storeServicePoints(); servicePointForm1.reset()"
         >
           Save
@@ -562,7 +564,7 @@
           mat-raised-button
           *ngIf="formMode"
           color="primary"
-          class="pull-left m-b-10"
+          class="pull-left m-b-10 mat_blue"
           (click)="back()"
         >
           Back
@@ -760,7 +762,7 @@
           *ngIf="editMode"
           [disabled]="servicePointForm2.invalid || servicePointNameExist"
           color="accent"
-          class="pull-right m-b-10"
+          class="pull-right m-b-10 mat_green"
           (click)="
             updateServicePoints(servicePointForm2.value);
             servicePointForm2.reset()
@@ -773,7 +775,7 @@
           mat-raised-button
           *ngIf="editMode"
           color="primary"
-          class="pull-left m-b-10"
+          class="pull-left m-b-10 mat_blue"
           (click)="back()"
         >
           Back

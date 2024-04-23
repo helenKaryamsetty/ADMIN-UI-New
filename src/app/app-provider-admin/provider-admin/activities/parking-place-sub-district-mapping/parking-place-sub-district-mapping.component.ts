@@ -19,7 +19,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see https://www.gnu.org/licenses/.
  */
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 import { MatSort } from '@angular/material/sort';
@@ -102,6 +102,7 @@ export class ParkingPlaceSubDistrictMappingComponent implements OnInit {
     public commonDataService: dataService,
     public parkingPlaceMasterService: ParkingPlaceMasterService,
     private alertService: ConfirmationDialogsService,
+    private cdr: ChangeDetectorRef,
   ) {}
 
   ngOnInit() {
@@ -329,7 +330,10 @@ export class ParkingPlaceSubDistrictMappingComponent implements OnInit {
   }
 
   remove_obj(index: number) {
-    this.mappingList.data.splice(index, 1)[0];
+    const newData = [...this.mappingList.data];
+    newData.splice(index, 1);
+    this.mappingList.data = newData;
+    this.cdr.detectChanges();
     // this.getTaluks(this.district.districtID, this.state.providerServiceMapID);
   }
 

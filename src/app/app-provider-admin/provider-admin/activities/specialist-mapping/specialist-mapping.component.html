@@ -42,7 +42,7 @@
           <button
             color="primary"
             type="button"
-            class="pull-left"
+            class="pull-left mat_blue"
             id="backButton"
             mat-raised-button
             (click)="back()"
@@ -50,7 +50,7 @@
             Back
           </button>
           <button
-            class="pull-right"
+            class="pull-right mat_green"
             id="saveButton"
             mat-raised-button
             color="accent"
@@ -77,43 +77,6 @@
       <div class="row">
         <div #tabledData class="col-xs-12 col-sm-12">
           <div class="table-responsive">
-            <!-- <table class="table table-hover table-striped" [md2Data]="filteredspecializationList" #md2="md2DataTable"
-              [rowsPerPage]="4">
-              <thead>
-                <tr>
-                  <th width="5%">S.No.</th>
-                  <th width="20%">User Name</th>
-                  <th width="70%">Specialization</th>
-                  <th width="5%">Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngIf="filteredspecializationList.length == 0">
-                  <td colspan="7" class="record-not-found">No records found</td>
-                </tr>
-                <tr *ngFor="let item of md2.data;let i = index ">
-                  <td>{{filteredspecializationList.indexOf(item)+1}}</td>
-                  <td>{{item.userName }}</td>
-                  <td>{{item.specializationName}}</td>
-                  <td>
-                    <button *ngIf="(item.deleted || item.specializationDeleted || item.userDeleted)" color="accent" md-raised-button (click)="activateMapping(item.userSpecializationMapID, filteredspecializationList.indexOf(item), false)">Activate</button>
-                    <button *ngIf="!(item.deleted || item.userDeleted || item.specializationDeleted)" color="primary" md-raised-button (click)="deActivateMapping(item.userSpecializationMapID, filteredspecializationList.indexOf(item), true)">Deactivate</button>
-
-                  </td>
-                </tr>
-              </tbody>
-              <tfoot>
-                <tr>
-                  <td colspan="2">
-                    <md2-pagination></md2-pagination>
-                  </td>
-                  <td colspan="2" class="p-r-0">
-                    <button *ngIf="!editMode" class="pull-right" color="primary" id="resetButton" md-raised-button
-                      (click)="showForm();">Create New Mapping</button>
-                  </td>
-                </tr>
-              </tfoot>
-            </table> -->
             <table
               mat-table
               [dataSource]="filteredspecializationList.data"
@@ -151,6 +114,7 @@
                       element.userDeleted
                     "
                     color="accent"
+                    class="mat_green"
                     mat-raised-button
                     (click)="
                       activateMapping(
@@ -171,6 +135,7 @@
                         element.specializationDeleted
                       )
                     "
+                    class="mat_blue"
                     color="primary"
                     mat-raised-button
                     (click)="
@@ -191,7 +156,7 @@
             </table>
             <div>
               <button
-                class="pull-right"
+                class="pull-right mat_blue"
                 color="primary"
                 id="resetButton"
                 mat-raised-button

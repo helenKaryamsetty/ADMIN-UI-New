@@ -19,7 +19,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see https://www.gnu.org/licenses/.
  */
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 
 import { NgForm } from '@angular/forms';
 
@@ -113,6 +119,7 @@ export class ParkingPlaceComponent implements OnInit, AfterViewInit {
     public commonDataService: dataService,
     public parkingPlaceMasterService: ParkingPlaceMasterService,
     private alertMessage: ConfirmationDialogsService,
+    private cdr: ChangeDetectorRef,
   ) {
     this.data = [];
     this.service_provider_id = this.commonDataService.service_providerID;
@@ -247,39 +254,66 @@ export class ParkingPlaceComponent implements OnInit, AfterViewInit {
     this.parkingPlaceObj.createdBy = this.createdBy;
     this.checkDuplicates(this.parkingPlaceObj);
   }
+  // checkDuplicates(parkingPlaceObj: any) {
+  //   this.bufferCount = 0;
+  //   if (this.parkingPlaceList.data.length === 0) {
+  //     this.parkingPlaceList.data.push(this.parkingPlaceObj);
+  //     this.parkingPlaceForm.resetForm();
+  //   } else if (this.parkingPlaceList.data.length > 0) {
+  //     for (let a = 0; a < this.parkingPlaceList.data.length; a++) {
+  //       if (
+  //         this.parkingPlaceList.data[a].parkingPlaceName ===
+  //           this.parkingPlaceObj.parkingPlaceName &&
+  //         this.parkingPlaceList.data[a].stateID ===
+  //           this.parkingPlaceObj.stateID &&
+  //         this.parkingPlaceList.data[a].zoneID ===
+  //           this.parkingPlaceObj.zoneID &&
+  //         this.parkingPlaceList.data[a].areaHQAddress ===
+  //           this.parkingPlaceObj.areaHQAddress
+  //       ) {
+  //         this.bufferCount++ ;
+  //         console.log('Duplicate Combo Exists', this.bufferCount);
+  //         break;
+  //       }
+  //     }
+  //     if (this.bufferCount > 0) {
+  //       this.alertMessage.alert('Already exists');
+  //       this.bufferCount = 0;
+  //       this.parkingPlaceForm.resetForm();
+  //     } else {
+  //       this.parkingPlaceList.data.push(this.parkingPlaceObj);
+  //       this.parkingPlaceForm.resetForm();
+  //     }
+  //   }
+  // }
   checkDuplicates(parkingPlaceObj: any) {
-    if (this.parkingPlaceList.data.length === 0) {
-      this.parkingPlaceList.data.push(this.parkingPlaceObj);
+    const isDuplicate = this.parkingPlaceList.data.some(
+      (item) =>
+        item.parkingPlaceName === parkingPlaceObj.parkingPlaceName &&
+        item.stateID === parkingPlaceObj.stateID &&
+        item.zoneID === parkingPlaceObj.zoneID &&
+        item.areaHQAddress === parkingPlaceObj.areaHQAddress,
+    );
+
+    if (isDuplicate) {
+      this.alertMessage.alert('Already exists');
+    } else {
+      // Reset previous data and add new record
+
+      this.parkingPlaceList.data = [
+        ...this.parkingPlaceList.data,
+        parkingPlaceObj,
+      ];
+
       this.parkingPlaceForm.resetForm();
-    } else if (this.parkingPlaceList.data.length > 0) {
-      for (let a = 0; a < this.parkingPlaceList.data.length; a++) {
-        if (
-          this.parkingPlaceList.data[a].parkingPlaceName ===
-            this.parkingPlaceObj.parkingPlaceName &&
-          this.parkingPlaceList.data[a].stateID ===
-            this.parkingPlaceObj.stateID &&
-          this.parkingPlaceList.data[a].zoneID ===
-            this.parkingPlaceObj.zoneID &&
-          this.parkingPlaceList.data[a].areaHQAddress ===
-            this.parkingPlaceObj.areaHQAddress
-        ) {
-          this.bufferCount = this.bufferCount + 1;
-          console.log('Duplicate Combo Exists', this.bufferCount);
-        }
-      }
-      if (this.bufferCount > 0) {
-        this.alertMessage.alert('Already exists');
-        this.bufferCount = 0;
-        this.parkingPlaceForm.resetForm();
-      } else {
-        this.parkingPlaceList.data.push(this.parkingPlaceObj);
-        this.parkingPlaceForm.resetForm();
-      }
     }
   }
 
   remove_obj(i: any) {
-    this.parkingPlaceList.data.splice(i, 1);
+    const newData = [...this.parkingPlaceList.data];
+    newData.splice(i, 1);
+    this.parkingPlaceList.data = newData;
+    this.cdr.detectChanges();
   }
 
   storeParkingPlaces() {

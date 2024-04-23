@@ -100,6 +100,7 @@
             <button
               *ngIf="item.deleted"
               mat-raised-button
+              class="mat_green"
               color="accent"
               (click)="activateDeactivate(item.userID, false)"
             >
@@ -108,6 +109,7 @@
             <button
               *ngIf="!item.deleted"
               mat-raised-button
+              class="mat_blue"
               color="primary"
               (click)="activateDeactivate(item.userID, true)"
             >
@@ -161,7 +163,7 @@
         <button
           mat-raised-button
           color="primary"
-          class="pull-right"
+          class="pull-right mat_blue"
           (click)="showForm()"
         >
           Create New Provider Admin
@@ -601,6 +603,7 @@
       <button
         md-mini-fab
         color="primary"
+        class="mat_blue"
         (click)="
           add_object(
             providerAdminCreationForm.value,
@@ -674,7 +677,7 @@
     <button
       mat-raised-button
       color="primary"
-      class="pull-left"
+      class="pull-left mat_blue"
       (click)="showTable()"
     >
       Back
@@ -683,7 +686,7 @@
       *ngIf="!editMode"
       mat-raised-button
       color="accent"
-      class="pull-right"
+      class="pull-right mat_green"
       [disabled]="!(objs.data.length !== 0)"
       (click)="createProviderAdmin()"
     >

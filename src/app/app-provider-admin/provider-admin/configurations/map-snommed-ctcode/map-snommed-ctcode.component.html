@@ -87,6 +87,7 @@
           <td mat-cell *matCellDef="let element">
             <button
               *ngIf="element.deleted"
+              class="mat_green"
               mat-raised-button
               color="accent"
               (click)="activateDeactivate(element, false)"
@@ -96,6 +97,7 @@
             <button
               *ngIf="!element.deleted"
               mat-raised-button
+              class="mat_blue"
               color="primary"
               (click)="activateDeactivate(element, true)"
             >
@@ -125,7 +127,7 @@
       <button
         mat-raised-button
         color="primary"
-        class="pull-right"
+        class="pull-right mat_blue"
         (click)="showForm()"
       >
         Map Snomed CT Code
@@ -232,7 +234,7 @@
     <div style="padding-top: 2%">
       <button
         md-mini-fab
-        class="xs-pull-right sm-pull-right md-pull-left lg-pull-left"
+        class="xs-pull-right sm-pull-right md-pull-left lg-pull-left mat_blue"
         *ngIf="itemCreationForm.valid && itemCodeExist"
         color="primary"
         (click)="addMultipleItemArray(itemCreationForm.value)"
@@ -300,7 +302,7 @@
     <button
       mat-raised-button
       color="primary"
-      class="pull-left"
+      class="pull-left mat_blue"
       (click)="back()"
     >
       Back
@@ -308,7 +310,7 @@
     <button
       mat-raised-button
       color="accent"
-      class="pull-right"
+      class="pull-right mat_green"
       [disabled]="addedItems.data.length === 0"
       (click)="saveItem(); resetItemCreationForm()"
     >
@@ -317,7 +319,7 @@
     <button
       mat-raised-button
       color="primary"
-      class="pull-right m-r-5"
+      class="pull-right m-r-5 mat_blue"
       (click)="resetItemCreationForm()"
     >
       Clear
@@ -422,7 +424,7 @@
     <button
       mat-raised-button
       color="primary"
-      class="pull-left"
+      class="pull-left mat_blue"
       (click)="backEdit()"
     >
       Back
@@ -430,7 +432,7 @@
     <button
       mat-raised-button
       color="accent"
-      class="pull-right"
+      class="pull-right mat_green"
       (click)="updateItem(editItemCreationForm.value)"
       [disabled]="itemCodeExistEdit"
     >

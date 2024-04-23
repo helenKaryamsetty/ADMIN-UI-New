@@ -92,7 +92,7 @@
             <button
               mat-icon-button
               matTooltip="Click to Edit"
-              class="iconbutton"
+              class="iconbutton mat_blue"
               color="primary"
               (click)="editRow(element)"
             >
@@ -111,7 +111,7 @@
                 element.userDeleted ||
                 element.providerServiceMappingDeleted
               "
-              class="m-r-10"
+              class="m-r-10 mat_green"
               (click)="
                 activate(
                   element.userID,
@@ -137,7 +137,7 @@
                 !element.userDeleted &&
                 !element.providerServiceMappingDeleted
               "
-              class="m-r-10"
+              class="m-r-10 mat_blue"
               (click)="deactivate(element.serviceID, element.uSRMappingID)"
             >
               Deactivate
@@ -154,7 +154,7 @@
         <button
           mat-raised-button
           color="primary"
-          class="pull-right"
+          class="pull-right mat_blue"
           (click)="showForm()"
         >
           Create New Mapping
@@ -433,7 +433,7 @@
           mat-mini-fab
           color="primary"
           style="margin-left: -70px; margin-right: 20px; margin-top: 29px"
-          class="xs-pull-right sm-pull-right md-pull-right lg-pull-left"
+          class="xs-pull-right sm-pull-right md-pull-right lg-pull-left mat_blue"
           *ngIf="!editMode && !workplaceform.invalid && !disableSelectRoles"
           (click)="addWorkLocation(workplaceform.value, Role)"
         >
@@ -548,7 +548,7 @@
     <button
       mat-raised-button
       color="accent"
-      class="pull-right"
+      class="pull-right mat_green"
       [disabled]="!(bufferArray.data.length > 0)"
       (click)="saveWorkLocations()"
     >
@@ -557,7 +557,7 @@
     <button
       mat-raised-button
       color="primary"
-      class="pull-left"
+      class="pull-left mat_blue"
       (click)="back()"
     >
       Back
@@ -824,7 +824,7 @@
       <button
         mat-raised-button
         color="primary"
-        class="pull-left"
+        class="pull-left mat_blue"
         (click)="back()"
       >
         Back
@@ -833,7 +833,7 @@
         *ngIf="!formMode"
         mat-raised-button
         color="accent"
-        class="pull-right"
+        class="pull-right mat_green"
         [disabled]="workplaceeform.invalid"
         (click)="updateWorkLocation(workplaceeform.value)"
       >

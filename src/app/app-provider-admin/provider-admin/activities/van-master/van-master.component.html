@@ -169,6 +169,7 @@
             <button
               *ngIf="element.deleted"
               mat-raised-button
+              class="mat_green"
               color="accent"
               (click)="updateVanStatus(element)"
             >
@@ -177,6 +178,7 @@
             <button
               *ngIf="!element.deleted"
               mat-raised-button
+              class="mat_blue"
               color="primary"
               (click)="updateVanStatus(element)"
             >
@@ -227,7 +229,7 @@
           mat-raised-button
           color="primary"
           [disabled]="!createButton"
-          class="pull-right"
+          class="pull-right mat_blue"
           (click)="showForm()"
         >
           Create New Van
@@ -477,7 +479,7 @@
                 !vehicleExist &&
                 !vanNameExist
               "
-              class="xs-pull-right sm-pull-left md-pull-right lg-pull-left"
+              class="xs-pull-right sm-pull-left md-pull-right lg-pull-left mat_blue"
               (click)="
                 addVanToList(vanMasterForm1.value); vanMasterForm1.reset()
               "
@@ -581,7 +583,7 @@
         <button
           mat-raised-button
           color="primary"
-          class="pull-left"
+          class="pull-left mat_blue"
           (click)="back(); vanMasterForm1.reset()"
         >
           Back
@@ -591,7 +593,7 @@
           mat-raised-button
           color="accent"
           *ngIf="editable"
-          class="pull-right"
+          class="pull-right mat_green"
           (click)="updateVanData(vanMasterForm1.value); vanMasterForm1.reset()"
         >
           Update
@@ -601,7 +603,7 @@
           color="accent"
           [disabled]="!(vanList.data.length > 0)"
           *ngIf="!editable"
-          class="pull-right"
+          class="pull-right mat_green"
           (click)="storeVans()"
         >
           Save

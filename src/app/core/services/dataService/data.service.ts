@@ -28,8 +28,10 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class dataService {
-  Userdata: any = sessionStorage.getItem('Userdata');
-  userPriveliges: any = sessionStorage.getItem('userPriveliges');
+  Userdata: any = JSON.parse(sessionStorage.getItem('Userdata') || '[]');
+  userPriveliges: any = JSON.parse(
+    sessionStorage.getItem('userPriveliges') || '[]',
+  );
   uid: any = sessionStorage.getItem('uid');
   uname: any = sessionStorage.getItem('uname');
   benData: any = sessionStorage.getItem('benData');

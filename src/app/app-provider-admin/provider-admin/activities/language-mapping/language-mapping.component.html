@@ -26,8 +26,8 @@
     <div class="table-responsive">
       <table
         mat-table
-        [dataSource]="this.filteredLanguageMappedList.data"
-        class="table table-striped table-hover"
+        class="mat-elevation-z8"
+        [dataSource]="filteredLanguageMappedList"
       >
         <ng-container matColumnDef="SNo">
           <th mat-header-cell *matHeaderCellDef>S.No.</th>
@@ -67,7 +67,7 @@
             <button
               mat-icon-button
               matTooltip="Click to Edit"
-              class="iconbutton"
+              class="iconbutton mat_blue"
               color="primary"
               (click)="editRow(element)"
             >
@@ -81,6 +81,7 @@
             <button
               *ngIf="element.deleted === true"
               mat-raised-button
+              class="mat_green"
               color="accent"
               (click)="activate(element.userLangID, element.userDeleted)"
             >
@@ -89,15 +90,13 @@
             <button
               *ngIf="element.deleted === false"
               mat-raised-button
+              class="mat_blue"
               color="primary"
               (click)="deactivate(element.userLangID)"
             >
               Deactivate
             </button>
           </td>
-          <!-- <td colspan="4" class="p-r-0" mat-cell>
-          <button md-raised-button color="primary" [disabled]="searchForm.invalid" class="pull-right" (click)="changeTableFlag(false)">Add Work Location</button>
-        </td> -->
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
@@ -106,20 +105,27 @@
         <button
           mat-raised-button
           color="primary"
-          class="pull-right"
+          class="pull-right mat_blue"
           (click)="showForm()"
         >
           Create New Mapping
         </button>
       </div>
+      <div
+        class="pull-center"
+        style="margin-top: 35px; text-align: center"
+        *ngIf="filteredLanguageMappedList.data.length === 0"
+      >
+        <strong>No Records Found</strong>
+      </div>
+      <mat-paginator
+        [hidden]="filteredLanguageMappedList.data.length === 0"
+        [pageSizeOptions]="[5, 10, 20]"
+        [pageSize]="5"
+        showFirstLastButtons
+      >
+      </mat-paginator>
     </div>
-    <mat-paginator
-      [hidden]="filteredLanguageMappedList.data.length === 0"
-      [pageSizeOptions]="[5, 10, 25]"
-      [pageSize]="5"
-      showFirstLastButtons
-      aria-label="Language Mapped List"
-    ></mat-paginator>
   </div>
 </div>
 <div class="row">
@@ -278,7 +284,7 @@
                   <button
                     mat-mini-fab
                     color="primary"
-                    class="xs-pull-right sm-pull-left md-pull-right lg-pull-left"
+                    class="xs-pull-right sm-pull-left md-pull-right lg-pull-left mat_blue"
                     *ngIf="
                       showCheckboxes &&
                       !addButtonState &&
@@ -377,7 +383,7 @@
                 name="backBtn"
                 color="primary"
                 mat-raised-button
-                class="pull-left"
+                class="pull-left mat_blue"
                 (click)="back()"
               >
                 Back
@@ -387,7 +393,7 @@
                 [disabled]="!(bufferArray.data.length > 0)"
                 color="accent"
                 mat-raised-button
-                class="pull-right"
+                class="pull-right mat_green"
                 (click)="saveMapping()"
               >
                 Save
@@ -555,7 +561,7 @@
                   name="langBtn "
                   color="accent"
                   mat-raised-button
-                  class="pull-right"
+                  class="pull-right mat_green"
                   [disabled]="eform.invalid || (!read && !write && !speak)"
                   (click)="updateLanguage(eform.value, languageID_edit)"
                 >
@@ -565,7 +571,7 @@
                   name="backBtn "
                   color="primary"
                   mat-raised-button
-                  class="pull-left"
+                  class="pull-left mat_blue"
                   (click)="showTable()"
                 >
                   Back

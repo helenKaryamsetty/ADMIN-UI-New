@@ -113,6 +113,7 @@
             <button
               *ngIf="sub.deleted"
               mat-raised-button
+              class="mat_green"
               color="accent"
               (click)="deleteSubService(sub.subServiceID, false)"
             >
@@ -121,6 +122,7 @@
             <button
               *ngIf="!sub.deleted"
               mat-raised-button
+              class="mat_blue"
               color="primary"
               (click)="deleteSubService(sub.subServiceID, true)"
             >
@@ -135,7 +137,7 @@
         <button
           mat-raised-button
           color="primary"
-          class="pull-right"
+          class="pull-right mat_blue"
           [disabled]="!serviceObj || (!state && !isNational)"
           (click)="addSubService(false)"
         >
@@ -292,7 +294,7 @@
       mat-raised-button
       color="primary"
       type="button"
-      class="pull-left"
+      class="pull-left mat_blue"
       (click)="back()"
     >
       Back
@@ -302,7 +304,7 @@
       mat-raised-button
       color="accent"
       type="button"
-      class="pull-right"
+      class="pull-right mat_green"
       [disabled]="form.invalid"
       (click)="
         add(serviceProvider, state, serviceObj, subService, subServiceDesc)

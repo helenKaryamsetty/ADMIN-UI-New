@@ -257,8 +257,11 @@ export class loginContentClassComponent implements OnInit, OnDestroy {
 
   successCallback(response: any) {
     console.log(response);
-    sessionStorage.setItem('Userdata', response.data);
-    sessionStorage.setItem('userPriveliges', response.data.previlegeObj);
+    sessionStorage.setItem('Userdata', JSON.stringify(response.data));
+    sessionStorage.setItem(
+      'userPriveliges',
+      JSON.stringify(response.data.previlegeObj),
+    );
     sessionStorage.setItem('uid', response.data.userID);
     // sessionStorage.setItem('service_providerID', response.prov)ider[0].providerID;
     sessionStorage.setItem('uname', response.data.userName);

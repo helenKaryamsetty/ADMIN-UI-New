@@ -116,6 +116,7 @@
             <button
               *ngIf="element.deleted"
               mat-raised-button
+              class="mat_green"
               color="accent"
               (click)="updateZoneStatus(element)"
             >
@@ -124,6 +125,7 @@
             <button
               *ngIf="!element.deleted"
               mat-raised-button
+              class="mat_blue"
               color="primary"
               (click)="updateZoneStatus(element)"
             >
@@ -155,7 +157,7 @@
         <button
           mat-raised-button
           color="primary"
-          class="pull-right"
+          class="pull-right mat_blue"
           (click)="showForm()"
         >
           Add Zone
@@ -271,7 +273,7 @@
           color="primary"
           *ngIf="!editable"
           (click)="addZoneToList(zoneForm.value); zoneForm.reset()"
-          class="xs-pull-right sm-pull-left md-pull-right lg-pull-left"
+          class="xs-pull-right sm-pull-left md-pull-right lg-pull-left mat_blue"
         >
           <mat-icon
             matSuffix
@@ -368,7 +370,7 @@
       <button
         mat-raised-button
         color="primary"
-        class="pull-left"
+        class="pull-left mat_blue"
         (click)="back()"
       >
         Back
@@ -378,7 +380,7 @@
         *ngIf="!editable"
         mat-raised-button
         color="accent"
-        class="pull-right"
+        class="pull-right mat_green"
         (click)="storezone()"
       >
         Save
@@ -387,7 +389,7 @@
         *ngIf="editable"
         mat-raised-button
         color="accent"
-        class="pull-right"
+        class="pull-right mat_green"
         [disabled]="zoneForm.invalid || zoneNameExist"
         (click)="updateZoneData(zoneForm.value)"
       >

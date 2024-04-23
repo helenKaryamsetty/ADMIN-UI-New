@@ -168,7 +168,7 @@ export class AgentListCreationComponent implements OnInit, AfterViewInit {
 
   getCampaignNamesSuccessHandeler(response: any) {
     if (response) {
-      this.campaignNames = response.campaign;
+      this.campaignNames = response.data.campaign;
     }
   }
 
@@ -400,13 +400,13 @@ export class AgentListCreationComponent implements OnInit, AfterViewInit {
 
   saveSuccessHandeler(response: any) {
     if (response) {
-      if (response.length > 0) {
+      if (response.data.length > 0) {
         this.alertService.alert('Saved successfully', 'success');
         this.agentListForm.resetForm();
         this.showFormFlag = false;
         this.getAllAgents(this.providerServiceMapID);
       }
-      if (response.length === 0) {
+      if (response.data.length === 0) {
         this.alertService.alert('Mapping  already exists');
       }
     }

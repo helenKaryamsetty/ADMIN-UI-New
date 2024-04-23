@@ -119,6 +119,7 @@
           <mat-cell *matCellDef="let item">
             <button
               mat-raised-button
+              class="mat_blue"
               color="primary"
               *ngIf="!item.deleted"
               (click)="activateDeactivate(item.itemCategoryID, true)"
@@ -127,6 +128,7 @@
             </button>
             <button
               mat-raised-button
+              class="mat_green"
               color="accent"
               *ngIf="item.deleted"
               (click)="activateDeactivate(item.itemCategoryID, false)"
@@ -165,7 +167,7 @@
         <button
           mat-raised-button
           color="primary"
-          class="pull-right"
+          class="pull-right mat_blue"
           (click)="showForm()"
         >
           Add Category
@@ -292,7 +294,7 @@
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
       <button
         mat-mini-fab
-        class="xs-pull-right sm-pull-right md-pull-left lg-pull-left"
+        class="xs-pull-right sm-pull-right md-pull-left lg-pull-left mat_blue"
         *ngIf="categoryCreationForm.valid && !codeExists"
         color="primary"
         (click)="addForCreation()"
@@ -392,7 +394,7 @@
     <button
       mat-raised-button
       color="primary"
-      class="pull-left"
+      class="pull-left mat_blue"
       (click)="back(); categoryCreationForm.reset()"
     >
       Back
@@ -400,7 +402,7 @@
     <button
       mat-raised-button
       color="accent"
-      class="pull-right"
+      class="pull-right mat_green"
       [disabled]="forCreationObjects.data.length < 1"
       (click)="saveCategory(); categoryCreationForm.reset()"
     >
@@ -409,7 +411,7 @@
     <button
       mat-raised-button
       color="primary"
-      class="pull-right m-r-5"
+      class="pull-right m-r-5 mat_blue"
       (click)="categoryCreationForm.reset()"
     >
       Clear
@@ -513,7 +515,7 @@
     <button
       mat-raised-button
       color="primary"
-      class="pull-left"
+      class="pull-left mat_blue"
       (click)="back()"
     >
       Back
@@ -522,7 +524,7 @@
       *ngIf="editMode"
       mat-raised-button
       color="accent"
-      class="pull-right"
+      class="pull-right mat_green"
       [disabled]="editCategoryCreationForm.invalid"
       (click)="updateItem(editCategoryCreationForm.value)"
     >
