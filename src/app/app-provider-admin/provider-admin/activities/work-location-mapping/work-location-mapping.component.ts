@@ -35,9 +35,10 @@ import { WorkLocationMapping } from '../services/work-location-mapping.service';
 })
 export class WorkLocationMappingComponent implements OnInit {
   // filteredmappedWorkLocationsList: any;
-  filteredmappedWorkLocationsList = new MatTableDataSource<any>();
-  bufferArray = new MatTableDataSource<any>();
-  @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
+  // filteredmappedWorkLocationsList = new MatTableDataSource<any>();
+  // bufferArray = new MatTableDataSource<any>();
+  // @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
+
   userID: any;
   serviceProviderID: any;
   createdBy: any;
@@ -128,7 +129,16 @@ export class WorkLocationMappingComponent implements OnInit {
     'ESanjeevani',
     'delete',
   ];
-
+  paginator!: MatPaginator;
+  @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
+    this.paginator = mp;
+    this.setDataSourceAttributes();
+  }
+  filteredmappedWorkLocationsList = new MatTableDataSource<any>();
+  bufferArray = new MatTableDataSource<any>();
+  setDataSourceAttributes() {
+    this.filteredmappedWorkLocationsList.paginator = this.paginator;
+  }
   @ViewChild('workplaceform')
   eForm!: NgForm;
   @ViewChild('workplaceeform')
@@ -233,7 +243,7 @@ export class WorkLocationMappingComponent implements OnInit {
             );
             this.mappedWorkLocationsList = response.data;
             this.filteredmappedWorkLocationsList.data = response.data;
-            this.filteredmappedWorkLocationsList.paginator = this.paginator;
+            // this.filteredmappedWorkLocationsList.paginator = this.paginator;
           }
         },
         (err) => {
@@ -2326,7 +2336,7 @@ export class WorkLocationMappingComponent implements OnInit {
 
   getVillageSuccessHandeler(response: any) {
     if (response) {
-      this.village = response;
+      this.village = response.data;
     }
   }
 

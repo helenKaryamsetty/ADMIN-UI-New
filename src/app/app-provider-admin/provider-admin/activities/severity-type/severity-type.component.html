@@ -8,41 +8,47 @@
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
       <!-- <mat-form-field class="hide_underline width100">
         <input matInput style="display:none"> -->
-      <mat-select
-        placeholder="Serviceline"
-        disabled="{{ !firstPage }}"
-        class="width100"
-        [(ngModel)]="service"
-        name="service"
-        #servicess
-        required
-        (selectionChange)="
-          getProviderStates(service.serviceID, service.isNational)
-        "
-      >
-        <mat-option *ngFor="let ser of services" [value]="ser">
-          {{ ser.serviceName }}
-        </mat-option>
-      </mat-select>
+      <mat-form-field>
+        <mat-label>Serviceline</mat-label>
+        <mat-select
+          disabled="{{ !firstPage }}"
+          class="width100"
+          [(ngModel)]="service"
+          name="service"
+          #servicess
+          required
+          (selectionChange)="
+            getProviderStates(service.serviceID, service.isNational)
+          "
+        >
+          <mat-option *ngFor="let ser of services" [value]="ser">
+            {{ ser.serviceName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
       <!-- </mat-form-field> -->
     </div>
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
       <!-- <mat-form-field class="hide_underline width100">
         <input matInput style="display:none"> -->
-      <mat-select
-        placeholder="State"
-        [disabled]="!firstPage || isNational"
-        class="width100"
-        [(ngModel)]="stateId"
-        (selectionChange)="findSeverity(stateId.providerServiceMapID)"
-        name="state"
-        #statess
-        required
-      >
-        <mat-option *ngFor="let stat of states" [value]="stat">
-          {{ stat.stateName }}
-        </mat-option>
-      </mat-select>
+      <mat-form-field>
+        <mat-label>State</mat-label>
+        <mat-select
+          [disabled]="!firstPage || isNational"
+          class="width100"
+          [(ngModel)]="stateId"
+          (selectionChange)="findSeverity(stateId.providerServiceMapID)"
+          name="state"
+          #statess
+          required
+        >
+          <mat-option *ngFor="let stat of states" [value]="stat">
+            {{ stat.stateName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
       <!-- </mat-form-field> -->
     </div>
   </form>
@@ -152,9 +158,9 @@
     <form #severityAdding="ngForm" autocomplete="off">
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" appmyProviderName>
         <mat-form-field class="width100">
+          <mat-label>Severity Type</mat-label>
           <input
             matInput
-            placeholder="Severity Type"
             name="severity"
             [(ngModel)]="severity"
             (keyup)="addSeverity(severity)"
@@ -179,9 +185,9 @@
       </div>
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
         <mat-form-field class="width100" appmyProviderName>
+          <mat-label>Description</mat-label>
           <input
             matInput
-            placeholder="Description"
             name="description"
             [(ngModel)]="description"
             maxlength="100"

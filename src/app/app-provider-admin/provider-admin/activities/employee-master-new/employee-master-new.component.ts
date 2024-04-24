@@ -43,7 +43,6 @@ export class EmployeeMasterNewComponent implements OnInit {
   disabled = true;
   displayedColumns: string[] = [
     'activePage',
-    'UserID',
     'Title',
     'Username',
     'EmergencyContact',
@@ -650,6 +649,17 @@ export class EmployeeMasterNewComponent implements OnInit {
       this.errorMessageForPan = '';
     }
   }
+  omit_special_char(event: any) {
+    const k = event.charCode; // Use const instead of let
+    return (
+      (k > 64 && k < 91) ||
+      (k > 96 && k < 123) ||
+      k === 8 ||
+      k === 32 ||
+      (k >= 48 && k <= 57)
+    );
+  }
+
   // to check existance of health professional ID
   checkHealthProfessionalID() {
     //this.isHPIdExist = false;

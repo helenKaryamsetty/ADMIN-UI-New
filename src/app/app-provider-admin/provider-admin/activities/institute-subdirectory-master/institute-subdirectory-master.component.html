@@ -8,53 +8,61 @@
   </div>
   <form #searchform="ngForm" autocomplete="off">
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-      <mat-select
-        placeholder="Serviceline"
-        disabled="{{ disableSelection }}"
-        class="width100"
-        (selectionChange)="getStates(service)"
-        [(ngModel)]="service"
-        name="service"
-        required
-      >
-        <mat-option *ngFor="let item of services" [value]="item">
-          {{ item.serviceName }}
-        </mat-option>
-      </mat-select>
+      <mat-form-field>
+        <mat-label>Serviceline</mat-label>
+        <mat-select
+          disabled="{{ disableSelection }}"
+          class="width100"
+          (selectionChange)="getStates(service)"
+          [(ngModel)]="service"
+          name="service"
+          required
+        >
+          <mat-option *ngFor="let item of services" [value]="item">
+            {{ item.serviceName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-      <mat-select
-        placeholder="State"
-        [disabled]="disableSelection || nationalFlag"
-        class="width100"
-        (selectionChange)="setProviderServiceMapID(state.providerServiceMapID)"
-        [(ngModel)]="state"
-        name="state"
-        required
-      >
-        <mat-option *ngFor="let item of states" [value]="item">
-          {{ item.stateName }}
-        </mat-option>
-      </mat-select>
+      <mat-form-field>
+        <mat-label>State</mat-label>
+        <mat-select
+          [disabled]="disableSelection || nationalFlag"
+          class="width100"
+          (selectionChange)="
+            setProviderServiceMapID(state.providerServiceMapID)
+          "
+          [(ngModel)]="state"
+          name="state"
+          required
+        >
+          <mat-option *ngFor="let item of states" [value]="item">
+            {{ item.stateName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
 
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-      <mat-select
-        placeholder="Institute Directory"
-        class="width100"
-        [(ngModel)]="institute_directory"
-        disabled="{{ disableSelection }}"
-        name="institute_directory"
-        (selectionChange)="getInstituteSubdirectory(institute_directory)"
-        required
-      >
-        <mat-option
-          *ngFor="let item of instituteDirectories"
-          value="{{ item.instituteDirectoryID }}"
+      <mat-form-field>
+        <mat-label>Institute Directory</mat-label>
+        <mat-select
+          class="width100"
+          [(ngModel)]="institute_directory"
+          disabled="{{ disableSelection }}"
+          name="institute_directory"
+          (selectionChange)="getInstituteSubdirectory(institute_directory)"
+          required
         >
-          {{ item.instituteDirectoryName }}
-        </mat-option>
-      </mat-select>
+          <mat-option
+            *ngFor="let item of instituteDirectories"
+            value="{{ item.instituteDirectoryID }}"
+          >
+            {{ item.instituteDirectoryName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
   </form>
 </div>
@@ -72,10 +80,10 @@
   </div>
   <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-15">
-      <div class="table-responsive">
+      <div class="">
         <table
           mat-table
-          class="mat-elevation-z8"
+          class="table table-striped table-hover"
           [dataSource]="filteredsearchResultArray"
         >
           <ng-container matColumnDef="sno">
@@ -202,9 +210,9 @@
     <form #addInstitutueSubDirForm="ngForm" autocomplete="off">
       <div class="col-3" appmyProviderName>
         <mat-form-field>
+          <mat-label>Institute Sub Directory</mat-label>
           <input
             matInput
-            placeholder="Institute Sub Directory"
             [(ngModel)]="institute_subdirectory"
             name="institute_subdirectory"
             minlength="2"
@@ -229,9 +237,9 @@
       </div>
       <div class="col-3" appVehicleNO>
         <mat-form-field>
+          <mat-label>Description</mat-label>
           <input
             matInput
-            placeholder="Description"
             [(ngModel)]="description"
             name="description"
             maxlength="100"
@@ -263,8 +271,12 @@
       class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10"
       *ngIf="bufferArray.data.length > 0"
     >
-      <div class="table-responsive">
-        <table mat-table [dataSource]="bufferArray" class="mat-elevation-z8">
+      <div class="">
+        <table
+          mat-table
+          [dataSource]="bufferArray"
+          class="table table-striped table-hover"
+        >
           <ng-container matColumnDef="sno">
             <th mat-header-cell *matHeaderCellDef>SNo.</th>
             <td mat-cell *matCellDef="let element; let i = index">

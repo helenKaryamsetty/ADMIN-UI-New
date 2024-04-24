@@ -11,34 +11,40 @@
 
   <form #searchFields="ngForm" autocomplete="off">
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-      <mat-select
-        placeholder="Serviceline"
-        [disabled]="disableSelection"
-        [style.width]="'100%'"
-        [(ngModel)]="service"
-        name="service"
-        required
-        (selectionChange)="getStates(service.serviceID, service.isNational)"
-      >
-        <mat-option *ngFor="let item of services" [value]="item">
-          {{ item.serviceName }}
-        </mat-option>
-      </mat-select>
+      <mat-form-field>
+        <mat-label>Serviceline</mat-label>
+        <mat-select
+          [disabled]="disableSelection"
+          [style.width]="'100%'"
+          [(ngModel)]="service"
+          name="service"
+          required
+          (selectionChange)="getStates(service.serviceID, service.isNational)"
+        >
+          <mat-option *ngFor="let item of services" [value]="item">
+            {{ item.serviceName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-      <mat-select
-        placeholder="State"
-        [disabled]="disableSelection"
-        [style.width]="'100%'"
-        [(ngModel)]="state"
-        name="state"
-        required
-        (selectionChange)="setProviderServiceMapID(state.providerServiceMapID)"
-      >
-        <mat-option *ngFor="let item of states" [value]="item">
-          {{ item.stateName }}
-        </mat-option>
-      </mat-select>
+      <mat-form-field>
+        <mat-label> State </mat-label>
+        <mat-select
+          [disabled]="disableSelection"
+          [style.width]="'100%'"
+          [(ngModel)]="state"
+          name="state"
+          required
+          (selectionChange)="
+            setProviderServiceMapID(state.providerServiceMapID)
+          "
+        >
+          <mat-option *ngFor="let item of states" [value]="item">
+            {{ item.stateName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
   </form>
 </div>
@@ -149,9 +155,9 @@
   <form #createDeviceIdForm="ngForm" autocomplete="off">
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
       <mat-form-field style="width: 100%" appVehicleNONew>
+        <mat-label>Device ID</mat-label>
         <input
           matInput
-          placeholder="Device ID"
           [(ngModel)]="deviceID"
           name="deviceID"
           minlength="3"
@@ -170,10 +176,10 @@
     </div>
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
       <mat-form-field style="width: 100%">
+        <mat-label>Device Name</mat-label>
         <input
           matInput
           appusernameValidator
-          placeholder="Device Name"
           [(ngModel)]="deviceName"
           name="deviceName"
           minlength="3"
@@ -270,9 +276,9 @@
   <form #editDeviceIdForm="ngForm" autocomplete="off">
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
       <mat-form-field style="width: 100%" appVehicleNONew>
+        <mat-label>Device ID</mat-label>
         <input
           matInput
-          placeholder="Device ID"
           [(ngModel)]="deviceID"
           name="deviceID"
           minlength="3"
@@ -297,9 +303,9 @@
 
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
       <mat-form-field style="width: 100%">
+        <mat-label>Device Name</mat-label>
         <input
           matInput
-          placeholder="Device Name"
           [(ngModel)]="deviceName"
           name="deviceName"
           #deviceNames="ngModel"

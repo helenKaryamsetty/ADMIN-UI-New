@@ -39,10 +39,30 @@ import { MatPaginator } from '@angular/material/paginator';
               the Providers
  */
 export class ServiceProviderMasterComponent implements OnInit {
-  @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
-  // dataSource = new MatTableDataSource<any>();
+  // @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
+  // // dataSource = new MatTableDataSource<any>();
+  // filteredsearchResult = new MatTableDataSource<any>();
+  displayedColumns = [
+    'sno',
+    'serviceProviderName',
+    'primaryContactName',
+    'primaryContactNo',
+    'primaryContactAddress',
+    'edit',
+    'action',
+  ];
+
+  paginator!: MatPaginator;
+  j: any;
+  @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
+    this.paginator = mp;
+    this.setDataSourceAttributes();
+  }
   filteredsearchResult = new MatTableDataSource<any>();
 
+  setDataSourceAttributes() {
+    this.filteredsearchResult.paginator = this.paginator;
+  }
   // filteredsearchResult: any = [];
   // ngModel
   validFrom: any;

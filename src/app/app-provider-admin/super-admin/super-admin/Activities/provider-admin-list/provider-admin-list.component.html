@@ -19,10 +19,10 @@
 </div>
 <div class="row" *ngIf="tableMode">
   <div class="col-xs-12 col-sm-12">
-    <div class="table-responsive">
+    <div class="">
       <table
         mat-table
-        class="mat-elevation-z8"
+        class="table table-striped table-hover"
         [dataSource]="filteredsearchResult"
       >
         <ng-container matColumnDef="sno">
@@ -96,22 +96,22 @@
         </ng-container>
         <ng-container matColumnDef="action">
           <th mat-header-cell *matHeaderCellDef>Action</th>
-          <td mat-cell *matCellDef="let element">
+          <td mat-cell *matCellDef="let item">
             <button
-              *ngIf="element.deleted === '1'"
+              *ngIf="item.deleted"
               mat-raised-button
               class="mat_green"
               color="accent"
-              (click)="activateDeactivate(element.userID, false)"
+              (click)="activateDeactivate(item.userID, false)"
             >
               Activate
             </button>
             <button
-              *ngIf="element.deleted === '0'"
+              *ngIf="!item.deleted"
               mat-raised-button
               class="mat_blue"
               color="primary"
-              (click)="activateDeactivate(element.userID, true)"
+              (click)="activateDeactivate(item.userID, true)"
             >
               Deactivate
             </button>
@@ -628,8 +628,12 @@
     </div>
   </form>
   <div class="col-xs-12 col-sm-12 m-t-15" *ngIf="objs.data.length !== 0">
-    <div cass="table-responsive">
-      <table mat-table [dataSource]="objs" class="mat-elevation-z8">
+    <div cass="">
+      <table
+        mat-table
+        [dataSource]="objs"
+        class="table table-striped table-hover"
+      >
         <ng-container matColumnDef="sno">
           <th mat-header-cell *matHeaderCellDef>SNo.</th>
           <td mat-cell *matCellDef="let element; let i = index">

@@ -701,7 +701,7 @@ export class ProviderAdminListComponent implements OnInit {
   templateUrl: './edit-provider-admin-list.html',
   styleUrls: ['./provider-admin-list.component.css'],
 })
-export class EditProviderAdminModalComponent {
+export class EditProviderAdminModalComponent implements OnInit {
   //ngModel
 
   titleID: any;
@@ -749,7 +749,7 @@ export class EditProviderAdminModalComponent {
     public dialogService: ConfirmationDialogsService,
   ) {}
 
-  OnInit() {
+  ngOnInit() {
     console.log('Initial value', this.data);
     this.superadminService
       .getCommonRegistrationData()

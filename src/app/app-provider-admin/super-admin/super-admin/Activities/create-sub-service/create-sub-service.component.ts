@@ -321,7 +321,7 @@ export class CreateSubServiceComponent implements OnInit {
           } else {
             let tempService = {};
             let temp: boolean;
-            for (let i = 0; i < res.length; i++) {
+            for (let i = 0; i < res.data.length; i++) {
               temp = true;
               for (let a = 0; a < this.existingSubService.length; a++) {
                 if (

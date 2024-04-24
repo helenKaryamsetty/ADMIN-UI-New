@@ -8,42 +8,47 @@
     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
       <!-- <mat-form-field class="hide_underline" [style.width]="'100%'">
         <input matInput style="display:none"> -->
-      <mat-select
-        placeholder="Serviceline"
-        [style.width]="'100%'"
-        [(ngModel)]="search_serviceline"
-        name="serviceline"
-        required
-      >
-        <mat-option
-          *ngFor="let service of servicelines"
-          value="{{ service.serviceID }}"
-          (click)="
-            getStates(service.serviceID, service.isNational);
-            setIsNational(service.isNational)
-          "
+      <mat-form-field>
+        <mat-label>Serviceline</mat-label>
+        <mat-select
+          [style.width]="'100%'"
+          [(ngModel)]="search_serviceline"
+          name="serviceline"
+          required
         >
-          {{ service.serviceName }}
-        </mat-option>
-      </mat-select>
+          <mat-option
+            *ngFor="let service of servicelines"
+            value="{{ service.serviceID }}"
+            (click)="
+              getStates(service.serviceID, service.isNational);
+              setIsNational(service.isNational)
+            "
+          >
+            {{ service.serviceName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-      <mat-select
-        placeholder="State"
-        [style.width]="'100%'"
-        [disabled]="isNational"
-        [(ngModel)]="search_state"
-        name="state"
-        [required]="!isNational"
-      >
-        <mat-option
-          *ngFor="let state of states"
-          value="{{ state.stateID }}"
-          (click)="findFeedbackTypes(state.providerServiceMapID)"
+      <mat-form-field>
+        <mat-label>State</mat-label>
+        <mat-select
+          [style.width]="'100%'"
+          [disabled]="isNational"
+          [(ngModel)]="search_state"
+          name="state"
+          [required]="!isNational"
         >
-          {{ state.stateName }}
-        </mat-option>
-      </mat-select>
+          <mat-option
+            *ngFor="let state of states"
+            value="{{ state.stateID }}"
+            (click)="findFeedbackTypes(state.providerServiceMapID)"
+          >
+            {{ state.stateName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
       <!-- </mat-form-field> -->
     </div>
   </form>
@@ -161,43 +166,49 @@
         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 m-t-15">
           <!-- <mat-form-field class="hide_underline" [style.width]="'100%'">
             <input matInput style="display:none"> -->
-          <mat-select
-            placeholder="Serviceline"
-            [style.width]="'100%'"
-            [(ngModel)]="search_serviceline"
-            name="serviceline"
-            [disabled]="true"
-            required
-          >
-            <mat-option
-              *ngFor="let service of servicelines"
-              value="{{ service }}"
-              (click)="getStates(service, service); setIsNational(service)"
+          <mat-form-field>
+            <mat-label>Serviceline</mat-label>
+            <mat-select
+              [style.width]="'100%'"
+              [(ngModel)]="search_serviceline"
+              name="serviceline"
+              [disabled]="true"
+              required
             >
-              {{ service }}
-            </mat-option>
-          </mat-select>
+              <mat-option
+                *ngFor="let service of servicelines"
+                value="{{ service }}"
+                (click)="getStates(service, service); setIsNational(service)"
+              >
+                {{ service }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
           <!-- </mat-form-field> -->
         </div>
         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 m-t-15">
           <!-- <mat-form-field class="hide_underline" [style.width]="'100%'">
             <input matInput style="display:none"> -->
-          <mat-select
-            placeholder="State"
-            [style.width]="'100%'"
-            [(ngModel)]="search_state"
-            name="state"
-            [disabled]="true"
-            required
-          >
-            <mat-option
-              *ngFor="let state of states"
-              value="{{ state }}"
-              (click)="findFeedbackTypes(state)"
+          <mat-form-field>
+            <mat-label>State</mat-label>
+            <mat-select
+              [style.width]="'100%'"
+              [(ngModel)]="search_state"
+              name="state"
+              [disabled]="true"
+              required
             >
-              {{ state }}
-            </mat-option>
-          </mat-select>
+              <mat-option
+                *ngFor="let state of states"
+                value="{{ state }}"
+                (click)="findFeedbackTypes(state)"
+              >
+                {{ state }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
           <!-- </mat-form-field> -->
         </div>
       </div>
@@ -209,9 +220,9 @@
           *ngIf="search_serviceline !== '3'"
         >
           <mat-form-field [style.width]="'100%'">
+            <mat-label>Feedback Name</mat-label>
             <input
               matInput
-              placeholder="Feedback Name"
               name="feedbackName"
               appmyProviderName
               [(ngModel)]="feedbackName"
@@ -229,27 +240,32 @@
         >
           <!-- <mat-form-field class="hide_underline" [style.width]="'100%'">
             <input matInput style="display:none"> -->
-          <mat-select
-            placeholder="Feedback Name"
-            [style.width]="'100%'"
-            [(ngModel)]="feedbackName"
-            #feedback="ngModel"
-            (change)="checkExistance()"
-            name="feedbackName"
-            required
-          >
-            <mat-option value="Generic Complaint">Generic Complaint</mat-option>
-            <mat-option value="Asha Complaints">Asha Complaints</mat-option>
-            <mat-option value="Epidemic Complaints"
-              >Epidemic Complaints</mat-option
+          <mat-form-field>
+            <mat-label>Feedback Name</mat-label>
+            <mat-select
+              [style.width]="'100%'"
+              [(ngModel)]="feedbackName"
+              #feedback="ngModel"
+              (change)="checkExistance()"
+              name="feedbackName"
+              required
             >
-            <mat-option value="Foodsafety Complaints"
-              >Food Safety Complaints</mat-option
-            >
-            <mat-option value="Bal Vivah Complaints"
-              >Bal Vivah Complaints</mat-option
-            >
-          </mat-select>
+              <mat-option value="Generic Complaint"
+                >Generic Complaint</mat-option
+              >
+              <mat-option value="Asha Complaints">Asha Complaints</mat-option>
+              <mat-option value="Epidemic Complaints"
+                >Epidemic Complaints</mat-option
+              >
+              <mat-option value="Foodsafety Complaints"
+                >Food Safety Complaints</mat-option
+              >
+              <mat-option value="Bal Vivah Complaints"
+                >Bal Vivah Complaints</mat-option
+              >
+            </mat-select>
+          </mat-form-field>
+
           <!-- <mat-hint>
               <span class="error_text" *ngIf="feedback.errors && feedback.touched">Feedback name is required</span>
               <span class="error_text" *ngIf="!feedback.errors && feedbackExists">Feedback Name already exist</span>
@@ -262,9 +278,9 @@
           appmyProviderName
         >
           <mat-form-field [style.width]="'100%'">
+            <mat-label>Feedback Description</mat-label>
             <input
               matInput
-              placeholder="Feedback Description"
               name="feedbackDesc"
               [(ngModel)]="feedbackDesc"
               maxlength="100"

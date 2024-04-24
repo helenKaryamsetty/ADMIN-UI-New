@@ -20,10 +20,10 @@
     </div>
   </div>
   <div class="col-xs-12 col-sm-12 m-t-20">
-    <div class="table-responsive">
+    <div class="">
       <table
         mat-table
-        class="mat-elevation-z8"
+        class="table table-striped table-hover"
         [dataSource]="filteredDrugStrength"
       >
         <ng-container matColumnDef="sno">
@@ -145,9 +145,9 @@
   <form #drugStrengthForm="ngForm" autocomplete="off">
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
       <mat-form-field class="input-full-width mat_form_field_width_one">
+        <mat-label>Drug Strength </mat-label>
         <input
           matInput
-          placeholder="Drug Strength "
           [(ngModel)]="strength"
           name="strength"
           #drugStrength="ngModel"
@@ -175,10 +175,10 @@
     </div>
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
       <mat-form-field class="input-full-width mat_form_field_width_one">
+        <mat-label>Drug Strength Description</mat-label>
         <input
           matInput
           apptextAreaValidator
-          placeholder="Drug Strength Description"
           [(ngModel)]="strength_desc"
           name="strength_desc"
           #drugStrengthDesc="ngModel"
@@ -208,8 +208,12 @@
     class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
     *ngIf="drugStrengthList.data.length > 0"
   >
-    <div class="table-responsive">
-      <table mat-table [dataSource]="drugStrengthList" class="mat-elevation-z8">
+    <div class="">
+      <table
+        mat-table
+        [dataSource]="drugStrengthList"
+        class="table table-striped table-hover"
+      >
         <ng-container matColumnDef="sno">
           <th mat-header-cell *matHeaderCellDef>SNo.</th>
           <td mat-cell *matCellDef="let element; let i = index">

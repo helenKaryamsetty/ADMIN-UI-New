@@ -20,7 +20,14 @@
       <button mat-menu-item (click)="show('3')">Sub Service</button>
       <button mat-menu-item (click)="show('12')">Village Master</button>
     </mat-menu>
-    <button mat-button class="top-element">Reports</button>
+    <button
+      mat-button
+      class="top-element"
+      (click)="show('8')"
+      style="cursor: pointer"
+    >
+      Reports
+    </button>
     <button mat-button [matMenuTriggerFor]="configuration" class="top-element">
       configurations
     </button>
@@ -47,6 +54,7 @@
       <app-create-sub-service *ngSwitchCase="3"></app-create-sub-service>
       <app-village-master *ngSwitchCase="12"></app-village-master>
       <app-provide-cti-mapping *ngSwitchCase="11"></app-provide-cti-mapping>
+      <p *ngSwitchCase="8">Reports Work In PROGRESS</p>
       <div></div>
     </div>
   </div>

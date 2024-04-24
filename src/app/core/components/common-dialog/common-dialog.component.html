@@ -157,13 +157,8 @@
   <h3 class="title info">{{ message | titlecase }}</h3>
   <div class="message">
     <mat-form-field [style.width]="'100%'">
-      <input
-        autocomplete="off"
-        matInput
-        placeholder="Enter Remarks"
-        name="Remarks"
-        #remarksRef
-      />
+      <mat-label>Enter Remarks</mat-label>
+      <input autocomplete="off" matInput name="Remarks" #remarksRef />
     </mat-form-field>
   </div>
   <div class="action">
@@ -187,6 +182,7 @@
   <h3 class="title info">{{ message | titlecase }}</h3>
   <div class="message">
     <mat-form-field [style.width]="'100%'">
+      <mat-label>Observation</mat-label>
       <textarea
         matInput
         allowText="apptextAreaValidator"

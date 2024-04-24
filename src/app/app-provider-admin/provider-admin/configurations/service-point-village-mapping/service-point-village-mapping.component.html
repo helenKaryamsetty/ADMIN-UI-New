@@ -7,7 +7,7 @@
   <form #searForm="ngForm" autocomplete="off">
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
       <!-- <mat-form-field class="hide_underline" [style.width]="'100%'">
-                <input matInput style="display:none"> -->
+                  <input matInput style="display:none"> -->
       <mat-select
         required
         name="Services"
@@ -24,7 +24,7 @@
     </div>
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
       <!-- <mat-form-field class="hide_underline" [style.width]="'100%'">
-                <input matInput style="display:none"> -->
+                  <input matInput style="display:none"> -->
       <mat-select
         required
         placeholder="State"
@@ -90,26 +90,26 @@
     </form>
     <form #resetform1="ngForm">
       <!-- <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 m-t-15">
-                <mat-select placeholder="District" class="width100" [(ngModel)]="district" name="district" (change)="getServicePoints(searchStateID.stateID, district.districtID, parking_Place.parkingPlaceID)"
-                    #mappingDistrict='ngModel' required>
-                    <mat-option *ngFor="let item of districts" [value]="item">
-                        {{item.districtName}}
-                    </mat-option>
-                </mat-select>
-            </div> -->
+                  <mat-select placeholder="District" class="width100" [(ngModel)]="district" name="district" (change)="getServicePoints(searchStateID.stateID, district.districtID, parking_Place.parkingPlaceID)"
+                      #mappingDistrict='ngModel' required>
+                      <mat-option *ngFor="let item of districts" [value]="item">
+                          {{item.districtName}}
+                      </mat-option>
+                  </mat-select>
+              </div> -->
       <!-- <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-                <mat-form-field class="hide_underline width100">
-                      <input matInput style="display:none">
-                <mat-select placeholder="Taluk/Sub District" class="width100" [(ngModel)]="talukID" name="talukID" (change)="getServicePoints(searchStateID.stateID,district.districtID,parking_Place.parkingPlaceID)" required>
-                    <mat-option *ngFor="let taluk of taluks" [value]="taluk">
-                        {{taluk.districtBlockName}}
-                    </mat-option>
-                </mat-select>
-                </mat-form-field>
-            </div> -->
+                  <mat-form-field class="hide_underline width100">
+                        <input matInput style="display:none">
+                  <mat-select placeholder="Taluk/Sub District" class="width100" [(ngModel)]="talukID" name="talukID" (change)="getServicePoints(searchStateID.stateID,district.districtID,parking_Place.parkingPlaceID)" required>
+                      <mat-option *ngFor="let taluk of taluks" [value]="taluk">
+                          {{taluk.districtBlockName}}
+                      </mat-option>
+                  </mat-select>
+                  </mat-form-field>
+              </div> -->
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
         <!-- <mat-form-field class="hide_underline width100">
-                    <input matInput style="display:none"> -->
+                      <input matInput style="display:none"> -->
         <mat-select
           required
           *ngIf="parkAndHub"
@@ -156,52 +156,52 @@
 </div>
 <div class="row" *ngIf="showServicePointVillageMaps">
   <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <h4>Available Service Point Village Mappings</h4>
-    </div> -->
+          <h4>Available Service Point Village Mappings</h4>
+      </div> -->
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <div class="table-responsive">
       <!-- <table class="table table-striped table-hover" [md2Data]="filteredavailableServicePointVillageMaps" #md2="md2DataTable" [rowsPerPage]="3">
-                <thead>
-                    <tr>
-                        <th width="5%">S.No.</th>
-                       
-                        <th width="20%">Service Point</th>
-                        <th width="20%">District</th>
-                        <th width="20%">Taluk/Sub-District</th>
-                        <th width="15%">Village</th>
-                         <th width="10%">Edit</th> -->
+                  <thead>
+                      <tr>
+                          <th width="5%">S.No.</th>
+                         
+                          <th width="20%">Service Point</th>
+                          <th width="20%">District</th>
+                          <th width="20%">Taluk/Sub-District</th>
+                          <th width="15%">Village</th>
+                           <th width="10%">Edit</th> -->
       <!-- <th width="15%">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngIf="md2.data.length == 0">
-                        <td colspan="6" class="record-not-found">No records found</td>
-                    </tr>
-                    <tr *ngFor="let servicePointVillageMap of md2.data; let i= index">
-                        <td>{{filteredavailableServicePointVillageMaps.indexOf(servicePointVillageMap)+1}} </td>
-                       
-                        <td>{{servicePointVillageMap.m_servicepoint.servicePointName}}</td>
-                        <td>{{servicePointVillageMap.m_providerServiceMapping.m_district.districtName}}</td>
-                        <td>{{servicePointVillageMap.blockName}}</td>
-                        <td>{{servicePointVillageMap.villageName}}</td>
-                        
-                        <td>
-                            <button *ngIf="servicePointVillageMap.deleted=='1'" mat-raised-button color="accent" (click)="updateServicePointVillageMapStatus(servicePointVillageMap)">Activate</button>
-                            <button *ngIf="servicePointVillageMap.deleted=='0'" mat-raised-button color="primary" (click)="updateServicePointVillageMapStatus(servicePointVillageMap)">Deactivate</button>
-                        </td>
-                    </tr>
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <td colspan="3">
-                            <md2-pagination></md2-pagination>
-                        </td>
-                        <td colspan="3" class="p-r-0 m-t-10">
-                            <button md-raised-button color="primary" class="pull-right" [disabled]="!createButton" (click)="showForm(zoneID.zoneID)">Add Service Point </button>
-                        </td>
-                    </tr>
-                </tfoot>
-            </table> -->
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr *ngIf="md2.data.length == 0">
+                          <td colspan="6" class="record-not-found">No records found</td>
+                      </tr>
+                      <tr *ngFor="let servicePointVillageMap of md2.data; let i= index">
+                          <td>{{filteredavailableServicePointVillageMaps.indexOf(servicePointVillageMap)+1}} </td>
+                         
+                          <td>{{servicePointVillageMap.m_servicepoint.servicePointName}}</td>
+                          <td>{{servicePointVillageMap.m_providerServiceMapping.m_district.districtName}}</td>
+                          <td>{{servicePointVillageMap.blockName}}</td>
+                          <td>{{servicePointVillageMap.villageName}}</td>
+                          
+                          <td>
+                              <button *ngIf="servicePointVillageMap.deleted=='1'" mat-raised-button color="accent" (click)="updateServicePointVillageMapStatus(servicePointVillageMap)">Activate</button>
+                              <button *ngIf="servicePointVillageMap.deleted=='0'" mat-raised-button color="primary" (click)="updateServicePointVillageMapStatus(servicePointVillageMap)">Deactivate</button>
+                          </td>
+                      </tr>
+                  </tbody>
+                  <tfoot>
+                      <tr>
+                          <td colspan="3">
+                              <md2-pagination></md2-pagination>
+                          </td>
+                          <td colspan="3" class="p-r-0 m-t-10">
+                              <button md-raised-button color="primary" class="pull-right" [disabled]="!createButton" (click)="showForm(zoneID.zoneID)">Add Service Point </button>
+                          </td>
+                      </tr>
+                  </tfoot>
+              </table> -->
       <mat-table
         [dataSource]="filteredavailableServicePointVillageMaps"
         class="mat-elevation-z8"
@@ -333,7 +333,7 @@
   <form #servicePointVillageMapForm="ngForm" autocomplete="off">
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
       <!-- <mat-form-field class="hide_underline" [style.width]="'100%'">
-                <input matInput style="display:none"> -->
+                  <input matInput style="display:none"> -->
       <mat-select
         required
         name="Services"
@@ -351,7 +351,7 @@
     </div>
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
       <!-- <mat-form-field class="hide_underline" [style.width]="'100%'">
-                <input matInput style="display:none"> -->
+                  <input matInput style="display:none"> -->
       <mat-select
         required
         placeholder="State"
@@ -411,7 +411,7 @@
     </div>
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
       <!-- <mat-form-field class="hide_underline width100">
-                <input matInput style="display:none"> -->
+                  <input matInput style="display:none"> -->
       <mat-select
         required
         placeholder="Service Point"
@@ -449,7 +449,7 @@
     </div>
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
       <!-- <mat-form-field class="hide_underline width100">
-                  <input matInput style="display:none"> -->
+                    <input matInput style="display:none"> -->
       <mat-select
         placeholder="Taluk/Sub District"
         class="width100"
@@ -472,7 +472,7 @@
     <form #servicePointVillage="ngForm" autocomplete="off">
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
         <!-- <mat-form-field class="hide_underline width100">
-                    <input matInput style="display:none"> -->
+                      <input matInput style="display:none"> -->
         <mat-select
           multiple
           required
@@ -519,43 +519,43 @@
   >
     <div class="table-responsive">
       <!-- <table class="table table-striped table-hover" [md2Data]="servicePointVillageMapList" #md2="md2DataTable" [rowsPerPage]="3">
-                <thead>
-                    <tr>
-                        <th width="10%">S.No.</th>
-                        
-                        <th width="15%">{{parkAndHub}}</th>
-                        <th width="15%">Service Point</th>
-                        <th width="15%">District</th>
-                        <th width="15%">Taluk/Sub-District</th>
-                        <th width="15%">Village</th>
-                        <th width="10%">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngIf="servicePointVillageMapList.length == 0">
-                        <td colspan="7" class="record-not-found">No records found</td>
-                    </tr>
-                    <tr *ngFor="let servicePointVillageMap of md2.data; let i=index">
-                        <td>{{servicePointVillageMapList.indexOf(servicePointVillageMap)+1}}</td>
-                    
-                        <td>{{servicePointVillageMap.parkingPlaceName}}</td>
-                        <td>{{servicePointVillageMap.servicePointName}}</td>
-                        <td>{{servicePointVillageMap.districtName}}</td>
-                        <td>{{servicePointVillageMap.districtBlockName}}</td>
-                        <td>{{servicePointVillageMap.villageName}}</td>
-                        <td>
-                            <mat-icon class="cursorPointer" mdTooltip="delete" (click)=" remove_obj(servicePointVillageMapList.indexOf(servicePointVillageMap))">delete</mat-icon>
-                        </td>
-                    </tr>
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <td colspan="7">
-                            <md2-pagination></md2-pagination>
-                        </td>
-                    </tr>
-                </tfoot>
-            </table> -->
+                  <thead>
+                      <tr>
+                          <th width="10%">S.No.</th>
+                          
+                          <th width="15%">{{parkAndHub}}</th>
+                          <th width="15%">Service Point</th>
+                          <th width="15%">District</th>
+                          <th width="15%">Taluk/Sub-District</th>
+                          <th width="15%">Village</th>
+                          <th width="10%">Action</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr *ngIf="servicePointVillageMapList.length == 0">
+                          <td colspan="7" class="record-not-found">No records found</td>
+                      </tr>
+                      <tr *ngFor="let servicePointVillageMap of md2.data; let i=index">
+                          <td>{{servicePointVillageMapList.indexOf(servicePointVillageMap)+1}}</td>
+                      
+                          <td>{{servicePointVillageMap.parkingPlaceName}}</td>
+                          <td>{{servicePointVillageMap.servicePointName}}</td>
+                          <td>{{servicePointVillageMap.districtName}}</td>
+                          <td>{{servicePointVillageMap.districtBlockName}}</td>
+                          <td>{{servicePointVillageMap.villageName}}</td>
+                          <td>
+                              <mat-icon class="cursorPointer" mdTooltip="delete" (click)=" remove_obj(servicePointVillageMapList.indexOf(servicePointVillageMap))">delete</mat-icon>
+                          </td>
+                      </tr>
+                  </tbody>
+                  <tfoot>
+                      <tr>
+                          <td colspan="7">
+                              <md2-pagination></md2-pagination>
+                          </td>
+                      </tr>
+                  </tfoot>
+              </table> -->
       <mat-table
         [dataSource]="servicePointVillageMapList"
         class="mat-elevation-z8"
@@ -689,7 +689,7 @@
   <form #updateServicePointVillageMapForm="ngForm" autocomplete="off">
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
       <!-- <mat-form-field class="hide_underline" [style.width]="'100%'">
-                <input matInput style="display:none"> -->
+                  <input matInput style="display:none"> -->
       <mat-select
         required
         name="Services"
@@ -707,7 +707,7 @@
     </div>
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
       <!-- <mat-form-field class="hide_underline" [style.width]="'100%'">
-                <input matInput style="display:none"> -->
+                  <input matInput style="display:none"> -->
       <mat-select
         required
         placeholder="State"
@@ -767,7 +767,7 @@
     </div>
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
       <!-- <mat-form-field class="hide_underline width100">
-                <input matInput style="display:none"> -->
+                  <input matInput style="display:none"> -->
       <mat-select
         required
         placeholder="Service Point"
@@ -803,7 +803,7 @@
     </div>
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
       <!-- <mat-form-field class="hide_underline width100">
-                  <input matInput style="display:none"> -->
+                    <input matInput style="display:none"> -->
       <mat-select
         placeholder="Taluk/Sub District"
         [disabled]="true"
@@ -822,7 +822,7 @@
     <form #servicePointVillage1="ngForm" autocomplete="off">
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
         <!-- <mat-form-field class="hide_underline width100">
-                    <input matInput style="display:none"> -->
+                      <input matInput style="display:none"> -->
         <mat-select
           required
           placeholder="Village"

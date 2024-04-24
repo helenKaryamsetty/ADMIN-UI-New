@@ -6,7 +6,6 @@
       <mat-form-field>
         <mat-label>Serviceline</mat-label>
         <mat-select
-          placeholder="Serviceline"
           [style.width]="'100%'"
           [(ngModel)]="service"
           name="service"
@@ -28,7 +27,6 @@
       <mat-form-field>
         <mat-label>State</mat-label>
         <mat-select
-          placeholder="State"
           [style.width]="'100%'"
           [disabled]="showAdd"
           [(ngModel)]="state"
@@ -49,8 +47,8 @@
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15" *ngIf="showtype">
       <mat-form-field>
         <input matInput appquestionnaireValidator style="display: none" />
+        <mat-label>Question Type</mat-label>
         <mat-select
-          placeholder="Question Type"
           name="questionType"
           [disabled]="showAdd"
           [style.width]="'100%'"
@@ -104,8 +102,12 @@
   <!--Questionnaire List-->
   <div class="row">
     <div class="col-xs-12 col-sm-12 m-t-15" *ngIf="!showAdd && !disabledFlag">
-      <div class="table-responsive">
-        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <div class="">
+        <table
+          mat-table
+          [dataSource]="dataSource"
+          class="table table-striped table-hover"
+        >
           <ng-container matColumnDef="sno">
             <th mat-header-cell *matHeaderCellDef>S.No.</th>
             <td mat-cell *matCellDef="let element">
@@ -286,7 +288,6 @@
                         matInput
                         appinputFieldValidator
                         required
-                        placeholder="Option"
                         formControlName="option"
                         maxlength="100"
                       />

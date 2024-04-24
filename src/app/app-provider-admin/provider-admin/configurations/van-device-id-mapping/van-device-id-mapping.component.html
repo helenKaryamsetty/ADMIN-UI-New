@@ -11,101 +11,113 @@
 
   <form #searchFields="ngForm" autocomplete="off">
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-      <mat-select
-        placeholder="Serviceline"
-        [disabled]="disableSelection"
-        [style.width]="'100%'"
-        [(ngModel)]="service"
-        name="service"
-        required
-        (selectionChange)="getStates(service.serviceID, service.isNational)"
-      >
-        <mat-option *ngFor="let item of services" [value]="item">
-          {{ item.serviceName }}
-        </mat-option>
-      </mat-select>
+      <mat-form-field>
+        <mat-label>Serviceline</mat-label>
+        <mat-select
+          [disabled]="disableSelection"
+          [style.width]="'100%'"
+          [(ngModel)]="service"
+          name="service"
+          required
+          (selectionChange)="getStates(service.serviceID, service.isNational)"
+        >
+          <mat-option *ngFor="let item of services" [value]="item">
+            {{ item.serviceName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-      <mat-select
-        placeholder="State"
-        [disabled]="disableSelection"
-        [style.width]="'100%'"
-        [(ngModel)]="state"
-        name="state"
-        required
-        (selectionChange)="setProviderServiceMapID(state.providerServiceMapID)"
-      >
-        <mat-option *ngFor="let item of states" [value]="item">
-          {{ item.stateName }}
-        </mat-option>
-      </mat-select>
+      <mat-form-field>
+        <mat-label>State</mat-label>
+        <mat-select
+          [disabled]="disableSelection"
+          [style.width]="'100%'"
+          [(ngModel)]="state"
+          name="state"
+          required
+          (selectionChange)="
+            setProviderServiceMapID(state.providerServiceMapID)
+          "
+        >
+          <mat-option *ngFor="let item of states" [value]="item">
+            {{ item.stateName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
 
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-      <mat-select
-        required
-        placeholder="Zone"
-        class="width100"
-        [(ngModel)]="zoneID"
-        name="zoneID"
-        [disabled]="disableSelection"
-        #zoneG="ngModel"
-        (selectionChange)="
-          getParkingPlaces(zoneID.zoneID, state.providerServiceMapID)
-        "
-      >
-        <mat-option *ngFor="let zone of zones" [value]="zone">
-          {{ zone.zoneName }}
-        </mat-option>
-      </mat-select>
+      <mat-form-field>
+        <mat-label>Zone</mat-label>
+        <mat-select
+          required
+          class="width100"
+          [(ngModel)]="zoneID"
+          name="zoneID"
+          [disabled]="disableSelection"
+          #zoneG="ngModel"
+          (selectionChange)="
+            getParkingPlaces(zoneID.zoneID, state.providerServiceMapID)
+          "
+        >
+          <mat-option *ngFor="let zone of zones" [value]="zone">
+            {{ zone.zoneName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
 
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-      <mat-select
-        placeholder="Hub"
-        class="width100"
-        [(ngModel)]="parkingPlace"
-        name="parkingPlace"
-        (selectionChange)="getSpokeTypes()"
-        [disabled]="disableSelection"
-        required
-      >
-        <mat-option
-          *ngFor="let parkingplace of parkingPlaces"
-          [value]="parkingplace"
+      <mat-form-field>
+        <mat-label>Hub</mat-label>
+        <mat-select
+          class="width100"
+          [(ngModel)]="parkingPlace"
+          name="parkingPlace"
+          (selectionChange)="getSpokeTypes()"
+          [disabled]="disableSelection"
+          required
         >
-          {{ parkingplace.parkingPlaceName }}
-        </mat-option>
-      </mat-select>
+          <mat-option
+            *ngFor="let parkingplace of parkingPlaces"
+            [value]="parkingplace"
+          >
+            {{ parkingplace.parkingPlaceName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-      <mat-select
-        required
-        placeholder="Spoke Type"
-        class="width100"
-        [(ngModel)]="spokeTypeID"
-        name="spokeTypeID"
-        #spokeTypes="ngModel"
-        [disabled]="disableSelection"
-        (selectionChange)="
-          getSpokeIdAndDeviceId(
-            state.providerServiceMapID,
-            parkingPlace.parkingPlaceID,
-            spokeTypeID.vanTypeID
-          );
-          getSpokeDeviceIdMappings(
-            parkingPlace.parkingPlaceID,
-            spokeTypeID.vanTypeID
-          )
-        "
-      >
-        <mat-option
-          *ngFor="let spoketype of filteredSpokeTypes"
-          [value]="spoketype"
+      <mat-form-field>
+        <mat-label>Spoke Type</mat-label>
+        <mat-select
+          required
+          class="width100"
+          [(ngModel)]="spokeTypeID"
+          name="spokeTypeID"
+          #spokeTypes="ngModel"
+          [disabled]="disableSelection"
+          (selectionChange)="
+            getSpokeIdAndDeviceId(
+              state.providerServiceMapID,
+              parkingPlace.parkingPlaceID,
+              spokeTypeID.vanTypeID
+            );
+            getSpokeDeviceIdMappings(
+              parkingPlace.parkingPlaceID,
+              spokeTypeID.vanTypeID
+            )
+          "
         >
-          {{ spoketype.vanType }}
-        </mat-option>
-      </mat-select>
+          <mat-option
+            *ngFor="let spoketype of filteredSpokeTypes"
+            [value]="spoketype"
+          >
+            {{ spoketype.vanType }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
   </form>
 </div>
@@ -255,20 +267,26 @@
 <div class="row" *ngIf="showFormFlag || editFormFlag">
   <form #spokeDeviceIdMappingForm="ngForm" autocomplete="off">
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
-      <mat-select
-        required
-        class="width100"
-        [disabled]="editFormFlag"
-        placeholder="Spoke"
-        (change)="addSpokeName(spokeID)"
-        [(ngModel)]="spokeID"
-        name="spokeID"
-        #spokeVal="ngModel"
-      >
-        <mat-option *ngFor="let spoke of availableSpokes" [value]="spoke.vanID">
-          {{ spoke.vanName }}
-        </mat-option>
-      </mat-select>
+      <mat-form-field>
+        <mat-label>Spoke</mat-label>
+        <mat-select
+          required
+          class="width100"
+          [disabled]="editFormFlag"
+          (change)="addSpokeName(spokeID)"
+          [(ngModel)]="spokeID"
+          name="spokeID"
+          #spokeVal="ngModel"
+        >
+          <mat-option
+            *ngFor="let spoke of availableSpokes"
+            [value]="spoke.vanID"
+          >
+            {{ spoke.vanName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
       <mat-hint>
         <span
           class="error_text"
@@ -279,21 +297,24 @@
     </div>
 
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
-      <mat-select
-        required
-        class="width100"
-        placeholder="Device ID"
-        [(ngModel)]="deviceID"
-        name="deviceID"
-        #deviceId="ngModel"
-      >
-        <mat-option
-          *ngFor="let device of deviceIdArray"
-          [value]="device.deviceID"
+      <mat-form-field>
+        <mat-label>Device ID</mat-label>
+        <mat-select
+          required
+          class="width100"
+          [(ngModel)]="deviceID"
+          name="deviceID"
+          #deviceId="ngModel"
         >
-          {{ device.deviceID }}
-        </mat-option>
-      </mat-select>
+          <mat-option
+            *ngFor="let device of deviceIdArray"
+            [value]="device.deviceID"
+          >
+            {{ device.deviceID }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
       <mat-hint>
         <span
           class="error_text"

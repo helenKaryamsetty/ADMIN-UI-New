@@ -30,10 +30,10 @@
             {{ i + 1 }}
           </td>
         </ng-container>
-        <ng-container matColumnDef="UserID">
+        <!-- <ng-container matColumnDef="UserID">
           <th mat-header-cell *matHeaderCellDef>User ID</th>
           <td mat-cell *matCellDef="let element">{{ element.userID }}</td>
-        </ng-container>
+        </ng-container> -->
         <ng-container matColumnDef="Title">
           <th mat-header-cell *matHeaderCellDef>Title</th>
           <td mat-cell *matCellDef="let element">{{ element.titleName }}</td>
@@ -70,7 +70,7 @@
             <button
               mat-icon-button
               matTooltip="Click to Edit"
-              class="iconbutton mat_blue"
+              class="iconbutton"
               color="primary"
               (click)="editUserDetails(element)"
               *ngIf="!element.deleted"
@@ -145,7 +145,7 @@
             <!-- <md-input-container class="hide_underline width100">
                             <input mdInput style="display:none"> -->
             <mat-select
-              placeholder="Title"
+              placeholder="Title*"
               class="width100"
               [(ngModel)]="titleID"
               name="title_Id"
@@ -160,9 +160,11 @@
           </div>
           <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
             <mat-form-field class="width100" appmyNameWithCopyPaste>
+              <mat-label>First Name</mat-label>
               <input
+                type="text"
                 matInput
-                placeholder="First Name"
+                placeholder="First Name *"
                 [(ngModel)]="firstname"
                 name="user_firstname"
                 minlength="1"
@@ -172,7 +174,7 @@
               />
               <mat-hint *ngIf="fname.touched">
                 <span class="errorText" [hidden]="!fname.errors"
-                  >Enter minimum 1 characters</span
+                  >Enter characters only</span
                 >
               </mat-hint>
             </mat-form-field>
@@ -180,9 +182,10 @@
           <div class="clearfix visible-sm"></div>
           <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
             <mat-form-field class="width100" appmyNameWithCopyPaste>
+              <mat-label>Middle Name</mat-label>
               <input
+                type="text"
                 matInput
-                placeholder="Middle Name"
                 [(ngModel)]="middlename"
                 name="user_middlename"
                 minlength="1"
@@ -191,7 +194,7 @@
               />
               <mat-hint *ngIf="mName.touched">
                 <span class="errorText" [hidden]="!mName.errors"
-                  >Enter minimum 1 characters</span
+                  >Enter characters only</span
                 >
               </mat-hint>
             </mat-form-field>
@@ -199,9 +202,11 @@
           <div class="clearfix visible-md"></div>
           <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
             <mat-form-field class="width100" appmyNameWithCopyPaste>
+              <mat-label>Last Name</mat-label>
               <input
+                type="text"
                 matInput
-                placeholder="Last Name"
+                placeholder="Last Name *"
                 [(ngModel)]="lastname"
                 name="user_lastname"
                 minlength="1"
@@ -211,7 +216,7 @@
               />
               <mat-hint>
                 <span class="errorText" *ngIf="lname.errors && lname.touched"
-                  >Enter minimum 1 characters</span
+                  >Enter characters only</span
                 >
               </mat-hint>
             </mat-form-field>
@@ -221,7 +226,7 @@
             <!-- <md-input-container class="hide_underline width100">
                             <input mdInput style="display:none"> -->
             <mat-select
-              placeholder="Gender"
+              placeholder="Gender *"
               class="width100"
               [(ngModel)]="genderID"
               name="gender_Id"
@@ -235,9 +240,10 @@
           </div>
           <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
             <mat-form-field class="width100" appmyMobileNumberWithCopyPaste>
+              <mat-label>Contact No.</mat-label>
               <input
                 matInput
-                placeholder="Contact No."
+                placeholder="Contact No.*"
                 [(ngModel)]="contactNo"
                 name="primaryMobileNo"
                 minlength="10"
@@ -258,7 +264,7 @@
             <!-- <md-input-container class="hide_underline width100">
                             <input mdInput style="display:none"> -->
             <mat-select
-              placeholder="Designation"
+              placeholder="Designation *"
               class="width100"
               [(ngModel)]="designationID"
               name="designation"
@@ -270,7 +276,14 @@
                 [value]="item.designationID"
                 >{{ item.designationName }}</mat-option
               >
+              <mat-option
+                *ngFor="let item of designations"
+                [value]="item.designationID"
+                >{{ item.designationName }}</mat-option
+              >
             </mat-select>
+            <!-- </mat-form-field> -->
+
             <!-- </md-input-container> -->
           </div>
           <div
@@ -278,9 +291,9 @@
             *ngIf="enablehealthProfessionalID"
           >
             <mat-form-field class="width100">
+              <mat-label>Health Professional ID</mat-label>
               <input
                 matInput
-                placeholder="Health Professional ID"
                 [(ngModel)]="healthProfessionalID"
                 name="healthProfessionalID"
                 [pattern]="healthIDPattern"
@@ -307,9 +320,11 @@
           </div>
           <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
             <mat-form-field class="width100" appmyMobileNumberWithCopyPaste>
+              <mat-label>Emergency Contact No.</mat-label>
               <input
+                type="number"
                 matInput
-                placeholder="Emergency Contact No."
+                placeholder="Emergency Contact No.*"
                 [(ngModel)]="emergency_contactNo"
                 name="emergencyContactNo"
                 minlength="10"
@@ -334,9 +349,8 @@
                             required></mat-datepicker> 
                         <mat-hint class="errorText" *ngIf="dOB.errors && dOB.touched">DOB is required</mat-hint> -->
           </div>
-          <!-- <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
-
-            <mat-form-field
+          <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
+            <!-- <mat-form-field
                class="input-full-width mat_form_field_background_color"
              >
                <mat-label>Date of Birth</mat-label>
@@ -349,12 +363,46 @@
      
                <mat-datepicker #dob></mat-datepicker>
      
-             </mat-form-field>
-     
-           </div> -->
+             </mat-form-field> -->
+            <mat-form-field class="width100">
+              <mat-label>Date of Birth *</mat-label>
+              <input
+                matInput
+                [matDatepicker]="picker"
+                placeholder="Choose a date"
+                [(ngModel)]="dob"
+                name="user_dob"
+                (keydown)="preventTyping($event)"
+                required
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker"
+              ></mat-datepicker-toggle>
+              <mat-datepicker
+                #picker
+                (dateChange)="calculateAge($event)"
+              ></mat-datepicker>
+              <!-- <mat-hint class="errorText" *ngIf="dob.errors && dob.touched"
+                >DOB is required</mat-hint
+              > -->
+            </mat-form-field>
+          </div>
           <div class="clearfix visible-md"></div>
           <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
-            <mat-form-field class="width100">
+            <!-- <mat-form-field class="width100">
+              <input
+                matInput
+                [(ngModel)]="age"
+                name="user_age"
+                minlength="1"
+                maxlength="2"
+                [disabled]="disabled"
+              />
+              <md-hint class="errorText" *ngIf="userAge.touched && userAge.errors">Age is required</md-hint>
+            </mat-form-field> -->
+            <mat-form-field>
+              <mat-label>Age</mat-label>
               <input
                 matInput
                 placeholder="Age"
@@ -363,15 +411,22 @@
                 minlength="1"
                 maxlength="2"
                 [disabled]="disabled"
+                #userAge="ngModel"
               />
-              <!-- <md-hint class="errorText" *ngIf="userAge.touched && userAge.errors">Age is required</md-hint> -->
+              <!-- Validation message -->
+              <mat-error
+                *ngIf="userAge.invalid && (userAge.dirty || userAge.touched)"
+              >
+                Age is required
+              </mat-error>
             </mat-form-field>
           </div>
           <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
             <mat-form-field class="width100">
+              <mat-label>Email</mat-label>
               <input
                 matInput
-                placeholder="Email"
+                placeholder="Email *"
                 [(ngModel)]="emailID"
                 name="primaryEmail"
                 #validEmail="ngModel"
@@ -395,26 +450,30 @@
           <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
             <!-- <md-input-container class="hide_underline width100">
                             <input mdInput style="display:none"> -->
-            <mat-select
-              placeholder="Marital Status"
-              class="width100"
-              [(ngModel)]="maritalStatusID"
-              name="marital_status"
-            >
-              <mat-option
-                *ngFor="let item of maritalStatuses.m_maritalStatuses"
-                [value]="item.maritalStatusID"
-                >{{ item.status }}</mat-option
+            <mat-form-field>
+              <mat-label>Marital Status</mat-label>
+              <mat-select
+                class="width100"
+                [(ngModel)]="maritalStatusID"
+                name="marital_status"
               >
-            </mat-select>
+                <mat-option
+                  *ngFor="let item of maritalStatuses.m_maritalStatuses"
+                  [value]="item.maritalStatusID"
+                  >{{ item.status }}</mat-option
+                >
+              </mat-select>
+            </mat-form-field>
+
             <!-- </md-input-container> -->
           </div>
           <div class="clearfix" *ngIf="!enablehealthProfessionalID"></div>
           <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
             <mat-form-field class="width100" appmyMobileNumberWithCopyPaste>
+              <mat-label>Aadhar No.</mat-label>
               <input
+                type="number"
                 matInput
-                placeholder="Aadhar No."
                 ngModel
                 name="aadhar_number"
                 [(ngModel)]="aadharNumber"
@@ -437,8 +496,10 @@
           </div>
           <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
             <mat-form-field class="width100" appPanWithCopyPaste>
+              <mat-label>PAN Card No.</mat-label>
               <input
                 matInput
+                (keypress)="omit_special_char($event)"
                 placeholder="PAN Card No."
                 ngModel
                 name="pan_number"
@@ -462,7 +523,7 @@
             <!-- <md-input-container class="hide_underline width100">
                             <input mdInput style="display:none"> -->
             <mat-select
-              placeholder="Qualification"
+              placeholder="Qualification *"
               class="width100"
               [(ngModel)]="qualificationID"
               name="edu_qualification"
@@ -473,7 +534,14 @@
                 [value]="item.qualificationID"
                 >{{ item.name }}</mat-option
               >
+              <mat-option
+                *ngFor="let item of eduQualifications"
+                [value]="item.qualificationID"
+                >{{ item.name }}</mat-option
+              >
             </mat-select>
+            <!-- </mat-form-field> -->
+
             <!-- </md-input-container> -->
           </div>
           <div
@@ -493,7 +561,7 @@
             <mat-radio-group
               [(ngModel)]="userType"
               name="userType"
-              (selectionChange)="changeUserType(userType)"
+              (change)="changeUserType(userType)"
             >
               <mat-radio-button
                 color="primary"
@@ -514,9 +582,10 @@
             *ngIf="!editMode"
           >
             <mat-form-field class="width100" appPanWithCopyPaste>
+              <mat-label>User Name</mat-label>
               <input
                 matInput
-                placeholder="User Name"
+                placeholder="User Name *"
                 ngModel
                 name="user_name"
                 [(ngModel)]="username"
@@ -544,6 +613,29 @@
             class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15"
             *ngIf="!manipulateEMpIDAndDOJ"
           >
+            <mat-form-field class="width100">
+              <mat-label>Date of Joining</mat-label>
+              <input
+                matInput
+                placeholder="Date of Joining *"
+                [matDatepicker]="dojPicker"
+                name="user_doj"
+                [min]="minDate_doj"
+                [max]="today"
+                [(ngModel)]="doj"
+                (keydown)="preventTyping($event)"
+                required
+                #userDoj="ngModel"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="dojPicker"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #dojPicker></mat-datepicker>
+            </mat-form-field>
+            <mat-error *ngIf="userDoj.errors && userDoj.touched">
+              <span class="error_text">DOJ is required</span>
+            </mat-error>
             <!-- <mat-datepicker class="width100" name="doj" placeholder="Date of Joining " [(ngModel)]="doj" [min]='minDate_doj' [max]="today"
                             required="true" (keydown)="preventTyping($event)" #userDoj="ngModel"></mat-datepicker> 
                         <mat-hint *ngIf="userDoj.errors && userDoj.touched">
@@ -556,9 +648,10 @@
             *ngIf="!editMode && !manipulateEMpIDAndDOJ"
           >
             <mat-form-field class="width100" appPanWithCopyPaste>
+              <mat-label>Employee ID</mat-label>
               <input
                 matInput
-                placeholder="Employee ID"
+                placeholder="Employee ID *"
                 ngModel
                 [(ngModel)]="employee_ID"
                 name="employeeID"
@@ -585,10 +678,10 @@
             *ngIf="!editMode"
           >
             <mat-form-field class="width100">
+              <mat-label>Password</mat-label>
               <input
                 type="{{ dynamictype }}"
                 matInput
-                placeholder="Password"
                 ngModel
                 [(ngModel)]="user_password"
                 name="password"
@@ -641,9 +734,9 @@
         <form #demographicsDetailsForm="ngForm" autocomplete="off">
           <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
             <mat-form-field class="width100" appmyProviderNameWithCopyPaste>
+              <mat-label>Father's Name</mat-label>
               <input
                 matInput
-                placeholder="Father's Name"
                 [(ngModel)]="fatherName"
                 name="father_name"
                 minlength="2"
@@ -659,9 +752,9 @@
           </div>
           <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
             <mat-form-field class="width100" appmyProviderNameWithCopyPaste>
+              <mat-label>Mother's Name</mat-label>
               <input
                 matInput
-                placeholder="Mother's Name"
                 [(ngModel)]="motherName"
                 name="mother_name"
                 minlength="2"
@@ -678,36 +771,42 @@
           <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
             <!-- <md-input-container class="hide_underline width100">
                             <input mdInput style="display:none"> -->
-            <mat-select
-              placeholder="Community"
-              [style.width]="'100%'"
-              [(ngModel)]="community"
-              name="community_id"
-            >
-              <mat-option
-                *ngFor="let item of communities"
-                [value]="item.communityID"
+            <mat-form-field>
+              <mat-label>Community</mat-label>
+              <mat-select
+                [style.width]="'100%'"
+                [(ngModel)]="community"
+                name="community_id"
               >
-                {{ item.communityType }}
-              </mat-option>
-            </mat-select>
+                <mat-option
+                  *ngFor="let item of communities"
+                  [value]="item.communityID"
+                >
+                  {{ item.communityType }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
             <!-- </md-input-container> -->
           </div>
           <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
             <!-- <md-input-container class="hide_underline width100">
                             <input mdInput style="display:none"> -->
-            <mat-select
-              placeholder="Religion"
-              class="width100"
-              [(ngModel)]="religion"
-              name="religion_id"
-            >
-              <mat-option
-                *ngFor="let item of religions"
-                [value]="item.religionID"
-                >{{ item.religionType }}</mat-option
+            <mat-form-field>
+              <mat-label>Religion</mat-label>
+              <mat-select
+                class="width100"
+                [(ngModel)]="religion"
+                name="religion_id"
               >
-            </mat-select>
+                <mat-option
+                  *ngFor="let item of religions"
+                  [value]="item.religionID"
+                  >{{ item.religionType }}</mat-option
+                >
+              </mat-select>
+            </mat-form-field>
+
             <!-- </md-input-container> -->
           </div>
         </form>
@@ -729,10 +828,10 @@
               <div class="clearfix"></div>
               <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 m-t-20">
                 <mat-form-field class="width100">
+                  <mat-label>Address Line 1</mat-label>
                   <input
                     matInput
                     appmyAddressWithCopyPaste
-                    placeholder="Address Line 1"
                     [(ngModel)]="currentAddressLine1"
                     name="current_addressLine1"
                     maxlength="50"
@@ -747,10 +846,10 @@
               </div>
               <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 m-t-20">
                 <mat-form-field class="width100">
+                  <mat-label>Address Line 2</mat-label>
                   <input
                     matInput
                     appmyAddressWithCopyPaste
-                    placeholder="Address Line 2"
                     [(ngModel)]="currentAddressLine2"
                     name="current_addressLine2"
                     maxlength="50"
@@ -766,47 +865,53 @@
               <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 m-t-10">
                 <!-- <md-input-container class="hide_underline width100">
                                     <input mdInput style="display:none"> -->
-                <mat-select
-                  placeholder="State"
-                  class="width100"
-                  [(ngModel)]="currentState"
-                  (selectionChange)="getCurrentDistricts(currentState)"
-                  name="current_state"
-                  required
-                >
-                  <mat-option
-                    *ngFor="let item of states"
-                    [value]="item.stateID"
+                <mat-form-field>
+                  <mat-label>State</mat-label>
+                  <mat-select
+                    class="width100"
+                    [(ngModel)]="currentState"
+                    (selectionChange)="getCurrentDistricts(currentState)"
+                    name="current_state"
+                    required
                   >
-                    {{ item.stateName }}
-                  </mat-option>
-                </mat-select>
+                    <mat-option
+                      *ngFor="let item of states"
+                      [value]="item.stateID"
+                    >
+                      {{ item.stateName }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+
                 <!-- </md-input-container> -->
               </div>
               <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 m-t-10">
                 <!-- <md-input-container class="hide_underline width100">
                                     <input mdInput style="display:none"> -->
-                <mat-select
-                  placeholder="District"
-                  class="width100"
-                  [(ngModel)]="currentDistrict"
-                  name="current_district"
-                  (selectionChange)="resetcheckBox()"
-                  required
-                >
-                  <mat-option
-                    *ngFor="let item of currentDistricts"
-                    [value]="item.districtID"
-                    >{{ item.districtName }}</mat-option
+                <mat-form-field>
+                  <mat-label>District</mat-label>
+                  <mat-select
+                    class="width100"
+                    [(ngModel)]="currentDistrict"
+                    name="current_district"
+                    (selectionChange)="resetcheckBox()"
+                    required
                   >
-                </mat-select>
+                    <mat-option
+                      *ngFor="let item of currentDistricts"
+                      [value]="item.districtID"
+                      >{{ item.districtName }}</mat-option
+                    >
+                  </mat-select>
+                </mat-form-field>
+
                 <!-- </md-input-container> -->
               </div>
               <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 m-t-20">
                 <mat-form-field class="width100" appmyMobileNumberWithCopyPaste>
+                  <mat-label>Pincode</mat-label>
                   <input
                     matInput
-                    placeholder="Pincode"
                     [(ngModel)]="currentPincode"
                     name="current_pincode"
                     minlength="6"
@@ -834,7 +939,7 @@
                     [checked]="checkAddress"
                     name="check_address"
                     [disabled]="!addressCtrl.valid"
-                    (selectionChange)="addressCheck($event)"
+                    (change)="addressCheck($event)"
                     #myCheckBox
                     >Same as current address</mat-checkbox
                   >)
@@ -847,10 +952,10 @@
               <div class="clearfix"></div>
               <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 m-t-20">
                 <mat-form-field class="width100">
+                  <mat-label>Address Line 1</mat-label>
                   <input
                     matInput
                     appmyAddressWithCopyPaste
-                    placeholder="Address Line 1"
                     [(ngModel)]="permanentAddressLine1"
                     name="permanent_addressLine1"
                     maxlength="50"
@@ -865,10 +970,10 @@
               </div>
               <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 m-t-20">
                 <mat-form-field class="width100">
+                  <mat-label>Address Line 2</mat-label>
                   <input
                     matInput
                     appmyAddressWithCopyPaste
-                    placeholder="Address Line 2"
                     [(ngModel)]="permanentAddressLine2"
                     name="permanent_addressLine2"
                     maxlength="50"
@@ -884,46 +989,52 @@
               <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 m-t-10">
                 <!-- <md-input-container class="hide_underline width100">
                                     <input mdInput style="display:none"> -->
-                <mat-select
-                  placeholder="State"
-                  class="width100"
-                  [(ngModel)]="permanentState"
-                  (selectionChange)="getPermanentDistricts(permanentState)"
-                  name="permanent_state"
-                  required
-                >
-                  <mat-option
-                    *ngFor="let item of states"
-                    [value]="item.stateID"
+                <mat-form-field>
+                  <mat-label>State</mat-label>
+                  <mat-select
+                    class="width100"
+                    [(ngModel)]="permanentState"
+                    (selectionChange)="getPermanentDistricts(permanentState)"
+                    name="permanent_state"
+                    required
                   >
-                    {{ item.stateName }}
-                  </mat-option>
-                </mat-select>
+                    <mat-option
+                      *ngFor="let item of states"
+                      [value]="item.stateID"
+                    >
+                      {{ item.stateName }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+
                 <!-- </md-input-container> -->
               </div>
               <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 m-t-10">
                 <!-- <md-input-container class="hide_underline width100">
                                     <input mdInput style="display:none"> -->
-                <mat-select
-                  placeholder="District"
-                  class="width100"
-                  [(ngModel)]="permanentDistrict"
-                  name="permanent_district"
-                  required
-                >
-                  <mat-option
-                    *ngFor="let item of permanentDistricts"
-                    [value]="item.districtID"
-                    >{{ item.districtName }}</mat-option
+                <mat-form-field>
+                  <mat-label>District</mat-label>
+                  <mat-select
+                    class="width100"
+                    [(ngModel)]="permanentDistrict"
+                    name="permanent_district"
+                    required
                   >
-                </mat-select>
+                    <mat-option
+                      *ngFor="let item of permanentDistricts"
+                      [value]="item.districtID"
+                      >{{ item.districtName }}</mat-option
+                    >
+                  </mat-select>
+                </mat-form-field>
+
                 <!-- </md-input-container> -->
               </div>
               <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 m-t-20">
                 <mat-form-field class="width100" appmyMobileNumberWithCopyPaste>
+                  <mat-label>Pincode</mat-label>
                   <input
                     matInput
-                    placeholder="Pincode"
                     [(ngModel)]="permanentPincode"
                     name="permanent_pincode"
                     minlength="6"

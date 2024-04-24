@@ -4,30 +4,34 @@
   </div>
   <form [formGroup]="signUploadForm" autocomplete="off">
     <div class="col-xs-12 col-md-4 col-sm-6 col-lg-3">
-      <mat-select
-        placeholder="Designation"
-        name="designation"
-        formControlName="designation"
-        class="width100"
-        (selectionChange)="getUserNames()"
-      >
-        <mat-option *ngFor="let item of designations" [value]="item">
-          {{ item.designationName }}
-        </mat-option>
-      </mat-select>
+      <mat-form-field>
+        <mat-label>Designation</mat-label>
+        <mat-select
+          name="designation"
+          formControlName="designation"
+          class="width100"
+          (selectionChange)="getUserNames()"
+        >
+          <mat-option *ngFor="let item of designations" [value]="item">
+            {{ item.designationName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-      <mat-select
-        placeholder="UserName"
-        name="username"
-        formControlName="username"
-        class="width100"
-        (selectionChange)="checkUsersignExist()"
-      >
-        <mat-option *ngFor="let item of userNames" [value]="item">
-          {{ item.userName }}
-        </mat-option>
-      </mat-select>
+      <mat-form-field>
+        <mat-label>UserName</mat-label>
+        <mat-select
+          name="username"
+          formControlName="username"
+          class="width100"
+          (selectionChange)="checkUsersignExist()"
+        >
+          <mat-option *ngFor="let item of userNames" [value]="item">
+            {{ item.userName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
       <button
