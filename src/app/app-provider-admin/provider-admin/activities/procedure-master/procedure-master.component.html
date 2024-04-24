@@ -44,7 +44,7 @@
                 id="procedure-name"
                 required
                 matInput
-                usernameWithSpaceValidator
+                appusernameWithSpaceValidator
                 placeholder="Procedure Name"
                 [style.width]="'100%'"
                 formControlName="name"
@@ -117,7 +117,7 @@
           <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
             <mat-form-field
               class="input-full-width mat_form_field_width_one"
-              myProviderName
+              appmyProviderName
             >
               <textarea
                 matInput
@@ -137,7 +137,10 @@
           </div>
           <div
             class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-35"
-            *ngIf="procedureForm.controls['iotProcedureID'].value !== null"
+            *ngIf="
+              procedureForm.controls['iotProcedureID'].value !== null &&
+              procedureForm.controls['iotProcedureID'].value !== undefined
+            "
           >
             <mat-checkbox formControlName="isCalibration" id="isCalibration"
               >Mandatory Calibration</mat-checkbox

@@ -297,7 +297,7 @@
             matInput
             required
             placeholder="Manufacturer Code"
-            PAN
+            appPAN
             [(ngModel)]="create_manufactureCode"
             (blur)="checkExistance(create_manufactureCode)"
             minlength="1"
@@ -328,7 +328,7 @@
             matInput
             required
             placeholder="Manufacturer Name"
-            myProviderName
+            appmyProviderName
             [(ngModel)]="create_manufactureName"
             maxlength="100"
             name="manufactureName"
@@ -351,7 +351,7 @@
           <input
             matInput
             placeholder="Manufacturer Description"
-            VehicleNO
+            appVehicleNO
             [(ngModel)]="create_manufactureDesc"
             maxlength="100"
             name="manufactureDesc"
@@ -364,7 +364,7 @@
           <input
             matInput
             placeholder="Contact Person"
-            myProviderName
+            appmyProviderName
             [(ngModel)]="create_contactPerson"
             maxlength="20"
             name="contactPerson"
@@ -381,7 +381,7 @@
           <input
             matInput
             placeholder="GST No."
-            PAN
+            appPAN
             [(ngModel)]="create_cstNo"
             minlength="15"
             maxlength="15"
@@ -497,7 +497,7 @@
       </div>
       <br />
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
-        <mat-form-field class="width100" myMobileNumber>
+        <mat-form-field class="width100" appmyMobileNumber>
           <input
             matInput
             placeholder="Pincode"
@@ -754,7 +754,7 @@
             matInput
             required
             placeholder="Manufacturer Code"
-            PAN
+            appPAN
             [(ngModel)]="edit_manufactureCode"
             [disabled]="true"
             maxlength="100"
@@ -772,7 +772,7 @@
             matInput
             required
             placeholder="Manufacturer Name"
-            PAN
+            appPAN
             [(ngModel)]="edit_manufactureName"
             [disabled]="true"
             maxlength="100"
@@ -789,7 +789,7 @@
           <input
             matInput
             placeholder="Manufacturer Description"
-            VehicleNO
+            appVehicleNO
             [(ngModel)]="edit_manufactureDesc"
             maxlength="100"
             name="manufactureDesc"
@@ -817,7 +817,7 @@
           <input
             matInput
             placeholder="GST No."
-            PAN
+            appPAN
             [(ngModel)]="edit_cstNo"
             maxlength="15"
             minlength="15"
@@ -929,7 +929,7 @@
         </mat-form-field>
       </div>
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <mat-form-field class="width100" myMobileNumber>
+        <mat-form-field class="width100" appmyMobileNumber>
           <input
             matInput
             placeholder="Pincode"

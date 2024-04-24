@@ -263,7 +263,7 @@ export class VanComponent implements OnInit {
   }
 
   getVanSuccessHandler(response: any) {
-    this.availableVans.data = response.data;
+    this.availableVans = response.data;
     this.filteredavailableVans.data = response.data;
     this.createButton = true;
     this.showVansTable = true;

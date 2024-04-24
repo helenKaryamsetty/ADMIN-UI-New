@@ -159,7 +159,7 @@ export class DrugMappingComponent implements OnInit {
   }
 
   getDrugMappingsSuccessHandeler(response: any) {
-    this.availableDrugMappings.data = response.data;
+    this.availableDrugMappings = response.data;
     this.filteredavailableDrugMappings.data = response.data;
     this.availableDrugMappings.forEach((availableMappings: any) => {
       if (

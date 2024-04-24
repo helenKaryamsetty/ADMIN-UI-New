@@ -44,6 +44,7 @@ import { FetosenseDeviceIdMasterService } from '../activities/services/fetosense
 import { UserSignatureMappingComponent } from './user-signature-mapping/user-signature-mapping.component';
 import { WrapupTimeConfigurationComponent } from './wrapup-time-configuration/wrapup-time-configuration.component';
 import { WrapupTimeConfigurationService } from 'src/app/core/services/ProviderAdminServices/wrapup-time-configuration.service';
+import { CoreModule } from 'src/app/core/core.module';
 
 @NgModule({
   declarations: [
@@ -78,6 +79,7 @@ import { WrapupTimeConfigurationService } from 'src/app/core/services/ProviderAd
     MatTableModule,
     MatIconModule,
     MatNativeDateModule,
+    CoreModule,
   ],
   providers: [
     SnomedMasterService,

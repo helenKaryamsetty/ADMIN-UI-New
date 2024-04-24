@@ -1,4 +1,10 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { EditInstituteDirectoryComponent } from '../edit-institute-directory/edit-institute-directory.component';
 import { MatPaginator } from '@angular/material/paginator';
@@ -7,6 +13,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ConfirmationDialogsService } from 'src/app/core/services/dialog/confirmation.service';
 import { dataService } from 'src/app/core/services/dataService/data.service';
 import { InstituteDirectoryMasterService } from '../../services/institute-directory-master-service.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-institute-directory-master',
@@ -16,8 +23,6 @@ import { InstituteDirectoryMasterService } from '../../services/institute-direct
 export class InstituteDirectoryMasterComponent
   implements OnInit, AfterViewInit
 {
-  @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
-  dataSource = new MatTableDataSource<any>();
   displayedColumns = [
     'sno',
     'instituteDirectory',
@@ -25,6 +30,18 @@ export class InstituteDirectoryMasterComponent
     'edit',
     'action',
   ];
+  displayAddedColumns = ['sno', 'instituteDirectory', 'description', 'action'];
+  paginator!: MatPaginator;
+  @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
+    this.paginator = mp;
+    this.setDataSourceAttributes();
+  }
+  dataSource = new MatTableDataSource<any>();
+
+  setDataSourceAttributes() {
+    this.dataSource.paginator = this.paginator;
+  }
+  bufferArray = new MatTableDataSource<any>();
 
   serviceProviderID: any;
   providerServiceMapID: any;
@@ -37,7 +54,6 @@ export class InstituteDirectoryMasterComponent
   services: any = [];
 
   searchResultArray: any = [];
-  bufferArray: any = [];
 
   showTableFlag = false;
   showFormFlag = false;
@@ -46,13 +62,13 @@ export class InstituteDirectoryMasterComponent
   nationalFlag: any;
   availableInstituteDirectory: any = [];
   instituteDirectoryExist = false;
-  instituteDir: any;
-
+  @ViewChild('instituteDir') instituteDir!: NgForm;
   constructor(
     public instituteDirectoryService: InstituteDirectoryMasterService,
     public commonDataService: dataService,
     public dialog: MatDialog,
     public alertService: ConfirmationDialogsService,
+    private cdr: ChangeDetectorRef,
   ) {
     this.serviceProviderID = this.commonDataService.service_providerID;
   }
@@ -247,13 +263,54 @@ export class InstituteDirectoryMasterComponent
           /*reset the input fields of the form*/
           this.instituteDirectory = '';
           this.description = '';
-          this.bufferArray = [];
+          this.bufferArray.data = [];
 
           this.disableSelection = false;
         }
       });
   }
 
+  // add_obj(institute_directory: any, description: any) {
+  //   const obj = {
+  //     instituteDirectoryName: institute_directory,
+  //     instituteDirectoryDesc: description,
+  //     providerServiceMapId: this.providerServiceMapID,
+  //     createdBy: this.commonDataService.uname,
+  //   };
+
+  //   if (
+  //     this.bufferArray.data.length === 0 &&
+  //     obj.instituteDirectoryName !== '' &&
+  //     obj.instituteDirectoryName !== undefined
+  //   ) {
+  //     this.bufferArray.data.push(obj);
+  //   } else {
+  //     let count = 0;
+  //     for (let i = 0; i < this.bufferArray.data.length; i++) {
+  //       if (
+  //         obj.instituteDirectoryName ===
+  //         this.bufferArray.data[i].instituteDirectoryName
+  //       ) {
+  //         count = count + 1;
+  //       }
+  //     }
+
+  //     if (
+  //       count === 0 &&
+  //       obj.instituteDirectoryName !== '' &&
+  //       obj.instituteDirectoryName !== undefined
+  //     ) {
+  //       this.bufferArray.data.push(obj);
+  //     } else {
+  //       this.alertService.alert('Already exists');
+  //     }
+  //   }
+
+  //   /*resetting fields after entering in buffer array/or if duplicate exist*/
+  //   // this.instituteDirectory="";
+  //   // this.description="";
+  //   this.instituteDir.resetForm();
+  // }
   add_obj(institute_directory: any, description: any) {
     const obj = {
       instituteDirectoryName: institute_directory,
@@ -262,47 +319,32 @@ export class InstituteDirectoryMasterComponent
       createdBy: this.commonDataService.uname,
     };
 
-    if (
-      this.bufferArray.length === 0 &&
-      obj.instituteDirectoryName !== '' &&
-      obj.instituteDirectoryName !== undefined
-    ) {
-      this.bufferArray.push(obj);
+    const isDuplicate = this.bufferArray.data.some(
+      (item) =>
+        item.instituteDirectoryName.trim().toLowerCase() ===
+        obj.instituteDirectoryName.trim().toLowerCase(),
+    );
+
+    if (!isDuplicate && obj.instituteDirectoryName.trim() !== '') {
+      this.bufferArray.data = [...this.bufferArray.data, obj];
+      this.instituteDir.resetForm();
     } else {
-      let count = 0;
-      for (let i = 0; i < this.bufferArray.length; i++) {
-        if (
-          obj.instituteDirectoryName ===
-          this.bufferArray[i].instituteDirectoryName
-        ) {
-          count = count + 1;
-        }
-      }
-
-      if (
-        count === 0 &&
-        obj.instituteDirectoryName !== '' &&
-        obj.instituteDirectoryName !== undefined
-      ) {
-        this.bufferArray.push(obj);
-      } else {
-        this.alertService.alert('Already exists');
-      }
+      this.alertService.alert(
+        'Institute directory name already exists or is empty.',
+      );
     }
-
-    /*resetting fields after entering in buffer array/or if duplicate exist*/
-    // this.instituteDirectory="";
-    // this.description="";
-    this.instituteDir.resetForm();
   }
 
   removeObj(index: any) {
-    this.bufferArray.splice(index, 1);
+    const newData = [...this.bufferArray.data];
+    newData.splice(index, 1);
+    this.bufferArray.data = newData;
+    this.cdr.detectChanges();
   }
 
   save() {
     this.instituteDirectoryService
-      .saveInstituteDirectory(this.bufferArray)
+      .saveInstituteDirectory(this.bufferArray.data)
       .subscribe(
         (response) => this.saveSuccessHandeler(response),
         (err: any) => {
@@ -317,7 +359,7 @@ export class InstituteDirectoryMasterComponent
       this.alertService.alert('Saved successfully', 'success');
       this.instituteDir.resetForm();
       this.showFormFlag = false;
-      this.bufferArray = [];
+      this.bufferArray.data = [];
       this.search();
       this.disableSelection = false;
     }

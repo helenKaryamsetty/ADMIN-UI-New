@@ -20,7 +20,7 @@
  * along with this program.  If not, see https://www.gnu.org/licenses/.
  */
 
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { EditCategorySubcategoryComponent } from './edit-category-subcategory/edit-category-subcategory.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -38,10 +38,19 @@ import { dataService } from 'src/app/core/services/dataService/data.service';
 export class CategorySubcategoryProvisioningComponent implements OnInit {
   [x: string]: any;
   serviceList = new MatTableDataSource<any>();
-  filtereddata = new MatTableDataSource<any>();
   serviceSubCatList = new MatTableDataSource<any>();
   filteredsubCat = new MatTableDataSource<any>();
-  @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
+  paginator!: MatPaginator;
+  @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
+    this.paginator = mp;
+    this.setDataSourceAttributes();
+  }
+  filtereddata = new MatTableDataSource<any>();
+
+  setDataSourceAttributes() {
+    this.filtereddata.paginator = this.paginator;
+  }
+  drugList = new MatTableDataSource<any>();
   // filteredsubCat: any = [];
   // filtereddata: any = [];
   serviceproviderID: any;
@@ -126,6 +135,7 @@ export class CategorySubcategoryProvisioningComponent implements OnInit {
     public dialog: MatDialog,
     public CategorySubcategoryService: CategorySubcategoryService,
     private messageBox: ConfirmationDialogsService,
+    private cdr: ChangeDetectorRef,
   ) {
     this.api_choice = '0';
     this.searchChoice = '0';
@@ -392,44 +402,33 @@ export class CategorySubcategoryProvisioningComponent implements OnInit {
   }
 
   addNewCategoryRow() {
-    const obj: any = {};
-    obj['categoryName'] = this.category_name;
-    obj['categoryDesc'] = this.categorydesc;
-    obj['subServiceID'] = this.sub_service.subServiceID;
-    obj['subServiceName'] = this.sub_service.subServiceName;
-    if (this.nationalFlag) {
-      obj['providerServiceMapID'] = this.states[0].providerServiceMapID;
+    const obj: any = {
+      categoryName: this.category_name,
+      categoryDesc: this.categorydesc,
+      subServiceID: this.sub_service.subServiceID,
+      subServiceName: this.sub_service.subServiceName,
+      providerServiceMapID: this.nationalFlag
+        ? this.states[0].providerServiceMapID
+        : this.state.providerServiceMapID,
+      createdBy: this.createdBy,
+      well_being: this.well_being,
+    };
+    const isDuplicate = this.serviceList.data.some(
+      (item) =>
+        item.categoryName.trim().toLowerCase() ===
+          obj.categoryName.trim().toLowerCase() &&
+        item.subServiceID === obj.subServiceID,
+    );
+    if (!isDuplicate) {
+      this.serviceList.data = [...this.serviceList.data, obj];
+      this.category_name = undefined;
+      this.categorydesc = '';
+      this.well_being = false;
     } else {
-      obj['providerServiceMapID'] = this.state.providerServiceMapID;
+      this.messageBox.alert(
+        'Category already exists for the selected sub-service.',
+      );
     }
-    obj['createdBy'] = this.createdBy;
-    obj['well_being'] = this.well_being;
-    let count = 0;
-    for (let a = 0; a < this.serviceList.data.length; a++) {
-      if (
-        this.serviceList.data[a].categoryName !== undefined &&
-        this.serviceList.data[a].categoryName !== null &&
-        this.serviceList.data[a].subServiceID !== undefined &&
-        this.serviceList.data[a].subServiceID !== null &&
-        obj['categoryName'] !== undefined &&
-        obj['categoryName'] !== null &&
-        this.serviceList.data[a].categoryName.toLowerCase().trim() ===
-          obj['categoryName'].toLowerCase().trim() &&
-        this.serviceList.data[a].subServiceID === obj['subServiceID']
-      ) {
-        count = count + 1;
-      }
-      // this.serviceList.push(obj);
-      // this.serviceList = this.filterArray(this.serviceList);
-    }
-    if (count === 0) {
-      this.serviceList.data.push(obj);
-    } else {
-      this.messageBox.alert('Already exists');
-    }
-    this.category_name = undefined;
-    this.categorydesc = '';
-    this.well_being = false;
   }
 
   checkSubService(service: any, sub_service_name: any) {
@@ -638,7 +637,10 @@ export class CategorySubcategoryProvisioningComponent implements OnInit {
   }
 
   deleteRow(index: any) {
-    this.serviceList.data.splice(index, 1);
+    const newData = [...this.serviceList.data];
+    newData.splice(index, 1);
+    this.serviceList.data = newData;
+    this.cdr.detectChanges();
     if (this.serviceList.data.length === 0) {
       this.cateDisabled = 'false';
       this.category_name = '';
@@ -647,7 +649,10 @@ export class CategorySubcategoryProvisioningComponent implements OnInit {
   }
 
   deleteRowSubCat(index: any) {
-    this.serviceSubCatList.data.splice(index, 1);
+    const newData = [...this.serviceSubCatList.data];
+    newData.splice(index, 1);
+    this.serviceSubCatList.data = newData;
+    this.cdr.detectChanges();
   }
   deleteCategory(id: any, isActivate: boolean) {
     let confirmMessage: any;

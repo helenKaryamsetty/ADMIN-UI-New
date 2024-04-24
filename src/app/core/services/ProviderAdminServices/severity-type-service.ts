@@ -44,13 +44,13 @@ export class SeverityTypeService {
     public basepaths: ConfigService,
   ) {
     this.admin_Base_Url = this.basepaths.getAdminBaseUrl();
-    this.get_State_Url = this.admin_Base_Url + '/m/getServerity';
+    this.get_State_Url = this.admin_Base_Url + 'm/getServerity';
 
     this.get_State_Url_new = this.admin_Base_Url + 'm/role/stateNew';
     this.get_Service_Url_new = this.admin_Base_Url + 'm/role/serviceNew';
 
-    this.addSeverityUrl = this.admin_Base_Url + '/m/saveServerity ';
-    this.deleteSeverityUrl = this.admin_Base_Url + '/m/deleteServerity';
+    this.addSeverityUrl = this.admin_Base_Url + 'm/saveServerity ';
+    this.deleteSeverityUrl = this.admin_Base_Url + 'm/deleteServerity';
     this.modifySeverityUrl = this.admin_Base_Url + 'm/editServerity';
   }
 

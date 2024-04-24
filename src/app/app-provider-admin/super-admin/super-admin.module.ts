@@ -15,6 +15,7 @@ import { SuperAdminComponent } from './super-admin/super-admin.component';
 import { ActivitiesModule } from './super-admin/Activities/activities.module';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { ConfigurationsModule } from './super-admin/configurations/congigurations.module';
+import { CoreModule } from 'src/app/core/core.module';
 
 @NgModule({
   declarations: [SuperAdminComponent],
@@ -36,6 +37,7 @@ import { ConfigurationsModule } from './super-admin/configurations/congiguration
     MatMenuModule,
     MatButtonModule,
     MatDatepickerModule,
+    CoreModule,
   ],
   exports: [SuperAdminComponent],
 })

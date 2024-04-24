@@ -48,7 +48,7 @@
 
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15" *ngIf="showtype">
       <mat-form-field>
-        <input matInput questionnaireValidator style="display: none" />
+        <input matInput appquestionnaireValidator style="display: none" />
         <mat-select
           placeholder="Question Type"
           name="questionType"
@@ -206,7 +206,7 @@
                 <mat-label>Question</mat-label>
                 <input
                   matInput
-                  questionnaireValidator
+                  appquestionnaireValidator
                   required
                   formControlName="questionName"
                   minlength="5"
@@ -223,7 +223,7 @@
                   required
                   formControlName="questionRank"
                   minlength="1"
-                  myMobileNumber
+                  appmyMobileNumber
                 />
               </mat-form-field>
             </div>
@@ -258,7 +258,7 @@
                   formControlName="questionWeight"
                   (keyup)="weightageInput(i)"
                   maxlength="4"
-                  myMobileNumber
+                  appmyMobileNumber
                 />
               </mat-form-field>
             </div>
@@ -284,7 +284,7 @@
                       <mat-label>Option</mat-label>
                       <input
                         matInput
-                        inputFieldValidator
+                        appinputFieldValidator
                         required
                         placeholder="Option"
                         formControlName="option"
@@ -305,7 +305,7 @@
                         [max]="maxwght"
                         minlength="1"
                         maxlength="3"
-                        myMobileNumber
+                        appmyMobileNumber
                       />
                     </mat-form-field>
                   </div>

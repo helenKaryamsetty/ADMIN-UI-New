@@ -266,7 +266,7 @@ export class UserRoleAgentIDMappingComponent implements OnInit {
   selector: 'app-agent-id-mapping-modal',
   templateUrl: './agent-id-mapping-modal.html',
 })
-export class AgentIDMappingModalComponent {
+export class AgentIDMappingModalComponent implements OnInit {
   filteredsearchResultArray: any;
   /*ngModels*/
   providerServiceMapID: any;

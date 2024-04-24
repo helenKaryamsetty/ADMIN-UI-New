@@ -287,7 +287,7 @@
             required
             placeholder="Facility Code"
             (blur)="checkExistance(create_facilityCode)"
-            PanWithCopyPaste
+            appPanWithCopyPaste
             [(ngModel)]="create_facilityCode"
             maxlength="15"
             name="facilityCode"
@@ -317,7 +317,7 @@
             matInput
             required
             placeholder="Facility Name"
-            vehicleNoSpecialCharWithCopyPaste
+            appvehicleNoSpecialCharWithCopyPaste
             [(ngModel)]="create_facilityName"
             maxlength="100"
             name="facilityName"
@@ -340,7 +340,7 @@
           <input
             matInput
             placeholder="Facility Description"
-            vehicleNoCopyPaste
+            appvehicleNoCopyPaste
             [(ngModel)]="create_facilityDiscription"
             maxlength="100"
             name="facilityDescription"
@@ -353,7 +353,7 @@
           <input
             matInput
             placeholder="Location"
-            vehicleNoCopyPaste
+            appvehicleNoCopyPaste
             [(ngModel)]="create_location"
             maxlength="100"
             name="createlocation"
@@ -373,7 +373,7 @@
           <input
             matInput
             placeholder="Physical Location"
-            vehicleNoCopyPaste
+            appvehicleNoCopyPaste
             [(ngModel)]="create_physicalLocation"
             maxlength="100"
             name="physicalLocation"
@@ -650,7 +650,7 @@
             required
             placeholder="Facility Code"
             [disabled]="true"
-            myProviderName
+            appmyProviderName
             maxlength="15"
             [(ngModel)]="edit_facilityCode"
             name="facilityCode"
@@ -676,7 +676,7 @@
             required
             placeholder="Facility Name"
             [disabled]="true"
-            vehicleNoSpecialCharWithCopyPaste
+            appvehicleNoSpecialCharWithCopyPaste
             [(ngModel)]="edit_facilityName"
             maxlength="100"
             name="facilityName"
@@ -700,7 +700,7 @@
           <input
             matInput
             placeholder="Facility Description"
-            vehicleNoCopyPaste
+            appvehicleNoCopyPaste
             maxlength="100"
             [(ngModel)]="edit_facilityDiscription"
             name="facilityDescription"
@@ -714,7 +714,7 @@
             matInput
             maxlength="100"
             placeholder="Location"
-            vehicleNoCopyPaste
+            appvehicleNoCopyPaste
             [(ngModel)]="edit_location"
             name="createlocation"
             #location="ngModel"
@@ -734,7 +734,7 @@
             matInput
             maxlength="100"
             placeholder="Physical Location"
-            vehicleNoCopyPaste
+            appvehicleNoCopyPaste
             [(ngModel)]="edit_physicalLocation"
             name="physicalLocation"
             #physicalLocation="ngModel"

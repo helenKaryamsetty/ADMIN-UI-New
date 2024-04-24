@@ -63,7 +63,7 @@
     <div class="table-responsive">
       <table
         mat-table
-        [dataSource]="this.filtereddata.data"
+        [dataSource]="this.filtereddata"
         class="table table-striped table-hover"
       >
         <ng-container matColumnDef="SNo">
@@ -150,7 +150,7 @@
 <div class="row m-t-15" *ngIf="!firstPage">
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-a-0">
     <form #severityAdding="ngForm" autocomplete="off">
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" myProviderName>
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" appmyProviderName>
         <mat-form-field class="width100">
           <input
             matInput
@@ -178,7 +178,7 @@
         </mat-form-field>
       </div>
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <mat-form-field class="width100" myProviderName>
+        <mat-form-field class="width100" appmyProviderName>
           <input
             matInput
             placeholder="Description"
@@ -219,7 +219,7 @@
     <div class="table-responsive">
       <table
         mat-table
-        [dataSource]="this.severityArray.data"
+        [dataSource]="this.severityArray"
         class="table table-striped table-hover"
       >
         <ng-container matColumnDef="SNo">

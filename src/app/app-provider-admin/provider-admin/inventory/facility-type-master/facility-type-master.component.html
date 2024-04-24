@@ -261,7 +261,7 @@
             required
             placeholder="Facility Type Code"
             (blur)="checkExistance(facilityCode)"
-            PAN
+            appPAN
             [(ngModel)]="facilityCode"
             minlength="1"
             maxlength="15"
@@ -291,7 +291,7 @@
             matInput
             required
             placeholder="Facility Type Name"
-            VehicleNO
+            appVehicleNO
             [(ngModel)]="facilityName"
             maxlength="100"
             name="facilityName"
@@ -314,7 +314,7 @@
           <input
             matInput
             placeholder="Facility Description"
-            VehicleNO
+            appVehicleNO
             [(ngModel)]="facilityDiscription"
             maxlength="100"
             name="facilityDescription"
@@ -502,7 +502,7 @@
             matInput
             required
             placeholder="Facility Type Code"
-            PAN
+            appPAN
             maxlength="15"
             [(ngModel)]="edit_facilityCode"
             name="facilityCode"
@@ -528,7 +528,7 @@
             required
             placeholder="Facility Type Name"
             maxlength="100"
-            VehicleNO
+            appVehicleNO
             [(ngModel)]="edit_facilityName"
             name="facilityName"
             [disabled]="true"
@@ -551,7 +551,7 @@
           <input
             matInput
             placeholder="Facility Description"
-            VehicleNO
+            appVehicleNO
             maxlength="100"
             [(ngModel)]="edit_facilityDiscription"
             name="facilityDescription"

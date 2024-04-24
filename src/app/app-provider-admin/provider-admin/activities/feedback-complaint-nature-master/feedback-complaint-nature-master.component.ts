@@ -39,9 +39,6 @@ import { MatPaginator } from '@angular/material/paginator';
 })
 export class FeedbackComplaintNatureMasterComponent implements OnInit {
   [x: string]: any;
-  filterednatureTypes = new MatTableDataSource<any>();
-  objs = new MatTableDataSource<any>();
-  @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
   // filterednatureTypes: any = [];
   previous_state_id: any;
   previous_service_id: any;
@@ -70,7 +67,17 @@ export class FeedbackComplaintNatureMasterComponent implements OnInit {
   natureExists = false;
   searchFeedbackNatureArray: any = [];
   msg = 'Complaint nature already exists';
+  paginator!: MatPaginator;
+  @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
+    this.paginator = mp;
+    this.setDataSourceAttributes();
+  }
+  filterednatureTypes = new MatTableDataSource<any>();
 
+  setDataSourceAttributes() {
+    this.filterednatureTypes.paginator = this.paginator;
+  }
+  objs = new MatTableDataSource<any>();
   isNational = false;
   userID: any;
 

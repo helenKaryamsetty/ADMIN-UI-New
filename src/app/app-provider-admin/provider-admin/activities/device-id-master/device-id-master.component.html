@@ -62,7 +62,7 @@
     <div class="table responsive">
       <table
         mat-table
-        [dataSource]="this.filteredsearchResultArray.data"
+        [dataSource]="filteredsearchResultArray"
         class="table table-striped table-hover"
       >
         <ng-container matColumnDef="SNo">
@@ -148,7 +148,7 @@
 <div class="row" *ngIf="showFormFlag">
   <form #createDeviceIdForm="ngForm" autocomplete="off">
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
-      <mat-form-field style="width: 100%" VehicleNONew>
+      <mat-form-field style="width: 100%" appVehicleNONew>
         <input
           matInput
           placeholder="Device ID"
@@ -172,7 +172,7 @@
       <mat-form-field style="width: 100%">
         <input
           matInput
-          usernameValidator
+          appusernameValidator
           placeholder="Device Name"
           [(ngModel)]="deviceName"
           name="deviceName"
@@ -206,7 +206,7 @@
     <div class="table-responsive" *ngIf="bufferArray.data">
       <table
         mat-table
-        [dataSource]="this.bufferArray.data"
+        [dataSource]="bufferArray"
         class="table table-striped table-hover"
       >
         <ng-container matColumnDef="SNo">
@@ -269,7 +269,7 @@
 <div class="row" *ngIf="editFormFlag">
   <form #editDeviceIdForm="ngForm" autocomplete="off">
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
-      <mat-form-field style="width: 100%" VehicleNONew>
+      <mat-form-field style="width: 100%" appVehicleNONew>
         <input
           matInput
           placeholder="Device ID"

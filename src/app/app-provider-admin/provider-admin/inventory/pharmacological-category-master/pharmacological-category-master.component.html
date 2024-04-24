@@ -292,7 +292,7 @@
             matInput
             required
             placeholder="Pharmacology Code"
-            PAN
+            appPAN
             [(ngModel)]="create_pharmaCode"
             (blur)="checkExistance(create_pharmaCode)"
             minlength="1"
@@ -320,7 +320,7 @@
             matInput
             required
             placeholder="Pharmacology Name"
-            myProviderName
+            appmyProviderName
             [(ngModel)]="create_pharmaName"
             maxlength="100"
             name="pharmaName"
@@ -342,7 +342,7 @@
           <input
             matInput
             placeholder="Pharmacology Description"
-            VehicleNO
+            appVehicleNO
             [(ngModel)]="create_pharmaDesc"
             maxlength="100"
             name="pharmaDesc"
@@ -555,7 +555,7 @@
             matInput
             required
             placeholder="Pharmacology Code"
-            PAN
+            appPAN
             [(ngModel)]="edit_pharmaCode"
             maxlength="15"
             [disabled]="true"
@@ -570,7 +570,7 @@
             matInput
             required
             placeholder="Pharmacology Name"
-            PAN
+            appPAN
             [(ngModel)]="edit_pharmaName"
             maxlength="100"
             [disabled]="true"
@@ -584,7 +584,7 @@
           <input
             matInput
             placeholder="Pharmacology Description"
-            VehicleNO
+            appVehicleNO
             [(ngModel)]="edit_pharmaDesc"
             maxlength="100"
             name="pharmaDesc"

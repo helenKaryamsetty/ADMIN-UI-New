@@ -133,7 +133,7 @@
       <table
         *ngIf="showCategoryTable"
         mat-table
-        [dataSource]="this.filtereddata.data"
+        [dataSource]="this.filtereddata"
         class="table table-striped table-hover"
       >
         <ng-container matColumnDef="SNo">
@@ -225,7 +225,7 @@
       <table
         *ngIf="!showCategoryTable"
         mat-table
-        [dataSource]="this.filteredsubCat.data"
+        [dataSource]="this.filteredsubCat"
         class="table table-striped table-hover"
       >
         <ng-container matColumnDef="SNo">
@@ -457,7 +457,7 @@
         class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15"
         *ngIf="Add_Category_Subcategory_flag"
       >
-        <mat-form-field class="width100" myProviderName>
+        <mat-form-field class="width100" appmyProviderName>
           <mat-label>Category Name</mat-label>
           <input
             #categoryRef="ngModel"
@@ -485,7 +485,7 @@
         class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15"
         *ngIf="Add_Category_Subcategory_flag"
       >
-        <mat-form-field class="width100" myProviderName>
+        <mat-form-field class="width100" appmyProviderName>
           <mat-label>Category Description</mat-label>
           <input
             matInput
@@ -499,7 +499,7 @@
         class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15"
         *ngIf="!Add_Category_Subcategory_flag"
       >
-        <mat-form-field class="width100" myProviderName>
+        <mat-form-field class="width100" appmyProviderName>
           <mat-label>Sub Category Name</mat-label>
           <input
             required
@@ -533,7 +533,7 @@
         class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15"
         *ngIf="!Add_Category_Subcategory_flag"
       >
-        <mat-form-field class="width100" myProviderName>
+        <mat-form-field class="width100" appmyProviderName>
           <mat-label>Description</mat-label>
           <input
             matInput
@@ -589,7 +589,7 @@
     <div class="table-responsive">
       <table
         mat-table
-        [dataSource]="this.serviceList.data"
+        [dataSource]="this.serviceList"
         class="table table-striped table-hover"
       >
         <ng-container matColumnDef="SNo">
@@ -642,7 +642,7 @@
     <div class="table-responsive">
       <table
         mat-table
-        [dataSource]="this.serviceSubCatList.data"
+        [dataSource]="this.serviceSubCatList"
         class="table table-striped table-hover"
       >
         <ng-container matColumnDef="SNo">

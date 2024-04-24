@@ -73,7 +73,7 @@
     <div class="table-responsive">
       <table
         mat-table
-        [dataSource]="this.filteredFetosenseTests.data"
+        [dataSource]="filteredFetosenseTests"
         class="table table-striped table-hover"
       >
         <ng-container matColumnDef="SNo">
@@ -169,7 +169,7 @@
       <mat-form-field style="width: 100%">
         <input
           matInput
-          inputFieldValidator
+          appinputFieldValidator
           placeholder="Test Name"
           [(ngModel)]="test"
           minlength="1"
@@ -191,7 +191,7 @@
       <mat-form-field style="width: 100%">
         <input
           matInput
-          textAreaValidator
+          apptextAreaValidator
           placeholder="Test Description"
           [(ngModel)]="description"
           name="description"
@@ -226,7 +226,7 @@
     <div class="table-responsive">
       <table
         mat-table
-        [dataSource]="this.addedFetosenseTests.data"
+        [dataSource]="addedFetosenseTests"
         class="table table-striped table-hover"
       >
         <ng-container matColumnDef="SNo">

@@ -40,9 +40,6 @@ import { MatPaginator } from '@angular/material/paginator';
 })
 export class DeviceIdMasterComponent implements OnInit {
   [x: string]: any;
-  filteredsearchResultArray = new MatTableDataSource<any>();
-  bufferArray = new MatTableDataSource<any>();
-  @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
   displayedColumns: string[] = [
     'SNo',
     'deviceID',
@@ -86,6 +83,17 @@ export class DeviceIdMasterComponent implements OnInit {
   createDeviceIdForm!: NgForm;
   @ViewChild('editDeviceIdForm')
   editDeviceIdForm!: NgForm;
+  paginator!: MatPaginator;
+  @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
+    this.paginator = mp;
+    this.setDataSourceAttributes();
+  }
+  filteredsearchResultArray = new MatTableDataSource<any>();
+
+  setDataSourceAttributes() {
+    this.filteredsearchResultArray.paginator = this.paginator;
+  }
+  bufferArray = new MatTableDataSource<any>();
 
   constructor(
     public fetosenseDeviceMasterService: FetosenseDeviceIdMasterService,
@@ -179,8 +187,8 @@ export class DeviceIdMasterComponent implements OnInit {
   getFetosenseDeviceSuccessHandeler(response: any) {
     if (response) {
       this.showTableFlag = true;
-      this.searchResultArray = response.fetosenseDeviceIDs;
-      this.filteredsearchResultArray.data = response.fetosenseDeviceIDs;
+      this.searchResultArray = response.data.fetosenseDeviceIDs;
+      this.filteredsearchResultArray.data = response.data.fetosenseDeviceIDs;
       this.searchTerm = null;
       this.availableDeviceIds = [];
       for (const availableDeviceId of this.searchResultArray) {
