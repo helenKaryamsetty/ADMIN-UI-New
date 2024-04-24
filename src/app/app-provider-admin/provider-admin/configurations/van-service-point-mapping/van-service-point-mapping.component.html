@@ -7,22 +7,19 @@
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
       <!-- <md-input-container class="hide_underline width100">
                 <input mdInput style="display:none"> -->
-      <mat-form-field>
-        <mat-label>Serviceline</mat-label>
-        <mat-select
-          (selectionChange)="getStates(service)"
-          class="width100"
-          [(ngModel)]="service"
-          name="service"
-          required
-          #bindService="ngModel"
-        >
-          <mat-option *ngFor="let item of services" [value]="item">
-            {{ item.serviceName }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-
+      <mat-select
+        placeholder="Serviceline"
+        (selectionChange)="getStates(service)"
+        class="width100"
+        [(ngModel)]="service"
+        name="service"
+        required
+        #bindService="ngModel"
+      >
+        <mat-option *ngFor="let item of services" [value]="item">
+          {{ item.serviceName }}
+        </mat-option>
+      </mat-select>
       <!-- <md-hint [hidden]=bindService.valid>
                     <span class="error_text" *ngIf="!bindService.required  && ( bindService.dirty || bindService.touched)">Please select serviceline</span>
                 </md-hint> -->
@@ -31,24 +28,19 @@
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
       <!-- <md-input-container class="hide_underline width100">
                 <input mdInput style="display:none"> -->
-      <mat-form-field>
-        <mat-label>State</mat-label>
-        <mat-select
-          class="width100"
-          [(ngModel)]="state"
-          (selectionChange)="
-            setProviderServiceMapID(state.providerServiceMapID)
-          "
-          name="state"
-          #bindState="ngModel"
-          required
-        >
-          <mat-option *ngFor="let item of states" [value]="item">
-            {{ item.stateName }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-
+      <mat-select
+        placeholder="State"
+        class="width100"
+        [(ngModel)]="state"
+        (selectionChange)="setProviderServiceMapID(state.providerServiceMapID)"
+        name="state"
+        #bindState="ngModel"
+        required
+      >
+        <mat-option *ngFor="let item of states" [value]="item">
+          {{ item.stateName }}
+        </mat-option>
+      </mat-select>
       <!-- <md-hint [hidden]=bindState.valid>
                     <span class="error_text" *ngIf="!bindState.required  && ( bindState.dirty || bindState.touched)">Please select state</span>
                 </md-hint> -->
@@ -56,45 +48,41 @@
     </div>
     <form #searchDistrictsForm="ngForm" autocomplete="off">
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-        <mat-form-field>
-          <mat-label>Zone</mat-label>
-          <mat-select
-            required
-            class="width100"
-            [(ngModel)]="zoneID"
-            name="zoneID"
-            [disabled]="disableSelection"
-            #zoneG="ngModel"
-            (selectionChange)="
-              getParkingPlaces(zoneID.zoneID, state.providerServiceMapID)
-            "
-          >
-            <mat-option *ngFor="let zone of zones" [value]="zone">
-              {{ zone.zoneName }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
+        <mat-select
+          required
+          placeholder="Zone"
+          class="width100"
+          [(ngModel)]="zoneID"
+          name="zoneID"
+          [disabled]="disableSelection"
+          #zoneG="ngModel"
+          (selectionChange)="
+            getParkingPlaces(zoneID.zoneID, state.providerServiceMapID)
+          "
+        >
+          <mat-option *ngFor="let zone of zones" [value]="zone">
+            {{ zone.zoneName }}
+          </mat-option>
+        </mat-select>
       </div>
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-        <mat-form-field>
-          <mat-label>{{ parkAndHub }}</mat-label>
-          <mat-select
-            *ngIf="parkAndHub"
-            class="width100"
-            [(ngModel)]="parking_place"
-            name="parking_place"
-            (selectionChange)="getVanTypes()"
-            #parkingPlace="ngModel"
-            required
+        <mat-select
+          *ngIf="parkAndHub"
+          placeholder="{{ parkAndHub }}"
+          class="width100"
+          [(ngModel)]="parking_place"
+          name="parking_place"
+          (selectionChange)="getVanTypes()"
+          #parkingPlace="ngModel"
+          required
+        >
+          <mat-option
+            *ngFor="let parkingPlace of parkingPlaces"
+            [value]="parkingPlace"
           >
-            <mat-option
-              *ngFor="let parkingPlace of parkingPlaces"
-              [value]="parkingPlace"
-            >
-              {{ parkingPlace.parkingPlaceName }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
+            {{ parkingPlace.parkingPlaceName }}
+          </mat-option>
+        </mat-select>
       </div>
       <!-- <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 m-t-15">
                 <mat-select placeholder="District" class="width100" [(ngModel)]="district" name="district" (change)="GetTaluks(parking_place.parkingPlaceID, district.districtID)"
@@ -119,32 +107,29 @@
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
         <!-- <md-input-container class="hide_underline width100">
                     <input mdInput style="display:none"> -->
-        <mat-form-field>
-          <mat-label>{{ codeType }}</mat-label>
-          <mat-select
-            required
-            *ngIf="parkAndHub"
-            [style.width]="'100%'"
-            [(ngModel)]="vanTypeID"
-            name="vanTypeID"
-            #vanTypes="ngModel"
-            (selectionChange)="
-              getVans(
-                state.providerServiceMapID,
-                parking_place.parkingPlaceID,
-                vanTypeID
-              )
-            "
+        <mat-select
+          required
+          *ngIf="parkAndHub"
+          placeholder="{{ codeType }}"
+          [style.width]="'100%'"
+          [(ngModel)]="vanTypeID"
+          name="vanTypeID"
+          #vanTypes="ngModel"
+          (selectionChange)="
+            getVans(
+              state.providerServiceMapID,
+              parking_place.parkingPlaceID,
+              vanTypeID
+            )
+          "
+        >
+          <mat-option
+            *ngFor="let vanType of filteredVanTypes"
+            [value]="vanType.vanTypeID"
           >
-            <mat-option
-              *ngFor="let vanType of filteredVanTypes"
-              [value]="vanType.vanTypeID"
-            >
-              {{ vanType.vanType }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-
+            {{ vanType.vanType }}
+          </mat-option>
+        </mat-select>
         <!-- <md-hint [hidden]=vanTypes.valid>
                         <span class="error_text" *ngIf="!vanTypes.required  && ( vanTypes.dirty || vanTypes.touched)">Please select van type</span>
                     </md-hint> -->
@@ -153,29 +138,26 @@
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
         <!-- <md-input-container class="hide_underline width100">
                     <input mdInput style="display:none"> -->
-        <mat-form-field>
-          <mat-label>{{ vanAndSpoke }}</mat-label>
-          <mat-select
-            required
-            *ngIf="parkAndHub"
-            [style.width]="'100%'"
-            [(ngModel)]="vanID"
-            name="vanID"
-            #vanVal="ngModel"
-            (selectionChange)="
-              getVanServicePointMappings(parking_place.parkingPlaceID, vanID)
-            "
+        <mat-select
+          required
+          *ngIf="parkAndHub"
+          placeholder="{{ vanAndSpoke }}"
+          [style.width]="'100%'"
+          [(ngModel)]="vanID"
+          name="vanID"
+          #vanVal="ngModel"
+          (selectionChange)="
+            getVanServicePointMappings(parking_place.parkingPlaceID, vanID)
+          "
+        >
+          <mat-option
+            *ngFor="let van of availableVans"
+            [value]="van.vanID"
+            (change)="selectedVan(van)"
           >
-            <mat-option
-              *ngFor="let van of availableVans"
-              [value]="van.vanID"
-              (change)="selectedVan(van)"
-            >
-              {{ van.vanName }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-
+            {{ van.vanName }}
+          </mat-option>
+        </mat-select>
         <!-- <md-hint [hidden]=vanVal.valid>
                         <span class="error_text" *ngIf="!vanVal.required  && ( vanVal.dirty || vanVal.touched )">Please select Van </span>
                     </md-hint> -->
@@ -242,7 +224,7 @@
     <table
       mat-table
       [dataSource]="MappingForm.get('mappings')?.value"
-      class="table table-striped table-hover"
+      class="mat-elevation-z8"
     >
       <!-- S.No. Column -->
       <ng-container matColumnDef="sNo">
