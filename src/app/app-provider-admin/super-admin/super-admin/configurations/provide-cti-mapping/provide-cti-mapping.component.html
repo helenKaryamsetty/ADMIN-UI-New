@@ -6,22 +6,27 @@
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
       <!-- <mat-form-field class="hide_underline width100">
         <input matInput style="display:none"> -->
-      <mat-select
-        required
-        name="serviceProvider"
-        placeholder="Service Provider"
-        disabled="{{ disableSelection }}"
-        class="width100"
-        [(ngModel)]="service_provider"
-        (selectionChange)="getAllMappedServicelinesAndStates(service_provider)"
-      >
-        <mat-option
-          *ngFor="let item of service_provider_array"
-          [value]="item.serviceProviderId"
+      <mat-form-field>
+        <mat-label>Service Provider</mat-label>
+        <mat-select
+          required
+          name="serviceProvider"
+          disabled="{{ disableSelection }}"
+          class="width100"
+          [(ngModel)]="service_provider"
+          (selectionChange)="
+            getAllMappedServicelinesAndStates(service_provider)
+          "
         >
-          {{ item.serviceProviderName }}
-        </mat-option>
-      </mat-select>
+          <mat-option
+            *ngFor="let item of service_provider_array"
+            [value]="item.serviceProviderId"
+          >
+            {{ item.serviceProviderName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
       <!-- </mat-form-field> -->
     </div>
   </form>
@@ -42,10 +47,10 @@
 </div>
 <div class="row m-t-10" *ngIf="showTableFlag">
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-15">
-    <div class="table-responsive">
+    <div class="">
       <table
         mat-table
-        class="mat-elevation-z8"
+        class="table table-striped table-hover"
         [dataSource]="filteredcampaignArrayList"
       >
         <ng-container matColumnDef="sno">
@@ -123,58 +128,70 @@
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
       <!-- <mat-form-field class="hide_underline width100">
         <input matInput style="display:none"> -->
-      <mat-select
-        required
-        name="Services"
-        placeholder="Serviceline"
-        class="width100"
-        [(ngModel)]="serviceline"
-        disabled
-      >
-        <mat-option
-          *ngFor="let item of services_array"
-          [value]="item.serviceName"
+      <mat-form-field>
+        <mat-label>Serviceline</mat-label>
+        <mat-select
+          required
+          name="Services"
+          class="width100"
+          [(ngModel)]="serviceline"
+          disabled
         >
-          {{ item.serviceName }}
-        </mat-option>
-      </mat-select>
+          <mat-option
+            *ngFor="let item of services_array"
+            [value]="item.serviceName"
+          >
+            {{ item.serviceName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
       <!-- </mat-form-field> -->
     </div>
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
       <!-- <mat-form-field class="hide_underline width100">
         <input matInput style="display:none"> -->
-      <mat-select
-        name="state"
-        placeholder="State"
-        class="width100"
-        [(ngModel)]="states"
-        required
-        disabled
-      >
-        <mat-option *ngFor="let item of states_array" [value]="item.stateName">
-          {{ item.stateName }}
-        </mat-option>
-      </mat-select>
+      <mat-form-field>
+        <mat-label>State</mat-label>
+        <mat-select
+          name="state"
+          class="width100"
+          [(ngModel)]="states"
+          required
+          disabled
+        >
+          <mat-option
+            *ngFor="let item of states_array"
+            [value]="item.stateName"
+          >
+            {{ item.stateName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
       <!-- </mat-form-field> -->
     </div>
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
       <!-- <mat-form-field class="hide_underline width100">
         <input matInput style="display:none"> -->
-      <mat-select
-        required
-        name="campaign"
-        placeholder="Campaign"
-        class="width100"
-        [(ngModel)]="campaign"
-        required
-      >
-        <mat-option
-          *ngFor="let item of campaign_array"
-          [value]="item.campaign_name"
+      <mat-form-field>
+        <mat-label>Campaign</mat-label>
+        <mat-select
+          required
+          name="campaign"
+          class="width100"
+          [(ngModel)]="campaign"
+          required
         >
-          {{ item.campaign_name }}
-        </mat-option>
-      </mat-select>
+          <mat-option
+            *ngFor="let item of campaign_array"
+            [value]="item.campaign_name"
+          >
+            {{ item.campaign_name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
       <!-- </mat-form-field> -->
     </div>
   </form>

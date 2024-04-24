@@ -64,8 +64,11 @@
     </form>
   </div>
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="showTableFlag">
-    <div class="table-responsive">
-      <mat-table [dataSource]="filteredItemList" class="mat-elevation-z8">
+    <div class="">
+      <mat-table
+        [dataSource]="filteredItemList"
+        class="table table-striped table-hover"
+      >
         <!-- S.No. Column -->
         <ng-container matColumnDef="sno">
           <mat-header-cell *matHeaderCellDef>S.No.</mat-header-cell>
@@ -314,8 +317,11 @@
     class="col-xs-12 col-sm-12 m-t-15"
     *ngIf="forCreationObjects.data.length > 0"
   >
-    <div class="table-responsive">
-      <mat-table [dataSource]="forCreationObjects" class="mat-elevation-z8">
+    <div class="">
+      <mat-table
+        [dataSource]="forCreationObjects"
+        class="table table-striped table-hover"
+      >
         <!-- S.No. Column -->
         <ng-container matColumnDef="sno">
           <mat-header-cell *matHeaderCellDef>S.No.</mat-header-cell>

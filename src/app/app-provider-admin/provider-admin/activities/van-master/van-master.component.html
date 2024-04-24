@@ -6,86 +6,96 @@
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
           <!-- <mat-input-container class="hide_underline" [style.width]="'100%'">
                         <input matInput style="display:none"> -->
-          <mat-select
-            required
-            name="Services"
-            placeholder="Serviceline"
-            [style.width]="'100%'"
-            [(ngModel)]="serviceline"
-            (selectionChange)="
-              getStates(serviceline.serviceID); resetform.reset()
-            "
-          >
-            <mat-option *ngFor="let item of services_array" [value]="item">
-              {{ item.serviceName }}
-            </mat-option>
-          </mat-select>
+          <mat-form-field>
+            <mat-label>Serviceline</mat-label>
+            <mat-select
+              required
+              name="Services"
+              [style.width]="'100%'"
+              [(ngModel)]="serviceline"
+              (selectionChange)="
+                getStates(serviceline.serviceID); resetform.reset()
+              "
+            >
+              <mat-option *ngFor="let item of services_array" [value]="item">
+                {{ item.serviceName }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
           <!-- </mat-input-container> -->
         </div>
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
           <!-- <mat-input-container class="hide_underline" [style.width]="'100%'">
                         <input matInput style="display:none"> -->
-          <mat-select
-            required
-            placeholder="State"
-            [style.width]="'100%'"
-            [(ngModel)]="searchStateID"
-            name="searchStateID"
-            (selectionChange)="
-              setProviderServiceMapID(searchStateID.providerServiceMapID);
-              resetform.reset()
-            "
-          >
-            <mat-option *ngFor="let state of provider_states" [value]="state">
-              {{ state.stateName }}
-            </mat-option>
-          </mat-select>
+          <mat-form-field>
+            <mat-label>State</mat-label>
+            <mat-select
+              required
+              [style.width]="'100%'"
+              [(ngModel)]="searchStateID"
+              name="searchStateID"
+              (selectionChange)="
+                setProviderServiceMapID(searchStateID.providerServiceMapID);
+                resetform.reset()
+              "
+            >
+              <mat-option *ngFor="let state of provider_states" [value]="state">
+                {{ state.stateName }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
           <!-- </mat-input-container> -->
         </div>
         <form #resetform="ngForm">
           <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-            <mat-select
-              placeholder="Zone"
-              class="width100"
-              [(ngModel)]="zoneID"
-              name="zoneID"
-              #zone="ngModel"
-              (selectionChange)="
-                getAllParkingPlaces(
-                  zoneID.zoneID,
-                  searchStateID.providerServiceMapID
-                )
-              "
-              required
-            >
-              <mat-option *ngFor="let zone of zones" [value]="zone">
-                {{ zone.zoneName }}
-              </mat-option>
-            </mat-select>
+            <mat-form-field>
+              <mat-label>Zone</mat-label>
+              <mat-select
+                class="width100"
+                [(ngModel)]="zoneID"
+                name="zoneID"
+                #zone="ngModel"
+                (selectionChange)="
+                  getAllParkingPlaces(
+                    zoneID.zoneID,
+                    searchStateID.providerServiceMapID
+                  )
+                "
+                required
+              >
+                <mat-option *ngFor="let zone of zones" [value]="zone">
+                  {{ zone.zoneName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
           </div>
           <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-            <mat-select
-              *ngIf="parkAndHub"
-              placeholder="{{ parkAndHub }}"
-              class="width100"
-              [(ngModel)]="parking_place"
-              name="parking_place"
-              (selectionChange)="
-                getVans(
-                  searchStateID.providerServiceMapID,
-                  parking_place.parkingPlaceID
-                )
-              "
-              #parkingPlace="ngModel"
-              required
-            >
-              <mat-option
-                *ngFor="let parkingPlace of parkingPlaces"
-                [value]="parkingPlace"
+            <mat-form-field>
+              <mat-label>{{ parkAndHub }}</mat-label>
+              <mat-select
+                *ngIf="parkAndHub"
+                class="width100"
+                [(ngModel)]="parking_place"
+                name="parking_place"
+                (selectionChange)="
+                  getVans(
+                    searchStateID.providerServiceMapID,
+                    parking_place.parkingPlaceID
+                  )
+                "
+                #parkingPlace="ngModel"
+                required
               >
-                {{ parkingPlace.parkingPlaceName }}
-              </mat-option>
-            </mat-select>
+                <mat-option
+                  *ngFor="let parkingPlace of parkingPlaces"
+                  [value]="parkingPlace"
+                >
+                  {{ parkingPlace.parkingPlaceName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
           </div>
           <!-- <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 m-t-15">
                         <mat-select placeholder="District" class="width100" [(ngModel)]="district" name="district" (selectionChange)="getVans(searchStateID.stateID,district.districtID,parking_place.parkingPlaceID);GetTaluks(parking_place.parkingPlaceID, district.districtID)"
@@ -120,10 +130,10 @@
 <div class="row">
   <div *ngIf="showVansTable" class="col-xs-12 col-sm-12">
     <!-- <h4>Available Vans</h4> -->
-    <div class="table-responsive">
+    <div class="">
       <table
         mat-table
-        class="mat-elevation-z8"
+        class="table table-striped table-hover"
         [dataSource]="filteredavailableVans"
       >
         <ng-container matColumnDef="sno">
@@ -266,76 +276,86 @@
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
           <!-- <mat-input-container class="hide_underline" [style.width]="'100%'">
                         <input matInput style="display:none"> -->
-          <mat-select
-            required
-            name="Services"
-            placeholder="Serviceline"
-            [style.width]="'100%'"
-            [(ngModel)]="serviceline"
-            [disabled]="true"
-          >
-            <mat-option *ngFor="let item of services_array" [value]="item">
-              {{ item.serviceName }}
-            </mat-option>
-          </mat-select>
+          <mat-form-field>
+            <mat-label> Serviceline </mat-label>
+            <mat-select
+              required
+              name="Services"
+              [style.width]="'100%'"
+              [(ngModel)]="serviceline"
+              [disabled]="true"
+            >
+              <mat-option *ngFor="let item of services_array" [value]="item">
+                {{ item.serviceName }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
           <!-- </mat-input-container> -->
         </div>
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
           <!-- <mat-input-container class="hide_underline" [style.width]="'100%'">
                         <input matInput style="display:none"> -->
-          <mat-select
-            required
-            placeholder="State"
-            [style.width]="'100%'"
-            [(ngModel)]="searchStateID"
-            name="searchStateID"
-            [disabled]="true"
-          >
-            <mat-option *ngFor="let state of provider_states" [value]="state">
-              {{ state.stateName }}
-            </mat-option>
-          </mat-select>
+          <mat-form-field>
+            <mat-label>State</mat-label>
+            <mat-select
+              required
+              [style.width]="'100%'"
+              [(ngModel)]="searchStateID"
+              name="searchStateID"
+              [disabled]="true"
+            >
+              <mat-option *ngFor="let state of provider_states" [value]="state">
+                {{ state.stateName }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
           <!-- </mat-input-container> -->
         </div>
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-          <mat-select
-            required
-            placeholder="Zone"
-            class="width100"
-            [disabled]="true"
-            [(ngModel)]="zoneID"
-            name="zoneID"
-            #zoneG="ngModel"
-            (selectionChange)="
-              getAllParkingPlaces(
-                zoneID.zoneID,
-                searchStateID.providerServiceMapID
-              )
-            "
-          >
-            <mat-option *ngFor="let zone of zones" [value]="zone">
-              {{ zone.zoneName }}
-            </mat-option>
-          </mat-select>
+          <mat-form-field>
+            <mat-label>Zone</mat-label>
+            <mat-select
+              required
+              class="width100"
+              [disabled]="true"
+              [(ngModel)]="zoneID"
+              name="zoneID"
+              #zoneG="ngModel"
+              (selectionChange)="
+                getAllParkingPlaces(
+                  zoneID.zoneID,
+                  searchStateID.providerServiceMapID
+                )
+              "
+            >
+              <mat-option *ngFor="let zone of zones" [value]="zone">
+                {{ zone.zoneName }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
         </div>
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-          <mat-select
-            *ngIf="parkAndHub"
-            placeholder="{{ parkAndHub }}"
-            class="width100"
-            [disabled]="true"
-            [(ngModel)]="parking_place"
-            name="parking_place"
-            #parking="ngModel"
-            required
-          >
-            <mat-option
-              *ngFor="let parkingPlace of parkingPlaces"
-              [value]="parkingPlace"
+          <mat-form-field>
+            <mat-label>{{ parkAndHub }}</mat-label>
+            <mat-select
+              *ngIf="parkAndHub"
+              class="width100"
+              [disabled]="true"
+              [(ngModel)]="parking_place"
+              name="parking_place"
+              #parking="ngModel"
+              required
             >
-              {{ parkingPlace.parkingPlaceName }}
-            </mat-option>
-          </mat-select>
+              <mat-option
+                *ngFor="let parkingPlace of parkingPlaces"
+                [value]="parkingPlace"
+              >
+                {{ parkingPlace.parkingPlaceName }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
         </div>
         <!-- <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 m-t-15">
                     <mat-select placeholder="District" class="width100" [disabled]="true" [(ngModel)]="district" name="district" (selectionChange)="getVans(searchStateID.stateID,district.districtID,parking_place.parkingPlaceID);GetTaluks(parking_place.parkingPlaceID, district.districtID)"
@@ -359,21 +379,24 @@
           <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
             <!-- <mat-input-container class="hide_underline" [style.width]="'100%'">
                             <input matInput style="display:none"> -->
-            <mat-select
-              required
-              placeholder="{{ codeType }}"
-              [style.width]="'100%'"
-              [(ngModel)]="vanTypeID"
-              name="vanTypeID"
-              #vanTID="ngModel"
-            >
-              <mat-option
-                *ngFor="let vanType of filteredVanTypes"
-                value="{{ vanType.vanTypeID }}-{{ vanType.vanType }}"
+            <mat-form-field>
+              <mat-label>{{ codeType }}</mat-label>
+              <mat-select
+                required
+                [style.width]="'100%'"
+                [(ngModel)]="vanTypeID"
+                name="vanTypeID"
+                #vanTID="ngModel"
               >
-                {{ vanType.vanType }}
-              </mat-option>
-            </mat-select>
+                <mat-option
+                  *ngFor="let vanType of filteredVanTypes"
+                  value="{{ vanType.vanTypeID }}-{{ vanType.vanType }}"
+                >
+                  {{ vanType.vanType }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
             <!-- </mat-input-container> -->
             <!-- <mat-hint [hidden]=vanTID.valid>
                             <span class="error_text" *ngIf="!vanTID.required  && ( vanTID.dirty || vanTID.touched)">Please select Van Type</span>
@@ -382,10 +405,10 @@
 
           <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15" VehicleNO>
             <mat-form-field class="input-full-width mat_form_field_width_one">
+              <mat-label>{{ vanAndSpoke }}</mat-label>
               <input
                 matInput
                 required
-                placeholder="{{ vanAndSpoke }}"
                 [(ngModel)]="vanName"
                 name="vanName"
                 maxlength="30"
@@ -407,10 +430,10 @@
           <div class="clearfix visible-sm"></div>
           <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15" VehicleNONew>
             <mat-form-field class="input-full-width mat_form_field_width_one">
+              <mat-label>{{ code }}</mat-label>
               <input
                 matInput
                 required
-                placeholder="{{ code }}"
                 [(ngModel)]="vehicalNo"
                 name="vehicalNo"
                 minlength="10"
@@ -437,9 +460,9 @@
               class="input-full-width mat_form_field_width_one"
               myEmail
             >
+              <mat-label>Swymed Domain</mat-label>
               <input
                 matInput
-                placeholder="Swymed Domain"
                 [(ngModel)]="domain"
                 name="domain"
                 #sDomain="ngModel"
@@ -448,9 +471,9 @@
           </div>
           <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15" PAN>
             <mat-form-field class="input-full-width mat_form_field_width_one">
+              <mat-label>Swymed ID</mat-label>
               <input
                 matInput
-                placeholder="Swymed ID"
                 [(ngModel)]="sID"
                 name="sID"
                 #videoConsultationID="ngModel"
@@ -459,9 +482,9 @@
           </div>
           <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
             <mat-form-field class="input-full-width mat_form_field_width_one">
+              <mat-label>Swymed Email</mat-label>
               <input
                 matInput
-                placeholder="Swymed Email"
                 [(ngModel)]="sEmail"
                 name="sEmail"
                 #videoConsultationEmail="ngModel"
@@ -498,7 +521,11 @@
       </div>
     </form>
     <div *ngIf="vanList.data.length > 0" class="m-t-10 table-responsive">
-      <table mat-table [dataSource]="vanList" class="mat-elevation-z8">
+      <table
+        mat-table
+        [dataSource]="vanList"
+        class="table table-striped table-hover"
+      >
         <ng-container matColumnDef="sno">
           <th mat-header-cell *matHeaderCellDef>SNo.</th>
           <td mat-cell *matCellDef="let element; let i = index">{{ i + 1 }}</td>

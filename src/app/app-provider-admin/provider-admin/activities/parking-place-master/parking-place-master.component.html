@@ -8,20 +8,23 @@
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
           <!-- <md-input-container class="hide_underline width100">
                         <input matInput style="display:none"> -->
-          <mat-select
-            placeholder="Serviceline"
-            (selectionChange)="getStates(service)"
-            disabled="{{ disableSelection }}"
-            class="width100"
-            [(ngModel)]="service"
-            name="service"
-            required
-            #bindService="ngModel"
-          >
-            <mat-option *ngFor="let item of services" [value]="item">
-              {{ item.serviceName }}
-            </mat-option>
-          </mat-select>
+          <mat-form-field>
+            <mat-label>Serviceline</mat-label>
+            <mat-select
+              (selectionChange)="getStates(service)"
+              disabled="{{ disableSelection }}"
+              class="width100"
+              [(ngModel)]="service"
+              name="service"
+              required
+              #bindService="ngModel"
+            >
+              <mat-option *ngFor="let item of services" [value]="item">
+                {{ item.serviceName }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
           <!-- <md-hint [hidden]=bindService.valid *ngIf="showListOfParking">
                             <span class="error_text" *ngIf="!bindService.required  && ( bindService.dirty || bindService.touched)">Please select serviceline</span>
                         </md-hint> -->
@@ -30,22 +33,25 @@
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
           <!-- <md-input-container class="hide_underline width100">
                         <input matInput style="display:none"> -->
-          <mat-select
-            placeholder="State"
-            class="width100"
-            [(ngModel)]="state"
-            [disabled]="disableSelection"
-            (selectionChange)="
-              setProviderServiceMapID(state.providerServiceMapID)
-            "
-            name="state"
-            #bindState="ngModel"
-            required
-          >
-            <mat-option *ngFor="let item of states" [value]="item">
-              {{ item.stateName }}
-            </mat-option>
-          </mat-select>
+          <mat-form-field>
+            <mat-label>State</mat-label>
+            <mat-select
+              class="width100"
+              [(ngModel)]="state"
+              [disabled]="disableSelection"
+              (selectionChange)="
+                setProviderServiceMapID(state.providerServiceMapID)
+              "
+              name="state"
+              #bindState="ngModel"
+              required
+            >
+              <mat-option *ngFor="let item of states" [value]="item">
+                {{ item.stateName }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
           <!-- <md-hint [hidden]=bindState.valid *ngIf="showListOfParking">
                             <span class="error_text" *ngIf="!bindState.required  && ( bindState.dirty || bindState.touched)">Please select state</span>
                         </md-hint> -->
@@ -54,22 +60,25 @@
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
           <!-- <md-input-container class="hide_underline width100">
                       <input matInput style="display:none"> -->
-          <mat-select
-            required
-            placeholder="Zone"
-            class="width100"
-            [(ngModel)]="zoneID"
-            name="zoneID"
-            [disabled]="disableSelection"
-            #zoneG="ngModel"
-            (selectionChange)="
-              getParkingPlaces(zoneID.zoneID, state.providerServiceMapID)
-            "
-          >
-            <mat-option *ngFor="let zone of zones" [value]="zone">
-              {{ zone.zoneName }}
-            </mat-option>
-          </mat-select>
+          <mat-form-field>
+            <mat-label>Zone</mat-label>
+            <mat-select
+              required
+              class="width100"
+              [(ngModel)]="zoneID"
+              name="zoneID"
+              [disabled]="disableSelection"
+              #zoneG="ngModel"
+              (selectionChange)="
+                getParkingPlaces(zoneID.zoneID, state.providerServiceMapID)
+              "
+            >
+              <mat-option *ngFor="let zone of zones" [value]="zone">
+                {{ zone.zoneName }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
           <!-- <md-hint [hidden]=zoneG.valid>
                         <span class="error_text" *ngIf="!zoneG.required  && ( zoneG.dirty || zoneG.touched)">Please select Zone</span>
                       </md-hint>
@@ -101,10 +110,10 @@
 </div>
 <div class="row" *ngIf="showListOfParking && showTableFlag && !editable">
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10">
-    <div class="table-responsive">
+    <div class="">
       <table
         mat-table
-        class="mat-elevation-z8"
+        class="table table-striped table-hover"
         [dataSource]="filteredavailableParkingPlaces"
       >
         <ng-container matColumnDef="sno">
@@ -242,10 +251,10 @@
           class="input-full-width mat_form_field_width_one"
           VehicleNO
         >
+          <mat-label>{{ parkAndHub }}</mat-label>
           <input
             matInput
             required
-            placeholder="{{ parkAndHub }}"
             [(ngModel)]="parkingPlaceName"
             name="parkingPlaceName"
             #parkingPlaceN="ngModel"
@@ -275,9 +284,9 @@
           class="input-full-width mat_form_field_width_one"
           VehicleNO
         >
+          <mat-label>Description</mat-label>
           <input
             matInput
-            placeholder="Description"
             [(ngModel)]="parkingPlaceDesc"
             name="parkingPlaceDesc"
             maxlength="100"
@@ -286,11 +295,11 @@
       </div>
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
         <mat-form-field class="input-full-width mat_form_field_width_one">
+          <mat-label>Address</mat-label>
           <input
             required
             matInput
             myAddress
-            placeholder="Address"
             [(ngModel)]="areaHQAddress"
             name="areaHQAddress"
             #parkingPlaceAddress="ngModel"
@@ -334,11 +343,11 @@
       class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-5"
       *ngIf="parkingPlaceList.data.length > 0"
     >
-      <div class="table-responsive">
+      <div class="">
         <table
           mat-table
           [dataSource]="parkingPlaceList"
-          class="mat-elevation-z8"
+          class="table table-striped table-hover"
         >
           <ng-container matColumnDef="sno">
             <th mat-header-cell *matHeaderCellDef>SNo.</th>

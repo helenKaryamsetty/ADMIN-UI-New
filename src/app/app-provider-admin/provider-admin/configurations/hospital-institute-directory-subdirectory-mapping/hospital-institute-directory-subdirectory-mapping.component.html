@@ -6,23 +6,26 @@
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
       <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
         <input matInput style="display:none"> -->
-      <mat-select
-        placeholder="Serviceline"
-        [style.width]="'100%'"
-        disabled="{{ disableSelection }}"
-        [(ngModel)]="service"
-        name="service"
-        #serviceModel="ngModel"
-        required
-      >
-        <mat-option
-          *ngFor="let item of services"
-          value="{{ item.serviceID }}"
-          (click)="getStates(item.serviceID, item.isNational)"
+      <mat-form-field>
+        <mat-label>Serviceline</mat-label>
+        <mat-select
+          [style.width]="'100%'"
+          disabled="{{ disableSelection }}"
+          [(ngModel)]="service"
+          name="service"
+          #serviceModel="ngModel"
+          required
         >
-          {{ item.serviceName }}
-        </mat-option>
-      </mat-select>
+          <mat-option
+            *ngFor="let item of services"
+            value="{{ item.serviceID }}"
+            (click)="getStates(item.serviceID, item.isNational)"
+          >
+            {{ item.serviceName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
       <!-- <md-hint [hidden]=serviceModel.valid *ngIf="!disableSelection">
           <span class="error_text" *ngIf="!serviceModel.required  && ( serviceModel.dirty || serviceModel.touched )">Please select serviceline </span>
         </md-hint> -->
@@ -31,24 +34,27 @@
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
       <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
         <input matInput style="display:none"> -->
-      <mat-select
-        placeholder="State"
-        [style.width]="'100%'"
-        disabled="{{ disableSelection }}"
-        [(ngModel)]="state"
-        name="state"
-        (selectionChange)="getDistrict(state)"
-        #stateModel="ngModel"
-        required
-      >
-        <mat-option
-          *ngFor="let item of states"
-          value="{{ item.stateID }}"
-          (click)="setProviderServiceMapID(item.providerServiceMapID)"
+      <mat-form-field>
+        <mat-label>State</mat-label>
+        <mat-select
+          [style.width]="'100%'"
+          disabled="{{ disableSelection }}"
+          [(ngModel)]="state"
+          name="state"
+          (selectionChange)="getDistrict(state)"
+          #stateModel="ngModel"
+          required
         >
-          {{ item.stateName }}
-        </mat-option>
-      </mat-select>
+          <mat-option
+            *ngFor="let item of states"
+            value="{{ item.stateID }}"
+            (click)="setProviderServiceMapID(item.providerServiceMapID)"
+          >
+            {{ item.stateName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
       <!-- <md-hint [hidden]=stateModel.valid *ngIf="!disableSelection">
           <span class="error_text" *ngIf="!stateModel.required  && ( stateModel.dirty || stateModel.touched )">Please select state </span>
         </md-hint>
@@ -58,23 +64,26 @@
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
         <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
           <input matInput style="display:none"> -->
-        <mat-select
-          placeholder="District"
-          [style.width]="'100%'"
-          disabled="{{ disableSelection }}"
-          [(ngModel)]="district"
-          name="district"
-          (selectionChange)="getTaluk(district)"
-          #districtModel="ngModel"
-          required
-        >
-          <mat-option
-            *ngFor="let item of districts"
-            value="{{ item.districtID }}"
+        <mat-form-field>
+          <mat-label>District</mat-label>
+          <mat-select
+            [style.width]="'100%'"
+            disabled="{{ disableSelection }}"
+            [(ngModel)]="district"
+            name="district"
+            (selectionChange)="getTaluk(district)"
+            #districtModel="ngModel"
+            required
           >
-            {{ item.districtName }}
-          </mat-option>
-        </mat-select>
+            <mat-option
+              *ngFor="let item of districts"
+              value="{{ item.districtID }}"
+            >
+              {{ item.districtName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
         <!-- <md-hint [hidden]=districtModel.valid *ngIf="!disableSelection">
             <span class="error_text" *ngIf="!districtModel.required  && ( districtModel.dirty || districtModel.touched )">Please select district </span>
           </md-hint> -->
@@ -83,20 +92,23 @@
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
         <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
           <input matInput style="display:none"> -->
-        <mat-select
-          placeholder="Taluk"
-          [style.width]="'100%'"
-          disabled="{{ disableSelection }}"
-          [(ngModel)]="taluk"
-          name="taluk"
-          (selectionChange)="getInstitutions()"
-          #talukModel="ngModel"
-          required
-        >
-          <mat-option *ngFor="let item of taluks" value="{{ item.blockID }}">
-            {{ item.blockName }}
-          </mat-option>
-        </mat-select>
+        <mat-form-field>
+          <mat-label>Taluk</mat-label>
+          <mat-select
+            [style.width]="'100%'"
+            disabled="{{ disableSelection }}"
+            [(ngModel)]="taluk"
+            name="taluk"
+            (selectionChange)="getInstitutions()"
+            #talukModel="ngModel"
+            required
+          >
+            <mat-option *ngFor="let item of taluks" value="{{ item.blockID }}">
+              {{ item.blockName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
         <!-- <md-hint [hidden]=talukModel.valid *ngIf="!disableSelection">
             <span class="error_text" *ngIf="!talukModel.required  && ( talukModel.dirty || talukModel.touched )">Please select taluk </span>
           </md-hint> -->
@@ -106,23 +118,26 @@
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
         <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
           <input matInput style="display:none"> -->
-        <mat-select
-          placeholder="Institute Directory"
-          [style.width]="'100%'"
-          [(ngModel)]="institute_directory"
-          name="institute_directory"
-          disabled="{{ disableSelection }}"
-          (selectionChange)="getInstituteSubdirectory(institute_directory)"
-          #instituteDirModel="ngModel"
-          required
-        >
-          <mat-option
-            *ngFor="let item of institute_directories"
-            value="{{ item.instituteDirectoryID }}"
+        <mat-form-field>
+          <mat-label>Institute Directory</mat-label>
+          <mat-select
+            [style.width]="'100%'"
+            [(ngModel)]="institute_directory"
+            name="institute_directory"
+            disabled="{{ disableSelection }}"
+            (selectionChange)="getInstituteSubdirectory(institute_directory)"
+            #instituteDirModel="ngModel"
+            required
           >
-            {{ item.instituteDirectoryName }}
-          </mat-option>
-        </mat-select>
+            <mat-option
+              *ngFor="let item of institute_directories"
+              value="{{ item.instituteDirectoryID }}"
+            >
+              {{ item.instituteDirectoryName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
         <!-- <md-hint [hidden]=instituteDirModel.valid *ngIf="!disableSelection">
             <span class="error_text" *ngIf="!instituteDirModel.required  && ( instituteDirModel.dirty || instituteDirModel.touched )">Please select institute directory </span>
           </md-hint> -->
@@ -131,23 +146,25 @@
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
         <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
           <input matInput style="display:none"> -->
-        <mat-select
-          placeholder="Institute Sub Directory"
-          [style.width]="'100%'"
-          [(ngModel)]="institute_subdirectory"
-          name="institute_subdirectory"
-          disabled="{{ disableSelection }}"
-          (selectionChange)="getMappingHistory()"
-          #instituteSubDirModel="ngModel"
-          required
-        >
-          <mat-option
-            *ngFor="let item of institute_subdirectories"
-            value="{{ item.instituteSubDirectoryID }}"
+        <mat-form-field>
+          <mat-label>Institute Sub Directory</mat-label>
+          <mat-select
+            [style.width]="'100%'"
+            [(ngModel)]="institute_subdirectory"
+            name="institute_subdirectory"
+            disabled="{{ disableSelection }}"
+            (selectionChange)="getMappingHistory()"
+            #instituteSubDirModel="ngModel"
+            required
           >
-            {{ item.instituteSubDirectoryName }}
-          </mat-option>
-        </mat-select>
+            <mat-option
+              *ngFor="let item of institute_subdirectories"
+              value="{{ item.instituteSubDirectoryID }}"
+            >
+              {{ item.instituteSubDirectoryName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
       </div>
     </form>
     <form #hospitalForm1="ngForm" autocomplete="off">
@@ -155,22 +172,24 @@
         class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15"
         *ngIf="showFormFlag"
       >
-        <mat-select
-          required
-          placeholder="Hospital"
-          [style.width]="'100%'"
-          [(ngModel)]="hospital"
-          name="hospital"
-          #hospitalName="ngModel"
-        >
-          <mat-option
-            *ngFor="let item of hospitals"
-            value="{{ item.institutionID }}"
-            (click)="setHospitalName(item.institutionName)"
+        <mat-form-field>
+          <mat-label>Hospital</mat-label>
+          <mat-select
+            required
+            [style.width]="'100%'"
+            [(ngModel)]="hospital"
+            name="hospital"
+            #hospitalName="ngModel"
           >
-            {{ item.institutionName }}
-          </mat-option>
-        </mat-select>
+            <mat-option
+              *ngFor="let item of hospitals"
+              value="{{ item.institutionID }}"
+              (click)="setHospitalName(item.institutionName)"
+            >
+              {{ item.institutionName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
       </div>
     </form>
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
@@ -211,10 +230,10 @@
 </div>
 <div class="row">
   <div class="col-xs-12 col-sm-12" *ngIf="showTableFlag">
-    <div class="table-responsive">
+    <div class="">
       <table
         mat-table
-        class="mat-elevation-z8"
+        class="table table-striped table-hover"
         [dataSource]="filteredsearchResultArray"
       >
         <ng-container matColumnDef="sno">
@@ -314,8 +333,12 @@
         class="col-xs-12 col-sm-12 m-t-15"
         *ngIf="bufferArray.data.length > 0"
       >
-        <div class="table-responsive">
-          <table mat-table class="mat-elevation-z8" [dataSource]="bufferArray">
+        <div class="">
+          <table
+            mat-table
+            class="table table-striped table-hover"
+            [dataSource]="bufferArray"
+          >
             <ng-container matColumnDef="sno">
               <th mat-header-cell *matHeaderCellDef>SNo.</th>
               <td mat-cell *matCellDef="let element; let i = index">

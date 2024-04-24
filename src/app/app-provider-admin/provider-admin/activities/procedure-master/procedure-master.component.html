@@ -6,46 +6,50 @@
     <form #stateService="ngForm" autocomplete="off">
       <div class="row m-t-15">
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-          <mat-select
-            required
-            name="Services"
-            disabled="{{ disableSelection }}"
-            placeholder="Serviceline"
-            [style.width]="'100%'"
-            [(ngModel)]="serviceline"
-            (selectionChange)="getStates(serviceline.serviceID)"
-          >
-            <mat-option *ngFor="let item of services_array" [value]="item">
-              {{ item.serviceName }}
-            </mat-option>
-          </mat-select>
+          <mat-form-field>
+            <mat-label>Serviceline</mat-label>
+            <mat-select
+              required
+              name="Services"
+              disabled="{{ disableSelection }}"
+              [style.width]="'100%'"
+              [(ngModel)]="serviceline"
+              (selectionChange)="getStates(serviceline.serviceID)"
+            >
+              <mat-option *ngFor="let item of services_array" [value]="item">
+                {{ item.serviceName }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
         </div>
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-          <mat-select
-            required
-            disabled="{{ disableSelection }}"
-            placeholder="State"
-            [style.width]="'100%'"
-            [(ngModel)]="searchStateID"
-            name="searchStateID"
-            (selectionChange)="setProviderServiceMapID()"
-          >
-            <mat-option *ngFor="let state of provider_states" [value]="state">
-              {{ state.stateName }}
-            </mat-option>
-          </mat-select>
+          <mat-form-field>
+            <mat-label>State</mat-label>
+            <mat-select
+              required
+              disabled="{{ disableSelection }}"
+              [style.width]="'100%'"
+              [(ngModel)]="searchStateID"
+              name="searchStateID"
+              (selectionChange)="setProviderServiceMapID()"
+            >
+              <mat-option *ngFor="let state of provider_states" [value]="state">
+                {{ state.stateName }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
         </div>
       </div>
       <div style="display: block" class="m-t-10" [formGroup]="procedureForm">
         <div class="row" *ngIf="saveEditMode">
           <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
             <mat-form-field class="input-full-width mat_form_field_width_one">
+              <mat-label>Procedure Name</mat-label>
               <input
                 id="procedure-name"
                 required
                 matInput
                 usernameWithSpaceValidator
-                placeholder="Procedure Name"
                 [style.width]="'100%'"
                 formControlName="name"
                 maxlength="99"
@@ -67,17 +71,19 @@
             </mat-form-field>
           </div>
           <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-            <mat-select
-              id="procedure-type"
-              required
-              placeholder="Procedure Type"
-              [style.width]="'100%'"
-              [disabled]="editMode"
-              formControlName="type"
-            >
-              <mat-option value="Laboratory"> Laboratory </mat-option>
-              <mat-option value="Radiology"> Radiology </mat-option>
-            </mat-select>
+            <mat-form-field>
+              <mat-label>Procedure Type</mat-label>
+              <mat-select
+                id="procedure-type"
+                required
+                [style.width]="'100%'"
+                [disabled]="editMode"
+                formControlName="type"
+              >
+                <mat-option value="Laboratory"> Laboratory </mat-option>
+                <mat-option value="Radiology"> Radiology </mat-option>
+              </mat-select>
+            </mat-form-field>
           </div>
           <div class="clearfix visible-sm"></div>
 
@@ -98,20 +104,22 @@
           <div class="clearfix visible-md"></div>
           <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
             <input matInput style="display: none" />
-            <mat-select
-              id="procedure-iot"
-              placeholder="Procedure IOT"
-              [style.width]="'100%'"
-              formControlName="iotProcedureID"
-            >
-              <mat-option ng-value="undefined"> Not Applicable </mat-option>
-              <mat-option
-                *ngFor="let item of iotProcedurearray; let i = index"
-                [value]="item.iotProcedureID"
+            <mat-form-field>
+              <mat-label>Procedure IOT</mat-label>
+              <mat-select
+                id="procedure-iot"
+                [style.width]="'100%'"
+                formControlName="iotProcedureID"
               >
-                {{ item.procedureName }}
-              </mat-option>
-            </mat-select>
+                <mat-option ng-value="undefined"> Not Applicable </mat-option>
+                <mat-option
+                  *ngFor="let item of iotProcedurearray; let i = index"
+                  [value]="item.iotProcedureID"
+                >
+                  {{ item.procedureName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
           </div>
           <div class="clearfix visible-sm visible-lg"></div>
           <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
@@ -119,13 +127,13 @@
               class="input-full-width mat_form_field_width_one"
               myProviderName
             >
+              <mat-label>Description</mat-label>
               <textarea
                 matInput
                 required
                 mdTextareaAutosize
                 [style.width]="'100%'"
                 formControlName="description"
-                placeholder="Description"
                 maxlength="99"
               ></textarea>
             </mat-form-field>
@@ -201,11 +209,11 @@
   </div>
   <div class="row">
     <div #tabledData class="col-xs-12 col-sm-12">
-      <div class="table-responsive">
+      <div class="">
         <table
           mat-table
           [dataSource]="filteredprocedureList"
-          class="mat-elevation-z8"
+          class="table table-striped table-hover"
         >
           <ng-container matColumnDef="sno">
             <th mat-header-cell *matHeaderCellDef>SNo.</th>

@@ -8,8 +8,8 @@
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
       <mat-form-field class="hide_underline width100">
         <input matInput style="display: none" />
+        <mat-label>Master Type</mat-label>
         <mat-select
-          placeholder="Master Type"
           class="width100"
           [(ngModel)]="masterType"
           name="masterType"
@@ -44,8 +44,12 @@
   </form>
 
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="showTableFlag">
-    <div class="table-responsive">
-      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <div class="">
+      <table
+        mat-table
+        [dataSource]="dataSource"
+        class="table table-striped table-hover"
+      >
         <ng-container matColumnDef="sno">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>S.No.</th>
           <td mat-cell *matCellDef="let element">{{ element.sno }}</td>
@@ -146,8 +150,8 @@
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
       <mat-form-field class="hide_underline width100">
         <input matInput style="display: none" />
+        <mat-label>Master Type</mat-label>
         <mat-select
-          placeholder="Master Type"
           class="width100"
           [(ngModel)]="masterType"
           name="masterType"
@@ -168,8 +172,8 @@
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
       <mat-form-field class="hide_underline width100">
         <input matInput style="display: none" />
+        <mat-label>Master Name</mat-label>
         <mat-select
-          placeholder="Master Name"
           class="width100"
           [(ngModel)]="masterName"
           name="masterName"
@@ -187,10 +191,10 @@
     </div>
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 m-t-25">
       <mat-form-field class="width80">
+        <mat-label>Snomed CT Term</mat-label>
         <input
           maxlength="100"
           matInput
-          placeholder="Snomed CT Term"
           [style.width]="'100%'"
           name="testSnomedName"
           [(ngModel)]="testSnomedName"
@@ -219,11 +223,11 @@
     </div>
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-25">
       <mat-form-field class="width100">
+        <mat-label>Snomed CT Code</mat-label>
         <input
           autocomplete="off"
           maxlength="100"
           matInput
-          placeholder="Snomed CT Code"
           [style.width]="'100%'"
           name="testsnomedCode"
           [(ngModel)]="testsnomedCode"
@@ -252,8 +256,12 @@
   </form>
 
   <div class="col-xs-12 col-sm-12 m-t-15" *ngIf="addedItems.data.length > 0">
-    <div class="table-responsive">
-      <table mat-table [dataSource]="addedItems" class="mat-elevation-z8">
+    <div class="">
+      <table
+        mat-table
+        [dataSource]="addedItems"
+        class="table table-striped table-hover"
+      >
         <ng-container matColumnDef="sno">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>S.No.</th>
           <td mat-cell *matCellDef="let element; let i = index">{{ i + 1 }}</td>
@@ -336,8 +344,8 @@
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
       <mat-form-field class="hide_underline width100">
         <input matInput style="display: none" />
+        <mat-label>Master Type</mat-label>
         <mat-select
-          placeholder="Master Type"
           class="width100"
           [(ngModel)]="masterType"
           name="masterType"
@@ -361,11 +369,11 @@
         </mat-select>
       </mat-form-field> -->
       <mat-form-field class="width80">
+        <mat-label>Master Name</mat-label>
         <input
           autocomplete="off"
           maxlength="100"
           matInput
-          placeholder="Master Name"
           [style.width]="'100%'"
           name="editMasterName"
           [(ngModel)]="editMasterName"
@@ -375,10 +383,10 @@
     </div>
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 m-t-25">
       <mat-form-field class="width80">
+        <mat-label>Snomed CT Term</mat-label>
         <input
           maxlength="100"
           matInput
-          placeholder="Snomed CT Term"
           [style.width]="'100%'"
           name="testSnomedName"
           [(ngModel)]="editSnomedName"
@@ -407,11 +415,11 @@
     </div>
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 m-t-25">
       <mat-form-field class="width100">
+        <mat-label>Snomed CT Code</mat-label>
         <input
           autocomplete="off"
           maxlength="100"
           matInput
-          placeholder="Snomed CT Code "
           [style.width]="'100%'"
           name="editSnomedCode"
           [(ngModel)]="editSnomedCode"
