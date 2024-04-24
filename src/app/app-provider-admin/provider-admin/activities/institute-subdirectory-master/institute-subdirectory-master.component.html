@@ -80,10 +80,10 @@
   </div>
   <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-15">
-      <div class="table-responsive">
+      <div class="">
         <table
           mat-table
-          class="mat-elevation-z8"
+          class="table table-striped table-hover"
           [dataSource]="filteredsearchResultArray"
         >
           <ng-container matColumnDef="sno">
@@ -271,8 +271,12 @@
       class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10"
       *ngIf="bufferArray.data.length > 0"
     >
-      <div class="table-responsive">
-        <table mat-table [dataSource]="bufferArray" class="mat-elevation-z8">
+      <div class="">
+        <table
+          mat-table
+          [dataSource]="bufferArray"
+          class="table table-striped table-hover"
+        >
           <ng-container matColumnDef="sno">
             <th mat-header-cell *matHeaderCellDef>SNo.</th>
             <td mat-cell *matCellDef="let element; let i = index">

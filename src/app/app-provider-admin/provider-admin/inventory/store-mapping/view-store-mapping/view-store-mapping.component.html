@@ -65,7 +65,10 @@
     *ngIf="storeSearchForm.value.service && storeSearchForm.value.state"
   >
     <div class="col-xs-12">
-      <mat-table [dataSource]="filteredStoreList" class="mat-elevation-z8">
+      <mat-table
+        [dataSource]="filteredStoreList"
+        class="table table-striped table-hover"
+      >
         <!-- S.No. Column -->
         <ng-container matColumnDef="sno">
           <mat-header-cell *matHeaderCellDef>S.No.</mat-header-cell>

@@ -97,8 +97,12 @@
     class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10"
     *ngIf="showAddButtonFlag"
   >
-    <div class="table-responsive">
-      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <div class="">
+      <table
+        mat-table
+        [dataSource]="dataSource"
+        class="table table-striped table-hover"
+      >
         <ng-container matColumnDef="sno">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>SNo.</th>
           <td mat-cell *matCellDef="let element">{{ element.sno }}</td>
@@ -320,8 +324,12 @@
     class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-15"
     *ngIf="addRole.data.length !== 0"
   >
-    <div class="table-responsive">
-      <table mat-table [dataSource]="addRole" class="mat-elevation-z8">
+    <div class="">
+      <table
+        mat-table
+        [dataSource]="addRole"
+        class="table table-striped table-hover"
+      >
         <ng-container matColumnDef="sno">
           <th mat-header-cell *matHeaderCellDef>SNo.</th>
           <td mat-cell *matCellDef="let element; let i = index">{{ i + 1 }}</td>

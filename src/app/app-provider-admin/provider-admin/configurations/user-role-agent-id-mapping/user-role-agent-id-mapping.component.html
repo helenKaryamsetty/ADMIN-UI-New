@@ -110,10 +110,10 @@
 </div>
 <div class="row" *ngIf="showTableFlag">
   <div class="col-xs-12 col-sm-12">
-    <div class="table-responsive">
+    <div class="">
       <table
         mat-table
-        class="mat-elevation-z8"
+        class="table table-striped table-hover"
         [dataSource]="filteredsearchResultArray"
       >
         <ng-container matColumnDef="sno">

@@ -102,8 +102,12 @@
   <!--Questionnaire List-->
   <div class="row">
     <div class="col-xs-12 col-sm-12 m-t-15" *ngIf="!showAdd && !disabledFlag">
-      <div class="table-responsive">
-        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <div class="">
+        <table
+          mat-table
+          [dataSource]="dataSource"
+          class="table table-striped table-hover"
+        >
           <ng-container matColumnDef="sno">
             <th mat-header-cell *matHeaderCellDef>S.No.</th>
             <td mat-cell *matCellDef="let element">

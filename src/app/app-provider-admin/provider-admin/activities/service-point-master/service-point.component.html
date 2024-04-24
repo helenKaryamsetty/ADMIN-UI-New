@@ -126,11 +126,11 @@
 </div>
 <div class="row">
   <div *ngIf="showServicePoints" class="col-xs-12 col-sm-12">
-    <div class="table-responsive m-t-15">
+    <div class="m-t-15">
       <table
         [dataSource]="filteredavailableServicePoints"
         mat-table
-        class="mat-elevation-z8"
+        class="table table-striped table-hover"
       >
         <ng-container matColumnDef="sno">
           <th mat-header-cell *matHeaderCellDef>SNo.</th>
@@ -505,11 +505,11 @@
     </form>
     <div class="row">
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t--5">
-        <div class="table-responsive" *ngIf="servicePointList.data.length > 0">
+        <div class="" *ngIf="servicePointList.data.length > 0">
           <table
             [dataSource]="servicePointList"
             mat-table
-            class="mat-elevation-z8"
+            class="table table-striped table-hover"
           >
             <ng-container matColumnDef="sno">
               <th mat-header-cell *matHeaderCellDef>SNo.</th>

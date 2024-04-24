@@ -44,8 +44,12 @@
   </form>
 
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="showTableFlag">
-    <div class="table-responsive">
-      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <div class="">
+      <table
+        mat-table
+        [dataSource]="dataSource"
+        class="table table-striped table-hover"
+      >
         <ng-container matColumnDef="sno">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>S.No.</th>
           <td mat-cell *matCellDef="let element">{{ element.sno }}</td>
@@ -252,8 +256,12 @@
   </form>
 
   <div class="col-xs-12 col-sm-12 m-t-15" *ngIf="addedItems.data.length > 0">
-    <div class="table-responsive">
-      <table mat-table [dataSource]="addedItems" class="mat-elevation-z8">
+    <div class="">
+      <table
+        mat-table
+        [dataSource]="addedItems"
+        class="table table-striped table-hover"
+      >
         <ng-container matColumnDef="sno">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>S.No.</th>
           <td mat-cell *matCellDef="let element; let i = index">{{ i + 1 }}</td>

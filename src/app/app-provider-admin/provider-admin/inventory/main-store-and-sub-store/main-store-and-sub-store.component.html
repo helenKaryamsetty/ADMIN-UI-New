@@ -65,11 +65,11 @@
   </div>
   <!-- pre-populated table showing the number of providers available -->
   <div class="col-xs-12 col-sm-12">
-    <div class="table-responsive">
+    <div class="">
       <mat-table
         [dataSource]="filteredstoresList"
         *ngIf="showTableFlag"
-        class="mat-elevation-z8"
+        class="table table-striped table-hover"
       >
         <!-- S.No. Column -->
         <ng-container matColumnDef="sno">
@@ -447,8 +447,11 @@
     </form>
   </div>
   <div class="col-xs-12 col-sm-12 m-t-15" *ngIf="bufferArray.data.length > 0">
-    <div class="table-responsive">
-      <mat-table [dataSource]="bufferArray" class="mat-elevation-z8">
+    <div class="">
+      <mat-table
+        [dataSource]="bufferArray"
+        class="table table-striped table-hover"
+      >
         <!-- S.No. Column -->
         <ng-container matColumnDef="sno">
           <mat-header-cell *matHeaderCellDef>S.No.</mat-header-cell>

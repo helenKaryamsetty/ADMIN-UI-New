@@ -20,7 +20,7 @@
 <!-- pre-populated table showing the mappings available of providers to serviceline and state -->
 <div class="row" *ngIf="tableMode">
   <div class="col-xs-12 col-sm-12">
-    <div class="table-responsive">
+    <div class="">
       <!-- <table class="table table-hover table-striped" [md2Data]="filteredsearchResult" #md2="md2DataTable" [rowsPerPage]="4">
         <thead>
           <tr>
@@ -65,7 +65,7 @@
       <table
         mat-table
         [dataSource]="filteredsearchResult"
-        class="mat-elevation-z8"
+        class="table table-striped table-hover"
       >
         <!-- S.No. Column -->
         <ng-container matColumnDef="sno">
@@ -252,7 +252,7 @@
     </div>
   </div>
   <div class="col-xs-12 col-sm-12" *ngIf="bufferArray.data.length > 0">
-    <div class="table-responsive m-t-15">
+    <div class="m-t-15">
       <!-- <table class="table table-hover table-striped" [md2Data]="bufferArray" #md2="md2DataTable" [rowsPerPage]="3">
         <thead>
           <tr>
@@ -293,7 +293,11 @@
           </tr>
         </tfoot>
       </table> -->
-      <table mat-table [dataSource]="bufferArray" class="mat-elevation-z8">
+      <table
+        mat-table
+        [dataSource]="bufferArray"
+        class="table table-striped table-hover"
+      >
         <!-- S.No. Column -->
         <ng-container matColumnDef="sno">
           <th mat-header-cell *matHeaderCellDef>S.No.</th>
