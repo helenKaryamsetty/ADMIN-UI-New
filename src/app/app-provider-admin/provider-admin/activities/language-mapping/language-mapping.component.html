@@ -145,41 +145,49 @@
             <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
               <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
                 <input mdInput style="display:none"> -->
-              <mat-select
-                [(ngModel)]="username"
-                name="username"
-                placeholder="Select User Name "
-                [style.width]="'100%'"
-                required
-              >
-                <mat-option *ngFor="let item of userNamesList" [value]="item">{{
-                  item.userName
-                }}</mat-option>
-              </mat-select>
+              <mat-form-field>
+                <mat-label>Select User Name </mat-label>
+                <mat-select
+                  [(ngModel)]="username"
+                  name="username"
+                  [style.width]="'100%'"
+                  required
+                >
+                  <mat-option
+                    *ngFor="let item of userNamesList"
+                    [value]="item"
+                    >{{ item.userName }}</mat-option
+                  >
+                </mat-select>
+              </mat-form-field>
+
               <!-- </md-input-container> -->
             </div>
 
             <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
               <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
                 <input mdInput style="display:none"> -->
-              <mat-select
-                [(ngModel)]="language"
-                name="language"
-                placeholder="Languages"
-                [style.width]="'100%'"
-                (selectionChange)="
-                  Language(language);
-                  checkInDb(username, language);
-                  resetweightageDropdowns()
-                "
-                required
-              >
-                <mat-option
-                  *ngFor="let item of allLanguagesList"
-                  [value]="item"
-                  >{{ item.languageName }}</mat-option
+              <mat-form-field>
+                <mat-label>Languages</mat-label>
+                <mat-select
+                  [(ngModel)]="language"
+                  name="language"
+                  [style.width]="'100%'"
+                  (selectionChange)="
+                    Language(language);
+                    checkInDb(username, language);
+                    resetweightageDropdowns()
+                  "
+                  required
                 >
-              </mat-select>
+                  <mat-option
+                    *ngFor="let item of allLanguagesList"
+                    [value]="item"
+                    >{{ item.languageName }}</mat-option
+                  >
+                </mat-select>
+              </mat-form-field>
+
               <!-- </md-input-container> -->
             </div>
             <div class="col-xs-12 col-sm-12 m-t-15">
@@ -201,19 +209,22 @@
                     <div class="col-xs-12 col-sm-8">
                       <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
                         <input mdInput style="display:none"> -->
-                      <mat-select
-                        [(ngModel)]="readweightage"
-                        name="readweightage"
-                        (selectionChange)="readWeightage()"
-                        placeholder="Select Weightage"
-                        [style.width]="'100%'"
-                      >
-                        <mat-option
-                          *ngFor="let item of ReadWeightageList"
-                          [value]="item"
-                          >{{ item.Name }}</mat-option
+                      <mat-form-field>
+                        <mat-label>Select Weightage</mat-label>
+                        <mat-select
+                          [(ngModel)]="readweightage"
+                          name="readweightage"
+                          (selectionChange)="readWeightage()"
+                          [style.width]="'100%'"
                         >
-                      </mat-select>
+                          <mat-option
+                            *ngFor="let item of ReadWeightageList"
+                            [value]="item"
+                            >{{ item.Name }}</mat-option
+                          >
+                        </mat-select>
+                      </mat-form-field>
+
                       <!-- </md-input-container> -->
                     </div>
                   </div>
@@ -232,19 +243,22 @@
                     <div class="col-xs-12 col-sm-8">
                       <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
                         <input mdInput style="display:none"> -->
-                      <mat-select
-                        [(ngModel)]="writeweightage"
-                        name="writeweightage"
-                        (selectionChange)="writeWeightage()"
-                        placeholder="Select Weightage"
-                        [style.width]="'100%'"
-                      >
-                        <mat-option
-                          *ngFor="let item of WriteWeightageList"
-                          [value]="item"
-                          >{{ item.Name }}</mat-option
+                      <mat-form-field>
+                        <mat-label>Select Weightage</mat-label>
+                        <mat-select
+                          [(ngModel)]="writeweightage"
+                          name="writeweightage"
+                          (selectionChange)="writeWeightage()"
+                          [style.width]="'100%'"
                         >
-                      </mat-select>
+                          <mat-option
+                            *ngFor="let item of WriteWeightageList"
+                            [value]="item"
+                            >{{ item.Name }}</mat-option
+                          >
+                        </mat-select>
+                      </mat-form-field>
+
                       <!-- </md-input-container> -->
                     </div>
                   </div>
@@ -263,19 +277,22 @@
                     <div class="col-xs-12 col-sm-8">
                       <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
                         <input mdInput style="display:none"> -->
-                      <mat-select
-                        [(ngModel)]="speakweightage"
-                        name="speakweightage"
-                        (selectionChange)="speakWeightage()"
-                        placeholder="Select Weightage"
-                        [style.width]="'100%'"
-                      >
-                        <mat-option
-                          *ngFor="let item of SpeakWeightageList"
-                          [value]="item"
-                          >{{ item.Name }}</mat-option
+                      <mat-form-field>
+                        <mat-label>Select Weightage</mat-label>
+                        <mat-select
+                          [(ngModel)]="speakweightage"
+                          name="speakweightage"
+                          (selectionChange)="speakWeightage()"
+                          [style.width]="'100%'"
                         >
-                      </mat-select>
+                          <mat-option
+                            *ngFor="let item of SpeakWeightageList"
+                            [value]="item"
+                            >{{ item.Name }}</mat-option
+                          >
+                        </mat-select>
+                      </mat-form-field>
+
                       <!-- </md-input-container> -->
                     </div>
                   </div>
@@ -421,41 +438,47 @@
             <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
               <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
                 <input mdInput style="display:none"> -->
-              <mat-select
-                name="user_name"
-                placeholder="Select User Name "
-                [style.width]="'100%'"
-                [(ngModel)]="edit_Details.userID"
-                [disabled]="disableUsername"
-                required
-              >
-                <mat-option
-                  *ngFor="let item of userNamesList"
-                  [value]="item.userID"
-                  >{{ item.userName }}</mat-option
+              <mat-form-field>
+                <mat-label>Select User Name </mat-label>
+                <mat-select
+                  name="user_name"
+                  [style.width]="'100%'"
+                  [(ngModel)]="edit_Details.userID"
+                  [disabled]="disableUsername"
+                  required
                 >
-              </mat-select>
+                  <mat-option
+                    *ngFor="let item of userNamesList"
+                    [value]="item.userID"
+                    >{{ item.userName }}</mat-option
+                  >
+                </mat-select>
+              </mat-form-field>
+
               <!-- </md-input-container> -->
             </div>
 
             <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
               <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
                 <input mdInput style="display:none"> -->
-              <mat-select
-                disabled
-                [(ngModel)]="languageID_edit"
-                name="language"
-                placeholder="Select Language "
-                [style.width]="'100%'"
-                (selectionChange)="editLanguage(languageID_edit)"
-                required
-              >
-                <mat-option
-                  *ngFor="let item of allLanguagesList"
-                  [value]="item.languageID"
-                  >{{ item.languageName }}</mat-option
+              <mat-form-field>
+                <mat-label>Select Language </mat-label>
+                <mat-select
+                  disabled
+                  [(ngModel)]="languageID_edit"
+                  name="language"
+                  [style.width]="'100%'"
+                  (selectionChange)="editLanguage(languageID_edit)"
+                  required
                 >
-              </mat-select>
+                  <mat-option
+                    *ngFor="let item of allLanguagesList"
+                    [value]="item.languageID"
+                    >{{ item.languageName }}</mat-option
+                  >
+                </mat-select>
+              </mat-form-field>
+
               <!-- </md-input-container> -->
             </div>
 
@@ -475,19 +498,22 @@
                     <div class="col-xs-12 col-sm-8">
                       <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
                         <input mdInput style="display:none"> -->
-                      <mat-select
-                        [(ngModel)]="edit_Details.weightageRead"
-                        (selectionChange)="readWeightage()"
-                        name="read_weightage"
-                        placeholder="Select Weightage"
-                        [style.width]="'100%'"
-                      >
-                        <mat-option
-                          *ngFor="let item of ReadWeightageList"
-                          [value]="item.value"
-                          >{{ item.Name }}</mat-option
+                      <mat-form-field>
+                        <mat-label>Select Weightage</mat-label>
+                        <mat-select
+                          [(ngModel)]="edit_Details.weightageRead"
+                          (selectionChange)="readWeightage()"
+                          name="read_weightage"
+                          [style.width]="'100%'"
                         >
-                      </mat-select>
+                          <mat-option
+                            *ngFor="let item of ReadWeightageList"
+                            [value]="item.value"
+                            >{{ item.Name }}</mat-option
+                          >
+                        </mat-select>
+                      </mat-form-field>
+
                       <!-- </md-input-container> -->
                     </div>
                   </div>
@@ -506,19 +532,22 @@
                     <div class="col-xs-12 col-sm-8">
                       <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
                         <input mdInput style="display:none"> -->
-                      <mat-select
-                        [(ngModel)]="edit_Details.weightageWrite"
-                        (selectionChange)="writeWeightage()"
-                        name="write_weightage"
-                        placeholder="Select Weightage"
-                        [style.width]="'100%'"
-                      >
-                        <mat-option
-                          *ngFor="let item of WriteWeightageList"
-                          [value]="item.value"
-                          >{{ item.Name }}</mat-option
+                      <mat-form-field>
+                        <mat-label>Select Weightage</mat-label>
+                        <mat-select
+                          [(ngModel)]="edit_Details.weightageWrite"
+                          (selectionChange)="writeWeightage()"
+                          name="write_weightage"
+                          [style.width]="'100%'"
                         >
-                      </mat-select>
+                          <mat-option
+                            *ngFor="let item of WriteWeightageList"
+                            [value]="item.value"
+                            >{{ item.Name }}</mat-option
+                          >
+                        </mat-select>
+                      </mat-form-field>
+
                       <!-- </md-input-container> -->
                     </div>
                   </div>
@@ -537,20 +566,23 @@
                     <div class="col-xs-12 col-sm-8">
                       <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
                         <input mdInput style="display:none"> -->
-                      <mat-select
-                        [(ngModel)]="edit_Details.weightageSpeak"
-                        class="pull-left"
-                        (selectionChange)="speakWeightage()"
-                        name="speak_weightage"
-                        placeholder="Select Weightage"
-                        [style.width]="'100%'"
-                      >
-                        <mat-option
-                          *ngFor="let item of SpeakWeightageList"
-                          [value]="item.value"
-                          >{{ item.Name }}</mat-option
+                      <mat-form-field>
+                        <mat-label>Select Weightage</mat-label>
+                        <mat-select
+                          [(ngModel)]="edit_Details.weightageSpeak"
+                          class="pull-left"
+                          (selectionChange)="speakWeightage()"
+                          name="speak_weightage"
+                          [style.width]="'100%'"
                         >
-                      </mat-select>
+                          <mat-option
+                            *ngFor="let item of SpeakWeightageList"
+                            [value]="item.value"
+                            >{{ item.Name }}</mat-option
+                          >
+                        </mat-select>
+                      </mat-form-field>
+
                       <!-- </md-input-container> -->
                     </div>
                   </div>

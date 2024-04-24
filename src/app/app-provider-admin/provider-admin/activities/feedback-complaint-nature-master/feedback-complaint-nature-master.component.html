@@ -6,65 +6,74 @@
         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
           <!-- <mat-form-field class="hide_underline" [style.width]="'100%'">
             <input matInput style="display:none"> -->
-          <mat-select
-            placeholder="Serviceline"
-            [style.width]="'100%'"
-            [(ngModel)]="search_serviceline"
-            name="serviceline"
-            required
-          >
-            <mat-option
-              *ngFor="let service of servicelines"
-              value="{{ service.serviceID }}"
-              (click)="
-                getStates(service.serviceID, service.isNational);
-                setIsNational(service.isNational)
-              "
+          <mat-form-field>
+            <mat-label>Serviceline</mat-label>
+            <mat-select
+              [style.width]="'100%'"
+              [(ngModel)]="search_serviceline"
+              name="serviceline"
+              required
             >
-              {{ service.serviceName }}
-            </mat-option>
-          </mat-select>
+              <mat-option
+                *ngFor="let service of servicelines"
+                value="{{ service.serviceID }}"
+                (click)="
+                  getStates(service.serviceID, service.isNational);
+                  setIsNational(service.isNational)
+                "
+              >
+                {{ service.serviceName }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
           <!-- </mat-form-field> -->
         </div>
         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
           <!-- <mat-form-field class="hide_underline" [style.width]="'100%'">
             <input matInput style="display:none"> -->
-          <mat-select
-            placeholder="State"
-            [style.width]="'100%'"
-            [disabled]="isNational"
-            [(ngModel)]="search_state"
-            name="state"
-            [required]="!isNational"
-          >
-            <mat-option
-              *ngFor="let state of states"
-              value="{{ state.stateID }}"
-              (click)="findFeedbackTypes(state.providerServiceMapID)"
+          <mat-form-field>
+            <mat-label>State</mat-label>
+            <mat-select
+              [style.width]="'100%'"
+              [disabled]="isNational"
+              [(ngModel)]="search_state"
+              name="state"
+              [required]="!isNational"
             >
-              {{ state.stateName }}
-            </mat-option>
-          </mat-select>
+              <mat-option
+                *ngFor="let state of states"
+                value="{{ state.stateID }}"
+                (click)="findFeedbackTypes(state.providerServiceMapID)"
+              >
+                {{ state.stateName }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
           <!-- </mat-form-field> -->
         </div>
         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
           <!-- <mat-form-field class="hide_underline" [style.width]="'100%'">
             <input matInput style="display:none"> -->
-          <mat-select
-            placeholder="Feedback Type"
-            [style.width]="'100%'"
-            [(ngModel)]="search_feedbacktype"
-            name="feedbacktype"
-            required
-          >
-            <mat-option
-              *ngFor="let feedback of feedbackTypes"
-              value="{{ feedback.feedbackTypeID }}"
-              (click)="findFeedbackNature(feedback.feedbackTypeID)"
+          <mat-form-field>
+            <mat-label>Feedback Type</mat-label>
+            <mat-select
+              [style.width]="'100%'"
+              [(ngModel)]="search_feedbacktype"
+              name="feedbacktype"
+              required
             >
-              {{ feedback.feedbackTypeName }}
-            </mat-option>
-          </mat-select>
+              <mat-option
+                *ngFor="let feedback of feedbackTypes"
+                value="{{ feedback.feedbackTypeID }}"
+                (click)="findFeedbackNature(feedback.feedbackTypeID)"
+              >
+                {{ feedback.feedbackTypeName }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
           <!-- </mat-form-field> -->
         </div>
         <!-- <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
@@ -189,64 +198,73 @@
         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 m-t-15">
           <!-- <mat-form-field class="hide_underline" [style.width]="'100%'">
             <input matInput style="display:none"> -->
-          <mat-select
-            placeholder="Serviceline"
-            [style.width]="'100%'"
-            [(ngModel)]="search_serviceline"
-            name="serviceline"
-            [disabled]="true"
-          >
-            <mat-option
-              *ngFor="let service of servicelines"
-              value="{{ service.serviceID }}"
-              (click)="
-                getStates(service.serviceID, service.isNational);
-                setIsNational(service.isNational)
-              "
+          <mat-form-field>
+            <mat-label>Serviceline</mat-label>
+            <mat-select
+              [style.width]="'100%'"
+              [(ngModel)]="search_serviceline"
+              name="serviceline"
+              [disabled]="true"
             >
-              {{ service.serviceName }}
-            </mat-option>
-          </mat-select>
+              <mat-option
+                *ngFor="let service of servicelines"
+                value="{{ service.serviceID }}"
+                (click)="
+                  getStates(service.serviceID, service.isNational);
+                  setIsNational(service.isNational)
+                "
+              >
+                {{ service.serviceName }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
           <!-- </mat-form-field> -->
         </div>
         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 m-t-15">
           <!-- <mat-form-field class="hide_underline" [style.width]="'100%'">
             <input matInput style="display:none"> -->
-          <mat-select
-            placeholder="State"
-            [style.width]="'100%'"
-            [(ngModel)]="search_state"
-            name="state"
-            [disabled]="true"
-          >
-            <mat-option
-              *ngFor="let state of states"
-              value="{{ state.stateID }}"
-              (click)="findFeedbackTypes(state.providerServiceMapID)"
+          <mat-form-field>
+            <mat-label>State</mat-label>
+            <mat-select
+              [style.width]="'100%'"
+              [(ngModel)]="search_state"
+              name="state"
+              [disabled]="true"
             >
-              {{ state.stateName }}
-            </mat-option>
-          </mat-select>
+              <mat-option
+                *ngFor="let state of states"
+                value="{{ state.stateID }}"
+                (click)="findFeedbackTypes(state.providerServiceMapID)"
+              >
+                {{ state.stateName }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
           <!-- </mat-form-field> -->
         </div>
         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 m-t-15">
           <!-- <mat-form-field class="hide_underline" [style.width]="'100%'">
             <input matInput style="display:none"> -->
-          <mat-select
-            placeholder="Feedback Type"
-            [style.width]="'100%'"
-            [(ngModel)]="search_feedbacktype"
-            name="feedbacktype"
-            [disabled]="true"
-          >
-            <mat-option
-              *ngFor="let feedback of feedbackTypes"
-              value="{{ feedback.feedbackTypeID }}"
-              (click)="findFeedbackNature(feedback.feedbackTypeID)"
+          <mat-form-field>
+            <mat-label>Feedback Type</mat-label>
+            <mat-select
+              [style.width]="'100%'"
+              [(ngModel)]="search_feedbacktype"
+              name="feedbacktype"
+              [disabled]="true"
             >
-              {{ feedback.feedbackTypeName }}
-            </mat-option>
-          </mat-select>
+              <mat-option
+                *ngFor="let feedback of feedbackTypes"
+                value="{{ feedback.feedbackTypeID }}"
+                (click)="findFeedbackNature(feedback.feedbackTypeID)"
+              >
+                {{ feedback.feedbackTypeName }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
           <!-- </mat-form-field> -->
         </div>
       </div>
@@ -255,10 +273,10 @@
       <div class="row">
         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 m-t-20">
           <mat-form-field class="width100" VehicleNONew>
+            <mat-label>Nature of Complaint</mat-label>
             <input
               matInput
               name="feedbackNature"
-              placeholder="Nature of Complaint"
               [(ngModel)]="feedbackNature"
               #newFeedbackNature="ngModel"
               (keyup)="validateFeedbackNature(feedbackNature)"
@@ -281,11 +299,11 @@
         </div>
         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 m-t-20">
           <mat-form-field class="width100">
+            <mat-label>Feedback Nature Description</mat-label>
             <input
               matInput
               textAreaValidator
               name="feedbackDesc"
-              placeholder="Feedback Nature Description"
               [(ngModel)]="feedbackNatureDesc"
               #newFeedbackNatureDesc="ngModel"
               maxlength="100"

@@ -18,9 +18,9 @@
 <div class="row m-t-10">
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10">
     <mat-form-field class="input-full-width mat_form_field_width_one">
+      <mat-label>Employee Name</mat-label>
       <input
         matInput
-        placeholder="Employee Name"
         [(ngModel)]="employeeName"
         name="employeeName"
         [disabled]="true"
@@ -29,67 +29,63 @@
   </div>
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10">
     <mat-form-field class="input-full-width mat_form_field_width_one">
-      <input
-        matInput
-        placeholder="Serviceline"
-        [(ngModel)]="service"
-        name="service"
-        [disabled]="true"
-      />
+      <mat-label>Serviceline</mat-label>
+      <input matInput [(ngModel)]="service" name="service" [disabled]="true" />
     </mat-form-field>
   </div>
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10">
     <mat-form-field class="input-full-width mat_form_field_width_one">
-      <input
-        matInput
-        placeholder="Role"
-        [(ngModel)]="role"
-        name="role"
-        [disabled]="true"
-      />
+      <mat-label>Role</mat-label>
+      <input matInput [(ngModel)]="role" name="role" [disabled]="true" />
     </mat-form-field>
   </div>
   <form #mappingForm="ngForm" autocomplete="off">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10">
       <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
         <input matInput style="display:none"> -->
-      <mat-select
-        placeholder="Campaign Name"
-        [style.width]="'100%'"
-        [(ngModel)]="campaign"
-        name="campaign"
-        (selectionChange)="getAgentIDs(campaign)"
-        required
-      >
-        <mat-option *ngFor="let item of campaigns" value="{{ item }}">
-          {{ item }}
-        </mat-option>
-      </mat-select>
+      <mat-form-field>
+        <mat-label>Campaign Name</mat-label>
+        <mat-select
+          [style.width]="'100%'"
+          [(ngModel)]="campaign"
+          name="campaign"
+          (selectionChange)="getAgentIDs(campaign)"
+          required
+        >
+          <mat-option *ngFor="let item of campaigns" value="{{ item }}">
+            {{ item }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
       <!-- </md-input-container> -->
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-20">
       <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
         <input matInput style="display:none"> -->
-      <mat-select
-        placeholder="Available AgentIDs"
-        [style.width]="'100%'"
-        [(ngModel)]="agentID"
-        name="agentID"
-        required
-      >
-        <mat-option
-          *ngFor="let item of agentIDs"
-          value="{{ item.agentID }}"
-          (click)="
-            setAgentPassword_usrAgentMappingID(
-              item.agentPassword,
-              item.usrAgentMappingID
-            )
-          "
+      <mat-form-field>
+        <mat-label>Available AgentIDs</mat-label>
+        <mat-select
+          [style.width]="'100%'"
+          [(ngModel)]="agentID"
+          name="agentID"
+          required
         >
-          {{ item.agentID }}
-        </mat-option>
-      </mat-select>
+          <mat-option
+            *ngFor="let item of agentIDs"
+            value="{{ item.agentID }}"
+            (click)="
+              setAgentPassword_usrAgentMappingID(
+                item.agentPassword,
+                item.usrAgentMappingID
+              )
+            "
+          >
+            {{ item.agentID }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
       <!-- </md-input-container> -->
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-25" align="center">

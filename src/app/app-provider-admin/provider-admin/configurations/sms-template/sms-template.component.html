@@ -1,30 +1,27 @@
 <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
   <mat-form-field class="hide_underline width100">
     <input matInput style="display: none" />
-    <mat-select
-      placeholder="Serviceline"
-      class="width100"
-      [(ngModel)]="service"
-      name="services"
-      (selectionChange)="getStates(service)"
-      required
-    >
-      <mat-option *ngFor="let item of services" [value]="item">
-        {{ item.serviceName }}
-      </mat-option>
-    </mat-select>
+    <mat-form-field>
+      <mat-label>Serviceline</mat-label>
+      <mat-select
+        class="width100"
+        [(ngModel)]="service"
+        name="services"
+        (selectionChange)="getStates(service)"
+        required
+      >
+        <mat-option *ngFor="let item of services" [value]="item">
+          {{ item.serviceName }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
   </mat-form-field>
 </div>
 <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
   <mat-form-field class="hide_underline width100">
     <input matInput style="display: none" />
-    <mat-select
-      placeholder="State"
-      class="width100"
-      [(ngModel)]="state"
-      name="state"
-      required
-    >
+    <mat-label>State</mat-label>
+    <mat-select class="width100" [(ngModel)]="state" name="state" required>
       <mat-option
         *ngFor="let item of states"
         [value]="item"
@@ -145,11 +142,11 @@
   <form #smsForm="ngForm" autocomplete="off">
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" myName_space>
       <mat-form-field [style.width]="'100%'">
+        <mat-label>Template Name</mat-label>
         <input
           matInput
           usernameValidator
           required
-          placeholder="Template Name"
           [readonly]="isReadonly"
           ngModel
           name="templateName"
@@ -159,13 +156,8 @@
     </div>
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
       <mat-form-field>
-        <mat-select
-          [style.width]="'100%'"
-          ngModel
-          required
-          placeholder="SMS Type"
-          name="smsType"
-        >
+        <mat-label>SMS Type</mat-label>
+        <mat-select [style.width]="'100%'" ngModel required name="smsType">
           <mat-option *ngFor="let type of SMS_Types" [value]="type.smsTypeID">
             {{ type.smsType }}
           </mat-option>
@@ -177,6 +169,7 @@
 
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
       <mat-form-field style="width: 100%">
+        <mat-label>SMS Template</mat-label>
         <textarea
           matInput
           smsTemplateValidator
@@ -201,10 +194,10 @@
     <div *ngIf="showParameters">
       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
         <mat-form-field>
+          <mat-label>Select Parameter</mat-label>
           <mat-select
             [style.width]="'100%'"
             ngModel
-            placeholder="Select Parameter"
             name="parameter"
             (selectionChange)="getSMSparameters()"
           >
@@ -219,10 +212,10 @@
       </div>
       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
         <mat-form-field>
+          <mat-label>Select Value Type</mat-label>
           <mat-select
             [style.width]="'100%'"
             ngModel
-            placeholder="Select Value Type"
             name="valueType"
             (selectionChange)="setValuesInDropdown(parameterValueType.value)"
             #parameterValueType="ngModel"
@@ -234,16 +227,17 @@
         </mat-form-field>
       </div>
       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-        <mat-select
-          [style.width]="'100%'"
-          ngModel
-          placeholder="Select Value"
-          name="value"
-        >
-          <mat-option *ngFor="let val of selectedParameterValues" [value]="val">
-            {{ val.smsParameterName }}
-          </mat-option>
-        </mat-select>
+        <mat-form-field>
+          <mat-label>Select Value</mat-label>
+          <mat-select [style.width]="'100%'" ngModel name="value">
+            <mat-option
+              *ngFor="let val of selectedParameterValues"
+              [value]="val"
+            >
+              {{ val.smsParameterName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
       </div>
       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
         <button
@@ -389,25 +383,14 @@
   <form #smsViewForm="ngForm" autocomplete="off">
     <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
       <mat-form-field [style.width]="'100%'">
-        <input
-          matInput
-          required
-          placeholder="Template Name"
-          ngModel
-          name="templateName"
-          readonly
-        />
+        <mat-label>Template Name</mat-label>
+        <input matInput required ngModel name="templateName" readonly />
       </mat-form-field>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
       <mat-form-field [style.width]="'100%'">
-        <input
-          matInput
-          placeholder="SMS Type"
-          ngModel
-          name="smsType"
-          readonly
-        />
+        <mat-label>SMS Type</mat-label>
+        <input matInput ngModel name="smsType" readonly />
       </mat-form-field>
     </div>
 
@@ -415,6 +398,7 @@
 
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
       <mat-form-field style="width: 100%">
+        <mat-label>SMS Template</mat-label>
         <textarea
           matInput
           rows="5"

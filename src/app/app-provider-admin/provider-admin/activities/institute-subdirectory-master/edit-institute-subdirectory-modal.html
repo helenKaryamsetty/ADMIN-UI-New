@@ -19,9 +19,9 @@
   <form #ISDform="ngForm" autocomplete="off">
     <div class="col-3" myProviderName>
       <mat-form-field>
+        <mat-label>Institute Sub Directory</mat-label>
         <input
           matInput
-          placeholder="Institute Sub Directory"
           [(ngModel)]="instituteSubDirectory"
           name="instituteDirectory"
           minlength="2"
@@ -33,9 +33,9 @@
     </div>
     <div class="col-3" VehicleNO>
       <mat-form-field>
+        <mat-label>Description</mat-label>
         <input
           matInput
-          placeholder="Description"
           [(ngModel)]="description"
           name="description"
           maxlength="100"

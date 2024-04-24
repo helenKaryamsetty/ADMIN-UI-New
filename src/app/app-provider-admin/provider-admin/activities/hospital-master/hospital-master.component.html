@@ -10,80 +10,94 @@
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
       <!-- <mat-form-field class="hide_underline" [style.width]="'100%'">
           <input matInput style="display:none"> -->
-      <mat-select
-        placeholder="Serviceline"
-        required
-        disabled="{{ disabled_flag }}"
-        [style.width]="'100%'"
-        [(ngModel)]="service"
-        name="service"
-      >
-        <mat-option
-          *ngFor="let item of services"
-          [value]="item.serviceID"
-          (click)="getStates(item.serviceID, item.isNational)"
+      <mat-form-field>
+        <mat-label>Serviceline</mat-label>
+        <mat-select
+          required
+          disabled="{{ disabled_flag }}"
+          [style.width]="'100%'"
+          [(ngModel)]="service"
+          name="service"
         >
-          {{ item.serviceName }}
-        </mat-option>
-      </mat-select>
+          <mat-option
+            *ngFor="let item of services"
+            [value]="item.serviceID"
+            (click)="getStates(item.serviceID, item.isNational)"
+          >
+            {{ item.serviceName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
       <!-- </mat-form-field> -->
     </div>
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
       <!-- <mat-form-field class="hide_underline" [style.width]="'100%'">
           <input matInput style="display:none"> -->
-      <mat-select
-        placeholder="State"
-        required
-        disabled="{{ disabled_flag }}"
-        [style.width]="'100%'"
-        [(ngModel)]="state"
-        name="state"
-        (selectionChange)="getDistrict(state)"
-      >
-        <mat-option
-          *ngFor="let item of states"
-          [value]="item.stateID"
-          (selectionChange)="setProviderServiceMapID(item.providerServiceMapID)"
+      <mat-form-field>
+        <mat-label>State</mat-label>
+        <mat-select
+          required
+          disabled="{{ disabled_flag }}"
+          [style.width]="'100%'"
+          [(ngModel)]="state"
+          name="state"
+          (selectionChange)="getDistrict(state)"
         >
-          {{ item.stateName }}
-        </mat-option>
-      </mat-select>
+          <mat-option
+            *ngFor="let item of states"
+            [value]="item.stateID"
+            (selectionChange)="
+              setProviderServiceMapID(item.providerServiceMapID)
+            "
+          >
+            {{ item.stateName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
       <!-- </mat-form-field> -->
     </div>
     <div clear-fix></div>
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
       <!-- <mat-form-field class="hide_underline" [style.width]="'100%'">
           <input matInput style="display:none"> -->
-      <mat-select
-        placeholder="District"
-        required
-        disabled="{{ disabled_flag }}"
-        [style.width]="'100%'"
-        [(ngModel)]="district"
-        name="district"
-        (selectionChange)="getInstitutions(); getTaluk(district)"
-      >
-        <mat-option *ngFor="let item of districts" [value]="item.districtID">
-          {{ item.districtName }}
-        </mat-option>
-      </mat-select>
+      <mat-form-field>
+        <mat-label>District</mat-label>
+        <mat-select
+          required
+          disabled="{{ disabled_flag }}"
+          [style.width]="'100%'"
+          [(ngModel)]="district"
+          name="district"
+          (selectionChange)="getInstitutions(); getTaluk(district)"
+        >
+          <mat-option *ngFor="let item of districts" [value]="item.districtID">
+            {{ item.districtName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
       <!-- </mat-form-field> -->
     </div>
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
       <!-- <mat-form-field class="hide_underline" [style.width]="'100%'">
           <input matInput style="display:none"> -->
-      <mat-select
-        placeholder="Taluk"
-        disabled="{{ disabled_flag }}"
-        [style.width]="'100%'"
-        [(ngModel)]="taluk"
-        name="taluk"
-        (selectionChange)="getInstitutions()"
-      >
-        <mat-option *ngFor="let item of taluks" [value]="item.blockID">
-          {{ item.blockName }}
-        </mat-option>
-      </mat-select>
+      <mat-form-field>
+        <mat-label>Taluk</mat-label>
+        <mat-select
+          disabled="{{ disabled_flag }}"
+          [style.width]="'100%'"
+          [(ngModel)]="taluk"
+          name="taluk"
+          (selectionChange)="getInstitutions()"
+        >
+          <mat-option *ngFor="let item of taluks" [value]="item.blockID">
+            {{ item.blockName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
       <!-- </mat-form-field> -->
     </div>
   </form>
@@ -219,39 +233,41 @@
       </md-radio-group>-->
   </div>
   <div class="m-t-20">
-    <label for="upload-file" *ngIf="file !== undefined"
-      >Upload File(Size :{{ file.size / 1024 / 1024 }}/{{
-        maxFileSize
-      }}MB)</label
-    >
-    <label for="upload-file" *ngIf="file === undefined"
-      >Upload File(Size :0/{{ maxFileSize }}MB), Supported File Formats(.xls,
-      .xlsx, .xlsm, .xlsb)</label
-    >
-    <input
-      class="m-t-10"
-      type="file"
-      accept=".xls, .xlsx, .xlsm, .xlsb"
-      size="100"
-      placeholder="Upload file"
-      id="upload-file"
-      (change)="onFileUpload($event)"
-      name="fileList"
-      ngModel
-      #uploadfile="ngModel"
-    />
-    <span class="help-block" *ngIf="inValidFileName">Invalid file name</span>
-    <span class="help-block" *ngIf="invalid_file_flag"
-      >Supported File Formats(.xls, .xlsx, .xlsm, .xlsb)</span
-    >
-    <span class="file-upload" *ngIf="error1"
-      >*Please choose a file for upload</span
-    >
-    <span class="help-block" *ngIf="error2"
-      >File size should not exceed {{ maxFileSize }}MB</span
-    >
-    <!-- <span class="help-block m-t-5" *ngIf="error1">Please choose a file for upload</span> -->
-    <!-- <span class="help-block m-t-5" *ngIf="file!=undefined && fileSizeIsMoreThanRequired">File Size should not exceed {{maxFileSize}} MB</span> -->
+    <mat-form-field>
+      <mat-label for="upload-file" *ngIf="file !== undefined"
+        >Upload File(Size :{{ file.size / 1024 / 1024 }}/{{
+          maxFileSize
+        }}MB)</mat-label
+      >
+      <mat-label for="upload-file" *ngIf="file === undefined"
+        >Upload File(Size :0/{{ maxFileSize }}MB), Supported File Formats(.xls,
+        .xlsx, .xlsm, .xlsb)</mat-label
+      >
+      <input
+        class="m-t-10"
+        type="file"
+        accept=".xls, .xlsx, .xlsm, .xlsb"
+        size="100"
+        placeholder="Upload file"
+        id="upload-file"
+        (change)="onFileUpload($event)"
+        name="fileList"
+        ngModel
+        #uploadfile="ngModel"
+      />
+      <span class="help-block" *ngIf="inValidFileName">Invalid file name</span>
+      <span class="help-block" *ngIf="invalid_file_flag"
+        >Supported File Formats(.xls, .xlsx, .xlsm, .xlsb)</span
+      >
+      <span class="file-upload" *ngIf="error1"
+        >*Please choose a file for upload</span
+      >
+      <span class="help-block" *ngIf="error2"
+        >File size should not exceed {{ maxFileSize }}MB</span
+      >
+      <!-- <span class="help-block m-t-5" *ngIf="error1">Please choose a file for upload</span> -->
+      <!-- <span class="help-block m-t-5" *ngIf="file!=undefined && fileSizeIsMoreThanRequired">File Size should not exceed {{maxFileSize}} MB</span> -->
+    </mat-form-field>
   </div>
   <div class="m-t-20">
     <button
@@ -285,25 +301,28 @@
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
       <!-- <mat-form-field class="hide_underline" [style.width]="'100%'">
               <input matInput style="display:none"> -->
-      <mat-select
-        placeholder="Institution Type"
-        required
-        [style.width]="'100%'"
-        [(ngModel)]="institutionType"
-        name="institutionType"
-      >
-        <mat-option *ngFor="let inst of InstitutionTypes" [value]="inst">
-          {{ inst.institutionType }}
-        </mat-option>
-      </mat-select>
+      <mat-form-field>
+        <mat-label>Institution Type</mat-label>
+        <mat-select
+          required
+          [style.width]="'100%'"
+          [(ngModel)]="institutionType"
+          name="institutionType"
+        >
+          <mat-option *ngFor="let inst of InstitutionTypes" [value]="inst">
+            {{ inst.institutionType }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
       <!-- </mat-form-field> -->
     </div>
 
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20" myName2>
       <mat-form-field style="width: 100%">
+        <mat-label>Institution Name</mat-label>
         <input
           matInput
-          placeholder="Institution Name"
           [(ngModel)]="institutionName"
           name="institutionName"
           minlength="3"
@@ -321,10 +340,10 @@
     </div>
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
       <mat-form-field style="width: 100%">
+        <mat-label>Address</mat-label>
         <input
           matInput
           myAddress
-          placeholder="Address"
           maxlength="300"
           [(ngModel)]="address"
           name="address"
@@ -335,10 +354,10 @@
 
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
       <mat-form-field style="width: 100%">
+        <mat-label>Website</mat-label>
         <input
           matInput
           [pattern]="website_expression"
-          placeholder="Website"
           [(ngModel)]="website"
           name="website"
           #valid_website="ngModel"
@@ -353,9 +372,9 @@
 
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20" myName2>
       <mat-form-field style="width: 100%">
+        <mat-label>Primary Contact Person</mat-label>
         <input
           matInput
-          placeholder="Primary Contact Person"
           [(ngModel)]="contact_person_name"
           name="contact_person_name"
           minlength="2"
@@ -373,9 +392,9 @@
     </div>
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20" myMobileNumber>
       <mat-form-field style="width: 100%">
+        <mat-label>Primary Contact Number</mat-label>
         <input
           matInput
-          placeholder="Primary Contact Number"
           minlength="10"
           maxlength="10"
           [(ngModel)]="contact_number"
@@ -394,10 +413,10 @@
     </div>
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
       <mat-form-field style="width: 100%">
+        <mat-label>Primary Email ID</mat-label>
         <input
           matInput
           type="email"
-          placeholder="Primary Email ID"
           [(ngModel)]="emailID"
           name="emailID"
           [pattern]="email_expression"
@@ -411,9 +430,9 @@
 
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20" myName2>
       <mat-form-field style="width: 100%">
+        <mat-label>Secondary Contact Person</mat-label>
         <input
           matInput
-          placeholder="Secondary Contact Person"
           [(ngModel)]="secondary_contact_person_name"
           (keyup)="enableSecNumberAndEmailFields()"
           name="secondary_contact_person_name"
@@ -427,9 +446,9 @@
     </div>
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20" myMobileNumber>
       <mat-form-field style="width: 100%">
+        <mat-label>Secondary Contact Number</mat-label>
         <input
           matInput
-          placeholder="Secondary Contact Number"
           minlength="10"
           maxlength="10"
           [(ngModel)]="secondary_contact_number"
@@ -445,10 +464,10 @@
 
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
       <mat-form-field style="width: 100%">
+        <mat-label>Secondary Email ID</mat-label>
         <input
           matInput
           type="email"
-          placeholder="Secondary Email ID"
           [(ngModel)]="secondary_emailID"
           name="secondary_emailID"
           [pattern]="email_expression"
@@ -463,9 +482,9 @@
 
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20" myName2>
       <mat-form-field style="width: 100%">
+        <mat-label>Tertiary Contact Person</mat-label>
         <input
           matInput
-          placeholder="Tertiary Contact Person"
           [(ngModel)]="tertiary_contact_person_name"
           (keyup)="enableTertiaryNumberAndEmailFields()"
           name="tertiary_contact_person_name"
@@ -479,9 +498,9 @@
     </div>
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20" myMobileNumber>
       <mat-form-field style="width: 100%">
+        <mat-label>Tertiary Contact Number</mat-label>
         <input
           matInput
-          placeholder="Tertiary Contact Number"
           minlength="10"
           maxlength="10"
           [(ngModel)]="tertiary_contact_number"
@@ -497,10 +516,10 @@
 
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
       <mat-form-field style="width: 100%">
+        <mat-label>Tertiary Email ID</mat-label>
         <input
           matInput
           type="email"
-          placeholder="Tertiary Email ID"
           [(ngModel)]="tertiary_emailID"
           disabled="{{ disableTertiaryFields }}"
           name="tertiary_emailID"

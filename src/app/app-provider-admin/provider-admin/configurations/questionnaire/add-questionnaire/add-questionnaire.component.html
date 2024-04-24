@@ -6,7 +6,6 @@
       <mat-form-field>
         <mat-label>Serviceline</mat-label>
         <mat-select
-          placeholder="Serviceline"
           [style.width]="'100%'"
           [(ngModel)]="service"
           name="service"
@@ -28,7 +27,6 @@
       <mat-form-field>
         <mat-label>State</mat-label>
         <mat-select
-          placeholder="State"
           [style.width]="'100%'"
           [disabled]="showAdd"
           [(ngModel)]="state"
@@ -49,8 +47,8 @@
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15" *ngIf="showtype">
       <mat-form-field>
         <input matInput questionnaireValidator style="display: none" />
+        <mat-label>Question Type</mat-label>
         <mat-select
-          placeholder="Question Type"
           name="questionType"
           [disabled]="showAdd"
           [style.width]="'100%'"
@@ -286,7 +284,6 @@
                         matInput
                         inputFieldValidator
                         required
-                        placeholder="Option"
                         formControlName="option"
                         maxlength="100"
                       />

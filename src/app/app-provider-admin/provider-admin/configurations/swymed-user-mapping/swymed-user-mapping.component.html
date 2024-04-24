@@ -161,42 +161,47 @@
 <div class="row" *ngIf="!showTable" (mouseup)="hidePWD()">
   <form #mappingForm="ngForm" autocomplete="off">
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-      <mat-select
-        placeholder="Designation"
-        class="width100"
-        [(ngModel)]="designation"
-        name="designation"
-        [disabled]="disableSelection"
-        #userDesignation="ngModel"
-        (selectionChange)="getUserNameBasedOnDesig(designation.designationID)"
-        required
-      >
-        <mat-option *ngFor="let item of designations" [value]="item">
-          {{ item.designationName }}
-        </mat-option>
-      </mat-select>
+      <mat-form-field>
+        <mat-label>Designation</mat-label>
+        <mat-select
+          class="width100"
+          [(ngModel)]="designation"
+          name="designation"
+          [disabled]="disableSelection"
+          #userDesignation="ngModel"
+          (selectionChange)="getUserNameBasedOnDesig(designation.designationID)"
+          required
+        >
+          <mat-option *ngFor="let item of designations" [value]="item">
+            {{ item.designationName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-      <mat-select
-        placeholder="User"
-        class="width100"
-        ngModel
-        [(ngModel)]="username"
-        name="username"
-        [disabled]="disableSelection"
-        #swymedUser="ngModel"
-        required
-      >
-        <mat-option *ngFor="let user of userNamesList" [value]="user">
-          {{ user.UserName }}
-        </mat-option>
-      </mat-select>
+      t
+      <mat-form-field>
+        <mat-label>User</mat-label>
+        <mat-select
+          class="width100"
+          ngModel
+          [(ngModel)]="username"
+          name="username"
+          [disabled]="disableSelection"
+          #swymedUser="ngModel"
+          required
+        >
+          <mat-option *ngFor="let user of userNamesList" [value]="user">
+            {{ user.UserName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
       <mat-form-field class="input-full-width mat_form_field_width_one">
+        <mat-label>Email</mat-label>
         <input
           matInput
-          placeholder="Email"
           ngModel
           [(ngModel)]="emailID"
           name="emailID"
@@ -213,10 +218,10 @@
     </div>
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
       <mat-form-field class="input-full-width mat_form_field_width_one">
+        <mat-label>Password</mat-label>
         <input
           type="{{ dynamictype }}"
           matInput
-          placeholder="Password"
           ngModel
           [(ngModel)]="password"
           name="password"
@@ -251,8 +256,8 @@
       </mat-form-field>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
+      <mat-label>Swymed Domain</mat-label>
       <mat-select
-        placeholder="Swymed Domain"
         class="width100"
         [(ngModel)]="domain"
         name="domain"

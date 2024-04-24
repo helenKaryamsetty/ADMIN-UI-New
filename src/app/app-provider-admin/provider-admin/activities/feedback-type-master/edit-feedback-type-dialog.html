@@ -19,9 +19,9 @@
   <form #f1="ngForm" autocomplete="off">
     <div *ngIf="service !== '3'">
       <mat-form-field style="width: 100%">
+        <mat-label>Feedback Name</mat-label>
         <input
           matInput
-          placeholder="Feedback Name"
           name="feedbackName"
           [(ngModel)]="feedbackName"
           (keyup)="validateFeedback(feedbackName)"
@@ -37,31 +37,35 @@
       </mat-form-field>
     </div>
     <div *ngIf="service === '3'">
-      <mat-select
-        placeholder="Feedback Name"
-        [style.width]="'100%'"
-        [(ngModel)]="feedbackName"
-        name="feedbackName"
-        required
-        (change)="validateFeedback(feedbackName)"
-        #fbName="ngModel"
-      >
-        <mat-option value="Generic Complaint">Generic Complaint</mat-option>
-        <mat-option value="Asha Complaints">Asha Complaints</mat-option>
-        <mat-option value="Epidemic Complaints">Epidemic Complaints</mat-option>
-        <mat-option value="Foodsafety Complaints"
-          >Food Safety Complaints</mat-option
+      <mat-form-field>
+        <mat-label>Feedback Name</mat-label>
+        <mat-select
+          [style.width]="'100%'"
+          [(ngModel)]="feedbackName"
+          name="feedbackName"
+          required
+          (change)="validateFeedback(feedbackName)"
+          #fbName="ngModel"
         >
-        <mat-option value="Bal Vivah Complaints"
-          >Bal Vivah Complaints</mat-option
-        >
-      </mat-select>
+          <mat-option value="Generic Complaint">Generic Complaint</mat-option>
+          <mat-option value="Asha Complaints">Asha Complaints</mat-option>
+          <mat-option value="Epidemic Complaints"
+            >Epidemic Complaints</mat-option
+          >
+          <mat-option value="Foodsafety Complaints"
+            >Food Safety Complaints</mat-option
+          >
+          <mat-option value="Bal Vivah Complaints"
+            >Bal Vivah Complaints</mat-option
+          >
+        </mat-select>
+      </mat-form-field>
     </div>
     <div class="m-t-20">
       <mat-form-field style="width: 100%">
+        <mat-label>Feedback Desc</mat-label>
         <input
           matInput
-          placeholder="Feedback Desc"
           name="feedbackDesc"
           [(ngModel)]="feedbackDesc"
           #fbDesc="ngModel"

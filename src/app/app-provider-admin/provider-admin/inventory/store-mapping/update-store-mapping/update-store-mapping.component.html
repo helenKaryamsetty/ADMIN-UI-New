@@ -9,7 +9,9 @@
 <form [formGroup]="storeMappingForm" autocomplete="off">
   <div class="row m-t-20">
     <div class="col-xs-12 col-sm-6 box">
-      <label class="control-label" for="isMainFacility">Store Type:</label>
+      <mat-label class="control-label" for="isMainFacility"
+        >Store Type:</mat-label
+      >
       <mat-radio-group
         placeholder="Main Store"
         formControlName="isMainFacility"
@@ -23,67 +25,75 @@
     <div class="clearfix"></div>
 
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 box">
-      <mat-select
-        class="input-full-width"
-        placeholder="Main Store"
-        formControlName="facilityName"
-        name="facilityName"
-      >
-        <mat-option *ngFor="let store of storeList" [value]="store">
-          {{ store.facilityName }}
-        </mat-option>
-      </mat-select>
+      <mat-form-field>
+        <mat-label>Main Store</mat-label>
+        <mat-select
+          class="input-full-width"
+          formControlName="facilityName"
+          name="facilityName"
+        >
+          <mat-option *ngFor="let store of storeList" [value]="store">
+            {{ store.facilityName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
 
     <div
       class="col-xs-12 col-sm-6 col-md-4 col-lg-3 box"
       *ngIf="isMainFacility === false"
     >
-      <mat-select
-        class="input-full-width"
-        placeholder="Sub Store"
-        formControlName="subFacilityName"
-        name="subFacilityName"
-      >
-        <mat-option *ngFor="let store of storeList" [value]="store">
-          {{ store.facilityName }}
-        </mat-option>
-      </mat-select>
+      <mat-form-field>
+        <mat-label>Sub Store</mat-label>
+        <mat-select
+          class="input-full-width"
+          formControlName="subFacilityName"
+          name="subFacilityName"
+        >
+          <mat-option *ngFor="let store of storeList" [value]="store">
+            {{ store.facilityName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
 
     <div
       class="col-xs-12 col-sm-6 col-md-4 col-lg-3 box"
       *ngIf="isMainFacility"
     >
-      <mat-select
-        class="input-full-width"
-        placeholder="Parking Place"
-        formControlName="parkingPlaceName"
-        name="parkingPlaceName"
-      >
-        <mat-option
-          *ngFor="let parkingPlace of parkingPlaceList"
-          [value]="parkingPlace"
+      <mat-form-field>
+        <mat-label>Parking Place</mat-label>
+        <mat-select
+          class="input-full-width"
+          formControlName="parkingPlaceName"
+          name="parkingPlaceName"
         >
-          {{ parkingPlace.parkingPlaceName }}
-        </mat-option>
-      </mat-select>
+          <mat-option
+            *ngFor="let parkingPlace of parkingPlaceList"
+            [value]="parkingPlace"
+          >
+            {{ parkingPlace.parkingPlaceName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
 
     <div
       class="col-xs-12 col-sm-6 col-md-4 col-lg-3 box"
       *ngIf="isMainFacility === false"
     >
-      <mat-select
-        class="input-full-width"
-        placeholder="Van"
-        formControlName="vanName"
-        name="vanName"
-      >
-        <mat-option *ngFor="let van of vanList" [value]="van">
-          {{ van.vanName }}
-        </mat-option>
-      </mat-select>
+      <mat-form-field>
+        <mat-label>Van</mat-label>
+        <mat-select
+          class="input-full-width"
+          formControlName="vanName"
+          name="vanName"
+        >
+          <mat-option *ngFor="let van of vanList" [value]="van">
+            {{ van.vanName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
   </div>
 </form>
