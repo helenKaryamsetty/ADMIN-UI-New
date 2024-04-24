@@ -20,7 +20,13 @@
  * along with this program.  If not, see https://www.gnu.org/licenses/.
  */
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import {
+  AbstractControl,
+  FormControl,
+  NgForm,
+  ValidatorFn,
+  Validators,
+} from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
@@ -36,6 +42,14 @@ import { ConfirmationDialogsService } from 'src/app/core/services/dialog/confirm
   styleUrls: ['./provider-admin-role-master.component.css'],
 })
 export class RoleMasterComponent implements OnInit, AfterViewInit {
+  roleFormControl = new FormControl('', [
+    Validators.required,
+    this.onlyLettersValidator(),
+  ]);
+  roleFormControl1 = new FormControl('', [
+    Validators.required,
+    this.onlyLettersValidator(),
+  ]);
   role: any;
   description: any;
   feature: any;
@@ -123,6 +137,16 @@ export class RoleMasterComponent implements OnInit, AfterViewInit {
     this.filterScreens = [];
   }
 
+  onlyLettersValidator(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const value = control.value;
+      const regex = /^[a-zA-Z]*$/; // Regular expression to match only letters
+      if (!regex.test(value)) {
+        return { onlyLetters: true }; // Return validation error if input contains non-letter characters
+      }
+      return null; // Return null if validation passes
+    };
+  }
   ngOnInit() {
     console.log('commonDataService', this.commonDataService);
     this.userID = this.commonDataService.uid;

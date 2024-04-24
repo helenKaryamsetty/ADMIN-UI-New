@@ -195,9 +195,9 @@
 <div class="row" *ngIf="showRoleCreationForm">
   <form #addingForm="ngForm" id="roleAddForm" autocomplete="off">
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20" myProviderName>
-      <mat-form-field style="width: 100%">
+      <!-- <mat-form-field style="width: 100%">
         <mat-label>Role</mat-label>
-        <input
+        <input type="text"
           matInput
           [(ngModel)]="role"
           minlength="1"
@@ -206,12 +206,35 @@
           (keyup)="validateRole(role)"
           required
           #roles="ngModel"
+          [formControl]="roleFormControl"
         />
         <mat-hint *ngIf="roles.touched">
           <span class="error_text" *ngIf="othersExist"
             >Role already exists</span
           >
           <span class="error_text" *ngIf="roles.invalid">Role is required</span>
+        </mat-hint>
+      </mat-form-field> -->
+      <mat-form-field style="width: 100%">
+        <mat-label>Role</mat-label>
+        <input
+          type="text"
+          matInput
+          [(ngModel)]="role"
+          minlength="1"
+          maxlength="50"
+          name="role"
+          required
+          [formControl]="roleFormControl"
+        />
+        <!-- Display validation error message -->
+        <mat-hint *ngIf="roleFormControl.hasError('onlyLetters')">
+          <span class="error_text">letters are allowed</span>
+        </mat-hint>
+        <mat-hint *ngIf="role.touched">
+          <span class="error_text" *ngIf="othersExist" id="role1"
+            >Role already exists</span
+          >
         </mat-hint>
       </mat-form-field>
     </div>
@@ -223,7 +246,11 @@
           [(ngModel)]="description"
           name="description"
           maxlength="100"
+          [formControl]="roleFormControl1"
         />
+        <mat-hint *ngIf="roleFormControl1.hasError('onlyLetters')">
+          <span class="error_text" id="desc">letters are allowed</span>
+        </mat-hint>
       </mat-form-field>
     </div>
 
@@ -405,7 +432,7 @@
       mat-raised-button
       color="accent"
       class="pull-right mat_green"
-      [disabled]="roles.errors || othersExist"
+      [disabled]="role.errors || othersExist"
       *ngIf="setEditSubmitButton"
       (click)="saveEditChanges()"
     >

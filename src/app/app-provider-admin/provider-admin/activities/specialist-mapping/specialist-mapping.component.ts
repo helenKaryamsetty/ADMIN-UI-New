@@ -34,10 +34,22 @@ import { ProviderAdminRoleService } from '../services/state-serviceline-role.ser
   styleUrls: ['./specialist-mapping.component.css'],
 })
 export class SpecialistMappingComponent implements OnInit {
-  [x: string]: any;
-  @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
-  // dataSource = new MatTableDataSource<any>();
+  // [x: string]: any;
+  // @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
+  // // dataSource = new MatTableDataSource<any>();
+  // filteredspecializationList = new MatTableDataSource<any>();
+  displayedColumns = ['SNo', 'UserName', 'specializationName', 'action'];
+
+  paginator!: MatPaginator;
+  @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
+    this.paginator = mp;
+    this.setDataSourceAttributes();
+  }
   filteredspecializationList = new MatTableDataSource<any>();
+  setDataSourceAttributes() {
+    this.filteredspecializationList.paginator = this.paginator;
+  }
+
   serviceProviderID: any;
   uname: any;
   screenName = 'TC Specialist';
@@ -58,8 +70,6 @@ export class SpecialistMappingComponent implements OnInit {
 
   userSelected: any;
   specializationSelected: any;
-
-  displayedColumns: string[] = ['SNo', 'UserName', 'Specialization', 'action'];
 
   constructor(
     public alertService: ConfirmationDialogsService,
