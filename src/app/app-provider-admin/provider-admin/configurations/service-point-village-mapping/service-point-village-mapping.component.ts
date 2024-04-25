@@ -34,9 +34,39 @@ import { MatPaginator } from '@angular/material/paginator';
   templateUrl: './service-point-village-mapping.component.html',
 })
 export class ServicePointVillageMapComponent implements OnInit {
+  // filteredavailableServicePointVillageMaps = new MatTableDataSource<any>();
+  // servicePointVillageMapList = new MatTableDataSource<any>();
+  // @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
+  displayedColumns = [
+    'sno',
+    'servicePointName',
+    'districtName',
+    'blockName',
+    'villageName',
+    'action',
+  ];
+
+  displayAddedColumns = [
+    'sno',
+    'parkingPlaceName',
+    'servicePointName',
+    'districtName',
+    'districtBlockName',
+    'villageName',
+    'action',
+  ];
+
+  paginator!: MatPaginator;
+  @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
+    this.paginator = mp;
+    this.setDataSourceAttributes();
+  }
   filteredavailableServicePointVillageMaps = new MatTableDataSource<any>();
   servicePointVillageMapList = new MatTableDataSource<any>();
-  @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
+
+  setDataSourceAttributes() {
+    this.filteredavailableServicePointVillageMaps.paginator = this.paginator;
+  }
 
   // filteredavailableServicePointVillageMaps: any = [];
   formMode = false;

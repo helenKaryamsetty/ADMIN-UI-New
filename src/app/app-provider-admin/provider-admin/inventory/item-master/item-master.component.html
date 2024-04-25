@@ -1,7 +1,7 @@
 <div class="row" *ngIf="tableMode">
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <h4>
-      <strong>Item Master</strong>
+      <strong>Item Master1</strong>
     </h4>
   </div>
   <form #searchForm="ngForm" autocomplete="off">
@@ -266,16 +266,6 @@
         </mat-select>
       </mat-form-field>
     </div>
-    <!-- <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-      <mat-form-field class="hide_underline width100">
-        <input matInput style="display:none">
-        <mat-select placeholder="Drug Type" class="width100" [(ngModel)]="drugName" name="drugName" [disabled]="disableEDL" required>
-          <mat-option *ngFor="let item of drugTypeList" [value]="item" (click)="drugTypeChange(item)">
-            {{item}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div> -->
   </form>
 
   <div class="clearfix visible-md visible-lg"></div>
@@ -588,13 +578,11 @@
         [dataSource]="itemArrayObj"
         class="table table-striped table-hover"
       >
-        <!-- S.No. Column -->
         <ng-container matColumnDef="sno">
           <mat-header-cell *matHeaderCellDef>S.No.</mat-header-cell>
           <mat-cell *matCellDef="let item; let i = index">{{ i + 1 }}</mat-cell>
         </ng-container>
 
-        <!-- Category Code Column -->
         <ng-container matColumnDef="itemCode">
           <mat-header-cell *matHeaderCellDef>Item Code</mat-header-cell>
           <mat-cell *matCellDef="let item; let i = index">{{
@@ -602,7 +590,6 @@
           }}</mat-cell>
         </ng-container>
 
-        <!-- Category Name Column -->
         <ng-container matColumnDef="isMedical">
           <mat-header-cell *matHeaderCellDef>Item Type</mat-header-cell>
           <mat-cell *matCellDef="let item; let i = index">{{
@@ -610,7 +597,6 @@
           }}</mat-cell>
         </ng-container>
 
-        <!-- Category Description Column -->
         <ng-container matColumnDef="itemName">
           <mat-header-cell *matHeaderCellDef>Item Name</mat-header-cell>
           <mat-cell *matCellDef="let item; let i = index">{{
@@ -638,7 +624,6 @@
             item.itemDesc
           }}</mat-cell>
         </ng-container>
-        <!-- Action Column -->
         <ng-container matColumnDef="action">
           <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
           <mat-cell *matCellDef="let item; let i = index">
@@ -652,7 +637,6 @@
           </mat-cell>
         </ng-container>
 
-        <!-- Header and Row Definitions -->
         <mat-header-row
           *matHeaderRowDef="[
             'sno',
@@ -682,7 +666,6 @@
         ></mat-row>
       </mat-table>
 
-      <!-- Pagination -->
       <mat-paginator
         [length]="itemArrayObj.data.length"
         [pageSize]="4"

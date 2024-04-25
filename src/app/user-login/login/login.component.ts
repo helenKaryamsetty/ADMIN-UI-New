@@ -147,7 +147,8 @@ export class loginContentClassComponent implements OnInit, OnDestroy {
         .superAdminAuthenticate(userId, this.encryptPassword, doLogout)
         .subscribe(
           (response: any) => {
-            if (response.data.isAuthenticated) {
+            // if (response.statusCode === 200) {
+            if (response.data) {
               if (response.data.previlegeObj.length === 0) {
                 console.log(response.data, 'SUPERADMIN VALIDATED');
                 sessionStorage.setItem('authToken', response.data.key);
@@ -158,6 +159,21 @@ export class loginContentClassComponent implements OnInit, OnDestroy {
                 this.router.navigate(['/MultiRoleScreenComponent']);
               } else {
                 this.alertMessage.alert('User is not super admin');
+              }
+            }
+            // }
+            else if (response.statusCode === 5002) {
+              if (
+                response.errorMessage ===
+                'You are already logged in,please confirm to logout from other device and login again'
+              ) {
+                this.alertMessage
+                  .confirm('info', response.errorMessage)
+                  .subscribe((confirmResponse) => {
+                    if (confirmResponse) {
+                      this.loginservice.dologoutUsrFromPreSession(true);
+                    }
+                  });
               }
             }
           },

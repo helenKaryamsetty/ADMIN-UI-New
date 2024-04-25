@@ -255,6 +255,16 @@
           Add Mapping
         </button>
       </div>
+      <div
+        *ngIf="
+          filteredsearchResultArray &&
+          filteredsearchResultArray.data.length === 0 &&
+          showTableFlag
+        "
+        style="text-align: center; font-size: 16px"
+      >
+        <strong>No records found</strong>
+      </div>
       <mat-paginator
         [hidden]="filteredsearchResultArray.data.length === 0"
         [pageSizeOptions]="[5, 10, 25]"
