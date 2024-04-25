@@ -141,7 +141,7 @@ export class CategorySubcategoryProvisioningComponent implements OnInit {
     this.searchChoice = '0';
     this.Add_Category_Subcategory_flag = true;
     this.showTable = true;
-    this.serviceproviderID = this.commonDataService.service_providerID;
+    this.serviceproviderID = sessionStorage.getItem('service_providerID');
     this.createdBy = this.commonDataService.uname;
   }
 

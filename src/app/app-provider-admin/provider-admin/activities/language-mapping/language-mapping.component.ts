@@ -133,7 +133,7 @@ export class LanguageMappingComponent implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit() {
-    this.serviceProviderID = this.saved_data.service_providerID;
+    this.serviceProviderID = sessionStorage.getItem('service_providerID');
     this.createdBy = this.createdBy = this.saved_data.uname;
     this.WeightageList = [
       { value: 10, Name: '25%' },

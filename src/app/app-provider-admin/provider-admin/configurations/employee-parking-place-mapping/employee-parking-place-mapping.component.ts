@@ -106,7 +106,7 @@ export class EmployeeParkingPlaceMappingComponent implements OnInit {
     private alertMessage: ConfirmationDialogsService,
   ) {
     this.data = [];
-    this.service_provider_id = this.commonDataService.service_providerID;
+    this.service_provider_id = sessionStorage.getItem('service_providerID');
     this.countryID = 1; // hardcoded as country is INDIA
     this.serviceID = this.commonDataService.serviceIDMMU;
     this.createdBy = this.commonDataService.uname;

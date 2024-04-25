@@ -125,7 +125,7 @@ export class RoleMasterComponent implements OnInit, AfterViewInit {
     this.description = '';
 
     // provide service provider ID, (As of now hardcoded, but to be fetched from login response)
-    this.serviceProviderID = this.commonDataService.service_providerID;
+    this.serviceProviderID = sessionStorage.getItem('service_providerID');
 
     // array initialization
     this.states = [];

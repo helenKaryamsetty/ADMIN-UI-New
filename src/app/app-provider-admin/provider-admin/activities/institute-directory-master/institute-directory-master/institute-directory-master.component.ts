@@ -70,7 +70,7 @@ export class InstituteDirectoryMasterComponent
     public alertService: ConfirmationDialogsService,
     private cdr: ChangeDetectorRef,
   ) {
-    this.serviceProviderID = this.commonDataService.service_providerID;
+    this.serviceProviderID = sessionStorage.getItem('service_providerID');
   }
   ngOnInit() {
     this.userID = this.commonDataService.uid;

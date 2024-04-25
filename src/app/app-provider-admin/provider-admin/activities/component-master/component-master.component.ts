@@ -140,8 +140,7 @@ export class ComponentMasterComponent implements OnInit {
     this.componentList = [];
     this.filteredComponentList.data = [];
     // provide service provider ID, (As of now hardcoded, but to be fetched from login response)
-    this.serviceProviderID =
-      this.commonDataService.service_providerID.toString();
+    this.serviceProviderID = sessionStorage.getItem('service_providerID');
     this.userID = this.commonDataService.uid;
 
     // this.providerAdminRoleService.getStates(this.serviceProviderID)

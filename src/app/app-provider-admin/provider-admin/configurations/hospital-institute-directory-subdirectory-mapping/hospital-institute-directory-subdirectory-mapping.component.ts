@@ -91,7 +91,7 @@ export class HospitalInstituteDirectorySubdirectoryMappingComponent
     public commonDataService: dataService,
     public alertService: ConfirmationDialogsService,
   ) {
-    this.serviceProviderID = this.commonDataService.service_providerID;
+    this.serviceProviderID = sessionStorage.getItem('service_providerID');
   }
 
   ngOnInit() {

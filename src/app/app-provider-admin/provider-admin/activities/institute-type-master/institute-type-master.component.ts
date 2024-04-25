@@ -38,10 +38,22 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrls: ['./institute-type-master.component.css'],
 })
 export class InstituteTypeMasterComponent implements OnInit {
-  [x: string]: any;
+  // [x: string]: any;
+  // filteredsearchResultArray = new MatTableDataSource<any>();
+  // bufferArray = new MatTableDataSource<any>();
+  // @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
+  paginator!: MatPaginator;
+  j: any;
+  @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
+    this.paginator = mp;
+    this.setDataSourceAttributes();
+  }
   filteredsearchResultArray = new MatTableDataSource<any>();
   bufferArray = new MatTableDataSource<any>();
-  @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
+
+  setDataSourceAttributes() {
+    this.filteredsearchResultArray.paginator = this.paginator;
+  }
 
   // filteredsearchResultArray: any = [];
   /*ngModels*/
@@ -88,7 +100,7 @@ export class InstituteTypeMasterComponent implements OnInit {
     public dialog: MatDialog,
     public alertService: ConfirmationDialogsService,
   ) {
-    this.serviceProviderID = this.commonDataService.service_providerID;
+    this.serviceProviderID = sessionStorage.getItem('service_providerID');
     this.userID = this.commonDataService.uid;
   }
 

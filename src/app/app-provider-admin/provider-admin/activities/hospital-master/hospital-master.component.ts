@@ -141,7 +141,7 @@ export class HospitalMasterComponent implements OnInit {
     public dialog: MatDialog,
     public alertService: ConfirmationDialogsService,
   ) {
-    this.serviceProviderID = this.commonDataService.service_providerID;
+    this.serviceProviderID = sessionStorage.getItem('service_providerID');
   }
 
   ngOnInit() {

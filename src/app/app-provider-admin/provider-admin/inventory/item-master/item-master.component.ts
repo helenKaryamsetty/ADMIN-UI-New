@@ -142,7 +142,7 @@ export class ItemMasterComponent implements OnInit, AfterViewInit {
     public dialogService: ConfirmationDialogsService,
     public dialog: MatDialog,
   ) {
-    this.providerID = this.commonDataService.service_providerID;
+    this.providerID = sessionStorage.getItem('service_providerID');
   }
 
   ngOnInit() {

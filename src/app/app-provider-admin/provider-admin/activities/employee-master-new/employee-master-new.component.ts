@@ -191,7 +191,7 @@ export class EmployeeMasterNewComponent implements OnInit {
     this.createdBy = this.dataServiceValue.uname;
     console.log('createdBY', this.createdBy);
 
-    this.serviceProviderID = this.dataServiceValue.service_providerID;
+    this.serviceProviderID = sessionStorage.getItem('service_providerID');
     this.getAllUserDetails();
     this.minDate_doj = new Date();
   }

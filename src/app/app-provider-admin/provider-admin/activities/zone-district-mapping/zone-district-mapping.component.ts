@@ -108,7 +108,7 @@ export class ZoneDistrictMappingComponent implements OnInit {
     private alertMessage: ConfirmationDialogsService,
   ) {
     this.data = [];
-    this.service_provider_id = this.commonDataService.service_providerID;
+    this.service_provider_id = sessionStorage.getItem('service_providerID');
     this.createdBy = this.commonDataService.uname;
     this.filteredavailableZoneDistrictMappings.paginator = this.paginator;
     this.filteredavailableZoneDistrictMappings.sort = this.sort;

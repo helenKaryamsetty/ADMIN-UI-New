@@ -110,8 +110,9 @@ export class ProcedureMasterComponent implements OnInit {
     });
 
     // provide service provider ID, (As of now hardcoded, but to be fetched from login response)
-    this.serviceProviderID =
-      this.commonDataService.service_providerID.toString();
+    this.serviceProviderID = sessionStorage
+      .getItem('service_providerID')
+      ?.toString();
     this.userID = this.commonDataService.uid;
 
     // this.providerAdminRoleService.getStates(this.serviceProviderID)

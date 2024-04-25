@@ -111,7 +111,7 @@ export class ManufacturerMasterComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.createdBy = this.commonDataService.uname;
     console.log(this.createdBy, 'CreatedBy');
-    this.serviceProviderID = this.commonDataService.service_providerID;
+    this.serviceProviderID = sessionStorage.getItem('service_providerID');
     this.uid = this.commonDataService.uid;
     this.getServices();
     this.getAllCountry();

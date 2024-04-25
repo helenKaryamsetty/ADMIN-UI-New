@@ -87,7 +87,7 @@ export class ItemToStoreMappingComponent implements OnInit {
     public dialog: MatDialog,
     public itemFacilityMappingService: ItemFacilityMappingService,
   ) {
-    this.providerID = this.commonDataService.service_providerID;
+    this.providerID = sessionStorage.getItem('service_providerID');
   }
 
   ngOnInit() {

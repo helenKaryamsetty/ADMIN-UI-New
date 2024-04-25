@@ -85,7 +85,7 @@ export class ItemCategoryMasterComponent implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit() {
-    this.serviceProviderID = this.commonDataService.service_providerID;
+    this.serviceProviderID = sessionStorage.getItem('service_providerID');
     this.uid = this.commonDataService.uid;
     this.createdBy = this.commonDataService.uname;
     console.log('this.createdBy', this.createdBy);

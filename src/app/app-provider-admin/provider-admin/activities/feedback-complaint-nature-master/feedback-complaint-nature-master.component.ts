@@ -106,7 +106,7 @@ export class FeedbackComplaintNatureMasterComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.serviceProviderID = this.commonData.service_providerID;
+    this.serviceProviderID = sessionStorage.getItem('service_providerID');
     this.userID = this.commonData.uid;
     this.getServiceLinesfromSearch(this.userID);
   }

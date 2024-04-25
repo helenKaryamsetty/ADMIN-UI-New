@@ -92,7 +92,7 @@ export class DrugMappingComponent implements OnInit {
     private cdr: ChangeDetectorRef,
   ) {
     this.data = [];
-    this.service_provider_id = this.commonDataService.service_providerID;
+    this.service_provider_id = sessionStorage.getItem('service_providerID');
     this.serviceID104 = this.commonDataService.serviceID104;
     this.createdBy = this.commonDataService.uname;
   }

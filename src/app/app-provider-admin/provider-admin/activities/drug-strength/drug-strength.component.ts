@@ -122,7 +122,7 @@ export class DrugStrengthComponent implements OnInit {
           ? formValue.strength_desc.trim()
           : null,
       createdBy: this.createdBy,
-      serviceProviderID: this.data_service.service_providerID,
+      serviceProviderID: sessionStorage.getItem('service_providerID'),
     };
     this.checkDuplicates(tempDrugStrengthObj);
     this.drugStrengthForm.resetForm();
@@ -214,7 +214,7 @@ export class DrugStrengthComponent implements OnInit {
           ? this.strength_desc.trim()
           : null,
       modifiedBy: this.createdBy,
-      serviceProviderID: this.data_service.service_providerID,
+      serviceProviderID: sessionStorage.getItem('service_providerID'),
     };
     this.drugStrengthService
       .updateDrugStrength(updateDrugStrengthObj)

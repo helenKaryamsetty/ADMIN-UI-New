@@ -60,7 +60,7 @@ export class UserSignatureMappingComponent implements OnInit {
   ngOnInit() {
     this.signUploadForm = this.createSignUploadForm();
     this.createdBy = this.dataService.uname;
-    this.serviceProviderID = this.dataService.service_providerID;
+    this.serviceProviderID = sessionStorage.getItem('service_providerID');
     this.getDesignations();
   }
   createSignUploadForm() {

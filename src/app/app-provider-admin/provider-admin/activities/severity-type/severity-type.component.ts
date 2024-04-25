@@ -100,8 +100,9 @@ export class SeverityTypeComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.serviceProviderID =
-      this.commonDataService.service_providerID.toString();
+    this.serviceProviderID = sessionStorage
+      .getItem('service_providerID')
+      ?.toString();
     this.userID = this.commonDataService.uid;
     this.createdBy = this.commonDataService.uname;
 

@@ -111,8 +111,9 @@ export class ProcedureComponentMappingComponent implements OnInit {
     // provide service provider ID, (As of now hardcoded, but to be fetched from login response)
 
     if (this.commonDataService.service_providerID) {
-      this.serviceProviderID =
-        this.commonDataService.service_providerID.toString();
+      this.serviceProviderID = sessionStorage
+        .getItem('service_providerID')
+        ?.toString();
     }
 
     this.userID = this.commonDataService.uid;

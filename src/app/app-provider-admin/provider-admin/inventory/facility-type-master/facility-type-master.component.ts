@@ -86,7 +86,7 @@ export class FacilityTypeMasterComponent implements OnInit {
 
   ngOnInit() {
     this.createdBy = this.commonDataService.uname;
-    this.serviceProviderID = this.commonDataService.service_providerID;
+    this.serviceProviderID = sessionStorage.getItem('service_providerID');
     this.getServices();
   }
 

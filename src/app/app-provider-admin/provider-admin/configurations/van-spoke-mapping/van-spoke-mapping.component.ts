@@ -213,7 +213,7 @@ export class VanSpokeMappingComponent implements OnInit {
     const reqObj = {
       stateID: state.stateID,
       parkingPlaceID: parkingplace.parkingPlaceID,
-      serviceProviderID: this._dataService.service_providerID,
+      serviceProviderID: sessionStorage.getItem('service_providerID'),
     };
     this.vanSpokeMappingService.getServicepoints(reqObj).subscribe(
       (servicepointResponse: any) => {

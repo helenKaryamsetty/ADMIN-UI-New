@@ -75,7 +75,7 @@ export class UserRoleAgentIDMappingComponent implements OnInit {
     public alertService: ConfirmationDialogsService,
     public dialog: MatDialog,
   ) {
-    this.serviceProviderID = this.commonDataService.service_providerID;
+    this.serviceProviderID = sessionStorage.getItem('service_providerID');
   }
 
   ngOnInit() {
