@@ -201,7 +201,7 @@
         <mat-form-field class="width100" appmyProviderName>
           <input
             matInput
-            placeholder="Provider/Company Name"
+            placeholder="Provider/Company Name *"
             ngModel
             name="provider_name"
             [(ngModel)]="providerName"
@@ -226,13 +226,13 @@
         <mat-form-field
           class="input-full-width mat_form_field_background_color"
         >
-          <mat-label>Valid From</mat-label>
+          <mat-label>Valid From *</mat-label>
           <input
             matInput
             [matDatepicker]="validFromPicker"
             name="valid_from"
-            min="today"
             [(ngModel)]="validFrom"
+            [matDatepickerFilter]="filterValidFrom"
           />
           <mat-datepicker-toggle
             matPrefix
@@ -246,13 +246,13 @@
         <mat-form-field
           class="input-full-width mat_form_field_background_color"
         >
-          <mat-label>Valid Till</mat-label>
+          <mat-label>Valid Till *</mat-label>
           <input
             matInput
             [matDatepicker]="validTillPicker"
             name="valid_till"
-            min="validFrom"
             [(ngModel)]="validTill"
+            [matDatepickerFilter]="filterValidFrom"
           />
           <mat-datepicker-toggle
             matPrefix
@@ -266,7 +266,7 @@
         <mat-form-field class="width100" appmyProviderName>
           <input
             matInput
-            placeholder="Contact Person"
+            placeholder="Contact Person *"
             ngModel
             minlength="2"
             maxlength="30"
@@ -284,7 +284,7 @@
         <mat-form-field class="width100" appmyMobileNumber>
           <input
             matInput
-            placeholder="Contact Number"
+            placeholder="Contact Number *"
             ngModel
             name="contact_number"
             [(ngModel)]="primaryNumber"
@@ -305,7 +305,7 @@
         <mat-form-field class="width100">
           <input
             matInput
-            placeholder="Email ID"
+            placeholder="Email ID *"
             required
             ngModel
             [pattern]="emailPattern"
@@ -329,7 +329,7 @@
           <input
             matInput
             myAddress
-            placeholder="Address1"
+            placeholder="Address1 *"
             maxlength="100"
             ngModel
             minlength="3"

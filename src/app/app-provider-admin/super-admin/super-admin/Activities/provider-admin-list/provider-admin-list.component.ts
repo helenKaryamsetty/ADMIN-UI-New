@@ -19,7 +19,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see https://www.gnu.org/licenses/.
  */
-import { Component, OnInit, ViewChild, Inject } from '@angular/core';
+import { Component, OnInit, ViewChild, Inject, Input } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import {
   MAT_DIALOG_DATA,
@@ -39,7 +39,8 @@ import { ConfirmationDialogsService } from 'src/app/core/services/dialog/confirm
 })
 export class ProviderAdminListComponent implements OnInit {
   //ngModel
-
+  @Input() max: any;
+  tomorrow = new Date();
   titleID: any;
   admin_firstName: any;
   admin_middleName: any;
@@ -265,6 +266,7 @@ export class ProviderAdminListComponent implements OnInit {
         }
       });
   }
+
   calculateAge(date: any) {
     if (date !== undefined) {
       let age = this.today.getFullYear() - date.getFullYear();

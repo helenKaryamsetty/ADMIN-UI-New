@@ -299,7 +299,11 @@ export class ServiceProviderMasterComponent implements OnInit {
         }
       });
   }
-
+  filterValidFrom = (date: Date | null): boolean => {
+    const today = new Date();
+    // Allow dates from today and onwards
+    return date !== null && date >= today;
+  };
   deactivate(serviceProviderID: any) {
     const object = { serviceProviderId: serviceProviderID, deleted: true };
     this.dialogService

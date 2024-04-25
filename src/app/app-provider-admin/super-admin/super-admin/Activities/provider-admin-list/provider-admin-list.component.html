@@ -202,7 +202,7 @@
       <!-- <md-input-container class="hide_underline width100">
         <input matInput style="display:none"> -->
       <mat-select
-        placeholder="Title"
+        placeholder="Title *"
         class="width100"
         [(ngModel)]="titleID"
         name="title_Id"
@@ -219,7 +219,7 @@
       <mat-form-field class="input-full-width mat_form_field_width_one">
         <input
           matInput
-          placeholder="First Name"
+          placeholder="First Name *"
           ngModel
           name="firstName"
           [(ngModel)]="admin_firstName"
@@ -256,7 +256,7 @@
       <mat-form-field class="input-full-width mat_form_field_width_one" myName>
         <input
           matInput
-          placeholder="Last Name"
+          placeholder="Last Name *"
           ngModel
           name="lastName"
           [(ngModel)]="admin_lastName"
@@ -275,7 +275,7 @@
       <!-- <md-input-container class="hide_underline width100">
         <input matInput style="display:none"> -->
       <mat-select
-        placeholder="Gender"
+        placeholder="Gender *"
         class="width100"
         [(ngModel)]="gender"
         name="adminGender"
@@ -294,7 +294,7 @@
       >
         <input
           matInput
-          placeholder="Contact Number"
+          placeholder="Contact Number *"
           ngModel
           name="contact_number"
           [(ngModel)]="primaryMobileNumber"
@@ -313,7 +313,7 @@
     </div>
     <div class="clearfix visible-sm visible-md"></div>
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-10">
-      <mat-datepicker
+      <!-- <mat-datepicker
         class="width100"
         placeholder="Date of Birth"
         [(ngModel)]="dob"
@@ -324,10 +324,27 @@
         (keydown)="preventTyping($event)"
         (selectionChange)="calculateAge($event)"
         required
-      ></mat-datepicker>
-      <mat-hint class="errorText" *ngIf="dOB.errors && dOB.touched"
+      ></mat-datepicker> -->
+      <mat-form-field class="width100">
+        <mat-label>Date of Birth </mat-label>
+        <input
+          matInput
+          [matDatepicker]="picker"
+          placeholder="Choose a date"
+          [(ngModel)]="dob"
+          name="admin_dob"
+          (keydown)="preventTyping($event)"
+          required
+        />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker
+          #picker
+          (dateChange)="calculateAge($event)"
+        ></mat-datepicker>
+      </mat-form-field>
+      <!-- <mat-hint class="errorText" *ngIf="dob.errors && dob.touched"
         >DOB is required</mat-hint
-      >
+      > -->
     </div>
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-t-3 p-b-10">
       <mat-form-field
@@ -357,7 +374,7 @@
       >
         <input
           matInput
-          placeholder="Email ID"
+          placeholder="Email ID *"
           ngModel
           [pattern]="emailPattern"
           name="email"
@@ -446,7 +463,7 @@
       <!-- <md-input-container class="hide_underline width100">
         <input matInput style="display:none"> -->
       <mat-select
-        placeholder="Educational Qualification"
+        placeholder="Educational Qualification *"
         class="width100"
         [(ngModel)]="edu_qualification"
         name="admin_edu_qualification"
@@ -468,7 +485,7 @@
       >
         <input
           matInput
-          placeholder="Emergency Contact Person"
+          placeholder="Emergency Contact Person *"
           ngModel
           name="em_contact_person"
           [(ngModel)]="emergency_cnt_person"
@@ -492,7 +509,7 @@
       >
         <input
           matInput
-          placeholder="Emergency Contact Number"
+          placeholder="Emergency Contact Number *"
           ngModel
           name="em_contact_number"
           [(ngModel)]="emergencyMobileNumber"
@@ -525,7 +542,7 @@
       <mat-form-field class="input-full-width mat_form_field_width_one" appPAN>
         <input
           matInput
-          placeholder="User Name"
+          placeholder="User Name *"
           ngModel
           name="user_name"
           [(ngModel)]="username"
@@ -553,7 +570,7 @@
         <input
           type="{{ dynamictype }}"
           matInput
-          placeholder="Password"
+          placeholder="Password *"
           ngModel
           [(ngModel)]="user_password"
           name="password"

@@ -546,7 +546,7 @@ export class BlockServiceProviderComponent implements OnInit {
         reason,
       )
       .subscribe(
-        (response) =>
+        (response: any) =>
           this.block_unblock_serviceOfStateSuccessHandeler(response),
         (err) => {
           console.log('Error', err);
@@ -571,12 +571,12 @@ export class BlockServiceProviderComponent implements OnInit {
     }
   }
   block_unblock_serviceOfStateSuccessHandeler(response: any) {
-    console.log('b u service of state success handeler', response);
+    console.log('b u service of state success handeler', response.data);
     this.message.alert('Updated successfully', 'success');
     this.getStatusOnProviderStateServiceLevel(
-      response.serviceProviderID,
-      response.stateID,
-      response.serviceID,
+      response.data.serviceProviderID,
+      response.data.stateID,
+      response.data.serviceID,
     );
   }
 }

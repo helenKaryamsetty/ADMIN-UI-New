@@ -22,7 +22,7 @@
         <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
                     <input matInput style="display:none"> -->
         <mat-select
-          placeholder="Title"
+          placeholder="Title *"
           [style.width]="'100%'"
           [(ngModel)]="titleID"
           name="title_Id"
@@ -42,7 +42,7 @@
         >
           <input
             matInput
-            placeholder="First Name"
+            placeholder="First Name *"
             ngModel
             name="providerAdmin"
             [(ngModel)]="admin_firstName"
@@ -84,7 +84,7 @@
         >
           <input
             matInput
-            placeholder="Last Name"
+            placeholder="Last Name *"
             ngModel
             name="lastName"
             [(ngModel)]="admin_lastName"
@@ -122,7 +122,7 @@
         >
           <input
             matInput
-            placeholder="Contact Number"
+            placeholder="Contact Number *"
             ngModel
             name="contact_number"
             [(ngModel)]="primaryMobileNumber"
@@ -141,7 +141,7 @@
       <div class="clearfix visible-sm visible-md"></div>
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
         <mat-form-field class="width100">
-          <mat-label>Date of Birth</mat-label>
+          <mat-label>Date of Birth </mat-label>
           <input
             matInput
             [matDatepicker]="picker"
@@ -205,7 +205,7 @@
         >
           <input
             matInput
-            placeholder="Email ID"
+            placeholder="Email ID *"
             ngModel
             [pattern]="emailPattern"
             name="email"
@@ -291,7 +291,7 @@
         <!-- <md-input-container [style.width]="'100%'" class="hide_underline">
                     <input matInput style="display:none"> -->
         <mat-select
-          placeholder="Educational Qualification"
+          placeholder="Educational Qualification *"
           [style.width]="'100%'"
           [(ngModel)]="edu_qualification"
           name="admin_edu_qualification"
@@ -313,7 +313,7 @@
         >
           <input
             matInput
-            placeholder="Emergency Contact Person"
+            placeholder="Emergency Contact Person *"
             ngModel
             name="em_cont_person"
             [(ngModel)]="emergency_cnt_person"
@@ -337,7 +337,7 @@
         >
           <input
             matInput
-            placeholder="Emergency Contact Number"
+            placeholder="Emergency Contact Number *"
             ngModel
             name="em_contact_number"
             [(ngModel)]="emergencyMobileNumber"
