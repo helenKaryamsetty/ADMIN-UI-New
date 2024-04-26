@@ -7,58 +7,63 @@
     <h4 class="pull-left">Create Institute Type</h4>
   </div>
   <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"> -->
-  <form #searchFields="ngForm" autocomplete="off">
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-      <!-- <mat-form-field class="hide_underline" [style.width]="'100%'">
-        <input matInput style="display:none"> -->
-      <mat-form-field>
-        <mat-label>Serviceline</mat-label>
-        <mat-select
-          [disabled]="disableSelection"
-          [style.width]="'100%'"
-          [(ngModel)]="service"
-          name="service"
-          required
-          (selectionChange)="
-            getStates(service.serviceID, service.isNational);
-            setIsNational(service.isNational)
-          "
-        >
-          <mat-option *ngFor="let item of services" [value]="item">
-            {{ item.serviceName }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+  <div class="col-12">
+    <form #searchFields="ngForm" autocomplete="off" class="row">
+      <div class="col-3 m-t-15">
+        <!-- <mat-form-field class="hide_underline" [style.width]="'100%'">
+          <input matInput style="display:none"> -->
+        <mat-form-field>
+          <mat-label>Serviceline</mat-label>
+          <mat-select
+            [disabled]="disableSelection"
+            [style.width]="'100%'"
+            [(ngModel)]="service"
+            name="service"
+            required
+            (selectionChange)="
+              getStates(service.serviceID, service.isNational);
+              setIsNational(service.isNational)
+            "
+          >
+            <mat-option *ngFor="let item of services" [value]="item">
+              {{ item.serviceName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
 
-      <!-- </mat-form-field> -->
-    </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-      <!-- <mat-form-field class="hide_underline" [style.width]="'100%'">
-        <input matInput style="display:none"> -->
-      <mat-form-field>
-        <mat-label>State</mat-label>
-        <mat-select
-          [disabled]="disableSelection || isNational"
-          [style.width]="'100%'"
-          [(ngModel)]="state"
-          name="state"
-          required
-          (selectionChange)="
-            setProviderServiceMapID(state.providerServiceMapID)
-          "
-        >
-          <mat-option *ngFor="let item of states" [value]="item">
-            {{ item.stateName }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+        <!-- </mat-form-field> -->
+      </div>
+      <div class="col-3 m-t-15">
+        <!-- <mat-form-field class="hide_underline" [style.width]="'100%'">
+          <input matInput style="display:none"> -->
+        <mat-form-field>
+          <mat-label>State</mat-label>
+          <mat-select
+            [disabled]="disableSelection || isNational"
+            [style.width]="'100%'"
+            [(ngModel)]="state"
+            name="state"
+            required
+            (selectionChange)="
+              setProviderServiceMapID(state.providerServiceMapID)
+            "
+          >
+            <mat-option *ngFor="let item of states" [value]="item">
+              {{ item.stateName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
 
-      <!-- </mat-form-field> -->
-    </div>
-  </form>
+        <!-- </mat-form-field> -->
+      </div>
+    </form>
+  </div>
 </div>
 
-<div class="pull-right" *ngIf="searchResultArray.length !== 0 && showTableFlag">
+<div
+  style="text-align: end"
+  *ngIf="searchResultArray.length !== 0 && showTableFlag"
+>
   <mat-form-field id="filterbox">
     <input
       matInput
@@ -201,63 +206,67 @@
   </div>
 </div>
 <div class="row" *ngIf="showFormFlag">
-  <form #entryField="ngForm" autocomplete="off">
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
-      <mat-form-field style="width: 100%" appVehicleNONew>
-        <mat-label>Institute Type</mat-label>
-        <input
-          matInput
-          [(ngModel)]="instituteType"
-          (keyup)="checkExistance(instituteType)"
-          name="instituteType"
-          minlength="3"
-          maxlength="150"
-          #institute="ngModel"
-          required
-        />
-        <mat-hint>
-          <span
-            class="error_text"
-            *ngIf="institute.touched && institute.errors && institute !== null"
-            >Institute type is required</span
-          >
-          <span class="error_text" *ngIf="institute.valid && InstituteExist"
-            >Institute Type already exists</span
-          >
-        </mat-hint>
-      </mat-form-field>
-    </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
-      <mat-form-field style="width: 100%">
-        <mat-label>Description</mat-label>
-        <input
-          matInput
-          apptextAreaValidator
-          [(ngModel)]="description"
-          name="description"
-          maxlength="300"
-        />
-      </mat-form-field>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 m-t-20">
-      <button
-        mat-mini-fab
-        color="primary"
-        *ngIf="entryField.valid"
-        class="xs-pull-right sm-pull-right md-pull-left lg-pull-left mat_blue"
-        (click)="add_obj(instituteType, description)"
-      >
-        <mat-icon
-          mdSuffix
-          class="mat-icon material-icons"
-          role="img"
-          aria-hidden="true"
-          style="cursor: pointer"
-          >add</mat-icon
+  <div class="col-12">
+    <form #entryField="ngForm" autocomplete="off" class="row">
+      <div class="col-3 m-t-20">
+        <mat-form-field style="width: 100%" appVehicleNONew>
+          <mat-label>Institute Type</mat-label>
+          <input
+            matInput
+            [(ngModel)]="instituteType"
+            (keyup)="checkExistance(instituteType)"
+            name="instituteType"
+            minlength="3"
+            maxlength="150"
+            #institute="ngModel"
+            required
+          />
+          <mat-hint>
+            <span
+              class="error_text"
+              *ngIf="
+                institute.touched && institute.errors && institute !== null
+              "
+              >Institute type is required</span
+            >
+            <span class="error_text" *ngIf="institute.valid && InstituteExist"
+              >Institute Type already exists</span
+            >
+          </mat-hint>
+        </mat-form-field>
+      </div>
+      <div class="col-3 m-t-20">
+        <mat-form-field style="width: 100%">
+          <mat-label>Description</mat-label>
+          <input
+            matInput
+            apptextAreaValidator
+            [(ngModel)]="description"
+            name="description"
+            maxlength="300"
+          />
+        </mat-form-field>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 m-t-20">
+        <button
+          mat-mini-fab
+          color="primary"
+          *ngIf="entryField.valid"
+          class="xs-pull-right sm-pull-right md-pull-left lg-pull-left mat_icon_white"
+          (click)="add_obj(instituteType, description)"
         >
-      </button>
-    </div>
-  </form>
+          <mat-icon
+            mdSuffix
+            class="mat-icon material-icons"
+            role="img"
+            aria-hidden="true"
+            style="cursor: pointer"
+            >add</mat-icon
+          >
+        </button>
+      </div>
+    </form>
+  </div>
 
   <div class="col-xs-12 col-sm-12 m-t-15">
     <div class="table-responsive" *ngIf="bufferArray.data.length > 0">

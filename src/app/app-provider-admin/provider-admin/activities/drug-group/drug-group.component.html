@@ -4,13 +4,10 @@
   </div>
 </div>
 <div
-  class="pull-right m-t-15"
+  style="text-align: end"
   *ngIf="availableDrugGroups.length !== 0 && showDrugGroups && !editable"
 >
-  <mat-form-field
-    class="input-full-width mat_form_field_width_one"
-    id="filterbox"
-  >
+  <mat-form-field id="filterbox">
     <input
       matInput
       placeholder="In-Table Search"
@@ -147,92 +144,94 @@
   <h4 *ngIf="!editable">Create Drug Group</h4>
   <h4 *ngIf="editable">Edit Drug Group</h4>
   <div class="row">
-    <form #drugGroupForm="ngForm" autocomplete="off">
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <mat-form-field class="input-full-width mat_form_field_width_one">
-          <mat-label>Drug Group </mat-label>
-          <input
-            matInput
-            appitemNameMasterValidator
-            required
-            [(ngModel)]="drugGroup"
-            name="drugGroup"
-            #drugG="ngModel"
-            (keyup)="checkExistance(drugGroup)"
-            minlength="1"
-            maxlength="50"
-            pattern="^([a-zA-Z0-9&()_-]+\s?)*\s*$"
-          />
-          <mat-hint>
-            <span
-              class="error_text"
-              *ngIf="
-                (!drugG.valid && (drugG.dirty || drugG.touched)) ||
-                inValidDrugGroup
-              "
-              >Please enter valid Drug Group Name</span
-            >
-            <span class="error_text" *ngIf="groupNameExist"
-              >Drug Group Already Exists</span
-            >
-          </mat-hint>
-        </mat-form-field>
-      </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <mat-form-field class="input-full-width mat_form_field_width_one">
-          <mat-label>Drug Group Description</mat-label>
-          <input
-            matInput
-            apptextAreaValidator
-            required
-            [(ngModel)]="drugGroupDesc"
-            name="drugGroupDesc"
-            #drugD="ngModel"
-            maxlength="100"
-            (keyup)="checkForValidDrugDesc(drugGroupDesc)"
-          />
-          <mat-hint>
-            <span
-              class="error_text"
-              *ngIf="
-                (!drugD.valid && (drugD.dirty || drugD.touched)) ||
-                invalidDrugDesc
-              "
-              >Please enter drug Group Description</span
-            >
-          </mat-hint>
-        </mat-form-field>
-      </div>
-      <div
-        class="col-xs-12 col-sm-12 col-md-4 col-lg-3"
-        *ngIf="
-          drugG.valid &&
-          drugD.valid &&
-          !groupNameExist &&
-          !inValidDrugGroup &&
-          !invalidDrugDesc
-        "
-      >
-        <button
-          md-mini-fab
-          color="primary"
-          *ngIf="!editable"
-          class="xs-pull-right sm-pull-right md-pull-left mat_blue"
-          (click)="
-            addDrugGroupToList(drugGroupForm.value); drugGroupForm.reset()
+    <div class="col-12">
+      <form #drugGroupForm="ngForm" autocomplete="off" class="row">
+        <div class="col-3">
+          <mat-form-field class="input-full-width mat_form_field_width_one">
+            <mat-label>Drug Group </mat-label>
+            <input
+              matInput
+              appitemNameMasterValidator
+              required
+              [(ngModel)]="drugGroup"
+              name="drugGroup"
+              #drugG="ngModel"
+              (keyup)="checkExistance(drugGroup)"
+              minlength="1"
+              maxlength="50"
+              pattern="^([a-zA-Z0-9&()_-]+\s?)*\s*$"
+            />
+            <mat-hint>
+              <span
+                class="error_text"
+                *ngIf="
+                  (!drugG.valid && (drugG.dirty || drugG.touched)) ||
+                  inValidDrugGroup
+                "
+                >Please enter valid Drug Group Name</span
+              >
+              <span class="error_text" *ngIf="groupNameExist"
+                >Drug Group Already Exists</span
+              >
+            </mat-hint>
+          </mat-form-field>
+        </div>
+        <div class="col-3">
+          <mat-form-field class="input-full-width mat_form_field_width_one">
+            <mat-label>Drug Group Description</mat-label>
+            <input
+              matInput
+              apptextAreaValidator
+              required
+              [(ngModel)]="drugGroupDesc"
+              name="drugGroupDesc"
+              #drugD="ngModel"
+              maxlength="100"
+              (keyup)="checkForValidDrugDesc(drugGroupDesc)"
+            />
+            <mat-hint>
+              <span
+                class="error_text"
+                *ngIf="
+                  (!drugD.valid && (drugD.dirty || drugD.touched)) ||
+                  invalidDrugDesc
+                "
+                >Please enter drug Group Description</span
+              >
+            </mat-hint>
+          </mat-form-field>
+        </div>
+        <div
+          class="col-3"
+          *ngIf="
+            drugG.valid &&
+            drugD.valid &&
+            !groupNameExist &&
+            !inValidDrugGroup &&
+            !invalidDrugDesc
           "
         >
-          <mat-icon
-            matSuffix
-            class="mat-icon material-icons"
-            role="img"
-            aria-hidden="true"
-            style="cursor: pointer"
-            >add</mat-icon
+          <button
+            md-mini-fab
+            color="primary"
+            *ngIf="!editable"
+            class="xs-pull-right sm-pull-right md-pull-left mat_icon_white"
+            (click)="
+              addDrugGroupToList(drugGroupForm.value); drugGroupForm.reset()
+            "
           >
-        </button>
-      </div>
-    </form>
+            <mat-icon
+              matSuffix
+              class="mat-icon material-icons"
+              role="img"
+              aria-hidden="true"
+              style="cursor: pointer"
+              >add</mat-icon
+            >
+          </button>
+        </div>
+      </form>
+    </div>
 
     <div
       class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10"

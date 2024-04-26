@@ -67,14 +67,14 @@
   </div>
 
   <div style="text-align: end" *ngIf="workLocations.length !== 0 && showTable">
-    <mat-form-field>
+    <mat-form-field id="filterbox">
       <input
         matInput
         placeholder="In-Table Search"
         #filterTerm
         (keyup)="filterComponentList(filterTerm.value)"
       />
-      <mat-icon mdSuffix>search</mat-icon>
+      <mat-icon matSuffix>search</mat-icon>
     </mat-form-field>
   </div>
 

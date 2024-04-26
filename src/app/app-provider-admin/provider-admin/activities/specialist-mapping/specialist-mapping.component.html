@@ -42,7 +42,7 @@
         </div>
       </div>
       <div class="container-fluid m-t-40">
-        <div class="row">
+        <div class="">
           <button
             color="primary"
             type="button"
@@ -67,7 +67,7 @@
       </div>
     </form>
     <div *ngIf="tableMode">
-      <div *ngIf="specializationList?.length > 0" class="pull-right">
+      <div style="text-align: end" *ngIf="specializationList?.length > 0">
         <mat-form-field id="filterbox">
           <input
             matInput
@@ -75,110 +75,112 @@
             #filterTerm
             (keyup)="filterSpecializationList(filterTerm.value)"
           />
-          <mat-icon mdSuffix>search</mat-icon>
+          <mat-icon matSuffix>search</mat-icon>
         </mat-form-field>
       </div>
-    </div>
-    <div class="row" *ngIf="tableMode">
-      <div #tabledData class="col-xs-12 col-sm-12">
-        <div class="table-responsive">
-          <table
-            mat-table
-            [dataSource]="filteredspecializationList"
-            class="mat-elevation-z8"
-          >
-            <ng-container matColumnDef="SNo">
-              <th mat-header-cell *matHeaderCellDef>S.No.</th>
-              <td mat-cell *matCellDef="let element; let i = index">
-                {{ i + 1 }}
-              </td>
-            </ng-container>
-            <ng-container matColumnDef="UserName">
-              <th mat-header-cell *matHeaderCellDef>User Name</th>
-              <td mat-cell *matCellDef="let element">
-                {{ element.userName }}
-              </td>
-            </ng-container>
-            <ng-container matColumnDef="specializationName">
-              <th mat-header-cell *matHeaderCellDef>Specialization</th>
-              <td mat-cell *matCellDef="let element">
-                {{ element.specializationName }}
-              </td>
-            </ng-container>
-            <ng-container matColumnDef="action">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>Action</th>
-              <td mat-cell *matCellDef="let element">
-                <button
-                  *ngIf="
-                    element.deleted ||
-                    element.specializationDeleted ||
-                    element.userDeleted
-                  "
-                  color="accent"
-                  class="mat_green"
-                  mat-raised-button
-                  (click)="
-                    activateMapping(
-                      element.userSpecializationMapID,
-                      filteredspecializationList.data.indexOf(element),
-                      false
-                    )
-                  "
-                >
-                  Activate
-                </button>
-
-                <button
-                  *ngIf="
-                    !(
+      <div class="row" *ngIf="tableMode">
+        <div #tabledData class="col-xs-12 col-sm-12">
+          <div class="table-responsive">
+            <table
+              mat-table
+              [dataSource]="filteredspecializationList"
+              class="mat-elevation-z8"
+            >
+              <ng-container matColumnDef="SNo">
+                <th mat-header-cell *matHeaderCellDef>S.No.</th>
+                <td mat-cell *matCellDef="let element; let i = index">
+                  {{ i + 1 }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="UserName">
+                <th mat-header-cell *matHeaderCellDef>User Name</th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element.userName }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="specializationName">
+                <th mat-header-cell *matHeaderCellDef>Specialization</th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element.specializationName }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                  Action
+                </th>
+                <td mat-cell *matCellDef="let element">
+                  <button
+                    *ngIf="
                       element.deleted ||
-                      element.userDeleted ||
-                      element.specializationDeleted
-                    )
-                  "
-                  class="mat_blue"
-                  color="primary"
-                  mat-raised-button
-                  (click)="
-                    deActivateMapping(
-                      element.userSpecializationMapID,
-                      filteredspecializationList.data.indexOf(element),
-                      true
-                    )
-                  "
-                >
-                  Deactivate
-                </button>
-              </td>
-              <!-- <td colspan="4" class="p-r-0" mat-cell>
+                      element.specializationDeleted ||
+                      element.userDeleted
+                    "
+                    color="accent"
+                    class="mat_green"
+                    mat-raised-button
+                    (click)="
+                      activateMapping(
+                        element.userSpecializationMapID,
+                        filteredspecializationList.data.indexOf(element),
+                        false
+                      )
+                    "
+                  >
+                    Activate
+                  </button>
+
+                  <button
+                    *ngIf="
+                      !(
+                        element.deleted ||
+                        element.userDeleted ||
+                        element.specializationDeleted
+                      )
+                    "
+                    class="mat_blue"
+                    color="primary"
+                    mat-raised-button
+                    (click)="
+                      deActivateMapping(
+                        element.userSpecializationMapID,
+                        filteredspecializationList.data.indexOf(element),
+                        true
+                      )
+                    "
+                  >
+                    Deactivate
+                  </button>
+                </td>
+                <!-- <td colspan="4" class="p-r-0" mat-cell>
             <button md-raised-button color="primary" [disabled]="searchForm.invalid" class="pull-right" (click)="changeTableFlag(false)">Add Work Location</button>
           </td> -->
-            </ng-container>
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-          </table>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+            </table>
 
-          <div>
-            <button
-              class="pull-right mat_blue"
-              color="primary"
-              id="resetButton"
-              mat-raised-button
-              (click)="showForm()"
+            <div>
+              <button
+                class="pull-right mat_blue"
+                color="primary"
+                id="resetButton"
+                mat-raised-button
+                (click)="showForm()"
+              >
+                Create New Mapping
+              </button>
+            </div>
+            <mat-paginator
+              [hidden]="filteredspecializationList.data.length === 0"
+              [pageSizeOptions]="[5, 10, 20]"
+              [pageSize]="5"
+              showFirstLastButtons
             >
-              Create New Mapping
-            </button>
+            </mat-paginator>
           </div>
-          <mat-paginator
-            [hidden]="filteredspecializationList.data.length === 0"
-            [pageSizeOptions]="[5, 10, 20]"
-            [pageSize]="5"
-            showFirstLastButtons
-          >
-          </mat-paginator>
         </div>
       </div>
+      <!-- </div> -->
     </div>
-    <!-- </div> -->
   </div>
 </div>

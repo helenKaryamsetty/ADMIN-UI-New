@@ -84,7 +84,7 @@
   </div>
 </div>
 <div
-  class="pull-right"
+  style="text-align: end"
   *ngIf="natureTypes.length !== 0 && searchForm && showTable"
 >
   <mat-form-field id="filterbox">
@@ -94,7 +94,7 @@
       #filterTerm
       (keyup)="filterComponentList(filterTerm.value)"
     />
-    <mat-icon mdSuffix>search</mat-icon>
+    <mat-icon matSuffix>search</mat-icon>
   </mat-form-field>
 </div>
 <div class="row" *ngIf="searchForm">
@@ -317,7 +317,7 @@
           <button
             mat-mini-fab
             color="primary"
-            class="xs-pull-right sm-pull-right md-pull-left lg-pull-left mat_blue"
+            class="xs-pull-right sm-pull-right md-pull-left lg-pull-left mat_icon_white"
             (click)="
               add_obj(feedbackNature, feedbackNatureDesc); editForm.reset()
             "

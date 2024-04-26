@@ -1,65 +1,70 @@
-<mat-card>
+<mat-card style="margin: 30px 10px 0px -20px">
   <div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div
+      class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
+      style="margin-left: 10px"
+    >
       <h4 class="pull-left">Serviceline State CDSS Mapping</h4>
     </div>
-    <form #cdssForm="ngForm" autocomplete="off">
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-        <mat-form-field>
-          <mat-label>Serviceline</mat-label>
-          <mat-select
-            (selectionChange)="getStates(service)"
-            class="width100"
-            [(ngModel)]="service"
-            name="service"
-            required
+    <div class="col-12" style="margin-left: 10px">
+      <form #cdssForm="ngForm" autocomplete="off" class="row">
+        <div class="col-3 m-t-15">
+          <mat-form-field>
+            <mat-label>Serviceline</mat-label>
+            <mat-select
+              (selectionChange)="getStates(service)"
+              class="width100"
+              [(ngModel)]="service"
+              name="service"
+              required
+            >
+              <mat-option *ngFor="let item of services" [value]="item">
+                {{ item.serviceName }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-3 m-t-15">
+          <mat-form-field>
+            <mat-label>State</mat-label>
+            <mat-select
+              class="width100"
+              [(ngModel)]="state"
+              (selectionChange)="
+                setProviderServiceMapID(state.providerServiceMapID)
+              "
+              name="state"
+              required
+            >
+              <mat-option *ngFor="let item of states" [value]="item">
+                {{ item.stateName }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-3">
+          <button
+            mat-raised-button
+            color="accent"
+            class="mat_green"
+            style="margin-top: 26px; margin-left: 26px"
+            *ngIf="showActivateFlag === true"
+            (click)="activateDeactivateCdss()"
           >
-            <mat-option *ngFor="let item of services" [value]="item">
-              {{ item.serviceName }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-        <mat-form-field>
-          <mat-label>State</mat-label>
-          <mat-select
-            class="width100"
-            [(ngModel)]="state"
-            (selectionChange)="
-              setProviderServiceMapID(state.providerServiceMapID)
-            "
-            name="state"
-            required
+            Activate CDSS
+          </button>
+          <button
+            *ngIf="showDeactivateFalg === true"
+            mat-raised-button
+            class="mat_blue"
+            color="primary"
+            style="margin-top: 26px; margin-left: 26px"
+            (click)="DeactivateCdss()"
           >
-            <mat-option *ngFor="let item of states" [value]="item">
-              {{ item.stateName }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-      <div>
-        <button
-          mat-raised-button
-          color="accent"
-          class="mat_green"
-          style="margin-top: 26px; margin-left: 26px"
-          *ngIf="showActivateFlag === true"
-          (click)="activateDeactivateCdss()"
-        >
-          Activate CDSS
-        </button>
-        <button
-          *ngIf="showDeactivateFalg === true"
-          mat-raised-button
-          class="mat_blue"
-          color="primary"
-          style="margin-top: 26px; margin-left: 26px"
-          (click)="DeactivateCdss()"
-        >
-          Deactivate CDSS
-        </button>
-      </div>
-    </form>
+            Deactivate CDSS
+          </button>
+        </div>
+      </form>
+    </div>
   </div>
 </mat-card>

@@ -10,84 +10,92 @@
       Edit Nature Of Complaint-Category Mapping
     </h4>
   </div>
-  <form #searchForm="ngForm" autocomplete="off">
-    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 m-t-15">
-      <mat-form-field>
-        <mat-label>Serviceline</mat-label>
-        <mat-select
-          class="width100"
-          [(ngModel)]="serviceline"
-          name="serviceline"
-          (selectionChange)="getStates(serviceline)"
-          [disabled]="disableSelection"
-          required
-        >
-          <mat-option *ngFor="let service of servicelines" [value]="service">
-            {{ service.serviceName }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 m-t-15">
-      <mat-form-field>
-        <mat-label>State</mat-label>
-        <mat-select
-          class="width100"
-          [(ngModel)]="state"
-          name="state"
-          (selectionChange)="getFeedbackTypes(state.providerServiceMapID)"
-          [disabled]="disableSelection"
-          required
-        >
-          <mat-option *ngFor="let state of states" [value]="state">
-            {{ state.stateName }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 m-t-15">
-      <mat-form-field>
-        <mat-label>Feedback Type</mat-label>
-        <mat-select
-          class="width100"
-          [(ngModel)]="feedbacktype"
-          name="feedbacktype"
-          (selectionChange)="getFeedbackNature(feedbacktype.feedbackTypeID)"
-          [disabled]="disableSelection"
-          required
-        >
-          <mat-option *ngFor="let feedback of feedbackTypes" [value]="feedback">
-            {{ feedback.feedbackTypeName }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 m-t-15">
-      <mat-form-field>
-        <mat-label>Nature Of Complaint</mat-label>
-        <mat-select
-          class="width100"
-          [(ngModel)]="complaintType"
-          name="complaintType"
-          (selectionChange)="
-            getComplaintTypeCategoryMapping(
-              state.providerServiceMapID,
-              complaintType.feedbackNatureID
-            )
-          "
-          [disabled]="disableSelection"
-          required
-        >
-          <mat-option *ngFor="let complaint of natureTypes" [value]="complaint">
-            {{ complaint.feedbackNature }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-  </form>
+  <div class="col-12">
+    <form #searchForm="ngForm" autocomplete="off" class="row">
+      <div class="col-3 m-t-15">
+        <mat-form-field>
+          <mat-label>Serviceline</mat-label>
+          <mat-select
+            class="width100"
+            [(ngModel)]="serviceline"
+            name="serviceline"
+            (selectionChange)="getStates(serviceline)"
+            [disabled]="disableSelection"
+            required
+          >
+            <mat-option *ngFor="let service of servicelines" [value]="service">
+              {{ service.serviceName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-3 m-t-15">
+        <mat-form-field>
+          <mat-label>State</mat-label>
+          <mat-select
+            class="width100"
+            [(ngModel)]="state"
+            name="state"
+            (selectionChange)="getFeedbackTypes(state.providerServiceMapID)"
+            [disabled]="disableSelection"
+            required
+          >
+            <mat-option *ngFor="let state of states" [value]="state">
+              {{ state.stateName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-3 m-t-15">
+        <mat-form-field>
+          <mat-label>Feedback Type</mat-label>
+          <mat-select
+            class="width100"
+            [(ngModel)]="feedbacktype"
+            name="feedbacktype"
+            (selectionChange)="getFeedbackNature(feedbacktype.feedbackTypeID)"
+            [disabled]="disableSelection"
+            required
+          >
+            <mat-option
+              *ngFor="let feedback of feedbackTypes"
+              [value]="feedback"
+            >
+              {{ feedback.feedbackTypeName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-3 m-t-15">
+        <mat-form-field>
+          <mat-label>Nature Of Complaint</mat-label>
+          <mat-select
+            class="width100"
+            [(ngModel)]="complaintType"
+            name="complaintType"
+            (selectionChange)="
+              getComplaintTypeCategoryMapping(
+                state.providerServiceMapID,
+                complaintType.feedbackNatureID
+              )
+            "
+            [disabled]="disableSelection"
+            required
+          >
+            <mat-option
+              *ngFor="let complaint of natureTypes"
+              [value]="complaint"
+            >
+              {{ complaint.feedbackNature }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </form>
+  </div>
 </div>
 <div
-  class="pull-right m-t-10"
+  style="text-align: end"
   *ngIf="mappings.length !== 0 && showListOfCategorymapping"
 >
   <mat-form-field id="filterbox">
@@ -202,7 +210,7 @@
         mat-mini-fab
         color="primary"
         *ngIf="categoryForm.valid && !editable"
-        class="xs-pull-right sm-pull-right md-pull-left lg-pull-left mat_blue"
+        class="xs-pull-right sm-pull-right md-pull-left lg-pull-left mat_icon_white"
         (click)="addMappingObject(category)"
       >
         <mat-icon
