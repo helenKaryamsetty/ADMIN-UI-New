@@ -129,7 +129,11 @@
 </div>
 <!-- User Details-->
 <!-- myNameWithCopyPaste, myNameWithCopyPaste, myMobileNumber, PAN are custom directives -->
-<div [hidden]="!formMode" class="" style="margin: 35px 10px 0px -20px">
+<div
+  [hidden]="!formMode"
+  class="create-user-form"
+  style="margin: 35px 10px 0px -20px"
+>
   <mat-accordion>
     <mat-expansion-panel (opened)="(true)">
       <mat-expansion-panel-header>

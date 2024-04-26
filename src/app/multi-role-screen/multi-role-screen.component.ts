@@ -72,6 +72,7 @@ export class MultiRoleScreenComponent implements OnInit {
     this.language_change = 'english';
     console.log('userdata', sessionStorage.getItem('Userdata'));
     this.data = sessionStorage.getItem('Userdata');
+    this.data = JSON.parse(this.data);
     // this.router.navigate(['/MultiRoleScreenComponent']);
     this.getLanguageObject(this.language_change);
     this.getLicense();
