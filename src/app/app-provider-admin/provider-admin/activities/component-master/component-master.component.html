@@ -10,8 +10,6 @@
       <form #stateService="ngForm" autocomplete="off">
         <div class="row m-t-15">
           <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-            <!-- <mat-input-container class="hide_underline" [style.width]="'100%'">
-                            <input matInput style="display:none"> -->
             <mat-form-field>
               <mat-label>Serviceline</mat-label>
               <mat-select
@@ -27,12 +25,8 @@
                 </mat-option>
               </mat-select>
             </mat-form-field>
-
-            <!-- </mat-input-container> -->
           </div>
           <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-            <!-- <mat-input-container class="hide_underline" [style.width]="'100%'">
-                            <input matInput style="display:none"> -->
             <mat-form-field>
               <mat-label>State</mat-label>
               <mat-select
@@ -51,8 +45,6 @@
                 </mat-option>
               </mat-select>
             </mat-form-field>
-
-            <!-- </mat-input-container> -->
           </div>
         </div>
       </form>
@@ -99,7 +91,7 @@
             <mat-label>Description</mat-label>
             <textarea
               matInput
-              mdTextareaAutosize
+              matTextareaAutosize
               required
               [style.width]="'100%'"
               formControlName="testComponentDesc"
@@ -128,22 +120,7 @@
             </mat-select>
           </mat-form-field>
         </div>
-        <!--               
-                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
-                    <mat-form-field class="input-full-width">
-                      <input autocomplete="off"  maxlength="100" matInput placeholder="LOINC Code " [style.width]="'100%'" formControlName="testLoincCode"  [(ngModel)]="searchTerm" (keyup.enter)="searchComponents(searchTerm,0)" >
-                    </mat-form-field>
-                  
-                 
-                  
-                    <span>
-                    <mat-icon class="search-btn cursorPointer"  mdSuffix (click)="searchComponents(searchTerm, 0)" [class.toolbar-icon-disabled]="componentFlag"
-                   >search</mat-icon>
-                    </span>
-                   <span *ngIf="componentFlag==true" (click)="onDeleteClick()">
-                      <mat-icon class="cursorPointer" >delete</mat-icon>
-                    </span>
-                </div>  -->
+
         <div class="clearfix"></div>
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
           <mat-form-field class="input-full-width">
@@ -258,7 +235,7 @@
                 allowText="allowDecimal"
                 matInput
                 [style.width]="'100%'"
-                (selectionChange)="setMinRange()"
+                (change)="setMinRange()"
                 formControlName="range_min"
               />
             </mat-form-field>
@@ -343,14 +320,31 @@
             >
               <ng-container [formGroupName]="i">
                 <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-                  <!-- <mat-form-field class="input-full-width mat_form_field_width_one">
-                                        <input class="values" matInput errorStateMatcher ="myErrorStateMatcher.bind(this)" placeholder="Component Option *" formControlName="name"
-                                            [style.width]="'100%'" maxlength="30">
-                                    </mat-form-field> -->
+                  <mat-form-field style="width: 100%">
+                    <input
+                      class="values"
+                      matInput
+                      placeholder="Component Option *"
+                      formControlName="name"
+                      [style.width]="'100%'"
+                      maxlength="30"
+                    />
+                  </mat-form-field>
                 </div>
-                <!-- <button mat-mini-fab color="warn" *ngIf="componentForm.get('compOpt').data.length > 1" (click)="removeID(i);">
-                                    <mat-icon class="md-18" aria-label="Example icon-button with a heart icon">close</mat-icon>
-                                </button> -->
+                <button
+                  mat-mini-fab
+                  color="warn"
+                  *ngIf="
+                    componentForm.get('getComponentForm')?.value.length > 1
+                  "
+                  (click)="removeID(i)"
+                >
+                  <mat-icon
+                    class="md-18"
+                    aria-label="Example icon-button with a heart icon"
+                    >close</mat-icon
+                  >
+                </button>
                 <span>
                   <button
                     mat-mini-fab
@@ -421,7 +415,7 @@
         #filterTerm
         (keyup)="filterComponentList(filterTerm.value)"
       />
-      <mat-icon mdSuffix>search</mat-icon>
+      <mat-icon matSuffix>search</mat-icon>
     </mat-form-field>
   </div>
   <div class="row">
@@ -430,12 +424,12 @@
         <table
           mat-table
           class="table table-striped table-hover"
-          [dataSource]="filteredComponentList"
+          [dataSource]="dataSource"
         >
           <ng-container matColumnDef="sno">
-            <th mat-header-cell *matHeaderCellDef>SNo.</th>
-            <td mat-cell *matCellDef="let element; let i = index">
-              {{ i + 1 }}
+            <th mat-header-cell *matHeaderCellDef>S.No.</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.sno }}
             </td>
           </ng-container>
           <ng-container matColumnDef="testComponentName">
@@ -445,11 +439,11 @@
             </td>
           </ng-container>
           <ng-container matColumnDef="inputType">
-            <th mat-header-cell *matHeaderCellDef>>Component Type</th>
+            <th mat-header-cell *matHeaderCellDef>Component Type</th>
             <td mat-cell *matCellDef="let element">{{ element.inputType }}</td>
           </ng-container>
           <ng-container matColumnDef="testComponentDesc">
-            <th mat-header-cell *matHeaderCellDef>>Descriptione</th>
+            <th mat-header-cell *matHeaderCellDef>Description</th>
             <td mat-cell *matCellDef="let element">
               {{ element.testComponentDesc }}
             </td>
@@ -466,10 +460,7 @@
                 *ngIf="!element.deleted"
                 (click)="
                   showForm();
-                  configComponent(
-                    element,
-                    filteredComponentList.data.indexOf(element)
-                  )
+                  configComponent(element, dataSource.data.indexOf(element))
                 "
                 >edit</mat-icon
               >
@@ -486,7 +477,7 @@
                 (click)="
                   toggleComponent(
                     element.testComponentID,
-                    filteredComponentList.data.indexOf(element),
+                    dataSource.data.indexOf(element),
                     false
                   )
                 "
@@ -501,7 +492,7 @@
                 (click)="
                   toggleComponent(
                     element.testComponentID,
-                    filteredComponentList.data.indexOf(element),
+                    dataSource.data.indexOf(element),
                     true
                   )
                 "
@@ -510,36 +501,6 @@
               </button>
             </td>
           </ng-container>
-          <!-- <thead>
-                        <tr>
-                            <th width="5% ">S.No.</th>
-                            <th width="15% ">Component Name</th>
-                            <th width="20% ">Component Type</th>
-                            <th width="35% ">Description</th>
-                            <th width="5% ">Edit</th>
-                            <th width="10% ">Action</th>
-                        </tr>
-                    </thead> -->
-          <!-- <tbody>
-                        <tr *ngIf="filteredComponentList.length==0 ">
-                            <td colspan="6" class="record-not-found">No records found</td>
-                        </tr>
-                        <tr *ngFor="let item of md2.data;let i=index">
-                            <td>{{filteredComponentList.indexOf(item)+1}}</td>
-                            <td>{{item.testComponentName}}</td>
-                            <td>{{item.inputType}}</td>
-                            <td>{{item.testComponentDesc}}</td>
-                            <td>
-                                <mat-icon mdTooltip="Edit" *ngIf="!item.deleted" class="mat-icon material-icons" role="img" style="cursor:pointer" (click)="showForm();configComponent(item, filteredComponentList.indexOf(item))">edit</mat-icon>
-
-                            </td>
-                            <td>
-                                <button mat-raised-button color="accent" *ngIf="item.deleted" class=" m-r-10" (click)="toggleComponent(item.testComponentID, filteredComponentList.indexOf(item), false)">Activate</button>
-                                <button mat-raised-button color="primary" *ngIf="!item.deleted" class=" m-r-10" (click)="toggleComponent(item.testComponentID, filteredComponentList.indexOf(item), true)">Deactivate</button>
-
-                            </td>
-                        </tr>
-                    </tbody> -->
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
         </table>
@@ -558,12 +519,12 @@
         <div
           class="pull-center"
           style="margin-top: 35px; text-align: center"
-          *ngIf="filteredComponentList.data.length === 0"
+          *ngIf="dataSource.data.length === 0"
         >
           <strong>No Records Found</strong>
         </div>
         <mat-paginator
-          [hidden]="filteredComponentList.data.length === 0"
+          [hidden]="dataSource.data.length === 0"
           [pageSizeOptions]="[5, 10, 20]"
           [pageSize]="5"
           showFirstLastButtons

@@ -154,35 +154,7 @@
             </button>
           </td>
         </ng-container>
-        <!-- <thead>
-          <tr>
-            <th width="10%">S.No.</th>
-            <th width="25%">Strip Code</th>
-            <th width="25%">Expiry Date</th>
-            <th width="10%">Edit</th>
-            <th width="15%">Action</th>
-          </tr>
-        </thead> -->
-        <!-- <tbody>
-          <tr *ngIf="md2.data.length == 0">
-            <td colspan="5" class="record-not-found">No records found</td>
-          </tr>
-          <tr *ngFor="let item of md2.data; let i= index">
-            <td>{{(md2.activePage-1)*4+i+1}}</td>
-            <td>{{item.stripCode}}</td>
-            <td>{{(item.expiryDate!=undefined && item.expiryDate!=null) ? (item.expiryDate| date:'dd-MM-yyyy'):'NA'}}</td>
-            <td>
-              <md-icon mdTooltip="Edit" class="mat-icon material-icons" role="img" aria-hidden="true"
-                style="cursor:pointer" *ngIf="!item.deleted" (click)="editCalibrationStrip(item)">edit</md-icon>
-            </td>
-            <td>
-              <button *ngIf="item.deleted" mat-raised-button color="accent"
-                (click)="activateDeactivate(item.calibrationStripID, false, item.stripCode)">Activate</button>
-              <button *ngIf="!item.deleted" mat-raised-button color="primary"
-                (click)="activateDeactivate(item.calibrationStripID, true, item.stripCode)">Deactivate</button>
-            </td>
-          </tr>
-        </tbody> -->
+
         <tfoot>
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>

@@ -57,13 +57,13 @@ export class DataMappingBlockSubcenterComponent implements OnInit {
   ngOnInit() {
     this.userID = this.dataService.uid;
     const servicelines = this.dataService.userPriveliges;
-    for (const element of servicelines) {
-      if (element.serviceDesc.toLowerCase() === '104 helpline') {
-        this.showUpload = true;
-        return this.showUpload;
-      }
-    }
-    this.showUpload = false;
+    // for (let element of servicelines) {
+    //   if (element.serviceDesc?.toLowerCase() === '104 helpline') {
+    //     this.showUpload = true;
+    //     return this.showUpload;
+    //   }
+    // }
+    this.showUpload = true;
     return this.showUpload;
   }
 

@@ -26,7 +26,6 @@ import { AnswerDirective } from './directives/answer/answer.directive';
 import { DotallowDirective } from './directives/dotallow/dotallow';
 import { DrugStrengthWithCopyPasteDirective } from './directives/drugStrength/drugStrengthWithCopyPaste.directive';
 import { myEmailDirective } from './directives/email/myEmail.directive';
-import { InputAreaDirective } from './directives/Inputfeild/inputFeild.directive';
 import { itemNameMasterDirective } from './directives/itemNameMaster/itemNameMaster.directive';
 import { ItemNameWithSpecialCharCopyPasteDirective } from './directives/itemNameMaster/itemNameWithSpecialCharCopyPaste.directive';
 import { myMobileNumberDirective } from './directives/MobileNumber/myMobileNumber.directive';
@@ -60,6 +59,7 @@ import {
   VehicleNoWithCopyPasteDirective,
   VehicleNoWithSpecialCharCopyPasteDirective,
 } from './directives/name/myNameWithCopyPaste.directive';
+import { MyInputAreaDirective } from './directives/Inputfeild/inputFeild.directive';
 
 @NgModule({
   declarations: [
@@ -70,7 +70,7 @@ import {
     AnswerDirective,
     DotallowDirective,
     myEmailDirective,
-    InputAreaDirective,
+    MyInputAreaDirective,
     itemNameMasterDirective,
     ItemNameWithSpecialCharCopyPasteDirective,
     myMobileNumberDirective,
@@ -117,7 +117,7 @@ import {
     AnswerDirective,
     DotallowDirective,
     myEmailDirective,
-    InputAreaDirective,
+    MyInputAreaDirective,
     itemNameMasterDirective,
     ItemNameWithSpecialCharCopyPasteDirective,
     MyMobileNumberWithCopyPasteDirective,
