@@ -147,6 +147,9 @@
             [matDatepicker]="picker"
             placeholder="Choose a date"
             [(ngModel)]="dob"
+            [max]="maxdate"
+            [min]="mindate"
+            #dOB="ngModel"
             name="admin_dob"
             (keydown)="preventTyping($event)"
             required
@@ -159,10 +162,10 @@
             #picker
             (dateChange)="calculateAge($event)"
           ></mat-datepicker>
-          <mat-hint class="errorText" *ngIf="dob.errors && dob.touched"
-            >DOB is required</mat-hint
-          >
         </mat-form-field>
+        <mat-hint class="errorText" *ngIf="dOB.errors && dOB.touched"
+          >DOB is required</mat-hint
+        >
         <!-- <mat-datepicker
           class="width100"
           placeholder="Date of Birth"

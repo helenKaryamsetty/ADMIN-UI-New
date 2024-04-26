@@ -174,6 +174,13 @@ export class loginContentClassComponent implements OnInit, OnDestroy {
                       this.loginservice.dologoutUsrFromPreSession(true);
                     }
                   });
+              } else if (
+                response.errorMessage ===
+                'User login failed due to incorrect username/password'
+              ) {
+                {
+                  this.alertMessage.alert(response.errorMessage, 'error');
+                }
               }
             }
           },
@@ -205,6 +212,13 @@ export class loginContentClassComponent implements OnInit, OnDestroy {
                     //     this.authService.removeToken();
                     // }
                   });
+              } else if (
+                response.errorMessage ===
+                'User login failed due to incorrect username/password'
+              ) {
+                {
+                  this.alertMessage.alert(response.errorMessage, 'error');
+                }
               }
             }
           },

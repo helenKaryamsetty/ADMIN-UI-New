@@ -38,9 +38,6 @@ import { ConfirmationDialogsService } from 'src/app/core/services/dialog/confirm
   styleUrls: ['./provider-admin-list.component.css'],
 })
 export class ProviderAdminListComponent implements OnInit {
-  //ngModel
-  @Input() max: any;
-  tomorrow = new Date();
   titleID: any;
   admin_firstName: any;
   admin_middleName: any;
@@ -742,6 +739,7 @@ export class EditProviderAdminModalComponent implements OnInit {
   emailPattern = /^[0-9a-zA-Z_.]+@[a-zA-Z_]+?\.\b(org|com|COM|IN|in|co.in)\b$/;
 
   @ViewChild('editAdminCreationForm') editAdminCreationForm!: NgForm;
+  tomorrow: any;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
