@@ -87,7 +87,7 @@ export class BlockProvider {
     this.getAllSubService_URL = this.admin_base_url + 'm/FindSubSerive';
     this.getSubServiceDetails_URL = this.admin_base_url + 'm/getSubSerive';
     this.editProvider_URL = this.admin_base_url + 'updateProvider';
-    this.deleteSubserviceUrl = this.admin_base_url + '/m/deleteSubSerive';
+    this.deleteSubserviceUrl = this.admin_base_url + 'm/deleteSubSerive';
   }
 
   // all the status of Provider

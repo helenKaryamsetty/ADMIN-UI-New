@@ -293,16 +293,19 @@
         </ng-container>
         <ng-container matColumnDef="State">
           <th mat-header-cell *matHeaderCellDef>State</th>
-          <td mat-cell *matCellDef="let obj; let i = index">
-            {{ obj.stateName }}
-            <mat-icon
-              class="cursorPointer"
-              matTooltip="Remove {{ obj.stateName }}"
-              (click)="removeService(bufferArray.data.indexOf(obj), j)"
-              >cancel</mat-icon
-            >
+          <td mat-cell *matCellDef="let element">
+            <ng-container *ngFor="let obj of element.serviceProviderMapID1">
+              {{ obj.stateName }}
+              <mat-icon
+                class="cursorPointer"
+                matTooltip="Remove {{ obj.stateName }}"
+                (click)="removeService(bufferArray.data.indexOf(obj), j)"
+                >cancel</mat-icon
+              >
+            </ng-container>
           </td>
         </ng-container>
+
         <ng-container matColumnDef="action">
           <th mat-header-cell *matHeaderCellDef>Action</th>
           <td mat-cell *matCellDef="let item; let i = index">

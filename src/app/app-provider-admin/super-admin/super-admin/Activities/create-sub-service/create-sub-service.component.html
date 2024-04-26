@@ -9,7 +9,7 @@
       <mat-select
         required
         name="serviceProvider"
-        placeholder="Service Provider"
+        placeholder="Service Provider *"
         class="width100"
         [(ngModel)]="serviceProvider"
         (selectionChange)="
@@ -32,7 +32,7 @@
       <mat-select
         required
         name="services"
-        placeholder="Serviceline"
+        placeholder="Serviceline *"
         class="width100"
         [(ngModel)]="serviceObj"
         (selectionChange)="
@@ -55,7 +55,7 @@
       <mat-select
         required
         name="state"
-        placeholder="State"
+        placeholder="State *"
         [disabled]="isNational"
         class="width100"
         [(ngModel)]="state"
