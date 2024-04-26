@@ -567,7 +567,7 @@ export class HospitalMasterComponent implements OnInit {
     }*/
   setProviderServiceMapID(stateId: any) {
     this.states.map((item: any) => {
-      if (item.stateID == stateId) {
+      if (item.stateID === stateId) {
         this.providerServiceMapID = item.providerServiceMapID;
       }
     });
