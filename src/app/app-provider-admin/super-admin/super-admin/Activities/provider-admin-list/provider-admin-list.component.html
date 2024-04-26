@@ -313,18 +313,6 @@
     </div>
     <div class="clearfix visible-sm visible-md"></div>
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-10">
-      <!-- <mat-datepicker
-        class="width100"
-        placeholder="Date of Birth"
-        [(ngModel)]="dob"
-        name="admin_dob"
-        min="mindate"
-        max="maxdate"
-        #dOB="ngModel"
-        (keydown)="preventTyping($event)"
-        (selectionChange)="calculateAge($event)"
-        required
-      ></mat-datepicker> -->
       <mat-form-field class="width100">
         <mat-label>Date of Birth </mat-label>
         <input
@@ -332,6 +320,9 @@
           [matDatepicker]="picker"
           placeholder="Choose a date"
           [(ngModel)]="dob"
+          [max]="maxdate"
+          [min]="mindate"
+          #dOB="ngModel"
           name="admin_dob"
           (keydown)="preventTyping($event)"
           required
@@ -342,9 +333,9 @@
           (dateChange)="calculateAge($event)"
         ></mat-datepicker>
       </mat-form-field>
-      <!-- <mat-hint class="errorText" *ngIf="dob.errors && dob.touched"
+      <mat-hint class="errorText" *ngIf="dob.errors && dob.touched"
         >DOB is required</mat-hint
-      > -->
+      >
     </div>
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-t-3 p-b-10">
       <mat-form-field
