@@ -56,7 +56,7 @@
     </form>
   </div>
 </div>
-<div class="pull-right" *ngIf="data.length !== 0 && showTable">
+<div style="text-align: end" *ngIf="data.length !== 0 && showTable">
   <mat-form-field id="filterbox">
     <input
       matInput
@@ -64,7 +64,7 @@
       #filterTerm
       (keyup)="filterComponentList(filterTerm.value)"
     />
-    <mat-icon mdSuffix>search</mat-icon>
+    <mat-icon matSuffix>search</mat-icon>
   </mat-form-field>
 </div>
 <div class="row" *ngIf="showTable">
@@ -196,8 +196,8 @@
 </div>
 <!-- <div class="m-t-10" *ngIf="showForm"> -->
 <div class="row m-t-10" *ngIf="showForm">
-  <div *ngIf="service.serviceID !== 6">
-    <div class="col-xs-6 col-sm-4 col-md-4 col-lg-3 m-t-35">
+  <div *ngIf="service.serviceID !== 6" class="col-12 row">
+    <div class="col-3 m-t-35">
       <mat-checkbox
         color="primary"
         [(ngModel)]="isInbound"
@@ -206,7 +206,7 @@
         >Is-Inbound</mat-checkbox
       >
     </div>
-    <div class="col-xs-6 col-sm-4 col-md-4 col-lg-3 m-t-35">
+    <div class="col-3 m-t-35">
       <mat-checkbox
         color="primary"
         [(ngModel)]="isOutbound"
@@ -217,7 +217,7 @@
     </div>
 
     <div
-      class="col-xs-12 col-sm-6 col-md-4 col-lg-4 xs-m-t-0 sm-m-t-25 m-t-md--25 m-t-lg-10"
+      class="col-3 xs-m-t-0 sm-m-t-25 m-t-md--25 m-t-lg-10"
       *ngIf="isOutbound"
     >
       <!-- <md-input-container class="hide_underline width100">
@@ -249,9 +249,14 @@
       <label class="f-s-b" style="color:blue">{{note}}</label>
     </div> -->
   </div>
-  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-a-0">
-    <form #callTypeSubCallType="ngForm" autocomplete="off" id="addingSubTypes">
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
+  <div class="col-12 p-a-0">
+    <form
+      #callTypeSubCallType="ngForm"
+      autocomplete="off"
+      id="addingSubTypes"
+      class="row"
+    >
+      <div class="col-3 m-t-15">
         <mat-form-field>
           <mat-label>Call Type</mat-label>
           <mat-select
@@ -286,7 +291,7 @@
 
         <!-- </md-input-container> -->
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
+      <div class="col-3 m-t-20">
         <mat-form-field class="width100" appVehicleNO>
           <mat-label>Call Sub Type</mat-label>
           <input
@@ -304,42 +309,44 @@
           </mat-hint>
         </mat-form-field>
       </div>
+      <!-- <div class="clearfix visible-sm"></div> -->
     </form>
-    <div class="clearfix visible-sm"></div>
-    <div
-      *ngIf="service.serviceID !== 6"
-      class="col-xs-6 col-sm-6 col-md-4 col-lg-3 m-t-md-25 m-t-sm-0 m-t-xs-0 m-t-lg-40"
-    >
-      <span class="f-s-b">Fit To Block</span>
-      <mat-radio-group
-        [(ngModel)]="fitToBlock"
-        (change)="fitToBlocks(fitToBlock)"
+    <div class="col-12 row">
+      <div
+        *ngIf="service.serviceID !== 6"
+        class="col-3 m-t-md-25 m-t-sm-0 m-t-xs-0 m-t-lg-40"
       >
-        <mat-radio-button color="primary" class="p-l-10" [value]="true"
-          >Yes</mat-radio-button
+        <span class="f-s-b">Fit To Block</span>
+        <mat-radio-group
+          [(ngModel)]="fitToBlock"
+          (change)="fitToBlocks(fitToBlock)"
         >
-        <mat-radio-button color="primary" class="p-l-10" [value]="false"
-          >No</mat-radio-button
-        >
-      </mat-radio-group>
-    </div>
-    <div class="clearfix visible-md"></div>
-    <div
-      *ngIf="service.serviceID !== 6"
-      class="col-xs-6 col-sm-6 col-md-4 col-lg-3 m-t-lg-25 m-t-md-0 m-t-lg-40"
-    >
-      <span class="f-s-b">Fit For Follow-up</span>
-      <mat-radio-group
-        [(ngModel)]="fitForFollowup"
-        (change)="fitForFollowups(fitForFollowup)"
+          <mat-radio-button color="primary" class="p-l-10" [value]="true"
+            >Yes</mat-radio-button
+          >
+          <mat-radio-button color="primary" class="p-l-10" [value]="false"
+            >No</mat-radio-button
+          >
+        </mat-radio-group>
+      </div>
+      <!-- <div class="clearfix visible-md"></div> -->
+      <div
+        *ngIf="service.serviceID !== 6"
+        class="col-3 m-t-lg-25 m-t-md-0 m-t-lg-40"
       >
-        <mat-radio-button color="primary" class="p-l-10" [value]="true"
-          >Yes</mat-radio-button
+        <span class="f-s-b">Fit For Follow-up</span>
+        <mat-radio-group
+          [(ngModel)]="fitForFollowup"
+          (change)="fitForFollowups(fitForFollowup)"
         >
-        <mat-radio-button color="primary" class="p-l-10" [value]="false"
-          >No</mat-radio-button
-        >
-      </mat-radio-group>
+          <mat-radio-button color="primary" class="p-l-10" [value]="true"
+            >Yes</mat-radio-button
+          >
+          <mat-radio-button color="primary" class="p-l-10" [value]="false"
+            >No</mat-radio-button
+          >
+        </mat-radio-group>
+      </div>
     </div>
     <div
       class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
@@ -347,7 +354,7 @@
     >
       <!-- && (isInbound || isOutbound) -->
       <button
-        class="pull-right mat_blue"
+        class="pull-right mat_icon_white"
         mat-mini-fab
         color="primary"
         (click)="

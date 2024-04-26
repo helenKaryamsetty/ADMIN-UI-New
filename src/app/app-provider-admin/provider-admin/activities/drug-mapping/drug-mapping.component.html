@@ -3,49 +3,51 @@
     <h4 *ngIf="showMappings">Drug Group-Drug Mapping</h4>
     <h4 *ngIf="!editable && !showMappings">Drug Group-Drug Mapping</h4>
   </div>
-  <form #searchForm="ngForm" autocomplete="off">
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-      <mat-form-field>
-        <mat-label>Serviceline</mat-label>
-        <mat-select
-          (selectionChange)="getStates(service)"
-          class="width100"
-          [(ngModel)]="service"
-          name="service"
-          required
-          #bindService="ngModel"
-          disabled="{{ disableSelection }}"
-        >
-          <mat-option *ngFor="let item of services" [value]="item">
-            {{ item.serviceName }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-      <mat-form-field>
-        <mat-label>State</mat-label>
-        <mat-select
-          class="width100"
-          [(ngModel)]="state"
-          [disabled]="disableSelection"
-          (selectionChange)="
-            setProviderServiceMapID(state.providerServiceMapID)
-          "
-          name="state"
-          #bindState="ngModel"
-          required
-        >
-          <mat-option *ngFor="let item of states" [value]="item">
-            {{ item.stateName }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-  </form>
+  <div class="col-12">
+    <form #searchForm="ngForm" autocomplete="off" class="row">
+      <div class="col-3 m-t-15">
+        <mat-form-field>
+          <mat-label>Serviceline</mat-label>
+          <mat-select
+            (selectionChange)="getStates(service)"
+            class="width100"
+            [(ngModel)]="service"
+            name="service"
+            required
+            #bindService="ngModel"
+            disabled="{{ disableSelection }}"
+          >
+            <mat-option *ngFor="let item of services" [value]="item">
+              {{ item.serviceName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-3 m-t-15">
+        <mat-form-field>
+          <mat-label>State</mat-label>
+          <mat-select
+            class="width100"
+            [(ngModel)]="state"
+            [disabled]="disableSelection"
+            (selectionChange)="
+              setProviderServiceMapID(state.providerServiceMapID)
+            "
+            name="state"
+            #bindState="ngModel"
+            required
+          >
+            <mat-option *ngFor="let item of states" [value]="item">
+              {{ item.stateName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </form>
+  </div>
 </div>
 <div
-  class="pull-right"
+  style="text-align: end"
   *ngIf="availableDrugMappings.length !== 0 && showMappings && !editable"
 >
   <mat-form-field
@@ -148,9 +150,9 @@
 </div>
 <div *ngIf="!showMappings || editable">
   <div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-l-0">
-      <form #drugMappingForm="ngForm" autocomplete="off">
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
+    <div class="col-12 p-l-0">
+      <form #drugMappingForm="ngForm" autocomplete="off" class="row">
+        <div class="col-3 m-t-15">
           <mat-form-field>
             <mat-label>Drug Group</mat-label>
             <mat-select
@@ -170,7 +172,7 @@
             </mat-select>
           </mat-form-field>
         </div>
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
+        <div class="col-3 m-t-15">
           <mat-form-field>
             <mat-label>Drug</mat-label>
             <mat-select
@@ -189,7 +191,7 @@
             </mat-select>
           </mat-form-field>
         </div>
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
+        <div class="col-3 m-t-20">
           <mat-form-field
             class="input-full-width mat_form_field_width_one"
             appmyProviderName

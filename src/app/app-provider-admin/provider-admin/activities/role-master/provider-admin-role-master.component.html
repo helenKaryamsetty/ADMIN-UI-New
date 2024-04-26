@@ -68,19 +68,18 @@
   *ngIf="searchresultarray.length !== 0 && showAddButtonFlag"
 >
   <mat-form-field id="filterbox">
-    <!-- <mat-label>In-Table Search</mat-label> -->
     <input
       matInput
-      #filterTerm
       placeholder="In-Table Search"
+      #filterTerm
       (keyup)="filterComponentList(filterTerm.value)"
     />
-    <mat-icon mdSuffix>search</mat-icon>
+    <mat-icon matSuffix>search</mat-icon>
   </mat-form-field>
 </div>
 <div class="row">
   <div
-    class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10"
+    class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
     *ngIf="showRoleCreationForm"
   >
     <button
@@ -196,9 +195,9 @@
     </mat-paginator>
   </div>
 </div>
-<div class="row" *ngIf="showRoleCreationForm">
-  <form #addingForm="ngForm" id="roleAddForm" autocomplete="off">
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20" appmyProviderName>
+<div class="col-12" *ngIf="showRoleCreationForm">
+  <form #addingForm="ngForm" id="roleAddForm" class="row" autocomplete="off">
+    <div class="col-3 m-t-20" appmyProviderName>
       <!-- <mat-form-field style="width: 100%">
         <mat-label>Role</mat-label>
         <input type="text"
@@ -242,7 +241,7 @@
         </mat-hint>
       </mat-form-field>
     </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20" appmyProviderName>
+    <div class="col-3 m-t-20" appmyProviderName>
       <mat-form-field style="width: 100%">
         <mat-label>Description</mat-label>
         <input
@@ -260,7 +259,8 @@
 
     <!-- in case of 104 and dashboard, multiselect needed in feature-->
     <div
-      class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15"
+      class="col-3"
+      style="margin-top: 20px"
       *ngIf="hideAdd && multipleFeaturesServiceList.includes(service.serviceID)"
     >
       <mat-label>Feature</mat-label>
@@ -283,10 +283,11 @@
 
     <!-- incase of others, single select is needed in feature -->
     <div
-      class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15"
+      class="col-3"
       *ngIf="
         hideAdd && !multipleFeaturesServiceList.includes(service.serviceID)
       "
+      style="margin-top: 20px"
     >
       <mat-form-field>
         <mat-label>Feature</mat-label>
@@ -307,7 +308,7 @@
       </mat-form-field>
     </div>
 
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15" *ngIf="!hideAdd">
+    <div class="col-3" *ngIf="!hideAdd" style="margin-top: 20px">
       <mat-form-field>
         <mat-label>Feature</mat-label>
         <mat-select
@@ -477,7 +478,7 @@
   </div>
 
   <!-- in case of 104 and dashboard, multiselect needed in feature-->
-  <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
+  <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" style="margin-top: 20px">
     <mat-label>Feature</mat-label>
     <mat-select
       class="width100"

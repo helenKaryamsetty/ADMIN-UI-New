@@ -45,7 +45,7 @@
   </form>
 </div>
 <div class="m-t-10" *ngIf="showTableFlag">
-  <div class="pull-right" *ngIf="searchResultArray.length !== 0">
+  <div style="text-align: end" *ngIf="searchResultArray.length !== 0">
     <mat-form-field id="filterbox">
       <input
         matInput
@@ -53,7 +53,7 @@
         #filterTerm
         (keyup)="filterComponentList(filterTerm.value)"
       />
-      <mat-icon mdSuffix>search</mat-icon>
+      <mat-icon matSuffix>search</mat-icon>
     </mat-form-field>
   </div>
   <div class="row">
@@ -150,9 +150,9 @@
 
 <div *ngIf="showFormFlag">
   <!-- <form #instituteFields="ngForm"> -->
-  <div class="row">
-    <form #instituteDir="ngForm" autocomplete="off">
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
+  <div class="col-12">
+    <form #instituteDir="ngForm" autocomplete="off" class="row">
+      <div class="col-3 m-t-20">
         <mat-form-field class="width100" appmyProviderName>
           <mat-label>Institute Directory</mat-label>
           <input
@@ -179,7 +179,7 @@
           </mat-hint>
         </mat-form-field>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
+      <div class="col-3 m-t-20">
         <mat-form-field class="width100" appmyProviderName>
           <mat-label>Description</mat-label>
           <input
@@ -198,7 +198,7 @@
           md-mini-fab
           color="primary"
           (click)="add_obj(instituteDirectory, description)"
-          class="xs-pull-right sm-pull-right md-pull-left mat_blue"
+          class="xs-pull-right sm-pull-right md-pull-left mat_icon_white"
         >
           <mat-icon
             mdSuffix
