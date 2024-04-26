@@ -4,3 +4,15 @@
 .file-upload{
     color: grey;
 }
+.display-flex{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: flex-start;
+  }
+  
+  .display-flex-box {
+    flex: 0 0 250px;
+    width: 100px;
+    padding: 0px 10px 0px 10px;
+  }

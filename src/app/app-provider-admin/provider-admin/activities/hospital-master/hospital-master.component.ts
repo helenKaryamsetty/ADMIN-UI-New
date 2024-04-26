@@ -489,12 +489,12 @@ export class HospitalMasterComponent implements OnInit {
     }
   }
 
-  getServices(stateID: any) {
+  getServices(userID: any) {
     // this.state = "";
     // this.district = "";
     // this.taluk = "";
 
-    this.HospitalMasterService.getServices(this.userID).subscribe(
+    this.HospitalMasterService.getServices(userID).subscribe(
       (response: any) => this.getServiceSuccessHandeler(response),
       (err) => {
         console.log('Error', err);
@@ -504,6 +504,8 @@ export class HospitalMasterComponent implements OnInit {
   }
 
   getServiceSuccessHandeler(response: any) {
+    console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2', response);
+
     if (response) {
       this.services = response.data.filter(function (item: any) {
         if (item.serviceID) {
@@ -563,12 +565,16 @@ export class HospitalMasterComponent implements OnInit {
         this.taluk = "";
         this.providerServiceMapID = providerServiceMapID;
     }*/
-  setProviderServiceMapID(providerServiceMapID: any) {
+  setProviderServiceMapID(stateId: any) {
+    this.states.map((item: any) => {
+      if (item.stateID == stateId) {
+        this.providerServiceMapID = item.providerServiceMapID;
+      }
+    });
     this.district = '';
     this.taluk = '';
-    this.providerServiceMapID = providerServiceMapID;
     this._instituteTypeMasterService
-      .getInstitutesType(providerServiceMapID)
+      .getInstitutesType(this.providerServiceMapID)
       .subscribe(
         (response: any) => this.instituteSuccessHandeler(response),
         (err) => {
