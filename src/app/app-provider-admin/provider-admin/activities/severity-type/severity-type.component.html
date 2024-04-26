@@ -16,7 +16,6 @@
             class="width100"
             [(ngModel)]="service"
             name="service"
-            #servicess
             required
             (selectionChange)="
               getProviderStates(service.serviceID, service.isNational)
@@ -41,7 +40,6 @@
             [(ngModel)]="stateId"
             (selectionChange)="findSeverity(stateId.providerServiceMapID)"
             name="state"
-            #statess
             required
           >
             <mat-option *ngFor="let stat of states" [value]="stat">

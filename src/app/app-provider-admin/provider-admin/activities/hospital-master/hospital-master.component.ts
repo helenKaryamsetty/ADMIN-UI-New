@@ -330,10 +330,17 @@ export class HospitalMasterComponent implements OnInit {
             else */
         console.log('Response', response);
         if (response.statusCode === 5000 && response.errorMessage) {
-          console.log('Hello');
-          this.alertService.confirm(response.data, 'error').subscribe(() => {
-            this.uploadForm.resetForm();
-          });
+          if (response.data) {
+            this.alertService.confirm('error', response.data).subscribe(() => {
+              this.uploadForm.resetForm();
+            });
+          } else {
+            this.alertService
+              .confirm('error', response.status)
+              .subscribe(() => {
+                this.uploadForm.resetForm();
+              });
+          }
         } else {
           this.uploadForm.resetForm();
           this.file = undefined;
