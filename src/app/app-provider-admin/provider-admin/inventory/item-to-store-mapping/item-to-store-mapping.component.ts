@@ -40,8 +40,6 @@ import { MatPaginator } from '@angular/material/paginator';
 export class ItemToStoreMappingComponent implements OnInit {
   itemFacilityMapView = new MatTableDataSource<any>();
   bufferarray = new MatTableDataSource<any>();
-  @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
-
   providerServiceMapID: any;
   providerID: any;
   userID: any;
@@ -77,6 +75,14 @@ export class ItemToStoreMappingComponent implements OnInit {
   @ViewChild('mappingFieldsForm')
   mappingFieldsForm!: NgForm;
   createButton: any;
+  paginator!: MatPaginator;
+  @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
+    this.paginator = mp;
+    this.setDataSourceAttributes();
+  }
+  setDataSourceAttributes() {
+    this.itemFacilityMapView.paginator = this.paginator;
+  }
 
   constructor(
     public commonDataService: dataService,
@@ -479,18 +485,20 @@ export class ItemToStoreMappingComponent implements OnInit {
       );
   }
   filterStore(store: any) {
+    console.log('store', store);
     this.mainstores = store.filter(function (item: any) {
-      return item.isMainFacility === 1 && item.deleted === false; // This value has to go in constant
+      return item.isMainFacility === true && item.deleted === false; // This value has to go in constant
     });
+    console.log('this.mainstores', this.mainstores);
   }
-
   subStorelist(facID: any) {
     this.itemCategoryselected = {};
+    console.log('Stores', this.stores);
     this.substores = this.stores.filter(function (item: any) {
       return (
         item.mainFacilityID === facID &&
         item.deleted === false &&
-        item.isMainFacility === 0
+        item.isMainFacility === false
       ); // This value has to go in constant
     });
   }

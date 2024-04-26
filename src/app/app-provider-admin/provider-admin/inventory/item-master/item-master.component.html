@@ -1,7 +1,7 @@
 <div class="row" *ngIf="tableMode">
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <h4>
-      <strong>Item Master1</strong>
+      <strong>Item Master</strong>
     </h4>
   </div>
   <form #searchForm="ngForm" autocomplete="off">
@@ -78,7 +78,10 @@
         <!-- Category Code Column -->
         <ng-container matColumnDef="isMedical">
           <mat-header-cell *matHeaderCellDef>Item Type</mat-header-cell>
-          <mat-cell *matCellDef="let item">{{ item.isMedical }}</mat-cell>
+          <mat-cell *matCellDef="let item">
+            <td *ngIf="item.isMedical">Medical</td>
+            <td *ngIf="!item.isMedical">Non-Medical</td></mat-cell
+          >
         </ng-container>
 
         <!-- Category Name Column -->

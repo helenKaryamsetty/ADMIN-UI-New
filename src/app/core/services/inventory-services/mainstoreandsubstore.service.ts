@@ -53,15 +53,14 @@ export class Mainstroreandsubstore {
 
     this.get_State_Url = this.admin_Base_Url + 'm/role/stateNew';
     this.get_Service_Url = this.admin_Base_Url + 'm/role/serviceNew';
-    this.get_stores_Url = this.admin_Base_Url + '/getAllStore';
-    this.save_stores_Url = this.admin_Base_Url + '/createStore';
-    this.update_stores_Url = this.admin_Base_Url + '/editStore';
-    this.delete_stores_Url = this.admin_Base_Url + '/deleteStore';
-    this.get_facilities_Url = this.admin_Base_Url + '/getFacility';
-    this.get_itemCategory_Url = this.admin_Base_Url + '/getItemCategory';
-    this.save_itemCategory_Url = this.admin_Base_Url + '/configItemIssue';
-    this.save_expiryAlertConfig_Url =
-      this.admin_Base_Url + '/configexpiryalert';
+    this.get_stores_Url = this.admin_Base_Url + 'getAllStore';
+    this.save_stores_Url = this.admin_Base_Url + 'createStore';
+    this.update_stores_Url = this.admin_Base_Url + 'editStore';
+    this.delete_stores_Url = this.admin_Base_Url + 'deleteStore';
+    this.get_facilities_Url = this.admin_Base_Url + 'getFacility';
+    this.get_itemCategory_Url = this.admin_Base_Url + 'getItemCategory';
+    this.save_itemCategory_Url = this.admin_Base_Url + 'configItemIssue';
+    this.save_expiryAlertConfig_Url = this.admin_Base_Url + 'configexpiryalert';
   }
 
   getAllStores(providerServiceMapID: any) {

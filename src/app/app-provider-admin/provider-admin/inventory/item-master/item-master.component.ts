@@ -45,10 +45,10 @@ import { MatPaginator } from '@angular/material/paginator';
   templateUrl: './item-master.component.html',
   styleUrls: ['./item-master.component.css'],
 })
-export class ItemMasterComponent implements OnInit, AfterViewInit {
+export class ItemMasterComponent implements OnInit {
   filteredItemList = new MatTableDataSource<any>();
   itemArrayObj = new MatTableDataSource<any>();
-  @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
+  // @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
 
   providerServiceMapID: any;
   providerID: any;
@@ -135,6 +135,25 @@ export class ItemMasterComponent implements OnInit, AfterViewInit {
   snomedEditFlag = false;
   disableSnomedCode = false;
   serviceline: any;
+  // displayedColumns: string[] = [
+  //   'sno',
+  //   'isMedical',
+  //   'itemCode',
+  //   'itemName',
+  //   'itemCategory',
+  //   'isEDL',
+  //   'edit',
+  //   'discontinued',
+  //   'action'
+  // ];
+  paginator!: MatPaginator;
+  @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
+    this.paginator = mp;
+    this.setDataSourceAttributes();
+  }
+  setDataSourceAttributes() {
+    this.filteredItemList.paginator = this.paginator;
+  }
   constructor(
     public commonDataService: dataService,
     public itemService: ItemService,
@@ -155,9 +174,9 @@ export class ItemMasterComponent implements OnInit, AfterViewInit {
     this.getAllServices();
     this.drugName = 'EDL';
   }
-  ngAfterViewInit() {
-    this.filteredItemList.paginator = this.paginator;
-  }
+  // ngAfterViewInit() {
+  //   this.filteredItemList.paginator = this.paginator;
+  // }
   getAllServices() {
     // debugger;
     this.commonServices
@@ -226,7 +245,9 @@ export class ItemMasterComponent implements OnInit, AfterViewInit {
   itemsSuccessHandler(itemListResponse: any) {
     console.log('All items', itemListResponse.data);
     this.itemsList = itemListResponse.data;
+    console.log('itemListResponse.data', itemListResponse.data);
     this.filteredItemList.data = itemListResponse.data;
+    console.log('this.filteredItemList.data', this.filteredItemList.data);
     this.filteredItemList.paginator = this.paginator;
     this.showTableFlag = true;
     //this.disableEDL=true;
@@ -255,12 +276,20 @@ export class ItemMasterComponent implements OnInit, AfterViewInit {
             const value: string = '' + item[key];
             if (value.toLowerCase().indexOf(searchTerm.toLowerCase()) >= 0) {
               this.filteredItemList.data.push(item);
+              console.log(
+                'this.filteredItemList.data',
+                this.filteredItemList.data,
+              );
               break;
             }
           } else if (key === 'itemCategory') {
             const value: string = '' + item[key]['itemCategoryName'];
             if (value.toLowerCase().indexOf(searchTerm.toLowerCase()) >= 0) {
               this.filteredItemList.data.push(item);
+              console.log(
+                'this.filteredItemList.data',
+                this.filteredItemList.data,
+              );
               break;
             }
           }
