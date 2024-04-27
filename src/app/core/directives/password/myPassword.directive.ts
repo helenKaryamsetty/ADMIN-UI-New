@@ -22,7 +22,7 @@
 import { Directive, ElementRef, HostListener, Input } from '@angular/core';
 
 @Directive({
-  selector: '[appmyPassword]',
+  selector: '[appMyPassword]',
 })
 export class myPasswordDirective {
   constructor(element: ElementRef) {}

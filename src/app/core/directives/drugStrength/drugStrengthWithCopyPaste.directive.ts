@@ -22,7 +22,7 @@
 import { Directive, HostListener, ElementRef } from '@angular/core';
 
 @Directive({
-  selector: '[appdrugStrengthWithCopyPaste]',
+  selector: '[appDrugStrengthWithCopyPaste]',
 })
 
 // this directive allows % + . / - 0-9

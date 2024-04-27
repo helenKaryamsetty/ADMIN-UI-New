@@ -30,7 +30,7 @@ import { AbstractControl, ValidatorFn } from '@angular/forms';
 
 @Directive({
   selector:
-    '[allowText][formControlName],[allowText][formControl],[allowText][ngModel],[allowText]',
+    '[appAllowText][formControlName],[appAllowText][formControl],[appAllowText][ngModel],[appallowText]',
 })
 export class StringValidatorDirective {
   @Input()
@@ -52,9 +52,9 @@ export class StringValidatorDirective {
   textAreaValidator = /^[a-zA-Z0-9., ]+$/;
   questionnaireValidator = /^[a-zA-Z0-9.,? ]+$/;
   addressValidator = /^[a-zA-Z0-9.,/\-# ]+$/;
-  smsTemplateValidator = /^[a-zA-Z0-9.,$\-:;/() ]+$/;
+  appSmsTemplateValidator = /^[a-zA-Z0-9.,$\-:;/() ]+$/;
   itemNameSearchValidator = /^[a-zA-Z0-9% ]+$/;
-  appitemNameMasterValidator = /^[a-zA-Z0-9\-.[\]() ]$/;
+  appItemNameMasterValidator = /^[a-zA-Z0-9\-.[\]() ]$/;
   answerValidator = /^[a-zA-Z0-9.,/\- ]+$/;
   usernameValidator = /^[a-zA-Z0-9]+$/;
   searchIdValidator = /^[a-zA-Z0-9/]+$/;
@@ -112,14 +112,14 @@ export class StringValidatorDirective {
       case 'addressValidator':
         this.result = this.addressValidator.test(input);
         break;
-      case 'smsTemplateValidator':
-        this.result = this.smsTemplateValidator.test(input);
+      case 'appSmsTemplateValidator':
+        this.result = this.appSmsTemplateValidator.test(input);
         break;
       case 'itemNameSearchValidator':
         this.result = this.itemNameSearchValidator.test(input);
         break;
-      case 'appitemNameMasterValidator':
-        this.result = this.appitemNameMasterValidator.test(input);
+      case 'appItemNameMasterValidator':
+        this.result = this.appItemNameMasterValidator.test(input);
         break;
       case 'answerValidator':
         this.result = this.answerValidator.test(input);

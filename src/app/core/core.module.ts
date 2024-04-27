@@ -20,7 +20,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { CommonServices } from './services/inventory-services/commonServices';
 import { VanMasterService } from './services/ProviderAdminServices/van-master-service.service';
-import { myUserNameDirective } from './directives/address/myAddress.directive';
 import { MyAddressWithCopyPasteDirective } from './directives/address/myAddressWithCopyPaste.directive';
 import { AnswerDirective } from './directives/answer/answer.directive';
 import { DotallowDirective } from './directives/dotallow/dotallow';
@@ -38,16 +37,16 @@ import {
   agentID_oneDirective,
   agentID_twoDirective,
   measuringUnitDirective,
-  myName,
-  myName2,
+  myNameDirective,
+  myName2Directive,
   myProviderNameDirective,
 } from './directives/name/myName.directive';
 
 import { myPasswordDirective } from './directives/password/myPassword.directive';
-import { QuestionnaireDirective } from './directives/questionnaire/questionnaire.directive';
-import { SmsTemplateDirective } from './directives/smsTemplate/smsTemplate.directive';
+import { myQuestionnaireDirective } from './directives/questionnaire/questionnaire.directive';
+import { mySmsTemplateDirective } from './directives/smsTemplate/smsTemplate.directive';
 import { StringValidatorDirective } from './directives/stringValidator/stringValidator.directive';
-import { textareaDirective } from './directives/textarea/textArea.directive';
+import { MyTextareaDirective } from './directives/textarea/textArea.directive';
 import { TextAreaWithCopyPasteDirective } from './directives/textarea/textAreaWithCopyPaste.directive';
 import { userNameDirective } from './directives/userName/userName.directive';
 import { userNameWithSpaceDirective } from './directives/userName/userNameWithSpace.directive';
@@ -59,6 +58,7 @@ import {
   VehicleNoWithCopyPasteDirective,
   VehicleNoWithSpecialCharCopyPasteDirective,
 } from './directives/name/myNameWithCopyPaste.directive';
+import { myUserNameDirective } from './directives/address/myAddress.directive';
 import { MyInputAreaDirective } from './directives/Inputfeild/inputFeild.directive';
 
 @NgModule({
@@ -75,15 +75,15 @@ import { MyInputAreaDirective } from './directives/Inputfeild/inputFeild.directi
     ItemNameWithSpecialCharCopyPasteDirective,
     myMobileNumberDirective,
     MyMobileNumberWithCopyPasteDirective,
-    myName,
+    myNameDirective,
     myPasswordDirective,
-    QuestionnaireDirective,
-    SmsTemplateDirective,
+    myQuestionnaireDirective,
+    mySmsTemplateDirective,
     StringValidatorDirective,
-    textareaDirective,
+    MyTextareaDirective,
     userNameDirective,
     userNameWithSpaceDirective,
-    myName2,
+    myName2Directive,
     agentID_oneDirective,
     agentID_twoDirective,
     myProviderNameDirective,
@@ -121,15 +121,15 @@ import { MyInputAreaDirective } from './directives/Inputfeild/inputFeild.directi
     itemNameMasterDirective,
     ItemNameWithSpecialCharCopyPasteDirective,
     MyMobileNumberWithCopyPasteDirective,
-    myName,
+    myNameDirective,
     myPasswordDirective,
-    QuestionnaireDirective,
-    SmsTemplateDirective,
+    myQuestionnaireDirective,
+    mySmsTemplateDirective,
     StringValidatorDirective,
-    textareaDirective,
+    MyTextareaDirective,
     userNameDirective,
     userNameWithSpaceDirective,
-    myName2,
+    myName2Directive,
     agentID_oneDirective,
     agentID_twoDirective,
     myProviderNameDirective,
