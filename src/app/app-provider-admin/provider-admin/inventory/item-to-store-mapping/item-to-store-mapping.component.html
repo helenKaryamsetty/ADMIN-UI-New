@@ -226,14 +226,18 @@
       <span class="f-s-n-b">Store Type</span>
       <mat-radio-group [(ngModel)]="storeType" name="storeType">
         <mat-radio-button
-          (change)="itemCategoryselected = {}; itemselected = []; subStore = []"
+          (selectionChange)="
+            itemCategoryselected = {}; itemselected = []; subStore = []
+          "
           color="primary"
           class="p-l-10"
           [value]="true"
           >Main Store</mat-radio-button
         >
         <mat-radio-button
-          (change)="itemCategoryselected = {}; itemselected = []; subStore = []"
+          (selectionChange)="
+            itemCategoryselected = {}; itemselected = []; subStore = []
+          "
           color="primary"
           class="p-l-10"
           [value]="false"
@@ -250,13 +254,10 @@
           class="width100"
           [(ngModel)]="mainStore"
           name="mainStore"
+          (selectionChange)="subStorelist(mainStore.facilityID)"
           required
         >
-          <mat-option
-            *ngFor="let store of mainstores"
-            [value]="store"
-            (click)="subStorelist(store.facilityID)"
-          >
+          <mat-option *ngFor="let store of mainstores" [value]="store">
             {{ store.facilityName }}
           </mat-option>
         </mat-select>

@@ -22,9 +22,9 @@
 import { Directive, HostListener, ElementRef } from '@angular/core';
 
 @Directive({
-  selector: '[appsmsTemplateValidator]',
+  selector: '[appSmsTemplateValidator]',
 })
-export class SmsTemplateDirective {
+export class mySmsTemplateDirective {
   @HostListener('keypress', ['$event']) onKeyPress(ev: any) {
     const regex = new RegExp(/^[~!@#%^&*_+\]{}"`''\\|<>]*$/);
     const key = String.fromCharCode(!ev.charCode ? ev.which : ev.charCode);

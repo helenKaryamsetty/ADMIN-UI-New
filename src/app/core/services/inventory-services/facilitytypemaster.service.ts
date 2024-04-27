@@ -53,10 +53,10 @@ export class FacilityMasterService {
 
     this.get_State_Url = this.admin_Base_Url + 'm/role/stateNew';
     this.get_Service_Url = this.admin_Base_Url + 'm/role/serviceNew';
-    this.get_facilities_Url = this.admin_Base_Url + '/getFacility';
-    this.save_facilities_Url = this.admin_Base_Url + '/addFacility';
-    this.update_facilities_Url = this.admin_Base_Url + '/editFacility';
-    this.delete_facilities_Url = this.admin_Base_Url + '/deleteFacility';
+    this.get_facilities_Url = this.admin_Base_Url + 'getFacility';
+    this.save_facilities_Url = this.admin_Base_Url + 'addFacility';
+    this.update_facilities_Url = this.admin_Base_Url + 'editFacility';
+    this.delete_facilities_Url = this.admin_Base_Url + 'deleteFacility';
   }
   getfacilities(providerServiceMapID: any) {
     return this.http.post(this.get_facilities_Url, {

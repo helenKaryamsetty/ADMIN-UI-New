@@ -22,7 +22,7 @@
 import { Directive, HostListener, ElementRef } from '@angular/core';
 
 @Directive({
-  selector: '[appmyNameWithCopyPaste]',
+  selector: '[appMyNameWithCopyPaste]',
 })
 export class MyNameWithCopyPasteDirective {
   constructor(element: ElementRef) {}
@@ -62,7 +62,7 @@ export class MyNameWithCopyPasteDirective {
 }
 
 @Directive({
-  selector: '[appmyNameWithSpecialCharCopyPaste]',
+  selector: '[appMyNameWithSpecialCharCopyPaste]',
 })
 export class NameWithSpecialCharCopyPasteDirective {
   @HostListener('keypress', ['$event']) onKeyPress(ev: any) {
@@ -100,7 +100,7 @@ export class NameWithSpecialCharCopyPasteDirective {
 }
 
 @Directive({
-  selector: '[appmyProviderNameWithCopyPaste]',
+  selector: '[appMyProviderNameWithCopyPaste]',
 })
 export class MyProviderNameWithCopyPasteDirective {
   constructor(element: ElementRef) {}
@@ -140,7 +140,7 @@ export class MyProviderNameWithCopyPasteDirective {
 }
 
 @Directive({
-  selector: '[appvehicleNoCopyPaste]',
+  selector: '[appVehicleNoCopyPaste]',
 })
 export class VehicleNoWithCopyPasteDirective {
   constructor(element: ElementRef) {}
@@ -180,7 +180,7 @@ export class VehicleNoWithCopyPasteDirective {
 }
 
 @Directive({
-  selector: '[appvehicleNoSpecialCharWithCopyPaste]',
+  selector: '[appVehicleNoSpecialCharWithCopyPaste]',
 })
 export class VehicleNoWithSpecialCharCopyPasteDirective {
   constructor(element: ElementRef) {}
@@ -196,7 +196,7 @@ export class VehicleNoWithSpecialCharCopyPasteDirective {
     const clipboardData = ev !== undefined ? ev.clipboardData : undefined;
     const pastedText =
       clipboardData !== undefined ? clipboardData.getData('text') : undefined;
-    const regex = new RegExp(/^[~!@#$^&*()_\=\[\]{};':"\\|,<>\?]*$/);
+    const regex = new RegExp(/^[~!@#$^&*()_=[]{};':"\\|,<>]*$/);
     // const key = String.fromCharCode(!ev.charCode ? ev.which : ev.charCode);
     let flag = false;
     if (
@@ -236,7 +236,7 @@ export class PanWithCopyPasteDirective {
     const clipboardData = ev !== undefined ? ev.clipboardData : undefined;
     const pastedText =
       clipboardData !== undefined ? clipboardData.getData('text') : undefined;
-    const regex = new RegExp(/^[~ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]*$/);
+    const regex = new RegExp(/^[~ !@#$%^&*()_+\-=[]{};':"\\|,.<>?]*$/);
     // const key = String.fromCharCode(!ev.charCode ? ev.which : ev.charCode);
     let flag = false;
     if (

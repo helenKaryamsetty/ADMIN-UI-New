@@ -104,10 +104,10 @@ export class ComponentMasterComponent implements OnInit {
     this.paginator = mp;
     this.setDataSourceAttributes();
   }
-  filteredComponentList = new MatTableDataSource<any>();
+  dataSource = new MatTableDataSource<any>();
 
   setDataSourceAttributes() {
-    this.filteredComponentList.paginator = this.paginator;
+    this.dataSource.paginator = this.paginator;
   }
 
   constructor(
@@ -138,7 +138,7 @@ export class ComponentMasterComponent implements OnInit {
       disable: false,
     });
     this.componentList = [];
-    this.filteredComponentList.data = [];
+    this.dataSource.data = [];
     // provide service provider ID, (As of now hardcoded, but to be fetched from login response)
     this.serviceProviderID = sessionStorage.getItem('service_providerID');
     this.userID = this.commonDataService.uid;
@@ -212,12 +212,11 @@ export class ComponentMasterComponent implements OnInit {
   }
   componentUnique() {
     this.alreadyExist = false;
-    console.log('filteredComponentList', this.filteredComponentList);
+    console.log('filteredComponentList', this.dataSource.data);
     let count = 0;
-    for (let a = 0; a < this.filteredComponentList.data.length; a++) {
+    for (let a = 0; a < this.dataSource.data.length; a++) {
       if (
-        this.filteredComponentList.data[a].testComponentName ===
-        this.testComponentName
+        this.dataSource.data[a].testComponentName === this.testComponentName
       ) {
         count = count + 1;
         console.log('count', count);
@@ -253,7 +252,7 @@ export class ComponentMasterComponent implements OnInit {
       .getCurrentComponents(this.providerServiceMapID)
       .subscribe((res) => {
         this.componentList = this.successhandeler(res);
-        this.filteredComponentList = this.successhandeler(res);
+        this.dataSource.data = this.successhandeler(res);
         this.tableMode = true;
       });
   }
@@ -434,7 +433,6 @@ export class ComponentMasterComponent implements OnInit {
           this.alertService.alert('Please add all input limits');
           return false;
         } else {
-          // obj.isDecimal = parseInt(obj.isDecimal, 10);
           obj.compOpt = null;
           this.unfilled = false;
         }
@@ -509,15 +507,15 @@ export class ComponentMasterComponent implements OnInit {
   filterComponentList(searchTerm?: string) {
     this.enableAlert = false;
     if (!searchTerm) {
-      this.filteredComponentList = this.componentList;
+      this.dataSource.data = this.componentList;
     } else {
-      this.filteredComponentList.data = [];
+      this.dataSource.data = [];
       this.componentList.forEach((item: any) => {
         for (const key in item) {
           if (key === 'testComponentName' || key === 'inputType') {
             const value: string = '' + item[key];
             if (value.toLowerCase().indexOf(searchTerm.toLowerCase()) >= 0) {
-              this.filteredComponentList.data.push(item);
+              this.dataSource.data.push(item);
               break;
             }
           }
@@ -561,10 +559,10 @@ export class ComponentMasterComponent implements OnInit {
       }
     });
 
-    this.filteredComponentList.data.forEach((element: any, i: any) => {
+    this.dataSource.data.forEach((element: any, i: any) => {
       console.log(element, 'elem', res, 'res');
       if (element.testComponentID === res.testComponentID) {
-        this.filteredComponentList.data[i] = res;
+        this.dataSource.data[i] = res;
       }
     });
   }
@@ -619,9 +617,6 @@ export class ComponentMasterComponent implements OnInit {
         this.enableAlert = false;
         this.componentFlag = true;
       }
-
-      // const val = res.isDecimal === true ? 1 : 0;
-      // this.componentForm.patchValue({isDecimal: val});
       if (res.inputType !== 'TextBox') {
         console.log('11111');
         const options = res.compOpt;

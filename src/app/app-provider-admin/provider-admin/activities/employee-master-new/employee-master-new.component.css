@@ -50,3 +50,7 @@ ul li div {
   width: 4px;
   background: #0277bd;
 }
+.create-user-form{
+  height: 660px;
+  overflow-y: auto;
+}

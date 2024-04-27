@@ -4,8 +4,6 @@
     <form #searForm="ngForm" autocomplete="off">
       <div class="row">
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-          <!-- <mat-input-container class="hide_underline" [style.width]="'100%'">
-                        <input matInput style="display:none"> -->
           <mat-form-field>
             <mat-label>Serviceline</mat-label>
             <mat-select
@@ -13,21 +11,15 @@
               name="Services"
               [style.width]="'100%'"
               [(ngModel)]="serviceline"
-              (selectionChange)="
-                getStates(serviceline.serviceID); resetform.reset()
-              "
+              (selectionChange)="getStates(serviceline.serviceID)"
             >
               <mat-option *ngFor="let item of services_array" [value]="item">
                 {{ item.serviceName }}
               </mat-option>
             </mat-select>
           </mat-form-field>
-
-          <!-- </mat-input-container> -->
         </div>
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-          <!-- <mat-input-container class="hide_underline" [style.width]="'100%'">
-                        <input matInput style="display:none"> -->
           <mat-form-field>
             <mat-label>State</mat-label>
             <mat-select
@@ -36,8 +28,7 @@
               [(ngModel)]="searchStateID"
               name="searchStateID"
               (selectionChange)="
-                setProviderServiceMapID(searchStateID.providerServiceMapID);
-                resetform.reset()
+                setProviderServiceMapID(searchStateID.providerServiceMapID)
               "
             >
               <mat-option *ngFor="let state of provider_states" [value]="state">
@@ -45,8 +36,6 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
-
-          <!-- </mat-input-container> -->
         </div>
         <form #resetform="ngForm">
           <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
@@ -73,9 +62,9 @@
           </div>
           <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
             <mat-form-field>
-              <mat-label>{{ parkAndHub }}</mat-label>
               <mat-select
                 *ngIf="parkAndHub"
+                placeholder="{{ parkAndHub }}"
                 class="width100"
                 [(ngModel)]="parking_place"
                 name="parking_place"
@@ -97,14 +86,6 @@
               </mat-select>
             </mat-form-field>
           </div>
-          <!-- <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 m-t-15">
-                        <mat-select placeholder="District" class="width100" [(ngModel)]="district" name="district" (selectionChange)="getVans(searchStateID.stateID,district.districtID,parking_place.parkingPlaceID);GetTaluks(parking_place.parkingPlaceID, district.districtID)"
-                            #mappingDistrict='ngModel' required>
-                            <mat-option *ngFor="let item of districts" [value]="item">
-                                {{item.districtName}}
-                            </mat-option>
-                        </mat-select>
-                    </div> -->
         </form>
       </div>
     </form>
@@ -129,7 +110,6 @@
 </div>
 <div class="row">
   <div *ngIf="showVansTable" class="col-xs-12 col-sm-12">
-    <!-- <h4>Available Vans</h4> -->
     <div class="">
       <table
         mat-table
@@ -197,40 +177,6 @@
           </td>
         </ng-container>
 
-        <!-- <thead>
-                    <tr>
-                        <th width="5%">S.No.</th>
-                        <th width="12%">{{parkAndHub}}</th>
-                        <th width="12%">{{vanAndSpoke}}</th>
-                        <th width="10%">{{code}}</th>
-                        <th width="10%">{{codeType}}</th>
-                        <th width="5%">Edit</th>
-                        <th width="10%">Action</th>
-                    </tr>
-                </thead> -->
-        <!-- <tbody>
-                    <tr *ngIf="md2.data.length == 0">
-                        <td colspan="7" class="record-not-found">No records found</td>
-                    </tr>
-                    <tr *ngFor="let van of md2.data; let i = index ">
-                        <td>{{filteredavailableVans.indexOf(van)+1}} </td>
-                       
-                        <td>{{van.parkingPlaceName}}</td>
-                        <td>{{van.vanName}}</td>
-                        <td>{{van.vehicalNo}}</td>
-                        <td>{{van.vanType}}</td>
-                        <td>
-                            <md-icon mdTooltip="Edit" class="cursorPointer" *ngIf="van.deleted=='0'" (click)="editVanData(van)">mode_edit</md-icon>
-                        </td>
-                        <td *ngIf="van.deleted=='0'">
-                            <button mat-raised-button color="primary" class="activateBtn" (click)="updateVanStatus(van)">Deactivate</button>
-                        </td>
-                        <td *ngIf="van.deleted=='1'">
-                            <button mat-raised-button color="accent" class="activateBtn" (click)="updateVanStatus(van)">Activate</button>
-                        </td>
-  
-                    </tr>
-                </tbody> -->
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
       </table>
@@ -274,8 +220,6 @@
           name="vanID"
         />
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
-          <!-- <mat-input-container class="hide_underline" [style.width]="'100%'">
-                        <input matInput style="display:none"> -->
           <mat-form-field>
             <mat-label> Serviceline </mat-label>
             <mat-select
@@ -290,12 +234,8 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
-
-          <!-- </mat-input-container> -->
         </div>
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
-          <!-- <mat-input-container class="hide_underline" [style.width]="'100%'">
-                        <input matInput style="display:none"> -->
           <mat-form-field>
             <mat-label>State</mat-label>
             <mat-select
@@ -310,8 +250,6 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
-
-          <!-- </mat-input-container> -->
         </div>
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
           <mat-form-field>
@@ -357,28 +295,8 @@
             </mat-select>
           </mat-form-field>
         </div>
-        <!-- <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 m-t-15">
-                    <mat-select placeholder="District" class="width100" [disabled]="true" [(ngModel)]="district" name="district" (selectionChange)="getVans(searchStateID.stateID,district.districtID,parking_place.parkingPlaceID);GetTaluks(parking_place.parkingPlaceID, district.districtID)"
-                        #mappingDistrict='ngModel' required>
-                        <mat-option *ngFor="let item of districts" [value]="item">
-                            {{item.districtName}}
-                        </mat-option>
-                    </mat-select>
-                </div> -->
-        <!-- <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
-                    <mat-input-container class="hide_underline width100">
-                          <input matInput style="display:none">
-                    <mat-select placeholder="Taluk/Sub District" class="width100" [(ngModel)]="talukID" name="talukID">
-                        <mat-option *ngFor="let taluk of taluks" [value]="taluk">
-                            {{taluk.districtBlockName}}
-                        </mat-option>
-                    </mat-select>
-                    </mat-input-container>
-                </div> -->
         <form #vanMasterForm1="ngForm" autocomplete="off">
           <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
-            <!-- <mat-input-container class="hide_underline" [style.width]="'100%'">
-                            <input matInput style="display:none"> -->
             <mat-form-field>
               <mat-label>{{ codeType }}</mat-label>
               <mat-select
@@ -396,11 +314,6 @@
                 </mat-option>
               </mat-select>
             </mat-form-field>
-
-            <!-- </mat-input-container> -->
-            <!-- <mat-hint [hidden]=vanTID.valid>
-                            <span class="error_text" *ngIf="!vanTID.required  && ( vanTID.dirty || vanTID.touched)">Please select Van Type</span>
-                        </mat-hint> -->
           </div>
 
           <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15" appVehicleNO>
@@ -464,7 +377,7 @@
           >
             <mat-form-field
               class="input-full-width mat_form_field_width_one"
-              appmyEmail
+              appMyEmail
             >
               <mat-label>Swymed Domain</mat-label>
               <input
@@ -575,31 +488,7 @@
             >
           </td>
         </ng-container>
-        <!-- <thead>
-                    <tr>
-                        <th width="5%">S.No.</th>
-                        <th width="15%">State</th>
-                        <th width="12%">{{parkAndHub}}</th>
-                        <th width="10%">{{vanAndSpoke}}</th>
-                        <th width="10%">{{code}}</th>
-                        <th width="10%">{{codeType}}</th>
-                        <th width="10%">Action</th>
-                    </tr>
-                </thead> -->
-        <!-- <tbody>
-                    <tr *ngFor="let van of md2.data;let i = index">
-                        <td>{{vanList.indexOf(van)+1}}</td>
-                        <td>{{van.stateName}}</td>
-                      
-                        <td>{{van.parkingPlaceName}}</td>
-                        <td>{{van.vanName}}</td>
-                        <td>{{van.vehicalNo}}</td>
-                        <td>{{van.vanType}}</td>
-                        <td>
-                            <md-icon class="cursorPointer" mdTooltip="delete" (click)="deleteRow(vanList.indexOf(van))">delete</md-icon>
-                        </td>
-                    </tr>
-                </tbody> -->
+
         <tr mat-header-row *matHeaderRowDef="displayAddedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayAddedColumns"></tr>
         <mat-paginator

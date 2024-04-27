@@ -170,6 +170,34 @@
           "
         ></tr>
       </table>
+      <!-- <table mat-table [dataSource]="filteredItemCategory_array" class="mat-elevation-z8">
+        <ng-container matColumnDef="sno">
+        <th mat-header-cell *matHeaderCellDef>S.No.</th>
+        <td mat-cell *matCellDef="let itemCategory; let i = index">{{ i + 1 }}</td>
+        </ng-container>
+       
+        <ng-container matColumnDef="itemCategoryCode">
+        <th mat-header-cell *matHeaderCellDef>Item Category Code</th>
+        <td mat-cell *matCellDef="let itemCategory">{{ itemCategory.itemCategoryCode }}</td>
+        </ng-container>
+       
+        <ng-container matColumnDef="itemCategoryName">
+        <th mat-header-cell *matHeaderCellDef>Item Category Name</th>
+        <td mat-cell *matCellDef="let itemCategory">{{ itemCategory.itemCategoryName }}</td>
+        </ng-container>
+       
+        <ng-container matColumnDef="alertBeforeDays">
+        <th mat-header-cell *matHeaderCellDef>Days before Expiry Alert</th>
+        <td mat-cell *matCellDef="let itemCategory">{{ itemCategory.alertBeforeDays }}</td>
+        </ng-container>
+       
+        <ng-container matColumnDef="edit"> <th mat-header-cell *matHeaderCellDef>Edit</th>
+        <td mat-cell *matCellDef="let itemCategory">
+        <button mat-icon-button matTooltip="Edit" *ngIf="!itemCategory.deleted" (click)="editExpiryAlertConfig(itemCategory)"> <mat-icon aria-label="Edit">edit</mat-icon> </button> </td>
+        </ng-container>
+       
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr> 
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr></table> -->
       <mat-paginator
         [hidden]="filteredItemCategory_array.data.length === 0"
         [pageSizeOptions]="[5, 10, 25]"
@@ -211,7 +239,7 @@
     </div>
 
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 box">
-      <mat-form-field [style.width]="'100%'" appmyMobileNumber>
+      <mat-form-field [style.width]="'100%'" appMyMobileNumber>
         <mat-label>Days before Expiry Alert</mat-label>
         <input
           required

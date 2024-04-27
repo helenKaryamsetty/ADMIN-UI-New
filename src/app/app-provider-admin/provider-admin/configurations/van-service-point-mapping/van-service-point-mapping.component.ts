@@ -35,7 +35,7 @@ import { MatPaginator } from '@angular/material/paginator';
 })
 export class VanServicePointMappingComponent implements OnInit {
   // [x: string]: any;
-  // filteredsearchResultArray = new MatTableDataSource<any>();
+  filteredsearchResultArray = new MatTableDataSource<any>();
   // bufferArray = new MatTableDataSource<any>();
   @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
   displayedColumns: string[] = [
@@ -43,6 +43,8 @@ export class VanServicePointMappingComponent implements OnInit {
     'servicePoint',
     'district',
     'talukSubDistrict',
+    'morning',
+    'evening',
     'fullDay',
   ];
 
@@ -336,7 +338,15 @@ export class VanServicePointMappingComponent implements OnInit {
     this.showTable = true;
     this.availableVanServicePointMappings = [];
     this.availableVanServicePointMappings = response.data;
-    const temp = this.MappingForm.controls['mappings'] as FormArray;
+    console.log('response', response);
+    console.log('response.data', response.data);
+    const temp: any = this.MappingForm.controls['mappings'] as FormArray;
+    this.filteredsearchResultArray.data = response.data;
+    // this.filteredsearchResultArray.data = response.data;
+    console.log(
+      'this.filteredsearchResultArray.data',
+      this.filteredsearchResultArray.data,
+    );
     temp.reset();
     this.servicePointIDList = [];
     console.log('temp', temp);

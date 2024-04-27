@@ -22,9 +22,9 @@
 import { Directive, ElementRef, HostListener } from '@angular/core';
 
 @Directive({
-  selector: '[appmyNameDir]',
+  selector: '[appMyNameDir]',
 })
-export class myName {
+export class myNameDirective {
   constructor(element: ElementRef) {}
 
   @HostListener('keypress', ['$event']) onKeyPress(ev: any) {
@@ -37,9 +37,9 @@ export class myName {
 }
 
 @Directive({
-  selector: '[appmyName2Dir]',
+  selector: '[appMyName2Dir]',
 })
-export class myName2 {
+export class myName2Directive {
   constructor(element: ElementRef) {}
 
   @HostListener('keypress', ['$event']) onKeyPress(ev: any) {
@@ -52,7 +52,7 @@ export class myName2 {
 }
 
 @Directive({
-  selector: '[agentID_One]',
+  selector: '[appAgentIdOne]',
 })
 export class agentID_oneDirective {
   constructor(element: ElementRef) {}
@@ -69,7 +69,7 @@ export class agentID_oneDirective {
 }
 
 @Directive({
-  selector: '[agentID_Two]',
+  selector: '[appAgentIdTwo]',
 })
 export class agentID_twoDirective {
   constructor(element: ElementRef) {}
@@ -86,7 +86,7 @@ export class agentID_twoDirective {
 }
 
 @Directive({
-  selector: '[appmyProviderName]',
+  selector: '[appMyProviderName]',
 })
 export class myProviderNameDirective {
   constructor(element: ElementRef) {}
@@ -142,7 +142,7 @@ export class VehicleNONewDirective {
   }
 }
 @Directive({
-  selector: '[appmeasuringUnit]',
+  selector: '[appMeasuringUnit]',
 })
 export class measuringUnitDirective {
   constructor(element: ElementRef) {}

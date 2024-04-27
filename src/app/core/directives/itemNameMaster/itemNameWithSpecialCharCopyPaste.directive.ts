@@ -22,7 +22,7 @@
 import { Directive, HostListener, ElementRef } from '@angular/core';
 
 @Directive({
-  selector: '[appitemNameWithSpecialCharCopyPaste]',
+  selector: '[appItemNameWithSpecialCharCopyPaste]',
 })
 export class ItemNameWithSpecialCharCopyPasteDirective {
   @HostListener('keypress', ['$event']) onKeyPress(ev: any) {
