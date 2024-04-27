@@ -232,7 +232,7 @@
             [matDatepicker]="validFromPicker"
             name="valid_from"
             [(ngModel)]="validFrom"
-            [matDatepickerFilter]="filterValidFrom"
+            [min]="today"
           />
           <mat-datepicker-toggle
             matPrefix
@@ -252,7 +252,7 @@
             [matDatepicker]="validTillPicker"
             name="valid_till"
             [(ngModel)]="validTill"
-            [matDatepickerFilter]="filterValidFrom"
+            [min]="validFrom"
           />
           <mat-datepicker-toggle
             matPrefix

@@ -457,7 +457,7 @@ export class BlockServiceProviderComponent implements OnInit {
     this.block_provider
       .block_unblock_provider(serviceProviderID, statusID, reason)
       .subscribe(
-        (response) =>
+        (response: any) =>
           this.block_unblock_providerSuccessHandeler(
             response,
             serviceProviderID,
@@ -470,9 +470,9 @@ export class BlockServiceProviderComponent implements OnInit {
   }
 
   block_unblock_providerSuccessHandeler(response: any, serviceProviderID: any) {
-    console.log('b u provider success handeler', response);
+    console.log('b u provider success handeler', response.data);
     this.message.alert('Updated successfully', 'success');
-    this.getStatusOnProviderLevel(response[0].serviceProviderID);
+    this.getStatusOnProviderLevel(response.data.serviceProviderID);
     this.getStates(serviceProviderID);
   }
 

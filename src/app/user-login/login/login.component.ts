@@ -176,7 +176,7 @@ export class loginContentClassComponent implements OnInit, OnDestroy {
                   });
               } else if (
                 response.errorMessage ===
-                'User login failed due to incorrect username/password'
+                'User login failed due to incorrect username/password. 4 more attempt left.'
               ) {
                 {
                   this.alertMessage.alert(response.errorMessage, 'error');
@@ -214,7 +214,7 @@ export class loginContentClassComponent implements OnInit, OnDestroy {
                   });
               } else if (
                 response.errorMessage ===
-                'User login failed due to incorrect username/password'
+                'User login failed due to incorrect username/password. 4 more attempt left.'
               ) {
                 {
                   this.alertMessage.alert(response.errorMessage, 'error');

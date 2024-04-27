@@ -77,30 +77,31 @@
               </tr>
             </tfoot>
           </table> -->
-          <mat-table
+          <table
+            mat-table
             [dataSource]="filtereddata"
             class="table table-striped table-hover"
           >
             <!-- S.No. Column -->
             <ng-container matColumnDef="sno">
-              <mat-header-cell *matHeaderCellDef>S.No.</mat-header-cell>
-              <mat-cell *matCellDef="let item; let i = index">{{
-                i + 1
-              }}</mat-cell>
+              <th mat-header-cell *matHeaderCellDef>S.No.</th>
+              <td mat-cell *matCellDef="let item; let i = index">
+                {{ i + 1 }}
+              </td>
             </ng-container>
 
             <!-- Category Name Column -->
             <ng-container matColumnDef="serviceName">
-              <mat-header-cell *matHeaderCellDef>Serviceline</mat-header-cell>
-              <mat-cell *matCellDef="let item">{{ item.serviceName }}</mat-cell>
+              <th mat-header-cell *matHeaderCellDef>Serviceline</th>
+              <td mat-cell *matCellDef="let item">{{ item.serviceName }}</td>
             </ng-container>
 
             <!-- Category Description Column -->
             <ng-container matColumnDef="stateName">
-              <mat-header-cell *matHeaderCellDef>State</mat-header-cell>
-              <mat-cell *matCellDef="let element">{{
-                element.stateName ? element.stateName : "All States"
-              }}</mat-cell>
+              <th mat-header-cell *matHeaderCellDef>State</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.stateName ? element.stateName : "All States" }}
+              </td>
             </ng-container>
 
             <!-- Action Column -->
@@ -121,12 +122,12 @@
             </ng-container>
 
             <ng-container matColumnDef="status">
-              <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
-              <mat-cell *matCellDef="let item">{{ item.status }}</mat-cell>
+              <th mat-header-cell *matHeaderCellDef>Status</th>
+              <td mat-cell *matCellDef="let item">{{ item.status }}</td>
             </ng-container>
 
             <!-- Header and Row Definitions -->
-            <mat-header-row
+            <!-- <mat-header-row
               *matHeaderRowDef="[
                 'sno',
                 'serviceName',
@@ -140,8 +141,10 @@
                 let row;
                 columns: ['sno', 'serviceName', 'stateName', 'edit', 'status']
               "
-            ></mat-row>
-          </mat-table>
+            ></mat-row> -->
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+          </table>
           <div>
             <button
               color="primary"

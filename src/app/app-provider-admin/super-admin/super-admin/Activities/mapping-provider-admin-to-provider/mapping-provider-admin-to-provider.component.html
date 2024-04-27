@@ -259,7 +259,7 @@
     </div>
   </div>
   <div class="col-xs-12 col-sm-12 m-t-15" *ngIf="bufferArray.data.length > 0">
-    <div class="">
+    <div class="table-responsive">
       <table
         mat-table
         [dataSource]="bufferArray"
@@ -294,12 +294,14 @@
         <ng-container matColumnDef="State">
           <th mat-header-cell *matHeaderCellDef>State</th>
           <td mat-cell *matCellDef="let element">
-            <ng-container *ngFor="let obj of element.serviceProviderMapID1">
+            <ng-container
+              *ngFor="let obj of element.serviceProviderMapID1; let j = index"
+            >
               {{ obj.stateName }}
               <mat-icon
                 class="cursorPointer"
                 matTooltip="Remove {{ obj.stateName }}"
-                (click)="removeService(bufferArray.data.indexOf(obj), j)"
+                (click)="removeService(bufferArray.data.indexOf(element), j)"
                 >cancel</mat-icon
               >
             </ng-container>

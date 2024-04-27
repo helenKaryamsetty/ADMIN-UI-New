@@ -19,7 +19,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see https://www.gnu.org/licenses/.
  */
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ConfirmationDialogsService } from 'src/app/core/services/dialog/confirmation.service';
 import { dataService } from 'src/app/core/services/dataService/data.service';
@@ -52,7 +52,6 @@ export class MappingProviderAdminToProviderComponent implements OnInit {
   ];
 
   paginator!: MatPaginator;
-  j: any;
   @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
     this.paginator = mp;
     this.setDataSourceAttributes();
@@ -115,6 +114,7 @@ export class MappingProviderAdminToProviderComponent implements OnInit {
     public superadminService: SuperAdmin_ServiceProvider_Service,
     public commonDataService: dataService,
     public dialogService: ConfirmationDialogsService,
+    private changeDetectorRefs: ChangeDetectorRef,
   ) {}
 
   ngOnInit() {
@@ -550,6 +550,8 @@ export class MappingProviderAdminToProviderComponent implements OnInit {
       // }
       if (servicesMatched === false) {
         this.bufferArray.data.push(object);
+        console.log(this.bufferArray.data);
+        this.changeDetectorRefs.detectChanges();
         this.resetForm();
       }
     }
@@ -597,6 +599,7 @@ export class MappingProviderAdminToProviderComponent implements OnInit {
     this.state = undefined;
     this.uSRMappingID = undefined;
     this.edit_Details = undefined;
+    this.changeDetectorRefs.detectChanges();
   }
   removeService(rowIndex: any, serviceIndex: any) {
     this.bufferArray.data[rowIndex].serviceProviderMapID1.splice(
