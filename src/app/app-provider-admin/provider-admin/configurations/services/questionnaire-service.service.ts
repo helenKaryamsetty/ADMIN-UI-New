@@ -77,9 +77,9 @@ export class QuestionnaireServiceService {
     result = response.data.filter(function (item: any) {
       console.log('Items1', item);
       if (
-        item.questionTypeID === 4 ||
-        item.questionTypeID === 5 ||
-        item.questionTypeID === 6
+        item.questionTypeID === '4' ||
+        item.questionTypeID === '5' ||
+        item.questionTypeID === '6'
       ) {
         console.log('Items', item);
         return item;
