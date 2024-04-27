@@ -11,7 +11,7 @@
         <mat-label>Question</mat-label>
         <input
           matInput
-          appquestionnaireValidator
+          appQuestionnaireValidator
           required
           formControlName="questionName"
           minlength="5"
@@ -46,7 +46,7 @@
           (keyup)="weightageInput(); enableUpdateButton()"
           minlength="0"
           maxlength="3"
-          appmyMobileNumber
+          appMyMobileNumber
         />
       </mat-form-field>
     </div>
@@ -86,7 +86,7 @@
                 (keyup)="optionweightage(idx); enableUpdateButton()"
                 minlength="0"
                 maxlength="3"
-                appmyMobileNumber
+                appMyMobileNumber
               />
             </mat-form-field>
           </div>

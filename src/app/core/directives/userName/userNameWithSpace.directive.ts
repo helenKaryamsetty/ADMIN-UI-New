@@ -22,7 +22,7 @@
 import { Directive, HostListener, ElementRef } from '@angular/core';
 
 @Directive({
-  selector: '[appusernameWithSpaceValidator]',
+  selector: '[appUsernameWithSpaceValidator]',
 })
 export class userNameWithSpaceDirective {
   @HostListener('keypress', ['$event']) onKeyPress(ev: any) {

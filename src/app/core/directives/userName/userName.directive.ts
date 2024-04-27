@@ -22,7 +22,7 @@
 import { Directive, HostListener, ElementRef } from '@angular/core';
 
 @Directive({
-  selector: '[appusernameValidator]',
+  selector: '[appUsernameValidator]',
 })
 export class userNameDirective {
   @HostListener('keypress', ['$event']) onKeyPress(ev: any) {

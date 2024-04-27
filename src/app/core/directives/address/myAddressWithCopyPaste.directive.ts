@@ -22,7 +22,7 @@
 import { Directive, ElementRef, HostListener, Input } from '@angular/core';
 
 @Directive({
-  selector: '[appmyAddressWithCopyPaste]',
+  selector: '[appMyAddressWithCopyPaste]',
 })
 export class MyAddressWithCopyPasteDirective {
   constructor(element: ElementRef) {}

@@ -172,14 +172,15 @@ export class CalibrationMasterComponent implements OnInit {
       this.filteredsearchresultarray.paginator = this.paginator;
     } else {
       this.filteredsearchresultarray.data = [];
-      this.filteredsearchresultarray.data = this.searchresultarray;
-      this.filteredsearchresultarray.paginator = this.paginator;
+      // this.filteredsearchresultarray.data = this.searchresultarray;
+      // this.filteredsearchresultarray.paginator = this.paginator;
       this.searchresultarray.forEach((item: any) => {
         for (const key in item) {
           if (key === 'stripCode') {
             const value: string = '' + item[key];
             if (value.toLowerCase().indexOf(searchTerm.toLowerCase()) >= 0) {
               this.filteredsearchresultarray.data.push(item);
+              this.filteredsearchresultarray.paginator = this.paginator;
               break;
             }
           }

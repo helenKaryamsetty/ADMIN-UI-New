@@ -22,11 +22,11 @@
 import { Directive, HostListener, ElementRef } from '@angular/core';
 
 @Directive({
-  selector: '[apptextAreaWithCopyPaste]',
+  selector: '[appTextAreaWithCopyPaste]',
 })
 export class TextAreaWithCopyPasteDirective {
   @HostListener('keypress', ['$event']) onKeyPress(ev: any) {
-    const regex = new RegExp(/^[~!@#$%^&*()_+\-=\[\]{};"`':'\\|<>\/?]*$/);
+    const regex = new RegExp(/^[~!@#$%^&*()_+\-=[]{};"`':'\\|<>?]*$/);
     const key = String.fromCharCode(!ev.charCode ? ev.which : ev.charCode);
     if (regex.test(key)) {
       ev.preventDefault();
@@ -34,11 +34,10 @@ export class TextAreaWithCopyPasteDirective {
   }
 
   @HostListener('paste', ['$event']) blockPaste(ev: any, event: KeyboardEvent) {
-    const clipboardData = ev != undefined ? ev.clipboardData : undefined;
+    const clipboardData = ev !== undefined ? ev.clipboardData : undefined;
     const pastedText =
-      clipboardData != undefined ? clipboardData.getData('text') : undefined;
+      clipboardData !== undefined ? clipboardData.getData('text') : undefined;
     const regex = new RegExp(/^[~!@#$%^&*()_+\-=\]{};"`':'\\|<>?]*$/);
-    // const key = String.fromCharCode(!ev.charCode ? ev.which : ev.charCode);
     let flag = false;
     if (
       pastedText !== null &&

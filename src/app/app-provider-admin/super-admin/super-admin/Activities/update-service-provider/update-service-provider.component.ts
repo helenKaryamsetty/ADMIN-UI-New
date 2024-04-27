@@ -34,8 +34,8 @@ import { MatPaginator } from '@angular/material/paginator';
   styleUrls: ['./update-service-provider.component.css'],
 })
 export class UpdateServiceProviderComponent implements OnInit {
-  @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
-  filtereddata = new MatTableDataSource<any>();
+  // @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
+  // filtereddata = new MatTableDataSource<any>();
 
   // filtereddata: any = [];
   allProviders: any = [];
@@ -60,7 +60,19 @@ export class UpdateServiceProviderComponent implements OnInit {
     private message: ConfirmationDialogsService,
     public commonAppData: dataService,
   ) {}
+  displayedColumns = ['sno', 'serviceName', 'stateName', 'edit', 'status'];
 
+  paginator!: MatPaginator;
+  j: any;
+  @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
+    this.paginator = mp;
+    this.setDataSourceAttributes();
+  }
+  filtereddata = new MatTableDataSource<any>();
+
+  setDataSourceAttributes() {
+    this.filtereddata.paginator = this.paginator;
+  }
   ngOnInit() {
     this.super_admin_service.getAllProvider().subscribe(
       (response: any) => this.providerData_successHandler(response),

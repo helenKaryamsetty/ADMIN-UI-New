@@ -187,8 +187,8 @@ export class DeviceIdMasterComponent implements OnInit {
   getFetosenseDeviceSuccessHandeler(response: any) {
     if (response) {
       this.showTableFlag = true;
-      this.searchResultArray = response.data.fetosenseDeviceIDs;
-      this.filteredsearchResultArray.data = response.data.fetosenseDeviceIDs;
+      this.searchResultArray = response.fetosenseDeviceIDs;
+      this.filteredsearchResultArray.data = response.fetosenseDeviceIDs;
       this.searchTerm = null;
       this.availableDeviceIds = [];
       for (const availableDeviceId of this.searchResultArray) {

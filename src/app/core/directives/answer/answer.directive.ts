@@ -22,7 +22,7 @@
 import { Directive, HostListener, ElementRef } from '@angular/core';
 
 @Directive({
-  selector: '[appanswerValidator]',
+  selector: '[appAnswerValidator]',
 })
 export class AnswerDirective {
   @HostListener('keypress', ['$event']) onKeyPress(ev: any) {

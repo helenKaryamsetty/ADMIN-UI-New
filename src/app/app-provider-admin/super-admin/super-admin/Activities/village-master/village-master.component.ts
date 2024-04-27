@@ -268,7 +268,8 @@ export class VillageMasterComponent implements OnInit {
       )
       .subscribe((res) => {
         if (res) {
-          jQuery('#villageForm').trigger('reset');
+          // jQuery('#villageForm').trigger('reset');
+          this.villageForm.resetForm();
           this.villageList.data = [];
           this.showTableFlag = true;
           this.showFormFlag = false;
@@ -397,8 +398,8 @@ export class VillageMasterComponent implements OnInit {
   clear() {
     // this.stateID = this.searchStateID;
     // this.districtID = this.searchDistrictID;
-    jQuery('#searchFields').trigger('reset');
-
+    // jQuery('#searchFields').trigger('reset');
+    this.villageForm.resetForm();
     this.showTableFlag = false;
     this.availableVillages = [];
     this.filteredavailableVillages.data = [];

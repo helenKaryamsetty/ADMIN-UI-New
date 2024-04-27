@@ -22,7 +22,7 @@
 import { Directive, ElementRef, HostListener, Input } from '@angular/core';
 
 @Directive({
-  selector: '[appmyEmail]',
+  selector: '[appMyEmail]',
 })
 export class myEmailDirective {
   constructor(element: ElementRef) {}

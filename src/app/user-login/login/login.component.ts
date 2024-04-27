@@ -175,29 +175,12 @@ export class loginContentClassComponent implements OnInit, OnDestroy {
                     }
                   });
               } else if (
-                response.errorMessage.includes(
-                  'User login failed due to incorrect username/password',
-                )
+                response.errorMessage ===
+                'User login failed due to incorrect username/password. 4 more attempt left.'
               ) {
-                this.alertMessage
-                  .confirm('info', response.errorMessage)
-                  .subscribe((confirmResponse) => {
-                    if (confirmResponse) {
-                      this.loginservice.dologoutUsrFromPreSession(true);
-                    }
-                  });
-              } else if (
-                response.errorMessage.includes(
-                  'Your account is locked or de-activated. Please contact administrator',
-                )
-              ) {
-                this.alertMessage
-                  .confirm('info', response.errorMessage)
-                  .subscribe((confirmResponse) => {
-                    if (confirmResponse) {
-                      this.loginservice.dologoutUsrFromPreSession(true);
-                    }
-                  });
+                {
+                  this.alertMessage.alert(response.errorMessage, 'error');
+                }
               }
             }
           },
@@ -231,27 +214,11 @@ export class loginContentClassComponent implements OnInit, OnDestroy {
                   });
               } else if (
                 response.errorMessage ===
-                'User login failed due to incorrect username/password'
+                'User login failed due to incorrect username/password. 4 more attempt left.'
               ) {
-                this.alertMessage
-                  .confirm('info', response.errorMessage)
-                  .subscribe((confirmResponse) => {
-                    if (confirmResponse) {
-                      this.loginservice.dologoutUsrFromPreSession(true);
-                    }
-                  });
-              } else if (
-                response.errorMessage.includes(
-                  'Your account is locked or de-activated. Please contact administrator',
-                )
-              ) {
-                this.alertMessage
-                  .confirm('info', response.errorMessage)
-                  .subscribe((confirmResponse) => {
-                    if (confirmResponse) {
-                      this.loginservice.dologoutUsrFromPreSession(true);
-                    }
-                  });
+                {
+                  this.alertMessage.alert(response.errorMessage, 'error');
+                }
               }
             }
           },

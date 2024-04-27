@@ -198,7 +198,7 @@
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-a-0">
     <form #providerCreationForm="ngForm" autocomplete="off">
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
-        <mat-form-field class="width100" appmyProviderName>
+        <mat-form-field class="width100" appMyProviderName>
           <input
             matInput
             placeholder="Provider/Company Name *"
@@ -232,7 +232,7 @@
             [matDatepicker]="validFromPicker"
             name="valid_from"
             [(ngModel)]="validFrom"
-            [matDatepickerFilter]="filterValidFrom"
+            [min]="today"
           />
           <mat-datepicker-toggle
             matPrefix
@@ -252,7 +252,7 @@
             [matDatepicker]="validTillPicker"
             name="valid_till"
             [(ngModel)]="validTill"
-            [matDatepickerFilter]="filterValidFrom"
+            [min]="validFrom"
           />
           <mat-datepicker-toggle
             matPrefix
@@ -263,7 +263,7 @@
       </div>
       <div class="clearfix visible-md"></div>
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
-        <mat-form-field class="width100" appmyProviderName>
+        <mat-form-field class="width100" appMyProviderName>
           <input
             matInput
             placeholder="Contact Person *"
@@ -281,7 +281,7 @@
         </mat-form-field>
       </div>
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
-        <mat-form-field class="width100" appmyMobileNumber>
+        <mat-form-field class="width100" appMyMobileNumber>
           <input
             matInput
             placeholder="Contact Number *"
@@ -328,7 +328,7 @@
         <mat-form-field class="width100">
           <input
             matInput
-            myAddress
+            appMyAddressDirective
             placeholder="Address1 *"
             maxlength="100"
             ngModel
@@ -350,7 +350,7 @@
         <mat-form-field class="width100">
           <input
             matInput
-            myAddress
+            appMyAddressDirective
             placeholder="Address2"
             maxlength="100"
             ngModel
@@ -363,7 +363,7 @@
         <mat-form-field class="width100">
           <input
             matInput
-            myAddress
+            appMyAddressDirective
             placeholder="Address"
             minlength="3"
             maxlength="100"

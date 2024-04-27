@@ -22,9 +22,9 @@
 import { Directive, HostListener, ElementRef } from '@angular/core';
 
 @Directive({
-  selector: '[apptextAreaValidator]',
+  selector: '[appTextAreaValidator]',
 })
-export class textareaDirective {
+export class MyTextareaDirective {
   @HostListener('keypress', ['$event']) onKeyPress(ev: any) {
     const regex = new RegExp(/^[~!@#$%^&*()_+\-=\]{};"`':'\\|<>?]*$/);
     const key = String.fromCharCode(!ev.charCode ? ev.which : ev.charCode);

@@ -22,13 +22,13 @@
 import { Directive, ElementRef, HostListener, Input } from '@angular/core';
 
 @Directive({
-  selector: '[myAddress]',
+  selector: '[appMyAddressDirective]',
 })
-export class myAddress {
+export class myAddressDirective {
   constructor(element: ElementRef) {}
 
   @HostListener('keypress', ['$event']) onKeyPress(ev: any) {
-    const regex = new RegExp(/^[~!@$%^&*()_+\=\[\]{};"`':'\\|<>\?]*$/);
+    const regex = new RegExp(/^[~!@$%^&*()_+=[]{};"`':'\\|<>?]*$/);
     const key = String.fromCharCode(!ev.charCode ? ev.which : ev.charCode);
     if (regex.test(key)) {
       ev.preventDefault();
@@ -36,7 +36,7 @@ export class myAddress {
   }
 }
 @Directive({
-  selector: '[appmyUserName]',
+  selector: '[appMyUserName]',
 })
 export class myUserNameDirective {
   constructor(element: ElementRef) {}
