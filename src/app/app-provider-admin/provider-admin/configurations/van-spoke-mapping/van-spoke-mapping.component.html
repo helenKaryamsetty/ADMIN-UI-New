@@ -8,141 +8,147 @@
   >
     <h4>From</h4>
   </div>
-  <form [formGroup]="mmuVanDetailsForm">
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-      <mat-form-field>
-        <mat-label>Serviceline</mat-label>
-        <mat-select
-          class="width100"
-          formControlName="mmu_serviceline"
-          name="mmu_serviceline"
-          (selectionChange)="
-            getProviderMappedStates(
-              mmuVanDetailsForm.value.mmu_serviceline,
-              false
-            )
-          "
-          required
-        >
-          <mat-option *ngFor="let service of servicelines" [value]="service">
-            {{ service.serviceName }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-      <mat-form-field>
-        <mat-label>State</mat-label>
-        <mat-select
-          class="width100"
-          formControlName="mmu_state"
-          name="mmu_state"
-          (selectionChange)="
-            getProviderMappedZones(mmuVanDetailsForm.value.mmu_state, false)
-          "
-          required
-        >
-          <mat-option *ngFor="let state of states" [value]="state">
-            {{ state.stateName }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-      <mat-form-field>
-        <mat-label>Zone</mat-label>
-        <mat-select
-          class="width100"
-          formControlName="mmu_zone"
-          name="mmu_zone"
-          (selectionChange)="
-            getProviderMappedParkingPlace(
-              mmuVanDetailsForm.value.mmu_zone,
-              mmuVanDetailsForm.value.mmu_state,
-              false
-            )
-          "
-          required
-        >
-          <mat-option *ngFor="let zone of zones" [value]="zone">
-            {{ zone.zoneName }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-      <mat-form-field>
-        <mat-label>Parking Place</mat-label>
-        <mat-select
-          class="width100"
-          formControlName="mmu_parkingPlace"
-          name="mmu_parkingPlace"
-          (selectionChange)="
-            getProviderMappedServicepoint(
-              mmuVanDetailsForm.value.mmu_state,
-              mmuVanDetailsForm.value.mmu_parkingPlace,
-              false
-            )
-          "
-          required
-        >
-          <mat-option
-            *ngFor="let parkingPlace of parkingPlaces"
-            [value]="parkingPlace"
+  <div class="col-12">
+    <form [formGroup]="mmuVanDetailsForm" class="row">
+      <div class="col-3 m-t-15">
+        <mat-form-field>
+          <mat-label>Serviceline</mat-label>
+          <mat-select
+            class="width100"
+            formControlName="mmu_serviceline"
+            name="mmu_serviceline"
+            (selectionChange)="
+              getProviderMappedStates(
+                mmuVanDetailsForm.value.mmu_serviceline,
+                false
+              )
+            "
+            required
           >
-            {{ parkingPlace.parkingPlaceName }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-      <mat-form-field>
-        <mat-label>Service Point</mat-label>
-        <mat-select
-          class="width100"
-          formControlName="mmu_servicePoint"
-          name="mmu_servicePoint"
-          (selectionChange)="
-            getProviderMappedVanTypes(mmuVanDetailsForm.value.mmu_state, false)
-          "
-          required
-        >
-          <mat-option
-            *ngFor="let servicepoint of servicepoints"
-            [value]="servicepoint"
+            <mat-option *ngFor="let service of servicelines" [value]="service">
+              {{ service.serviceName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-3 m-t-15">
+        <mat-form-field>
+          <mat-label>State</mat-label>
+          <mat-select
+            class="width100"
+            formControlName="mmu_state"
+            name="mmu_state"
+            (selectionChange)="
+              getProviderMappedZones(mmuVanDetailsForm.value.mmu_state, false)
+            "
+            required
           >
-            {{ servicepoint.servicePointName }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-      <mat-form-field>
-        <mat-label>Van Type</mat-label>
-        <mat-select
-          class="width100"
-          formControlName="mmu_vantype"
-          name="mmu_vantype"
-          (selectionChange)="
-            enableSpokeDetails();
-            getProviderMappedVansOrSpokes(
-              mmuVanDetailsForm.value.mmu_state,
-              mmuVanDetailsForm.value.mmu_parkingPlace,
-              mmuVanDetailsForm.value.mmu_vantype,
-              false
-            )
-          "
-          required
-        >
-          <mat-option *ngFor="let vantype of vantypes" [value]="vantype">
-            {{ vantype.vanType }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-  </form>
+            <mat-option *ngFor="let state of states" [value]="state">
+              {{ state.stateName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-3 m-t-15">
+        <mat-form-field>
+          <mat-label>Zone</mat-label>
+          <mat-select
+            class="width100"
+            formControlName="mmu_zone"
+            name="mmu_zone"
+            (selectionChange)="
+              getProviderMappedParkingPlace(
+                mmuVanDetailsForm.value.mmu_zone,
+                mmuVanDetailsForm.value.mmu_state,
+                false
+              )
+            "
+            required
+          >
+            <mat-option *ngFor="let zone of zones" [value]="zone">
+              {{ zone.zoneName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-3 m-t-15">
+        <mat-form-field>
+          <mat-label>Parking Place</mat-label>
+          <mat-select
+            class="width100"
+            formControlName="mmu_parkingPlace"
+            name="mmu_parkingPlace"
+            (selectionChange)="
+              getProviderMappedServicepoint(
+                mmuVanDetailsForm.value.mmu_state,
+                mmuVanDetailsForm.value.mmu_parkingPlace,
+                false
+              )
+            "
+            required
+          >
+            <mat-option
+              *ngFor="let parkingPlace of parkingPlaces"
+              [value]="parkingPlace"
+            >
+              {{ parkingPlace.parkingPlaceName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-3 m-t-15">
+        <mat-form-field>
+          <mat-label>Service Point</mat-label>
+          <mat-select
+            class="width100"
+            formControlName="mmu_servicePoint"
+            name="mmu_servicePoint"
+            (selectionChange)="
+              getProviderMappedVanTypes(
+                mmuVanDetailsForm.value.mmu_state,
+                false
+              )
+            "
+            required
+          >
+            <mat-option
+              *ngFor="let servicepoint of servicepoints"
+              [value]="servicepoint"
+            >
+              {{ servicepoint.servicePointName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-3 m-t-15">
+        <mat-form-field>
+          <mat-label>Van Type</mat-label>
+          <mat-select
+            class="width100"
+            formControlName="mmu_vantype"
+            name="mmu_vantype"
+            (selectionChange)="
+              enableSpokeDetails();
+              getProviderMappedVansOrSpokes(
+                mmuVanDetailsForm.value.mmu_state,
+                mmuVanDetailsForm.value.mmu_parkingPlace,
+                mmuVanDetailsForm.value.mmu_vantype,
+                false
+              )
+            "
+            required
+          >
+            <mat-option *ngFor="let vantype of vantypes" [value]="vantype">
+              {{ vantype.vanType }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </form>
+  </div>
   <div
-    class="pull-right m-r-15 m-t-15"
+    class=""
+    style="text-align: end"
     *ngIf="listVanSpokeMapping.length > 0 && showListOfMapping"
   >
     <mat-form-field id="filterbox">
@@ -289,175 +295,186 @@
   >
     <h4>To</h4>
   </div>
-  <form [formGroup]="tmSpokeDetailsForm" *ngIf="enabletmSpokeDetailsForm">
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-      <mat-form-field>
-        <mat-label>Serviceline</mat-label>
-        <mat-select
-          class="width100"
-          formControlName="tm_serviceline"
-          name="tm_serviceline"
-          [disabled]="disableServiceline"
-          (selectionChange)="
-            getProviderMappedStates(
-              tmSpokeDetailsForm.value.tm_serviceline,
-              true
-            )
-          "
-          required
-        >
-          <mat-option *ngFor="let service of tm_servicelines" [value]="service">
-            {{ service.serviceName }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-      <mat-form-field>
-        <mat-label>State</mat-label>
-        <mat-select
-          class="width100"
-          formControlName="tm_state"
-          name="tm_state"
-          (selectionChange)="
-            getProviderMappedZones(tmSpokeDetailsForm.value.tm_state, true)
-          "
-          required
-        >
-          <mat-option *ngFor="let state of tm_states" [value]="state">
-            {{ state.stateName }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-      <mat-form-field>
-        <mat-label> Zone </mat-label>
-        <mat-select
-          class="width100"
-          formControlName="tm_zone"
-          name="tm_zone"
-          (selectionChange)="
-            getProviderMappedParkingPlace(
-              tmSpokeDetailsForm.value.tm_zone,
-              tmSpokeDetailsForm.value.tm_state,
-              true
-            )
-          "
-          required
-        >
-          <mat-option *ngFor="let zone of tm_zones" [value]="zone">
-            {{ zone.zoneName }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-      <mat-form-field>
-        <mat-label>Parking Place</mat-label>
-        <mat-select
-          class="width100"
-          formControlName="tm_hub"
-          name="tm_hub"
-          (selectionChange)="
-            getProviderMappedServicepoint(
-              tmSpokeDetailsForm.value.tm_state,
-              tmSpokeDetailsForm.value.tm_hub,
-              true
-            )
-          "
-          required
-        >
-          <mat-option *ngFor="let hub of tm_hubs" [value]="hub">
-            {{ hub.parkingPlaceName }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-      <mat-form-field>
-        <mat-label>Service Point</mat-label>
-        <mat-select
-          class="width100"
-          formControlName="tm_servicePoint"
-          name="tm_servicePoint"
-          (selectionChange)="
-            getProviderMappedVanTypes(tmSpokeDetailsForm.value.tm_state, true)
-          "
-          required
-        >
-          <mat-option
-            *ngFor="let servicepoint of tm_servicepoints"
-            [value]="servicepoint"
+  <div class="col-12">
+    <form
+      [formGroup]="tmSpokeDetailsForm"
+      *ngIf="enabletmSpokeDetailsForm"
+      class="row"
+    >
+      <div class="col-3 m-t-15">
+        <mat-form-field>
+          <mat-label>Serviceline</mat-label>
+          <mat-select
+            class="width100"
+            formControlName="tm_serviceline"
+            name="tm_serviceline"
+            [disabled]="disableServiceline"
+            (selectionChange)="
+              getProviderMappedStates(
+                tmSpokeDetailsForm.value.tm_serviceline,
+                true
+              )
+            "
+            required
           >
-            {{ servicepoint.servicePointName }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-      <mat-form-field>
-        <mat-label>Spoke Type</mat-label>
-        <mat-select
-          class="width100"
-          formControlName="tm_vantype"
-          name="tm_vantype"
-          (selectionChange)="
-            getProviderMappedVansOrSpokes(
-              tmSpokeDetailsForm.value.tm_state,
-              tmSpokeDetailsForm.value.tm_hub,
-              tmSpokeDetailsForm.value.tm_vantype,
-              true
-            )
-          "
-          required
-        >
-          <mat-option *ngFor="let vantype of tm_vantypes" [value]="vantype">
-            {{ vantype.vanType }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-  </form>
+            <mat-option
+              *ngFor="let service of tm_servicelines"
+              [value]="service"
+            >
+              {{ service.serviceName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-3 m-t-15">
+        <mat-form-field>
+          <mat-label>State</mat-label>
+          <mat-select
+            class="width100"
+            formControlName="tm_state"
+            name="tm_state"
+            (selectionChange)="
+              getProviderMappedZones(tmSpokeDetailsForm.value.tm_state, true)
+            "
+            required
+          >
+            <mat-option *ngFor="let state of tm_states" [value]="state">
+              {{ state.stateName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-3 m-t-15">
+        <mat-form-field>
+          <mat-label> Zone </mat-label>
+          <mat-select
+            class="width100"
+            formControlName="tm_zone"
+            name="tm_zone"
+            (selectionChange)="
+              getProviderMappedParkingPlace(
+                tmSpokeDetailsForm.value.tm_zone,
+                tmSpokeDetailsForm.value.tm_state,
+                true
+              )
+            "
+            required
+          >
+            <mat-option *ngFor="let zone of tm_zones" [value]="zone">
+              {{ zone.zoneName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-3 m-t-15">
+        <mat-form-field>
+          <mat-label>Parking Place</mat-label>
+          <mat-select
+            class="width100"
+            formControlName="tm_hub"
+            name="tm_hub"
+            (selectionChange)="
+              getProviderMappedServicepoint(
+                tmSpokeDetailsForm.value.tm_state,
+                tmSpokeDetailsForm.value.tm_hub,
+                true
+              )
+            "
+            required
+          >
+            <mat-option *ngFor="let hub of tm_hubs" [value]="hub">
+              {{ hub.parkingPlaceName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-3 m-t-15">
+        <mat-form-field>
+          <mat-label>Service Point</mat-label>
+          <mat-select
+            class="width100"
+            formControlName="tm_servicePoint"
+            name="tm_servicePoint"
+            (selectionChange)="
+              getProviderMappedVanTypes(tmSpokeDetailsForm.value.tm_state, true)
+            "
+            required
+          >
+            <mat-option
+              *ngFor="let servicepoint of tm_servicepoints"
+              [value]="servicepoint"
+            >
+              {{ servicepoint.servicePointName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-3 m-t-15">
+        <mat-form-field>
+          <mat-label>Spoke Type</mat-label>
+          <mat-select
+            class="width100"
+            formControlName="tm_vantype"
+            name="tm_vantype"
+            (selectionChange)="
+              getProviderMappedVansOrSpokes(
+                tmSpokeDetailsForm.value.tm_state,
+                tmSpokeDetailsForm.value.tm_hub,
+                tmSpokeDetailsForm.value.tm_vantype,
+                true
+              )
+            "
+            required
+          >
+            <mat-option *ngFor="let vantype of tm_vantypes" [value]="vantype">
+              {{ vantype.vanType }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </form>
+  </div>
   <div
     class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-15"
     *ngIf="enableMappingForm"
   >
     <h4>Map Van and Spoke</h4>
   </div>
-  <form [formGroup]="mappingForm" *ngIf="enableMappingForm">
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-      <mat-form-field>
-        <mat-label>Van</mat-label>
-        <mat-select
-          class="width100"
-          multiple
-          formControlName="mmu_van"
-          name="mmu_van"
-          required
-        >
-          <mat-option *ngFor="let van of availableVans" [value]="van">
-            {{ van.vanName }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-      <mat-form-field>
-        <mat-label>Spoke</mat-label>
-        <mat-select
-          class="width100"
-          formControlName="tm_spoke"
-          name="tm_spoke"
-          required
-        >
-          <mat-option *ngFor="let spoke of tm_spokes" [value]="spoke">
-            {{ spoke.vanName }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-  </form>
+  <div class="col-12">
+    <form [formGroup]="mappingForm" *ngIf="enableMappingForm" class="row">
+      <div class="col-3 m-t-15">
+        <mat-form-field>
+          <mat-label>Van</mat-label>
+          <mat-select
+            class="width100"
+            multiple
+            formControlName="mmu_van"
+            name="mmu_van"
+            required
+          >
+            <mat-option *ngFor="let van of availableVans" [value]="van">
+              {{ van.vanName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-3 m-t-15">
+        <mat-form-field>
+          <mat-label>Spoke</mat-label>
+          <mat-select
+            class="width100"
+            formControlName="tm_spoke"
+            name="tm_spoke"
+            required
+          >
+            <mat-option *ngFor="let spoke of tm_spokes" [value]="spoke">
+              {{ spoke.vanName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </form>
+  </div>
   <div
     class="col-xs-12 col-sm-12 col-md-4 col-lg-12 m-t-20"
     *ngIf="

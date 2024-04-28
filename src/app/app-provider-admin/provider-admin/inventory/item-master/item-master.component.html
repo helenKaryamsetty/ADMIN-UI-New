@@ -4,13 +4,12 @@
       <strong>Item Master</strong>
     </h4>
   </div>
-  <form #searchForm="ngForm" autocomplete="off">
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-      <mat-form-field class="hide_underline width100">
+  <form #searchForm="ngForm" autocomplete="off" class="col-12 row">
+    <div class="col-3">
+      <mat-form-field class="hide_underline">
         <input matInput style="display: none" />
         <mat-select
           placeholder="Serviceline"
-          class="width100"
           [(ngModel)]="service"
           name="services"
           (selectionChange)="getStates(service)"
@@ -22,12 +21,11 @@
         </mat-select>
       </mat-form-field>
     </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-      <mat-form-field class="hide_underline width100">
+    <div class="col-3">
+      <mat-form-field class="hide_underline">
         <input matInput style="display: none" />
         <mat-select
           placeholder="State"
-          class="width100"
           [(ngModel)]="state"
           name="state"
           required
@@ -47,7 +45,7 @@
       class="col-xs-12 col-sm-12 col-md-4 col-lg-6"
       *ngIf="itemsList?.length > 0 && showTableFlag"
     >
-      <div class="row" class="pull-right">
+      <div class="row" class="" style="text-align: end">
         <mat-form-field id="filterbox">
           <input
             matInput
@@ -227,13 +225,17 @@
       <strong>Item Master</strong>
     </h4>
   </div>
-  <form id="addform" #itemCreationForm1="ngForm" autocomplete="off">
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-      <mat-form-field class="hide_underline width100">
+  <form
+    id="addform"
+    #itemCreationForm1="ngForm"
+    autocomplete="off"
+    class="col-12 row"
+  >
+    <div class="col-3">
+      <mat-form-field class="hide_underline">
         <input matInput style="display: none" />
         <mat-select
           placeholder="Serviceline"
-          class="width100"
           [(ngModel)]="service"
           name="services"
           [disabled]="true"
@@ -246,12 +248,11 @@
         </mat-select>
       </mat-form-field>
     </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-      <mat-form-field class="hide_underline width100">
+    <div class="col-3">
+      <mat-form-field class="hide_underline">
         <input matInput style="display: none" />
         <mat-select
           placeholder="State"
-          class="width100"
           [(ngModel)]="state"
           name="state"
           [disabled]="true"
@@ -273,8 +274,8 @@
 
   <div class="clearfix visible-md visible-lg"></div>
 
-  <form #itemCreationForm="ngForm" autocomplete="off">
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 m-t-20">
+  <form #itemCreationForm="ngForm" autocomplete="off" class="col-12 row">
+    <div class="col-4 m-t-20">
       <span class="f-s-n-b">Item Type<em>*</em></span>
       <mat-radio-group [(ngModel)]="itemType" name="itemType" required>
         <mat-radio-button color="primary" class="p-l-10 f-s-12" [value]="true"
@@ -286,8 +287,8 @@
       </mat-radio-group>
     </div>
 
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
-      <mat-form-field class="width100" appDotAllow>
+    <div class="col-4">
+      <mat-form-field appDotAllow>
         <input
           matInput
           placeholder="Item Code"
@@ -309,8 +310,8 @@
         </mat-hint>
       </mat-form-field>
     </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
-      <mat-form-field class="width100">
+    <div class="col-4">
+      <mat-form-field>
         <input
           matInput
           appItemNameWithSpecialCharCopyPaste
@@ -330,14 +331,13 @@
       </mat-form-field>
     </div>
 
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 m-t-25">
-      <mat-form-field class="width80">
+    <div class="col-4 m-t-25">
+      <mat-form-field>
         <input
           autocomplete="off"
           maxlength="100"
           matInput
           placeholder="Snomed CT Code "
-          [style.width]="'100%'"
           name="testsnomedCode"
           [(ngModel)]="testsnomedCode"
           (keyup.enter)="searchSnomed(testsnomedCode)"
@@ -363,13 +363,12 @@
         <mat-icon class="cursorPointer">delete</mat-icon>
       </span>
     </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 m-t-25">
-      <mat-form-field class="width100">
+    <div class="col-4 m-t-25">
+      <mat-form-field>
         <input
           maxlength="100"
           matInput
           placeholder="Snomed CT Term"
-          [style.width]="'100%'"
           name="testSnomedName"
           [(ngModel)]="testSnomedName"
           disabled
@@ -377,8 +376,8 @@
       </mat-form-field>
     </div>
 
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 m-t-25">
-      <mat-form-field class="width100" appDrugStrengthWithCopyPaste>
+    <div class="col-4 m-t-25">
+      <mat-form-field appDrugStrengthWithCopyPaste>
         <input
           matInput
           placeholder="Strength"
@@ -396,28 +395,21 @@
         </mat-hint>
       </mat-form-field>
     </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
-      <mat-form-field class="hide_underline width100">
+    <div class="col-4">
+      <mat-form-field class="hide_underline">
         <input matInput style="display: none" />
-        <mat-select
-          placeholder="UOM"
-          class="width100"
-          [(ngModel)]="uom"
-          name="uom"
-          required
-        >
+        <mat-select placeholder="UOM" [(ngModel)]="uom" name="uom" required>
           <mat-option *ngFor="let item of measures" [value]="item">
             {{ item.uOMName }}
           </mat-option>
         </mat-select>
       </mat-form-field>
     </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
-      <mat-form-field class="hide_underline width100">
+    <div class="col-4">
+      <mat-form-field class="hide_underline">
         <input matInput style="display: none" />
         <mat-select
           placeholder="Item Category"
-          class="width100"
           [(ngModel)]="category"
           name="category"
           required
@@ -429,11 +421,10 @@
       </mat-form-field>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-3 col-lg-4">
-      <mat-form-field class="hide_underline width100">
+      <mat-form-field class="hide_underline">
         <input matInput style="display: none" />
         <mat-select
           placeholder="Drug List Type"
-          class="width100"
           [(ngModel)]="drugName"
           name="drugName"
           required
@@ -449,11 +440,10 @@
       </mat-form-field>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-3 col-lg-4">
-      <mat-form-field class="hide_underline width100">
+      <mat-form-field class="hide_underline">
         <input matInput style="display: none" />
         <mat-select
           placeholder="Item Form"
-          class="width100"
           [(ngModel)]="dose"
           name="dose"
           required
@@ -465,11 +455,10 @@
       </mat-form-field>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-3 col-lg-4">
-      <mat-form-field class="hide_underline width100">
+      <mat-form-field class="hide_underline">
         <input matInput style="display: none" />
         <mat-select
           placeholder="Pharmacology Category"
-          class="width100"
           [(ngModel)]="pharmacology"
           name="pharmacology"
         >
@@ -480,11 +469,10 @@
       </mat-form-field>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-3 col-lg-4">
-      <mat-form-field class="hide_underline width100">
+      <mat-form-field class="hide_underline">
         <input matInput style="display: none" />
         <mat-select
           placeholder="Manufacturer"
-          class="width100"
           [(ngModel)]="manufacturer"
           name="manufacturer"
         >
@@ -494,7 +482,7 @@
         </mat-select>
       </mat-form-field>
     </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 m-t-35">
+    <div class="col-4 m-t-35">
       <span class="f-s-n-b">Drug Type<em>*</em></span>
       <mat-radio-group [(ngModel)]="drugType" name="drugType" required>
         <mat-radio-button color="primary" class="p-l-10 f-s-12" [value]="true"
@@ -508,8 +496,8 @@
 
     <div class="clearfix visible-sm"></div>
 
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 m-t-25">
-      <mat-form-field class="width100" appVehicleNoCopyPaste>
+    <div class="col-4 m-t-25">
+      <mat-form-field appVehicleNoCopyPaste>
         <input
           matInput
           placeholder="Composition"
@@ -527,12 +515,11 @@
         </mat-hint>
       </mat-form-field>
     </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
-      <mat-form-field class="hide_underline width100">
+    <div class="col-4">
+      <mat-form-field class="hide_underline">
         <input matInput style="display: none" />
         <mat-select
           placeholder="Route Of Admin"
-          class="width100"
           [(ngModel)]="route"
           name="route"
           required
@@ -543,8 +530,8 @@
         </mat-select>
       </mat-form-field>
     </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
-      <mat-form-field class="width100" appVehicleNoSpecialCharWithCopyPaste>
+    <div class="col-4">
+      <mat-form-field appVehicleNoSpecialCharWithCopyPaste>
         <input
           matInput
           placeholder="Item Description"
@@ -710,16 +697,15 @@
       <strong>Edit Item</strong>
     </h4>
   </div>
-  <form #editItemCreationForm="ngForm" autocomplete="off">
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-      <mat-form-field class="hide_underline" [style.width]="'100%'">
+  <form #editItemCreationForm="ngForm" autocomplete="off" class="col-12 row">
+    <div class="col-3">
+      <mat-form-field class="hide_underline">
         <input matInput style="display: none" />
         <mat-select
           required
           name="Services"
           placeholder="Serviceline"
           [disabled]="true"
-          [style.width]="'100%'"
           [(ngModel)]="edit_serviceline"
           (selectionChange)="getStates(serviceline)"
         >
@@ -729,14 +715,13 @@
         </mat-select>
       </mat-form-field>
     </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-      <mat-form-field class="hide_underline" [style.width]="'100%'">
+    <div class="col-3">
+      <mat-form-field class="hide_underline">
         <input matInput style="display: none" />
         <mat-select
           required
           name="state"
           placeholder="State"
-          [style.width]="'100%'"
           [disabled]="true"
           [(ngModel)]="edit_state"
         >
@@ -748,7 +733,7 @@
     </div>
     <div class="clearfix visible-md visible-lg"></div>
 
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 m-t-20">
+    <div class="col-4 m-t-20">
       <span class="f-s-n-b">Item Type</span>
       <mat-radio-group [(ngModel)]="edit_ItemType" name="itemType">
         <mat-radio-button color="primary" class="p-l-10" [value]="true"
@@ -759,8 +744,8 @@
         >
       </mat-radio-group>
     </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
-      <mat-form-field class="width100">
+    <div class="col-4">
+      <mat-form-field>
         <input
           matInput
           placeholder="Item Code"
@@ -774,8 +759,8 @@
         />
       </mat-form-field>
     </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
-      <mat-form-field class="width100">
+    <div class="col-4">
+      <mat-form-field>
         <input
           matInput
           placeholder="Item Name"
@@ -790,14 +775,13 @@
       </mat-form-field>
     </div>
 
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+    <div class="col-4">
       <mat-form-field class="width80">
         <input
           autocomplete="off"
           maxlength="100"
           matInput
           placeholder="Snomed CT Code "
-          [style.width]="'100%'"
           name="editSnomedCode"
           [(ngModel)]="editSnomedCode"
           (keyup.enter)="searchSnomedEdit(editSnomedCode)"
@@ -824,13 +808,12 @@
         <mat-icon class="cursorPointer">delete</mat-icon>
       </span>
     </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
-      <mat-form-field class="width100">
+    <div class="col-4">
+      <mat-form-field>
         <input
           maxlength="100"
           matInput
           placeholder="Snomed CT Term"
-          [style.width]="'100%'"
           name="testSnomedName"
           [(ngModel)]="editSnomedName"
           disabled
@@ -838,8 +821,8 @@
       </mat-form-field>
     </div>
 
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
-      <mat-form-field class="width100">
+    <div class="col-4">
+      <mat-form-field>
         <input
           matInput
           placeholder="Strength"
@@ -853,12 +836,11 @@
         />
       </mat-form-field>
     </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
-      <mat-form-field class="hide_underline width100">
+    <div class="col-4">
+      <mat-form-field class="hide_underline">
         <input matInput style="display: none" />
         <mat-select
           placeholder="UOM"
-          class="width100"
           [(ngModel)]="edit_Uom"
           name="uom"
           disabled="true"
@@ -870,12 +852,11 @@
         </mat-select>
       </mat-form-field>
     </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
-      <mat-form-field class="hide_underline width100">
+    <div class="col-4">
+      <mat-form-field class="hide_underline">
         <input matInput style="display: none" />
         <mat-select
           placeholder="Item Category"
-          class="width100"
           [(ngModel)]="edit_Category"
           name="category"
           required
@@ -890,11 +871,10 @@
       </mat-form-field>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-3 col-lg-4">
-      <mat-form-field class="hide_underline width100">
+      <mat-form-field class="hide_underline">
         <input matInput style="display: none" />
         <mat-select
           placeholder="Drug List Type"
-          class="width100"
           [(ngModel)]="editDrug"
           disabled="true"
           name="drugName"
@@ -910,11 +890,10 @@
       </mat-form-field>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-3 col-lg-4">
-      <mat-form-field class="hide_underline width100">
+      <mat-form-field class="hide_underline">
         <input matInput style="display: none" />
         <mat-select
           placeholder="Item Form"
-          class="width100"
           [(ngModel)]="edit_Dose"
           name="dose"
           disabled="true"
@@ -930,11 +909,10 @@
       </mat-form-field>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-3 col-lg-4">
-      <mat-form-field class="hide_underline width100">
+      <mat-form-field class="hide_underline">
         <input matInput style="display: none" />
         <mat-select
           placeholder="Pharmacology Category"
-          class="width100"
           [(ngModel)]="edit_Pharmacology"
           name="pharmacology"
         >
@@ -948,11 +926,10 @@
       </mat-form-field>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-3 col-lg-4">
-      <mat-form-field class="hide_underline width100">
+      <mat-form-field class="hide_underline">
         <input matInput style="display: none" />
         <mat-select
           placeholder="Manufacturer"
-          class="width100"
           [(ngModel)]="edit_Manufacturer"
           name="manufacturer"
         >
@@ -966,7 +943,7 @@
       </mat-form-field>
     </div>
 
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 m-t-25">
+    <div class="col-4 m-t-25">
       <span class="f-s-n-b">Drug Type</span>
       <mat-radio-group [(ngModel)]="edit_DrugType" name="drugType">
         <mat-radio-button color="primary" class="p-l-10" [value]="true"
@@ -978,8 +955,8 @@
       </mat-radio-group>
     </div>
     <div class="clearfix visible-sm"></div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
-      <mat-form-field class="width100" appMyProviderName>
+    <div class="col-4">
+      <mat-form-field appMyProviderName>
         <input
           matInput
           placeholder="Composition"
@@ -998,12 +975,11 @@
         </mat-hint>
       </mat-form-field>
     </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
-      <mat-form-field class="hide_underline width100">
+    <div class="col-4">
+      <mat-form-field class="hide_underline">
         <input matInput style="display: none" />
         <mat-select
           placeholder="Route Of Admin"
-          class="width100"
           [(ngModel)]="edit_Route"
           name="route"
           disabled="true"
@@ -1015,8 +991,8 @@
         </mat-select>
       </mat-form-field>
     </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4" appVehicleNoCopyPaste>
-      <mat-form-field class="width100">
+    <div class="col-4" appVehicleNoCopyPaste>
+      <mat-form-field>
         <input
           matInput
           placeholder="Item Description"

@@ -1,243 +1,253 @@
-<div class="row">
-  <div class="pull-left m-l-15">
-    <h4 class="pull-left">Edit Institution</h4>
-  </div>
-  <div class="pull-right">
-    <button mat-button [mat-dialog-close]="true">
-      <mat-icon
-        mdTooltip="close"
-        class="mat-icon material-icons pull-right"
-        role="img"
-        aria-hidden="true"
-        style="cursor: pointer"
-        >clear</mat-icon
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-6 col-sm-6 col-md-9 col-lg-9">
+      <h4 mat-dialog-title class="modal-title" style="margin: unset">
+        Edit Institution
+      </h4>
+    </div>
+    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+      <button
+        mat-button
+        class="pull-right p-r-0"
+        [mat-dialog-close]="true"
+        style="background-color: unset; border: unset; margin: 20px"
       >
-    </button>
+        <mat-icon
+          mdTooltip="close"
+          class="mat-icon material-icons pull-right"
+          role="img"
+          aria-hidden="true"
+          style="cursor: pointer"
+          >clear</mat-icon
+        >
+      </button>
+    </div>
   </div>
-</div>
-<div class="row">
-  <form #editForm1="ngForm" autocomplete="off">
-    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 m-t-10" myName2>
-      <mat-form-field style="width: 100%">
-        <mat-label>Institution Name</mat-label>
-        <input
-          matInput
-          [(ngModel)]="institutionName"
-          name="institutionName"
-          minlength="3"
-          maxlength="100"
-          required
-          #validInstitutionName="ngModel"
-        />
-        <mat-hint *ngIf="validInstitutionName.touched" myName2>
-          <span class="errorText" [hidden]="!validInstitutionName.errors"
-            >Enter atleast 3 characters</span
-          >
-        </mat-hint>
-      </mat-form-field>
-    </div>
-    <div
-      class="col-xs-12 col-sm-12 col-md-4 col-lg-4 m-t-10"
-      appMyAddressDirective
-    >
-      <mat-form-field style="width: 100%">
-        <mat-label>Address</mat-label>
-        <input
-          matInput
-          maxlength="300"
-          [(ngModel)]="address"
-          name="address"
-          required
-        />
-      </mat-form-field>
-    </div>
-    <!-- </form> -->
-    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 m-t-10">
-      <mat-form-field style="width: 100%">
-        <mat-label>Website</mat-label>
-        <input
-          matInput
-          [pattern]="website_expression"
-          [(ngModel)]="website"
-          name="website"
-          #valid_website="ngModel"
-        />
-        <mat-hint
-          class="errorText"
-          [hidden]="!valid_website.hasError('pattern')"
-          >Enter valid Website
-        </mat-hint>
-      </mat-form-field>
-    </div>
-    <!-- <form #editForm2="ngForm" autocomplete="off"> -->
-    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 m-t-10" myName2>
-      <mat-form-field style="width: 100%">
-        <mat-label>Contact Person</mat-label>
-        <input
-          matInput
-          [(ngModel)]="contact_person_name"
-          name="contact_person_name"
-          #valid_contactname="ngModel"
-        />
-        <mat-hint
-          class="errorText"
-          *ngIf="valid_contactname.errors && valid_contactname.touched"
-          >Enter minimum 2 characters
-        </mat-hint>
-      </mat-form-field>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 m-t-10" appMyMobileNumber>
-      <mat-form-field style="width: 100%">
-        <mat-label>Contact Number</mat-label>
-        <input
-          matInput
-          minlength="10"
-          maxlength="10"
-          [(ngModel)]="contact_number"
-          name="contact_number"
-          #validMobileNumber="ngModel"
-          [pattern]="mobileNoPattern"
-        />
-        <mat-hint
-          class="errorText"
-          [hidden]="!validMobileNumber.hasError('pattern')"
-          >Required 10 digit valid mobile number
-        </mat-hint>
-      </mat-form-field>
-    </div>
-    <!-- </form> -->
-    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 m-t-10">
-      <mat-form-field style="width: 100%">
-        <mat-label>EmailID</mat-label>
-        <input
-          matInput
-          type="email"
-          [(ngModel)]="emailID"
-          name="emailID"
-          [pattern]="email_expression"
-          #validEmail="ngModel"
-        />
-        <mat-hint class="errorText" [hidden]="!validEmail.hasError('pattern')"
-          >Valid Email ID is required
-        </mat-hint>
-      </mat-form-field>
-    </div>
+  <div class="col-12">
+    <form #editForm1="ngForm" autocomplete="off" class="row">
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4" myName2>
+        <mat-form-field>
+          <mat-label>Institution Name</mat-label>
+          <input
+            matInput
+            [(ngModel)]="institutionName"
+            name="institutionName"
+            minlength="3"
+            maxlength="100"
+            required
+            #validInstitutionName="ngModel"
+          />
+          <mat-hint *ngIf="validInstitutionName.touched" myName2>
+            <span class="errorText" [hidden]="!validInstitutionName.errors"
+              >Enter atleast 3 characters</span
+            >
+          </mat-hint>
+        </mat-form-field>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4" appMyAddressDirective>
+        <mat-form-field>
+          <mat-label>Address</mat-label>
+          <input
+            matInput
+            maxlength="300"
+            [(ngModel)]="address"
+            name="address"
+            required
+          />
+        </mat-form-field>
+      </div>
+      <!-- </form> -->
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+        <mat-form-field>
+          <mat-label>Website</mat-label>
+          <input
+            matInput
+            [pattern]="website_expression"
+            [(ngModel)]="website"
+            name="website"
+            #valid_website="ngModel"
+          />
+          <mat-hint
+            class="errorText"
+            [hidden]="!valid_website.hasError('pattern')"
+            >Enter valid Website
+          </mat-hint>
+        </mat-form-field>
+      </div>
+      <!-- <form #editForm2="ngForm" autocomplete="off"> -->
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4" myName2>
+        <mat-form-field>
+          <mat-label>Contact Person</mat-label>
+          <input
+            matInput
+            [(ngModel)]="contact_person_name"
+            name="contact_person_name"
+            #valid_contactname="ngModel"
+          />
+          <mat-hint
+            class="errorText"
+            *ngIf="valid_contactname.errors && valid_contactname.touched"
+            >Enter minimum 2 characters
+          </mat-hint>
+        </mat-form-field>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4" appMyMobileNumber>
+        <mat-form-field>
+          <mat-label>Contact Number</mat-label>
+          <input
+            matInput
+            minlength="10"
+            maxlength="10"
+            [(ngModel)]="contact_number"
+            name="contact_number"
+            #validMobileNumber="ngModel"
+            [pattern]="mobileNoPattern"
+          />
+          <mat-hint
+            class="errorText"
+            [hidden]="!validMobileNumber.hasError('pattern')"
+            >Required 10 digit valid mobile number
+          </mat-hint>
+        </mat-form-field>
+      </div>
+      <!-- </form> -->
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+        <mat-form-field>
+          <mat-label>EmailID</mat-label>
+          <input
+            matInput
+            type="email"
+            [(ngModel)]="emailID"
+            name="emailID"
+            [pattern]="email_expression"
+            #validEmail="ngModel"
+          />
+          <mat-hint class="errorText" [hidden]="!validEmail.hasError('pattern')"
+            >Valid Email ID is required
+          </mat-hint>
+        </mat-form-field>
+      </div>
 
-    <!-- <form #form2="ngForm" autocomplete="off"> -->
-    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 m-t-10" myName2>
-      <mat-form-field style="width: 100%">
-        <mat-label>Secondary Contact Person</mat-label>
-        <input
-          matInput
-          [(ngModel)]="secondary_contact_person_name"
-          [disabled]="validEmail.hasError('pattern')"
-          name="secondary_contact_person_name"
-          minlength="2"
-          maxlength="50"
-          #valid_contactname1="ngModel"
-        />
-        <!-- <mat-hint class="errorText" *ngIf="valid_contactname1.errors && valid_contactname1.touched">Enter atleast 2 characters
+      <!-- <form #form2="ngForm" autocomplete="off"> -->
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4" myName2>
+        <mat-form-field>
+          <mat-label>Secondary Contact Person</mat-label>
+          <input
+            matInput
+            [(ngModel)]="secondary_contact_person_name"
+            [disabled]="validEmail.hasError('pattern')"
+            name="secondary_contact_person_name"
+            minlength="2"
+            maxlength="50"
+            #valid_contactname1="ngModel"
+          />
+          <!-- <mat-hint class="errorText" *ngIf="valid_contactname1.errors && valid_contactname1.touched">Enter atleast 2 characters
           </mat-hint> -->
-      </mat-form-field>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 m-t-10" appMyMobileNumber>
-      <mat-form-field style="width: 100%">
-        <mat-label>Secondary Contact Number</mat-label>
-        <input
-          matInput
-          minlength="10"
-          maxlength="10"
-          [(ngModel)]="secondary_contact_number"
-          [disabled]="validEmail.hasError('pattern')"
-          name="secondary_contact_number"
-          #validMobileNumber1="ngModel"
-          [pattern]="mobileNoPattern"
-        />
-        <!-- <mat-hint class="errorText" *ngIf="validMobileNumber1.errors && validMobileNumber1.touched">Enter 10 digit mobile number
+        </mat-form-field>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4" appMyMobileNumber>
+        <mat-form-field>
+          <mat-label>Secondary Contact Number</mat-label>
+          <input
+            matInput
+            minlength="10"
+            maxlength="10"
+            [(ngModel)]="secondary_contact_number"
+            [disabled]="validEmail.hasError('pattern')"
+            name="secondary_contact_number"
+            #validMobileNumber1="ngModel"
+            [pattern]="mobileNoPattern"
+          />
+          <!-- <mat-hint class="errorText" *ngIf="validMobileNumber1.errors && validMobileNumber1.touched">Enter 10 digit mobile number
           </mat-hint> -->
-      </mat-form-field>
-    </div>
-    <!-- </form> -->
-    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 m-t-10">
-      <mat-form-field style="width: 100%">
-        <mat-label>Secondary EmailID</mat-label>
-        <input
-          matInput
-          type="email"
-          [(ngModel)]="secondary_emailID"
-          [disabled]="validEmail.hasError('pattern')"
-          name="secondary_emailID"
-          [pattern]="email_expression"
-          #validEmail1="ngModel"
-        />
-        <mat-hint class="errorText" [hidden]="!validEmail1.hasError('pattern')"
-          >Valid Email ID is required
-        </mat-hint>
-      </mat-form-field>
-    </div>
+        </mat-form-field>
+      </div>
+      <!-- </form> -->
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+        <mat-form-field>
+          <mat-label>Secondary EmailID</mat-label>
+          <input
+            matInput
+            type="email"
+            [(ngModel)]="secondary_emailID"
+            [disabled]="validEmail.hasError('pattern')"
+            name="secondary_emailID"
+            [pattern]="email_expression"
+            #validEmail1="ngModel"
+          />
+          <mat-hint
+            class="errorText"
+            [hidden]="!validEmail1.hasError('pattern')"
+            >Valid Email ID is required
+          </mat-hint>
+        </mat-form-field>
+      </div>
 
-    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 m-t-10" myName2>
-      <mat-form-field style="width: 100%">
-        <mat-label>Tertiary Contact Person</mat-label>
-        <input
-          matInput
-          [(ngModel)]="tertiary_contact_person_name"
-          [disabled]="validEmail1.hasError('pattern')"
-          name="tertiary_contact_person_name"
-          minlength="2"
-          maxlength="50"
-          #valid_contactname2="ngModel"
-        />
-        <!-- <mat-hint class="errorText" *ngIf="valid_contactname2.errors && valid_contactname2.touched">Enter atleast 2 characters
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4" myName2>
+        <mat-form-field>
+          <mat-label>Tertiary Contact Person</mat-label>
+          <input
+            matInput
+            [(ngModel)]="tertiary_contact_person_name"
+            [disabled]="validEmail1.hasError('pattern')"
+            name="tertiary_contact_person_name"
+            minlength="2"
+            maxlength="50"
+            #valid_contactname2="ngModel"
+          />
+          <!-- <mat-hint class="errorText" *ngIf="valid_contactname2.errors && valid_contactname2.touched">Enter atleast 2 characters
           </mat-hint> -->
-      </mat-form-field>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 m-t-10" appMyMobileNumber>
-      <mat-form-field style="width: 100%">
-        <mat-label>Tertiary Contact Number</mat-label>
-        <input
-          matInput
-          minlength="10"
-          maxlength="10"
-          [(ngModel)]="tertiary_contact_number"
-          [disabled]="validEmail1.hasError('pattern')"
-          name="tertiary_contact_number"
-          #validMobileNumber2="ngModel"
-          [pattern]="mobileNoPattern"
-        />
-        <!-- <mat-hint class="errorText" *ngIf="validMobileNumber2.errors && validMobileNumber2.touched">Enter 10 digit mobile number
+        </mat-form-field>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4" appMyMobileNumber>
+        <mat-form-field>
+          <mat-label>Tertiary Contact Number</mat-label>
+          <input
+            matInput
+            minlength="10"
+            maxlength="10"
+            [(ngModel)]="tertiary_contact_number"
+            [disabled]="validEmail1.hasError('pattern')"
+            name="tertiary_contact_number"
+            #validMobileNumber2="ngModel"
+            [pattern]="mobileNoPattern"
+          />
+          <!-- <mat-hint class="errorText" *ngIf="validMobileNumber2.errors && validMobileNumber2.touched">Enter 10 digit mobile number
           </mat-hint> -->
-      </mat-form-field>
-    </div>
+        </mat-form-field>
+      </div>
 
-    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 m-t-10">
-      <mat-form-field style="width: 100%">
-        <mat-label>Tertiary EmailID</mat-label>
-        <input
-          matInput
-          type="email"
-          [(ngModel)]="tertiary_emailID"
-          [disabled]="validEmail1.hasError('pattern')"
-          name="tertiary_emailID"
-          [pattern]="email_expression"
-          #validEmail2="ngModel"
-        />
-        <mat-hint class="errorText" [hidden]="!validEmail2.hasError('pattern')"
-          >Valid Email ID is required
-        </mat-hint>
-      </mat-form-field>
-    </div>
-  </form>
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+        <mat-form-field>
+          <mat-label>Tertiary EmailID</mat-label>
+          <input
+            matInput
+            type="email"
+            [(ngModel)]="tertiary_emailID"
+            [disabled]="validEmail1.hasError('pattern')"
+            name="tertiary_emailID"
+            [pattern]="email_expression"
+            #validEmail2="ngModel"
+          />
+          <mat-hint
+            class="errorText"
+            [hidden]="!validEmail2.hasError('pattern')"
+            >Valid Email ID is required
+          </mat-hint>
+        </mat-form-field>
+      </div>
+    </form>
 
-  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-20">
-    <button
-      mat-raised-button
-      color="accent"
-      class="pull-right"
-      [disabled]="!editForm1.valid"
-      (click)="update()"
-    >
-      Update
-    </button>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10">
+      <button
+        mat-raised-button
+        color="accent"
+        class="pull-right mat_green"
+        [disabled]="!editForm1.valid"
+        (click)="update()"
+      >
+        Update
+      </button>
+    </div>
   </div>
 </div>

@@ -4,62 +4,65 @@
     <h4 class="pull-left" *ngIf="showFormFlag">Create Agent</h4>
     <h4 class="pull-left" *ngIf="editable">Edit Agent</h4>
   </div>
-  <form #searchForm="ngForm" autocomplete="off">
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-      <!-- <mat-form-field class="hide_underline" [style.width]="'100%'">
-        <input matInput style="display:none"> -->
-      <mat-form-field>
-        <mat-label>Serviceline</mat-label>
-        <mat-select
-          [style.width]="'100%'"
-          [(ngModel)]="service"
-          name="service"
-          required
-        >
-          <mat-option
-            *ngFor="let item of services"
-            value="{{ item.serviceName }}"
-            (click)="
-              getCampaignNames(item.serviceName);
-              setIsNational(item.isNational);
-              getStates(item.serviceID, item.isNational)
-            "
+  <div class="col-12">
+    <form #searchForm="ngForm" autocomplete="off" class="row">
+      <div class="col-3 m-t-15">
+        <!-- <mat-form-field class="hide_underline" [style.width]="'100%'">
+          <input matInput style="display:none"> -->
+        <mat-form-field>
+          <mat-label>Serviceline</mat-label>
+          <mat-select
+            [style.width]="'100%'"
+            [(ngModel)]="service"
+            name="service"
+            required
           >
-            {{ item.serviceName }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+            <mat-option
+              *ngFor="let item of services"
+              value="{{ item.serviceName }}"
+              (click)="
+                getCampaignNames(item.serviceName);
+                setIsNational(item.isNational);
+                getStates(item.serviceID, item.isNational)
+              "
+            >
+              {{ item.serviceName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
 
-      <!-- </mat-form-field> -->
-    </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-      <!-- <mat-form-field class="hide_underline" [style.width]="'100%'">
-        <input matInput style="display:none"> -->
-      <mat-form-field>
-        <mat-label>State</mat-label>
-        <mat-select
-          [style.width]="'100%'"
-          [disabled]="isNational"
-          [(ngModel)]="state"
-          name="state"
-          required
-        >
-          <mat-option
-            *ngFor="let item of states"
-            value="{{ item.stateID }}"
-            (click)="setProviderServiceMapID(item.providerServiceMapID)"
+        <!-- </mat-form-field> -->
+      </div>
+      <div class="col-3 m-t-15">
+        <!-- <mat-form-field class="hide_underline" [style.width]="'100%'">
+          <input matInput style="display:none"> -->
+        <mat-form-field>
+          <mat-label>State</mat-label>
+          <mat-select
+            [style.width]="'100%'"
+            [disabled]="isNational"
+            [(ngModel)]="state"
+            name="state"
+            required
           >
-            {{ item.stateName }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+            <mat-option
+              *ngFor="let item of states"
+              value="{{ item.stateID }}"
+              (click)="setProviderServiceMapID(item.providerServiceMapID)"
+            >
+              {{ item.stateName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
 
-      <!-- </mat-form-field> -->
-    </div>
-  </form>
+        <!-- </mat-form-field> -->
+      </div>
+    </form>
+  </div>
 </div>
 <div
-  class="pull-right m-t-15"
+  class=""
+  style="text-align: end"
   *ngIf="showTableFlag && agentLists.length !== 0 && !editable"
 >
   <mat-form-field id="filterbox">
@@ -181,134 +184,133 @@
 </div>
 
 <div class="row m-t-10" *ngIf="showFormFlag || editable">
-  <form #agentListCreationForm="ngForm" autocomplete="off">
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-      <!-- <mat-form-field class="hide_underline" [style.width]="'100%'">
-        <input matInput style="display:none"> -->
-      <mat-form-field>
-        <mat-label>Campaign Name</mat-label>
-        <mat-select
-          [style.width]="'100%'"
-          [(ngModel)]="campaign_name"
-          name="campaign_name"
-          required
-        >
-          <mat-option
-            *ngFor="let item of campaignNames"
-            value="{{ item.campaign_name }}"
+  <div class="col-12">
+    <form #agentListCreationForm="ngForm" autocomplete="off" class="row">
+      <div class="col-3 m-t-15">
+        <!-- <mat-form-field class="hide_underline" [style.width]="'100%'">
+          <input matInput style="display:none"> -->
+        <mat-form-field>
+          <mat-label>Campaign Name</mat-label>
+          <mat-select
+            [style.width]="'100%'"
+            [(ngModel)]="campaign_name"
+            name="campaign_name"
+            required
           >
-            {{ item.campaign_name }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+            <mat-option
+              *ngFor="let item of campaignNames"
+              value="{{ item.campaign_name }}"
+            >
+              {{ item.campaign_name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
 
-      <!-- </mat-form-field> -->
-    </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-40">
-      <mat-radio-group
-        required
-        [(ngModel)]="radio_option"
-        name="radio_option"
-        [disabled]="editMode"
-        (change)="reset()"
+        <!-- </mat-form-field> -->
+      </div>
+      <div class="col-3 m-t-40">
+        <mat-radio-group
+          required
+          [(ngModel)]="radio_option"
+          name="radio_option"
+          [disabled]="editMode"
+          (change)="reset()"
+        >
+          <mat-radio-button class="radio-button m-r-5" color="primary" value="1"
+            >Single</mat-radio-button
+          >
+          <mat-radio-button class="radio-button m-r-5" color="primary" value="2"
+            >Multiple</mat-radio-button
+          >
+          <mat-radio-button class="radio-button m-r-5" color="primary" value="3"
+            >Range</mat-radio-button
+          >
+        </mat-radio-group>
+      </div>
+      <!-- <div class="clearfix visible-sm visible-lg"></div> -->
+
+      <div class="col-3 m-t-15" *ngIf="radio_option === '1'">
+        <mat-form-field style="width: 100%">
+          <mat-label>Agent ID</mat-label>
+          <input
+            matInput
+            [(ngModel)]="agent_ID"
+            [disabled]="editMode"
+            name="agent_ID"
+            appMyMobileNumber
+            minlength="4"
+            maxlength="6"
+            required
+          />
+          <mat-hint>Eg. 2001</mat-hint>
+        </mat-form-field>
+      </div>
+      <div
+        class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15"
+        *ngIf="radio_option === '2'"
       >
-        <mat-radio-button class="radio-button m-r-5" color="primary" value="1"
-          >Single</mat-radio-button
-        >
-        <mat-radio-button class="radio-button m-r-5" color="primary" value="2"
-          >Multiple</mat-radio-button
-        >
-        <mat-radio-button class="radio-button m-r-5" color="primary" value="3"
-          >Range</mat-radio-button
-        >
-      </mat-radio-group>
-    </div>
-    <!-- <div class="clearfix visible-sm visible-lg"></div> -->
+        <mat-form-field style="width: 100%">
+          <mat-label>Agent IDs</mat-label>
+          <input
+            matInput
+            [(ngModel)]="agent_ID"
+            [disabled]="editMode"
+            name="agent_ID"
+            agentID_One
+            required
+          />
+          <mat-hint>Eg. 2001,2002,2004 and so on</mat-hint>
+        </mat-form-field>
+      </div>
+      <div
+        class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15"
+        *ngIf="radio_option === '3'"
+      >
+        <mat-form-field style="width: 100%">
+          <mat-label>Agent ID Range</mat-label>
+          <input
+            matInput
+            [(ngModel)]="agent_ID"
+            [disabled]="editMode"
+            name="agent_ID"
+            agentID_Two
+            required
+          />
+          <mat-hint>Eg. 2001-2010</mat-hint>
+        </mat-form-field>
+      </div>
+      <div
+        class="col-3 m-t-15"
+        *ngIf="
+          (radio_option === '1' ||
+            radio_option === '2' ||
+            radio_option === '3') &&
+          !editMode
+        "
+      >
+        <mat-form-field style="width: 100%">
+          <mat-label>Password</mat-label>
+          <input
+            matInput
+            type="password"
+            [(ngModel)]="password"
+            name="password"
+            minlength="3"
+            maxlength="30"
+            #pwrd="ngModel"
+            required
+            appMyMobileNumber
+          />
 
-    <div
-      class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15"
-      *ngIf="radio_option === '1'"
-    >
-      <mat-form-field style="width: 100%">
-        <mat-label>Agent ID</mat-label>
-        <input
-          matInput
-          [(ngModel)]="agent_ID"
-          [disabled]="editMode"
-          name="agent_ID"
-          appMyMobileNumber
-          minlength="4"
-          maxlength="6"
-          required
-        />
-        <mat-hint>Eg. 2001</mat-hint>
-      </mat-form-field>
-    </div>
-    <div
-      class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15"
-      *ngIf="radio_option === '2'"
-    >
-      <mat-form-field style="width: 100%">
-        <mat-label>Agent IDs</mat-label>
-        <input
-          matInput
-          [(ngModel)]="agent_ID"
-          [disabled]="editMode"
-          name="agent_ID"
-          agentID_One
-          required
-        />
-        <mat-hint>Eg. 2001,2002,2004 and so on</mat-hint>
-      </mat-form-field>
-    </div>
-    <div
-      class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15"
-      *ngIf="radio_option === '3'"
-    >
-      <mat-form-field style="width: 100%">
-        <mat-label>Agent ID Range</mat-label>
-        <input
-          matInput
-          [(ngModel)]="agent_ID"
-          [disabled]="editMode"
-          name="agent_ID"
-          agentID_Two
-          required
-        />
-        <mat-hint>Eg. 2001-2010</mat-hint>
-      </mat-form-field>
-    </div>
-    <div
-      class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15"
-      *ngIf="
-        (radio_option === '1' ||
-          radio_option === '2' ||
-          radio_option === '3') &&
-        !editMode
-      "
-    >
-      <mat-form-field style="width: 100%">
-        <mat-label>Password</mat-label>
-        <input
-          matInput
-          type="password"
-          [(ngModel)]="password"
-          name="password"
-          minlength="3"
-          maxlength="30"
-          #pwrd="ngModel"
-          required
-          appMyMobileNumber
-        />
-
-        <mat-hint class="errorText">
-          <span *ngIf="pwrd.errors && pwrd.touched"
-            >Enter only numbers(min:3, max:30)</span
-          >
-        </mat-hint>
-      </mat-form-field>
-    </div>
-  </form>
+          <mat-hint class="errorText">
+            <span *ngIf="pwrd.errors && pwrd.touched"
+              >Enter only numbers(min:3, max:30)</span
+            >
+          </mat-hint>
+        </mat-form-field>
+      </div>
+    </form>
+  </div>
 
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-15">
     <button

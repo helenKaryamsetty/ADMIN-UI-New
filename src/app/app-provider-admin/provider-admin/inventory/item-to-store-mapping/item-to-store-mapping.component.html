@@ -4,10 +4,10 @@
       <strong>Item to Store Mapping</strong>
     </h4>
   </div>
-  <form #searchForm="ngForm" autocomplete="off">
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-      <mat-form-field class="hide_underline width100">
-        <input matInput style="display: none" />
+  <form #searchForm="ngForm" autocomplete="off" class="col-12 row">
+    <div class="col-3">
+      <mat-form-field class="hide_underline">
+        <!-- <input matInput style="display: none" /> -->
         <mat-select
           placeholder="Serviceline"
           class="width100"
@@ -23,9 +23,9 @@
         </mat-select>
       </mat-form-field>
     </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-      <mat-form-field class="hide_underline width100">
-        <input matInput style="display: none" />
+    <div class="col-3">
+      <mat-form-field class="hide_underline">
+        <!-- <input matInput style="display: none" /> -->
         <mat-select
           placeholder="State"
           class="width100"
@@ -44,11 +44,8 @@
         </mat-select>
       </mat-form-field>
     </div>
-    <div
-      class="col-xs-12 col-sm-12 col-md-4 col-lg-6"
-      *ngIf="itemFacilityMapList?.length > 0 && showTableFlag"
-    >
-      <div class="row" class="pull-right">
+    <div class="col-6" *ngIf="itemFacilityMapList?.length > 0 && showTableFlag">
+      <div class="row" class="" style="text-align: end">
         <mat-form-field id="filterbox">
           <input
             matInput
@@ -222,7 +219,7 @@
 
 <div class="row" *ngIf="showFormFlag">
   <form autocomplete="off" #mappingFieldsForm="ngForm">
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 m-t-25">
+    <div class="col-12 row">
       <span class="f-s-n-b">Store Type</span>
       <mat-radio-group [(ngModel)]="storeType" name="storeType">
         <mat-radio-button
@@ -246,9 +243,9 @@
       </mat-radio-group>
     </div>
 
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-      <mat-form-field class="hide_underline width100">
-        <input matInput style="display: none" />
+    <div class="col-3">
+      <mat-form-field class="hide_underline">
+        <!-- <input matInput style="display: none" /> -->
         <mat-select
           placeholder="Main Store"
           class="width100"
@@ -263,9 +260,9 @@
         </mat-select>
       </mat-form-field>
     </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-      <mat-form-field class="hide_underline width100">
-        <input matInput style="display: none" />
+    <div class="col-3">
+      <mat-form-field class="hide_underline">
+        <!-- <input matInput style="display: none" /> -->
         <mat-select
           placeholder="Sub Store"
           class="width100"
@@ -279,8 +276,8 @@
         </mat-select>
       </mat-form-field>
     </div>
-    <div class="clearfix"></div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 m-t-25">
+    <!-- <div class="clearfix"></div> -->
+    <div class="col-4">
       <span class="f-s-n-b">Map Type</span>
       <mat-radio-group [(ngModel)]="mapType" name="mapType">
         <mat-radio-button color="primary" class="p-l-10" [value]="false"
@@ -295,9 +292,9 @@
         >
       </mat-radio-group>
     </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-      <mat-form-field class="hide_underline width100">
-        <input matInput style="display: none" />
+    <div class="col-3">
+      <mat-form-field class="hide_underline">
+        <!-- <input matInput style="display: none" /> -->
         <mat-select
           placeholder="Item Category"
           class="width100"
@@ -319,10 +316,10 @@
       </mat-form-field>
     </div>
 
-    <div class="clearfix visible-sm"></div>
+    <!-- <div class="clearfix visible-sm"></div> -->
 
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-      <mat-form-field class="hide_underline width100">
+    <div class="col-3">
+      <mat-form-field class="hide_underline">
         <input matInput style="display: none" />
         <mat-select
           placeholder="Item Name"

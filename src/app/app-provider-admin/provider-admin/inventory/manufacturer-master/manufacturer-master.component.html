@@ -4,11 +4,16 @@
       <strong>Manufacturer Master</strong>
     </h4>
   </div>
-  <div class="col-xs-12 col-sm-12 p-a-0">
-    <form id="form" #manfactureSearchForm="ngForm" autocomplete="off">
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <mat-form-field class="hide_underline" [style.width]="'100%'">
-          <input matInput style="display: none" />
+  <div class="col-12 p-a-0">
+    <form
+      id="form"
+      #manfactureSearchForm="ngForm"
+      autocomplete="off"
+      class="row"
+    >
+      <div class="col-3">
+        <mat-form-field class="hide_underline">
+          <!-- <input matInput style="display: none" /> -->
           <mat-select
             required
             name="Services"
@@ -23,9 +28,9 @@
           </mat-select>
         </mat-form-field>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <mat-form-field class="hide_underline" [style.width]="'100%'">
-          <input matInput style="display: none" />
+      <div class="col-3">
+        <mat-form-field class="hide_underline">
+          <!-- <input matInput style="display: none" /> -->
           <mat-select
             required
             name="state"
@@ -47,7 +52,7 @@
         class="col-xs-12 col-sm-12 col-md-4 col-lg-6"
         *ngIf="tableMode && providerServiceMapID && manufactureList?.length > 0"
       >
-        <div class="row" class="pull-right">
+        <div class="row" class="" style="text-align: end">
           <mat-form-field id="filterbox">
             <input
               matInput
@@ -241,11 +246,11 @@
       <strong>Manufacturer Master</strong>
     </h4>
   </div>
-  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-a-0">
-    <form id="addform" #manufactureAddForm1="ngForm">
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <mat-form-field class="hide_underline" [style.width]="'100%'">
-          <input matInput style="display: none" />
+  <div class="col-12 p-a-0">
+    <form id="addform" #manufactureAddForm1="ngForm" class="row">
+      <div class="col-3">
+        <mat-form-field class="hide_underline">
+          <!-- <input matInput style="display: none" /> -->
           <mat-select
             required
             name="Services"
@@ -261,9 +266,9 @@
           </mat-select>
         </mat-form-field>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <mat-form-field class="hide_underline width100">
-          <input matInput style="display: none" />
+      <div class="col-3">
+        <mat-form-field class="hide_underline">
+          <!-- <input matInput style="display: none" /> -->
           <mat-select
             placeholder="State"
             class="width100"
@@ -290,9 +295,14 @@
           </div> -->
     </form>
     <div class="clearfix visible-md visible-lg"></div>
-    <form id="addform" #manufactureAddForm="ngForm" autocomplete="off">
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <mat-form-field [style.width]="'100%'">
+    <form
+      id="addform"
+      #manufactureAddForm="ngForm"
+      autocomplete="off"
+      class="col-12 row"
+    >
+      <div class="col-3">
+        <mat-form-field>
           <input
             matInput
             required
@@ -322,8 +332,8 @@
           </mat-hint>
         </mat-form-field>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <mat-form-field [style.width]="'100%'">
+      <div class="col-3">
+        <mat-form-field>
           <input
             matInput
             required
@@ -346,8 +356,8 @@
           </mat-hint>
         </mat-form-field>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <mat-form-field [style.width]="'100%'">
+      <div class="col-3">
+        <mat-form-field>
           <input
             matInput
             placeholder="Manufacturer Description"
@@ -359,8 +369,8 @@
           />
         </mat-form-field>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <mat-form-field [style.width]="'100%'">
+      <div class="col-3">
+        <mat-form-field>
           <input
             matInput
             placeholder="Contact Person"
@@ -376,8 +386,8 @@
         </mat-form-field>
       </div>
 
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
-        <mat-form-field [style.width]="'100%'">
+      <div class="col-3">
+        <mat-form-field>
           <input
             matInput
             placeholder="GST No."
@@ -397,8 +407,8 @@
           </mat-hint>
         </mat-form-field>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
-        <mat-form-field class="width100">
+      <div class="col-3">
+        <mat-form-field>
           <input
             matInput
             appMyAddressDirective
@@ -417,8 +427,8 @@
           </mat-hint>
         </mat-form-field>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
-        <mat-form-field class="width100">
+      <div class="col-3">
+        <mat-form-field>
           <input
             matInput
             appMyAddressDirective
@@ -436,9 +446,9 @@
           </mat-hint>
         </mat-form-field>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t--15">
-        <mat-form-field class="hide_underline" [style.width]="'100%'">
-          <input matInput style="display: none" />
+      <div class="col-3">
+        <mat-form-field class="hide_underline">
+          <!-- <input matInput style="display: none" /> -->
           <mat-select
             required
             name="country"
@@ -454,9 +464,9 @@
         </mat-form-field>
       </div>
       <br />
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t--15">
-        <mat-form-field class="hide_underline" [style.width]="'100%'">
-          <input matInput style="display: none" />
+      <div class="col-3">
+        <mat-form-field class="hide_underline">
+          <!-- <input matInput style="display: none" /> -->
           <mat-select
             required
             name="state"
@@ -476,9 +486,9 @@
         </mat-form-field>
       </div>
       <br />
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t--15">
-        <mat-form-field class="hide_underline width100">
-          <input matInput style="display: none" />
+      <div class="col-3">
+        <mat-form-field class="hide_underline">
+          <!-- <input matInput style="display: none" /> -->
           <mat-select
             placeholder="District"
             class="width100"
@@ -496,8 +506,8 @@
         </mat-form-field>
       </div>
       <br />
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
-        <mat-form-field class="width100" appMyMobileNumber>
+      <div class="col-3">
+        <mat-form-field appMyMobileNumber>
           <input
             matInput
             placeholder="Pincode"
@@ -514,7 +524,7 @@
           </mat-hint>
         </mat-form-field>
       </div>
-      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 m-t-10">
+      <div class="col-3">
         <button
           mat-mini-fab
           class="xs-pull-right sm-pull-right md-pull-right lg-pull-left mat_blue"
@@ -713,10 +723,15 @@
       <strong>Edit Manufacturer</strong>
     </h4>
   </div>
-  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-a-0">
-    <form id="Editform" #manufactureEditForm="ngForm" autocomplete="off">
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <mat-form-field class="hide_underline" [style.width]="'100%'">
+  <div class="col-12 p-a-0">
+    <form
+      id="Editform"
+      #manufactureEditForm="ngForm"
+      autocomplete="off"
+      class="row"
+    >
+      <div class="col-3">
+        <mat-form-field class="hide_underline">
           <input matInput style="display: none" />
           <mat-select
             required
@@ -733,8 +748,8 @@
         </mat-form-field>
       </div>
 
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <mat-form-field class="hide_underline" [style.width]="'100%'">
+      <div class="col-3">
+        <mat-form-field class="hide_underline">
           <input matInput style="display: none" />
           <mat-select
             required
@@ -751,8 +766,8 @@
         </mat-form-field>
       </div>
       <div class="clearfix visible-md visible-lg"></div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <mat-form-field [style.width]="'100%'">
+      <div class="col-lg-3">
+        <mat-form-field>
           <input
             matInput
             required
@@ -769,8 +784,8 @@
               </mat-hint> -->
         </mat-form-field>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <mat-form-field [style.width]="'100%'">
+      <div class="col-3">
+        <mat-form-field>
           <input
             matInput
             required
@@ -787,8 +802,8 @@
               </mat-hint> -->
         </mat-form-field>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <mat-form-field [style.width]="'100%'">
+      <div class="col-3">
+        <mat-form-field>
           <input
             matInput
             placeholder="Manufacturer Description"
@@ -800,8 +815,8 @@
           />
         </mat-form-field>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <mat-form-field [style.width]="'100%'">
+      <div class="col-3">
+        <mat-form-field>
           <input
             matInput
             placeholder="Contact Person"
@@ -815,8 +830,8 @@
               </mat-hint> -->
         </mat-form-field>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <mat-form-field [style.width]="'100%'">
+      <div class="col-3">
+        <mat-form-field>
           <input
             matInput
             placeholder="GST No."
@@ -836,8 +851,8 @@
           </mat-hint>
         </mat-form-field>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <mat-form-field class="width100">
+      <div class="col-3">
+        <mat-form-field>
           <input
             matInput
             appMyAddressDirective
@@ -856,8 +871,8 @@
           </mat-hint>
         </mat-form-field>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <mat-form-field class="width100">
+      <div class="col-3">
+        <mat-form-field>
           <input
             matInput
             appMyAddressDirective
@@ -873,8 +888,8 @@
                 </mat-hint> -->
         </mat-form-field>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <mat-form-field class="hide_underline" [style.width]="'100%'">
+      <div class="col-3">
+        <mat-form-field class="hide_underline">
           <input matInput style="display: none" />
           <mat-select
             required
@@ -893,9 +908,9 @@
           </mat-select>
         </mat-form-field>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <mat-form-field class="hide_underline" [style.width]="'100%'">
-          <input matInput style="display: none" />
+      <div class="col-3">
+        <mat-form-field class="hide_underline">
+          <!-- <input matInput style="display: none" /> -->
           <mat-select
             required
             name="edit_permanentstate"
@@ -913,9 +928,9 @@
           </mat-select>
         </mat-form-field>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <mat-form-field class="hide_underline width100">
-          <input matInput style="display: none" />
+      <div class="col-3">
+        <mat-form-field class="hide_underline">
+          <!-- <input matInput style="display: none" /> -->
           <mat-select
             placeholder="District"
             class="width100"
@@ -931,8 +946,8 @@
           </mat-select>
         </mat-form-field>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <mat-form-field class="width100" appMyMobileNumber>
+      <div class="col-3">
+        <mat-form-field appMyMobileNumber>
           <input
             matInput
             placeholder="Pincode"

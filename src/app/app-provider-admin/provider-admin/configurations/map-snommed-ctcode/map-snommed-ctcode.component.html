@@ -6,8 +6,8 @@
   </div>
   <form #searchForm="ngForm" autocomplete="off">
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-      <mat-form-field class="hide_underline width100">
-        <input matInput style="display: none" />
+      <mat-form-field class="hide_underline">
+        <!-- <input matInput style="display: none" /> -->
         <mat-label>Master Type</mat-label>
         <mat-select
           class="width100"
@@ -146,10 +146,15 @@
       <strong>Add Mapping Snomed CT Code</strong>
     </h4>
   </div>
-  <form id="addform" #itemCreationForm1="ngForm" autocomplete="off">
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-      <mat-form-field class="hide_underline width100">
-        <input matInput style="display: none" />
+  <form
+    id="addform"
+    #itemCreationForm1="ngForm"
+    autocomplete="off"
+    class="col-12 row"
+  >
+    <div class="col-xs-3">
+      <mat-form-field class="hide_underline">
+        <!-- <input matInput style="display: none" /> -->
         <mat-label>Master Type</mat-label>
         <mat-select
           class="width100"
@@ -166,11 +171,11 @@
     </div>
   </form>
 
-  <div class="clearfix visible-md visible-lg"></div>
+  <!-- <div class="clearfix visible-md visible-lg"></div> -->
 
-  <form #itemCreationForm="ngForm" autocomplete="off">
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-      <mat-form-field class="hide_underline width100">
+  <form #itemCreationForm="ngForm" autocomplete="off" class="col-12 row">
+    <div class="col-3">
+      <mat-form-field class="hide_underline">
         <input matInput style="display: none" />
         <mat-label>Master Name</mat-label>
         <mat-select
@@ -189,7 +194,7 @@
         </mat-select>
       </mat-form-field>
     </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 m-t-25">
+    <div class="col-3">
       <mat-form-field class="width80">
         <mat-label>Snomed CT Term</mat-label>
         <input
@@ -221,7 +226,7 @@
         <mat-icon class="cursorPointer">delete</mat-icon>
       </span>
     </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-25">
+    <div class="col-3">
       <mat-form-field class="width100">
         <mat-label>Snomed CT Code</mat-label>
         <input
@@ -340,10 +345,10 @@
       <strong>Edit Mapping Snomed CT Code</strong>
     </h4>
   </div>
-  <form #editItemCreationForm="ngForm" autocomplete="off">
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-      <mat-form-field class="hide_underline width100">
-        <input matInput style="display: none" />
+  <form #editItemCreationForm="ngForm" autocomplete="off" class="col-12 row">
+    <div class="col-3">
+      <mat-form-field class="hide_underline">
+        <!-- <input matInput style="display: none" /> -->
         <mat-label>Master Type</mat-label>
         <mat-select
           class="width100"
@@ -359,7 +364,7 @@
       </mat-form-field>
     </div>
     <div class="clearfix visible-md visible-lg"></div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 m-t-25">
+    <div class="col-3">
       <!-- <mat-form-field class="hide_underline width100">
         <input matInput style="display:none">
         <mat-select placeholder="Master Name" class="width100" name="editMasterName" [(ngModel)]="editMasterName" required>
@@ -368,7 +373,7 @@
           </mat-option>
         </mat-select>
       </mat-form-field> -->
-      <mat-form-field class="width80">
+      <mat-form-field>
         <mat-label>Master Name</mat-label>
         <input
           autocomplete="off"
@@ -381,8 +386,8 @@
         />
       </mat-form-field>
     </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 m-t-25">
-      <mat-form-field class="width80">
+    <div class="col-3">
+      <mat-form-field>
         <mat-label>Snomed CT Term</mat-label>
         <input
           maxlength="100"
@@ -413,7 +418,7 @@
         <mat-icon class="cursorPointer">delete</mat-icon>
       </span>
     </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 m-t-25">
+    <div class="col-3">
       <mat-form-field class="width100">
         <mat-label>Snomed CT Code</mat-label>
         <input

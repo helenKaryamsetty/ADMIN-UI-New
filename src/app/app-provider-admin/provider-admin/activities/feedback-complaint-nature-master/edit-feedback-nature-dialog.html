@@ -1,17 +1,19 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="pull-left">
-      <h4 class="modal-title">Edit Complaint Nature</h4>
+    <div class="col-xs-6 col-sm-6 col-md-9 col-lg-9">
+      <h4 mat-dialog-title class="modal-title" style="margin: unset">
+        Edit Complaint Nature
+      </h4>
     </div>
-    <div class="pull-right">
+    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
       <button
         mat-button
-        class="pull-right"
+        class="pull-right p-r-0"
         [mat-dialog-close]="true"
-        style="background-color: unset; border: unset"
+        style="background-color: unset; border: unset; margin: 20px"
       >
         <mat-icon
-          matTooltip="close"
+          mdTooltip="close"
           class="mat-icon material-icons pull-right"
           role="img"
           aria-hidden="true"

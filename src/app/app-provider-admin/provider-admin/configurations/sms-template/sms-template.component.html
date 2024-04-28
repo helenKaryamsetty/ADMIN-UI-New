@@ -1,6 +1,6 @@
-<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-  <mat-form-field class="hide_underline width100">
-    <input matInput style="display: none" />
+<div class="col-12 row" style="margin-top: 20px">
+  <div class="col-3">
+    <!-- <input matInput style="display: none" /> -->
     <mat-form-field>
       <mat-label>Serviceline</mat-label>
       <mat-select
@@ -15,22 +15,22 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
-  </mat-form-field>
-</div>
-<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-  <mat-form-field class="hide_underline width100">
-    <input matInput style="display: none" />
-    <mat-label>State</mat-label>
-    <mat-select class="width100" [(ngModel)]="state" name="state" required>
-      <mat-option
-        *ngFor="let item of states"
-        [value]="item"
-        (click)="setProviderServiceMapID(item.providerServiceMapID)"
-      >
-        {{ item.stateName }}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
+  </div>
+  <div class="col-3">
+    <mat-form-field>
+      <!-- <input matInput style="display: none" /> -->
+      <mat-label>State</mat-label>
+      <mat-select class="width100" [(ngModel)]="state" name="state" required>
+        <mat-option
+          *ngFor="let item of states"
+          [value]="item"
+          (click)="setProviderServiceMapID(item.providerServiceMapID)"
+        >
+          {{ item.stateName }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
 </div>
 
 <div class="row" *ngIf="showTableFlag">
@@ -143,196 +143,203 @@
     <h4 class="f-s-b m-t-20 m-b-20">Create SMS Template</h4>
   </div>
 
-  <form #smsForm="ngForm" autocomplete="off">
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" myName_space>
-      <mat-form-field [style.width]="'100%'">
-        <mat-label>Template Name</mat-label>
-        <input
-          matInput
-          appUsernameValidator
-          required
-          [readonly]="isReadonly"
-          ngModel
-          name="templateName"
-          maxlength="40"
-        />
-      </mat-form-field>
-    </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-      <mat-form-field>
-        <mat-label>SMS Type</mat-label>
-        <mat-select [style.width]="'100%'" ngModel required name="smsType">
-          <mat-option *ngFor="let type of SMS_Types" [value]="type.smsTypeID">
-            {{ type.smsType }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-
-    <div class="clearfix"></div>
-
-    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-      <mat-form-field style="width: 100%">
-        <mat-label>SMS Template</mat-label>
-        <textarea
-          matInput
-          appSmsTemplateValidator
-          rows="5"
-          ngModel
-          required
-          [readonly]="isReadonly"
-          placeholder="SMS Template"
-          minlength="20"
-          maxlength="200"
-          #sms
-          name="smsTemplate"
-        ></textarea>
-        <mat-hint align="end"
-          >{{ sms.value.length ? sms.value.length : 0 }}/200</mat-hint
-        >
-      </mat-form-field>
-    </div>
-
-    <div class="clearfix"></div>
-
-    <div *ngIf="showParameters">
-      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-        <mat-form-field>
-          <mat-label>Select Parameter</mat-label>
-          <mat-select
-            [style.width]="'100%'"
-            ngModel
-            name="parameter"
-            (selectionChange)="getSMSparameters()"
-          >
-            <mat-option
-              *ngFor="let parameter of Parameters"
-              [value]="parameter"
-            >
-              {{ parameter }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-        <mat-form-field>
-          <mat-label>Select Value Type</mat-label>
-          <mat-select
-            [style.width]="'100%'"
-            ngModel
-            name="valueType"
-            (selectionChange)="setValuesInDropdown(parameterValueType.value)"
-            #parameterValueType="ngModel"
-          >
-            <mat-option *ngFor="let type of smsParameters" [value]="type">
-              {{ type.smsParameterType }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-        <mat-form-field>
-          <mat-label>Select Value</mat-label>
-          <mat-select [style.width]="'100%'" ngModel name="value">
-            <mat-option
-              *ngFor="let val of selectedParameterValues"
-              [value]="val"
-            >
-              {{ val.smsParameterName }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-        <button
-          class="m-t-10 pull-right mat_blue"
-          color="primary"
-          type="button"
-          md-mini-fab
-          (click)="add(smsForm.value)"
-        >
-          <mat-icon
-            matSuffix
-            class="mat-icon material-icons"
-            matTooltip="Add"
-            role="img"
-            aria-hidden="true"
-            style="cursor: pointer"
-            >add</mat-icon
-          >
-        </button>
-      </div>
-      <div
-        class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10"
-        *ngIf="smsParameterData.data.length > 0"
-      >
-        <table
-          mat-table
-          [dataSource]="smsParameterData"
-          class="table table-striped table-hover"
-        >
-          <ng-container matColumnDef="sno">
-            <th mat-header-cell *matHeaderCellDef>S.No</th>
-            <td mat-cell *matCellDef="let element">
-              {{ element.sno }}
-            </td>
-          </ng-container>
-
-          <ng-container matColumnDef="smsParameterName">
-            <th mat-header-cell *matHeaderCellDef>Parameter</th>
-            <td mat-cell *matCellDef="let element">
-              {{ element.smsParameterName }}
-            </td>
-          </ng-container>
-
-          <ng-container matColumnDef="smsParameterType">
-            <th mat-header-cell *matHeaderCellDef>Value Type</th>
-            <td mat-cell *matCellDef="let element">
-              {{ element.smsParameterType }}
-            </td>
-          </ng-container>
-
-          <ng-container matColumnDef="smsParameterValue">
-            <th mat-header-cell *matHeaderCellDef>Value</th>
-            <td mat-cell *matCellDef="let element">
-              {{ element.smsParameterValue }}
-            </td>
-          </ng-container>
-
-          <ng-container matColumnDef="action">
-            <th mat-header-cell *matHeaderCellDef>Action</th>
-            <td mat-cell *matCellDef="let element; let i = index">
-              <mat-icon
-                matTooltip="remove"
-                class="mat-icon material-icons"
-                role="img"
-                aria-hidden="true"
-                style="cursor: pointer"
-                (click)="remove(element, i)"
-                >clear</mat-icon
+  <div class="">
+    <form #smsForm="ngForm" autocomplete="off">
+      <div class="row">
+        <div class="col-3" myName_space>
+          <mat-form-field [style.width]="'100%'">
+            <mat-label>Template Name</mat-label>
+            <input
+              matInput
+              appUsernameValidator
+              required
+              [readonly]="isReadonly"
+              ngModel
+              name="templateName"
+              maxlength="40"
+            />
+          </mat-form-field>
+        </div>
+        <div class="col-3">
+          <mat-form-field>
+            <mat-label>SMS Type</mat-label>
+            <mat-select [style.width]="'100%'" ngModel required name="smsType">
+              <mat-option
+                *ngFor="let type of SMS_Types"
+                [value]="type.smsTypeID"
               >
-            </td>
-          </ng-container>
-
-          <tr
-            mat-header-row
-            *matHeaderRowDef="smsParametersDisplayedColumns"
-          ></tr>
-          <tr
-            mat-row
-            *matRowDef="let row; columns: smsParametersDisplayedColumns"
-          ></tr>
-        </table>
-        <mat-paginator
-          [hidden]="smsParameterData.data.length === 0"
-          [pageSizeOptions]="[5, 10, 20]"
-          [pageSize]="5"
-          showFirstLastButtons
-        >
-        </mat-paginator>
+                {{ type.smsType }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
       </div>
-    </div>
-  </form>
+
+      <div class="clearfix"></div>
+
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+        <mat-form-field style="width: 100%">
+          <mat-label>SMS Template</mat-label>
+          <textarea
+            matInput
+            appSmsTemplateValidator
+            rows="5"
+            ngModel
+            required
+            [readonly]="isReadonly"
+            placeholder="SMS Template"
+            minlength="20"
+            maxlength="200"
+            #sms
+            name="smsTemplate"
+          ></textarea>
+          <mat-hint align="end"
+            >{{ sms.value.length ? sms.value.length : 0 }}/200</mat-hint
+          >
+        </mat-form-field>
+      </div>
+
+      <!-- <div class="clearfix"></div> -->
+
+      <div *ngIf="showParameters">
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+          <mat-form-field>
+            <mat-label>Select Parameter</mat-label>
+            <mat-select
+              [style.width]="'100%'"
+              ngModel
+              name="parameter"
+              (selectionChange)="getSMSparameters()"
+            >
+              <mat-option
+                *ngFor="let parameter of Parameters"
+                [value]="parameter"
+              >
+                {{ parameter }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+          <mat-form-field>
+            <mat-label>Select Value Type</mat-label>
+            <mat-select
+              [style.width]="'100%'"
+              ngModel
+              name="valueType"
+              (selectionChange)="setValuesInDropdown(parameterValueType.value)"
+              #parameterValueType="ngModel"
+            >
+              <mat-option *ngFor="let type of smsParameters" [value]="type">
+                {{ type.smsParameterType }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+          <mat-form-field>
+            <mat-label>Select Value</mat-label>
+            <mat-select [style.width]="'100%'" ngModel name="value">
+              <mat-option
+                *ngFor="let val of selectedParameterValues"
+                [value]="val"
+              >
+                {{ val.smsParameterName }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+          <button
+            class="m-t-10 pull-right mat_blue"
+            color="primary"
+            type="button"
+            md-mini-fab
+            (click)="add(smsForm.value)"
+          >
+            <mat-icon
+              matSuffix
+              class="mat-icon material-icons"
+              matTooltip="Add"
+              role="img"
+              aria-hidden="true"
+              style="cursor: pointer"
+              >add</mat-icon
+            >
+          </button>
+        </div>
+        <div
+          class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10"
+          *ngIf="smsParameterData.data.length > 0"
+        >
+          <table
+            mat-table
+            [dataSource]="smsParameterData"
+            class="table table-striped table-hover"
+          >
+            <ng-container matColumnDef="sno">
+              <th mat-header-cell *matHeaderCellDef>S.No</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.sno }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="smsParameterName">
+              <th mat-header-cell *matHeaderCellDef>Parameter</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.smsParameterName }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="smsParameterType">
+              <th mat-header-cell *matHeaderCellDef>Value Type</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.smsParameterType }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="smsParameterValue">
+              <th mat-header-cell *matHeaderCellDef>Value</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.smsParameterValue }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="action">
+              <th mat-header-cell *matHeaderCellDef>Action</th>
+              <td mat-cell *matCellDef="let element; let i = index">
+                <mat-icon
+                  matTooltip="remove"
+                  class="mat-icon material-icons"
+                  role="img"
+                  aria-hidden="true"
+                  style="cursor: pointer"
+                  (click)="remove(element, i)"
+                  >clear</mat-icon
+                >
+              </td>
+            </ng-container>
+
+            <tr
+              mat-header-row
+              *matHeaderRowDef="smsParametersDisplayedColumns"
+            ></tr>
+            <tr
+              mat-row
+              *matRowDef="let row; columns: smsParametersDisplayedColumns"
+            ></tr>
+          </table>
+          <mat-paginator
+            [hidden]="smsParameterData.data.length === 0"
+            [pageSizeOptions]="[5, 10, 20]"
+            [pageSize]="5"
+            showFirstLastButtons
+          >
+          </mat-paginator>
+        </div>
+      </div>
+    </form>
+  </div>
 
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10">
     <button
@@ -385,19 +392,20 @@
   </div>
 
   <form #smsViewForm="ngForm" autocomplete="off">
-    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-      <mat-form-field [style.width]="'100%'">
-        <mat-label>Template Name</mat-label>
-        <input matInput required ngModel name="templateName" readonly />
-      </mat-form-field>
+    <div class="col-12 row">
+      <div class="col-3">
+        <mat-form-field [style.width]="'100%'">
+          <mat-label>Template Name</mat-label>
+          <input matInput required ngModel name="templateName" readonly />
+        </mat-form-field>
+      </div>
+      <div class="col-3">
+        <mat-form-field [style.width]="'100%'">
+          <mat-label>SMS Type</mat-label>
+          <input matInput ngModel name="smsType" readonly />
+        </mat-form-field>
+      </div>
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-      <mat-form-field [style.width]="'100%'">
-        <mat-label>SMS Type</mat-label>
-        <input matInput ngModel name="smsType" readonly />
-      </mat-form-field>
-    </div>
-
     <div class="clearfix"></div>
 
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
@@ -475,6 +483,7 @@
         type="button"
         class="pull-right m-r-0 mat_blue"
         (click)="showTable()"
+        style="margin-bottom: 55px"
       >
         Back
       </button>

@@ -46,7 +46,7 @@
 
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15" *ngIf="showtype">
       <mat-form-field>
-        <input matInput appQuestionnaireValidator style="display: none" />
+        <!-- <input matInput appQuestionnaireValidator style="display: none" /> -->
         <mat-label>Question Type</mat-label>
         <mat-select
           name="questionType"
@@ -87,7 +87,11 @@
         </div> -->
   </div>
 
-  <div class="pull-right m-t-15" *ngIf="!showAdd && !disabledFlag">
+  <div
+    class=""
+    style="text-align: end; margin-top: 30px"
+    *ngIf="!showAdd && !disabledFlag"
+  >
     <mat-form-field id="filterbox">
       <input
         matInput
@@ -202,8 +206,8 @@
             let isLast = last
           "
         >
-          <div [formGroupName]="i">
-            <div class="col-xs-12 col-sm-6">
+          <div [formGroupName]="i" class="col-12 row">
+            <div class="col-6">
               <mat-form-field [style.width]="'100%'">
                 <mat-label>Question</mat-label>
                 <input
@@ -216,7 +220,7 @@
                 />
               </mat-form-field>
             </div>
-            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+            <div class="col-3">
               <mat-form-field [style.width]="'100%'">
                 <mat-label>Rank</mat-label>
                 <input
@@ -230,7 +234,7 @@
               </mat-form-field>
             </div>
 
-            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+            <div class="col-3">
               <mat-form-field>
                 <mat-label>Answer Type</mat-label>
                 <mat-select
@@ -312,16 +316,19 @@
                   </div>
                   <button
                     md-mini-fab
-                    class="mat_blue"
+                    class="mat_blue_circle"
                     color="primary"
                     mdTooltip="add option"
                     (click)="addOptionField(i)"
+                    style="text-align: end"
                   >
                     <mat-icon class="md-18">add</mat-icon>
                   </button>
                   <button
                     md-mini-fab
                     color="warn"
+                    class="mat_warn_circle"
+                    style="text-align: end"
                     mdTooltip="remove option"
                     (click)="deleteOptionField(i, idx)"
                   >
@@ -332,12 +339,11 @@
             </div>
 
             <div class="pull-right">
-              <div class="row">
-                <div class="col-xs-3 col-sm-3">
+              <div class="col-12" style="text-align: end">
+                <div class="row">
                   <button
                     md-mini-fab
-                    class="m-t-10"
-                    class="mat_blue"
+                    class="mat_blue_circle"
                     color="primary"
                     mdTooltip="add question"
                     *ngIf="isLast"
@@ -347,13 +353,9 @@
                       >add</mat-icon
                     >
                   </button>
-                </div>
-                &nbsp;&nbsp;&nbsp;
-
-                <div class="col-xs-3 col-sm-3 m-r-20">
                   <button
                     md-mini-fab
-                    class="m-t-10"
+                    class="mat_warn_circle"
                     color="warn"
                     mdTooltip="remove question"
                     (click)="onDeleteRow(i)"

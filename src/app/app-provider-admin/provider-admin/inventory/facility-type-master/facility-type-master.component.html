@@ -4,16 +4,15 @@
       <strong>Facility Type Master</strong>
     </h4>
   </div>
-  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-a-0">
-    <form id="form" autocomplete="off" #facilitySearchForm="ngForm">
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <mat-form-field class="hide_underline" [style.width]="'100%'">
+  <div class="col-12 p-a-0">
+    <form id="form" autocomplete="off" #facilitySearchForm="ngForm" class="row">
+      <div class="col-3">
+        <mat-form-field class="hide_underline">
           <input matInput style="display: none" />
           <mat-select
             required
             name="Services"
             placeholder="Serviceline"
-            [style.width]="'100%'"
             [(ngModel)]="serviceline"
             (selectionChange)="getstates(serviceline)"
           >
@@ -23,14 +22,13 @@
           </mat-select>
         </mat-form-field>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <mat-form-field class="hide_underline" [style.width]="'100%'">
+      <div class="col-3">
+        <mat-form-field class="hide_underline">
           <input matInput style="display: none" />
           <mat-select
             required
             name="state"
             placeholder="State"
-            [style.width]="'100%'"
             [(ngModel)]="state"
           >
             <mat-option
@@ -49,8 +47,8 @@
       >
         <div
           class="row"
+          style="text-align: end"
           *ngIf="facilityMasterList?.length > 0"
-          class="pull-right"
         >
           <mat-form-field id="filterbox" class="">
             <input
@@ -213,17 +211,16 @@
       <strong>Facility Type Master</strong>
     </h4>
   </div>
-  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-a-0">
-    <form id="addform" #facilityAddForm1="ngForm">
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <mat-form-field class="hide_underline" [style.width]="'100%'">
+  <div class="col-12 p-a-0">
+    <form id="addform" #facilityAddForm1="ngForm" class="row">
+      <div class="col-3">
+        <mat-form-field class="hide_underline">
           <input matInput style="display: none" />
           <mat-select
             required
             name="Services"
             placeholder="Serviceline"
             [disabled]="true"
-            [style.width]="'100%'"
             [(ngModel)]="serviceline"
             (change)="getstates(serviceline)"
           >
@@ -233,14 +230,13 @@
           </mat-select>
         </mat-form-field>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <mat-form-field class="hide_underline" [style.width]="'100%'">
+      <div class="col-3">
+        <mat-form-field class="hide_underline">
           <input matInput style="display: none" />
           <mat-select
             required
             name="state"
             placeholder="State"
-            [style.width]="'100%'"
             [disabled]="true"
             [(ngModel)]="state"
           >
@@ -253,9 +249,14 @@
     </form>
     <div class="clearfix visible-md visible-lg"></div>
 
-    <form id="inputform" #facilityAddForm="ngForm" autocomplete="off">
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <mat-form-field [style.width]="'100%'">
+    <form
+      id="inputform"
+      #facilityAddForm="ngForm"
+      autocomplete="off"
+      class="col-12 row"
+    >
+      <div class="col-3">
+        <mat-form-field>
           <input
             matInput
             required
@@ -285,8 +286,8 @@
           </mat-hint>
         </mat-form-field>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <mat-form-field [style.width]="'100%'">
+      <div class="col-3">
+        <mat-form-field>
           <input
             matInput
             required
@@ -309,8 +310,8 @@
           </mat-hint>
         </mat-form-field>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <mat-form-field [style.width]="'100%'">
+      <div class="col-3">
+        <mat-form-field>
           <input
             matInput
             placeholder="Facility Description"
@@ -321,7 +322,7 @@
           />
         </mat-form-field>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
+      <div class="col-3 m-t-10">
         <button
           mat-mini-fab
           class="xs-pull-right sm-pull-right md-pull-left lg-pull-left mat_blue"
@@ -460,17 +461,21 @@
       <strong>Edit Facility Type</strong>
     </h4>
   </div>
-  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-a-0">
-    <form autocomplete="off" id="editform" #faciliTypEditForm="ngForm">
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <mat-form-field class="hide_underline" [style.width]="'100%'">
+  <div class="col-12 p-a-0">
+    <form
+      autocomplete="off"
+      id="editform"
+      #faciliTypEditForm="ngForm"
+      class="row"
+    >
+      <div class="col-3">
+        <mat-form-field class="hide_underline">
           <input matInput style="display: none" />
           <mat-select
             required
             name="Services"
             placeholder="Serviceline"
             [disabled]="true"
-            [style.width]="'100%'"
             [(ngModel)]="edit_Serviceline"
             (change)="getProviderStatesInService()"
           >
@@ -481,14 +486,13 @@
         </mat-form-field>
       </div>
 
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <mat-form-field class="hide_underline" [style.width]="'100%'">
+      <div class="col-3">
+        <mat-form-field class="hide_underline">
           <input matInput style="display: none" />
           <mat-select
             required
             name="state"
             placeholder="State"
-            [style.width]="'100%'"
             [disabled]="true"
             [(ngModel)]="edit_State"
           >
@@ -499,8 +503,8 @@
         </mat-form-field>
       </div>
       <div class="clearfix visible-md visible-lg"></div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <mat-form-field [style.width]="'100%'">
+      <div class="col-3">
+        <mat-form-field>
           <input
             matInput
             required
@@ -524,8 +528,8 @@
           </mat-hint>
         </mat-form-field>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <mat-form-field [style.width]="'100%'">
+      <div class="col-3">
+        <mat-form-field>
           <input
             matInput
             required
@@ -549,8 +553,8 @@
           >
         </mat-hint>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <mat-form-field [style.width]="'100%'">
+      <div class="col-3">
+        <mat-form-field>
           <input
             matInput
             placeholder="Facility Description"
