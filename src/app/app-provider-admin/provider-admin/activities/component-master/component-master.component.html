@@ -121,6 +121,39 @@
           </mat-form-field>
         </div>
 
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
+          <mat-form-field class="input-full-width">
+            <input
+              autocomplete="off"
+              maxlength="100"
+              matInput
+              placeholder="LOINC Code "
+              [style.width]="'100%'"
+              formControlName="testLoincCode"
+              [(ngModel)]="searchTerm"
+              (keyup.enter)="searchComponents(searchTerm, 0)"
+            />
+          </mat-form-field>
+          <span>
+            <mat-icon
+              class="search-btn cursorPointer"
+              matSuffix
+              (keyup.enter)="searchComponents(searchTerm, 0)"
+              (click)="searchComponents(searchTerm, 0)"
+              [class.toolbar-icon-disabled]="componentFlag"
+              >search</mat-icon
+            >
+          </span>
+          <span
+            *ngIf="componentFlag === true"
+            tabindex="{0}"
+            (keyup)="onDeleteClick()"
+            (click)="onDeleteClick()"
+          >
+            <mat-icon class="cursorPointer">delete</mat-icon>
+          </span>
+        </div>
+
         <div class="clearfix"></div>
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
           <mat-form-field class="input-full-width">
@@ -249,7 +282,7 @@
                 allowText="allowDecimal"
                 matInput
                 [style.width]="'100%'"
-                (selectionChange)="setMaxRange()"
+                (change)="setMaxRange()"
                 formControlName="range_max"
               />
             </mat-form-field>
@@ -263,7 +296,7 @@
                 allowText="allowDecimal"
                 matInput
                 [style.width]="'100%'"
-                (selectionChange)="setMinNormalRange()"
+                (change)="setMinNormalRange()"
                 formControlName="range_normal_min"
               />
             </mat-form-field>
@@ -277,22 +310,19 @@
                 allowText="allowDecimal"
                 matInput
                 [style.width]="'100%'"
-                (selectionChange)="setMaxNormalRange()"
+                (change)="setMaxNormalRange()"
                 formControlName="range_normal_max"
               />
             </mat-form-field>
           </div>
           <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-            <mat-form-field
-              class="input-full-width mat_form_field_width_one"
-              appMeasuringUnit
-            >
+            <mat-form-field class="input-full-width mat_form_field_width_one">
               <mat-label>Measuring Unit *</mat-label>
               <input
                 id="component-unit"
                 matInput
                 [style.width]="'100%'"
-                pattern="measuringUnit"
+                readonly
                 formControlName="measurementUnit"
                 maxlength="15"
               />
@@ -334,9 +364,7 @@
                 <button
                   mat-mini-fab
                   color="warn"
-                  *ngIf="
-                    componentForm.get('getComponentForm')?.value.length > 1
-                  "
+                  *ngIf="componentForm.get('compOpt')?.value.length > 1"
                   (click)="removeID(i)"
                 >
                   <mat-icon
