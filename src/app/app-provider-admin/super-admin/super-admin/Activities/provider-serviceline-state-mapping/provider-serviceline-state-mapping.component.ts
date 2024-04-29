@@ -344,10 +344,12 @@ export class ProviderServicelineStateMappingComponent implements OnInit {
       }
       if (providerCount > 0 && servicelineMatched === false) {
         this.bufferArray.data.push(object);
+        this.bufferArray.paginator = this.paginator;
         this.resetForm();
       }
       if (providerCount === 0) {
         this.bufferArray.data.push(object);
+        this.bufferArray.paginator = this.paginator;
         this.resetForm();
       }
     }
