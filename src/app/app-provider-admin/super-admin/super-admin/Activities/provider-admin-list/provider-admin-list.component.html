@@ -3,7 +3,11 @@
     <h4>Provider Admin List</h4>
   </div>
 </div>
-<div class="pull-right m-t-10" *ngIf="searchResult.length !== 0 && tableMode">
+<div
+  class="m-t-10"
+  style="text-align: end"
+  *ngIf="searchResult.length !== 0 && tableMode"
+>
   <mat-form-field
     class="input-full-width mat_form_field_width_one"
     id="filterbox"
@@ -471,12 +475,13 @@
     </div>
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-t-3">
       <mat-form-field
-        class="input-full-width mat_form_field_width_one"
+        class="input-full-width"
         appMyProviderName
+        style="width: 100%"
       >
+        <mat-label>Emergency Contact Person</mat-label>
         <input
           matInput
-          placeholder="Emergency Contact Person *"
           ngModel
           name="em_contact_person"
           [(ngModel)]="emergency_cnt_person"
@@ -495,12 +500,13 @@
     <div class="clearfix visible-sm"></div>
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-t-3">
       <mat-form-field
-        class="input-full-width mat_form_field_width_one"
+        class="input-full-width"
         appMyMobileNumber
+        style="width: 100%"
       >
+        <mat-label>Emergency Contact Number</mat-label>
         <input
           matInput
-          placeholder="Emergency Contact Number *"
           ngModel
           name="em_contact_number"
           [(ngModel)]="emergencyMobileNumber"

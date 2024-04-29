@@ -93,7 +93,7 @@ export class NatureOfComplaintCategoryMappingComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.userID = this.commonDataService.uid;
+    this.userID = sessionStorage.getItem('uid');
     this.createdBy = this.commonDataService.uname;
     this.getServicelines();
   }
