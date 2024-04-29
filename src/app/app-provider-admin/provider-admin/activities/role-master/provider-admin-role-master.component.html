@@ -228,17 +228,8 @@
           maxlength="50"
           name="role"
           required
-          [formControl]="roleFormControl"
         />
         <!-- Display validation error message -->
-        <mat-hint *ngIf="roleFormControl.hasError('onlyLetters')">
-          <span class="error_text">letters are allowed</span>
-        </mat-hint>
-        <mat-hint *ngIf="role.touched">
-          <span class="error_text" *ngIf="othersExist" id="role1"
-            >Role already exists</span
-          >
-        </mat-hint>
       </mat-form-field>
     </div>
     <div class="col-3 m-t-20" appMyProviderName>

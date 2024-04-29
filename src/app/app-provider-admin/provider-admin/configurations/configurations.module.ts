@@ -45,6 +45,8 @@ import { UserSignatureMappingComponent } from './user-signature-mapping/user-sig
 import { WrapupTimeConfigurationComponent } from './wrapup-time-configuration/wrapup-time-configuration.component';
 import { WrapupTimeConfigurationService } from 'src/app/core/services/ProviderAdminServices/wrapup-time-configuration.service';
 import { CoreModule } from 'src/app/core/core.module';
+import { EmailConfigurationComponent } from './email-configuration/email-configuration.component';
+import { EmailConfigurationService } from 'src/app/core/services/ProviderAdminServices/email-configuration-services.service';
 
 @NgModule({
   declarations: [
@@ -69,6 +71,7 @@ import { CoreModule } from 'src/app/core/core.module';
     VanDeviceIdMappingComponent,
     UserSignatureMappingComponent,
     WrapupTimeConfigurationComponent,
+    EmailConfigurationComponent,
   ],
   imports: [
     CommonModule,
@@ -98,6 +101,7 @@ import { CoreModule } from 'src/app/core/core.module';
     FetosenseDeviceIdMasterService,
     EmployeeParkingPlaceMappingService,
     WrapupTimeConfigurationService,
+    EmailConfigurationService,
   ],
   exports: [
     AgentListCreationComponent,
@@ -121,6 +125,7 @@ import { CoreModule } from 'src/app/core/core.module';
     VanDeviceIdMappingComponent,
     UserSignatureMappingComponent,
     WrapupTimeConfigurationComponent,
+    EmailConfigurationComponent,
   ],
 })
 export class ConfigurationsModule {}

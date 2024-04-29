@@ -656,9 +656,7 @@ export class HospitalMasterComponent implements OnInit {
             );
           }
         });
-    }
-
-    if (toBeDeactivatedFlag === false) {
+    } else if (toBeDeactivatedFlag === false) {
       this.alertService
         .confirm('Confirm', 'Are you sure you want to Activate?')
         .subscribe((response) => {
