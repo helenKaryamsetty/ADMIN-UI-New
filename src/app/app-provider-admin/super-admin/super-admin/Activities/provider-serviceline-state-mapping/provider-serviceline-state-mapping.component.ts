@@ -19,7 +19,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see https://www.gnu.org/licenses/.
  */
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ConfirmationDialogsService } from 'src/app/core/services/dialog/confirmation.service';
 import { dataService } from 'src/app/core/services/dataService/data.service';
@@ -34,16 +34,20 @@ import { MatPaginator } from '@angular/material/paginator';
 /* Created By: Diamond Khanna , 15 Jan,2018
    Intention: Creates provider-service-state mappings
  */
-export class ProviderServicelineStateMappingComponent implements OnInit {
-  paginator!: MatPaginator;
-  @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
-    this.paginator = mp;
-    this.setDataSourceAttributes();
-  }
+export class ProviderServicelineStateMappingComponent
+  implements OnInit, AfterViewInit
+{
+  @ViewChild('paginatorFirst') paginatorFirst!: MatPaginator;
+  @ViewChild('paginatorSecond') paginatorSecond!: MatPaginator;
+
   filteredsearchResult = new MatTableDataSource<any>();
   bufferArray = new MatTableDataSource<any>();
   setDataSourceAttributes() {
-    this.filteredsearchResult.paginator = this.paginator;
+    this.filteredsearchResult.paginator = this.paginatorFirst;
+  }
+  ngAfterViewInit() {
+    this.filteredsearchResult.paginator = this.paginatorFirst;
+    this.bufferArray.paginator = this.paginatorSecond;
   }
   displayedColumns = [
     'sno',
@@ -166,7 +170,7 @@ export class ProviderServicelineStateMappingComponent implements OnInit {
           console.log('All Providers Mapping Success Handeler', response.data);
           this.searchResult = response.data;
           this.filteredsearchResult.data = response.data;
-          this.filteredsearchResult.paginator = this.paginator;
+          this.filteredsearchResult.paginator = this.paginatorFirst;
         }
       },
       (err) => {
@@ -272,7 +276,7 @@ export class ProviderServicelineStateMappingComponent implements OnInit {
       }
       if (duplicateStatus === 0) {
         this.bufferArray.data.push(object);
-        this.bufferArray.paginator = this.paginator;
+        this.bufferArray.paginator = this.paginatorSecond;
       } else {
         this.dialogService.alert('Already exists');
       }
@@ -284,7 +288,7 @@ export class ProviderServicelineStateMappingComponent implements OnInit {
     /* case:1 If the buffer array is empty */
     if (this.bufferArray.data.length === 0) {
       this.bufferArray.data.push(object);
-      this.bufferArray.paginator = this.paginator;
+      this.bufferArray.paginator = this.paginatorSecond;
       this.resetForm();
     } else if (this.bufferArray.data.length > 0) {
       /* case:2 If the buffer array is not empty */
@@ -344,12 +348,12 @@ export class ProviderServicelineStateMappingComponent implements OnInit {
       }
       if (providerCount > 0 && servicelineMatched === false) {
         this.bufferArray.data.push(object);
-        this.bufferArray.paginator = this.paginator;
+        this.bufferArray.paginator = this.paginatorSecond;
         this.resetForm();
       }
       if (providerCount === 0) {
         this.bufferArray.data.push(object);
-        this.bufferArray.paginator = this.paginator;
+        this.bufferArray.paginator = this.paginatorSecond;
         this.resetForm();
       }
     }
@@ -571,10 +575,10 @@ export class ProviderServicelineStateMappingComponent implements OnInit {
   filterComponentList(searchTerm?: string) {
     if (!searchTerm) {
       this.filteredsearchResult.data = this.searchResult;
-      this.filteredsearchResult.paginator = this.paginator;
+      this.filteredsearchResult.paginator = this.paginatorFirst;
     } else {
       this.filteredsearchResult.data = [];
-      this.filteredsearchResult.paginator = this.paginator;
+      this.filteredsearchResult.paginator = this.paginatorFirst;
       this.searchResult.forEach((item: any) => {
         for (const key in item) {
           if (
