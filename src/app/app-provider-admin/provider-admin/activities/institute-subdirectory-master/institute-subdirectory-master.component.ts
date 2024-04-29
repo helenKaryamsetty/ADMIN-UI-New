@@ -412,11 +412,14 @@ export class InstituteSubdirectoryMasterComponent implements OnInit {
       }
     });
   }
+
   filterComponentList(searchTerm?: string) {
     if (!searchTerm) {
-      this.filteredsearchResultArray = this.searchResultArray;
+      this.filteredsearchResultArray.data = this.searchResultArray;
+      this.filteredsearchResultArray.paginator = this.paginator;
     } else {
       this.filteredsearchResultArray.data = [];
+      this.filteredsearchResultArray.paginator = this.paginator;
       this.searchResultArray.forEach((item: any) => {
         for (const key in item) {
           if (key === 'instituteSubDirectoryName') {
@@ -427,6 +430,7 @@ export class InstituteSubdirectoryMasterComponent implements OnInit {
             }
           }
         }
+        this.filteredsearchResultArray.paginator = this.paginator;
       });
     }
   }
