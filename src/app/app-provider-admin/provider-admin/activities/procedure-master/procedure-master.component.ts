@@ -123,7 +123,16 @@ export class ProcedureMasterComponent implements OnInit {
   getProviderServices() {
     this.stateandservices.getServices(this.userID).subscribe(
       (response: any) => {
-        this.services_array = response.data;
+        // this.services_array = response.data;
+        this.services_array = response.data.filter(function (item: any) {
+          console.log('item', item);
+          if (
+            item.serviceID === 4 ||
+            item.serviceID === 9 ||
+            item.serviceID === 2
+          )
+            return item;
+        });
       },
       (err) => {},
     );

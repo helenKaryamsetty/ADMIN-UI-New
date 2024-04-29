@@ -27,6 +27,7 @@ import { Router } from '@angular/router';
 import { ConfigService } from 'src/app/core/services/config/config.service';
 import { ConfirmationDialogsService } from 'src/app/core/services/dialog/confirmation.service';
 import { loginService } from '../loginService/login.service';
+import { dataService } from 'src/app/core/services/dataService/data.service';
 
 @Component({
   selector: 'app-set-password',
@@ -43,6 +44,7 @@ export class SetPasswordComponent {
     public router: Router,
     private alertService: ConfirmationDialogsService,
     public _loginService: loginService,
+    private getUserData: dataService,
   ) {
     this._keySize = 256;
     this._ivSize = 128;
@@ -54,7 +56,7 @@ export class SetPasswordComponent {
   newpwd: any;
   confirmpwd: any;
 
-  uname: any = sessionStorage.getItem('uname');
+  uname: any = this.getUserData.userNameForReset;
 
   dynamictype: any = 'password';
   key: any;

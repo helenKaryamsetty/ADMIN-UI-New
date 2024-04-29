@@ -28,6 +28,7 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class dataService {
+  userNameForReset: any;
   Userdata: any = sessionStorage.getItem('Userdata') || '[]';
   userPriveliges: any = sessionStorage.getItem('userPriveliges') || '[]';
 

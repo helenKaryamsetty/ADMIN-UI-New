@@ -45,9 +45,7 @@ export class BlockSubcenterMappingService {
   }
 
   uploadData(formData: any) {
-    return this.http
-      .post(environment.getBlockSubcentreDataUploadUrl, formData)
-      .pipe(map((res: any) => res.json()));
+    return this.http.post(environment.getBlockSubcentreDataUploadUrl, formData);
   }
 
   handleError(error: Response | any) {

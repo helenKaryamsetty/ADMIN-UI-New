@@ -26,6 +26,7 @@ import {
   ViewChild,
   Inject,
   ChangeDetectorRef,
+  AfterViewInit,
 } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import {
@@ -46,9 +47,12 @@ declare let jQuery: any;
   templateUrl: './call-disposition-type-master.component.html',
   styleUrls: ['./call-disposition-type-master.component.css'],
 })
-export class CallDispositionTypeMasterComponent implements OnInit {
+export class CallDispositionTypeMasterComponent
+  implements OnInit, AfterViewInit
+{
   [x: string]: any;
   temporarySubtypeArray = new MatTableDataSource<any>();
+  @ViewChild(MatPaginator) innerpaginator: MatPaginator | null = null;
   filtereddata = new MatTableDataSource<any>();
   @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
 
@@ -186,6 +190,12 @@ export class CallDispositionTypeMasterComponent implements OnInit {
     this.callSubType = '';
     this.subCallTypeExist = false;
     this.temporarySubtypeArray.data = [];
+    this.temporarySubtypeArray.paginator = this.innerpaginator;
+  }
+
+  ngAfterViewInit() {
+    this.filtereddata.paginator = this.paginator;
+    this.temporarySubtypeArray.paginator = this.paginator;
   }
 
   back() {
@@ -212,6 +222,7 @@ export class CallDispositionTypeMasterComponent implements OnInit {
   reset() {
     this.callSubType = '';
     this.temporarySubtypeArray.data = [];
+    this.temporarySubtypeArray.paginator = this.innerpaginator;
     this.fitToBlock = false;
     this.fitForFollowup = false;
     this.isInbound = false;
@@ -255,7 +266,7 @@ export class CallDispositionTypeMasterComponent implements OnInit {
         call_subtype !== null &&
         call_subtype.trim().length > 0
       ) {
-        const obj = {
+        const obj: any = {
           callGroupType: callType,
           callType: call_subtype,
           providerServiceMapID: this.providerServiceMapID,

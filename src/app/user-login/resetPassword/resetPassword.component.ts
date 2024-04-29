@@ -57,7 +57,7 @@ export class ResetComponent {
 
   wrong_answer_msg: any = '';
   getQuestions(username: any) {
-    this.getUserData.uname = username;
+    this.getUserData.userNameForReset = username;
 
     this.loginservice.getSecurityQuestions(username).subscribe(
       (response: any) => {
@@ -155,7 +155,7 @@ export class ResetComponent {
     this.loginservice
       .validateSecurityQuestionAndAnswer(
         this.userFinalAnswers,
-        this.getUserData.uname,
+        this.getUserData.userNameForReset,
       )
       .subscribe(
         (response: any) => {
@@ -172,7 +172,7 @@ export class ResetComponent {
               this.showQuestions = true;
               this.counter = 0;
               this.alertService.alert(response.error.errorMessage, 'error');
-              this.getQuestions(this.getUserData.uname);
+              this.getQuestions(this.getUserData.userNameForReset);
               this.router.navigate(['/resetPassword']);
               this.splitQuestionAndQuestionID();
             }

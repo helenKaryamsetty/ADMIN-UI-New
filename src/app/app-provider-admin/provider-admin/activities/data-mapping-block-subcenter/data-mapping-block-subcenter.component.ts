@@ -218,7 +218,7 @@ export class DataMappingBlockSubcenterComponent implements OnInit {
       });
     (err: any) => {
       this.showProgressBar = false;
-      this.alertService.alert(err, 'error');
+      this.alertService.alert(err.errorMessage, 'error');
       this.resetFileInput();
       this.file = undefined;
       this.fileContent = null;

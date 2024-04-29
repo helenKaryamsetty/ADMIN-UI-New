@@ -113,7 +113,11 @@ export class SeverityTypeComponent implements OnInit {
     this.severityTypeService.getServices(this.userID).subscribe(
       (response: any) => {
         console.log('success while getting services', response);
-        this.services = response.data;
+        // this.services = response.data;
+        this.services = response.data.filter(function (item: any) {
+          console.log('item', item);
+          if (item.serviceID === 3 || item.serviceID === 1) return item;
+        });
       },
       (err) => {
         console.log('err while getting services', err);
