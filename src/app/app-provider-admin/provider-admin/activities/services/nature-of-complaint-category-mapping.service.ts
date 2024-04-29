@@ -55,16 +55,15 @@ export class NatureOfCompaintCategoryMappingService {
     this.getMapping_url =
       this.providerAdmin_Base_Url +
       'm/getmapedCategorytoFeedbackNatureWithFeedbackNatureID';
-    this.getCategory_url =
-      this.providerAdmin_Base_Url + '/m/getCategoryByMapID';
+    this.getCategory_url = this.providerAdmin_Base_Url + 'm/getCategoryByMapID';
     this.saveComplaintToCategoryMapping_url =
-      this.providerAdmin_Base_Url + '/m/mapCategorytoFeedbackNature';
+      this.providerAdmin_Base_Url + 'm/mapCategorytoFeedbackNature';
     this.updateComplaintCategoryMapping_url =
-      this.providerAdmin_Base_Url + '/m/updateCategorytoFeedbackNature';
+      this.providerAdmin_Base_Url + 'm/updateCategorytoFeedbackNature';
     this.unmapCategory_url =
-      this.providerAdmin_Base_Url + '/t/unmappCategoryforFeedbackNature';
+      this.providerAdmin_Base_Url + 't/unmappCategoryforFeedbackNature';
     this.filterMappedCategory_url =
-      this.providerAdmin_Base_Url + '/m/getunmappedCategoryforFeedbackNature';
+      this.providerAdmin_Base_Url + 'm/getunmappedCategoryforFeedbackNature';
   }
   getServiceLines(userID: any): Observable<any> {
     return this.http.post(this.getServiceLines_url, { userID: userID });

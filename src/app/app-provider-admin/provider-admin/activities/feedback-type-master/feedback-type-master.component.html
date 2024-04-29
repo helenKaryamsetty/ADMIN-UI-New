@@ -179,10 +179,13 @@
             >
               <mat-option
                 *ngFor="let service of servicelines"
-                value="{{ service }}"
-                (click)="getStates(service, service); setIsNational(service)"
+                value="{{ service.serviceID }}"
+                (click)="
+                  getStates(service.serviceID, service.isNational);
+                  setIsNational(service.isNational)
+                "
               >
-                {{ service }}
+                {{ service.serviceName }}
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -203,10 +206,10 @@
             >
               <mat-option
                 *ngFor="let state of states"
-                value="{{ state }}"
-                (click)="findFeedbackTypes(state)"
+                value="{{ state.stateID }}"
+                (click)="findFeedbackTypes(state.providerServiceMapID)"
               >
-                {{ state }}
+                {{ state.stateName }}
               </mat-option>
             </mat-select>
           </mat-form-field>

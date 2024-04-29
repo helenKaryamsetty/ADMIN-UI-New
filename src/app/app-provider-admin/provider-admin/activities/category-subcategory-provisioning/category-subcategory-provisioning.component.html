@@ -7,7 +7,7 @@
     <mat-radio-group
       [(ngModel)]="searchChoice"
       name="searchChoice"
-      (change)="searchReqObjChange(searchChoice)"
+      (selectionChange)="searchReqObjChange(searchChoice)"
       style="font-weight: 700; margin-left: unset"
     >
       <mat-radio-button color="primary" value="0">Category</mat-radio-button>
