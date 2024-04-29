@@ -42,7 +42,7 @@ export class loginService {
   superadmin_auth_url = this._baseURL + 'user/superUserAuthenticate';
   userLogoutPreviousSessionURL =
     this._baseURL + 'user/logOutUserFromConcurrentSession';
-  _forgotPasswordURL = this._baseURL + 'user/forgetPassword/';
+  _forgotPasswordURL = this._baseURL + 'user/forgetPassword';
   _validateSecurityQuestionAndAnswerURL =
     this._baseURL + 'user/validateSecurityQuestionAndAnswer/';
   _getTransactionIdForChangePasswordURL =
