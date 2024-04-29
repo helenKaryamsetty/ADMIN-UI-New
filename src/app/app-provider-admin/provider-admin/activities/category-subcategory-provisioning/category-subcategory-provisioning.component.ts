@@ -147,18 +147,10 @@ export class CategorySubcategoryProvisioningComponent implements OnInit {
 
   ngOnInit() {
     this.userID = this.commonDataService.uid;
-    //  this.getStates(); //commented on 12/4/18 w.r.t.1097 changes
     this.getServiceLines();
     this.cateDisabled = 'false';
   }
 
-  // getStates() {
-  //   this.CategorySubcategoryService.getStates(this.serviceproviderID)
-  //     .subscribe((response) => {
-  //       this.states = response;
-  //     }, (err) => {
-  //     });
-  // } //commented on 12/4/18 w.r.t.1097 changes
   getServiceLines() {
     this.CategorySubcategoryService.getServiceLinesNew(this.userID).subscribe(
       (response: any) => {
@@ -175,7 +167,8 @@ export class CategorySubcategoryProvisioningComponent implements OnInit {
       if (
         item.serviceID === 3 ||
         item.serviceID === 1 ||
-        item.serviceID === 6
+        item.serviceID === 6 ||
+        item.serviceID === 2
       ) {
         return item;
       }
@@ -183,20 +176,7 @@ export class CategorySubcategoryProvisioningComponent implements OnInit {
     //         this.subServices = [];
     //    this.serviceLines = res
   }
-  // getServices(stateID: any) {
-  //   this.service = undefined;
-  //   this.CategorySubcategoryService.getServiceLines(this.serviceproviderID, stateID)
-  //     .subscribe((response) => {
-  //       this.serviceLines = response.filter(function (item) {
-  //         if (item.serviceID === 3 || item.serviceID === 1) {
-  //           return item;
-  //         }
-  //       });
-  //       this.subServices = [];
-  //     }, (err) => {
 
-  //     });
-  // }  //commented on 12/4/18 w.r.t.1097 change
   getStates(value: any) {
     const obj = {
       userID: this.userID,
