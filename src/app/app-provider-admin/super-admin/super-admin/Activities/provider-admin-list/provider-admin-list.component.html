@@ -3,7 +3,11 @@
     <h4>Provider Admin List</h4>
   </div>
 </div>
-<div class="pull-right m-t-10" *ngIf="searchResult.length !== 0 && tableMode">
+<div
+  class="m-t-10"
+  style="text-align: end"
+  *ngIf="searchResult.length !== 0 && tableMode"
+>
   <mat-form-field
     class="input-full-width mat_form_field_width_one"
     id="filterbox"
