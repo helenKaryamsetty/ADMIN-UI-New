@@ -7,8 +7,7 @@
   <div class="col-12 p-a-0">
     <form id="form" #storeSearchForm="ngForm" autocomplete="off" class="row">
       <div class="col-3">
-        <mat-form-field class="hide_underline">
-          <input matInput style="display: none" />
+        <mat-form-field>
           <mat-label>Serviceline</mat-label>
           <mat-select
             required
@@ -23,8 +22,7 @@
         </mat-form-field>
       </div>
       <div class="col-3">
-        <mat-form-field class="hide_underline">
-          <input matInput style="display: none" />
+        <mat-form-field>
           <mat-label>State</mat-label>
           <mat-select required name="state" [(ngModel)]="state">
             <mat-option
@@ -220,7 +218,6 @@
     <form id="addform" #storeAddForm1="ngForm" autocomplete="off" class="row">
       <div class="col-3">
         <mat-form-field class="hide_underline">
-          <input matInput style="display: none" />
           <mat-label>Serviceline</mat-label>
           <mat-select
             required
@@ -237,7 +234,6 @@
       </div>
       <div class="col-3">
         <mat-form-field class="hide_underline">
-          <input matInput style="display: none" />
           <mat-label>State</mat-label>
           <mat-select
             required
@@ -263,7 +259,6 @@
     >
       <div class="col-3 m-t--25">
         <mat-form-field class="hide_underline">
-          <input matInput style="display: none" />
           <mat-label>Facility Type</mat-label>
           <mat-select
             required
@@ -402,7 +397,6 @@
 
       <div class="col-3 m-t--25">
         <mat-form-field class="hide_underline">
-          <input matInput style="display: none" />
           <mat-label>Main Store</mat-label>
           <mat-select
             name="store"
@@ -585,7 +579,6 @@
     <form autocomplete="off" id="editform" #storeEditForm="ngForm" class="row">
       <div class="col-3">
         <mat-form-field class="hide_underline">
-          <input matInput style="display: none" />
           <mat-label>Serviceline</mat-label>
           <mat-select
             required
@@ -603,7 +596,6 @@
 
       <div class="col-3">
         <mat-form-field class="hide_underline">
-          <input matInput style="display: none" />
           <mat-label>State</mat-label>
           <mat-select
             required
@@ -621,7 +613,6 @@
 
       <div class="col-3">
         <mat-form-field class="hide_underline">
-          <input matInput style="display: none" />
           <mat-label>Facility Type</mat-label>
           <mat-select
             required
@@ -770,7 +761,6 @@
       <div class="clearfix visible-md"></div>
       <div class="col-3">
         <mat-form-field class="hide_underline">
-          <input matInput style="display: none" />
           <mat-label>Main Store</mat-label>
           <mat-select
             name="store"
