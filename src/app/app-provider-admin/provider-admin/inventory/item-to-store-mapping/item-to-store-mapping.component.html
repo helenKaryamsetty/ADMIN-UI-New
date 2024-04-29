@@ -8,8 +8,8 @@
     <div class="col-3">
       <mat-form-field class="hide_underline">
         <!-- <input matInput style="display: none" /> -->
+        <mat-label>Serviceline</mat-label>
         <mat-select
-          placeholder="Serviceline"
           class="width100"
           [(ngModel)]="service"
           name="services"
@@ -26,8 +26,8 @@
     <div class="col-3">
       <mat-form-field class="hide_underline">
         <!-- <input matInput style="display: none" /> -->
+        <mat-label>State</mat-label>
         <mat-select
-          placeholder="State"
           class="width100"
           [(ngModel)]="state"
           name="state"
@@ -246,8 +246,8 @@
     <div class="col-3">
       <mat-form-field class="hide_underline">
         <!-- <input matInput style="display: none" /> -->
+        <mat-label>Main Store</mat-label>
         <mat-select
-          placeholder="Main Store"
           class="width100"
           [(ngModel)]="mainStore"
           name="mainStore"
@@ -263,8 +263,8 @@
     <div class="col-3">
       <mat-form-field class="hide_underline">
         <!-- <input matInput style="display: none" /> -->
+        <mat-label>Sub Store</mat-label>
         <mat-select
-          placeholder="Sub Store"
           class="width100"
           [(ngModel)]="subStore"
           name="subStore"
@@ -295,8 +295,8 @@
     <div class="col-3">
       <mat-form-field class="hide_underline">
         <!-- <input matInput style="display: none" /> -->
+        <mat-label>Item Category</mat-label>
         <mat-select
-          placeholder="Item Category"
           class="width100"
           [(ngModel)]="itemCategoryselected"
           name="itemCategory"
@@ -321,8 +321,8 @@
     <div class="col-3">
       <mat-form-field class="hide_underline">
         <input matInput style="display: none" />
+        <mat-label>Item Name</mat-label>
         <mat-select
-          placeholder="Item Name"
           class="width100"
           [disabled]="mapType || !(itemCategoryselected?.itemCategoryID > 0)"
           [(ngModel)]="itemselected"

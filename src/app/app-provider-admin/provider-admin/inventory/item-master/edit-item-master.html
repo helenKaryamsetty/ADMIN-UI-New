@@ -30,9 +30,9 @@
     </div>
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
       <mat-form-field class="width100">
+        <mat-label>Item Code</mat-label>
         <input
           matInput
-          placeholder="Item Code"
           [(ngModel)]="code"
           name="code"
           minlength="1"
@@ -50,9 +50,9 @@
     </div>
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
       <mat-form-field class="width100">
+        <mat-label>Item Name</mat-label>
         <input
           matInput
-          placeholder="Item Name"
           [(ngModel)]="name"
           name="name"
           minlength="1"
@@ -71,8 +71,8 @@
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
       <mat-form-field class="hide_underline width100">
         <input matInput style="display: none" />
+        <mat-label>Category</mat-label>
         <mat-select
-          placeholder="Category"
           class="width100"
           [(ngModel)]="category"
           name="category"
@@ -90,8 +90,8 @@
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
       <mat-form-field class="hide_underline width100">
         <input matInput style="display: none" />
+        <mat-label>Item Form</mat-label>
         <mat-select
-          placeholder="Item Form"
           class="width100"
           [(ngModel)]="dose"
           name="dose"
@@ -107,8 +107,8 @@
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
       <mat-form-field class="hide_underline width100">
         <input matInput style="display: none" />
+        <mat-label>Pharmacology Category</mat-label>
         <mat-select
-          placeholder="Pharmacology Category"
           class="width100"
           [(ngModel)]="pharmacology"
           name="pharmacology"
@@ -126,8 +126,8 @@
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
       <mat-form-field class="hide_underline width100">
         <input matInput style="display: none" />
+        <mat-label>Manufacturer</mat-label>
         <mat-select
-          placeholder="Manufacturer"
           class="width100"
           [(ngModel)]="manufacturer"
           name="manufacturer"
@@ -144,9 +144,9 @@
     </div>
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
       <mat-form-field class="width100">
+        <mat-label>Strength</mat-label>
         <input
           matInput
-          placeholder="Strength"
           [(ngModel)]="strength"
           name="strength"
           #itemStrength="ngModel"
@@ -166,8 +166,8 @@
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
       <mat-form-field class="hide_underline width100">
         <input matInput style="display: none" />
+        <mat-label>UOM</mat-label>
         <mat-select
-          placeholder="UOM"
           class="width100"
           [(ngModel)]="uom"
           name="uom"
@@ -194,9 +194,9 @@
 
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
       <mat-form-field class="width100" appMyProviderName>
+        <mat-label>Composition</mat-label>
         <input
           matInput
-          placeholder="Composition"
           [(ngModel)]="composition"
           name="composition"
           #itemComposition="ngModel"
@@ -216,8 +216,8 @@
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
       <mat-form-field class="hide_underline width100">
         <input matInput style="display: none" />
+        <mat-label>Route Of Admin</mat-label>
         <mat-select
-          placeholder="Route Of Admin"
           class="width100"
           [(ngModel)]="route"
           name="route"
@@ -235,9 +235,9 @@
 
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4" appVehicleNO>
       <mat-form-field class="width100">
+        <mat-label>Item Description</mat-label>
         <input
           matInput
-          placeholder="Item Description"
           [(ngModel)]="description"
           name="description"
           minlength="2"

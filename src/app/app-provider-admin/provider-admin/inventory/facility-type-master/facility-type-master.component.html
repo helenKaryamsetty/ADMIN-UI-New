@@ -9,10 +9,10 @@
       <div class="col-3">
         <mat-form-field class="hide_underline">
           <input matInput style="display: none" />
+          <mat-label>Serviceline</mat-label>
           <mat-select
             required
             name="Services"
-            placeholder="Serviceline"
             [(ngModel)]="serviceline"
             (selectionChange)="getstates(serviceline)"
           >
@@ -25,12 +25,8 @@
       <div class="col-3">
         <mat-form-field class="hide_underline">
           <input matInput style="display: none" />
-          <mat-select
-            required
-            name="state"
-            placeholder="State"
-            [(ngModel)]="state"
-          >
+          <mat-label>State</mat-label>
+          <mat-select required name="state" [(ngModel)]="state">
             <mat-option
               *ngFor="let item of states_array"
               [value]="item"
@@ -216,10 +212,10 @@
       <div class="col-3">
         <mat-form-field class="hide_underline">
           <input matInput style="display: none" />
+          <mat-label>Serviceline</mat-label>
           <mat-select
             required
             name="Services"
-            placeholder="Serviceline"
             [disabled]="true"
             [(ngModel)]="serviceline"
             (change)="getstates(serviceline)"
@@ -233,10 +229,10 @@
       <div class="col-3">
         <mat-form-field class="hide_underline">
           <input matInput style="display: none" />
+          <mat-label>State</mat-label>
           <mat-select
             required
             name="state"
-            placeholder="State"
             [disabled]="true"
             [(ngModel)]="state"
           >
@@ -257,10 +253,10 @@
     >
       <div class="col-3">
         <mat-form-field>
+          <mat-label>Facility Type Code</mat-label>
           <input
             matInput
             required
-            placeholder="Facility Type Code"
             (blur)="checkExistance(facilityCode)"
             appPAN
             [(ngModel)]="facilityCode"
@@ -288,10 +284,10 @@
       </div>
       <div class="col-3">
         <mat-form-field>
+          <mat-label>Facility Type Name</mat-label>
           <input
             matInput
             required
-            placeholder="Facility Type Name"
             appVehicleNO
             [(ngModel)]="facilityName"
             maxlength="100"
@@ -312,9 +308,9 @@
       </div>
       <div class="col-3">
         <mat-form-field>
+          <mat-label>Facility Description</mat-label>
           <input
             matInput
-            placeholder="Facility Description"
             appVehicleNO
             [(ngModel)]="facilityDiscription"
             maxlength="100"
@@ -471,10 +467,10 @@
       <div class="col-3">
         <mat-form-field class="hide_underline">
           <input matInput style="display: none" />
+          <mat-label>Serviceline</mat-label>
           <mat-select
             required
             name="Services"
-            placeholder="Serviceline"
             [disabled]="true"
             [(ngModel)]="edit_Serviceline"
             (change)="getProviderStatesInService()"
@@ -489,10 +485,10 @@
       <div class="col-3">
         <mat-form-field class="hide_underline">
           <input matInput style="display: none" />
+          <mat-label>State</mat-label>
           <mat-select
             required
             name="state"
-            placeholder="State"
             [disabled]="true"
             [(ngModel)]="edit_State"
           >
@@ -505,10 +501,10 @@
       <div class="clearfix visible-md visible-lg"></div>
       <div class="col-3">
         <mat-form-field>
+          <mat-label>Facility Type Code</mat-label>
           <input
             matInput
             required
-            placeholder="Facility Type Code"
             appPAN
             maxlength="15"
             [(ngModel)]="edit_facilityCode"
@@ -530,10 +526,10 @@
       </div>
       <div class="col-3">
         <mat-form-field>
+          <mat-label>Facility Type Name</mat-label>
           <input
             matInput
             required
-            placeholder="Facility Type Name"
             maxlength="100"
             appVehicleNO
             [(ngModel)]="edit_facilityName"
@@ -555,9 +551,9 @@
       </div>
       <div class="col-3">
         <mat-form-field>
+          <mat-label>Facility Description</mat-label>
           <input
             matInput
-            placeholder="Facility Description"
             appVehicleNO
             maxlength="100"
             [(ngModel)]="edit_facilityDiscription"

@@ -9,8 +9,8 @@
       <div class="col-3">
         <mat-form-field class="hide_underline">
           <input matInput style="display: none" />
+          <mat-label>Serviceline</mat-label>
           <mat-select
-            placeholder="Serviceline"
             [(ngModel)]="serviceline"
             name="services"
             (selectionChange)="getStates(serviceline)"
@@ -25,12 +25,8 @@
       <div class="col-3">
         <mat-form-field class="hide_underline">
           <input matInput style="display: none" />
-          <mat-select
-            placeholder="State"
-            [(ngModel)]="state"
-            name="state"
-            required
-          >
+          <mat-label>State</mat-label>
+          <mat-select [(ngModel)]="state" name="state" required>
             <mat-option
               *ngFor="let item of states_array"
               [value]="item"
@@ -200,10 +196,10 @@
     <div class="col-3">
       <mat-form-field class="hide_underline" [style.width]="'100%'">
         <input matInput style="display: none" />
+        <mat-label>Serviceline</mat-label>
         <mat-select
           required
           name="Services"
-          placeholder="Serviceline"
           [disabled]="true"
           [style.width]="'100%'"
           [(ngModel)]="serviceline"
@@ -217,10 +213,10 @@
     <div class="col-3">
       <mat-form-field class="hide_underline" [style.width]="'100%'">
         <input matInput style="display: none" />
+        <mat-label>State</mat-label>
         <mat-select
           required
           name="state"
-          placeholder="State"
           [style.width]="'100%'"
           [disabled]="true"
           [(ngModel)]="state"
@@ -236,9 +232,9 @@
   <form #categoryCreationForm="ngForm" autocomplete="off" class="col-12 row">
     <div class="col-3">
       <mat-form-field>
+        <mat-label>Item Category Code</mat-label>
         <input
           matInput
-          placeholder="Item Category Code"
           appPAN
           [(ngModel)]="itemCategoryCode"
           name="code"
@@ -260,9 +256,9 @@
     </div>
     <div class="col-3">
       <mat-form-field>
+        <mat-label>Item Category Name</mat-label>
         <input
           matInput
-          placeholder="Item Category Name"
           appMyProviderName
           [(ngModel)]="itemCategoryName"
           name="name"
@@ -280,9 +276,9 @@
     </div>
     <div class="col-3">
       <mat-form-field>
+        <mat-label>Item Category Description</mat-label>
         <input
           matInput
-          placeholder="Item Category Description"
           appVehicleNO
           [(ngModel)]="itemCategoryDesc"
           name="desc"
@@ -436,8 +432,8 @@
     <div class="col-3">
       <mat-form-field class="hide_underline">
         <input matInput style="display: none" />
+        <mat-label>Serviceline</mat-label>
         <mat-select
-          placeholder="Serviceline"
           [disabled]="true"
           [(ngModel)]="edit_Serviceline"
           name="services"
@@ -453,8 +449,8 @@
     <div class="col-3">
       <mat-form-field class="hide_underline">
         <input matInput style="display: none" />
+        <mat-label>State</mat-label>
         <mat-select
-          placeholder="State"
           [disabled]="true"
           [(ngModel)]="edit_State"
           name="state"
@@ -473,9 +469,9 @@
     <div class="clearfix visible-md visible-lg"></div>
     <div class="col-3">
       <mat-form-field>
+        <mat-label>Category Code</mat-label>
         <input
           matInput
-          placeholder="Category Code"
           [(ngModel)]="edit_code"
           name="code"
           minlength="1"
@@ -488,9 +484,9 @@
     </div>
     <div class="col-3">
       <mat-form-field>
+        <mat-label>Category Name</mat-label>
         <input
           matInput
-          placeholder="Category Name"
           [(ngModel)]="edit_name"
           name="name"
           minlength="1"
@@ -503,9 +499,9 @@
     </div>
     <div class="col-3">
       <mat-form-field>
+        <mat-label>Category Description</mat-label>
         <input
           matInput
-          placeholder="Category Description"
           appVehicleNO
           [(ngModel)]="edit_desc"
           name="desc"
