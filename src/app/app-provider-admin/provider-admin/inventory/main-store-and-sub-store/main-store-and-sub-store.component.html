@@ -7,12 +7,11 @@
   <div class="col-12 p-a-0">
     <form id="form" #storeSearchForm="ngForm" autocomplete="off" class="row">
       <div class="col-3">
-        <mat-form-field class="hide_underline">
-          <input matInput style="display: none" />
+        <mat-form-field>
+          <mat-label>Serviceline</mat-label>
           <mat-select
             required
             name="Services"
-            placeholder="Serviceline"
             [(ngModel)]="serviceline"
             (selectionChange)="getstates(serviceline)"
           >
@@ -23,14 +22,9 @@
         </mat-form-field>
       </div>
       <div class="col-3">
-        <mat-form-field class="hide_underline">
-          <input matInput style="display: none" />
-          <mat-select
-            required
-            name="state"
-            placeholder="State"
-            [(ngModel)]="state"
-          >
+        <mat-form-field>
+          <mat-label>State</mat-label>
+          <mat-select required name="state" [(ngModel)]="state">
             <mat-option
               *ngFor="let item of states_array"
               [value]="item"
@@ -224,11 +218,10 @@
     <form id="addform" #storeAddForm1="ngForm" autocomplete="off" class="row">
       <div class="col-3">
         <mat-form-field class="hide_underline">
-          <input matInput style="display: none" />
+          <mat-label>Serviceline</mat-label>
           <mat-select
             required
             name="Services"
-            placeholder="Serviceline"
             [disabled]="true"
             [(ngModel)]="serviceline"
             (change)="getstates(serviceline)"
@@ -241,11 +234,10 @@
       </div>
       <div class="col-3">
         <mat-form-field class="hide_underline">
-          <input matInput style="display: none" />
+          <mat-label>State</mat-label>
           <mat-select
             required
             name="state"
-            placeholder="State"
             [disabled]="true"
             [(ngModel)]="state"
           >
@@ -267,11 +259,10 @@
     >
       <div class="col-3 m-t--25">
         <mat-form-field class="hide_underline">
-          <input matInput style="display: none" />
+          <mat-label>Facility Type</mat-label>
           <mat-select
             required
             name="facilityType"
-            placeholder="Facility Type"
             [(ngModel)]="create_facilityType"
           >
             <mat-option *ngFor="let item of facilityType_array" [value]="item">
@@ -282,10 +273,10 @@
       </div>
       <div class="col-3">
         <mat-form-field>
+          <mat-label>Facility Code</mat-label>
           <input
             matInput
             required
-            placeholder="Facility Code"
             (blur)="checkExistance(create_facilityCode)"
             appPanWithCopyPaste
             [(ngModel)]="create_facilityCode"
@@ -313,10 +304,10 @@
       <div class="clearfix visible-sm"></div>
       <div class="col-3">
         <mat-form-field>
+          <mat-label>Facility Name</mat-label>
           <input
             matInput
             required
-            placeholder="Facility Name"
             appVehicleNoSpecialCharWithCopyPaste
             [(ngModel)]="create_facilityName"
             maxlength="100"
@@ -337,9 +328,9 @@
       </div>
       <div class="col-3">
         <mat-form-field>
+          <mat-label>Facility Description</mat-label>
           <input
             matInput
-            placeholder="Facility Description"
             appVehicleNoCopyPaste
             [(ngModel)]="create_facilityDiscription"
             maxlength="100"
@@ -350,9 +341,9 @@
       <div class="clearfix visible-lg"></div>
       <div class="col-3">
         <mat-form-field>
+          <mat-label>Location</mat-label>
           <input
             matInput
-            placeholder="Location"
             appVehicleNoCopyPaste
             [(ngModel)]="create_location"
             maxlength="100"
@@ -370,9 +361,9 @@
       </div>
       <div class="col-3">
         <mat-form-field>
+          <mat-label>Physical Location</mat-label>
           <input
             matInput
-            placeholder="Physical Location"
             appVehicleNoCopyPaste
             [(ngModel)]="create_physicalLocation"
             maxlength="100"
@@ -406,12 +397,11 @@
 
       <div class="col-3 m-t--25">
         <mat-form-field class="hide_underline">
-          <input matInput style="display: none" />
+          <mat-label>Main Store</mat-label>
           <mat-select
             name="store"
             [required]="!mainStoreDropdownState"
             [disabled]="mainStoreDropdownState"
-            placeholder="Main Store"
             [(ngModel)]="create_store"
           >
             <mat-option
@@ -589,11 +579,10 @@
     <form autocomplete="off" id="editform" #storeEditForm="ngForm" class="row">
       <div class="col-3">
         <mat-form-field class="hide_underline">
-          <input matInput style="display: none" />
+          <mat-label>Serviceline</mat-label>
           <mat-select
             required
             name="Services"
-            placeholder="Serviceline"
             [disabled]="true"
             [(ngModel)]="edit_Serviceline"
             (change)="getProviderStatesInService()"
@@ -607,11 +596,10 @@
 
       <div class="col-3">
         <mat-form-field class="hide_underline">
-          <input matInput style="display: none" />
+          <mat-label>State</mat-label>
           <mat-select
             required
             name="state"
-            placeholder="State"
             [disabled]="true"
             [(ngModel)]="edit_State"
           >
@@ -625,11 +613,10 @@
 
       <div class="col-3">
         <mat-form-field class="hide_underline">
-          <input matInput style="display: none" />
+          <mat-label>Facility Type</mat-label>
           <mat-select
             required
             name="facilityType"
-            placeholder="Facility Type"
             [disabled]="true"
             [(ngModel)]="edit_facilityType"
           >
@@ -644,10 +631,10 @@
       </div>
       <div class="col-3">
         <mat-form-field>
+          <mat-label>Facility Code</mat-label>
           <input
             matInput
             required
-            placeholder="Facility Code"
             [disabled]="true"
             appMyProviderName
             maxlength="15"
@@ -670,10 +657,10 @@
       <div class="clearfix visible-sm"></div>
       <div class="col-3">
         <mat-form-field>
+          <mat-label>Facility Name</mat-label>
           <input
             matInput
             required
-            placeholder="Facility Name"
             [disabled]="true"
             appVehicleNoSpecialCharWithCopyPaste
             [(ngModel)]="edit_facilityName"
@@ -696,9 +683,9 @@
 
       <div class="col-3">
         <mat-form-field>
+          <mat-label>Facility Description</mat-label>
           <input
             matInput
-            placeholder="Facility Description"
             appVehicleNoCopyPaste
             maxlength="100"
             [(ngModel)]="edit_facilityDiscription"
@@ -709,10 +696,10 @@
       <div class="clearfix visible-lg"></div>
       <div class="col-3">
         <mat-form-field>
+          <mat-label>Location</mat-label>
           <input
             matInput
             maxlength="100"
-            placeholder="Location"
             appVehicleNoCopyPaste
             [(ngModel)]="edit_location"
             name="createlocation"
@@ -729,10 +716,10 @@
       </div>
       <div class="col-3">
         <mat-form-field>
+          <mat-label>Physical Location</mat-label>
           <input
             matInput
             maxlength="100"
-            placeholder="Physical Location"
             appVehicleNoCopyPaste
             [(ngModel)]="edit_physicalLocation"
             name="physicalLocation"
@@ -774,11 +761,10 @@
       <div class="clearfix visible-md"></div>
       <div class="col-3">
         <mat-form-field class="hide_underline">
-          <input matInput style="display: none" />
+          <mat-label>Main Store</mat-label>
           <mat-select
             name="store"
             [required]="!edit_mainstore"
-            placeholder="Main Store"
             [(ngModel)]="edit_store"
             [disabled]="true"
           >

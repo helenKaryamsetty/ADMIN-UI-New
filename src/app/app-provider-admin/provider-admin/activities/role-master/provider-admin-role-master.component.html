@@ -228,8 +228,8 @@
           maxlength="50"
           name="role"
           required
+          #roles="ngModel"
         />
-        <!-- Display validation error message -->
       </mat-form-field>
     </div>
     <div class="col-3 m-t-20" appMyProviderName>
@@ -240,11 +240,7 @@
           [(ngModel)]="description"
           name="description"
           maxlength="100"
-          [formControl]="roleFormControl1"
         />
-        <mat-hint *ngIf="roleFormControl1.hasError('onlyLetters')">
-          <span class="error_text" id="desc">letters are allowed</span>
-        </mat-hint>
       </mat-form-field>
     </div>
 
