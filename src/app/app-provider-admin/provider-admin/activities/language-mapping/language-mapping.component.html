@@ -69,6 +69,7 @@
               matTooltip="Click to Edit"
               class="iconbutton"
               color="primary"
+              *ngIf="!element.deleted"
               (click)="editRow(element)"
             >
               <mat-icon>edit</mat-icon>

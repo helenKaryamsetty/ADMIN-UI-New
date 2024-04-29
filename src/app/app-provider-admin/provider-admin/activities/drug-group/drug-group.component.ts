@@ -19,7 +19,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see https://www.gnu.org/licenses/.
  */
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ProviderAdminRoleService } from '../services/state-serviceline-role.service';
 import { dataService } from 'src/app/core/services/dataService/data.service';
@@ -71,6 +71,7 @@ export class DrugGroupComponent implements OnInit {
     public commonDataService: dataService,
     public drugMasterService: DrugMasterService,
     private alertMessage: ConfirmationDialogsService,
+    private cdr: ChangeDetectorRef,
   ) {
     this.data = [];
     this.service_provider_id = sessionStorage.getItem('service_providerID');
@@ -172,37 +173,39 @@ export class DrugGroupComponent implements OnInit {
   // };
 
   addDrugGroupToList(values: any) {
-    this.drugGroupObj = {};
-    this.drugGroupObj.drugGroup =
+    const drugGroup =
       values.drugGroup !== undefined && values.drugGroup !== null
         ? values.drugGroup.trim()
         : null;
-    this.drugGroupObj.drugGroupDesc =
+    const drugGroupDesc =
       values.drugGroupDesc !== undefined && values.drugGroupDesc !== null
         ? values.drugGroupDesc.trim()
         : null;
 
-    this.drugGroupObj.serviceProviderID = this.service_provider_id;
-    this.drugGroupObj.createdBy = this.createdBy;
-    this.checkDuplicates(this.drugGroupObj);
+    const drugGroupObj = {
+      drugGroup: drugGroup,
+      drugGroupDesc: drugGroupDesc,
+      serviceProviderID: this.service_provider_id,
+      createdBy: this.createdBy,
+    };
+    this.checkDuplicates(drugGroupObj);
   }
+
   checkDuplicates(object: any) {
-    let duplicateStatus = 0;
     if (this.drugGroupList.data.length === 0) {
-      this.drugGroupList.data.push(object);
+      this.drugGroupList.data = [...this.drugGroupList.data, object];
     } else {
-      for (let i = 0; i < this.drugGroupList.data.length; i++) {
-        if (this.drugGroupList.data[i].drugGroup === object.drugGroup) {
-          duplicateStatus = duplicateStatus + 1;
-        }
-      }
-      if (duplicateStatus === 0) {
-        this.drugGroupList.data.push(object);
+      const isDuplicate = this.drugGroupList.data.some(
+        (item) => item.drugGroup === object.drugGroup,
+      );
+      if (!isDuplicate) {
+        this.drugGroupList.data = [...this.drugGroupList.data, object];
       } else {
-        this.alertMessage.alert('Already exists');
+        this.alertMessage.alert('Drug group already exists');
       }
     }
   }
+
   storeDrugGroup() {
     const obj = { drugGroups: this.drugGroupList.data };
     this.drugMasterService
@@ -254,7 +257,10 @@ export class DrugGroupComponent implements OnInit {
   // }
 
   remove_obj(index: any) {
-    this.drugGroupList.data.splice(index, 1);
+    const newData = [...this.drugGroupList.data];
+    newData.splice(index, 1);
+    this.drugGroupList.data = newData;
+    this.cdr.detectChanges();
   }
 
   drugGroupID: any;

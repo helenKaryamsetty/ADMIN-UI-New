@@ -19,7 +19,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see https://www.gnu.org/licenses/.
  */
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 import { MatTableDataSource } from '@angular/material/table';
@@ -109,6 +109,7 @@ export class ZoneComponent implements OnInit {
     public commonDataService: dataService,
     public zoneMasterService: ZoneMasterService,
     private alertMessage: ConfirmationDialogsService,
+    private cdr: ChangeDetectorRef,
   ) {
     this.data = [];
     this.service_provider_id = sessionStorage.getItem('service_providerID');
@@ -193,36 +194,38 @@ export class ZoneComponent implements OnInit {
     console.log(this.zoneNameExist);
   }
   addZoneToList(values: any) {
-    this.zoneObj = {};
-    this.zoneObj.countryID = this.countryID;
-    this.zoneObj.zoneName = values.zoneName;
-    this.zoneObj.zoneDesc = values.zoneDesc;
-    this.zoneObj.stateID = this.state.stateID;
-    this.zoneObj.stateName = this.state.stateName;
+    const zoneObj = {
+      countryID: this.countryID,
+      zoneName: values.zoneName,
+      zoneDesc: values.zoneDesc,
+      stateID: this.state.stateID,
+      stateName: this.state.stateName,
+      zoneHQAddress: values.zoneHQAddress,
+      providerServiceMapID: this.providerServiceMapID,
+      createdBy: this.createdBy,
+    };
 
-    this.zoneObj.zoneHQAddress = values.zoneHQAddress;
-    this.zoneObj.providerServiceMapID = this.providerServiceMapID;
-    this.zoneObj.createdBy = this.createdBy;
-    this.checkDuplicates(this.zoneObj);
+    this.checkDuplicates(zoneObj);
   }
+
   checkDuplicates(zoneObj: any) {
     if (this.zoneList.data.length === 0) {
-      this.zoneList.data.push(this.zoneObj);
-    } else if (this.zoneList.data.length > 0) {
-      for (let a = 0; a < this.zoneList.data.length; a++) {
+      this.zoneList.data = [...this.zoneList.data, zoneObj];
+    } else {
+      let isDuplicate = false;
+      for (const zone of this.zoneList.data) {
         if (
-          this.zoneList.data[a].zoneName === zoneObj.zoneName &&
-          this.zoneList.data[a].stateName === zoneObj.stateName
+          zone.zoneName === zoneObj.zoneName &&
+          zone.stateName === zoneObj.stateName
         ) {
-          this.bufferCount = this.bufferCount + 1;
-          console.log('Duplicate Combo Exists', this.bufferCount);
+          isDuplicate = true;
+          break;
         }
       }
-      if (this.bufferCount > 0) {
-        this.alertMessage.alert('Already exists');
-        this.bufferCount = 0;
+      if (!isDuplicate) {
+        this.zoneList.data = [...this.zoneList.data, zoneObj];
       } else {
-        this.zoneList.data.push(this.zoneObj);
+        this.alertMessage.alert('Zone name for this state already exists');
       }
     }
   }
@@ -247,7 +250,10 @@ export class ZoneComponent implements OnInit {
   }
 
   remove_obj(index: any) {
-    this.zoneList.data.splice(index, 1);
+    const newData = [...this.zoneList.data];
+    newData.splice(index, 1);
+    this.zoneList.data = newData;
+    this.cdr.detectChanges();
   }
 
   dataObj: any = {};

@@ -20,7 +20,13 @@
  * along with this program.  If not, see https://www.gnu.org/licenses/.
  */
 
-import { Component, OnInit, ViewChild, Inject } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  Inject,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { FeedbackTypeService } from '../services/feedback-type-master-service.service';
 import { dataService } from 'src/app/core/services/dataService/data.service';
@@ -103,6 +109,7 @@ export class FeedbackComplaintNatureMasterComponent implements OnInit {
     private _feedbackTypeService: FeedbackTypeService,
     private alertService: ConfirmationDialogsService,
     public dialog: MatDialog,
+    private cdr: ChangeDetectorRef,
   ) {}
 
   ngOnInit() {
@@ -340,19 +347,25 @@ export class FeedbackComplaintNatureMasterComponent implements OnInit {
   }
 
   add_obj(nature: any, desc: any) {
-    const tempObj = {
-      feedbackNature: nature,
-      feedbackNatureDesc: desc,
-    };
-    console.log(tempObj);
-    // this.objs.push(tempObj);
-    this.validateFeedbackNature(nature);
-    this.checkDuplicates(tempObj);
-    //this.feedbackNature = null;
-    // this.feedbackNatureDesc = null;
-    this.natureExists = false;
-    console.log('this.feedbackNature', this.feedbackNature);
+    const isDuplicate = this.objs.data.some(
+      (obj) => obj.feedbackNature === nature,
+    );
+    if (!isDuplicate) {
+      const tempObj = {
+        feedbackNature: nature,
+        feedbackNatureDesc: desc,
+      };
+
+      console.log(tempObj);
+      this.validateFeedbackNature(nature);
+      this.natureExists = false;
+      console.log('this.feedbackNature', this.feedbackNature);
+      this.objs.data = [...this.objs.data, tempObj];
+    } else {
+      this.alertService.alert('Nature already exists');
+    }
   }
+
   back() {
     this.alertService
       .confirm(
@@ -387,7 +400,10 @@ export class FeedbackComplaintNatureMasterComponent implements OnInit {
   }
 
   remove_obj(index: any) {
-    this.objs.data.splice(index, 1);
+    const newData = [...this.objs.data];
+    newData.splice(index, 1);
+    this.objs.data = newData;
+    this.cdr.detectChanges();
   }
   filterComponentList(searchTerm?: string) {
     if (!searchTerm) {
