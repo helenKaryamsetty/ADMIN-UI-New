@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivitiesModule } from './activities/activities.module';
-import { ConfigurationsModule } from './configurations/configurations.module';
 import { InventoryModule } from './inventory/inventory.module';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -18,6 +17,7 @@ import { ProviderAdminComponent } from './provider-admin.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatNativeDateModule } from '@angular/material/core';
 import { CoreModule } from 'src/app/core/core.module';
+import { ConfigurationsModule } from './configurations/configurations.module';
 
 @NgModule({
   declarations: [
@@ -31,8 +31,8 @@ import { CoreModule } from 'src/app/core/core.module';
   imports: [
     CommonModule,
     ActivitiesModule,
-    ConfigurationsModule,
     InventoryModule,
+    ConfigurationsModule,
     BrowserModule,
     FormsModule,
     MatIconModule,

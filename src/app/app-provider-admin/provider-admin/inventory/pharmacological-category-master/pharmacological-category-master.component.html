@@ -9,10 +9,10 @@
       <div class="col-3">
         <mat-form-field class="hide_underline">
           <input matInput style="display: none" />
+          <mat-label>Serviceline</mat-label>
           <mat-select
             required
             name="Services"
-            placeholder="Serviceline"
             [(ngModel)]="serviceline"
             (selectionChange)="getstates(serviceline)"
           >
@@ -25,12 +25,8 @@
       <div class="col-3">
         <mat-form-field class="hide_underline">
           <input matInput style="display: none" />
-          <mat-select
-            required
-            name="state"
-            placeholder="State"
-            [(ngModel)]="state"
-          >
+          <mat-label>State</mat-label>
+          <mat-select required name="state" [(ngModel)]="state">
             <mat-option
               *ngFor="let item of states_array"
               [value]="item"
@@ -249,10 +245,10 @@
       <div class="col-3">
         <mat-form-field class="hide_underline">
           <input matInput style="display: none" />
+          <mat-label>Serviceline</mat-label>
           <mat-select
             required
             name="Services"
-            placeholder="Serviceline"
             [disabled]="true"
             [(ngModel)]="serviceline"
             (selectionChange)="getstates(serviceline)"
@@ -266,10 +262,10 @@
       <div class="col-3">
         <mat-form-field class="hide_underline">
           <input matInput style="display: none" />
+          <mat-label>State</mat-label>
           <mat-select
             required
             name="state"
-            placeholder="State"
             [disabled]="true"
             [(ngModel)]="state"
           >
@@ -284,10 +280,10 @@
     <form id="addform" #PharmaAddForm="ngForm" autocomplete="off" class="row">
       <div class="col-3">
         <mat-form-field>
+          <mat-label>Pharmacology Code</mat-label>
           <input
             matInput
             required
-            placeholder="Pharmacology Code"
             appPAN
             [(ngModel)]="create_pharmaCode"
             (blur)="checkExistance(create_pharmaCode)"
@@ -312,10 +308,10 @@
       </div>
       <div class="col-3">
         <mat-form-field>
+          <mat-label>Pharmacology Name</mat-label>
           <input
             matInput
             required
-            placeholder="Pharmacology Name"
             appMyProviderName
             [(ngModel)]="create_pharmaName"
             maxlength="100"
@@ -335,9 +331,9 @@
       </div>
       <div class="col-3">
         <mat-form-field>
+          <mat-label>Pharmacology Description</mat-label>
           <input
             matInput
-            placeholder="Pharmacology Description"
             appVehicleNO
             [(ngModel)]="create_pharmaDesc"
             maxlength="100"
@@ -520,10 +516,10 @@
       <div class="col-3">
         <mat-form-field class="hide_underline">
           <input matInput style="display: none" />
+          <mat-label>Serviceline</mat-label>
           <mat-select
             required
             name="Services"
-            placeholder="Serviceline"
             [disabled]="true"
             [(ngModel)]="edit_Serviceline"
           >
@@ -537,10 +533,10 @@
       <div class="col-3">
         <mat-form-field class="hide_underline">
           <input matInput style="display: none" />
+          <mat-label>State</mat-label>
           <mat-select
             required
             name="state"
-            placeholder="State"
             [disabled]="true"
             [(ngModel)]="edit_State"
           >
@@ -553,10 +549,10 @@
       <div class="clearfix visible-md visible-lg"></div>
       <div class="col-3">
         <mat-form-field>
+          <mat-label>Pharmacology Code</mat-label>
           <input
             matInput
             required
-            placeholder="Pharmacology Code"
             appPAN
             [(ngModel)]="edit_pharmaCode"
             maxlength="15"
@@ -568,10 +564,10 @@
       </div>
       <div class="col-3">
         <mat-form-field>
+          <mat-label>Pharmacology Name</mat-label>
           <input
             matInput
             required
-            placeholder="Pharmacology Name"
             appPAN
             [(ngModel)]="edit_pharmaName"
             maxlength="100"
@@ -583,9 +579,9 @@
       </div>
       <div class="col-3">
         <mat-form-field>
+          <mat-label>Pharmacology Description</mat-label>
           <input
             matInput
-            placeholder="Pharmacology Description"
             appVehicleNO
             [(ngModel)]="edit_pharmaDesc"
             maxlength="100"

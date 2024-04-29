@@ -9,10 +9,10 @@
       <div class="col-3">
         <mat-form-field class="hide_underline">
           <input matInput style="display: none" />
+          <mat-label>Serviceline</mat-label>
           <mat-select
             required
             name="Services"
-            placeholder="Serviceline"
             [style.width]="'100%'"
             [(ngModel)]="serviceline"
             (selectionChange)="getstates(serviceline)"
@@ -26,10 +26,10 @@
       <div class="col-3">
         <mat-form-field class="hide_underline">
           <input matInput style="display: none" />
+          <mat-label>State</mat-label>
           <mat-select
             required
             name="state"
-            placeholder="State"
             [style.width]="'100%'"
             [(ngModel)]="state"
           >
@@ -289,10 +289,10 @@
       <div class="col-3">
         <mat-form-field class="hide_underline">
           <!-- <input matInput style="display: none" /> -->
+          <mat-label>Serviceline</mat-label>
           <mat-select
             required
             name="Services"
-            placeholder="Serviceline"
             [style.width]="'100%'"
             [(ngModel)]="serviceline"
             (ngModelChange)="getstates(serviceline)"
@@ -306,8 +306,8 @@
       <div class="col-3">
         <mat-form-field class="hide_underline">
           <!-- <input matInput style="display: none" /> -->
+          <mat-label>State</mat-label>
           <mat-select
-            placeholder="State"
             class="width100"
             [(ngModel)]="state"
             name="state"
@@ -324,10 +324,10 @@
     <form id="addform" #supplierAddForm="ngForm" autocomplete="off" class="row">
       <div class="col-3">
         <mat-form-field>
+          <mat-label>Supplier Code</mat-label>
           <input
             matInput
             required
-            placeholder="Supplier Code"
             appPAN
             [(ngModel)]="create_supplierCode"
             minlength="1"
@@ -354,10 +354,10 @@
 
       <div class="col-3">
         <mat-form-field>
+          <mat-label>Supplier Name</mat-label>
           <input
             matInput
             required
-            placeholder="Supplier Name"
             appMyProviderName
             [(ngModel)]="create_supplierName"
             maxlength="100"
@@ -379,9 +379,9 @@
       <div class="clearfix visible-md"></div>
       <div class="col-3">
         <mat-form-field>
+          <mat-label>Supplier Description</mat-label>
           <input
             matInput
-            placeholder="Supplier Description"
             appVehicleNO
             [(ngModel)]="create_supplierDesc"
             maxlength="100"
@@ -393,9 +393,9 @@
       <!-- <div class="clearfix visible-lg"></div> -->
       <div class="col-3">
         <mat-form-field>
+          <mat-label>Contact Person</mat-label>
           <input
             matInput
-            placeholder="Contact Person"
             appMyProviderName
             [(ngModel)]="create_contactPerson"
             maxlength="50"
@@ -409,9 +409,9 @@
       </div>
       <div class="col-3">
         <mat-form-field>
+          <mat-label>DL.No.(Drug License No.)</mat-label>
           <input
             matInput
-            placeholder="DL.No.(Drug License No.)"
             appDLNO
             [(ngModel)]="create_drugLicense"
             minlength="1"
@@ -428,10 +428,10 @@
       </div>
       <div class="col-3">
         <mat-form-field>
+          <mat-label>GST No.</mat-label>
           <input
             matInput
             required
-            placeholder="GST No."
             appPAN
             [(ngModel)]="create_cstNo"
             minlength="15"
@@ -450,9 +450,9 @@
       </div>
       <div class="col-3">
         <mat-form-field>
+          <mat-label>TIN No.</mat-label>
           <input
             matInput
-            placeholder="TIN No."
             appMyMobileNumber
             [(ngModel)]="create_tinNo"
             minlength="12"
@@ -469,10 +469,10 @@
       </div>
       <div class="col-3">
         <mat-form-field class="width100">
+          <mat-label>Address Line 1</mat-label>
           <input
             matInput
             appMyAddressDirective
-            placeholder="Address Line 1"
             [(ngModel)]="AddressLine1"
             name="addressLine1"
             minlength="2"
@@ -489,10 +489,10 @@
       </div>
       <div class="col-3">
         <mat-form-field>
+          <mat-label>Address Line 2</mat-label>
           <input
             matInput
             appMyAddressDirective
-            placeholder="Address Line 2"
             [(ngModel)]="AddressLine2"
             name="addressLine2"
             minlength="2"
@@ -509,10 +509,10 @@
       <div class="col-3">
         <mat-form-field class="hide_underline">
           <!-- <input matInput style="display: none" /> -->
+          <mat-label>Country</mat-label>
           <mat-select
             required
             name="country"
-            placeholder="Country"
             (selectionChange)="getAllStates(create_country.countryID)"
             [(ngModel)]="create_country"
           >
@@ -525,10 +525,10 @@
       <div class="col-3">
         <mat-form-field class="hide_underline">
           <!-- <input matInput style="display: none" /> -->
+          <mat-label>State</mat-label>
           <mat-select
             required
             name="state"
-            placeholder="State"
             [style.width]="'100%'"
             (selectionChange)="getDistricts(create_state.stateID)"
             [disabled]="countryCheck"
@@ -546,8 +546,8 @@
       <div class="col-3">
         <mat-form-field class="hide_underline">
           <!-- <input matInput style="display: none" /> -->
+          <mat-label>District</mat-label>
           <mat-select
-            placeholder="District"
             class="width100"
             [(ngModel)]="District"
             name="district"
@@ -564,9 +564,9 @@
       </div>
       <div class="col-3">
         <mat-form-field appMyMobileNumber>
+          <mat-label>Pincode</mat-label>
           <input
             matInput
-            placeholder="Pincode"
             [(ngModel)]="Pincode"
             name="pincode"
             minlength="6"
@@ -583,9 +583,9 @@
       <!-- <div class="clearfix visible-lg"></div> -->
       <div class="col-3">
         <mat-form-field appMyMobileNumber>
+          <mat-label>Contact No.</mat-label>
           <input
             matInput
-            placeholder="Contact No."
             [(ngModel)]="contactNo"
             name="primaryMobileNo"
             [pattern]="mobileNoPattern"
@@ -603,9 +603,9 @@
 
       <div class="col-3">
         <mat-form-field appMyMobileNumber>
+          <mat-label>Emergency Contact No.</mat-label>
           <input
             matInput
-            placeholder="Emergency Contact No."
             [(ngModel)]="emergency_contactNo"
             [pattern]="mobileNoPattern"
             name="emergencyContactNo"
@@ -624,9 +624,9 @@
       </div>
       <div class="col-3">
         <mat-form-field>
+          <mat-label>Email</mat-label>
           <input
             matInput
-            placeholder="Email"
             [(ngModel)]="emailID"
             name="primaryEmail"
             #validEmail="ngModel"
@@ -877,10 +877,10 @@
       <div class="col-3">
         <mat-form-field class="hide_underline">
           <!-- <input matInput style="display: none" /> -->
+          <mat-label>Serviceline</mat-label>
           <mat-select
             required
             name="Services"
-            placeholder="Serviceline"
             [disabled]="true"
             [style.width]="'100%'"
             [(ngModel)]="edit_serviceline"
@@ -898,10 +898,10 @@
       <div class="col-3">
         <mat-form-field class="hide_underline">
           <!-- <input matInput style="display: none" /> -->
+          <mat-label>State</mat-label>
           <mat-select
             required
             name="state"
-            placeholder="State"
             [style.width]="'100%'"
             [disabled]="true"
             [(ngModel)]="edit_state"
@@ -918,10 +918,10 @@
       <div class="clearfix visible-md visible-lg"></div>
       <div class="col-3">
         <mat-form-field>
+          <mat-label>Supplier Code</mat-label>
           <input
             matInput
             required
-            placeholder="Supplier Code"
             appPAN
             [(ngModel)]="edit_supplierCode"
             [disabled]="true"
@@ -944,10 +944,10 @@
 
       <div class="col-3">
         <mat-form-field>
+          <mat-label>Supplier Name</mat-label>
           <input
             matInput
             required
-            placeholder="Supplier Name"
             appMyProviderName
             [(ngModel)]="edit_supplierName"
             [disabled]="true"
@@ -970,9 +970,9 @@
       <!-- <div class="clearfix visible-md"></div> -->
       <div class="col-3">
         <mat-form-field>
+          <mat-label>Supplier Description</mat-label>
           <input
             matInput
-            placeholder="Supplier Description"
             appVehicleNO
             [(ngModel)]="edit_supplierDesc"
             maxlength="100"
@@ -987,9 +987,9 @@
       <div class="clearfix visible-lg"></div>
       <div class="col-3">
         <mat-form-field>
+          <mat-label>Contact Person</mat-label>
           <input
             matInput
-            placeholder="Contact Person"
             appMyProviderName
             [(ngModel)]="edit_contactPerson"
             maxlength="100"
@@ -1005,9 +1005,9 @@
       </div>
       <div class="col-3">
         <mat-form-field>
+          <mat-label>DL.No.(Drug License No.)</mat-label>
           <input
             matInput
-            placeholder="DL.No.(Drug License No.)"
             appDLNO
             [(ngModel)]="edit_drugLicense"
             maxlength="15"
@@ -1023,10 +1023,10 @@
       </div>
       <div class="col-3">
         <mat-form-field>
+          <mat-label>GST No.</mat-label>
           <input
             matInput
             required
-            placeholder="GST No."
             appPAN
             [(ngModel)]="edit_cstNo"
             minlength="15"
@@ -1045,9 +1045,9 @@
       </div>
       <div class="col-3">
         <mat-form-field>
+          <mat-label>TIN No.</mat-label>
           <input
             matInput
-            placeholder="TIN No."
             appMyMobileNumber
             [(ngModel)]="edit_tinNo"
             minlength="12"
@@ -1064,10 +1064,10 @@
       </div>
       <div class="col-6">
         <mat-form-field>
+          <mat-label>Address Line 1</mat-label>
           <input
             matInput
             appMyAddressDirective
-            placeholder="Address Line 1"
             [(ngModel)]="edit_AddressLine1"
             name="addressLine1"
             minlength="2"
@@ -1083,10 +1083,10 @@
       </div>
       <div class="col-3">
         <mat-form-field>
+          <mat-label>Address Line 2</mat-label>
           <input
             matInput
             appMyAddressDirective
-            placeholder="Address Line 2"
             [(ngModel)]="edit_AddressLine2"
             name="addressLine2"
             minlength="2"
@@ -1098,10 +1098,10 @@
       <div class="col-3">
         <mat-form-field class="hide_underline">
           <input matInput style="display: none" />
+          <mat-label>Country</mat-label>
           <mat-select
             required
             name="country"
-            placeholder="Country"
             [style.width]="'100%'"
             [(ngModel)]="edit_country"
             (selectionChange)="getAllStates(edit_country)"
@@ -1118,10 +1118,10 @@
       <div class="col-3">
         <mat-form-field class="hide_underline">
           <input matInput style="display: none" />
+          <mat-label>State</mat-label>
           <mat-select
             required
             name="edit_state1"
-            placeholder="State"
             [style.width]="'100%'"
             [(ngModel)]="edit_state1"
             (selectionChange)="getDistricts(edit_state1)"
@@ -1138,8 +1138,8 @@
       <div class="col-3">
         <mat-form-field class="hide_underline">
           <!-- <input matInput style="display: none" /> -->
+          <mat-label>District</mat-label>
           <mat-select
-            placeholder="District"
             class="width100"
             [(ngModel)]="edit_district"
             name="edit_district"
@@ -1155,9 +1155,9 @@
       </div>
       <div class="col-3">
         <mat-form-field appMyMobileNumber>
+          <mat-label>Pincode</mat-label>
           <input
             matInput
-            placeholder="Pincode"
             [(ngModel)]="edit_Pincode"
             name="pincode"
             minlength="6"
@@ -1174,9 +1174,9 @@
       <div class="clearfix visible-lg"></div>
       <div class="col-3">
         <mat-form-field appMyMobileNumber>
+          <mat-label>Contact No.</mat-label>
           <input
             matInput
-            placeholder="Contact No."
             [(ngModel)]="edit_contactNo"
             name="primaryMobileNo"
             minlength="10"
@@ -1194,9 +1194,9 @@
 
       <div class="col-3">
         <mat-form-field class="width100" appMyMobileNumber>
+          <mat-label>Emergency Contact No.</mat-label>
           <input
             matInput
-            placeholder="Emergency Contact No."
             [(ngModel)]="edit_emergencyContactNo"
             name="emergencyContactNo"
             [pattern]="mobileNoPattern"
@@ -1217,9 +1217,9 @@
       </div>
       <div class="col-3">
         <mat-form-field>
+          <mat-label>Email</mat-label>
           <input
             matInput
-            placeholder="Email"
             [(ngModel)]="edit_emailID"
             name="primaryEmail"
             #validEmail="ngModel"

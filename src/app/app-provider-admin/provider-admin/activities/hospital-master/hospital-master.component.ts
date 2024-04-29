@@ -310,8 +310,8 @@ export class HospitalMasterComponent implements OnInit {
     const requestData = {
       //'InstitutionDetails' : this.dataString,
       InstitutionDetails: this.jsonData.Sheet1,
-      userID: this.userID,
-      serviceProviderID: this.serviceProviderID,
+      userID: Number(this.userID),
+      serviceProviderID: Number(this.serviceProviderID),
       createdBy: this.commonDataService.uname,
     };
     this.HospitalMasterService.postFormData(requestData).subscribe(
@@ -344,12 +344,7 @@ export class HospitalMasterComponent implements OnInit {
         } else {
           this.uploadForm.resetForm();
           this.file = undefined;
-          this.alertService.confirm(response.json().data.response, 'info');
-          //this.alertService.alert("Saved Success")
-          /*  if(response.json().data.response != "FileID"){
-                    this.alertService.confirm(response.json().data.response, 'info')
-    
-                  }*/
+          this.alertService.confirm('info', response.data.response);
         }
       },
       (error) => {
@@ -656,9 +651,7 @@ export class HospitalMasterComponent implements OnInit {
             );
           }
         });
-    }
-
-    if (toBeDeactivatedFlag === false) {
+    } else if (toBeDeactivatedFlag === false) {
       this.alertService
         .confirm('Confirm', 'Are you sure you want to Activate?')
         .subscribe((response) => {
