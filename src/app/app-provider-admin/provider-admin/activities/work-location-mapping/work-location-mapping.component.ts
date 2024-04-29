@@ -166,7 +166,7 @@ export class WorkLocationMappingComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.serviceProviderID = sessionStorage.getItem('providerServiceMapID_104');
+    this.serviceProviderID = sessionStorage.getItem('service_providerID');
     this.userID = sessionStorage.getItem('uid');
     this.createdBy = sessionStorage.getItem('uname');
     // this.District=this.worklocationmapping.districtID;

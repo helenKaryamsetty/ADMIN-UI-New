@@ -228,16 +228,14 @@
           maxlength="50"
           name="role"
           required
-          [formControl]="roleFormControl"
+          #roles="ngModel"
         />
         <!-- Display validation error message -->
-        <mat-hint *ngIf="roleFormControl.hasError('onlyLetters')">
-          <span class="error_text">letters are allowed</span>
-        </mat-hint>
-        <mat-hint *ngIf="role.touched">
-          <span class="error_text" *ngIf="othersExist" id="role1"
+        <mat-hint *ngIf="roles.touched">
+          <span class="error_text" *ngIf="othersExist"
             >Role already exists</span
           >
+          <span class="error_text" *ngIf="roles.invalid">Role is required</span>
         </mat-hint>
       </mat-form-field>
     </div>
@@ -249,11 +247,7 @@
           [(ngModel)]="description"
           name="description"
           maxlength="100"
-          [formControl]="roleFormControl1"
         />
-        <mat-hint *ngIf="roleFormControl1.hasError('onlyLetters')">
-          <span class="error_text" id="desc">letters are allowed</span>
-        </mat-hint>
       </mat-form-field>
     </div>
 
