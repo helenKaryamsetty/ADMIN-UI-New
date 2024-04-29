@@ -226,7 +226,7 @@ export class EmailConfigurationComponent implements OnInit {
     const configArray = mailConfigResponse;
     // this.mailConfig = mailConfigResponse;
     this.filteredMailConfig.data = configArray.filter((Response: any) => {
-      if (Response.data.mobileNo == null) {
+      if (Response.data.mobileNo === null) {
         return Response.data;
       }
     });
@@ -255,7 +255,7 @@ export class EmailConfigurationComponent implements OnInit {
         const auth_designation = this.designations.filter(
           (designationResponse: any) => {
             if (
-              this.editAuthorityMailConfig.designationID ==
+              this.editAuthorityMailConfig.designationID ===
               designationResponse.designationID
             ) {
               return designationResponse;
