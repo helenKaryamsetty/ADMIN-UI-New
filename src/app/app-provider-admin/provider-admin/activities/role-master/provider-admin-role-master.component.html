@@ -230,13 +230,6 @@
           required
           #roles="ngModel"
         />
-        <!-- Display validation error message -->
-        <mat-hint *ngIf="roles.touched">
-          <span class="error_text" *ngIf="othersExist"
-            >Role already exists</span
-          >
-          <span class="error_text" *ngIf="roles.invalid">Role is required</span>
-        </mat-hint>
       </mat-form-field>
     </div>
     <div class="col-3 m-t-20" appMyProviderName>
