@@ -88,7 +88,7 @@ export class InstituteDirectoryMasterComponent
   successhandeler(res: any) {
     this.services = res.data.filter(function (item: any) {
       console.log('item', item);
-      return item;
+      if (item.serviceID === 3 || item.serviceID === 1) return item;
     });
   }
   getStates(value: any) {

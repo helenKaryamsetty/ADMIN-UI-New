@@ -125,7 +125,7 @@ export class InstituteSubdirectoryMasterComponent implements OnInit {
 
   successhandeler(res: any) {
     this.services = res.data.filter(function (item: any) {
-      return item;
+      if (item.serviceID === 3 || item.serviceID === 1) return item;
     });
   }
 

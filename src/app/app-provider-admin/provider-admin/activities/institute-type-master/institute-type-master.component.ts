@@ -127,7 +127,7 @@ export class InstituteTypeMasterComponent implements OnInit {
   getServicesSuccessHandeler(response: any) {
     console.log('SERVICES', response.data);
     this.services = response.data.filter(function (item: any) {
-      return item;
+      if (item.serviceID === 3 || item.serviceID === 1) return item;
     });
   }
 

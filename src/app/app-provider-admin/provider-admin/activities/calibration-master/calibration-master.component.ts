@@ -101,6 +101,11 @@ export class CalibrationMasterComponent implements OnInit {
       );
   }
   successhandeler(response: any) {
+    this.services = response.data.filter(function (item: any) {
+      console.log('item', item);
+      if (item.serviceID === 4 || item.serviceID === 9 || item.serviceID === 2)
+        return item;
+    });
     return response;
   }
   getStates(value: any) {

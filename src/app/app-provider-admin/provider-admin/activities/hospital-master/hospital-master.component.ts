@@ -506,11 +506,9 @@ export class HospitalMasterComponent implements OnInit {
   }
 
   getServiceSuccessHandeler(response: any) {
-    console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2', response);
-
     if (response) {
       this.services = response.data.filter(function (item: any) {
-        if (item.serviceID) {
+        if (item.serviceID === 3 || item.serviceID === 1) {
           return item;
         }
       });
