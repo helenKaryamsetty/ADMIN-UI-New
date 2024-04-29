@@ -26,6 +26,7 @@ import { Router } from '@angular/router';
 import { ConfigService } from 'src/app/core/services/config/config.service';
 import { ConfirmationDialogsService } from 'src/app/core/services/dialog/confirmation.service';
 import { loginService } from '../loginService/login.service';
+import { dataService } from 'src/app/core/services/dataService/data.service';
 
 declare let jQuery: any;
 
@@ -44,6 +45,7 @@ export class SetSecurityQuestionsComponent implements OnInit {
     private configService: ConfigService,
     private alertService: ConfirmationDialogsService,
     public _loginService: loginService,
+    private getUserData: dataService,
   ) {
     this._keySize = 256;
     this._ivSize = 128;
@@ -78,7 +80,7 @@ export class SetSecurityQuestionsComponent implements OnInit {
   uid: any = sessionStorage.getItem('uid');
   passwordSection = false;
   questionsection = true;
-  uname: any = sessionStorage.getItem('uname');
+  uname: any = this.getUserData.userNameForReset;
   key: any;
   iv: any;
   SALT = 'RandomInitVector';

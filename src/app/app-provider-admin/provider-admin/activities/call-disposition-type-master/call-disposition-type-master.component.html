@@ -380,7 +380,7 @@
     <div class="table-responsive">
       <table
         mat-table
-        [dataSource]="this.temporarySubtypeArray.data"
+        [dataSource]="temporarySubtypeArray"
         class="table table-striped table-hover"
       >
         <ng-container matColumnDef="SNo">
@@ -431,6 +431,12 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumnsTable2"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumnsTable2"></tr>
       </table>
+      <mat-paginator
+        [hidden]="temporarySubtypeArray.data.length === 0"
+        [pageSizeOptions]="[5, 10, 25]"
+        [pageSize]="5"
+        showFirstLastButtons
+      ></mat-paginator>
     </div>
   </div>
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-15">
