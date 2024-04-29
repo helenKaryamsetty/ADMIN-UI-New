@@ -141,7 +141,8 @@ export class ZoneDistrictMappingComponent implements OnInit {
     // this.services = response.data;
     this.services = response.data.filter(function (item: any) {
       console.log('item', item);
-      if (item.serviceID === 4 || item.serviceID === 9) return item;
+      if (item.serviceID == 2 || item.serviceID == 4 || item.serviceID == 9)
+        return item;
     });
   }
   /*
