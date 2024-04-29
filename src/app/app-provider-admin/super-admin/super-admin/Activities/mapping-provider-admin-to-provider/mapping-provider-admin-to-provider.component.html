@@ -144,6 +144,7 @@
         <strong>No Records Found</strong>
       </div>
       <mat-paginator
+        #paginatorFirst
         [hidden]="filteredproviderAdminList.data.length === 0"
         [pageSizeOptions]="[5, 10, 20]"
         [pageSize]="5"
@@ -321,14 +322,15 @@
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayAddedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayAddedColumns"></tr>
-        <mat-paginator
-          [hidden]="bufferArray.data.length === 0"
-          [pageSizeOptions]="[5, 10, 20]"
-          [pageSize]="5"
-          showFirstLastButtons
-        >
-        </mat-paginator>
       </table>
+      <mat-paginator
+        #paginatorSecond
+        [length]="bufferArray.data.length"
+        [pageSizeOptions]="[5, 10, 20]"
+        [pageSize]="5"
+        showFirstLastButtons
+      >
+      </mat-paginator>
     </div>
   </div>
   <div class="col-xs-12 col-sm-12 m-t-15 m-b-10">

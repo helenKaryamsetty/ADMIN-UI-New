@@ -19,7 +19,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see https://www.gnu.org/licenses/.
  */
-import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ConfirmationDialogsService } from 'src/app/core/services/dialog/confirmation.service';
 import { dataService } from 'src/app/core/services/dataService/data.service';
@@ -31,7 +37,9 @@ import { MatTableDataSource } from '@angular/material/table';
   templateUrl: './mapping-provider-admin-to-provider.component.html',
   styleUrls: ['./mapping-provider-admin-to-provider.component.css'],
 })
-export class MappingProviderAdminToProviderComponent implements OnInit {
+export class MappingProviderAdminToProviderComponent
+  implements OnInit, AfterViewInit
+{
   displayedColumns = [
     'sno',
     'ProviderName',
@@ -51,16 +59,18 @@ export class MappingProviderAdminToProviderComponent implements OnInit {
     'action',
   ];
 
-  paginator!: MatPaginator;
-  @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
-    this.paginator = mp;
-    this.setDataSourceAttributes();
+  @ViewChild('paginatorFirst') paginatorFirst!: MatPaginator;
+  @ViewChild('paginatorSecond') paginatorSecond!: MatPaginator;
+
+  ngAfterViewInit() {
+    this.filteredproviderAdminList.paginator = this.paginatorFirst;
+    this.bufferArray.paginator = this.paginatorSecond;
   }
   filteredproviderAdminList = new MatTableDataSource<any>();
   bufferArray = new MatTableDataSource<any>();
 
   setDataSourceAttributes() {
-    this.filteredproviderAdminList.paginator = this.paginator;
+    this.filteredproviderAdminList.paginator = this.paginatorFirst;
   }
 
   // filteredproviderAdminList: any = [];
@@ -474,6 +484,7 @@ export class MappingProviderAdminToProviderComponent implements OnInit {
     /* case:1 If the buffer array is empty */
     if (this.bufferArray.data.length === 0) {
       this.bufferArray.data.push(object);
+      this.bufferArray.paginator = this.paginatorSecond;
       console.log('bufferArray', this.bufferArray.data);
       this.resetForm();
     } else if (this.bufferArray.data.length > 0) {
@@ -550,6 +561,7 @@ export class MappingProviderAdminToProviderComponent implements OnInit {
       // }
       if (servicesMatched === false) {
         this.bufferArray.data.push(object);
+        this.bufferArray.paginator = this.paginatorSecond;
         console.log(this.bufferArray.data);
         this.changeDetectorRefs.detectChanges();
         this.resetForm();
