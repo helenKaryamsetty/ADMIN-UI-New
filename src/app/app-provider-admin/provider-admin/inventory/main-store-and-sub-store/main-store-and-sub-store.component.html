@@ -41,9 +41,9 @@
       >
         <div class="row" *ngIf="storesList?.length > 0" class="pull-right">
           <mat-form-field id="filterbox">
+            <mat-label> In-Table Search </mat-label>
             <input
               matInput
-              placeholder="In-Table Search"
               name="filterTerm"
               [(ngModel)]="create_filterTerm"
               #filterTerm
