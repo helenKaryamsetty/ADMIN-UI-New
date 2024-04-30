@@ -180,7 +180,7 @@ export class loginContentClassComponent implements OnInit, OnDestroy {
                 )
               ) {
                 this.alertMessage
-                  .confirm('info', response.errorMessage)
+                  .confirm('error', response.errorMessage)
                   .subscribe((confirmResponse) => {
                     if (confirmResponse) {
                       this.loginservice.dologoutUsrFromPreSession(true);
@@ -230,11 +230,12 @@ export class loginContentClassComponent implements OnInit, OnDestroy {
                     // }
                   });
               } else if (
-                response.errorMessage ===
-                'User login failed due to incorrect username/password'
+                response.errorMessage.includes(
+                  'User login failed due to incorrect username/password',
+                )
               ) {
                 this.alertMessage
-                  .confirm('info', response.errorMessage)
+                  .confirm('error', response.errorMessage)
                   .subscribe((confirmResponse) => {
                     if (confirmResponse) {
                       this.loginservice.dologoutUsrFromPreSession(true);

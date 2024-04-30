@@ -488,7 +488,7 @@
     <div class="table-responsive">
       <table
         mat-table
-        [dataSource]="this.bufferArray.data"
+        [dataSource]="bufferArray"
         class="table table-striped table-hover"
       >
         <ng-container matColumnDef="SNo">
@@ -516,7 +516,7 @@
         <ng-container matColumnDef="District">
           <th mat-header-cell *matHeaderCellDef>District</th>
           <td mat-cell *matCellDef="let element">
-            {{ element.workingDistrictName }}
+            {{ element.district }}
           </td>
         </ng-container>
         <ng-container matColumnDef="Block">
@@ -529,7 +529,9 @@
         </ng-container>
         <ng-container matColumnDef="WorkLocation">
           <th mat-header-cell *matHeaderCellDef>Work Location</th>
-          <td mat-cell *matCellDef="let element">{{ element.locationName }}</td>
+          <td mat-cell *matCellDef="let element">
+            {{ element.workingLocation }}
+          </td>
         </ng-container>
         <ng-container matColumnDef="Role">
           <th mat-header-cell *matHeaderCellDef>Role</th>
@@ -577,6 +579,12 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumnsTable2"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumnsTable2"></tr>
       </table>
+      <mat-paginator
+        [hidden]="bufferArray.data.length === 0"
+        [pageSizeOptions]="[5, 10, 25]"
+        [pageSize]="5"
+        showFirstLastButtons
+      ></mat-paginator>
     </div>
   </div>
   <div class="col-xs-12 col-sm-12 m-t-15 m-b-10">

@@ -20,7 +20,7 @@
  * along with this program.  If not, see https://www.gnu.org/licenses/.
  */
 
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
@@ -33,7 +33,7 @@ import { WorkLocationMapping } from '../services/work-location-mapping.service';
   templateUrl: './work-location-mapping.component.html',
   styleUrls: ['./work-location-mapping.component.css'],
 })
-export class WorkLocationMappingComponent implements OnInit {
+export class WorkLocationMappingComponent implements OnInit, AfterViewInit {
   // filteredmappedWorkLocationsList: any;
   // filteredmappedWorkLocationsList = new MatTableDataSource<any>();
   // bufferArray = new MatTableDataSource<any>();
@@ -136,6 +136,8 @@ export class WorkLocationMappingComponent implements OnInit {
   }
   filteredmappedWorkLocationsList = new MatTableDataSource<any>();
   bufferArray = new MatTableDataSource<any>();
+  @ViewChild(MatPaginator) innerpaginator: MatPaginator | null = null;
+
   setDataSourceAttributes() {
     this.filteredmappedWorkLocationsList.paginator = this.paginator;
   }
@@ -177,6 +179,11 @@ export class WorkLocationMappingComponent implements OnInit {
     this.getAllMappedWorkLocations();
     this.getUserName(this.serviceProviderID);
     // this.getAllServicelines(this.serviceProviderID);
+  }
+
+  ngAfterViewInit() {
+    this.filteredmappedWorkLocationsList.paginator = this.paginator;
+    this.bufferArray.paginator = this.innerpaginator;
   }
 
   setIsNational(value: any) {
@@ -336,6 +343,7 @@ export class WorkLocationMappingComponent implements OnInit {
           this.State = null;
         }
       });
+      this.bufferArray.paginator = this.innerpaginator;
     }
   }
 
@@ -462,6 +470,7 @@ export class WorkLocationMappingComponent implements OnInit {
           }
         }
       });
+      this.bufferArray.paginator = this.innerpaginator;
     }
     this.availableRoles.forEach((removeScreenNameOfSupAndSpec: any) => {
       if (
@@ -502,6 +511,7 @@ export class WorkLocationMappingComponent implements OnInit {
           this.bufferArrayTemp.push(bufferArrayList.roleID1);
         }
       });
+      this.bufferArray.paginator = this.innerpaginator;
     }
     this.bufferArrayTemp.forEach((roleId: any) => {
       roleId.forEach((role: any) => {
@@ -531,6 +541,7 @@ export class WorkLocationMappingComponent implements OnInit {
       }
     });
     this.availableRoles = bufferTempsupAndSpecScreenNames.slice();
+    this.bufferArray.paginator = this.innerpaginator;
 
     // reset all buffer values
     this.bufferArrayTemp = [];
@@ -552,6 +563,7 @@ export class WorkLocationMappingComponent implements OnInit {
       this.formMode = false;
       this.editMode = false;
       this.bufferArray.data = [];
+      this.bufferArray.paginator = this.innerpaginator;
       this.editWorkplaceForm.resetForm();
       this.showInOutBoundEdit = false;
       this.isOutboundEdit = false;
@@ -568,6 +580,7 @@ export class WorkLocationMappingComponent implements OnInit {
         this.formMode = false;
         this.editMode = false;
         this.bufferArray.data = [];
+        this.bufferArray.paginator = this.innerpaginator;
         this.eForm.resetForm();
         this.isNational = false;
         this.isInbound = false;
@@ -587,6 +600,7 @@ export class WorkLocationMappingComponent implements OnInit {
         this.formMode = false;
         this.editMode = false;
         this.bufferArray.data = [];
+        this.bufferArray.paginator = this.innerpaginator;
         this.eForm.resetForm();
         this.isNational = false;
         this.isInbound = false;
@@ -947,6 +961,7 @@ export class WorkLocationMappingComponent implements OnInit {
         }
         if (this.bufferArray.data.length > 0) {
           this.eForm.resetForm();
+          this.bufferArray.paginator = this.innerpaginator;
         }
         console.log('Result Array', this.bufferArray);
       }
@@ -966,10 +981,12 @@ export class WorkLocationMappingComponent implements OnInit {
       this.setWorkLocationObject(objectToBeAdded, obj, false, false);
       if (this.bufferArray.data.length > 0) {
         this.eForm.resetForm();
+        this.bufferArray.paginator = this.innerpaginator;
       }
       console.log('Result Array', this.bufferArray);
       if (this.bufferArray.data.length > 0) {
         this.eForm.resetForm();
+        this.bufferArray.paginator = this.innerpaginator;
       }
       // }
     } else if (objectToBeAdded.serviceline.serviceName === 'HWC') {
@@ -1036,6 +1053,7 @@ export class WorkLocationMappingComponent implements OnInit {
         }
         if (this.bufferArray.data.length > 0) {
           this.eForm.resetForm();
+          this.bufferArray.paginator = this.innerpaginator;
           this.disableSelectRoles = false;
         }
       }
@@ -1095,6 +1113,7 @@ export class WorkLocationMappingComponent implements OnInit {
 
       if (this.bufferArray.data.length > 0) {
         this.eForm.resetForm();
+        this.bufferArray.paginator = this.innerpaginator;
         this.disableSelectRoles = false;
       }
       console.log('Result Array', this.bufferArray);
@@ -1284,6 +1303,7 @@ export class WorkLocationMappingComponent implements OnInit {
       workLocationObj['district'] = null;
     }
     this.bufferArray.data.push(workLocationObj);
+    this.bufferArray.paginator = this.innerpaginator;
   }
 
   resetAllArrays() {
@@ -1306,6 +1326,7 @@ export class WorkLocationMappingComponent implements OnInit {
 
   deleteRow(i: any, serviceID: any, providerServiceMapID: any, userID: any) {
     this.bufferArray.data.splice(i, 1);
+    this.bufferArray.paginator = this.innerpaginator;
     this.getAllRoles(serviceID, providerServiceMapID, userID);
     this.availableRoles = [];
     this.RolesList = [];
@@ -1313,6 +1334,7 @@ export class WorkLocationMappingComponent implements OnInit {
 
   removeRole(rowIndex: any, roleIndex: any) {
     this.bufferArray.data[rowIndex].roleID1.splice(roleIndex, 1);
+    this.bufferArray.paginator = this.innerpaginator;
     this.getAllRoles(
       this.bufferArray.data[rowIndex].serviceID,
       this.bufferArray.data[rowIndex].providerServiceMapID,
@@ -1320,6 +1342,7 @@ export class WorkLocationMappingComponent implements OnInit {
     );
     if (this.bufferArray.data[rowIndex].roleID1.length === 0) {
       this.bufferArray.data.splice(rowIndex, 1);
+      this.bufferArray.paginator = this.innerpaginator;
     }
   }
 
@@ -1350,7 +1373,7 @@ export class WorkLocationMappingComponent implements OnInit {
 
     for (let i = 0; i < this.bufferArray.data.length; i++) {
       const allRoleArr = [];
-      if (this.Role !== undefined) {
+      if (this.Role) {
         this.Role.filter((item: any) => {
           allRoleArr.push(item.roleName);
         });
@@ -1405,6 +1428,7 @@ export class WorkLocationMappingComponent implements OnInit {
     console.log(requestArray, 'after modification array');
 
     this.bufferArray.data = [];
+    this.bufferArray.paginator = this.innerpaginator;
 
     this.worklocationmapping
       .SaveWorkLocationMapping(requestArray)
@@ -1430,6 +1454,7 @@ export class WorkLocationMappingComponent implements OnInit {
           // this.services_array = [];
 
           this.bufferArray.data = [];
+          this.bufferArray.paginator = this.innerpaginator;
         },
         (err) => {
           console.log(err, 'ERROR');
@@ -2107,6 +2132,7 @@ export class WorkLocationMappingComponent implements OnInit {
             this.getAllMappedWorkLocations();
 
             this.bufferArray.data = [];
+            this.bufferArray.paginator = this.paginator;
           },
           (err) => {
             console.log(err, 'ERROR');
@@ -2157,6 +2183,7 @@ export class WorkLocationMappingComponent implements OnInit {
           this.getAllMappedWorkLocations();
 
           this.bufferArray.data = [];
+          this.bufferArray.paginator = this.paginator;
         },
         (err) => {
           console.log(err, 'ERROR');

@@ -44,9 +44,9 @@ export class loginService {
     this._baseURL + 'user/logOutUserFromConcurrentSession';
   _forgotPasswordURL = this._baseURL + 'user/forgetPassword';
   _validateSecurityQuestionAndAnswerURL =
-    this._baseURL + 'user/validateSecurityQuestionAndAnswer/';
+    this._baseURL + 'user/validateSecurityQuestionAndAnswer';
   _getTransactionIdForChangePasswordURL =
-    this._baseURL + 'user/getTransactionIdForChangePassword/';
+    this._baseURL + 'user/getTransactionIdForChangePassword';
   _authorisedUser = this._baseURL + 'user/getLoginResponse';
   admin_base_path: any;
   // newlogin = "http://l-156100778.wipro.com:8080/CommonV1/user/userAuthenticate";

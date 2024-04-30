@@ -20,7 +20,14 @@
  * along with this program.  If not, see https://www.gnu.org/licenses/.
  */
 
-import { Component, OnInit, ViewChild, Inject } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  Inject,
+  ChangeDetectorRef,
+  AfterViewInit,
+} from '@angular/core';
 import { NgForm } from '@angular/forms';
 import {
   MAT_DIALOG_DATA,
@@ -40,9 +47,12 @@ declare let jQuery: any;
   templateUrl: './call-disposition-type-master.component.html',
   styleUrls: ['./call-disposition-type-master.component.css'],
 })
-export class CallDispositionTypeMasterComponent implements OnInit {
+export class CallDispositionTypeMasterComponent
+  implements OnInit, AfterViewInit
+{
   [x: string]: any;
   temporarySubtypeArray = new MatTableDataSource<any>();
+  @ViewChild(MatPaginator) innerpaginator: MatPaginator | null = null;
   filtereddata = new MatTableDataSource<any>();
   @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
 
@@ -114,6 +124,7 @@ export class CallDispositionTypeMasterComponent implements OnInit {
     private alertService: ConfirmationDialogsService,
     public commonDataService: dataService,
     public dialog: MatDialog,
+    private cdr: ChangeDetectorRef,
   ) {
     this.data = [];
     this.service_provider_id = this.commonDataService.providerServiceMapID_104;
@@ -179,6 +190,12 @@ export class CallDispositionTypeMasterComponent implements OnInit {
     this.callSubType = '';
     this.subCallTypeExist = false;
     this.temporarySubtypeArray.data = [];
+    this.temporarySubtypeArray.paginator = this.innerpaginator;
+  }
+
+  ngAfterViewInit() {
+    this.filtereddata.paginator = this.paginator;
+    this.temporarySubtypeArray.paginator = this.paginator;
   }
 
   back() {
@@ -205,6 +222,7 @@ export class CallDispositionTypeMasterComponent implements OnInit {
   reset() {
     this.callSubType = '';
     this.temporarySubtypeArray.data = [];
+    this.temporarySubtypeArray.paginator = this.innerpaginator;
     this.fitToBlock = false;
     this.fitForFollowup = false;
     this.isInbound = false;
@@ -248,7 +266,7 @@ export class CallDispositionTypeMasterComponent implements OnInit {
         call_subtype !== null &&
         call_subtype.trim().length > 0
       ) {
-        const obj = {
+        const obj: any = {
           callGroupType: callType,
           callType: call_subtype,
           providerServiceMapID: this.providerServiceMapID,
@@ -261,24 +279,10 @@ export class CallDispositionTypeMasterComponent implements OnInit {
           createdBy: this.commonDataService.uname,
         };
         console.log('dummy obj', obj);
-        if (this.temporarySubtypeArray.data.length === 0)
-          this.temporarySubtypeArray.data.push(obj);
-        else {
-          let count = 0;
-          for (let a = 0; a < this.temporarySubtypeArray.data.length; a++) {
-            if (this.temporarySubtypeArray.data[a].callType === obj.callType) {
-              count = count + 1;
-            }
-          }
-          if (count === 0) {
-            this.temporarySubtypeArray.data.push(obj);
-          } else {
-            this.alertService.alert('Already exists');
-          }
-        }
-
-        // resetting fields
-
+        this.temporarySubtypeArray.data = [
+          ...this.temporarySubtypeArray.data,
+          obj,
+        ];
         this.callSubType = '';
         this.fitToBlock = false;
         this.fitForFollowup = false;
@@ -294,7 +298,10 @@ export class CallDispositionTypeMasterComponent implements OnInit {
   //   console.log(this.temporarySubtypeArray);
   // }
   removeObj(index: any) {
-    this.temporarySubtypeArray.data.splice(index, 1);
+    const newData = [...this.temporarySubtypeArray.data];
+    newData.splice(index, 1);
+    this.temporarySubtypeArray.data = newData;
+    this.cdr.detectChanges();
   }
   save() {
     this.callTypeSubtypeService

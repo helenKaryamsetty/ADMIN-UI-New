@@ -406,15 +406,13 @@
                   name="user_dob"
                   (keydown)="preventTyping($event)"
                   required
+                  (dateChange)="calculateAge(dob)"
                 />
                 <mat-datepicker-toggle
                   matSuffix
                   [for]="picker"
                 ></mat-datepicker-toggle>
-                <mat-datepicker
-                  #picker
-                  (dateChange)="calculateAge($event)"
-                ></mat-datepicker>
+                <mat-datepicker #picker></mat-datepicker>
                 <!-- <mat-hint class="errorText" *ngIf="dob.errors && dob.touched"
                 >DOB is required</mat-hint
               > -->

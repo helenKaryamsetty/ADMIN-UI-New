@@ -156,7 +156,12 @@ export class ParkingPlaceComponent implements OnInit, AfterViewInit {
       });
   }
   getServicesSuccessHandeler(response: any) {
-    this.services = response.data;
+    // this.services = response.data;
+    this.services = response.data.filter(function (item: any) {
+      console.log('item', item);
+      if (item.serviceID === 4 || item.serviceID === 9 || item.serviceID === 2)
+        return item;
+    });
   }
   parkAndHub!: string;
   getStates(value: any) {

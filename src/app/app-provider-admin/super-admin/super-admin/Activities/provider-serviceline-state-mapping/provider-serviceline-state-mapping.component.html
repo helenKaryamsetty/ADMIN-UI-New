@@ -162,6 +162,7 @@
       </div>
       <!-- Pagination -->
       <mat-paginator
+        #paginatorFirst
         [length]="filteredsearchResult.data.length"
         [pageSize]="4"
         [pageSizeOptions]="[4, 10, 20]"
@@ -374,6 +375,7 @@
       </table>
       <!-- Pagination -->
       <mat-paginator
+        #paginatorSecond
         [length]="bufferArray.data.length"
         [pageSize]="4"
         [pageSizeOptions]="[4, 10, 20]"

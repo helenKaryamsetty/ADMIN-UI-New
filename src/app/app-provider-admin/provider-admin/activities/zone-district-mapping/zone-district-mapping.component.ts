@@ -138,7 +138,12 @@ export class ZoneDistrictMappingComponent implements OnInit {
       });
   }
   getServicesSuccessHandeler(response: any) {
-    this.services = response.data;
+    // this.services = response.data;
+    this.services = response.data.filter(function (item: any) {
+      console.log('item', item);
+      if (item.serviceID == 2 || item.serviceID == 4 || item.serviceID == 9)
+        return item;
+    });
   }
   /*
    * State
@@ -403,13 +408,13 @@ export class ZoneDistrictMappingComponent implements OnInit {
       const flag = !zoneMapping.deleted;
       let status;
       if (flag === true) {
-        status = 'Deactivate';
+        this.status = 'Deactivate';
       }
       if (flag === false) {
-        status = 'Activate';
+        this.status = 'Activate';
       }
       this.alertMessage
-        .confirm('Confirm', 'Are you sure you want to ' + status + '?')
+        .confirm('Confirm', 'Are you sure you want to ' + this.status + '?')
         .subscribe((response) => {
           if (response) {
             this.dataObj = {};
