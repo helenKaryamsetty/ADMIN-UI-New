@@ -130,7 +130,12 @@ export class AgentListCreationComponent implements OnInit, AfterViewInit {
 
   getServicesSuccessHandeler(response: any) {
     console.log('SERVICES', response.data);
-    this.services = response.data;
+    // this.services = response.data;
+    this.services = response.data.filter(function (item: any) {
+      console.log('item', item);
+      if (item.serviceID === 1 || item.serviceID === 3 || item.serviceID === 6)
+        return item;
+    });
   }
 
   setProviderServiceMapID(providerServiceMapID: any) {

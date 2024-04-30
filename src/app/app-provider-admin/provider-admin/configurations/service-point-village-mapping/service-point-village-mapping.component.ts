@@ -137,7 +137,16 @@ export class ServicePointVillageMapComponent implements OnInit {
   getProviderServices() {
     this.servicePointMasterService.getServices(this.userID).subscribe(
       (response: any) => {
-        this.services_array = response.data;
+        // this.services_array = response.data;
+        this.services_array = response.data.filter(function (item: any) {
+          console.log('item', item);
+          if (
+            item.serviceID === 2 ||
+            item.serviceID === 4 ||
+            item.serviceID === 9
+          )
+            return item;
+        });
       },
       (err) => {},
     );

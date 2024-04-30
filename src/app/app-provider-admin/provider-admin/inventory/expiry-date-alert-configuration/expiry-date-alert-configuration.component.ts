@@ -236,10 +236,13 @@ export class ExpiryDateAlertConfigurationComponent implements OnInit {
       item.itemCategory = undefined;
     });
 
-    this.storeService.saveExpiryAlertConfig(temp).subscribe((response) => {
-      console.log(response);
-      expiryAlertConfigForm.reset();
-      this.viewExpiryAlertConfig();
+    this.storeService.saveExpiryAlertConfig(temp).subscribe((response: any) => {
+      if (response.statusCode === 200) {
+        this.dialogService.alert('Saved successfully', 'success');
+        console.log(response);
+        expiryAlertConfigForm.reset();
+        this.viewExpiryAlertConfig();
+      }
     });
   }
 
@@ -251,11 +254,16 @@ export class ExpiryDateAlertConfigurationComponent implements OnInit {
     temp.itemCategoryID = this.edit_itemCategory;
     temp.edit_alertBeforeDays = undefined;
 
-    this.storeService.saveExpiryAlertConfig([temp]).subscribe((response) => {
-      console.log(response);
-      expiryAlertConfigForm.reset();
-      this.viewExpiryAlertConfig();
-    });
+    this.storeService
+      .saveExpiryAlertConfig([temp])
+      .subscribe((response: any) => {
+        if (response.statusCode === 200) {
+          this.dialogService.alert('Updated successfully', 'success');
+          console.log(response);
+          expiryAlertConfigForm.reset();
+          this.viewExpiryAlertConfig();
+        }
+      });
   }
 
   resetExpiryAlertConfigList() {
