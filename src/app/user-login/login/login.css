@@ -102,7 +102,7 @@ mat-card-title {
     background-repeat: no-repeat;
     display: inline-block;
     fill: currentColor;
-    height: auto;
+    height: auto !important;
     width: 24px;
     overflow: hidden;
 }

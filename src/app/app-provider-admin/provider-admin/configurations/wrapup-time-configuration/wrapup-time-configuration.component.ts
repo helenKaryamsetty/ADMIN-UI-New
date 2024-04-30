@@ -107,7 +107,17 @@ export class WrapupTimeConfigurationComponent implements OnInit {
       .getServiceLinesWrapup(this.userID)
       .subscribe(
         (response: any) => {
-          if (response && response.data) this.services = response.data;
+          if (response && response.data)
+            // this.services = response.data;
+            this.services = response.data.filter(function (item: any) {
+              console.log('item', item);
+              if (
+                item.serviceID === 1 ||
+                item.serviceID === 3 ||
+                item.serviceID === 6
+              )
+                return item;
+            });
         },
         (err) => {
           console.log('Error in fetching servicelines');
