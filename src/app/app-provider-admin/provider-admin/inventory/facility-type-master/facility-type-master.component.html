@@ -47,9 +47,9 @@
           *ngIf="facilityMasterList?.length > 0"
         >
           <mat-form-field id="filterbox" class="">
+            <mat-label> In-Table Search </mat-label>
             <input
               matInput
-              placeholder="In-Table Search"
               name="filterTerm"
               [(ngModel)]="create_filterTerm"
               #filterTerm
@@ -501,7 +501,7 @@
       <div class="clearfix visible-md visible-lg"></div>
       <div class="col-3">
         <mat-form-field>
-          <mat-label>Facility Type Code</mat-label>
+          <mat-label> Facility Type Code </mat-label>
           <input
             matInput
             required
@@ -526,7 +526,7 @@
       </div>
       <div class="col-3">
         <mat-form-field>
-          <mat-label>Facility Type Name</mat-label>
+          <mat-label> Facility Type Name </mat-label>
           <input
             matInput
             required

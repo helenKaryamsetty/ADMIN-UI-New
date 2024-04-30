@@ -53,9 +53,9 @@
     *ngIf="mode === 'view' && itemCategory_array?.length > 0"
   >
     <mat-form-field class="pull-right">
+      <mat-label> In-Table Search </mat-label>
       <input
         matInput
-        placeholder="In-Table Search"
         name="filterTerm"
         [(ngModel)]="filterTerm"
         (keyup)="filterItemCategory(filterTerm)"
