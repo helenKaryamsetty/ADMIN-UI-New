@@ -475,13 +475,12 @@
     </div>
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-t-3">
       <mat-form-field
-        class="input-full-width"
+        class="input-full-width mat_form_field_width_one"
         appMyProviderName
-        style="width: 100%"
       >
-        <mat-label>Emergency Contact Person</mat-label>
         <input
           matInput
+          placeholder="Emergency Contact Person *"
           ngModel
           name="em_contact_person"
           [(ngModel)]="emergency_cnt_person"
@@ -500,13 +499,12 @@
     <div class="clearfix visible-sm"></div>
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-t-3">
       <mat-form-field
-        class="input-full-width"
+        class="input-full-width mat_form_field_width_one"
         appMyMobileNumber
-        style="width: 100%"
       >
-        <mat-label>Emergency Contact Number</mat-label>
         <input
           matInput
+          placeholder="Emergency Contact Number *"
           ngModel
           name="em_contact_number"
           [(ngModel)]="emergencyMobileNumber"

@@ -5,7 +5,11 @@
     </h4>
   </div>
 </div>
-<div class="pull-right m-t-10" *ngIf="tableMode && searchResult.length !== 0">
+<div
+  class="m-t-10"
+  style="text-align: end"
+  *ngIf="tableMode && searchResult.length !== 0"
+>
   <mat-form-field id="filterbox" class="input-full-width">
     <input
       matInput
@@ -171,64 +175,70 @@
       <strong>Provider Serviceline State Mapping</strong>
     </h4>
   </div>
-  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-a-0">
-    <form autocomplete="off" #mappingFieldsForm="ngForm">
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
-        <!-- <mat-form-field class="hide_underline" [style.width]="'100%'">
+  <div class="col-12 p-a-0">
+    <form autocomplete="off" #mappingFieldsForm="ngForm" class="row">
+      <div class="col-3 m-t-10">
+        <!-- <mat-form-field class="hide_underline"  >
           <input matInput style="display:none"> -->
-        <mat-select
-          placeholder="Provider *"
-          [style.width]="'100%'"
-          [(ngModel)]="provider"
-          name="provider"
-          required
-          (selectionChange)="getServices()"
-        >
-          <mat-option *ngFor="let item of providers" [value]="item">
-            {{ item.serviceProviderName }}
-          </mat-option>
-        </mat-select>
+        <mat-form-field>
+          <mat-label>Provider</mat-label>
+          <mat-select
+            [(ngModel)]="provider"
+            name="provider"
+            required
+            (selectionChange)="getServices()"
+          >
+            <mat-option *ngFor="let item of providers" [value]="item">
+              {{ item.serviceProviderName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
         <!-- </mat-form-field> -->
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
-        <!-- <mat-form-field class="hide_underline" [style.width]="'100%'">
+      <div class="col-3 m-t-10">
+        <!-- <mat-form-field class="hide_underline"  >
           <input matInput style="display:none"> -->
-        <mat-select
-          placeholder="Serviceline *"
-          [style.width]="'100%'"
-          [(ngModel)]="serviceline"
-          name="serviceline"
-          (selectionChange)="
-            getAvailableStates(
-              provider.serviceProviderId,
-              serviceline.serviceID,
-              serviceline
-            )
-          "
-          required
-        >
-          <mat-option *ngFor="let item of services" [value]="item">
-            {{ item.serviceName }}
-          </mat-option>
-        </mat-select>
+        <mat-form-field>
+          <mat-label>Serviceline</mat-label>
+          <mat-select
+            [(ngModel)]="serviceline"
+            name="serviceline"
+            (selectionChange)="
+              getAvailableStates(
+                provider.serviceProviderId,
+                serviceline.serviceID,
+                serviceline
+              )
+            "
+            required
+          >
+            <mat-option *ngFor="let item of services" [value]="item">
+              {{ item.serviceName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
         <!-- </mat-form-field> -->
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
-        <!-- <mat-form-field class="hide_underline" [style.width]="'100%'">
+      <div class="col-3 m-t-10">
+        <!-- <mat-form-field class="hide_underline"  >
           <input matInput style="display:none"> -->
-        <mat-select
-          placeholder="State *"
-          [style.width]="'100%'"
-          [disabled]="isNational"
-          [(ngModel)]="state"
-          [multiple]="true"
-          name="state"
-          required
-        >
-          <mat-option *ngFor="let item of filteredStates" [value]="item">
-            {{ item.stateName }}
-          </mat-option>
-        </mat-select>
+        <mat-form-field>
+          <mat-label>State</mat-label>
+          <mat-select
+            [disabled]="isNational"
+            [(ngModel)]="state"
+            [multiple]="true"
+            name="state"
+            required
+          >
+            <mat-option *ngFor="let item of filteredStates" [value]="item">
+              {{ item.stateName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
         <!-- </mat-form-field> -->
       </div>
     </form>
@@ -242,7 +252,7 @@
       >
         <mat-icon
           mdSuffix
-          class="mat-icon material-icons"
+          class="mat-icon material-icons mat_blue_circle"
           role="img"
           aria-hidden="true"
           style="cursor: pointer"
@@ -371,12 +381,7 @@
     </div>
   </div>
   <div class="col-xs-12 col-sm-12 m-t-20 m-b-10">
-    <button
-      mat-raised-button
-      color="primary"
-      class="pull-right mat_blue"
-      (click)="back()"
-    >
+    <button mat-raised-button color="primary" class="mat_blue" (click)="back()">
       Back
     </button>
     <button
@@ -396,62 +401,64 @@
       <strong>Edit Provider Serviceline State Mapping</strong>
     </h4>
   </div>
-  <div class="col-xs-12 col-sm-12 p-a-0">
-    <form autocomplete="off" #editMappingFieldsForm="ngForm">
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
-        <!-- <mat-form-field class="hide_underline" [style.width]="'100%'">
+  <div class="col-12 p-a-0">
+    <form autocomplete="off" #editMappingFieldsForm="ngForm" class="row">
+      <div class="col-3 m-t-10">
+        <!-- <mat-form-field class="hide_underline"  >
           <input matInput style="display:none"> -->
-        <mat-select
-          placeholder="Provider *"
-          [style.width]="'100%'"
-          [(ngModel)]="edit_provider"
-          name="provider"
-          required
-        >
-          <mat-option
-            *ngFor="let item of providers"
-            [value]="item.serviceProviderId"
-          >
-            {{ item.serviceProviderName }}
-          </mat-option>
-        </mat-select>
+        <mat-form-field>
+          <mat-label>Provider</mat-label>
+          <mat-select [(ngModel)]="edit_provider" name="provider" required>
+            <mat-option
+              *ngFor="let item of providers"
+              [value]="item.serviceProviderId"
+            >
+              {{ item.serviceProviderName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
         <!-- </mat-form-field> -->
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
-        <!-- <mat-form-field class="hide_underline" [style.width]="'100%'">
+      <div class="col-3 m-t-10">
+        <!-- <mat-form-field class="hide_underline"  >
           <input matInput style="display:none"> -->
-        <mat-select
-          placeholder="Serviceline *"
-          [style.width]="'100%'"
-          [(ngModel)]="edit_serviceline"
-          name="serviceline"
-          required
-        >
-          <mat-option
-            *ngFor="let item of servicelines"
-            [value]="item.serviceID"
-            (click)="setIsNationalFlag_while_edit(item.isNational)"
+        <mat-form-field>
+          <mat-label>Serviceline</mat-label>
+          <mat-select
+            [(ngModel)]="edit_serviceline"
+            name="serviceline"
+            required
           >
-            {{ item.serviceName }}
-          </mat-option>
-        </mat-select>
+            <mat-option
+              *ngFor="let item of servicelines"
+              [value]="item.serviceID"
+              (click)="setIsNationalFlag_while_edit(item.isNational)"
+            >
+              {{ item.serviceName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
         <!-- </mat-form-field> -->
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
-        <!-- <mat-form-field class="hide_underline" [style.width]="'100%'">
+      <div class="col-3 m-t-10">
+        <!-- <mat-form-field class="hide_underline"  >
           <input matInput style="display:none"> -->
-        <mat-select
-          placeholder="State *"
-          [style.width]="'100%'"
-          [disabled]="isNational_edit"
-          [(ngModel)]="edit_state"
-          name="state"
-          required
-        >
-          <mat-option *ngFor="let item of states" [value]="item.stateID">
-            {{ item.stateName }}
-          </mat-option>
-        </mat-select>
+        <mat-form-field>
+          <mat-label>State</mat-label>
+          <mat-select
+            [disabled]="isNational_edit"
+            [(ngModel)]="edit_state"
+            name="state"
+            required
+          >
+            <mat-option *ngFor="let item of states" [value]="item.stateID">
+              {{ item.stateName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
         <!-- </mat-form-field> -->
       </div>
     </form>

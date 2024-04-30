@@ -1,191 +1,204 @@
-<div class="row">
-  <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 m-t--5">
-    <h4 class="pull-left">Edit Provider</h4>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-6 col-sm-6 col-md-9 col-lg-9">
+      <h4 mat-dialog-title class="modal-title" style="margin: unset">
+        Edit Provider
+      </h4>
+    </div>
+    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+      <button
+        mat-button
+        class="pull-right p-r-0"
+        [mat-dialog-close]="true"
+        style="background-color: unset; border: unset; margin: 20px"
+      >
+        <mat-icon
+          mdTooltip="close"
+          class="mat-icon material-icons pull-right"
+          role="img"
+          aria-hidden="true"
+          style="cursor: pointer"
+          >clear</mat-icon
+        >
+      </button>
+    </div>
   </div>
-  <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-    <button mat-button class="pull-right p-r-0" [mat-dialog-close]="true">
-      <mat-icon
-        matTooltip="close"
-        class="mat-icon material-icons pull-right"
-        role="img"
-        aria-hidden="true"
-        style="cursor: pointer"
-        >clear
-      </mat-icon>
+
+  <form #form="ngForm" autocomplete="off">
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <h4 class="pull-left" style="margin: unset !important">
+          Primary Details
+        </h4>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+        <mat-form-field myName2>
+          <mat-label>Provider Name</mat-label>
+          <input
+            required
+            matInput
+            [(ngModel)]="providerName"
+            [disabled]="true"
+            name="providerName"
+            #name="ngModel"
+            minlength="2"
+            maxlength="25"
+          />
+          <mat-hint *ngIf="name.touched">
+            <span class="errorText" [hidden]="!name.errors"
+              >Enter atleast 2 characters</span
+            >
+            <span class="errorText" [hidden]="!providerNameExist"
+              >Provider Exists</span
+            >
+          </mat-hint>
+        </mat-form-field>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+        <mat-form-field myName2>
+          <mat-label>Contact Name</mat-label>
+          <input
+            required
+            matInput
+            [(ngModel)]="primaryName"
+            name="primaryName"
+            #namee="ngModel"
+            minlength="2"
+            maxlength="25"
+          />
+          <mat-hint *ngIf="name.touched">
+            <span class="errorText" [hidden]="!namee.errors"
+              >Enter atleast 2 characters</span
+            >
+          </mat-hint>
+        </mat-form-field>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+        <mat-form-field>
+          <mat-label>Email ID</mat-label>
+          <input
+            required
+            matInput
+            [(ngModel)]="primaryEmail"
+            [pattern]="emailPattern"
+            name="primaryEmail"
+            #validEmail="ngModel"
+          />
+          <mat-hint class="errorText" [hidden]="!validEmail.hasError('pattern')"
+            >Enter valid email
+          </mat-hint>
+        </mat-form-field>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" appMyMobileNumber>
+        <mat-form-field>
+          <mat-label>Phone Number</mat-label>
+          <input
+            required
+            matInput
+            [(ngModel)]="primaryNo"
+            name="primaryNo"
+            #number="ngModel"
+            minlength="10"
+            maxlength="10"
+          />
+          <mat-hint class="errorText" *ngIf="number.errors && number.touched"
+            >Enter 10 digit mobile number
+          </mat-hint>
+        </mat-form-field>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-12">
+        <mat-form-field>
+          <mat-label>Address</mat-label>
+          <input
+            matInput
+            [(ngModel)]="primaryAddress"
+            name="primaryAddress"
+            maxlength="50"
+          />
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <h4 class="pull-left" style="margin: unset !important">
+          Secondary Details
+        </h4>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+        <mat-form-field>
+          <mat-label>Contact Name</mat-label>
+          <input
+            matInput
+            [(ngModel)]="secondaryName"
+            name="secondaryName"
+            myName2
+            #sec_name="ngModel"
+            minlength="2"
+            maxlength="25"
+          />
+          <mat-hint *ngIf="sec_name.touched">
+            <span class="errorText" [hidden]="!sec_name.errors"
+              >Enter atleast 2 characters</span
+            >
+          </mat-hint>
+        </mat-form-field>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+        <mat-form-field>
+          <mat-label>Email ID</mat-label>
+          <input
+            matInput
+            [pattern]="emailPattern"
+            [(ngModel)]="secondaryEmail"
+            name="secondaryEmail"
+            #sec_Email="ngModel"
+          />
+          <mat-hint class="errorText" [hidden]="!sec_Email.hasError('pattern')"
+            >Enter valid email
+          </mat-hint>
+        </mat-form-field>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+        <mat-form-field>
+          <mat-label>Phone Number</mat-label>
+          <input
+            matInput
+            [(ngModel)]="secondaryNo"
+            name="secondaryNo"
+            appMyMobileNumber
+            #secondary_number="ngModel"
+            minlength="10"
+            maxlength="10"
+          />
+          <mat-hint
+            class="errorText"
+            *ngIf="secondary_number.errors && number.touched"
+            >Enter 10 digit mobile number
+          </mat-hint>
+        </mat-form-field>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+        <mat-form-field>
+          <mat-label>Address</mat-label>
+          <input
+            matInput
+            [(ngModel)]="secondaryAddress"
+            name="secondaryAddress"
+            maxlength="50"
+          />
+        </mat-form-field>
+      </div>
+    </div>
+  </form>
+  <div class="p-r-0">
+    <button
+      class="pull-right mat_green"
+      mat-raised-button
+      color="accent"
+      [disabled]="!form.valid || providerNameExist"
+      (click)="Edit(form.value)"
+    >
+      Update
     </button>
   </div>
-</div>
-
-<form #form="ngForm" autocomplete="off">
-  <div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-      <h4 class="pull-left">Primary Details</h4>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-      <mat-form-field class="width100" myName2>
-        <input
-          required
-          matInput
-          placeholder="Provider Name"
-          [(ngModel)]="providerName"
-          [disabled]="true"
-          name="providerName"
-          #name="ngModel"
-          minlength="2"
-          maxlength="25"
-        />
-        <mat-hint *ngIf="name.touched">
-          <span class="errorText" [hidden]="!name.errors"
-            >Enter atleast 2 characters</span
-          >
-          <span class="errorText" [hidden]="!providerNameExist"
-            >Provider Exists</span
-          >
-        </mat-hint>
-      </mat-form-field>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-      <mat-form-field class="width100" myName2>
-        <input
-          required
-          matInput
-          placeholder="Contact Name"
-          [(ngModel)]="primaryName"
-          name="primaryName"
-          #namee="ngModel"
-          minlength="2"
-          maxlength="25"
-        />
-        <mat-hint *ngIf="name.touched">
-          <span class="errorText" [hidden]="!namee.errors"
-            >Enter atleast 2 characters</span
-          >
-        </mat-hint>
-      </mat-form-field>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-      <mat-form-field class="width100">
-        <input
-          required
-          matInput
-          placeholder="Email ID"
-          [(ngModel)]="primaryEmail"
-          [pattern]="emailPattern"
-          name="primaryEmail"
-          #validEmail="ngModel"
-        />
-        <mat-hint class="errorText" [hidden]="!validEmail.hasError('pattern')"
-          >Enter valid email
-        </mat-hint>
-      </mat-form-field>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" appMyMobileNumber>
-      <mat-form-field class="width100">
-        <input
-          required
-          matInput
-          placeholder="Phone Number"
-          [(ngModel)]="primaryNo"
-          name="primaryNo"
-          #number="ngModel"
-          minlength="10"
-          maxlength="10"
-        />
-        <mat-hint class="errorText" *ngIf="number.errors && number.touched"
-          >Enter 10 digit mobile number
-        </mat-hint>
-      </mat-form-field>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-12">
-      <mat-form-field class="width100">
-        <input
-          matInput
-          placeholder="Address"
-          [(ngModel)]="primaryAddress"
-          name="primaryAddress"
-          maxlength="50"
-        />
-      </mat-form-field>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-      <h4 class="pull-left">Secondary Details</h4>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-      <mat-form-field class="width100">
-        <input
-          matInput
-          placeholder="Contact Name"
-          [(ngModel)]="secondaryName"
-          name="secondaryName"
-          myName2
-          #sec_name="ngModel"
-          minlength="2"
-          maxlength="25"
-        />
-        <mat-hint *ngIf="sec_name.touched">
-          <span class="errorText" [hidden]="!sec_name.errors"
-            >Enter atleast 2 characters</span
-          >
-        </mat-hint>
-      </mat-form-field>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-      <mat-form-field class="width100">
-        <input
-          matInput
-          placeholder="Email ID"
-          [pattern]="emailPattern"
-          [(ngModel)]="secondaryEmail"
-          name="secondaryEmail"
-          #sec_Email="ngModel"
-        />
-        <mat-hint class="errorText" [hidden]="!sec_Email.hasError('pattern')"
-          >Enter valid email
-        </mat-hint>
-      </mat-form-field>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-      <mat-form-field class="width100">
-        <input
-          matInput
-          placeholder="Phone Number"
-          [(ngModel)]="secondaryNo"
-          name="secondaryNo"
-          appMyMobileNumber
-          #secondary_number="ngModel"
-          minlength="10"
-          maxlength="10"
-        />
-        <mat-hint
-          class="errorText"
-          *ngIf="secondary_number.errors && number.touched"
-          >Enter 10 digit mobile number
-        </mat-hint>
-      </mat-form-field>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-      <mat-form-field class="width100">
-        <input
-          matInput
-          placeholder="Address"
-          [(ngModel)]="secondaryAddress"
-          name="secondaryAddress"
-          maxlength="50"
-        />
-      </mat-form-field>
-    </div>
-  </div>
-</form>
-<div class="m-t-10 p-r-0">
-  <button
-    class="pull-right"
-    mat-raised-button
-    color="accent"
-    [disabled]="!form.valid || providerNameExist"
-    (click)="Edit(form.value)"
-  >
-    Update
-  </button>
 </div>

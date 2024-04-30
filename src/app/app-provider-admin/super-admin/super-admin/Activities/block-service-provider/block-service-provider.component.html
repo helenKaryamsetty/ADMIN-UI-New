@@ -2,64 +2,63 @@
   <div class="col-xs-12 col-sm-12">
     <h4 class="pull-left">View Provider</h4>
   </div>
-  <form id="myForm" autocomplete="off">
-    <div
-      class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15"
-      (keydown)="selectKeyPress($event)"
-      tabindex="0"
-    >
+  <form id="myForm" autocomplete="off" class="col-12 row">
+    <div class="col-3 m-t-15" (keydown)="selectKeyPress($event)" tabindex="0">
       <!-- <mat-form-field class="hide_underline width100">
         <input matInput style="display:none"> -->
-      <mat-select
-        name="serviceProvider"
-        placeholder="Service Provider"
-        class="width100"
-        [(ngModel)]="service_provider"
-        (selectionChange)="getStates(service_provider)"
-      >
-        <mat-option
-          *ngFor="let item of stateProviderArray"
-          [value]="item.serviceProviderId"
+      <mat-form-field>
+        <mat-label>Service Provider</mat-label>
+        <mat-select
+          name="serviceProvider"
+          [(ngModel)]="service_provider"
+          (selectionChange)="getStates(service_provider)"
         >
-          {{ item.serviceProviderName }}
-        </mat-option>
-      </mat-select>
+          <mat-option
+            *ngFor="let item of stateProviderArray"
+            [value]="item.serviceProviderId"
+          >
+            {{ item.serviceProviderName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
       <!-- </mat-form-field> -->
     </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
+    <div class="col-3 m-t-15">
       <!-- <mat-form-field class="hide_underline width100">
         <input matInput style="display:none"> -->
-      <mat-select
-        name="Services"
-        placeholder="Serviceline"
-        class="width100"
-        [(ngModel)]="serviceline"
-      >
-        <mat-option
-          *ngFor="let item of services_array"
-          [value]="item.serviceID"
-          (click)="setIsNationalFlag(item.isNational)"
-        >
-          {{ item.serviceName }}
-        </mat-option>
-      </mat-select>
+      <mat-form-field>
+        <mat-label>Serviceline</mat-label>
+        <mat-select name="Services" [(ngModel)]="serviceline">
+          <mat-option
+            *ngFor="let item of services_array"
+            [value]="item.serviceID"
+            (click)="setIsNationalFlag(item.isNational)"
+          >
+            {{ item.serviceName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
       <!-- </mat-form-field> -->
     </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
+    <div class="col-3 m-t-15">
       <!-- <mat-form-field class="hide_underline width100">
         <input matInput style="display:none"> -->
-      <mat-select
-        name="state"
-        placeholder="State"
-        [disabled]="isNational"
-        class="width100"
-        [(ngModel)]="state"
-        (selectionChange)="getServicesInState(service_provider, state)"
-      >
-        <mat-option *ngFor="let item of states_array" [value]="item.stateID">
-          {{ item.stateName }}
-        </mat-option>
-      </mat-select>
+      <mat-form-field>
+        <mat-label>State</mat-label>
+        <mat-select
+          name="state"
+          [disabled]="isNational"
+          [(ngModel)]="state"
+          (selectionChange)="getServicesInState(service_provider, state)"
+        >
+          <mat-option *ngFor="let item of states_array" [value]="item.stateID">
+            {{ item.stateName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
       <!-- </mat-form-field> -->
     </div>
   </form>
@@ -176,32 +175,34 @@
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
           <h4>Provider Level Provision</h4>
         </div>
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+        <div class="col-3">
           <!-- <mat-form-field class="hide_underline width100">
             <input matInput style="display:none"> -->
-          <mat-select
-            required
-            #statusRef="ngModel"
-            name="status"
-            placeholder="Select Status"
-            class="width100"
-            [(ngModel)]="status"
-          >
-            <mat-option
-              *ngFor="let item of status_array"
-              [value]="item.statusID"
+          <mat-form-field>
+            <mat-label>Select Status</mat-label>
+            <mat-select
+              required
+              #statusRef="ngModel"
+              name="status"
+              [(ngModel)]="status"
             >
-              {{ item.status }}
-            </mat-option>
-          </mat-select>
+              <mat-option
+                *ngFor="let item of status_array"
+                [value]="item.statusID"
+              >
+                {{ item.status }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
           <!-- </mat-form-field> -->
         </div>
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-          <mat-form-field class="width100" appMyProviderName>
+        <div class="col-3">
+          <mat-form-field appMyProviderName>
+            <mat-label>Reason</mat-label>
             <input
               matInput
               required
-              placeholder="Reason"
               [(ngModel)]="reason"
               minlength="5"
               maxlength="100"
@@ -218,11 +219,11 @@
             </mat-hint>
           </mat-form-field>
         </div>
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
+        <div class="col-3 m-t-10">
           <button
             mat-raised-button
             color="accent"
-            class="xs-pull-right sm-pull-right md-pull-left lg-pull-left"
+            class="xs-pull-right sm-pull-right md-pull-left lg-pull-left mat_green"
             [disabled]="statusRef.invalid || reasonRef.invalid"
             (click)="blockProvider(); this.statusSettingFields.reset()"
           >
@@ -236,32 +237,34 @@
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
           <h4>State Level Provision</h4>
         </div>
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+        <div class="col-3">
           <!-- <mat-form-field class="hide_underline width100">
             <input matInput style="display:none"> -->
-          <mat-select
-            required
-            #statusRef="ngModel"
-            name="status"
-            placeholder="Select Status"
-            class="width100"
-            [(ngModel)]="status"
-          >
-            <mat-option
-              *ngFor="let item of status_array"
-              [value]="item.statusID"
+          <mat-form-field>
+            <mat-label>Select Status</mat-label>
+            <mat-select
+              required
+              #statusRef="ngModel"
+              name="status"
+              [(ngModel)]="status"
             >
-              {{ item.status }}
-            </mat-option>
-          </mat-select>
+              <mat-option
+                *ngFor="let item of status_array"
+                [value]="item.statusID"
+              >
+                {{ item.status }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
           <!-- </mat-form-field> -->
         </div>
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-          <mat-form-field class="width100" appMyProviderName>
+        <div class="col-3">
+          <mat-form-field appMyProviderName>
+            <mat-label>Reason</mat-label>
             <input
               matInput
               required
-              placeholder="Reason"
               [(ngModel)]="reason"
               minlength="5"
               maxlength="100"
@@ -278,11 +281,11 @@
             </mat-hint>
           </mat-form-field>
         </div>
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
+        <div class="col-3 m-t-10">
           <button
             mat-raised-button
             color="accent"
-            class="xs-pull-right sm-pull-right md-pull-left lg-pull-left"
+            class="xs-pull-right sm-pull-right md-pull-left lg-pull-left mat_green"
             [disabled]="statusRef.invalid || reasonRef.invalid"
             (click)="blockState(); this.statusSettingFields1.reset()"
           >
@@ -296,32 +299,34 @@
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
           <h4>Serviceline Level Provision</h4>
         </div>
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+        <div class="col-3">
           <!-- <mat-form-field class="hide_underline width100">
             <input matInput style="display:none"> -->
-          <mat-select
-            name="status"
-            #statusRef="ngModel"
-            placeholder="Select Status"
-            class="width100"
-            [(ngModel)]="status"
-            required
-          >
-            <mat-option
-              *ngFor="let item of status_array"
-              [value]="item.statusID"
+          <mat-form-field>
+            <mat-label>Select Status</mat-label>
+            <mat-select
+              name="status"
+              #statusRef="ngModel"
+              [(ngModel)]="status"
+              required
             >
-              {{ item.status }}
-            </mat-option>
-          </mat-select>
+              <mat-option
+                *ngFor="let item of status_array"
+                [value]="item.statusID"
+              >
+                {{ item.status }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
           <!-- </mat-form-field> -->
         </div>
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-          <mat-form-field class="width100" appMyProviderName>
+        <div class="col-3">
+          <mat-form-field appMyProviderName>
+            <mat-label>Reason</mat-label>
             <input
               matInput
               required
-              placeholder="Reason"
               [(ngModel)]="reason"
               minlength="5"
               maxlength="100"
@@ -338,11 +343,11 @@
             </mat-hint>
           </mat-form-field>
         </div>
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
+        <div class="col-3 m-t-10">
           <button
             mat-raised-button
             color="accent"
-            class="xs-pull-right sm-pull-right md-pull-left lg-pull-left"
+            class="xs-pull-right sm-pull-right md-pull-left lg-pull-left mat_green"
             [disabled]="statusRef.invalid || reasonRef.invalid"
             (click)="blockService(); this.statusSettingFields2.reset()"
           >
@@ -356,31 +361,33 @@
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
           <h4>Provider State Serviceline Level Provision</h4>
         </div>
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+        <div class="col-3">
           <!-- <mat-form-field class="hide_underline width100">
             <input matInput style="display:none"> -->
-          <mat-select
-            #statusR="ngModel"
-            name="status"
-            placeholder="Select Status"
-            class="width100"
-            [(ngModel)]="status"
-            required
-          >
-            <mat-option
-              *ngFor="let item of status_array"
-              [value]="item.statusID"
+          <mat-form-field>
+            <mat-label>Select Status</mat-label>
+            <mat-select
+              #statusR="ngModel"
+              name="status"
+              [(ngModel)]="status"
+              required
             >
-              {{ item.status }}
-            </mat-option>
-          </mat-select>
+              <mat-option
+                *ngFor="let item of status_array"
+                [value]="item.statusID"
+              >
+                {{ item.status }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
           <!-- </mat-form-field> -->
         </div>
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-          <mat-form-field class="width100" appMyProviderName>
+        <div class="col-3">
+          <mat-form-field appMyProviderName>
+            <mat-label>Reason</mat-label>
             <input
               matInput
-              placeholder="Reason"
               [(ngModel)]="reason"
               minlength="5"
               maxlength="100"
@@ -400,11 +407,11 @@
             </mat-hint>
           </mat-form-field>
         </div>
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
+        <div class="col-3 m-t-10">
           <button
             mat-raised-button
             color="accent"
-            class="xs-pull-right sm-pull-right md-pull-left lg-pull-left"
+            class="xs-pull-right sm-pull-right md-pull-left lg-pull-left mat_green"
             [disabled]="statusR.errors || reasonR.errors"
             (click)="blockServiceOfState(); this.statusSettingFields3.reset()"
           >
