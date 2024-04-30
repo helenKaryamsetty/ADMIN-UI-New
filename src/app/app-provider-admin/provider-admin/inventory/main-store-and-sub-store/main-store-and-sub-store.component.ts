@@ -235,15 +235,15 @@ export class MainStoreAndSubStoreComponent implements OnInit {
           };
           this.storeService.deleteStore(object).subscribe(
             (res: any) => {
-              if (res.data !== undefined) {
-                this.dialogService.alert(res.response, 'error');
-              } else {
+              if (res.status === 'Success') {
                 this.dialogService.alert(
                   this.confirmMessage + 'd successfully',
                   'success',
                 );
                 this.getAllStores(this.providerServiceMapID);
                 this.create_filterTerm = '';
+              } else {
+                this.dialogService.alert(res.errorMessage, 'error');
               }
             },
             (err) => {

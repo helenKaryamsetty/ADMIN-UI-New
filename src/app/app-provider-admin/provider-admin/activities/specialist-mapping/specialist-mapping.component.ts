@@ -239,11 +239,13 @@ export class SpecialistMappingComponent implements OnInit {
           deleted: false,
         },
       ];
-      this.specialistMappingService.saveMappings(apiObj).subscribe((res) => {
-        this.alertService.alert('Mapping saved successfully', 'success');
-        this.getAvailableMapping();
-        this.showTable();
-      });
+      this.specialistMappingService
+        .saveMappings(apiObj)
+        .subscribe((res: any) => {
+          this.alertService.alert('Mapping saved successfully', 'success');
+          this.getAvailableMapping();
+          this.showTable();
+        });
     }
   }
 
@@ -252,7 +254,7 @@ export class SpecialistMappingComponent implements OnInit {
     console.log(this.specializationList, 'listed');
     this.specializationList.map((element: any) => {
       if (
-        element.userID === this.userSelected &&
+        element.userID.toString() === this.userSelected &&
         element.specializationID === this.specializationSelected
       ) {
         exists = true;
