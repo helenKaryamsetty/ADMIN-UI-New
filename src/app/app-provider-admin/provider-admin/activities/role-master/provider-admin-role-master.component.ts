@@ -102,12 +102,17 @@ export class RoleMasterComponent implements OnInit, AfterViewInit {
   @ViewChild('addingForm') addingForm!: NgForm;
 
   @ViewChild(MatSort) sort: MatSort | null = null;
-  @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
+  paginator!: MatPaginator;
+  @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
+    this.paginator = mp;
+    this.setDataSourceAttributes();
+  }
   dataSource = new MatTableDataSource<any>();
 
-  @ViewChild(MatPaginator) addRolepaginator: MatPaginator | null = null;
+  setDataSourceAttributes() {
+    this.dataSource.paginator = this.paginator;
+  }
   addRole = new MatTableDataSource<any>();
-
   constructor(
     public ProviderAdminRoleService: ProviderAdminRoleService,
     public commonDataService: dataService,
@@ -254,7 +259,7 @@ export class RoleMasterComponent implements OnInit, AfterViewInit {
       this.feature = undefined;
       this.selectedRole = undefined;
       this.addRole.data = [];
-      this.addRole.paginator = this.addRolepaginator;
+      this.addRole.paginator = this.paginator;
       this.tempFilterScreens = [];
       this.editScreenName = undefined;
       this.showUpdateFeatureButtonFlag = false;
@@ -326,7 +331,7 @@ export class RoleMasterComponent implements OnInit, AfterViewInit {
           obj.roleName.trim().length > 0
         ) {
           this.addRole.data.push(obj);
-          this.addRole.paginator = this.addRolepaginator;
+          this.addRole.paginator = this.paginator;
           this.tempFilterScreens = this.tempFilterScreens.concat(
             obj.screen_name,
           );
@@ -353,7 +358,7 @@ export class RoleMasterComponent implements OnInit, AfterViewInit {
           obj.roleName !== null
         ) {
           this.addRole.data.push(obj);
-          this.addRole.paginator = this.addRolepaginator;
+          this.addRole.paginator = this.paginator;
           if (this.service.serviceID !== 7) {
             this.tempFilterScreens = this.tempFilterScreens.concat(
               obj.screen_name,
@@ -473,7 +478,7 @@ export class RoleMasterComponent implements OnInit, AfterViewInit {
     this.finalResponse = response.data;
     if (this.finalResponse[0].roleID) {
       this.addRole.data = []; //empty the buffer array
-      this.addRole.paginator = this.addRolepaginator;
+      this.addRole.paginator = this.paginator;
       this.tempFilterScreens = [];
       this.setRoleFormFlag(false);
       this.findRoles(this.STATE_ID, this.SERVICE_ID, true);
@@ -550,7 +555,7 @@ export class RoleMasterComponent implements OnInit, AfterViewInit {
     this.role = '';
     this.description = '';
     this.addRole.data = [];
-    this.addRole.paginator = this.addRolepaginator;
+    this.addRole.paginator = this.paginator;
     this.tempFilterScreens = [];
     this.selectedRole = undefined;
     this.disableSelection = false;
@@ -584,7 +589,7 @@ export class RoleMasterComponent implements OnInit, AfterViewInit {
       }
     }
     this.addRole.data.splice(index, 1);
-    this.addRole.paginator = this.addRolepaginator;
+    this.addRole.paginator = this.paginator;
   }
   removeFeature(rowIndex: any, FeatureIndex: any) {
     this.findRoles(this.STATE_ID, this.SERVICE_ID, false);
@@ -623,13 +628,13 @@ export class RoleMasterComponent implements OnInit, AfterViewInit {
     }
     this.addRole.data[rowIndex].screen_name.splice(FeatureIndex, 1);
     this.addRole.data[rowIndex].screenID.splice(FeatureIndex, 1);
-    this.addRole.paginator = this.addRolepaginator;
+    this.addRole.paginator = this.paginator;
     if (
       this.addRole.data[rowIndex].screen_name.length === 0 &&
       this.addRole.data[rowIndex].screenID.length === 0
     ) {
       this.addRole.data.splice(rowIndex, 1);
-      this.addRole.paginator = this.addRolepaginator;
+      this.addRole.paginator = this.paginator;
     }
   }
 

@@ -88,35 +88,7 @@
             </button>
           </td>
         </ng-container>
-        <!-- <thead>
-          <tr>
-            <th width="10%">S.No.</th>
-            <th width="25%">Drug Name</th>
-            <th width="35%">Description</th>
-            <th width="25%">Remarks</th>
-            <th width="15%">Edit</th>
-            <th width="20%">Action</th>
-          </tr>
-        </thead> -->
-        <!-- <tbody>
-          <tr *ngIf="md2.data.length == 0" class="record-not-found">
-            <td colspan="6" align="center">No records found</td>
-          </tr>
-          <tr *ngFor="let drug of md2.data; let i= index">
-            <td>{{fileteredavailableDrugs.indexOf(drug)+1}}</td>
-            <td>{{drug.drugName}}</td>
-            <td>{{drug.drugDesc}}</td>
-            <td>{{drug.remarks}}</td>
-            <td>
-              <mat-icon mdTooltip="Edit" class="mat-icon material-icons" role="img" aria-hidden="true" style="cursor:pointer" *ngIf="!drug.deleted"
-                (click)="editDrugData(drug)">edit</mat-icon>
-            </td>
-            <td>
-              <button *ngIf="drug.deleted=='1'" mat-raised-button color="accent" (click)="updateDrugStatus(drug)">Activate</button>
-              <button *ngIf="drug.deleted=='0'" mat-raised-button color="primary" (click)="updateDrugStatus(drug)">Deactivate</button>
-            </td>
-          </tr>
-        </tbody> -->
+
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
       </table>
@@ -146,10 +118,6 @@
       </mat-paginator>
     </div>
   </div>
-  <!-- <pagination-controls (pageChange)="b = $event" id="drugListResult"></pagination-controls> 
-   <div>
-    <button class="btn pull-right " (click)="showForm()">Add Drug </button>
-  </div> -->
 </div>
 <div *ngIf="!showDrugs || editable">
   <h4 *ngIf="!editable">Create Drug</h4>

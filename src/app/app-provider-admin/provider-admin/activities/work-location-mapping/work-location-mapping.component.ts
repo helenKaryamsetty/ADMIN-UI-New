@@ -33,12 +33,7 @@ import { WorkLocationMapping } from '../services/work-location-mapping.service';
   templateUrl: './work-location-mapping.component.html',
   styleUrls: ['./work-location-mapping.component.css'],
 })
-export class WorkLocationMappingComponent implements OnInit, AfterViewInit {
-  // filteredmappedWorkLocationsList: any;
-  // filteredmappedWorkLocationsList = new MatTableDataSource<any>();
-  // bufferArray = new MatTableDataSource<any>();
-  // @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
-
+export class WorkLocationMappingComponent implements OnInit {
   userID: any;
   serviceProviderID: any;
   createdBy: any;
@@ -136,7 +131,6 @@ export class WorkLocationMappingComponent implements OnInit, AfterViewInit {
   }
   filteredmappedWorkLocationsList = new MatTableDataSource<any>();
   bufferArray = new MatTableDataSource<any>();
-  @ViewChild(MatPaginator) innerpaginator: MatPaginator | null = null;
 
   setDataSourceAttributes() {
     this.filteredmappedWorkLocationsList.paginator = this.paginator;
@@ -179,11 +173,6 @@ export class WorkLocationMappingComponent implements OnInit, AfterViewInit {
     this.getAllMappedWorkLocations();
     this.getUserName(this.serviceProviderID);
     // this.getAllServicelines(this.serviceProviderID);
-  }
-
-  ngAfterViewInit() {
-    this.filteredmappedWorkLocationsList.paginator = this.paginator;
-    this.bufferArray.paginator = this.innerpaginator;
   }
 
   setIsNational(value: any) {
@@ -343,7 +332,7 @@ export class WorkLocationMappingComponent implements OnInit, AfterViewInit {
           this.State = null;
         }
       });
-      this.bufferArray.paginator = this.innerpaginator;
+      this.bufferArray.paginator = this.paginator;
     }
   }
 
@@ -470,7 +459,6 @@ export class WorkLocationMappingComponent implements OnInit, AfterViewInit {
           }
         }
       });
-      this.bufferArray.paginator = this.innerpaginator;
     }
     this.availableRoles.forEach((removeScreenNameOfSupAndSpec: any) => {
       if (
@@ -511,7 +499,6 @@ export class WorkLocationMappingComponent implements OnInit, AfterViewInit {
           this.bufferArrayTemp.push(bufferArrayList.roleID1);
         }
       });
-      this.bufferArray.paginator = this.innerpaginator;
     }
     this.bufferArrayTemp.forEach((roleId: any) => {
       roleId.forEach((role: any) => {
@@ -541,7 +528,6 @@ export class WorkLocationMappingComponent implements OnInit, AfterViewInit {
       }
     });
     this.availableRoles = bufferTempsupAndSpecScreenNames.slice();
-    this.bufferArray.paginator = this.innerpaginator;
 
     // reset all buffer values
     this.bufferArrayTemp = [];
@@ -563,7 +549,7 @@ export class WorkLocationMappingComponent implements OnInit, AfterViewInit {
       this.formMode = false;
       this.editMode = false;
       this.bufferArray.data = [];
-      this.bufferArray.paginator = this.innerpaginator;
+      this.bufferArray.paginator = this.paginator;
       this.editWorkplaceForm.resetForm();
       this.showInOutBoundEdit = false;
       this.isOutboundEdit = false;
@@ -580,7 +566,7 @@ export class WorkLocationMappingComponent implements OnInit, AfterViewInit {
         this.formMode = false;
         this.editMode = false;
         this.bufferArray.data = [];
-        this.bufferArray.paginator = this.innerpaginator;
+        this.bufferArray.paginator = this.paginator;
         this.eForm.resetForm();
         this.isNational = false;
         this.isInbound = false;
@@ -600,7 +586,7 @@ export class WorkLocationMappingComponent implements OnInit, AfterViewInit {
         this.formMode = false;
         this.editMode = false;
         this.bufferArray.data = [];
-        this.bufferArray.paginator = this.innerpaginator;
+        this.bufferArray.paginator = this.paginator;
         this.eForm.resetForm();
         this.isNational = false;
         this.isInbound = false;
@@ -961,7 +947,7 @@ export class WorkLocationMappingComponent implements OnInit, AfterViewInit {
         }
         if (this.bufferArray.data.length > 0) {
           this.eForm.resetForm();
-          this.bufferArray.paginator = this.innerpaginator;
+          this.bufferArray.paginator = this.paginator;
         }
         console.log('Result Array', this.bufferArray);
       }
@@ -981,12 +967,12 @@ export class WorkLocationMappingComponent implements OnInit, AfterViewInit {
       this.setWorkLocationObject(objectToBeAdded, obj, false, false);
       if (this.bufferArray.data.length > 0) {
         this.eForm.resetForm();
-        this.bufferArray.paginator = this.innerpaginator;
+        this.bufferArray.paginator = this.paginator;
       }
       console.log('Result Array', this.bufferArray);
       if (this.bufferArray.data.length > 0) {
         this.eForm.resetForm();
-        this.bufferArray.paginator = this.innerpaginator;
+        this.bufferArray.paginator = this.paginator;
       }
       // }
     } else if (objectToBeAdded.serviceline.serviceName === 'HWC') {
@@ -1053,7 +1039,7 @@ export class WorkLocationMappingComponent implements OnInit, AfterViewInit {
         }
         if (this.bufferArray.data.length > 0) {
           this.eForm.resetForm();
-          this.bufferArray.paginator = this.innerpaginator;
+          this.bufferArray.paginator = this.paginator;
           this.disableSelectRoles = false;
         }
       }
@@ -1113,7 +1099,7 @@ export class WorkLocationMappingComponent implements OnInit, AfterViewInit {
 
       if (this.bufferArray.data.length > 0) {
         this.eForm.resetForm();
-        this.bufferArray.paginator = this.innerpaginator;
+        this.bufferArray.paginator = this.paginator;
         this.disableSelectRoles = false;
       }
       console.log('Result Array', this.bufferArray);
@@ -1303,7 +1289,7 @@ export class WorkLocationMappingComponent implements OnInit, AfterViewInit {
       workLocationObj['district'] = null;
     }
     this.bufferArray.data.push(workLocationObj);
-    this.bufferArray.paginator = this.innerpaginator;
+    this.bufferArray.paginator = this.paginator;
   }
 
   resetAllArrays() {
@@ -1326,7 +1312,7 @@ export class WorkLocationMappingComponent implements OnInit, AfterViewInit {
 
   deleteRow(i: any, serviceID: any, providerServiceMapID: any, userID: any) {
     this.bufferArray.data.splice(i, 1);
-    this.bufferArray.paginator = this.innerpaginator;
+    this.bufferArray.paginator = this.paginator;
     this.getAllRoles(serviceID, providerServiceMapID, userID);
     this.availableRoles = [];
     this.RolesList = [];
@@ -1334,7 +1320,7 @@ export class WorkLocationMappingComponent implements OnInit, AfterViewInit {
 
   removeRole(rowIndex: any, roleIndex: any) {
     this.bufferArray.data[rowIndex].roleID1.splice(roleIndex, 1);
-    this.bufferArray.paginator = this.innerpaginator;
+    this.bufferArray.paginator = this.paginator;
     this.getAllRoles(
       this.bufferArray.data[rowIndex].serviceID,
       this.bufferArray.data[rowIndex].providerServiceMapID,
@@ -1342,7 +1328,7 @@ export class WorkLocationMappingComponent implements OnInit, AfterViewInit {
     );
     if (this.bufferArray.data[rowIndex].roleID1.length === 0) {
       this.bufferArray.data.splice(rowIndex, 1);
-      this.bufferArray.paginator = this.innerpaginator;
+      this.bufferArray.paginator = this.paginator;
     }
   }
 
@@ -1428,7 +1414,7 @@ export class WorkLocationMappingComponent implements OnInit, AfterViewInit {
     console.log(requestArray, 'after modification array');
 
     this.bufferArray.data = [];
-    this.bufferArray.paginator = this.innerpaginator;
+    this.bufferArray.paginator = this.paginator;
 
     this.worklocationmapping
       .SaveWorkLocationMapping(requestArray)
@@ -1454,7 +1440,7 @@ export class WorkLocationMappingComponent implements OnInit, AfterViewInit {
           // this.services_array = [];
 
           this.bufferArray.data = [];
-          this.bufferArray.paginator = this.innerpaginator;
+          this.bufferArray.paginator = this.paginator;
         },
         (err) => {
           console.log(err, 'ERROR');
@@ -1803,12 +1789,10 @@ export class WorkLocationMappingComponent implements OnInit, AfterViewInit {
     isNational: any,
     blockVillageCheckFlag: any,
   ) {
-    // this.stateID_duringEdit = '';
-
     if (response) {
       console.log(response, 'Provider States');
 
-      this.states_array = response;
+      this.states_array = response.data;
 
       this.districts_array = [];
 
@@ -1896,11 +1880,11 @@ export class WorkLocationMappingComponent implements OnInit, AfterViewInit {
       .getAllDistricts(state)
 
       .subscribe(
-        (response) => {
+        (response: any) => {
           if (response) {
             console.log(response, 'get all districts success handeler');
 
-            this.districts_array = response;
+            this.districts_array = response.data;
 
             // this.getAllWorkLocations_duringEdit(this.userID_duringEdit, this.stateID_duringEdit, this.serviceID_duringEdit);
           }
@@ -2214,8 +2198,10 @@ export class WorkLocationMappingComponent implements OnInit, AfterViewInit {
   filterComponentList(searchTerm?: string) {
     if (!searchTerm) {
       this.filteredmappedWorkLocationsList.data = this.mappedWorkLocationsList;
+      this.filteredmappedWorkLocationsList.paginator = this.paginator;
     } else {
       this.filteredmappedWorkLocationsList.data = [];
+      this.filteredmappedWorkLocationsList.paginator = this.paginator;
       this.mappedWorkLocationsList.forEach((item: any) => {
         for (const key in item) {
           if (

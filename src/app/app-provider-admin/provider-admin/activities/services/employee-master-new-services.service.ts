@@ -82,7 +82,7 @@ export class EmployeeMasterNewServices {
     this.userActivationDeactivationUrl =
       this.providerAdmin_base_url + 'deletedUserDetails';
     this.checkEmpIdAvailabilityUrl =
-      this.providerAdmin_base_url + '/m/FindEmployeeDetails';
+      this.providerAdmin_base_url + 'm/FindEmployeeDetails';
   }
   // User Details related methods for fetching all dropdown data
   getCommonRegistrationData(): Observable<any> {

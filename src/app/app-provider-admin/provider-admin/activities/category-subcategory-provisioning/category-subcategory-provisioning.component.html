@@ -203,12 +203,6 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
       </table>
-      <mat-paginator
-        [hidden]="filtereddata.data.length === 0 || !showCategoryTable"
-        [pageSizeOptions]="[5, 10, 25]"
-        [pageSize]="5"
-        showFirstLastButtons
-      ></mat-paginator>
       <div *ngIf="showCategoryTable">
         <button
           class="pull-right mat_blue"
@@ -220,6 +214,12 @@
           Add New Category/Sub Category
         </button>
       </div>
+      <mat-paginator
+        [hidden]="filtereddata.data.length === 0 || !showCategoryTable"
+        [pageSizeOptions]="[5, 10, 25]"
+        [pageSize]="5"
+        showFirstLastButtons
+      ></mat-paginator>
     </div>
     <!--sub-category table-->
     <div class="table-responsive">

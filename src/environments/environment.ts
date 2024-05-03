@@ -151,4 +151,16 @@ export const environment = {
   /* serviceline and state */
   getRolesUrl: `${adminBaseUrl}m/role/search/active`,
   saveUrl: `${adminBaseUrl}m/role/configWrap`,
+  getStatesUrl: `${adminBaseUrl}m/role/stateNew`,
+  getServiceLinesUrl: `${adminBaseUrl}m/role/serviceNew`,
+  get_State_new_Url: `${adminBaseUrl} m/role/stateNew`,
+  get_Service_new_Url: `${adminBaseUrl}m/role/serviceNew`,
+  get_facilities_Url: `${adminBaseUrl}getFacility`,
+  save_facilities_Url: `${adminBaseUrl}addFacility`,
+  update_facilities_Url: `${adminBaseUrl}editFacility`,
+  delete_facilities_Url: `${adminBaseUrl}deleteFacility`,
+  get_itemform_Url: `${adminBaseUrl} 'getItemForm`,
+  save_itemform_Url: `${adminBaseUrl} 'createItemForms`,
+  update_itemform_Url: `${adminBaseUrl} 'editItemForm`,
+  delete_itemform_Url: `${adminBaseUrl} 'blockItemForm`,
 };

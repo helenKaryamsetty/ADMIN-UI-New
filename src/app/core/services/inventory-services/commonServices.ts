@@ -26,6 +26,7 @@ import { Observable } from 'rxjs';
 // import 'rxjs/add/operator/map';
 // import { InterceptedHttp } from '../../http.interceptor';
 import { ConfigService } from '../config/config.service';
+import { environment } from 'src/environments/environment';
 // import { SecurityInterceptedHttp } from '../../http.securityinterceptor';
 
 @Injectable()
@@ -47,7 +48,7 @@ export class CommonServices {
    */
 
   getServiceLines(userID: any) {
-    return this.http.post(this.getServiceLinesUrl, {
+    return this.http.post(environment.getServiceLinesUrl, {
       userID: userID,
     });
     // .map(this.handleState_n_ServiceSuccess)
@@ -58,7 +59,7 @@ export class CommonServices {
    */
 
   getStatesOnServices(userID: any, serviceID: any, isNational: any) {
-    return this.http.post(this.getStatesUrl, {
+    return this.http.post(environment.getStatesUrl, {
       userID: userID,
       serviceID: serviceID,
       isNational: isNational,

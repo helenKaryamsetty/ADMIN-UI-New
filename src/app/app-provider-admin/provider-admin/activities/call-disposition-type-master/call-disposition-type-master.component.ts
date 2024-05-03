@@ -51,11 +51,18 @@ export class CallDispositionTypeMasterComponent
   implements OnInit, AfterViewInit
 {
   [x: string]: any;
-  temporarySubtypeArray = new MatTableDataSource<any>();
-  @ViewChild(MatPaginator) innerpaginator: MatPaginator | null = null;
-  filtereddata = new MatTableDataSource<any>();
-  @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
 
+  paginator!: MatPaginator;
+  @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
+    this.paginator = mp;
+    this.setDataSourceAttributes();
+  }
+  filtereddata = new MatTableDataSource<any>();
+
+  setDataSourceAttributes() {
+    this.filtereddata.paginator = this.paginator;
+  }
+  temporarySubtypeArray = new MatTableDataSource<any>();
   // filtereddata: any = [];
   note!: string;
   service_provider_id: any;
@@ -190,7 +197,7 @@ export class CallDispositionTypeMasterComponent
     this.callSubType = '';
     this.subCallTypeExist = false;
     this.temporarySubtypeArray.data = [];
-    this.temporarySubtypeArray.paginator = this.innerpaginator;
+    this.temporarySubtypeArray.paginator = this.paginator;
   }
 
   ngAfterViewInit() {
@@ -222,7 +229,7 @@ export class CallDispositionTypeMasterComponent
   reset() {
     this.callSubType = '';
     this.temporarySubtypeArray.data = [];
-    this.temporarySubtypeArray.paginator = this.innerpaginator;
+    this.temporarySubtypeArray.paginator = this.paginator;
     this.fitToBlock = false;
     this.fitForFollowup = false;
     this.isInbound = false;

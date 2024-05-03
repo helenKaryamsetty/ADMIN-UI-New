@@ -59,7 +59,7 @@ export class CategorySubcategoryProvisioningComponent
   setDataSourceAttributes() {
     this.filtereddata.paginator = this.paginator;
   }
-  drugList = new MatTableDataSource<any>();
+
   // filteredsubCat: any = [];
   // filtereddata: any = [];
   serviceproviderID: any;

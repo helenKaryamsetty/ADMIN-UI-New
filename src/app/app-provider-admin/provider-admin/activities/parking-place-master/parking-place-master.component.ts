@@ -109,9 +109,9 @@ export class ParkingPlaceComponent implements OnInit, AfterViewInit {
   setDataSourceAttributes() {
     this.filteredavailableParkingPlaces.paginator = this.paginator;
   }
+  parkingPlaceList = new MatTableDataSource<any>();
   @ViewChild('searchForm') searchForm!: NgForm;
   @ViewChild('parkingPlaceForm') parkingPlaceForm!: NgForm;
-  parkingPlaceList = new MatTableDataSource<any>();
   @ViewChild(MatSort) sort: MatSort | null = null;
   @ViewChild(MatPaginator) addZonePaginator: MatPaginator | null = null;
   constructor(
@@ -259,38 +259,7 @@ export class ParkingPlaceComponent implements OnInit, AfterViewInit {
     this.parkingPlaceObj.createdBy = this.createdBy;
     this.checkDuplicates(this.parkingPlaceObj);
   }
-  // checkDuplicates(parkingPlaceObj: any) {
-  //   this.bufferCount = 0;
-  //   if (this.parkingPlaceList.data.length === 0) {
-  //     this.parkingPlaceList.data.push(this.parkingPlaceObj);
-  //     this.parkingPlaceForm.resetForm();
-  //   } else if (this.parkingPlaceList.data.length > 0) {
-  //     for (let a = 0; a < this.parkingPlaceList.data.length; a++) {
-  //       if (
-  //         this.parkingPlaceList.data[a].parkingPlaceName ===
-  //           this.parkingPlaceObj.parkingPlaceName &&
-  //         this.parkingPlaceList.data[a].stateID ===
-  //           this.parkingPlaceObj.stateID &&
-  //         this.parkingPlaceList.data[a].zoneID ===
-  //           this.parkingPlaceObj.zoneID &&
-  //         this.parkingPlaceList.data[a].areaHQAddress ===
-  //           this.parkingPlaceObj.areaHQAddress
-  //       ) {
-  //         this.bufferCount++ ;
-  //         console.log('Duplicate Combo Exists', this.bufferCount);
-  //         break;
-  //       }
-  //     }
-  //     if (this.bufferCount > 0) {
-  //       this.alertMessage.alert('Already exists');
-  //       this.bufferCount = 0;
-  //       this.parkingPlaceForm.resetForm();
-  //     } else {
-  //       this.parkingPlaceList.data.push(this.parkingPlaceObj);
-  //       this.parkingPlaceForm.resetForm();
-  //     }
-  //   }
-  // }
+
   checkDuplicates(parkingPlaceObj: any) {
     const isDuplicate = this.parkingPlaceList.data.some(
       (item) =>

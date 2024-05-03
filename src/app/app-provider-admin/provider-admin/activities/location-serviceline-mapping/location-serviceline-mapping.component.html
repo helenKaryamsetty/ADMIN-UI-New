@@ -126,6 +126,7 @@
               class="iconbutton"
               color="primary"
               (click)="editOfficeAddress(element)"
+              *ngIf="!element.deleted"
             >
               <mat-icon>edit</mat-icon>
             </button>
@@ -193,14 +194,9 @@
 
   <!--new location form starts -->
   <div class="row" *ngIf="showForm">
-    <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-    <h4 class="pull-left">Add Work Location</h4>
-  </div> -->
     <div class="col-12">
       <form #f="ngForm" id="locationForm" autocomplete="off" class="row">
         <div class="col-3" *ngIf="!nationalFlag">
-          <!-- <md-input-container class="hide_underline width100">
-        <input mdInput style="display:none"> -->
           <mat-form-field>
             <mat-label>District</mat-label>
             <mat-select

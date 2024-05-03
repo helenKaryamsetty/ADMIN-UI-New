@@ -356,7 +356,6 @@
               <mat-form-field class="width100" appMyMobileNumberWithCopyPaste>
                 <mat-label>Emergency Contact No.</mat-label>
                 <input
-                  type="number"
                   matInput
                   [(ngModel)]="emergency_contactNo"
                   name="emergencyContactNo"
@@ -375,28 +374,7 @@
                 </mat-hint>
               </mat-form-field>
             </div>
-            <!-- <div class="clearfix visible-lg visible-sm"></div> -->
-            <!-- <div class="col-3 m-t-20">
-            <mat-datepicker class="width100" placeholder="Date of Birth" [(ngModel)]="dob" name="user_dob" [min]="mindate" [max]="maxdate"
-                            #dOB="ngModel" (keydown)="preventTyping($event)" (selectionChange)="calculateAge($event)" (selectionChange)='calculateDoj(dob); resetDoj()'
-                            required></mat-datepicker> 
-                        <mat-hint class="errorText" *ngIf="dOB.errors && dOB.touched">DOB is required</mat-hint>
-          </div> -->
             <div class="col-3 m-t-10">
-              <!-- <mat-form-field
-               class="input-full-width mat_form_field_background_color"
-             >
-               <mat-label>Date of Birth</mat-label>
-               <input matInput  required [matDatepicker]="dob"  name="user_dob" min="mindate" max="maxdate" [(ngModel)]="dob" 
-               (keydown)="preventTyping($event)" (selectionChange)="calculateAge($event)" (selectionChange)='calculateDoj(dob); resetDoj()' />
-               <mat-datepicker-toggle
-                 matPrefix
-                 [for]="dob"
-               ></mat-datepicker-toggle>
-     
-               <mat-datepicker #dob></mat-datepicker>
-     
-             </mat-form-field> -->
               <mat-form-field class="width100">
                 <mat-label>Date of Birth</mat-label>
                 <input
@@ -413,24 +391,10 @@
                   [for]="picker"
                 ></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
-                <!-- <mat-hint class="errorText" *ngIf="dob.errors && dob.touched"
-                >DOB is required</mat-hint
-              > -->
               </mat-form-field>
             </div>
             <!-- <div class="clearfix visible-md"></div> -->
             <div class="col-3 m-t-15">
-              <!-- <mat-form-field class="width100">
-              <input
-                matInput
-                [(ngModel)]="age"
-                name="user_age"
-                minlength="1"
-                maxlength="2"
-                [disabled]="disabled"
-              />
-              <md-hint class="errorText" *ngIf="userAge.touched && userAge.errors">Age is required</md-hint>
-            </mat-form-field> -->
               <mat-form-field>
                 <mat-label>Age</mat-label>
                 <input
@@ -502,7 +466,6 @@
               <mat-form-field class="width100" appMyMobileNumberWithCopyPaste>
                 <mat-label>Aadhar No.</mat-label>
                 <input
-                  type="number"
                   matInput
                   ngModel
                   name="aadhar_number"
@@ -653,7 +616,7 @@
                   name="user_doj"
                   [min]="minDate_doj"
                   [max]="today"
-                  [(ngModel)]="doj"
+                  [(ngModel)]="patchDojOnEdit"
                   (keydown)="preventTyping($event)"
                   required
                   #userDoj="ngModel"
