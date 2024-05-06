@@ -70,8 +70,6 @@ export class EmailConfigurationComponent implements OnInit {
   districts: any = [];
   designations: any = [];
   taluks: any = [];
-  // emailConfigList: any = [];
-  // filteredMailConfig: any = [];
 
   disableSelection = false;
   showListOfEmailconfig: any = true;
@@ -80,7 +78,6 @@ export class EmailConfigurationComponent implements OnInit {
   showTableFlag = false;
 
   emailPattern = /^[0-9a-zA-Z_.]+@[a-zA-Z_]+?\.\b(org|com|COM|IN|in|co.in)\b$/;
-  // mobileNoPattern=/^[1-9][0-9]{9}/;
 
   @ViewChild('searchForm')
   searchForm!: NgForm;
@@ -124,14 +121,16 @@ export class EmailConfigurationComponent implements OnInit {
   }
 
   serviceSuccessHandler(serviceResponse: any) {
-    this.services = serviceResponse.data;
+    this.services = serviceResponse.data.filter(function (item: any) {
+      console.log('item', item);
+      if (item.serviceID === 1 || item.serviceID === 3 || item.serviceID === 6)
+        return item;
+    });
     console.log('services', serviceResponse);
   }
   getStates(serviceline: any) {
     this.searchForm.controls['districtID'].reset();
     this.searchForm.controls['taluk'].reset();
-    // this.checkDistrictValue = "";
-    // this.checkTalukValue = "";
     this.mailConfig = [];
     this.filteredMailConfig.data = [];
     const obj = {
@@ -224,13 +223,11 @@ export class EmailConfigurationComponent implements OnInit {
   }
   mailConfigSuccessHandler(mailConfigResponse: any) {
     const configArray = mailConfigResponse;
-    // this.mailConfig = mailConfigResponse;
     this.filteredMailConfig.data = configArray.filter((Response: any) => {
       if (Response.data.mobileNo === null) {
         return Response.data;
       }
     });
-    // this.filteredMailConfig = mailConfigResponse;
     this.mailConfig = this.filteredMailConfig.data;
     console.log('mailConfigResponse', mailConfigResponse);
   }
@@ -283,10 +280,8 @@ export class EmailConfigurationComponent implements OnInit {
       designationID: values.designation.designationID,
       authorityName: values.authorityName,
       emailID: values.emailID,
-      // "contactNo": values.contactNo,
       createdBy: this.commonDataService.uname,
     };
-    // this.emailConfigList.push(this.mailConfigObject);
     console.log('emailConfigList', this.emailConfigList);
 
     this.checkDuplicates(this.mailConfigObject);
@@ -387,7 +382,6 @@ export class EmailConfigurationComponent implements OnInit {
       designationID: this.designation.designationID,
       authorityName: this.authorityName,
       emailID: this.emailID,
-      // "contactNo": this.contactNo,
       authorityEmailID: this.editAuthorityMailConfig.authorityEmailID,
       modifiedBy: this.commonDataService.uname,
     };
@@ -415,7 +409,6 @@ export class EmailConfigurationComponent implements OnInit {
       designationID: mailconfigObject.designationID,
       authorityName: mailconfigObject.authorityName,
       emailID: mailconfigObject.emailID,
-      // "contactNo": mailconfigObject.contactNo,
       modifiedBy: this.commonDataService.uname,
       authorityEmailID: mailconfigObject.authorityEmailID,
       deleted: flag,

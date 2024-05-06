@@ -20,14 +20,9 @@
  * along with this program.  If not, see https://www.gnu.org/licenses/.
  */
 import { Injectable } from '@angular/core';
-// import { InterceptedHttp } from '../../http.interceptor';
-// import { SecurityInterceptedHttp } from '../../http.securityinterceptor';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ConfigService } from 'src/app/core/services/config/config.service';
-// import 'rxjs/add/operator/catch';
-// import 'rxjs/add/operator/map';
 
 @Injectable()
 export class SnomedMasterService {

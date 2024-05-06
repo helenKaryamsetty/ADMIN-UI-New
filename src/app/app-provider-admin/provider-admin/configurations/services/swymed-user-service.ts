@@ -22,8 +22,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ConfigService } from 'src/app/core/services/config/config.service';
-// import { InterceptedHttp } from '../../http.interceptor';
-// import { SecurityInterceptedHttp } from '../../http.securityinterceptor';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class SwymedUserConfigurationService {
@@ -58,39 +57,30 @@ export class SwymedUserConfigurationService {
   }
 
   getSwymedUserDetails(serviceProviderID: any) {
-    return this.http.post(this.getMappedUserDetails + serviceProviderID, {});
-    // .map(this.handleSuccess)
-    // .catch(this.handleError)
+    return this.http.post(
+      environment.getMappedUserDetails + serviceProviderID,
+      {},
+    );
   }
   getAllDesignations() {
-    return this.http.post(this.getAllDesignationsUrl, {});
-    // .map(this.handleSuccess)
-    // .catch(this.handleError)
+    return this.http.post(environment.getAllDesignationsUrl, {});
   }
   getUserName(designationID: any, serviceProviderID: any) {
     return this.http.get(
-      this.getUserNameUrl + serviceProviderID + '/' + designationID,
+      environment.getUserNameUrl + serviceProviderID + '/' + designationID,
     );
-    // .map(this.handleSuccess)
-    // .catch(this.handleError)
   }
   getVideoConsultationDomain(serviceProviderID: any) {
     return this.http.post(
-      this.getVideoConsultationDomainUrl + serviceProviderID,
+      environment.getVideoConsultationDomainUrl + serviceProviderID,
       {},
     );
-    // .map(this.handleSuccess)
-    // .catch(this.handleError)
   }
   saveSwymedUserDetails(reqObj: any) {
-    return this.http.post(this.saveSwymedUserDetailsUrl, reqObj);
-    // .map(this.successHandler)
-    // .catch(this.handleError)
+    return this.http.post(environment.saveSwymedUserDetailsUrl, reqObj);
   }
   updateUserDetails(updateObj: any) {
-    return this.http.post(this.updateUserDetailsUrl, updateObj);
-    // .map(this.successHandler)
-    // .catch(this.handleError)
+    return this.http.post(environment.updateUserDetailsUrl, updateObj);
   }
   mappingActivationDeactivation(
     userVideoConsultationMapID: any,
@@ -98,7 +88,7 @@ export class SwymedUserConfigurationService {
     modifiedBy: any,
   ) {
     return this.http.get(
-      this.mappingActivationDeactivationUrl +
+      environment.mappingActivationDeactivationUrl +
         userVideoConsultationMapID +
         '/' +
         flag +
@@ -106,28 +96,5 @@ export class SwymedUserConfigurationService {
         modifiedBy,
       {},
     );
-    // .map(this.handleSuccess)
-    // .catch(this.handleError)
   }
-
-  // handleSuccess(res: Response) {
-  //     console.log(res.json().data, '--- in swymed user config service ');
-  //     if (res.json().data) {
-  //         return res.json().data;
-  //     } else {
-  //         return Observable.throw(res.json());
-  //     }
-  // }
-  // successHandler(res: Response) {
-  //     console.log(res.json().data, '--- in swymed user config service ');
-  //     if (res.json().data) {
-  //         return res.json();
-  //     } else {
-  //         return Observable.throw(res.json());
-  //     }
-  // }
-  // handleError(error: Response | any) {
-  //     return Observable.throw(error);
-
-  // }
 }

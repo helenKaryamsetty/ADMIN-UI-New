@@ -163,4 +163,25 @@ export const environment = {
   save_itemform_Url: `${adminBaseUrl} 'createItemForms`,
   update_itemform_Url: `${adminBaseUrl} 'editItemForm`,
   delete_itemform_Url: `${adminBaseUrl} 'blockItemForm`,
+
+  /* user-role-agentID */
+  get_Roles_Url: `${adminBaseUrl}m/role/searchV1`,
+  get_Campaigns_Url: `${adminBaseUrl}getAvailableCampaigns`,
+  get_AgentIDs_Url: `${adminBaseUrl}getAvailableAgentIds`,
+  getEmployeeUrl: `${adminBaseUrl}m/SearchEmployeeFilter`,
+  mapAgentID_Url: `${adminBaseUrl}usrRoleAndCtiMapping`,
+
+  /* agent-list-creation */
+  get_Campaign_Names_Url: `${commonBaseURL} 'cti/getCampaignNames`,
+  save_AgentListMapping_Url: `${adminBaseUrl} 'createUSRAgentMapping`,
+  getAllAgents_Url: `${adminBaseUrl} 'getAllAgentIds`,
+  edit_AgentListMapping_Url: `${adminBaseUrl} 'updateCTICampaignNameMapping`,
+
+  getMappedUserDetails: `${adminBaseUrl} 'videoConsultation/getmappedUsers/`,
+  getAllDesignationsUrl: `${adminBaseUrl} 'm/getDesignation`,
+  getUserNameUrl: `${adminBaseUrl} 'videoConsultation/getunmappedUser/`,
+  getVideoConsultationDomainUrl: `${adminBaseUrl} 'videoConsultation/getdomain/`,
+  saveSwymedUserDetailsUrl: `${adminBaseUrl} 'videoConsultation/createUser`,
+  updateUserDetailsUrl: `${adminBaseUrl} 'videoConsultation/editUser`,
+  mappingActivationDeactivationUrl: `${adminBaseUrl} 'videoConsultation/deleteUser/`,
 };
