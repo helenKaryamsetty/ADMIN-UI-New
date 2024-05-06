@@ -346,4 +346,90 @@ export const environment = {
   get_itemCategory_Url: `${adminBaseUrl}getItemCategory`,
   save_itemCategory_Url: `${adminBaseUrl}configItemIssue`,
   save_expiryAlertConfig_Url: `${adminBaseUrl}configexpiryalert`,
+
+  service_provider_setup_url: `${superadminBaseURL}providerCreationAndMapping`,
+  getAllServiceLinesUrl: `${adminBaseUrl}getServiceline`,
+
+  checkProviderNameAvailabilityUrl: `${adminBaseUrl}checkProvider`,
+  getAllProviderUrl: `${adminBaseUrl}getAllProvider`,
+  getProviderInfoUrl: `${adminBaseUrl}getProviderStatus1`,
+  addProviderStateAndServiceLinesUrl: `${adminBaseUrl}addProviderStateAndServiceLines`,
+  getAllStatus_URL: `${adminBaseUrl}getStatus`,
+
+  /*
+   * Creation of provider admin URL
+   */
+  getAllProviderAdmin_url: `${adminBaseUrl}completeUserDetails`,
+  createProviderAdminUrl: `${adminBaseUrl}createProviderAdmin`,
+  getAllGendersUrl: `${adminBaseUrl}m/AllGender`,
+  getAllTitlesUrl: `${adminBaseUrl}m/AllTitle`,
+  getAllMaritalStatusUrl: `${commonBaseURL}beneficiary/getRegistrationDataV1`,
+  updateProviderAdminUrl: `${adminBaseUrl}editProviderAdmin`,
+  delete_toggle_activationUrl: `${adminBaseUrl}deleteProviderAdmin`,
+  /* Mapping Provider Admin */
+  getAllStatesByProviderUrl: `${adminBaseUrl}/m/role/state`,
+  getAllServiceLinesByProviderUrl: `${adminBaseUrl}/m/role/service`,
+  getAllProviderAdminUrl: `${adminBaseUrl}getProviderAdmin`,
+  getAllProviderAdminMappingsUrl: `${adminBaseUrl}getmappingProviderAdmintoProvider`,
+  providerAdminActivateUrl: `${adminBaseUrl}deletemappingProviderAdmintoProvider`,
+  providerAdminDeactivateUrl: `${adminBaseUrl}deletemappingProviderAdmintoProvider`,
+  providerAdminUpdateUrl: `${adminBaseUrl}editmappingProviderAdmintoProvider`,
+  MappingProviderAdminUrl: `${adminBaseUrl}mappingProviderAdmintoProvider`,
+  getAllServicesByProviderUrl: `${superadminBaseURL}getServiceLinesUsingProvider`,
+  getProvider_ServiceLineLevelStatus_Url: `${adminBaseUrl}getProviderStatusByProviderAndServiceId`,
+
+  /* new APIs */
+  createProviderUrl: `${superadminBaseURL}createProvider`,
+  providerUpdateUrl: `${superadminBaseURL}providerUpdate`,
+  providerDeleteUrl: `${superadminBaseURL}providerdelete`,
+
+  getAllProviderMappingsUrl: `${superadminBaseURL}getMappedServiceLinesAndStatetoProvider`,
+  mapProviderServiceStateUrl: `${superadminBaseURL}mapServiceLinesAndStatetoProvider`,
+  editMappedProviderServiceStateUrl: `${superadminBaseURL}editMappedServiceLinesAndStatetoProvider`,
+  deleteMappedProviderServiceStateUrl: `${superadminBaseURL}deleteMappedServiceLinesAndStatetoProvider`,
+  getServicelinesFromProvider_url: `${superadminBaseURL}getServiceLinesUsingProvider`,
+  getAllStatesOfProvider_Url: `${adminBaseUrl}m/role/state`,
+  getAllServicesInStateOfProvider_Url: `${adminBaseUrl}m/role/service`,
+
+  getAllServicesOfProvider_Url: `${adminBaseUrl}getServiceLinesUsingProvider`,
+  getAllServicesOfProvider_CTI_Url: `${adminBaseUrl}m/role/serviceNew`,
+
+  // get status of blocked/unblocked
+  getProviderLevelStatus_Url: `${adminBaseUrl}getProviderStatus1`,
+  getProvider_StateLevelStatus_Url: `${adminBaseUrl}getProviderStatusByState`,
+  getProvider_State_ServiceLineLevelStatus_Url: `${adminBaseUrl}getProviderStatusByService`,
+
+  // blocking apis
+  block_unblock_provider_url: `${adminBaseUrl}blockProvider`,
+  block_unblock_state_url: `${adminBaseUrl}blockProviderByState`,
+  block_unblock_serviceline_url: `${adminBaseUrl}blockProviderByServiceId`,
+  block_unblock_serviceOfState_url: `${adminBaseUrl}blockProviderByService`,
+  saveSubService: `${adminBaseUrl}m/saveSubserviceData`,
+  getAllSubService_URL: `${adminBaseUrl}m/FindSubSerive`,
+  getSubServiceDetails_URL: `${adminBaseUrl}m/getSubSerive`,
+  editProvider_URL: `${adminBaseUrl}updateProvider`,
+  deleteSubserviceUrl: `${adminBaseUrl}m/deleteSubSerive`,
+  _getCampaign: `${commonBaseURL}cti/getCampaignNames`,
+  _addCampaign: `${adminBaseUrl}createCitMappingwithServiceLines`,
+  _getCampaignList: `${adminBaseUrl}getMappedServiceLinesAndStatetoProvider`,
+  getServicePointVillageMapsURL: `${adminBaseUrl}servicePointMaster/get/servicePointVillageMaps`,
+
+  saveServicePointVillageMapsURL: `${adminBaseUrl}servicePointMaster/create/servicePointVillageMaps`,
+  updateServicePointVillageMapsURL: `${adminBaseUrl}servicePointMaster/edit/servicePointVillageMap`,
+  updateServicePointVillageMapStatusURL: `${adminBaseUrl}servicePointMaster/remove/servicePointVillageMap`,
+  filterMappedVillages_url: `${adminBaseUrl}servicePointMaster/get/unmappedvillages`,
+  saveVanServicePointMappingsURL: `${adminBaseUrl}vanMaster/save/vanServicePointMappings`,
+  getVanServicePointMappingsURL: `${adminBaseUrl}vanMaster/get/vanServicePointMappingsV1`,
+  updateVanServicePointMappingsURL: `${adminBaseUrl}vanMaster/remove/vanServicePointMapping`,
+  _setProcedureComponentMapURL: `${adminBaseUrl}labModule/createProcedureComponentMapping`,
+  getComponentNewListURL: `${adminBaseUrl}labModule/fetchComponentMasterDelFalse/`,
+  getProcedureListURL: `${adminBaseUrl}labModule/fetchProcedureMasterDelFalse/`,
+  zonesurl: `${adminBaseUrl}zonemaster/get/zones`,
+  parkingPlaceUrl: `${adminBaseUrl}parkingPlaceMaster/get/parkingPlacesbyzoneid`,
+  servicepointUrl: `${adminBaseUrl}servicePointMaster/get/servicePoints`,
+  vanTypesURL: `${adminBaseUrl}vanMaster/get/vanTypes`,
+  van_spoke_Url: `${adminBaseUrl}vanMaster/get/vanDetails`,
+  saveMappingUrl: `${adminBaseUrl}mapping/save/vanSpokeMapping`,
+  fetchUrl: `${adminBaseUrl}mapping/get/vanSpokeMapping`,
+  activeMappingStatusUrl: `${adminBaseUrl}mapping/delete/vanSpokeMapping`,
 };

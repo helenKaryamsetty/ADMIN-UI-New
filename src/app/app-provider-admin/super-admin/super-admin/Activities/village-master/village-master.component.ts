@@ -521,10 +521,6 @@ export class EditVillageModalComponent implements OnInit {
     else {
       this.dataObj = {};
       this.dataObj.districtBranchID = this.districtBranchID;
-      //  if(village.blockID!=undefined){
-      // this.dataObj.blockID = village.blockID.split("-")[0];
-      // this.dataObj.blockName = village.blockID.split("-")[1];
-      // }
       this.dataObj.panchayatName = editedVillageData.panchayatName;
       this.dataObj.villageName =
         editedVillageData.villageName !== undefined &&

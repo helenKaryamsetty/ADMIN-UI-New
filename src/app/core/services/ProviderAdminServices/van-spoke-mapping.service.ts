@@ -27,6 +27,7 @@ import { Observable } from 'rxjs';
 // import { InterceptedHttp } from './../../http.interceptor';
 // import { SecurityInterceptedHttp } from '../../http.securityinterceptor';
 import { ConfigService } from '../config/config.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class VanSpokeMappingService {
@@ -70,52 +71,57 @@ export class VanSpokeMappingService {
     this.fetchUnmappedVansurl = this.providerAdmin_Base_Url + '*';
   }
   getServiceLines(userID: any) {
-    return this.http.post(this.getServiceLines_new_url, { userID: userID });
+    return this.http.post(environment.getServiceLines_new_url, {
+      userID: userID,
+    });
     // .map(this.handleSuccess)
     // .catch(this.handleError)
   }
   getStates(serviceline: any) {
-    return this.http.post(this.getStates_new_url, serviceline);
+    return this.http.post(environment.getStates_new_url, serviceline);
     // .map(this.handleSuccess)
     // .catch(this.handleError)
   }
   getZones(providerServiceMapID: any) {
-    return this.http.post(this.zonesurl, providerServiceMapID);
+    return this.http.post(environment.zonesurl, providerServiceMapID);
     // .map(this.handleSuccess)
     // .catch(this.handleError)
   }
   getParkingPlace(parkingplaceReqObj: any) {
-    return this.http.post(this.parkingPlaceUrl, parkingplaceReqObj);
+    return this.http.post(environment.parkingPlaceUrl, parkingplaceReqObj);
     // .map(this.handleSuccess)
     // .catch(this.handleError)
   }
   getServicepoints(servicepointObj: any) {
-    return this.http.post(this.servicepointUrl, servicepointObj);
+    return this.http.post(environment.servicepointUrl, servicepointObj);
     // .map(this.handleSuccess)
     // .catch(this.handleError)
   }
   getVanTypes(providerServiceMapID: any) {
-    return this.http.post(this.vanTypesURL, providerServiceMapID);
+    return this.http.post(environment.vanTypesURL, providerServiceMapID);
     // .map(this.handleSuccess)
     // .catch(this.handleError)
   }
   getVansOrspoke(reqObj: any) {
-    return this.http.post(this.van_spoke_Url, reqObj);
+    return this.http.post(environment.van_spoke_Url, reqObj);
     // .map(this.handleSuccess)
     // .catch(this.handleError)
   }
   saveMappingData(saveObj: any) {
-    return this.http.post(this.saveUrl, saveObj);
+    return this.http.post(environment.saveMappingUrl, saveObj);
     // .map(this.handleSuccess)
     // .catch(this.handleError)
   }
   getVanSpokeMapping(fetchObj: any) {
-    return this.http.post(this.fetchUrl, fetchObj);
+    return this.http.post(environment.fetchUrl, fetchObj);
     // .map(this.handleSuccess)
     // .catch(this.handleError)
   }
   updateMappingStatus(activeStatusReqObj: any) {
-    return this.http.post(this.activeMappingStatusUrl, activeStatusReqObj);
+    return this.http.post(
+      environment.activeMappingStatusUrl,
+      activeStatusReqObj,
+    );
     // .map(this.handleSuccess)
     // .catch(this.handleError)
   }
@@ -124,21 +130,4 @@ export class VanSpokeMappingService {
     // .map(this.handleSuccess)
     // .catch(this.handleError)
   }
-  //    handleSuccess(response: Response) {
-  //        if(response.json().statusCode == 200) {
-  //            return response.json().data
-  //        } else {
-  //            console.log("error", response.json().errorMessage);
-  //        }
-
-  //    }
-  // handleError(error) {
-  //     let errorMessage = '';
-  //     if (error.error instanceof ErrorEvent) {
-  //       errorMessage = `Error: ${error.error.message}`;
-  //     } else {
-  //       errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
-  //     }
-  //     return Observable.throw(errorMessage);
-  //   }
 }

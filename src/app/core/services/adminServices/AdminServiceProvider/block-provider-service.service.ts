@@ -23,6 +23,7 @@ import { Injectable } from '@angular/core';
 
 import { ConfigService } from '../../config/config.service';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class BlockProvider {
@@ -92,28 +93,30 @@ export class BlockProvider {
 
   // all the status of Provider
   getAllStatus() {
-    return this._http.post(this.getAllStatus_URL, {});
+    return this._http.post(environment.getAllStatus_URL, {});
     // .map(this.success_handeler)
     // .catch(this.error_handeler);
   }
 
   getAllProviders() {
-    return this._http.post(this.getAllProviderUrl, {});
+    return this._http.post(environment.getAllProviderUrl, {});
     // .map(this.handleState_n_Cti)
     // .catch(this.error_handeler);
   }
   getAllProviders_CTI() {
-    return this._http.post(this.getAllProviderUrl, {});
+    return this._http.post(environment.getAllProviderUrl, {});
     // .map(this.handleState_n_Cti)
     // .catch(this.error_handeler);
   }
   getAllSubService(serviceID: any) {
-    return this._http.post(this.getAllSubService_URL, { serviceID: serviceID });
+    return this._http.post(environment.getAllSubService_URL, {
+      serviceID: serviceID,
+    });
     // .map(this.success_handeler)
     // .catch(this.error_handeler);
   }
   getStates(serviceProviderID: any) {
-    return this._http.post(this.getAllStatesOfProvider_Url, {
+    return this._http.post(environment.getAllStatesOfProvider_Url, {
       serviceProviderID: serviceProviderID,
     });
     // .map(this.handleState_n_ServiceSuccess)
@@ -121,7 +124,7 @@ export class BlockProvider {
   }
 
   getServicesInState(serviceProviderID: any, stateID: any) {
-    return this._http.post(this.getAllServicesInStateOfProvider_Url, {
+    return this._http.post(environment.getAllServicesInStateOfProvider_Url, {
       serviceProviderID: serviceProviderID,
       stateID: stateID,
     });
@@ -131,20 +134,23 @@ export class BlockProvider {
 
   // *** new ****
   getStatesInServices(data: any) {
-    return this._http.post(this.getProvider_ServiceLineLevelStatus_Url, data);
+    return this._http.post(
+      environment.getProvider_ServiceLineLevelStatus_Url,
+      data,
+    );
     // .map(this.handleState_n_ServiceSuccess)
     // .catch(this.error_handeler);
   }
 
   getServicesOfProvider(serviceProviderID: any) {
-    return this._http.post(this.getAllServicesOfProvider_Url, {
+    return this._http.post(environment.getAllServicesOfProvider_Url, {
       serviceProviderID: serviceProviderID,
     });
     // .map(this.success_handeler)
     // .catch(this.error_handeler);
   }
   getServicesOfProvider_CTI(userID: any) {
-    return this._http.post(this.getAllServicesOfProvider_CTI_Url, {
+    return this._http.post(environment.getAllServicesOfProvider_CTI_Url, {
       userID: userID,
     });
     // .map(this.success_handeler)
@@ -153,7 +159,7 @@ export class BlockProvider {
 
   // status apis
   getProviderLevelStatus(serviceProviderID: any) {
-    return this._http.post(this.getProviderLevelStatus_Url, {
+    return this._http.post(environment.getProviderLevelStatus_Url, {
       serviceProviderID: serviceProviderID,
     });
     // .map(this.success_handeler)
@@ -161,7 +167,7 @@ export class BlockProvider {
   }
 
   getProvider_StateLevelStatus(serviceProviderID: any, stateID: any) {
-    return this._http.post(this.getProvider_StateLevelStatus_Url, {
+    return this._http.post(environment.getProvider_StateLevelStatus_Url, {
       serviceProviderID: serviceProviderID,
       stateID: stateID,
     });
@@ -170,7 +176,7 @@ export class BlockProvider {
   }
 
   getProvider_ServiceLineLevelStatus(serviceProviderID: any, serviceID: any) {
-    return this._http.post(this.getProvider_ServiceLineLevelStatus_Url, {
+    return this._http.post(environment.getProvider_ServiceLineLevelStatus_Url, {
       serviceProviderID: serviceProviderID,
       serviceID: serviceID,
     });
@@ -183,18 +189,21 @@ export class BlockProvider {
     stateID: any,
     serviceID: any,
   ) {
-    return this._http.post(this.getProvider_State_ServiceLineLevelStatus_Url, {
-      serviceProviderID: serviceProviderID,
-      stateID: stateID,
-      serviceID: serviceID,
-    });
+    return this._http.post(
+      environment.getProvider_State_ServiceLineLevelStatus_Url,
+      {
+        serviceProviderID: serviceProviderID,
+        stateID: stateID,
+        serviceID: serviceID,
+      },
+    );
     // .map(this.success_handeler)
     // .catch(this.error_handeler);
   }
 
   // blocking unblocking apis
   block_unblock_provider(serviceProviderID: any, statusID: any, reason: any) {
-    return this._http.post(this.block_unblock_provider_url, {
+    return this._http.post(environment.block_unblock_provider_url, {
       serviceProviderID: serviceProviderID,
       statusID: statusID,
       reason: reason,
@@ -209,7 +218,7 @@ export class BlockProvider {
     statusID: any,
     reason: any,
   ) {
-    return this._http.post(this.block_unblock_state_url, {
+    return this._http.post(environment.block_unblock_state_url, {
       serviceProviderID: serviceProviderID,
 
       stateID: stateID,
@@ -226,7 +235,7 @@ export class BlockProvider {
     statusID: any,
     reason: any,
   ) {
-    return this._http.post(this.block_unblock_serviceline_url, {
+    return this._http.post(environment.block_unblock_serviceline_url, {
       serviceProviderID: serviceProviderID,
       statusID: statusID,
       serviceID: serviceID,
@@ -243,7 +252,7 @@ export class BlockProvider {
     statusID: any,
     reason: any,
   ) {
-    return this._http.post(this.block_unblock_serviceOfState_url, {
+    return this._http.post(environment.block_unblock_serviceOfState_url, {
       serviceProviderID: serviceProviderID,
       statusID: statusID,
       stateID: stateID,
@@ -254,12 +263,12 @@ export class BlockProvider {
     // .catch(this.error_handeler);
   }
   save_SubService(subServiceObj: any) {
-    return this._http.post(this.saveSubService, subServiceObj);
+    return this._http.post(environment.saveSubService, subServiceObj);
     // .map(this.success_handeler)
     // .catch(this.customErrorHandler);
   }
   getSubServiceDetails(providerServiceMapID: any) {
-    return this._http.post(this.getSubServiceDetails_URL, {
+    return this._http.post(environment.getSubServiceDetails_URL, {
       providerServiceMapID: providerServiceMapID,
     });
     // .map(this.success_handeler)
@@ -267,55 +276,13 @@ export class BlockProvider {
   }
 
   deleteSubService(obj: any) {
-    return this._http.post(this.deleteSubserviceUrl, obj);
+    return this._http.post(environment.deleteSubserviceUrl, obj);
     // .map(this.success_handeler)
     // .catch(this.error_handeler);
   }
   editProvider(serviceProviderObj: any) {
-    return this._http.post(this.editProvider_URL, serviceProviderObj);
+    return this._http.post(environment.editProvider_URL, serviceProviderObj);
     // .map(this.success_handeler)
     // .catch(this.error_handeler);
   }
-  // success_handeler(res: Response) {
-  //   console.log(res.json().data, '--- in Block-Provider Service');
-  //   if (res.json().data) {
-  //     return res.json().data;
-  //   } else {
-  //     return Observable.throw(res.json());
-  //   }
-  // }
-  // handleState_n_Cti(response: Response) {
-  //   console.log(
-  //     response.json().data,
-  //     'block provider service file success response',
-  //   );
-  //   let result = [];
-  //   result = response.json().data.filter(function (item) {
-  //     if (!item.deleted) {
-  //       return item;
-  //     }
-  //   });
-  //   return result;
-  // }
-
-  // handleState_n_ServiceSuccess(response: Response) {
-  //   console.log(
-  //     response.json().data,
-  //     'block provider service file success response',
-  //   );
-  //   let result = [];
-  //   result = response.json().data.filter(function (item) {
-  //     if (item.statusID !== 4) {
-  //       return item;
-  //     }
-  //   });
-  //   return result;
-  // }
-
-  // customErrorHandler(error: Response | any) {
-  //   return Observable.throw(error.json());
-  // }
-  // error_handeler(error: Response | any) {
-  //   return Observable.throw(error.json());
-  // }
 }

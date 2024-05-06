@@ -171,15 +171,6 @@ export class ProviderAdminListComponent implements OnInit {
       },
     );
   }
-  // filterServicePointVan(searchTerm) {
-  //   if (searchTerm) {
-  //     this.filteredServicePoints = this.servicePointsList.filter(servicePoint => {
-  //       return servicePoint.servicePointName.toLowerCase().startsWith(searchTerm.toLowerCase());
-  //     })
-  //   } else {
-  //     this.filteredServicePoints = this.servicePointsList.slice(0, 10);
-  //   }
-  // }
 
   filteredResult(searchValue: any) {
     console.log('Search Valueeee', searchValue);
@@ -315,12 +306,6 @@ export class ProviderAdminListComponent implements OnInit {
         this.showHint = false;
         this.username_dependent_flag = false;
       }
-      //  else {
-      //   console.log("else response", response);
-      //   this.showHint = true;
-      //   this.username_dependent_flag = true;
-      //   this.username_status = 'Username is required';
-      // }
     }
   }
 
@@ -550,10 +535,6 @@ export class ProviderAdminListComponent implements OnInit {
   /*
   * Clear all the data
   */
-  // clearAll() {
-  //   this.providerAdminCreationForm.resetForm();
-  //   this.adminCredentialsForm.resetForm();
-  // }
   /*
    * provider creation
    */
@@ -793,11 +774,6 @@ export class EditProviderAdminModalComponent implements OnInit {
    * Reset the dob on adding multiple objects
    */
   resetDob() {
-    // this.maxdate = new Date();
-    // this.maxdate.setFullYear(this.today.getFullYear() - 20);
-    // this.mindate = new Date();
-    // this.mindate.setFullYear(this.today.getFullYear() - 70);
-    // this.calculateAge();
     this.dob = new Date();
     this.dob.setHours(0);
     this.dob.setMinutes(0);

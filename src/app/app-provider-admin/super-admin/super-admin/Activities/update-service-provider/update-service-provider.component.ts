@@ -106,18 +106,6 @@ export class UpdateServiceProviderComponent implements OnInit {
     );
   }
 
-  // **** THIS FUNCTION IS NOT USED  *****
-
-  // getProviderSpecificServicelines(serviceProviderID) {
-  //   this.super_admin_service.getServicelinesFromProvider(serviceProviderID)
-  //     .subscribe(response => {
-  //       console.log('Servicelines fetch success', response);
-  //       this.servicelines = response;
-  //     }, err => {
-  //       console.log('Servicelines fetching error', err);
-  //     });
-  // }
-
   setIsNationalFlag(value: any) {
     this.isNational = value;
   }

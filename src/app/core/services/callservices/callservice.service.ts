@@ -23,6 +23,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { throwError } from 'rxjs';
 import { ConfigService } from '../config/config.service';
+import { environment } from 'src/environments/environment';
 // import { InterceptedHttp } from './../../http.interceptor';
 // import { SecurityInterceptedHttp } from '../../http.securityinterceptor';
 
@@ -47,13 +48,13 @@ export class CallServices {
   getAllMappedServicelinesAndStates(serviceProviderID: any) {
     console.log('Mappedservice', serviceProviderID);
 
-    return this._http.post(this._getCampaignList, {
+    return this._http.post(environment._getCampaignList, {
       serviceProviderID: serviceProviderID,
     });
     // .map(this.extractData_campaignList).catch(this.handleError);
   }
   getStates(userID: any, serviceID: any, isNational: any) {
-    return this._http.post(this.get_State_Url, {
+    return this._http.post(environment.get_State_Url, {
       userID: userID,
       serviceID: serviceID,
       isNational: isNational,
@@ -63,18 +64,20 @@ export class CallServices {
   }
 
   getCampaign(serviceName: any) {
-    return this._http.post(this._getCampaign, { serviceName: serviceName });
+    return this._http.post(environment._getCampaign, {
+      serviceName: serviceName,
+    });
     // .map(this.extractData_campaign)
     // .catch(this.handleError);
   }
 
   addCampaign(campaignObj: any) {
-    return this._http.post(this._addCampaign, campaignObj);
+    return this._http.post(environment._addCampaign, campaignObj);
     // .map(this.extractData).catch(this.handleError);
   }
   /* For edit and create same API - /createCitMappingwithServiceLines */
   editCampaign(campaignObj: any) {
-    return this._http.post(this._addCampaign, campaignObj);
+    return this._http.post(environment._addCampaign, campaignObj);
     // .map(this.extractData).catch(this.handleError);
   }
   private extractData(res: Response) {
@@ -86,28 +89,6 @@ export class CallServices {
       return throwError(res);
     }
   }
-  // private extractData_campaign(res: Response) {
-  //   console.log('campaign values', res);
-  //   if (res) {
-  //     return res
-  //   } else {
-  //     // return Observable.throw(res.json());
-  //     return throwError(res)
-  //   }
-  // }
-
-  // For specific serviceline
-  // extractData_campaignList(response: Response) {
-
-  //   // console.log(response.json().data, 'Mapped list');
-  //   let result = [];
-  //   result = response.formData.filter(function (item:any) {
-  //     if (item.serviceID === 1 || item.serviceID === 3 || item.serviceID === 6 ) {
-  //       return item;
-  //     }
-  //   });
-  //   return result;
-  // }
   private handleError(err: Response) {
     // return Observable.throw(err.json());
     return throwError(err);

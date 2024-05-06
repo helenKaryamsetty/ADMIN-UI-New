@@ -221,38 +221,6 @@ export class VanServicePointMappingComponent implements OnInit {
       }
     }
   }
-  //   getDistricts(zoneID) {
-  //     this.searForm1.resetForm();
-  //     this.taluks = [];
-  //     this.availableVans = [];
-  //     this.MappingForm = this.formBuilder.group({
-  //       mappings: this.formBuilder.array([])
-  //     });
-  //     this.vanServicePointMappingService.getDistricts(zoneID).subscribe(response => this.getDistrictsSuccessHandeler(response));
-
-  //   }
-  //   getDistrictsSuccessHandeler(response) {
-  //     this.districts = response;
-  //     this.availableVanServicePointMappings = [];
-  //     this.reseArray();
-  //   }
-  //   GetTaluks(parkingPlaceID, districtID) {
-  //     this.searForm1.resetForm();
-  //     this.availableVans = [];
-  //     let talukObj = {
-  //         "parkingPlaceID": parkingPlaceID,
-  //         "districtID": districtID
-  //     }
-  //     this.vanServicePointMappingService.getTaluks(talukObj)
-  //         .subscribe(response => this.SetTaluks(response));
-  // }
-  // SetTaluks(response: any) {
-  //     this.taluks = response;
-  //     this.availableVanServicePointMappings = [];
-  //     this.reseArray();
-  //     this.getVanTypes();
-
-  // }
   getVanTypes() {
     this.obj = {};
     this.obj.providerServiceMapID = this.providerServiceMapID;
@@ -415,22 +383,6 @@ export class VanServicePointMappingComponent implements OnInit {
       vanSession3: vanSession === '3',
     });
   }
-
-  // servicePointObj: any;
-  // getServicePoints(stateID, districtID, parkingPlaceID) {
-  //     this.servicePointObj = {};
-  //     this.servicePointObj.stateID = stateID;
-  //     this.servicePointObj.districtID = districtID;
-  //     this.servicePointObj.parkingPlaceID = parkingPlaceID;
-  //     this.servicePointObj.serviceProviderID = this.service_provider_id;
-  //     this.vanServicePointMappingService.getServicePoints(this.servicePointObj).subscribe(response => this.getServicePointSuccessHandler(response));
-
-  // }
-
-  // availableServicePoints: any;
-  // getServicePointSuccessHandler(response) {
-  //     this.availableServicePoints = response;
-  // }
 
   vanID: any;
   selectedVan(van: any) {

@@ -74,12 +74,7 @@
               role="img"
               aria-hidden="true"
               style="cursor: pointer"
-              *ngIf="
-                !service.uSRMDeleted &&
-                !service.serviceProviderDeleted &&
-                !service.userDeleted &&
-                !service.providerServiceMapDeleted
-              "
+              *ngIf="!service.uSRMDeleted"
               (click)="editRow(service)"
               >edit</mat-icon
             >
@@ -91,12 +86,7 @@
             <button
               md-raised-button
               color="accent"
-              *ngIf="
-                service.uSRMDeleted ||
-                service.serviceProviderDeleted ||
-                service.userDeleted ||
-                service.providerServiceMapDeleted
-              "
+              *ngIf="service.uSRMDeleted"
               class="m-r-10 mat_green"
               (click)="
                 activate(
@@ -111,12 +101,7 @@
             <button
               md-raised-button
               color="primary"
-              *ngIf="
-                !service.uSRMDeleted &&
-                !service.serviceProviderDeleted &&
-                !service.userDeleted &&
-                !service.providerServiceMapDeleted
-              "
+              *ngIf="!service.uSRMDeleted"
               class="m-r-10 mat_blue"
               (click)="deactivate(service.uSRMappingID)"
             >

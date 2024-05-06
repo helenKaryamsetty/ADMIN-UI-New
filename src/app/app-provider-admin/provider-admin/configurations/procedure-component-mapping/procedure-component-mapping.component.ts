@@ -101,15 +101,6 @@ export class ProcedureComponentMappingComponent implements OnInit {
    * Initiate Form
    */
   initiateForm() {
-    // this.editMode = false;
-    // By Default, it'll be set as enabled
-    // this.componentForm = this.initComponentForm();
-    // this.componentForm.patchValue({
-    //   disable: false
-    // })
-    // this.componentList = [];
-    // provide service provider ID, (As of now hardcoded, but to be fetched from login response)
-
     if (this.commonDataService.service_providerID) {
       this.serviceProviderID = sessionStorage
         .getItem('service_providerID')
@@ -226,12 +217,8 @@ export class ProcedureComponentMappingComponent implements OnInit {
       res.forEach((mappedComponent: any) => {
         this.selectedComponentList.push(mappedComponent.compListDetails[0]);
       });
-      // this.selectedComponentList = res[0].compListDetails;
       this.selectedProcedureDescription = res[0].procedureDesc;
-      // this.selectedProcedureType = res[0].procedureType;
     } else {
-      // this.selectedProcedureType = res[0].procedureType;
-
       this.selectedComponentList = [];
     }
     this.componentList = [];

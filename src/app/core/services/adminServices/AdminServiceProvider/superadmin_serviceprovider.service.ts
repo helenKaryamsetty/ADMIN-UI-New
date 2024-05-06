@@ -27,6 +27,7 @@ import { Observable } from 'rxjs';
 
 import { ConfigService } from '../../config/config.service';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 // import { InterceptedHttp } from './../../../http.interceptor';
 // import { SecurityInterceptedHttp } from './../../../http.securityinterceptor';
@@ -182,7 +183,7 @@ export class SuperAdmin_ServiceProvider_Service {
   }
 
   getServicelinesFromProvider(serviceProviderID: any) {
-    return this._http.post(this.getServicelinesFromProvider_url, {
+    return this._http.post(environment.getServicelinesFromProvider_url, {
       serviceProviderID: serviceProviderID,
     });
     //   .map(this.extractData)
@@ -190,13 +191,13 @@ export class SuperAdmin_ServiceProvider_Service {
   }
 
   getCommonRegistrationData() {
-    return this._http.post(this.getRegistrationDataUrl, {});
+    return this._http.post(environment.getRegistrationDataUrl, {});
     //   .map(this.extractData)
     //   .catch(this.handleError);
   }
 
   checkProviderNameAvailability(provider_name: any) {
-    return this._http.post(this.checkProviderNameAvailabilityUrl, {
+    return this._http.post(environment.checkProviderNameAvailabilityUrl, {
       serviceProviderName: provider_name,
     });
     //   .map(this.extractData)
@@ -204,26 +205,19 @@ export class SuperAdmin_ServiceProvider_Service {
   }
 
   getAllStates(countryID: any) {
-    return this._http.get(this.getAllStatesUrl + countryID);
+    return this._http.get(environment.getAllStatesUrl + countryID);
     //   .map(this.extractData)
     //   .catch(this.handleError);
   }
 
   getAllServiceLines() {
-    return this._http.post(this.getAllServiceLinesUrl, {});
+    return this._http.post(environment.getAllServiceLinesUrl, {});
     //   .map(this.extractData)
     //   .catch(this.handleError);
   }
-  // ** Mapping Provider Admin to Provider Added by Krishna Gunti **//
-  // getAllServiceLinesByProvider(serviceProviderID: any) {
-  //   return this._http
-  //     .post(this.getAllServiceLinesByProviderUrl, { "serviceProviderID": serviceProviderID })
-  //     .map(this.extractData)
-  //     .catch(this.handleError);
-  // }
 
   getAllStatesByProvider(serviceProviderID: any, serviceLineID: any) {
-    return this._http.post(this.getAllStatesByProviderUrl, {
+    return this._http.post(environment.getAllStatesByProviderUrl, {
       serviceProviderID: serviceProviderID,
       serviceID: serviceLineID,
     });
@@ -232,14 +226,14 @@ export class SuperAdmin_ServiceProvider_Service {
   }
 
   getProviderStates(serviceProviderID: any) {
-    return this._http.post(this.getAllStatesByProviderUrl, {
+    return this._http.post(environment.getAllStatesByProviderUrl, {
       serviceProviderID: serviceProviderID,
     });
     //   .map(this.extractData)
     //   .catch(this.handleError);
   }
   getProviderServices(serviceProviderID: any) {
-    return this._http.post(this.getAllServicesByProviderUrl, {
+    return this._http.post(environment.getAllServicesByProviderUrl, {
       serviceProviderID: serviceProviderID,
     });
     //   .map(this.extractData)
@@ -247,7 +241,7 @@ export class SuperAdmin_ServiceProvider_Service {
   }
 
   getProviderStatesInService(serviceProviderID: any, serviceID: any) {
-    return this._http.post(this.getProvider_ServiceLineLevelStatus_Url, {
+    return this._http.post(environment.getProvider_ServiceLineLevelStatus_Url, {
       serviceProviderID: serviceProviderID,
       serviceID: serviceID,
     });
@@ -256,7 +250,7 @@ export class SuperAdmin_ServiceProvider_Service {
   }
 
   getProviderServicesInState(serviceProviderID: any, stateID: any) {
-    return this._http.post(this.getAllServiceLinesByProviderUrl, {
+    return this._http.post(environment.getAllServiceLinesByProviderUrl, {
       serviceProviderID: serviceProviderID,
       stateID: stateID,
     });
@@ -265,105 +259,105 @@ export class SuperAdmin_ServiceProvider_Service {
   }
 
   getAllMappedProviders() {
-    return this._http.post(this.getAllProviderAdminMappingsUrl, {});
+    return this._http.post(environment.getAllProviderAdminMappingsUrl, {});
     //   .map(this.extractData)
     //   .catch(this.handleError);
   }
   getAllProviderAdmins() {
-    return this._http.post(this.getAllProviderAdminUrl, {});
+    return this._http.post(environment.getAllProviderAdminUrl, {});
     //   .map(this.extractData_Provider)
     //   .catch(this.handleError);
   }
   public activateProviderAdmin(req_obj: any) {
-    return this._http.post(this.providerAdminActivateUrl, req_obj);
+    return this._http.post(environment.providerAdminActivateUrl, req_obj);
     //   .map(this.extractData)
     //   .catch(this.handleError);
   }
   public deactivateProviderAdmin(req_obj: any) {
-    return this._http.post(this.providerAdminDeactivateUrl, req_obj);
+    return this._http.post(environment.providerAdminDeactivateUrl, req_obj);
     //   .map(this.extractData)
     //   .catch(this.handleError);
   }
   public updateProviderAdminDetails(req_obj: any) {
-    return this._http.post(this.providerAdminUpdateUrl, req_obj);
+    return this._http.post(environment.providerAdminUpdateUrl, req_obj);
     //   .map(this.extractCustomData)
     //   .catch(this.handleCustomError);
   }
   public createMappingProviderAdmin(request_array: any) {
-    return this._http.post(this.MappingProviderAdminUrl, request_array);
+    return this._http.post(environment.MappingProviderAdminUrl, request_array);
     //   .map(this.extractCustomData)
     //   .catch(this.handleCustomError);
   }
   // ** End  **//
   getAllProvider() {
-    return this._http.post(this.getAllProviderUrl, {});
+    return this._http.post(environment.getAllProviderUrl, {});
     //   .map(this.extractData_Provider)
     //   .catch(this.handleError);
   }
   getAllProvider_provider() {
-    return this._http.post(this.getAllProviderUrl, {});
+    return this._http.post(environment.getAllProviderUrl, {});
     //   .map(this.extractData)
     //   .catch(this.handleError);
   }
   getProviderStatus(provider: any) {
-    return this._http.post(this.getProviderInfoUrl, {
+    return this._http.post(environment.getProviderInfoUrl, {
       serviceProviderID: provider,
     });
     //   .map(this.extractData)
     //   .catch(this.handleError);
   }
   getAllStatus() {
-    return this._http.post(this.getAllStatus_URL, {});
+    return this._http.post(environment.getAllStatus_URL, {});
     //   .map(this.extractData)
     //   .catch(this.handleError);
   }
 
   //  Provider admin related functions
   getAllProviderAdmin() {
-    return this._http.post(this.getAllProviderAdmin_url, {});
+    return this._http.post(environment.getAllProviderAdmin_url, {});
     //   .map(this.extractData)
     //   .catch(this.handleError);
   }
   checkUserAvailability(admin_username: any) {
-    return this._http.post(this.checkUserAvailabilityUrl, {
+    return this._http.post(environment.checkUserAvailabilityUrl, {
       userName: admin_username,
     });
     //   .map(this.extractData)
     //   .catch(this.handleError);
   }
   createProviderAdmin(reqObject: any) {
-    return this._http.post(this.createProviderAdminUrl, reqObject);
+    return this._http.post(environment.createProviderAdminUrl, reqObject);
     //   .map(this.extractData)
     //   .catch(this.handleError);
   }
   getAllGenders() {
-    return this._http.post(this.getAllGendersUrl, {});
+    return this._http.post(environment.getAllGendersUrl, {});
     //   .map(this.extractData)
     //   .catch(this.handleError);
   }
   getAllTitles() {
-    return this._http.post(this.getAllTitlesUrl, {});
+    return this._http.post(environment.getAllTitlesUrl, {});
     //   .map(this.extractData)
     //   .catch(this.handleError);
   }
   getAllQualifications() {
-    return this._http.post(this.getAllQualificationsUrl, {});
+    return this._http.post(environment.getAllQualificationsUrl, {});
     //   .map(this.extractData)
     //   .catch(this.handleError);
   }
   getAllMaritalStatus() {
-    return this._http.post(this.getAllMaritalStatusUrl, {});
+    return this._http.post(environment.getAllMaritalStatusUrl, {});
     //   .map(this.extractData)
     //   .catch(this.handleError);
   }
   updateProviderAdmin(update_obj: any) {
     console.log('update admin', update_obj);
-    return this._http.post(this.updateProviderAdminUrl, update_obj);
+    return this._http.post(environment.updateProviderAdminUrl, update_obj);
     //   .map(this.extractData)
     //   .catch(this.handleError);
   }
   delete_toggle_activation(userID: any) {
-    return this._http.post(this.delete_toggle_activationUrl, userID);
+    return this._http.post(environment.delete_toggle_activationUrl, userID);
     //   .map(this.extractData)
     //   .catch(this.handleError);
   }
@@ -373,12 +367,12 @@ export class SuperAdmin_ServiceProvider_Service {
     //   .catch(this.handleError);
   }
   validateAadhar(idNumber: any) {
-    return this._http.post(this.checkID, { aadhaarNo: idNumber });
+    return this._http.post(environment.checkID, { aadhaarNo: idNumber });
     //   .map(this.extractCustomData)
     //   .catch(this.handleError);
   }
   validatePan(idNumber: any) {
-    return this._http.post(this.checkID, { pAN: idNumber });
+    return this._http.post(environment.checkID, { pAN: idNumber });
     //   .map(this.extractCustomData)
     //   .catch(this.handleError);
   }
@@ -386,14 +380,17 @@ export class SuperAdmin_ServiceProvider_Service {
 
   addProviderStateAndServiceLines(array: any) {
     console.log(array);
-    return this._http.post(this.addProviderStateAndServiceLinesUrl, array);
+    return this._http.post(
+      environment.addProviderStateAndServiceLinesUrl,
+      array,
+    );
     //   .map(this.extractData)
     //   .catch(this.handleError);
   }
 
   public createServiceProvider = (serviceProviderRequestObject: any) => {
     return this._http.post(
-      this.service_provider_setup_url,
+      environment.service_provider_setup_url,
       serviceProviderRequestObject,
     );
     //   .map(this.extractCustomData)
@@ -401,38 +398,41 @@ export class SuperAdmin_ServiceProvider_Service {
   };
 
   public createProvider(request_array: any) {
-    return this._http.post(this.createProviderUrl, request_array);
+    return this._http.post(environment.createProviderUrl, request_array);
     //   .map(this.extractCustomData)
     //   .catch(this.handleCustomError);
   }
 
   public updateProviderDetails(req_obj: any) {
-    return this._http.post(this.providerUpdateUrl, req_obj);
+    return this._http.post(environment.providerUpdateUrl, req_obj);
     //   .map(this.extractCustomData)
     //   .catch(this.handleCustomError);
   }
 
   public deleteProvider(req_obj: any) {
-    return this._http.post(this.providerDeleteUrl, req_obj);
+    return this._http.post(environment.providerDeleteUrl, req_obj);
     //   .map(this.extractData)
     //   .catch(this.handleError);
   }
 
   getAllProviderMappings() {
-    return this._http.post(this.getAllProviderMappingsUrl, {});
+    return this._http.post(environment.getAllProviderMappingsUrl, {});
     //   .map(this.extractCustomData)
     //   .catch(this.handleCustomError);
   }
 
   mapProviderServiceState(requestArray: any) {
-    return this._http.post(this.mapProviderServiceStateUrl, requestArray);
+    return this._http.post(
+      environment.mapProviderServiceStateUrl,
+      requestArray,
+    );
     //   .map(this.extractCustomData)
     //   .catch(this.handleCustomError);
   }
 
   editMappedProviderServiceState(request_object: any) {
     return this._http.post(
-      this.editMappedProviderServiceStateUrl,
+      environment.editMappedProviderServiceStateUrl,
       request_object,
     );
     //   .map(this.extractCustomData)
@@ -441,43 +441,10 @@ export class SuperAdmin_ServiceProvider_Service {
 
   deleteMappedProviderServiceState(request_object: any) {
     return this._http.post(
-      this.deleteMappedProviderServiceStateUrl,
+      environment.deleteMappedProviderServiceStateUrl,
       request_object,
     );
     //   .map(this.extractCustomData)
     //   .catch(this.handleCustomError);
   }
-
-  //   private extractCustomData(res: Response) {
-  //     if (res.json().data) {
-  //       console.log('in SA service', res.json().data);
-  //       return res.json().data;
-  //     } else {
-  //       return Observable.throw(res.json());
-  //     }
-  //   }
-  //   extractData_Provider(response: Response) {
-  //     console.log(response.json().data, ' service file success response');
-  //     let result = [];
-  //     result = response.json().data.filter(function (item) {
-  //       if (item.deleted === false) {
-  //         return item;
-  //       }
-  //     });
-  //     return result;
-  //   }
-  //   private extractData(res: Response) {
-  //     if (res.json().data) {
-  //       console.log('in SA service', res.json().data);
-  //       return res.json().data;
-  //     } else {
-  //       return Observable.throw(res.json());
-  //     }
-  //   }
-  //   private handleCustomError(error: Response | any) {
-  //     return Observable.throw(error.json());
-  //   }
-  //   private handleError(error: Response | any) {
-  //     return Observable.throw(error.json());
-  //   }
 }

@@ -63,47 +63,9 @@
     </div>
   </form>
 </div>
-<!-- <div class="pull-right" *ngIf="data.length!==0 && showTable">
-  <mat-form-field id="filterbox">
-    <input matInput placeholder="In-Table Search" #filterTerm (keyup)="filterComponentList(filterTerm.value)">
-    <md-icon mdSuffix>search</md-icon>
-  </mat-form-field>
-</div> -->
 <div class="row" *ngIf="showTable">
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-15">
     <div class="">
-      <!-- <table class="table table-striped table-hover" [md2Data]="filtereddata" #md2="md2DataTable" [rowsPerPage]="4">
-        <thead>
-          <tr>
-            <th>S.No.</th>
-            <th>Provider Name</th>
-
-            <th>Serviceline</th>
-            <th>State</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngIf="md2.data.length == 0" class="record-not-found">
-            <td colspan="6" align="center">No records found</td>
-          </tr>
-          <tr *ngFor="let i of md2.data; let k=index">
-            <td width="5%">{{filtereddata.indexOf(i)+1}}</td>
-            <td width=20%>{{i.serviceProviderName}}</td>
-
-            <td width=20%>{{i.serviceName}}</td>
-            <td width=20%>{{i.stateName?i.stateName:'All State'}}</td>
-            <td width=20%>{{i.status}}</td>
-          </tr>
-        </tbody>
-        <tfoot>
-          <tr>
-            <td colspan="6">
-              <md2-pagination></md2-pagination>
-            </td>
-          </tr>
-        </tfoot>
-      </table> -->
       <mat-table
         [dataSource]="filtereddata"
         class="table table-striped table-hover"

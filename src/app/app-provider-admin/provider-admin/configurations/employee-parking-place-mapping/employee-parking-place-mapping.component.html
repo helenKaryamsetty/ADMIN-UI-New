@@ -180,48 +180,6 @@
     *ngIf="employeeParkingPlaceMappingList.data.length > 0 && formMode"
   >
     <div class="table-responsive">
-      <!-- <table class="table table-hover table-striped " [md2Data]="employeeParkingPlaceMappingList" #md2="md2DataTable" [rowsPerPage]="3">
-                <thead>
-                    <tr>
-                        <th width="10%">S.No.</th>
-                        <th width="25%">{{parkAndHub}}</th>
-                        <th width="20%">Designation</th>
-                        <th width="20%">Username</th>
-                        <th width="20%" *ngIf="enableVanField">Van</th>
-                        <th *ngIf="!enableVanField"></th>
-                        <th width="10%">Delete</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngIf="employeeParkingPlaceMappingList.length == 0">
-                        <td colspan="6" class="record-not-found">No records found</td>
-                    </tr>
-                    <tr *ngFor="let item of md2.data;let i = index ">
-                        <td>{{employeeParkingPlaceMappingList.indexOf(item)+1}}</td>
-                        <td>{{item?.parkingPlaceName}}</td>
-                        <td>{{item?.designationName}}</td>
-                        <td>{{item?.userName}}</td>
-                        <td>
-                            <ul class="m-l--25">
-                                <li *ngFor="let obj of item?.uservanmapping; let j=index ">
-                                    {{obj.vanName}}
-                                    <mat-icon class="cursorPointer" mdTooltip="Remove" (click)="removeRole(employeeParkingPlaceMappingList.indexOf(item),j)">cancel</mat-icon>
-                                </li>
-                            </ul>
-                        </td>
-                        <td>
-                            <mat-icon class="cursorPointer" mdTooltip="delete" (click)="deleteRow(employeeParkingPlaceMappingList.indexOf(item))">delete</mat-icon>
-                        </td>
-                    </tr>
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <td colspan="6">
-                            <md2-pagination></md2-pagination>
-                        </td>
-                    </tr>
-                </tfoot>
-            </table> -->
       <table
         mat-table
         [dataSource]="employeeParkingPlaceMappingList"
@@ -468,56 +426,6 @@
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <form class="c-b" autocomplete="off">
       <div class="table-responsive" *ngIf="tableMode && !formMode && !editMode">
-        <!-- <table class="table table-striped table-hover" [md2Data]="filteredavailableEmployeeParkingPlaceMappings" #md2="md2DataTable"
-                    [rowsPerPage]="3">
-                    <thead>
-                        <tr>
-                            <th width="10%">S.No.</th>
-                            <th width="25%">{{parkAndHub}}</th>
-                            <th width="20%">Designation</th>
-                            <th width="25%">Username</th>
-                            <th width="10%">View</th>
-                            <th width="15%">Edit</th>
-                            <th width="20%">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngIf="md2.data.length == 0">
-                            <td colspan="7" class="record-not-found">No records found</td>
-                        </tr>
-                        <tr *ngFor="let mapping of md2.data;let i=index ">
-                            <td>{{filteredavailableEmployeeParkingPlaceMappings.indexOf(mapping)+1}}</td>
-                            <td>{{mapping?.parkingPlaceName}}</td>
-                            <td>{{mapping?.designationName}}</td>
-                            <td>{{mapping?.userName}}</td>
-                            <td data-title="View" *ngIf="!mapping.deleted">
-                                <mat-icon (click)="viewVanListDetails(mapping)" class="cursorPointer">remove_red_eye</mat-icon>
-                            </td>
-                            <td>
-                                <mat-icon mdTooltip="Edit" class="mat-icon material-icons" *ngIf="!mapping.deleted && !mapping.userDeleted" role="img" aria-hidden="true"
-                                    style="cursor: pointer" (click)="editParkingPlace(mapping)">edit</mat-icon>
-                            </td>
-                            <td *ngIf="mapping.deleted"></td>
-                            <td>
-                                <button md-raised-button color="accent" *ngIf="mapping.deleted || mapping.userDeleted" class=" m-r-10" (click)="activate(mapping.userParkingPlaceMapID,mapping.userDeleted)">Activate</button>
-                                <button md-raised-button color="primary" *ngIf="!mapping.deleted && !mapping.userDeleted" class=" m-r-10" (click)="deactivate(mapping.userParkingPlaceMapID)">Deactivate</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <td colspan="4">
-                                <md2-pagination></md2-pagination>
-                            </td>
-                            <td colspan="3" class="p-r-0">
-
-                                <button md-raised-button color="primary" id="addButton" [disabled]="!parking_Place || !designationID " class="pull-right"
-                                    (click)="showForm(searchStateID, parking_Place.parkingPlaceID, designationID)">Add Mapping</button>
-
-                            </td>
-                        </tr>
-                    </tfoot>
-                </table> -->
         <table
           mat-table
           [dataSource]="this.filteredavailableEmployeeParkingPlaceMappings.data"

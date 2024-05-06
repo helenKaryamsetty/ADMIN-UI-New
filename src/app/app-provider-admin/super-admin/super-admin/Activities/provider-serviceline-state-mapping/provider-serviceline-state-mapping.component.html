@@ -25,47 +25,6 @@
 <div class="row" *ngIf="tableMode">
   <div class="col-xs-12 col-sm-12">
     <div class="">
-      <!-- <table class="table table-hover table-striped" [md2Data]="filteredsearchResult" #md2="md2DataTable" [rowsPerPage]="4">
-        <thead>
-          <tr>
-            <th width="5%">S.No.</th>
-            <th width="30%" md2SortBy="serviceProviderName">Provider Name</th>
-            <th width="25%">Serviceline</th>
-            <th width="30%">State</th>
-            <th width="10%">Edit</th>
-            <th width="20%">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngIf="md2.data.length == 0">
-            <td colspan="7" class="record-not-found">No records found</td>
-          </tr>
-          <tr *ngFor="let item of md2.data;let i = index ">
-            <td>{{filteredsearchResult.indexOf(item)+1}}</td>
-            <td>{{item.serviceProviderName}}</td>
-            <td>{{item.serviceName}}</td>
-            <td>{{item.stateName?item.stateName:'All States'}}</td>
-            <td>
-              <mat-icon mdTooltip="Edit" class="cursorPointer" *ngIf="!item.deleted && !item.serviceProviderDeleted" (click)="edit(item)">mode_edit</mat-icon>
-            </td>
-            <td>
-              <button md-raised-button color="accent" *ngIf="item.deleted || item.serviceProviderDeleted" class="" (click)="activate(item.providerServiceMapID,item.serviceProviderDeleted)">Activate</button>
-              <button md-raised-button color="primary" *ngIf="!item.deleted && !item.serviceProviderDeleted" class="" (click)="deactivate(item.providerServiceMapID)">Deactivate</button>
-
-            </td>
-          </tr>
-        </tbody>
-        <tfoot>
-          <tr>
-            <td colspan="3">
-              <md2-pagination></md2-pagination>
-            </td>
-            <td colspan="3" class="p-r-0">
-              <button md-raised-button color="primary" class="pull-right" (click)="showForm()">Create New Mapping</button>
-            </td>
-          </tr>
-        </tfoot>
-      </table> -->
       <table
         mat-table
         [dataSource]="filteredsearchResult"
@@ -264,46 +223,6 @@
   </div>
   <div class="col-xs-12 col-sm-12" *ngIf="bufferArray.data.length > 0">
     <div class="m-t-15">
-      <!-- <table class="table table-hover table-striped" [md2Data]="bufferArray" #md2="md2DataTable" [rowsPerPage]="3">
-        <thead>
-          <tr>
-            <th width="5%">S.No.</th>
-            <th width="30%">Provider Name</th>
-            <th width="15%">Serviceline</th>
-            <th width="40%">State</th>
-            <th width="10%">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let item of md2.data;let i = index ">
-            <td>{{bufferArray.indexOf(item)+1}}</td>
-            <td>{{item.providerName}}</td>
-            <td>{{item.serviceName}}</td>
-            <td>
-              <ul>
-                <li *ngFor="let obj of item.stateID1;let j=index ">
-                  {{obj.stateName}}
-                  <mat-icon class="cursorPointer" mdTooltip="Remove {{obj.stateName}}" (click)="removeState(bufferArray.indexOf(item),j)">cancel</mat-icon>
-                </li>
-                <li *ngIf="item.stateID1.length==0">
-                  {{'All State'}}
-                </li>
-              </ul>
-            </td>
-            <td>
-              <mat-icon class="cursorPointer" mdTooltip="delete" (click)="removeRow(bufferArray.indexOf(item))">delete</mat-icon>
-            </td>
-          </tr>
-        </tbody>
-        <tfoot>
-          <tr>
-            <td colspan="5">
-              <md2-pagination></md2-pagination>
-            </td>
-
-          </tr>
-        </tfoot>
-      </table> -->
       <table
         mat-table
         [dataSource]="bufferArray"

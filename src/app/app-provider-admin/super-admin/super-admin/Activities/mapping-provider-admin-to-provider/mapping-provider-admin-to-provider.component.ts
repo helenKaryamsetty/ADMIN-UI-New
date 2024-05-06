@@ -301,18 +301,6 @@ export class MappingProviderAdminToProviderComponent
     }
   }
 
-  // getProviderServicesInState(state, providerAdmin, serviceProvider) {
-  //   this.superadminService.getProviderServicesInState(serviceProvider.serviceProviderId || serviceProvider.serviceProviderID, state.stateID)
-  //     .subscribe(response => {
-  //       if (response) {
-  //         console.log('Provider Services in State', response);
-  //         this.services_array = response;
-  //         this.getAvailableServiceLines(state, providerAdmin, serviceProvider.serviceProviderId || serviceProvider.serviceProviderID)
-  //       }
-  //     });
-
-  // }
-
   getServicesSuccessHandeler(response: any) {
     if (response) {
       console.log('Provider Services in State', response.data);
@@ -547,18 +535,6 @@ export class MappingProviderAdminToProviderComponent
           }
         }
       }
-      // if (providerCount === 1 && servicesMatched === false) {
-      //   this.bufferArray.push(object);
-      //   this.resetForm();
-      // }
-      // if (providerCount === 2 && servicesMatched === false) {
-      //   this.bufferArray.push(object);
-      //   this.resetForm();
-      // }
-      // if (providerCount === 0) {
-      //   this.bufferArray.push(object);
-      //   this.resetForm();
-      // }
       if (servicesMatched === false) {
         this.bufferArray.data.push(object);
         this.bufferArray.paginator = this.paginatorSecond;
@@ -605,13 +581,15 @@ export class MappingProviderAdminToProviderComponent
     );
   }
   resetForm() {
-    this.form.reset();
-    this.provider = undefined;
-    this.serviceline = undefined;
-    this.state = undefined;
-    this.uSRMappingID = undefined;
-    this.edit_Details = undefined;
-    this.changeDetectorRefs.detectChanges();
+    if (this.form !== undefined && this.form !== null) {
+      this.form.reset();
+      this.provider = undefined;
+      this.serviceline = undefined;
+      this.state = undefined;
+      this.uSRMappingID = undefined;
+      this.edit_Details = undefined;
+      this.changeDetectorRefs.detectChanges();
+    }
   }
   removeService(rowIndex: any, serviceIndex: any) {
     this.bufferArray.data[rowIndex].serviceProviderMapID1.splice(

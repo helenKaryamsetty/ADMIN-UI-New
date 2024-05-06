@@ -141,12 +141,6 @@ export class BlockServiceProviderComponent implements OnInit {
     this.status_array.splice(index, 1);
   }
 
-  // ** Smart Search Logic ** added by Krishna Gunti ** //
-
-  // @HostListener('document:keydown', ['$event'])
-  // handleKeyboardEvent(event: KeyboardEvent): void {
-  //   this.selectKeyPress(event);
-  // }
   selectKeyPress($event: any) {
     let firstWordMatchingStatus = 0;
     if ($event.keyCode !== 123) {

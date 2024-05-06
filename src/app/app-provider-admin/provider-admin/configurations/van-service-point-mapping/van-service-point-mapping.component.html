@@ -84,24 +84,6 @@
           </mat-option>
         </mat-select>
       </div>
-      <!-- <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 m-t-15">
-                <mat-select placeholder="District" class="width100" [(ngModel)]="district" name="district" (change)="GetTaluks(parking_place.parkingPlaceID, district.districtID)"
-                    #mappingDistrict='ngModel' required>
-                    <mat-option *ngFor="let item of districts" [value]="item">
-                        {{item.districtName}}
-                    </mat-option>
-                </mat-select>
-            </div>
-            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-                <md-input-container class="hide_underline width100">
-                      <input mdInput style="display:none">
-                <mat-select placeholder="Taluk/Sub District" class="width100" [(ngModel)]="talukID" name="talukID" (change)="resetFields()">
-                    <mat-option *ngFor="let taluk of taluks" [value]="taluk">
-                        {{taluk.districtBlockName}}
-                    </mat-option>
-                </mat-select>
-                </md-input-container>
-            </div> -->
     </form>
     <form #searForm1="ngForm" autocomplete="off">
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
@@ -169,58 +151,6 @@
 
 <form class="c-b p-t-30" [formGroup]="MappingForm" autocomplete="off">
   <div class="form-group" *ngIf="showTable">
-    <!-- <table [md2Data]="MappingForm.get('mappings').controls" #md2="md2DataTable" class="table table-striped table-hover" [rowsPerPage]="3">
-            <thead>
-                <tr>
-                    <th width="10%">S.No.</th>
-                    <th width="20%">Service Point</th>
-                    <th width="20%">District</th>
-                    <th width="20%">Taluk/Sub-District</th>
-                    <th width="30%" *ngIf="service.serviceID != 4">Morning</th>
-                    <th width="30%" *ngIf="service.serviceID != 4">Evening</th>
-                    <th width="30%" *ngIf="service.serviceID == 4">Full Day</th>
-                </tr>
-            </thead>
-            <tbody formArrayName="mappings">
-                <tr *ngIf="md2.data.length===0" class="record-not-found">
-                    <td colspan="6" align="center">No records found</td>
-                </tr>
-                <tr [formGroupName]="this.MappingForm.get('mappings').controls.indexOf(mapping)" *ngFor="let mapping of md2.data">
-                    <td>
-                        <input mdInput required formControlName="vanID" value="vanID" [hidden]="true"> {{this.MappingForm.get('mappings').controls.indexOf(mapping)+1}}
-                    </td>
-                    <td>
-                        <input mdInput formControlName="servicePointID" value="mapping.controls.servicePointID.value" [hidden]="true">{{mapping.controls.servicePointName.value}}
-                    </td>
-                    <td>
-                        <input mdInput formControlName="districtID" value="mapping.controls.districtID.value" [hidden]="true">{{mapping.controls.districtName.value}}
-                    </td>
-                    <td>
-                        <input mdInput formControlName="blockID" value="mapping.controls.blockID.value" [hidden]="true">{{mapping.controls.blockName.value}}
-                    </td>
-                    <td *ngIf="service.serviceID != 4">
-                        <md-checkbox color="primary" formControlName="vanSession1" [checked]="mapping.controls.vanSession1.value"></md-checkbox>
-                    </td>
-                    <td *ngIf="service.serviceID != 4">
-                        <md-checkbox color="primary" formControlName="vanSession2" [checked]="mapping.controls.vanSession2.value"></md-checkbox>
-                    </td>
-                    <td *ngIf="service.serviceID == 4">
-                        <md-checkbox color="primary" formControlName="vanSession3" (click)="setvansession(MappingForm.get('mappings').controls.indexOf(mapping),mapping.controls.vanSession3.value)" [checked]="mapping.controls.vanSession3.value"></md-checkbox>
-                    </td>
-                </tr>
-            </tbody>
-            <tfoot>
-                <tr>
-                    <td colspan="3">
-                        <md2-pagination></md2-pagination>
-                    </td>
-                    <td colspan="3" class="p-r-0">
-                        <button md-raised-button color="accent" [disabled]="searchDistrictsForm.invalid || searForm1.invalid" [disabled]="searForm.invalid"
-                            class="pull-right" (click)="storeVanServicePointMapping();">Add Mapping</button>
-                    </td>
-                </tr>
-            </tfoot>
-        </table> -->
     <table
       mat-table
       [dataSource]="filteredsearchResultArray"
