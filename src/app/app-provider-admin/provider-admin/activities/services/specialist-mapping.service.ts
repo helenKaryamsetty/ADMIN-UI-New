@@ -25,6 +25,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ConfigService } from 'src/app/core/services/config/config.service';
+import { environment } from 'src/environments/environment';
 @Injectable()
 export class SpecialistMappingService {
   private providerAdmin_Base_Url: any;
@@ -54,54 +55,31 @@ export class SpecialistMappingService {
   }
 
   toggleMapping(userSpecializationMapID: any, deleted: any, modifiedBy: any) {
-    return this.http.post(this._activateUserSpecializationURL, {
+    return this.http.post(environment._activateUserSpecializationURL, {
       userSpecializationMapID,
       deleted,
       modifiedBy,
     });
-    //  .map(this.handleSuccess)
-    //  .catch(this.handleError);
   }
 
   getDoctorList(serviceproviderID: any, screenName: any): Observable<any> {
-    return this.http.post(this._getUserTMURL, {
+    return this.http.post(environment._getUserTMURL, {
       serviceproviderID,
       screenName,
     });
-    // .map(this.handleSuccess)
-    // .catch(this.handleError);
   }
 
   getSpecializationList() {
-    return this.http.post(this._getSpecializationURL, {});
-    // .map(this.handleSuccess)
-    // .catch(this.handleError);
+    return this.http.post(environment._getSpecializationURL, {});
   }
 
   getCurrentMappings(serviceproviderID: any) {
-    return this.http.post(this._getUserSpecializationURL, {
+    return this.http.post(environment._getUserSpecializationURL, {
       serviceproviderID,
     });
-    //  .map(this.handleSuccess)
-    //  .catch(this.handleError);
   }
 
   saveMappings(apiObj: any) {
-    return this.http.post(this._saveUserSpecializationURL, apiObj);
-    //  .map(this.handleSuccess)
-    //  .catch(this.handleError);
+    return this.http.post(environment._saveUserSpecializationURL, apiObj);
   }
-
-  //  handleSuccess(res: Response) {
-  //   console.log(res.json(), 'calltype-subtype service file success response');
-  //   if (res.json().data) {
-  //     return res.json().data;
-  //   } else {
-  //     return Observable.throw(res.json());
-  //   }
-  // }
-
-  // handleError(error: Response | any) {
-  //   return Observable.throw(error.json());
-  // }
 }

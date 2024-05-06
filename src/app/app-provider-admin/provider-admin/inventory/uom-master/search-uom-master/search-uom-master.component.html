@@ -62,48 +62,6 @@
 <ng-container *ngIf="mode === 'view'">
   <div class="row m-t-20" *ngIf="providerServiceMapID">
     <div class="col-xs-12">
-      <!-- <table class="table table-striped" [md2Data]="filteredUOMMasterList" #md2="md2DataTable" [rowsPerPage]="4">
-        <thead>
-          <tr>
-            <th width="5%">S.No.</th>
-            <th width="20%">UOM Code</th>
-            <th width="20%">UOM Name</th>
-            <th width="20%">UOM Description</th>
-            <th width="5%">Edit</th>
-            <th width="10%">Action</th>
-          </tr>
-        </thead>
-        <tbody *ngIf="UOMMasterList.length == 0 || filteredUOMMasterList.length == 0">
-          <tr class="record-not-found">
-            <td colspan="6" align="center">No records found</td>
-          </tr>
-        </tbody>
-        <tbody *ngIf="UOMMasterList.length > 0 || filteredUOMMasterList.length > 0">
-          <tr *ngFor="let uom of md2.data; let i = index; trackBy: trackByFn">
-            <td>{{(md2.activePage-1) * 4 + i + 1}}</td>
-            <td>{{ uom.uOMCode}}</td>
-            <td>{{ uom.uOMName}}</td>
-            <td>{{ uom.uOMDesc}}</td>
-            <td>
-              <mat-icon mdTooltip="Edit" *ngIf="!uom.deleted" class="mat-icon material-icons" style="cursor: pointer" (click)="switchToUpdateMode(uom)">edit</mat-icon>
-            </td>
-            <td>
-                <button *ngIf="uom.deleted" md-raised-button color="accent" (click)="activateDeactivateUOM(uom.uOMID,false)">Unblock</button>
-                <button *ngIf="!uom.deleted" md-raised-button color="primary" (click)="activateDeactivateUOM(uom.uOMID,true)">Block</button>
-              </td>
-          </tr>
-        </tbody>
-        <tfoot>
-          <tr>
-            <td colspan="3" class="p-l-0">
-              <md2-pagination></md2-pagination>
-            </td>
-            <td colspan="3" class="p-r-0">
-              <button md-raised-button color="primary" class="pull-right" (click)="switchToCreateMode()">Add UOM</button>
-            </td>
-          </tr>
-        </tfoot>
-      </table> -->
       <table mat-table [dataSource]="filteredUOMMasterList">
         <ng-container matColumnDef="sNo">
           <th mat-header-cell *matHeaderCellDef>S.No.</th>

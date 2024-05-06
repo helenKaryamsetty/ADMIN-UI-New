@@ -23,6 +23,7 @@ import { Injectable } from '@angular/core';
 
 import { ConfigService } from '../../config/config.service';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class VillageMasterService {
@@ -58,61 +59,48 @@ export class VillageMasterService {
   }
 
   getStates(countryId: number) {
-    return this._http.get(this._getStateListURL + countryId);
+    return this._http.get(environment._getStatenewListURL + countryId);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
 
   getDistricts(stateId: number) {
-    return this._http.get(this._getDistrictListURL + stateId);
+    return this._http.get(environment._getDistrictnewListURL + stateId);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
   getTaluks(districtId: any) {
-    return this._http.get(this._getTalukListURL + districtId);
+    return this._http.get(environment._getTaluknewListURL + districtId);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
 
   getBranches(data: any) {
-    return this._http.post(this._getBranchListURL, data);
+    return this._http.post(environment._getBranchnewListURL, data);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
 
   storeVillages(data: any) {
-    return this._http.post(this.storeVillagesURL, data);
+    return this._http.post(environment.storeVillagesURL, data);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
 
   updateVillageStatus(data: any) {
-    return this._http.post(this.deleteVillageURL, data);
+    return this._http.post(environment.deleteVillageURL, data);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
 
   updateVillageData(data: any) {
-    return this._http.post(this.updateVillageDataURL, data);
+    return this._http.post(environment.updateVillageDataURL, data);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
 
-  // handleSuccess(res: Response) {
-  //   console.log(res.json().data, '--- in zone master SERVICE');
-  //   if (res.json().data) {
-  //     return res.json().data;
-  //   } else {
-  //     return Observable.throw(res.json());
-  //   }
-  // }
-
-  // handleError(error: Response | any) {
-  //   return Observable.throw(error);
-  // }
-
   getVillage(requestObj: any) {
-    return this._http.post(this._getBranchListURL, requestObj);
+    return this._http.post(environment._getBranchnewListURL, requestObj);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }

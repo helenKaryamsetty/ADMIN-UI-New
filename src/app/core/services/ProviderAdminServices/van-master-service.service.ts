@@ -19,13 +19,15 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see https://www.gnu.org/licenses/.
  */
-import { Injectable } from '@angular/core';
+import { EnvironmentInjector, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 // import 'rxjs/add/operator/catch';
 // import 'rxjs/add/operator/map';
 
 import { ConfigService } from '../config/config.service';
+import { environment } from 'src/environments/environment';
+import { EmailValidator } from '@angular/forms';
 // import { InterceptedHttp } from './../../http.interceptor';
 // import { SecurityInterceptedHttp } from '../../http.securityinterceptor';
 
@@ -85,43 +87,43 @@ export class VanMasterService {
   }
 
   saveVan(data: any) {
-    return this.http.post(this.saveVansURL, data);
+    return this.http.post(environment.saveVansURL, data);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
 
   getVans(data: any) {
-    return this.http.post(this.getVansURL, data);
+    return this.http.post(environment.getVansURL, data);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
 
   updateVanStatus(data: any) {
-    return this.http.post(this.updateVanStatusURL, data);
+    return this.http.post(environment.updateVanStatusURL, data);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
 
   updateVanData(data: any) {
-    return this.http.post(this.updateVanURL, data);
+    return this.http.post(environment.updateVanURL, data);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
 
   getVanTypes() {
-    return this.http.post(this.getVanTypesURL, {});
+    return this.http.post(environment.getVanTypesURL, {});
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
 
   getParkingPlaces(data: any) {
-    return this.http.post(this.getParkingPlacesURL, data);
+    return this.http.post(environment.getParkingNewPlacesURL, data);
     // .map(this.handleState_n_ServiceSuccess_parking)
     // .catch(this.handleError);
   }
 
   getStatesByServiceID(serviceID: any, serviceProviderID: any) {
-    return this.http.post(this._getStateListBYServiceIDURL, {
+    return this.http.post(environment._getStateListBYServiceIDURL, {
       serviceID: serviceID,
       serviceProviderID: serviceProviderID,
     });
@@ -130,7 +132,7 @@ export class VanMasterService {
   }
 
   getStates(serviceProviderID: any) {
-    return this.http.post(this._getStateListURL, {
+    return this.http.post(environment._getStateNewListURL, {
       serviceProviderID: serviceProviderID,
     });
     // .map(this.handleSuccess)
@@ -138,7 +140,7 @@ export class VanMasterService {
   }
 
   getServices(serviceProviderID: any, stateID: any) {
-    return this.http.post(this._getServiceLineURL, {
+    return this.http.post(environment._getServiceNewLineURL, {
       serviceProviderID: serviceProviderID,
       stateID: stateID,
     });
@@ -147,48 +149,24 @@ export class VanMasterService {
   }
 
   getDistricts(zoneID: any) {
-    return this.http.post(this._getDistrictListURL, { zoneID: zoneID });
+    return this.http.post(environment._getDistrictListURL, { zoneID: zoneID });
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
   getTaluks(talukObj: any) {
-    return this.http.post(this._getTalukListURL, talukObj);
+    return this.http.post(environment._getTalukNewListURL, talukObj);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
   getSTBs(talukId: number) {
-    return this.http.get(this._getBlockListURL + talukId);
+    return this.http.get(environment._getBlockListURL + talukId);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
 
   getBranches(blockId: number) {
-    return this.http.get(this._getBranchListURL + blockId);
+    return this.http.get(environment._getBranchListURL + blockId);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
-  // handleState_n_ServiceSuccess_parking(response: Response) {
-
-  //     console.log(response.json().data, 'role service file success response');
-  //     let result = [];
-  //     result = response.json().data.filter(function (item) {
-  //         if (item.deleted != true) {
-  //             return item;
-  //         }
-  //     });
-  //     return result;
-  // }
-
-  // handleSuccess(res: Response) {
-  //     console.log(res.json().data, "--- in zone master SERVICE");
-  //     if (res.json().data) {
-  //         return res.json().data;
-  //     } else {
-  //         return Observable.throw(res.json());
-  //     }
-  // }
-
-  // handleError(error: Response | any) {
-  //     return Observable.throw(error.json());
-  // }
 }

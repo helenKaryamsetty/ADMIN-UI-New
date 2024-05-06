@@ -47,8 +47,9 @@ export class FeedbackTypeMasterComponent implements OnInit {
   [x: string]: any;
   filteredfeedbackTypes = new MatTableDataSource<any>();
   objs = new MatTableDataSource<any>();
-  @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
-  // filteredfeedbackTypes: any = [];
+  paginator!: MatPaginator;
+  @ViewChild('paginatorFirst') paginatorFirst!: MatPaginator;
+  @ViewChild('paginatorSecond') paginatorSecond!: MatPaginator;
   feedbackNameExist = false;
   userID: any;
   previous_state_id: any;
@@ -110,6 +111,9 @@ export class FeedbackTypeMasterComponent implements OnInit {
     if (this.isNational === true) {
       this.search_state = undefined;
     }
+  }
+  ngAfterViewInit() {
+    this.filteredfeedbackTypes.paginator = this.paginatorFirst;
   }
 
   getStates(serviceID: any, isNational: any) {

@@ -69,7 +69,7 @@
     <div class="table-responsive">
       <table
         mat-table
-        [dataSource]="this.filtereddata"
+        [dataSource]="filtereddata"
         class="table table-striped table-hover"
       >
         <ng-container matColumnDef="SNo">
@@ -145,7 +145,8 @@
         </button>
       </div>
       <mat-paginator
-        [hidden]="filtereddata.data.length === 0"
+        #paginatorFirst
+        [length]="filtereddata.data.length"
         [pageSizeOptions]="[5, 10, 25]"
         [pageSize]="5"
         showFirstLastButtons
@@ -225,7 +226,7 @@
     <div class="table-responsive">
       <table
         mat-table
-        [dataSource]="this.severityArray"
+        [dataSource]="severityArray"
         class="table table-striped table-hover"
       >
         <ng-container matColumnDef="SNo">
@@ -260,6 +261,13 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns1"></tr>
       </table>
+      <mat-paginator
+        #paginatorSecond
+        [length]="severityArray.data.length"
+        [pageSizeOptions]="[5, 10, 25]"
+        [pageSize]="5"
+        showFirstLastButtons
+      ></mat-paginator>
     </div>
   </div>
 </div>

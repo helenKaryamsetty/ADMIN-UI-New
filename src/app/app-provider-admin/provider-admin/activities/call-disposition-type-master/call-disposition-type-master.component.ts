@@ -53,15 +53,9 @@ export class CallDispositionTypeMasterComponent
   [x: string]: any;
 
   paginator!: MatPaginator;
-  @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
-    this.paginator = mp;
-    this.setDataSourceAttributes();
-  }
+  @ViewChild('paginatorFirst') paginatorFirst!: MatPaginator;
+  @ViewChild('paginatorSecond') paginatorSecond!: MatPaginator;
   filtereddata = new MatTableDataSource<any>();
-
-  setDataSourceAttributes() {
-    this.filtereddata.paginator = this.paginator;
-  }
   temporarySubtypeArray = new MatTableDataSource<any>();
   // filtereddata: any = [];
   note!: string;
@@ -197,12 +191,12 @@ export class CallDispositionTypeMasterComponent
     this.callSubType = '';
     this.subCallTypeExist = false;
     this.temporarySubtypeArray.data = [];
-    this.temporarySubtypeArray.paginator = this.paginator;
+    this.temporarySubtypeArray.paginator = this.paginatorSecond;
   }
 
   ngAfterViewInit() {
-    this.filtereddata.paginator = this.paginator;
-    this.temporarySubtypeArray.paginator = this.paginator;
+    this.filtereddata.paginator = this.paginatorFirst;
+    this.temporarySubtypeArray.paginator = this.paginatorSecond;
   }
 
   back() {
@@ -229,7 +223,7 @@ export class CallDispositionTypeMasterComponent
   reset() {
     this.callSubType = '';
     this.temporarySubtypeArray.data = [];
-    this.temporarySubtypeArray.paginator = this.paginator;
+    this.temporarySubtypeArray.paginator = this.paginatorSecond;
     this.fitToBlock = false;
     this.fitForFollowup = false;
     this.isInbound = false;
@@ -341,7 +335,7 @@ export class CallDispositionTypeMasterComponent
     console.log('call type subtype history', response);
     this.data = response.data;
     this.filtereddata.data = response.data;
-    this.filtereddata.paginator = this.paginator;
+    this.filtereddata.paginator = this.paginatorFirst;
     console.log('this.data', this.data);
 
     this.data.forEach((element: { callGroupType: string }) => {

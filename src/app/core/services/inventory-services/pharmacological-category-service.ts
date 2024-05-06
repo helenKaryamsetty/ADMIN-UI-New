@@ -22,6 +22,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ConfigService } from '../config/config.service';
+import { environment } from 'src/environments/environment';
 // import { InterceptedHttp } from './../../http.interceptor';
 // import { SecurityInterceptedHttp } from '../../http.securityinterceptor';
 
@@ -41,32 +42,24 @@ export class PharmacologicalMasterService {
   }
 
   getAllPharmacologyList(providerServiceMapID: any) {
-    this.getPharmacologyListUrl =
-      this.adminBaseUrl + 'getPharmacologicalcategory';
-    return this.http.post(this.getPharmacologyListUrl, {
+    return this.http.post(environment.getPharmacologyListUrl, {
       providerServiceMapID: providerServiceMapID,
     });
     // .map(this.extractData)
     // .catch(this.handleError)
   }
   savePharmacology(obj: any) {
-    this.savePharmacologyUrl =
-      this.adminBaseUrl + 'createPharmacologicalcategory';
-    return this.http.post(this.savePharmacologyUrl, obj);
+    return this.http.post(environment.savePharmacologyUrl, obj);
     // .map(this.extractCustomData)
     //     .catch(this.handleError);
   }
   updatePharmacology(obj: any) {
-    this.updatePharmacologyUrl =
-      this.adminBaseUrl + 'editPharmacologicalcategory';
-    return this.http.post(this.updatePharmacologyUrl, obj);
+    return this.http.post(environment.updatePharmacologyUrl, obj);
     // .map(this.extractCustomData)
     //     .catch(this.handleError);
   }
   deletePharmacology(obj: any) {
-    this.deletePharmacologyUrl =
-      this.adminBaseUrl + 'deletePharmacologicalcategory';
-    return this.http.post(this.deletePharmacologyUrl, obj);
+    return this.http.post(environment.deletePharmacologyUrl, obj);
     // .map(this.extractCustomData)
     //     .catch(this.handleError);
   }
@@ -82,26 +75,4 @@ export class PharmacologicalMasterService {
     // .map(this.extractData)
     // .catch(this.handleError);
   }
-  // private extractCustomData(res: Response) {
-  //     if (res.json().data) {
-  //         console.log('Pharmacology Category Master Custom Service', res.json().data);
-  //         return res.json().data;
-  //     } else {
-  //         return Observable.throw(res.json());
-  //     }
-  // }
-  // private extractData(res: Response) {
-  //     if (res.json().data && res.json().statusCode == 200) {
-  //         console.log('Pharmacology Category Master Service', res.json(), res.json().data);
-  //         return res.json().data;
-  //     } else {
-  //         return Observable.throw(res.json());
-  //     }
-  // }
-  // private handleCustomError(error: Response | any) {
-  //     return Observable.throw(error.json());
-  // }
-  // private handleError(error: Response | any) {
-  //     return Observable.throw(error.json());
-  // }
 }

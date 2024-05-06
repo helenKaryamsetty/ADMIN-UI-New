@@ -103,15 +103,9 @@ export class RoleMasterComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatSort) sort: MatSort | null = null;
   paginator!: MatPaginator;
-  @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
-    this.paginator = mp;
-    this.setDataSourceAttributes();
-  }
+  @ViewChild('paginatorFirst') paginatorFirst!: MatPaginator;
+  @ViewChild('paginatorSecond') paginatorSecond!: MatPaginator;
   dataSource = new MatTableDataSource<any>();
-
-  setDataSourceAttributes() {
-    this.dataSource.paginator = this.paginator;
-  }
   addRole = new MatTableDataSource<any>();
   constructor(
     public ProviderAdminRoleService: ProviderAdminRoleService,
@@ -129,7 +123,7 @@ export class RoleMasterComponent implements OnInit, AfterViewInit {
     this.services = [];
     this.searchresultarray = [];
     this.dataSource.data = [];
-    this.dataSource.paginator = this.paginator;
+    this.dataSource.paginator = this.paginatorFirst;
     this.dataSource.sort = this.sort;
     this.filterScreens = [];
   }
@@ -141,7 +135,7 @@ export class RoleMasterComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
+    this.dataSource.paginator = this.paginatorFirst;
     this.dataSource.sort = this.sort;
   }
 
@@ -176,7 +170,7 @@ export class RoleMasterComponent implements OnInit, AfterViewInit {
     this.states = response.data;
     this.searchresultarray = [];
     this.dataSource.data = [];
-    this.dataSource.paginator = this.paginator;
+    this.dataSource.paginator = this.paginatorFirst;
     this.dataSource.sort = this.sort;
 
     if (value.isNational) {
@@ -211,7 +205,7 @@ export class RoleMasterComponent implements OnInit, AfterViewInit {
         this.dataSource.data.forEach((item: any, index: number) => {
           item.sno = index + 1;
         });
-        this.dataSource.paginator = this.paginator;
+        this.dataSource.paginator = this.paginatorFirst;
         this.dataSource.sort = this.sort;
         if (this.service.serviceID !== 7) {
           for (let i = 0; i < this.searchresultarray.length; i++) {
@@ -259,7 +253,7 @@ export class RoleMasterComponent implements OnInit, AfterViewInit {
       this.feature = undefined;
       this.selectedRole = undefined;
       this.addRole.data = [];
-      this.addRole.paginator = this.paginator;
+      this.addRole.paginator = this.paginatorSecond;
       this.tempFilterScreens = [];
       this.editScreenName = undefined;
       this.showUpdateFeatureButtonFlag = false;
@@ -331,7 +325,7 @@ export class RoleMasterComponent implements OnInit, AfterViewInit {
           obj.roleName.trim().length > 0
         ) {
           this.addRole.data.push(obj);
-          this.addRole.paginator = this.paginator;
+          this.addRole.paginator = this.paginatorSecond;
           this.tempFilterScreens = this.tempFilterScreens.concat(
             obj.screen_name,
           );
@@ -358,7 +352,7 @@ export class RoleMasterComponent implements OnInit, AfterViewInit {
           obj.roleName !== null
         ) {
           this.addRole.data.push(obj);
-          this.addRole.paginator = this.paginator;
+          this.addRole.paginator = this.paginatorSecond;
           if (this.service.serviceID !== 7) {
             this.tempFilterScreens = this.tempFilterScreens.concat(
               obj.screen_name,
@@ -478,7 +472,7 @@ export class RoleMasterComponent implements OnInit, AfterViewInit {
     this.finalResponse = response.data;
     if (this.finalResponse[0].roleID) {
       this.addRole.data = []; //empty the buffer array
-      this.addRole.paginator = this.paginator;
+      this.addRole.paginator = this.paginatorSecond;
       this.tempFilterScreens = [];
       this.setRoleFormFlag(false);
       this.findRoles(this.STATE_ID, this.SERVICE_ID, true);
@@ -555,7 +549,7 @@ export class RoleMasterComponent implements OnInit, AfterViewInit {
     this.role = '';
     this.description = '';
     this.addRole.data = [];
-    this.addRole.paginator = this.paginator;
+    this.addRole.paginator = this.paginatorSecond;
     this.tempFilterScreens = [];
     this.selectedRole = undefined;
     this.disableSelection = false;
@@ -589,7 +583,7 @@ export class RoleMasterComponent implements OnInit, AfterViewInit {
       }
     }
     this.addRole.data.splice(index, 1);
-    this.addRole.paginator = this.paginator;
+    this.addRole.paginator = this.paginatorSecond;
   }
   removeFeature(rowIndex: any, FeatureIndex: any) {
     this.findRoles(this.STATE_ID, this.SERVICE_ID, false);
@@ -628,13 +622,13 @@ export class RoleMasterComponent implements OnInit, AfterViewInit {
     }
     this.addRole.data[rowIndex].screen_name.splice(FeatureIndex, 1);
     this.addRole.data[rowIndex].screenID.splice(FeatureIndex, 1);
-    this.addRole.paginator = this.paginator;
+    this.addRole.paginator = this.paginatorSecond;
     if (
       this.addRole.data[rowIndex].screen_name.length === 0 &&
       this.addRole.data[rowIndex].screenID.length === 0
     ) {
       this.addRole.data.splice(rowIndex, 1);
-      this.addRole.paginator = this.paginator;
+      this.addRole.paginator = this.paginatorSecond;
     }
   }
 
@@ -642,7 +636,7 @@ export class RoleMasterComponent implements OnInit, AfterViewInit {
     this.services = [];
     this.searchresultarray = [];
     this.dataSource.data = [];
-    this.dataSource.paginator = this.paginator;
+    this.dataSource.paginator = this.paginatorFirst;
     this.dataSource.sort = this.sort;
     this.filterScreens = [];
     this.showAddButtonFlag = false;
@@ -701,11 +695,11 @@ export class RoleMasterComponent implements OnInit, AfterViewInit {
   filterComponentList(searchTerm?: string) {
     if (!searchTerm) {
       this.dataSource.data = this.searchresultarray;
-      this.dataSource.paginator = this.paginator;
+      this.dataSource.paginator = this.paginatorFirst;
       this.dataSource.sort = this.sort;
     } else {
       this.dataSource.data = [];
-      this.dataSource.paginator = this.paginator;
+      this.dataSource.paginator = this.paginatorFirst;
       this.dataSource.sort = this.sort;
       this.searchresultarray.forEach((item: any) => {
         for (const key in item) {
@@ -720,7 +714,7 @@ export class RoleMasterComponent implements OnInit, AfterViewInit {
         this.dataSource.data.forEach((item: any, index: number) => {
           item.sno = index + 1;
         });
-        this.dataSource.paginator = this.paginator;
+        this.dataSource.paginator = this.paginatorFirst;
         this.dataSource.sort = this.sort;
       });
     }

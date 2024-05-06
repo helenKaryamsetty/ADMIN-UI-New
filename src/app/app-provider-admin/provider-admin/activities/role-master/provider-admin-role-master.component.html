@@ -187,6 +187,7 @@
       <strong>No Records Found</strong>
     </div>
     <mat-paginator
+      #paginatorFirst
       [hidden]="dataSource.data.length === 0"
       [pageSizeOptions]="[5, 10, 20]"
       [pageSize]="5"
@@ -198,26 +199,6 @@
 <div class="col-12" *ngIf="showRoleCreationForm">
   <form #addingForm="ngForm" id="roleAddForm" class="row" autocomplete="off">
     <div class="col-3 m-t-20" appMyProviderName>
-      <!-- <mat-form-field style="width: 100%">
-        <mat-label>Role</mat-label>
-        <input type="text"
-          matInput
-          [(ngModel)]="role"
-          minlength="1"
-          maxlength="50"
-          name="role"
-          (keyup)="validateRole(role)"
-          required
-          #roles="ngModel"
-          [formControl]="roleFormControl"
-        />
-        <mat-hint *ngIf="roles.touched">
-          <span class="error_text" *ngIf="othersExist"
-            >Role already exists</span
-          >
-          <span class="error_text" *ngIf="roles.invalid">Role is required</span>
-        </mat-hint>
-      </mat-form-field> -->
       <mat-form-field style="width: 100%">
         <mat-label>Role</mat-label>
         <input
@@ -396,7 +377,8 @@
         <tr mat-row *matRowDef="let row; columns: displayAddedColumns"></tr>
       </table>
       <mat-paginator
-        [hidden]="addRole.data.length === 0"
+        #paginatorSecond
+        [length]="addRole.data.length"
         [pageSizeOptions]="[5, 10, 20]"
         [pageSize]="5"
         showFirstLastButtons

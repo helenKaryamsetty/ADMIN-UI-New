@@ -37,7 +37,9 @@ export class NatureOfComplaintCategoryMappingComponent implements OnInit {
   [x: string]: any;
   filteredMappings = new MatTableDataSource<any>();
   complaintCategoryMappingList = new MatTableDataSource<any>();
-  @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
+  paginator!: MatPaginator;
+  @ViewChild('paginatorFirst') paginatorFirst!: MatPaginator;
+  @ViewChild('paginatorSecond') paginatorSecond!: MatPaginator;
 
   serviceline: any;
   state: any;

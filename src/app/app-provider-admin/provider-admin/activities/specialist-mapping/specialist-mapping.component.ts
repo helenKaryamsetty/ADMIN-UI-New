@@ -217,11 +217,6 @@ export class SpecialistMappingComponent implements OnInit {
   }
 
   filterList() {
-    // this.filterUsers = this.users.filter(elem => {
-    //   this.specializationList.filter(element => {
-    //       element.userID === elem.userID)
-    //   });
-    // })
     console.log(this.filterUsers);
   }
 

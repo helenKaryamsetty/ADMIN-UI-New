@@ -145,7 +145,8 @@
         </button>
       </div>
       <mat-paginator
-        [hidden]="filteredsearchResultArray.data.length === 0"
+        #paginatorFirst
+        [length]="filteredsearchResultArray.data.length"
         [pageSizeOptions]="[5, 10, 25]"
         [pageSize]="5"
         showFirstLastButtons
@@ -252,6 +253,13 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns1"></tr>
       </table>
+      <mat-paginator
+        #paginatorSecond
+        [length]="bufferArray.data.length"
+        [pageSizeOptions]="[5, 10, 25]"
+        [pageSize]="5"
+        showFirstLastButtons
+      ></mat-paginator>
     </div>
   </div>
   <div class="col-xs-12 col-sm-12 m-t-10">

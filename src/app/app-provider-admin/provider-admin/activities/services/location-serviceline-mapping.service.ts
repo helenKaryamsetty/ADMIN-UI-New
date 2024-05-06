@@ -23,6 +23,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ConfigService } from 'src/app/core/services/config/config.service';
+import { environment } from 'src/environments/environment';
 // import { InterceptedHttp } from '../../http.interceptor';
 // import { SecurityInterceptedHttp } from '../../http.securityinterceptor';
 
@@ -72,7 +73,7 @@ export class LocationServicelineMapping {
   }
 
   getStates(serviceProviderID: any): Observable<any> {
-    return this.http.post(this.getStates_url, {
+    return this.http.post(environment.getStates_url, {
       serviceProviderID: serviceProviderID,
     });
     // .map(this.handleState_n_ServiceSuccess)
@@ -80,19 +81,21 @@ export class LocationServicelineMapping {
   }
 
   getStatesNew(obj: any): Observable<any> {
-    return this.http.post(this.getStates_new_url, obj);
+    return this.http.post(environment.getStates_new_url, obj);
     // .map(this.handleState_n_ServiceSuccess)
     // 	.catch(this.handleError);
   }
 
   getServiceLinesNew(userID: any): Observable<any> {
-    return this.http.post(this.getServiceLines_new_url, { userID: userID });
+    return this.http.post(environment.getServiceLines_new_url, {
+      userID: userID,
+    });
     // .map(this.handleState_n_ServiceSuccess)
     // .catch(this.handleError);
   }
 
   getDistricts(serviceProviderID: any, stateID: any): Observable<any> {
-    return this.http.post(this.getDistricts_url, {
+    return this.http.post(environment.getDistricts_url, {
       serviceProviderID: serviceProviderID,
       stateID: stateID,
     });
@@ -101,7 +104,7 @@ export class LocationServicelineMapping {
   }
 
   getServiceLines(serviceProviderID: any, stateID: any): Observable<any> {
-    return this.http.post(this.getServiceLines_url, {
+    return this.http.post(environment.getServiceLines_url, {
       serviceProviderID: serviceProviderID,
       stateID: stateID,
     });
@@ -110,63 +113,38 @@ export class LocationServicelineMapping {
   }
 
   getWorkLocations(reqObj: any): Observable<any> {
-    return this.http.post(this.getWorkLocations_url, reqObj);
+    return this.http.post(environment.getWorkLocations_url, reqObj);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
   getWorkLocationsOnState(reqObj: any): Observable<any> {
-    return this.http.post(this.getWorkLocationsOnState_url, reqObj);
+    return this.http.post(environment.getWorkLocationsOnState_url, reqObj);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
 
   addWorkLocation(requestObject: any): Observable<any> {
-    return this.http.post(this.add_WorkLocation_url, requestObject);
+    return this.http.post(environment.add_WorkLocation_url, requestObject);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
 
   editWorkLocation(requestObject: any): Observable<any> {
-    return this.http.post(this.edit_WorkLocation_url, requestObject);
+    return this.http.post(environment.edit_WorkLocation_url, requestObject);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
 
   deleteWorkLocation(obj: any): Observable<any> {
-    return this.http.post(this.delete_WorkLocation_url, obj);
+    return this.http.post(environment.delete_WorkLocation_url, obj);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
   getWorklocationOnProviderArray(ProvidepMapIDArray: any): Observable<any> {
-    return this.http.post(this.getOfficesUrl, {
+    return this.http.post(environment.getOfficesUrl, {
       providerServiceMapID: ProvidepMapIDArray,
     });
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
-  // handleSuccess(res: Response) {
-  //   console.log(res.json().data, '--- in location-serviceline-mapping service');
-  //   if (res.json().data) {
-  //     return res.json().data;
-  //   } else {
-  //     return Observable.throw(res.json());
-  //   }
-  // }
-
-  // handleState_n_ServiceSuccess(response: Response) {
-
-  //   console.log(response.json().data, 'loc-serviceline-service file success response');
-  //   let result = [];
-  //   result = response.json().data.filter(function (item) {
-  //     if (item.statusID !== 4) {
-  //       return item;
-  //     }
-  //   });
-  //   return result;
-  // }
-
-  // handleError(error: Response | any) {
-  //   return Observable.throw(error.json());
-
-  // }
 }

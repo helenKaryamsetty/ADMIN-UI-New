@@ -23,6 +23,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ConfigService } from 'src/app/core/services/config/config.service';
+import { environment } from 'src/environments/environment';
 // import 'rxjs/add/operator/catch';
 // import 'rxjs/add/operator/map';
 // import { InterceptedHttp } from '../../http.interceptor';
@@ -65,8 +66,6 @@ export class HospitalMasterService {
     this.get_Village_Url = this.common_Base_Url + 'location/village/';
 
     this.get_Institution_Url = this.admin_Base_Url + 'm/getInstution';
-    // this.get_Institution_Url = this.admin_Base_Url + 'm/getInstutionByVillage';
-    //this.create_Institution_Url = this.admin_Base_Url + 'm/createInstution';
     this.create_Institution_Url =
       this.admin_Base_Url + 'm/createInstutionByVillage';
     this.edit_Institution_Url = this.admin_Base_Url + 'm/editInstution';
@@ -78,36 +77,16 @@ export class HospitalMasterService {
     /*return this.httpIntercept.post(this.get_Service_Url, {
     'userID': 655
   });*/
-    return this.http.post(this.file_upload_url, formData);
-    // .map(this.onSuccess)
-    // .catch(this.handleError);
-    /*return this.httpIntercept.post(this.file_upload_url, formData)
-  .map(this.handleSuccess)
-  .catch(this.handleError);*/
-
-    /* return this.httpIntercept.post(this.file_upload_url, formData).catch(this.onCatch).do((res: Response) => {
-      this.onSuccess(res);
-    }, (error: any) => {
-      this.onError(error);
-    })
-      .finally(() => {
-        this.onEnd();
-      });*/
+    return this.http.post(environment.file_upload_url, formData);
   }
-  /*getUploadStatus(psmID) {
-    /*let url = this.configService.getMctsBaseURL() + 'mctsDataHandlerController/mcts/data/upload/status';
-    return this._http.post(url,{'providerServiceMapID':psmID}).map(this.extractData).catch(this.handleError);
-  }*/
   getServices(userID: any) {
-    return this.http.post(this.get_Service_Url, {
+    return this.http.post(environment.get_Service_Url, {
       userID: userID,
     });
-    // .map(this.handleState_n_ServiceSuccess)
-    //   .catch(this.handleError);
   }
 
   getStates(userID: any, serviceID: any, isNational: any) {
-    return this.http.post(this.get_State_Url, {
+    return this.http.post(environment.get_State_Url, {
       userID: userID,
       serviceID: serviceID,
       isNational: isNational,
@@ -117,70 +96,43 @@ export class HospitalMasterService {
   }
 
   getDistricts(stateId: any) {
-    return this.http.get(this.get_District_Url + stateId);
+    return this.http.get(environment.get_District_Url + stateId);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
 
   getTaluks(districtId: any) {
-    return this.http.get(this.get_Taluk_Url + districtId);
+    return this.http.get(environment.get_Taluk_Url + districtId);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
 
   getVillages(blockID: any) {
-    return this.http.get(this.get_Village_Url + blockID);
+    return this.http.get(environment.get_Village_Url + blockID);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
   getInstitutions(data: any) {
-    return this.http.post(this.get_Institution_Url, data);
+    return this.http.post(environment.get_Institution_Url, data);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
 
   saveInstitution(data: any) {
-    return this.http.post(this.create_Institution_Url, data);
+    return this.http.post(environment.create_Institution_Url, data);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
 
   editInstitution(data: any) {
-    return this.http.post(this.edit_Institution_Url, data);
+    return this.http.post(environment.edit_Institution_Url, data);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
 
   deleteInstitution(data: any) {
-    return this.http.post(this.delete_Institution_Url, data);
+    return this.http.post(environment.delete_Institution_Url, data);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
-
-  // handleState_n_ServiceSuccess(response: Response) {
-
-  //   console.log(response.json().data, 'role service file success response');
-  //   let result = [];
-  //   result = response.json().data;
-  //   return result;
-  // }
-
-  // handleSuccess(res: Response) {
-  //   console.log(res.json().data, 'HOSPITAL-MASTER-SERVICE file success response');
-  //   if (res.json().data) {
-  //     return res.json().data;
-  //   } else {
-  //     return Observable.throw(res.json());
-  //   }
-  // }
-
-  // handleError(error: Response | any) {
-  //   return Observable.throw(error.json());
-
-  // }
-  //  onSuccess(response: any) {
-  //   if (response.json().data) {
-  //     return response;
-  //   }
-  // }
 }

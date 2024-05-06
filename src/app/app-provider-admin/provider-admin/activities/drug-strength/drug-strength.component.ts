@@ -19,7 +19,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see https://www.gnu.org/licenses/.
  */
-import { Component, OnInit, ViewChild, Inject } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  Inject,
+  ChangeDetectorRef,
+  AfterViewInit,
+} from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { DrugStrengthService } from '../../inventory/services/drug-strength.service';
 import { dataService } from 'src/app/core/services/dataService/data.service';
@@ -33,7 +40,7 @@ import { MatSort } from '@angular/material/sort';
   templateUrl: './drug-strength.component.html',
   styleUrls: ['./drug-strength.component.css'],
 })
-export class DrugStrengthComponent implements OnInit {
+export class DrugStrengthComponent implements OnInit, AfterViewInit {
   createdBy: any;
   strength: any;
   strength_desc: any;
@@ -58,15 +65,9 @@ export class DrugStrengthComponent implements OnInit {
 
   displayAddedColumns = ['sno', 'drugStrength', 'drugStrengthDesc', 'action'];
   paginator!: MatPaginator;
-  @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
-    this.paginator = mp;
-    this.setDataSourceAttributes();
-  }
+  @ViewChild('paginatorFirst') paginatorFirst!: MatPaginator;
+  @ViewChild('paginatorSecond') paginatorSecond!: MatPaginator;
   filteredDrugStrength = new MatTableDataSource<any>();
-
-  setDataSourceAttributes() {
-    this.filteredDrugStrength.paginator = this.paginator;
-  }
   drugStrengthList = new MatTableDataSource<any>();
   @ViewChild(MatSort) sort: MatSort | null = null;
 
@@ -76,6 +77,7 @@ export class DrugStrengthComponent implements OnInit {
     public drugStrengthService: DrugStrengthService,
     public data_service: dataService,
     public alertService: ConfirmationDialogsService,
+    private cdr: ChangeDetectorRef,
   ) {}
 
   ngOnInit() {
@@ -96,6 +98,10 @@ export class DrugStrengthComponent implements OnInit {
       },
       (err) => console.log('error', err),
     );
+  }
+
+  ngAfterViewInit() {
+    this.filteredDrugStrength.paginator = this.paginatorFirst;
   }
 
   checkStrengthAvailability(strength: any) {
@@ -141,7 +147,8 @@ export class DrugStrengthComponent implements OnInit {
         }
       }
       if (duplicateStatus === 0) {
-        this.drugStrengthList.data.push(object);
+        // Add object to the data array using spread operator
+        this.drugStrengthList.data = [...this.drugStrengthList.data, object];
       } else {
         this.alertService.alert('Already exists');
       }
@@ -167,7 +174,10 @@ export class DrugStrengthComponent implements OnInit {
   }
 
   remove_obj(index: any) {
-    this.drugStrengthList.data.splice(index, 1);
+    const newData = [...this.drugStrengthList.data];
+    newData.splice(index, 1);
+    this.drugStrengthList.data = newData;
+    this.cdr.detectChanges();
   }
 
   back() {

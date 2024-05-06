@@ -220,43 +220,7 @@
             />
           </mat-form-field>
         </div>
-        <!-- Commented - for zone creation these fields are not required-->
-        <!-- <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-          <md-input-container class="hide_underline width100">
-            <input matInput style="display:none">
-          <md-select required placeholder="District" class="width100" [(ngModel)]="districtID" name="districtID" #districtV="ngModel"
-            (selectionChange)="GetTaluks(districtID)">
-            <md-option *ngFor="let district of districts" [value]="district">
-              {{district.districtName}}
-            </md-option>
-          </md-select>
-          <md-hint [hidden]=districtV.valid>
-              <span class="error_text" *ngIf="!districtV.required  && ( districtV.dirty || districtV.touched)">Please select district</span>
-            </md-hint>
-          </md-input-container>
-        </div>
-        <div class="clearfix visible-md"></div>
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-          <md-input-container class="hide_underline width100">
-            <input matInput style="display:none">
-          <md-select placeholder="Taluk/Sub District" class="width100" [(ngModel)]="talukID" name="talukID" (selectionChange)="GetBranches(talukID)">
-            <md-option *ngFor="let taluk of taluks" [value]="taluk">
-              {{taluk.blockName}}
-            </md-option>
-          </md-select>
-          </md-input-container>
-        </div>
-        <div class="clearfix visible-lg"></div>
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-          <md-input-container class="hide_underline width100">
-            <input matInput style="display:none">
-          <md-select placeholder="Village" class="width100" [(ngModel)]="branchID" name="branchID">
-            <md-option *ngFor="let branch of branches" [value]="branch">
-              {{branch.villageName}}
-            </md-option>
-          </md-select>
-          </md-input-container>
-        </div> -->
+
         <div class="col-3 m-t-20">
           <mat-form-field class="input-full-width mat_form_field_width_one">
             <mat-label>Address</mat-label>
@@ -348,29 +312,7 @@
             showFirstLastButtons
           >
           </mat-paginator>
-          <!-- <thead>
-            <tr>
-              <th width="5%">S.No.</th>
-              <th width="20%">Zone</th>
-              <th width="25%">Zone Description</th>
-              <th width="25%">State</th>
-              <th width="30%">Address</th>
-              <th width="15%">Action</th>
-            </tr>
-          </thead> -->
-          <tbody>
-            <!-- <tr *ngFor="let zone of md2.data ; let i=index">
-              <td>{{zoneList.indexOf(zone)+1}}</td>
-              <td>{{zone.zoneName}}</td>
-              <td>{{zone.zoneDesc}}</td>
-              <td>{{zone.stateName}}</td>
-              <td>{{zone.zoneHQAddress}}
-              </td>
-              <td>
-                <mat-icon class="cursorPointer" mdTooltip="delete" (click)="remove_obj(zoneList.indexOf(zone))">delete</mat-icon>
-              </td>
-            </tr> -->
-          </tbody>
+          <tbody></tbody>
         </table>
       </div>
     </div>

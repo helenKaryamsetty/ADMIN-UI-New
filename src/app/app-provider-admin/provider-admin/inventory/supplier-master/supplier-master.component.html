@@ -69,54 +69,6 @@
   </div>
   <div class="col-xs-12 col-sm-12" *ngIf="displayTable">
     <div class="">
-      <!-- <table [md2Data]="filteredsupplierList" #md2="md2DataTable" class="table table-hover table-striped" [rowsPerPage]="4">
-        <thead>
-          <tr>
-              <th width="5%">S.No.</th>
-            <th md2SortBy="supplierName">Supplier&nbsp;Name</th>
-            <th>Supplier&nbsp;Code</th>
-            <th>Supplier&nbsp;Description</th>
-            <th>Drug&nbsp;License&nbsp;No.</th>
-            <th>Contact Person</th>
-            <th>TIN No.</th>
-            <th>Edit</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngIf="filteredsupplierList.length == 0">
-            <td colspan="8" class="record-not-found">No records found</td>
-          </tr>
-          <tr *ngFor="let supplier of md2.data;let i=index ">
-              <td>{{filteredsupplierList.indexOf(supplier)+1}}</td>
-            <td>{{supplier.supplierName}}</td>
-            <td>{{supplier.supplierCode}}</td>
-            <td>{{supplier.supplierDesc}}</td>
-            <td>{{supplier.drugLicenseNo}}</td>
-            <td>{{supplier.contactPerson}}</td>
-            <td>{{supplier.tIN_No}}</td>
-            <td>
-              <mat-icon mdTooltip="Edit" class="mat-icon material-icons" role="img" aria-hidden="true" style="cursor:pointer" *ngIf="!supplier.deleted"
-                (click)="editsupplier(supplier)">edit</mat-icon>
-            </td>
-            <td>
-              <button mat-raised-button color="accent" *ngIf="supplier.deleted" class=" m-r-10" (click)="activate(supplier.supplierID)">Activate</button>
-              <button mat-raised-button color="primary" *ngIf="!supplier.deleted" class=" m-r-10" (click)="deactivate(supplier.supplierID)">Deactivate</button>
-
-            </td>
-          </tr>
-        </tbody>
-        <tfoot>
-          <tr>
-            <td colspan="6">
-              <md2-pagination></md2-pagination>
-            </td>
-            <td colspan="6" class="p-r-0">
-              <button mat-raised-button color="primary" *ngIf="createButton" class="pull-right" (click)="showForm()">Create Supplier</button>
-            </td>
-          </tr>
-        </tfoot>
-      </table> -->
       <mat-table
         [dataSource]="filteredsupplierList"
         class="table table-striped table-hover"
@@ -563,12 +515,13 @@
         </mat-form-field>
       </div>
       <div class="col-3">
-        <mat-form-field appMyMobileNumber>
+        <mat-form-field>
           <mat-label> Pincode </mat-label>
           <input
             matInput
             [(ngModel)]="Pincode"
             name="pincode"
+            appMyMobileNumber
             minlength="6"
             maxlength="6"
             #Pin="ngModel"
@@ -582,12 +535,13 @@
       </div>
       <!-- <div class="clearfix visible-lg"></div> -->
       <div class="col-3">
-        <mat-form-field appMyMobileNumber>
+        <mat-form-field>
           <mat-label> Contact No. </mat-label>
           <input
             matInput
             [(ngModel)]="contactNo"
             name="primaryMobileNo"
+            appMyMobileNumber
             [pattern]="mobileNoPattern"
             minlength="10"
             maxlength="10"
@@ -665,45 +619,6 @@
   </div>
   <div class="col-xs-12 col-sm-12 m-t-15" *ngIf="bufferArray.data.length > 0">
     <div class="">
-      <!-- <table class="table table-hover table-striped" [md2Data]="bufferArray" #md2="md2DataTable" [rowsPerPage]="4">
-        <thead>
-          <tr>
-            <th>S.No.</th>
-            <th>Supplier&nbsp;Code </th>
-            <th>Supplier&nbsp;Name</th>
-            
-            <th>Supplier&nbsp;Description</th>
-            <th>Drug License No. </th>
-            <th>GST No. </th>
-            <th>TIN No.</th>
-            <th>State</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let item of md2.data;let i = index ">
-            <td>{{bufferArray.indexOf(item)+1}}</td>
-            <td>{{item.supplierCode}}</td>
-            <td>{{item.supplierName}}</td>
-           
-            <td>{{item.supplierDesc}}</td>
-            <td>{{item.drugLicenseNo}}</td>
-            <td>{{item.cST_GST_No}}</td>
-            <td>{{item.tIN_No}}</td>
-            <td>{{item.stateName}}</td>
-            <td>
-              <mat-icon class="cursorPointer" mdTooltip="Delete" (click)="removeRow(bufferArray.indexOf(item))">delete</mat-icon>
-            </td>
-          </tr>
-        </tbody>
-        <tfoot>
-          <tr>
-            <td colspan="10">
-              <md2-pagination></md2-pagination>
-            </td>
-          </tr>
-        </tfoot>
-      </table> -->
       <mat-table
         [dataSource]="bufferArray"
         class="table table-striped table-hover"

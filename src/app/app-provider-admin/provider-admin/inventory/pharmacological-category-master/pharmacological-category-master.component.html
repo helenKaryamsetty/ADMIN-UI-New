@@ -60,48 +60,6 @@
 
   <div class="col-xs-12 col-sm-12" *ngIf="displayTable">
     <div class="">
-      <!-- <table [md2Data]="filteredPharmacologicalList" #md2="md2DataTable" class="table table-hover table-striped" [rowsPerPage]="4">
-        <thead>
-          <tr>
-            <th width="5%">S.No.</th>
-            <th>Pharmacology&nbsp;Code</th>
-            <th>Pharmacology&nbsp;Name</th>
-            <th>Pharmacology&nbsp;Description</th>
-            <th>Edit</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngIf="filteredPharmacologicalList.length == 0">
-            <td colspan="8" class="record-not-found">No records found</td>
-          </tr>
-          <tr *ngFor="let pharm of md2.data;let i=index ">
-            <td>{{filteredPharmacologicalList.indexOf(pharm)+1}}</td>
-            <td>{{pharm.pharmCategoryCode}}</td>
-            <td>{{pharm.pharmCategoryName}}</td>
-            <td>{{pharm.pharmCategoryDesc}}</td>
-            <td>
-              <mat-icon mdTooltip="Edit" class="mat-icon material-icons" role="img" aria-hidden="true" style="cursor:pointer" *ngIf="!pharm.deleted"
-                (click)="editPharm(pharm)">edit</mat-icon>
-            </td>
-            <td>
-              <button mat-raised-button color="accent" *ngIf="pharm.deleted" class=" m-r-10" (click)="activateDeactivate(pharm.pharmacologyCategoryID,false)">Activate</button>
-              <button mat-raised-button color="primary" *ngIf="!pharm.deleted" class=" m-r-10" (click)="activateDeactivate(pharm.pharmacologyCategoryID,true)">Deactivate</button>
-
-            </td>
-          </tr>
-        </tbody>
-        <tfoot>
-          <tr>
-            <td colspan="4">
-              <md2-pagination></md2-pagination>
-            </td>
-            <td colspan="4" class="p-r-0">
-              <button mat-raised-button color="primary" *ngIf="createButton" class="pull-right" (click)="showForm()">Create Pharmacology</button>
-            </td>
-          </tr>
-        </tfoot>
-      </table> -->
       <mat-table
         [dataSource]="filteredPharmacologicalList"
         class="table table-striped table-hover"
@@ -365,35 +323,6 @@
   </div>
   <div class="col-xs-12 col-sm-12 m-t-15" *ngIf="bufferArray.data.length > 0">
     <div class="">
-      <!-- <table class="table table-hover table-striped" [md2Data]="bufferArray" #md2="md2DataTable" [rowsPerPage]="4">
-        <thead>
-          <tr>
-            <th width="5%">S.No.</th>
-            <th>Pharmacology&nbsp;Code</th>
-            <th>Pharmacology&nbsp;Name</th>
-            <th>Pharmacology&nbsp;Description</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let item of md2.data;let i = index ">
-            <td>{{bufferArray.indexOf(item)+1}}</td>
-            <td>{{item.pharmCategoryCode}}</td>
-            <td>{{item.pharmCategoryName}}</td>
-            <td>{{item.pharmCategoryDesc}}</td>
-            <td>
-              <mat-icon class="cursorPointer" mdTooltip="Delete" (click)="removeRow(bufferArray.indexOf(item))">delete</mat-icon>
-            </td>
-          </tr>
-        </tbody>
-        <tfoot>
-          <tr>
-            <td colspan="10">
-              <md2-pagination></md2-pagination>
-            </td>
-          </tr>
-        </tfoot>
-      </table> -->
       <mat-table
         [dataSource]="bufferArray"
         class="table table-striped table-hover"

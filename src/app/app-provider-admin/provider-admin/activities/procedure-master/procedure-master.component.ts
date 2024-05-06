@@ -114,9 +114,6 @@ export class ProcedureMasterComponent implements OnInit {
       .getItem('service_providerID')
       ?.toString();
     this.userID = this.commonDataService.uid;
-
-    // this.providerAdminRoleService.getStates(this.serviceProviderID)
-    //   .subscribe(response => this.states = this.successhandeler(response));
     this.getProviderServices();
     this.getDiagnosticProcedure();
   }

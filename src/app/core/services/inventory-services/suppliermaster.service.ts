@@ -25,6 +25,7 @@ import { Observable } from 'rxjs';
 // import 'rxjs/add/operator/catch';
 // import 'rxjs/add/operator/map';
 import { ConfigService } from '../config/config.service';
+import { environment } from 'src/environments/environment';
 // import { InterceptedHttp } from './../../http.interceptor';
 // import { SecurityInterceptedHttp } from '../../http.securityinterceptor';
 
@@ -59,14 +60,14 @@ export class SuppliermasterService {
     this.getAll_Country = this.common_Base_Url + 'location/getCountries';
   }
   getServices(userID: any) {
-    return this.http.post(this.get_Service_Url, {
+    return this.http.post(environment.get_Service_Url, {
       userID: userID,
     });
     // .map(this.handleState_n_ServiceSuccess)
     // .catch(this.handleError);
   }
   getStates(userID: any, serviceID: any, isNational: any) {
-    return this.http.post(this.get_State_Url, {
+    return this.http.post(environment.get_State_Url, {
       userID: userID,
       serviceID: serviceID,
       isNational: isNational,
@@ -75,39 +76,39 @@ export class SuppliermasterService {
     // .catch(this.handleError);
   }
   getAllSuppliers(providerServiceMapID: any) {
-    return this.http.post(this.get_supplier_Url, {
+    return this.http.post(environment.get_supplier_Url, {
       providerServiceMapID: providerServiceMapID,
     });
     // .map(this.handleSuccess)
     //     .catch(this.handleError);
   }
   getAllDistricts(stateID: any) {
-    return this.http.get(this.getAll_Districts_Url + stateID);
+    return this.http.get(environment.getAll_Districts_Url + stateID);
     // .map(this.handleSuccess)
     // .catch(this.handleError)
   }
   getAllStates() {
-    return this.http.get(this.getAll_State_Url + 1);
+    return this.http.get(environment.getAll_State_Url + 1);
     // .map(this.handleSuccess)
     // .catch(this.handleError)
   }
   getAllCountry() {
-    return this.http.get(this.getAll_Country);
+    return this.http.get(environment.getAll_Country);
     // .map(this.handleSuccess)
     // .catch(this.handleError)
   }
   deleteSupplier(deleteObj: any) {
-    return this.http.post(this.delete_supplier_Url, deleteObj);
+    return this.http.post(environment.delete_supplier_Url, deleteObj);
     // .map(this.handleSuccess)
     //     .catch(this.handleError);
   }
   saveSupplier(obj: any) {
-    return this.http.post(this.save_supplier_Url, obj);
+    return this.http.post(environment.save_supplier_Url, obj);
     // .map(this.handleSuccess)
     //     .catch(this.handleError);
   }
   updateSupplier(obj: any) {
-    return this.http.post(this.update_supplier_Url, obj);
+    return this.http.post(environment.update_supplier_Url, obj);
     // .map(this.handleSuccess)
     //     .catch(this.handleError);
   }
@@ -118,28 +119,4 @@ export class SuppliermasterService {
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
-
-  // handleSuccess(res: Response) {
-  //     console.log(res.json().data, 'Main Stores file success response');
-  //     if (res.json().data) {
-  //         return res.json().data;
-  //     } else {
-  //         return Observable.throw(res.json());
-  //     }
-  // }
-
-  // handleState_n_ServiceSuccess(response: Response) {
-
-  //     console.log(response.json().data, 'Main Stores service file success response');
-  //     let result = [];
-  //     result = response.json().data.filter(function (item) {
-  //         if (item.serviceID != 1) {
-  //             return item;
-  //         }
-  //     });
-  //     return result;
-  // }
-  // handleError(error: Response | any) {
-  //     return Observable.throw(error.json());
-  // }
 }

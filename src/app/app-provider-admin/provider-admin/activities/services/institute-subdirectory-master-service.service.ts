@@ -22,6 +22,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ConfigService } from 'src/app/core/services/config/config.service';
+import { environment } from 'src/environments/environment';
 // import { InterceptedHttp } from '../../http.interceptor';
 // import { SecurityInterceptedHttp } from '../../http.securityinterceptor';
 
@@ -69,12 +70,12 @@ export class InstituteSubDirectoryMasterService {
   }
 
   getStatesNew(obj: any) {
-    return this.http.post(this.getStates_new_url, obj);
+    return this.http.post(environment.getStates_new_url, obj);
     // .map(this.handleSuccess)
     // 	.catch(this.handleError);
   }
   getServices(serviceProviderID: any, stateID: any) {
-    return this.http.post(this.get_Service_Url, {
+    return this.http.post(environment.get_Service_Url, {
       serviceProviderID: serviceProviderID,
       stateID: stateID,
     });
@@ -82,61 +83,40 @@ export class InstituteSubDirectoryMasterService {
     // .catch(this.handleError);
   }
   getServiceLinesNew(userID: any) {
-    return this.http.post(this.getServiceLines_new_url, { userID: userID });
+    return this.http.post(environment.getServiceLines_new_url, {
+      userID: userID,
+    });
     // .map(this.handleState_n_ServiceSuccess)
     // .catch(this.handleError);
   }
   getInstituteDirectory(providerServiceMapID: any) {
     console.log('psmID', providerServiceMapID);
-    return this.http.post(this.get_InstituteDirectory_Url, {
+    return this.http.post(environment.get_InstituteDirectory_Url, {
       providerServiceMapId: providerServiceMapID,
     });
     // .map(this.handleSuccess).catch(this.handleError);
   }
 
   getInstituteSubDirectory(data: any) {
-    return this.http.post(this.get_InstituteSubDirectory_Url, data);
+    return this.http.post(environment.get_InstituteSubDirectory_Url, data);
     // .map(this.handleSuccess).catch(this.handleError);
   }
 
   saveInstituteSubDirectory(data: any) {
-    return this.http.post(this.save_InstituteSubDirectory_Url, data);
+    return this.http.post(environment.save_InstituteSubDirectory_Url, data);
     // .map(this.handleSuccess).catch(this.handleError);
   }
 
   toggle_activate_InstituteSubDirectory(data: any) {
-    return this.http.post(this.toggle_activate_InstituteSubDirectory_Url, data);
+    return this.http.post(
+      environment.toggle_activate_InstituteSubDirectory_Url,
+      data,
+    );
     // .map(this.handleSuccess).catch(this.handleError);
   }
 
   editInstituteSubDirectory(data: any) {
-    return this.http.post(this.edit_InstituteSubDirectory_Url, data);
+    return this.http.post(environment.edit_InstituteSubDirectory_Url, data);
     // .map(this.handleSuccess).catch(this.handleError);
   }
-
-  // handleState_n_ServiceSuccess(response: Response) {
-
-  // 	console.log(response.json().data, 'role service file success response');
-  // 	let result = [];
-  // 	result = response.json().data.filter(function (item) {
-  // 		if (item.serviceID === 3 || item.serviceID === 1 || item.serviceID === 6) {
-  // 			return item;
-  // 		}
-  // 	});
-  // 	return result;
-  // }
-
-  // handleSuccess(res: Response) {
-  // 	console.log(res.json().data, 'INSTITUTE-SUBDIRECTORY file success response');
-  // 	if (res.json().data) {
-  // 		return res.json().data;
-  // 	} else {
-  // 		return Observable.throw(res.json());
-  // 	}
-  // }
-
-  // handleError(error: Response | any) {
-  // 	return Observable.throw(error.json());
-
-  // }
 }

@@ -686,32 +686,6 @@ export class ComponentMasterComponent implements OnInit {
       this.setMaxNormalRange();
     }
   }
-  // setMaxRange() {
-  //   if (this.range_min === undefined && this.range_max !== undefined) {
-  //     this.alertService.alert('Please select the min range');
-  //     this.componentForm.patchValue({
-  //       range_max: null,
-  //     });
-  //   } else if (
-  //     this.range_min !== undefined &&
-  //     this.range_max <= this.range_min
-  //   ) {
-  //     this.alertService.alert('Please select the range greater than min range');
-  //     this.componentForm.patchValue({
-  //       range_max: null,
-  //     });
-  //   } else if (
-  //     this.range_normal_min !== undefined ||
-  //     this.range_normal_max !== undefined
-  //   ) {
-  //     if (this.range_normal_min !== undefined) {
-  //       this.setMinNormalRange();
-  //     }
-  //     if (this.range_normal_max !== undefined) {
-  //       this.setMaxNormalRange();
-  //     }
-  //   }
-  // }
 
   setMinNormalRange() {
     if (
@@ -912,15 +886,4 @@ export class ComponentMasterComponent implements OnInit {
         }
       });
   }
-
-  // enableDelete(searchTerm){
-  //   console.log("searchTerm",searchTerm)
-  //   if(searchTerm)
-  //   {
-  //   this.deleteFlag=false;
-  //   }
-  //   else{
-  //     this.deleteFlag=true;
-  //   }
-  // }
 }

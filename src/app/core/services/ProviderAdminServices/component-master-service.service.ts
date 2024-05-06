@@ -25,6 +25,7 @@ import { ConfigService } from '../config/config.service';
 // import { SecurityInterceptedHttp } from '../../http.securityinterceptor';
 import { HttpClient, HttpHandler } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 // import 'rxjs/add/operator/catch';
 // import 'rxjs/add/operator/map';
 
@@ -67,53 +68,40 @@ export class ComponentMasterServiceService {
   }
 
   getCurrentComponents(providerServiceMapID: any) {
-    return this.http.get(`${this._getComponentListURL}${providerServiceMapID}`);
+    return this.http.get(
+      `${environment._getComponentListURL}${providerServiceMapID}`,
+    );
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
   postComponentData(reqObject: any) {
     // console.log(JSON.stringify(reqObject, null, 4))
     // return Observable.of(reqObject);
-    return this.http.post(this._postComponentURL, reqObject);
+    return this.http.post(environment._postComponentURL, reqObject);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
 
   getCurrentComponentForEdit(componentID: any) {
-    return this.http.get(`${this._getCurrentComponentURL}${componentID}`);
+    return this.http.get(
+      `${environment._getCurrentComponentURL}${componentID}`,
+    );
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
 
   updateComponentData(reqObject: any) {
-    // console.log(JSON.stringify(reqObject, null, 4))
-    // return Observable.of(reqObject);
-    return this.http.post(this._updateComponentURL, reqObject);
-    // .map(this.handleSuccess)
-    // .catch(this.handleError);
+    return this.http.post(environment._updateComponentURL, reqObject);
   }
 
   toggleComponent(reqObject: any) {
-    return this.http.post(this._toggleComponentURL, reqObject);
+    return this.http.post(environment._toggleComponentURL, reqObject);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
 
-  // handleSuccess(res: Response) {
-  //   console.log(res.json(), 'calltype-subtype service file success response');
-  //   if (res.json().data) {
-  //     return res.json().data;
-  //   } else {
-  //     return Observable.throw(res.json());
-  //   }
-  // }
-
-  // handleError(error: Response | any) {
-  //   return Observable.throw(error.json());
-  // }
-
   getDiagnosticProcedureComponent() {
-    return this.http.post(this._iotComponentURL, {});
+    return this.http.post(environment._iotComponentURL, {});
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
@@ -124,7 +112,7 @@ export class ComponentMasterServiceService {
       pageNo: pageNo,
     };
 
-    return this.http.post(this.getLOINCRecord, body);
+    return this.http.post(environment.getLOINCRecord, body);
     // .map(res => res.json());
   }
 }

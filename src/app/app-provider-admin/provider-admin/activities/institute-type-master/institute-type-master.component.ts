@@ -38,10 +38,6 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrls: ['./institute-type-master.component.css'],
 })
 export class InstituteTypeMasterComponent implements OnInit {
-  // [x: string]: any;
-  // filteredsearchResultArray = new MatTableDataSource<any>();
-  // bufferArray = new MatTableDataSource<any>();
-  // @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
   paginator!: MatPaginator;
   j: any;
   @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
