@@ -21,12 +21,8 @@
  */
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
 import { ConfigService } from 'src/app/core/services/config/config.service';
-// import 'rxjs/add/operator/catch';
-// import 'rxjs/add/operator/map';
-// import { InterceptedHttp } from './../../http.interceptor';
-// import { SecurityInterceptedHttp } from '../../http.securityinterceptor';
+import { environment } from 'src/environments/environment';
 
 /**
  * Author: Diamond Khanna ( 352929 )
@@ -60,8 +56,6 @@ export class UserRoleAgentID_MappingService {
 
     this.get_State_Url = this.admin_Base_Url + 'm/role/stateNew';
     this.get_Service_Url = this.admin_Base_Url + 'm/role/serviceNew';
-    // this.get_Roles_Url = this.admin_Base_Url + 'm/role/search';
-    // this.get_Roles_Url_new = this.admin_Base_Url + 'm/role/search1';
     this.get_Roles_Url = this.admin_Base_Url + 'm/role/searchV1';
 
     this.get_Campaigns_Url = this.admin_Base_Url + 'getAvailableCampaigns';
@@ -72,82 +66,43 @@ export class UserRoleAgentID_MappingService {
   }
 
   getStates(userID: any, serviceID: any, isNational: any) {
-    return this.http.post(this.get_State_Url, {
+    return this.http.post(environment.getStatesUrl, {
       userID: userID,
       serviceID: serviceID,
       isNational: isNational,
     });
-    // .map(this.handleSuccess)
-    // .catch(this.handleError);
   }
 
   getServices(userID: any) {
-    return this.http.post(this.get_Service_Url, {
+    return this.http.post(environment.getServiceLinesUrl, {
       userID: userID,
     });
-    // .map(this.handleState_n_ServiceSuccess)
-    //   .catch(this.handleError);
   }
 
   getRoles(providerServiceMapID: any) {
-    return this.http.post(this.get_Roles_Url, {
+    return this.http.post(environment.get_Roles_Url, {
       providerServiceMapID: providerServiceMapID,
     });
-    // .map(this.handleSuccess)
-    // .catch(this.handleError);
   }
 
   getEmployees(requestObject: any) {
-    return this.http.post(this.getEmployeeUrl, requestObject);
-    // .map(this.handleSuccess)
-    // .catch(this.handleError);
+    return this.http.post(environment.getEmployeeUrl, requestObject);
   }
 
   getAvailableCampaigns(providerServiceMapID: any) {
-    return this.http.post(this.get_Campaigns_Url, {
+    return this.http.post(environment.get_Campaigns_Url, {
       providerServiceMapID: providerServiceMapID,
     });
-    // .map(this.handleSuccess)
-    // .catch(this.handleError);
   }
 
   getAgentIDs(providerServiceMapID: any, campaign_name: any) {
-    return this.http.post(this.get_AgentIDs_Url, {
+    return this.http.post(environment.get_AgentIDs_Url, {
       providerServiceMapID: providerServiceMapID,
       cti_CampaignName: campaign_name,
     });
-    // .map(this.handleSuccess)
-    // .catch(this.handleError);
   }
 
   mapAgentID(data: any) {
-    return this.http.post(this.mapAgentID_Url, data);
-    // .map(this.handleSuccess)
-    // .catch(this.handleError);
+    return this.http.post(environment.mapAgentID_Url, data);
   }
-
-  // handleState_n_ServiceSuccess(response: Response) {
-
-  //   console.log(response.json().data, 'role service file success response');
-  //   let result = [];
-  //   result = response.json().data.filter(function (item) {
-  //     if (item.serviceID === 1 || item.serviceID === 3 || item.serviceID === 6 || item.serviceID === 10) {
-  //       return item;
-  //     }
-  //   });
-  //   return result;
-  // }
-
-  // handleSuccess(response: Response) {
-  //   console.log(response.json().data, '--- in User-Role-AgentID-Mapping SERVICE');
-  //   if (response.json().data) {
-  //     return response.json().data;
-  //   } else {
-  //     return Observable.throw(response.json());
-  //   }
-  // }
-
-  // handleError(error: Response | any) {
-  //   return Observable.throw(error.json());
-  // }
 }

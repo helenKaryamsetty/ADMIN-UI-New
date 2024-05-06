@@ -21,15 +21,9 @@
  */
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, map } from 'rxjs';
-import { adminDataService } from 'src/app/core/services/adminServices/SMSMaster/data.service';
+import { map } from 'rxjs';
 import { ConfigService } from 'src/app/core/services/config/config.service';
 import { environment } from 'src/environments/environment';
-// import 'rxjs/add/operator/catch';
-// import 'rxjs/add/operator/map';
-// import { InterceptedHttp } from 'app/http.interceptor';
-// import { SecurityInterceptedHttp } from 'app/http.securityinterceptor';
-
 @Injectable()
 export class QuestionnaireServiceService {
   constructor(

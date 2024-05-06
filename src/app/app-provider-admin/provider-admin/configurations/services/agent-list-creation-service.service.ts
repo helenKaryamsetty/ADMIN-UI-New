@@ -21,12 +21,8 @@
  */
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
 import { ConfigService } from 'src/app/core/services/config/config.service';
-// import 'rxjs/add/operator/catch';
-// import 'rxjs/add/operator/map';
-// import { InterceptedHttp } from './../../http.interceptor';
-// import { SecurityInterceptedHttp } from '../../http.securityinterceptor';
+import { environment } from 'src/environments/environment';
 
 /**
  * Author: Diamond Khanna ( 352929 )
@@ -64,70 +60,33 @@ export class AgentListCreationService {
   }
 
   getStates(userID: any, serviceID: any, isNational: any) {
-    return this.http.post(this.get_State_Url, {
+    return this.http.post(environment.getStatesUrl, {
       userID: userID,
       serviceID: serviceID,
       isNational: isNational,
     });
-    // .map(this.handleSuccess)
-    // .catch(this.handleError);
   }
 
   getServices(userID: any) {
-    return this.http.post(this.get_Service_Url, {
+    return this.http.post(environment.getServiceLinesUrl, {
       userID: userID,
     });
-    // .map(this.handleState_n_ServiceSuccess)
-    // .catch(this.handleError);
   }
   getAllAgents(providerServiceMapID: any) {
-    return this.http.post(this.getAllAgents_Url, {
+    return this.http.post(environment.getAllAgents_Url, {
       providerServiceMapID: providerServiceMapID,
     });
-    // .map(this.handleSuccess)
-    // .catch(this.handleError)
   }
   getCampaignNames(serviceName: any) {
-    return this.http.post(this.get_Campaign_Names_Url, {
+    return this.http.post(environment.get_Campaign_Names_Url, {
       serviceName: serviceName,
     });
-    // .map(this.handleSuccess)
-    // .catch(this.handleError);
   }
 
   saveAgentListMapping(data: any) {
-    return this.http.post(this.save_AgentListMapping_Url, data);
-    // .map(this.handleSuccess)
-    // .catch(this.handleError);
+    return this.http.post(environment.save_AgentListMapping_Url, data);
   }
   editAgentDetails(data: any) {
-    return this.http.post(this.edit_AgentListMapping_Url, data);
-    // .map(this.handleSuccess)
-    // .catch(this.handleError);
+    return this.http.post(environment.edit_AgentListMapping_Url, data);
   }
-
-  // handleSuccess(res: Response) {
-  //   console.log(res.json().data, 'AGENT LIST CREATION file success response');
-  //   if (res.json().data) {
-  //     return res.json().data;
-  //   } else {
-  //     return Observable.throw(res.json());
-  //   }
-  // }
-
-  // handleState_n_ServiceSuccess(response: Response) {
-
-  //    console.log(response.json().data, 'AGENT LIST CREATION service file success response');
-  //   let result = [];
-  //   result = response.json().data.filter(function (item) {
-  //     if (item.serviceID === 1 || item.serviceID === 3 || item.serviceID === 6 || item.serviceID === 10) {
-  //       return item;
-  //     }
-  //   });
-  //   return result;
-  // }
-
-  // handleError(error: Response | any) {
-  //   return Observable.throw(error.json());
-  // }
 }
