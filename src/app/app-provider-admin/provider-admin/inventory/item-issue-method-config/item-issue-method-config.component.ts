@@ -233,13 +233,6 @@ export class ItemIssueMethodConfigComponent implements OnInit, AfterViewInit {
     }
   }
   saveConfig() {
-    // const obj = {
-    //   "issueType": this.itemIssue.Name,
-    //   "itemCategoryID": this.category.itemCategoryID,
-    //   "providerServiceMapID": this.providerServiceMapID
-    // }
-    // this.object.push(obj);
-    //
     this.storeService
       .saveItemIssueConfig(this.bufferArray.data)
       .subscribe((response) => {

@@ -221,17 +221,6 @@ export class VanComponent implements OnInit {
     }
   }
 
-  // districts: any = [];
-  // getDistricts(zoneID) {
-  //     this.vanMasterService.getDistricts(zoneID).subscribe(response => this.getDistrictsSuccessHandeler(response));
-  // }
-  // getDistrictsSuccessHandeler(response) {
-  //     console.log(response, "districts retrieved");
-  //     this.districts = response;
-  //     this.availableVans = [];
-  //     this.filteredavailableVans = [];
-  //     this.createButton = false;
-  // }
   obj: any;
   getVanTypes() {
     this.vanMasterService
@@ -282,31 +271,6 @@ export class VanComponent implements OnInit {
     }
   }
 
-  // taluks: any = [];
-  // GetTaluks(parkingPlaceID, districtID) {
-  //     let talukObj = {
-  //         "parkingPlaceID": parkingPlaceID,
-  //         "districtID": districtID
-  //     }
-  //     this.vanMasterService.getTaluks(talukObj)
-  //         .subscribe(response => this.SetTaluks(response));
-  // }
-  // SetTaluks(response: any) {
-  //     this.taluks = response;
-  //     if (this.editVanValue != undefined) {
-  //         if (this.taluks) {
-  //             let taluk = this.taluks.filter((talukRes) => {
-  //                 if (this.editVanValue.districtBlockID == talukRes.districtBlockID) {
-  //                     return talukRes;
-  //                 }
-  //             })[0];
-  //             if (taluk) {
-  //                 this.talukID = taluk;
-  //             }
-  //         }
-
-  //     }
-  // }
   deleteRow(i: any) {
     this.vanList.data.splice(i, 1);
   }

@@ -40,9 +40,16 @@ import { MatPaginator } from '@angular/material/paginator';
 export class HospitalMasterComponent implements OnInit {
   [x: string]: any;
   filteredsearchResultArray = new MatTableDataSource<any>();
-  @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
   enableUPload = true;
   dataString: any;
+  paginator!: MatPaginator;
+  @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
+    this.paginator = mp;
+    this.setDataSourceAttributes();
+  }
+  setDataSourceAttributes() {
+    this.filteredsearchResultArray.paginator = this.paginator;
+  }
 
   value: any;
   timerSubscription!: Subscription;

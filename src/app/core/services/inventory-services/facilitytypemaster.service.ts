@@ -98,29 +98,4 @@ export class FacilityMasterService {
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
-
-  // handleSuccess(res: Response) {
-  //     console.log(res.json().data, 'Facility Type Master file success response');
-  //     if (res.json().data) {
-  //         return res.json().data;
-  //     } else {
-  //         return Observable.throw(res.json());
-  //     }
-  // }
-
-  // handleState_n_ServiceSuccess(response: Response) {
-
-  //     console.log(response.json().data, 'Facility Type Master service file success response');
-  //     let result = [];
-  //     result = response.json().data.filter(function (item:any) {
-  //         if (item.serviceID != 1) {
-  //             return item;
-  //         }
-  //     });
-  //     return result;
-  // }
-
-  // handleError(error: Response | any) {
-  //     return Observable.throw(error.json());
-  // }
 }

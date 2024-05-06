@@ -148,37 +148,7 @@
             </button>
           </td>
         </ng-container>
-        <!-- <thead>
-          <tr>
-            <th width="5%">S.No.</th>
-            <th width="25%">State</th>
-            <th width="25%" md2SortBy="zoneName">Zone</th>
-            <th width="30%">District</th>
-            <th width="20%">Edit</th>
-            <th width="20%">Action</th>
-          </tr>
-        </thead> -->
-        <!-- <tbody>
-        
-          <tr *ngIf="md2.data.length == 0" class="record-not-found">
-            <td colspan="6" align="center">No records found</td>
-          </tr>
-          <tr *ngFor="let zoneDistrictMapping of md2.data ;let i=index">
-            <td>{{filteredavailableZoneDistrictMappings.indexOf(zoneDistrictMapping)+1}}</td>
-            <td>{{zoneDistrictMapping.m_providerServiceMapping.state.stateName}}</td>
-            <td>{{zoneDistrictMapping.zoneName}}</td>
-            <td>{{zoneDistrictMapping.districtName}}</td>
-            <td>
-              <md-icon mdTooltip="edit" class="mat-icon material-icons" role="img" aria-hidden="true" style="cursor:pointer" *ngIf="!zoneDistrictMapping.deleted && !zoneDistrictMapping.zoneDeleted"
-                (click)="editZoneMapping(zoneDistrictMapping)">edit</md-icon>
-            </td>
-            <td>
-              <button *ngIf="zoneDistrictMapping.deleted=='1' || zoneDistrictMapping.zoneDeleted" mat-raised-button color="accent" (click)="updateZoneMappingStatus(zoneDistrictMapping,zoneDistrictMapping.zoneDeleted)">Activate</button>
-              <button *ngIf="zoneDistrictMapping.deleted=='0' && !zoneDistrictMapping.zoneDeleted" mat-raised-button color="primary" (click)="updateZoneMappingStatus(zoneDistrictMapping,false)">Deactivate</button>
-            </td>
 
-          </tr>
-        </tbody> -->
         <tfoot>
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
@@ -258,11 +228,6 @@
                 </mat-option>
               </mat-select>
             </mat-form-field>
-
-            <!-- <md-hint [hidden]=districtV.valid>
-            <span class="error_text" *ngIf="!districtV.required  && ( districtV.dirty || districtV.touched)">Please select district</span>
-          </md-hint>
-        </md-input-container> -->
           </div>
           <div class="col-3 m-t-15" *ngIf="editable">
             <!-- <md-input-container class="hide_underline width100">
@@ -368,24 +333,6 @@
               showFirstLastButtons
             >
             </mat-paginator>
-            <!-- <thead>
-            <tr>
-              <th width="5%">S.No.</th>
-              <th width="25%">Zone</th>
-              <th width="25%">State</th>
-              <th width="25%">District</th>
-              <th width="20%">Action</th>
-            </tr>
-          </thead> -->
-            <!-- <tr *ngFor="let zone of md2.data ; let i=index">
-              <td>{{zoneDistrictMappingList.indexOf(zone)+1}}</td>
-              <td>{{zone.zoneName}}</td>
-              <td>{{zone.stateName}}</td>
-              <td>{{zone.districtName}}</td>
-              <td>
-                <md-icon class="cursorPointer" mdTooltip="delete" (click)="remove_obj(zoneDistrictMappingList.indexOf(zone))">delete</md-icon>
-              </td>
-            </tr> -->
           </table>
         </div>
       </div>

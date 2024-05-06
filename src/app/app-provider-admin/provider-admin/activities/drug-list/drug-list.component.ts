@@ -19,7 +19,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see https://www.gnu.org/licenses/.
  */
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 
 import { NgForm } from '@angular/forms';
 import { ProviderAdminRoleService } from '../services/state-serviceline-role.service';
@@ -34,7 +34,7 @@ import { MatSort } from '@angular/material/sort';
   selector: 'app-drug-list',
   templateUrl: './drug-list.component.html',
 })
-export class DrugListComponent implements OnInit {
+export class DrugListComponent implements OnInit, AfterViewInit {
   showDrugs = true;
   duplicateDrugs = false;
   availableDrugs: any = [];
@@ -60,16 +60,10 @@ export class DrugListComponent implements OnInit {
 
   displayAddedColumns = ['sno', 'drugName', 'drugDesc', 'remarks', 'action'];
 
-  paginator!: MatPaginator;
-  @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
-    this.paginator = mp;
-    this.setDataSourceAttributes();
-  }
   fileteredavailableDrugs = new MatTableDataSource<any>();
-
-  setDataSourceAttributes() {
-    this.fileteredavailableDrugs.paginator = this.paginator;
-  }
+  paginator!: MatPaginator;
+  @ViewChild('paginatorFirst') paginatorFirst!: MatPaginator;
+  @ViewChild('paginatorSecond') paginatorSecond!: MatPaginator;
   drugList = new MatTableDataSource<any>();
   @ViewChild(MatSort) sort: MatSort | null = null;
 
@@ -86,13 +80,17 @@ export class DrugListComponent implements OnInit {
     this.service_provider_id = sessionStorage.getItem('service_providerID');
     this.serviceID104 = this.commonDataService.serviceID104;
     this.createdBy = this.commonDataService.uname;
+    this.fileteredavailableDrugs.paginator = this.paginatorFirst;
   }
 
   ngOnInit() {
     this.getStatesByServiceID();
     this.getAvailableDrugs();
   }
-
+  ngAfterViewInit() {
+    this.fileteredavailableDrugs.paginator = this.paginatorFirst;
+    this.fileteredavailableDrugs.sort = this.sort;
+  }
   stateSelection(stateID: any) {
     this.getServices(stateID);
   }
@@ -378,8 +376,10 @@ export class DrugListComponent implements OnInit {
   filterComponentList(searchTerm?: string) {
     if (!searchTerm) {
       this.fileteredavailableDrugs.data = this.availableDrugs;
+      this.fileteredavailableDrugs.paginator = this.paginatorFirst;
     } else {
       this.fileteredavailableDrugs.data = [];
+      this.fileteredavailableDrugs.paginator = this.paginatorFirst;
       this.availableDrugs.forEach((item: any) => {
         for (const key in item) {
           if (key === 'drugName') {

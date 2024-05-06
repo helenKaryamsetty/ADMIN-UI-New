@@ -19,7 +19,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see https://www.gnu.org/licenses/.
  */
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { dataService } from 'src/app/core/services/dataService/data.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogsService } from 'src/app/core/services/dialog/confirmation.service';
@@ -38,7 +38,7 @@ import { MatPaginator } from '@angular/material/paginator';
   templateUrl: './device-id-master.component.html',
   styleUrls: ['./device-id-master.component.css'],
 })
-export class DeviceIdMasterComponent implements OnInit {
+export class DeviceIdMasterComponent implements OnInit, AfterViewInit {
   [x: string]: any;
   displayedColumns: string[] = [
     'SNo',
@@ -84,15 +84,9 @@ export class DeviceIdMasterComponent implements OnInit {
   @ViewChild('editDeviceIdForm')
   editDeviceIdForm!: NgForm;
   paginator!: MatPaginator;
-  @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
-    this.paginator = mp;
-    this.setDataSourceAttributes();
-  }
+  @ViewChild('paginatorFirst') paginatorFirst!: MatPaginator;
+  @ViewChild('paginatorSecond') paginatorSecond!: MatPaginator;
   filteredsearchResultArray = new MatTableDataSource<any>();
-
-  setDataSourceAttributes() {
-    this.filteredsearchResultArray.paginator = this.paginator;
-  }
   bufferArray = new MatTableDataSource<any>();
 
   constructor(
@@ -135,6 +129,9 @@ export class DeviceIdMasterComponent implements OnInit {
     });
 
     this.searchTerm = null;
+  }
+  ngAfterViewInit() {
+    this.filteredsearchResultArray.paginator = this.paginatorFirst;
   }
 
   getStates(serviceID: any, isNational: any) {

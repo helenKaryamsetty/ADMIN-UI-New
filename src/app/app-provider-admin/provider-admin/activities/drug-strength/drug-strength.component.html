@@ -125,7 +125,8 @@
         <strong>No Records Found</strong>
       </div>
       <mat-paginator
-        [hidden]="filteredDrugStrength.data.length === 0"
+        #paginatorFirst
+        [length]="filteredDrugStrength.data.length"
         [pageSizeOptions]="[5, 10, 20]"
         [pageSize]="5"
         showFirstLastButtons
@@ -260,14 +261,15 @@
         </tbody> -->
         <tr mat-header-row *matHeaderRowDef="displayAddedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayAddedColumns"></tr>
-        <mat-paginator
-          [hidden]="drugStrengthList.data.length === 0"
-          [pageSizeOptions]="[5, 10, 20]"
-          [pageSize]="5"
-          showFirstLastButtons
-        >
-        </mat-paginator>
       </table>
+      <mat-paginator
+        #paginatorSecond
+        [length]="drugStrengthList.data.length"
+        [pageSizeOptions]="[5, 10, 20]"
+        [pageSize]="5"
+        showFirstLastButtons
+      >
+      </mat-paginator>
     </div>
   </div>
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10">

@@ -227,9 +227,6 @@
               >add</mat-icon
             >
           </button>
-          <!--<button *ngIf="editable"  class="btn pull-right " (click)="updateDrugMapping(drugMappingForm.value);drugMappingForm.reset()  ">
-        <mat-icon matSuffix class="mat-icon material-icons" role="img" aria-hidden="true" style="cursor: pointer">update</mat-icon>
-      </button>-->
         </div>
       </form>
     </div>
@@ -280,39 +277,16 @@
               >
             </td>
           </ng-container>
-          <!-- <thead>
-            <tr>
-              <th width="5%">S.No.</th>
-              <th width="15%">State</th>
-              <th width="15%">Drug Group Name</th>
-              <th width="15%">Drug Name</th>
-              <th width="15%">Remarks</th>
-              <th width="10%">Action</th>
-            </tr>
-          </thead> -->
-          <!-- <tbody>
-            <tr *ngFor="let drug of md2.data; let i=index ">
-              <td>{{drugMapping.indexOf(drug)+1}}</td>
-              <td>{{drug.stateName}}</td>
-              <td>{{drug.drugGroupName}}</td>
-              <td>{{drug.drugName}}</td>
-              <td>{{drug.remarks}}</td>
-              <td>
-                <mat-icon class="cursorPointer" mdTooltip="delete" (click)="remove_obj(drugMapping.indexOf(drug))">delete</mat-icon>
-              </td>
-            </tr>
-          </tbody> -->
           <tr mat-header-row *matHeaderRowDef="displayAddedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayAddedColumns"></tr>
-          <mat-paginator
-            [hidden]="drugMapping.data.length === 0"
-            [pageSizeOptions]="[5, 10, 20]"
-            [pageSize]="5"
-            showFirstLastButtons
-          >
-          </mat-paginator>
         </table>
-        <!-- <pagination-controls (pageselectionChange)="b = $event" id="drugMappingListResult"></pagination-controls> -->
+        <mat-paginator
+          [length]="drugMapping.data.length"
+          [pageSizeOptions]="[5, 10, 20]"
+          [pageSize]="5"
+          showFirstLastButtons
+        >
+        </mat-paginator>
       </div>
     </div>
   </div>

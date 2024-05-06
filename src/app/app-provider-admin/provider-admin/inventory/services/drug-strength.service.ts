@@ -22,6 +22,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ConfigService } from 'src/app/core/services/config/config.service';
+import { environment } from 'src/environments/environment';
 // import { InterceptedHttp } from '../../http.interceptor';
 // import { SecurityInterceptedHttp } from '../../http.securityinterceptor';
 
@@ -48,38 +49,26 @@ export class DrugStrengthService {
   }
 
   getDrugStrength() {
-    return this.http.post(this.getDrugStrengthUrl, {});
+    return this.http.post(environment.getDrugStrengthUrl, {});
     // .map(this.extractData)
     // .catch(this.handleError);
   }
   saveDrugStrength(reqObj: any) {
-    return this.http.post(this.saveDrugStrengthUrl, reqObj);
+    return this.http.post(environment.saveDrugStrengthUrl, reqObj);
     // .map(this.extractData)
     // .catch(this.handleError);
   }
   updateDrugStrength(updateObj: any) {
-    return this.http.post(this.updateDrugStrengthUrl, updateObj);
+    return this.http.post(environment.updateDrugStrengthUrl, updateObj);
     // .map(this.extractData)
     // .catch(this.handleError);
   }
   drugStrengthActivationDeactivation(toggleObj: any) {
     return this.http.post(
-      this.drugStrengthActivationDeactivationUrl,
+      environment.drugStrengthActivationDeactivationUrl,
       toggleObj,
     );
     // .map(this.extractData)
     // .catch(this.handleError);
   }
-  // private extractData(res: Response) {
-  //     if (res.json().data && res.json().statusCode == 200) {
-  //         console.log('drug strength response', res.json(), res.json().data);
-  //         return res.json().data;
-  //     } else {
-  //         return Observable.throw(res.json());
-  //     }
-  // }
-  // handleError(error: Response | any) {
-  //     return Observable.throw(error.json());
-
-  // }
 }

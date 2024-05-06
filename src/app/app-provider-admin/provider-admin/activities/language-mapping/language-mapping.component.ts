@@ -760,13 +760,6 @@ export class LanguageMappingComponent implements OnInit, AfterViewInit {
     }
   }
 
-  // checkExistance(langID) {
-  //
-  //   this.langExist = this.filteredLanguage.includes(langID);
-  //   if (!this.langExist)
-  //     this.alertService.alert('Already exists');
-
-  // }
   back() {
     this.alertService
       .confirm(

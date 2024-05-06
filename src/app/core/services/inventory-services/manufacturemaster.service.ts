@@ -22,6 +22,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ConfigService } from '../config/config.service';
+import { environment } from 'src/environments/environment';
 // import { InterceptedHttp } from './../../http.interceptor';
 // import { SecurityInterceptedHttp } from '../../http.securityinterceptor';
 
@@ -53,7 +54,7 @@ export class ManufacturemasterService {
   }
 
   getAllManufacture(providerServiceMapID: any) {
-    return this.http.post(this.get_manufacture_Url, {
+    return this.http.post(environment.get_manufacture_Url, {
       providerServiceMapID: providerServiceMapID,
     });
     // .map(this.handleSuccess)
@@ -61,32 +62,32 @@ export class ManufacturemasterService {
   }
 
   saveManufacture(obj: any) {
-    return this.http.post(this.save_manufacture_Url, obj);
+    return this.http.post(environment.save_manufacture_Url, obj);
     // .map(this.handleSuccess)
     //     .catch(this.handleError);
   }
   updateManufacture(obj: any) {
-    return this.http.post(this.update_manufacture_Url, obj);
+    return this.http.post(environment.update_manufacture_Url, obj);
     // .map(this.handleSuccess)
     //     .catch(this.handleError);
   }
   deleteManufacture(obj: any) {
-    return this.http.post(this.delete_manufacture_Url, obj);
+    return this.http.post(environment.delete_manufacture_Url, obj);
     // .map(this.handleSuccess)
     //     .catch(this.handleError);
   }
   getAllDistricts(stateID: any) {
-    return this.http.get(this.getAll_Districts_Url + stateID);
+    return this.http.get(environment.getAll_Districts_Url + stateID);
     // .map(this.handleSuccess)
     // .catch(this.handleError)
   }
   getAllStates(countryID: any) {
-    return this.http.get(this.getAll_State_Url + countryID);
+    return this.http.get(environment.getAll_State_Url + countryID);
     // .map(this.handleSuccess)
     // .catch(this.handleError)
   }
   getAllCountry() {
-    return this.http.get(this.getAll_Country);
+    return this.http.get(environment.getAll_Country);
     // .map(this.handleSuccess)
     // .catch(this.handleError)
   }
@@ -99,15 +100,4 @@ export class ManufacturemasterService {
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
-  // handleError(error: Response | any) {
-  //     return Observable.throw(error.json());
-  // }
-  // handleSuccess(res: Response) {
-  //     console.log(res.json().data, 'Manufacture file success response');
-  //     if (res.json().data) {
-  //         return res.json().data;
-  //     } else {
-  //         return Observable.throw(res.json());
-  //     }
-  // }
 }

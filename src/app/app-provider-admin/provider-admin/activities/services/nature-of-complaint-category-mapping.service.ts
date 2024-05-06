@@ -23,6 +23,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ConfigService } from 'src/app/core/services/config/config.service';
+import { environment } from 'src/environments/environment';
 // import { InterceptedHttp } from '../../http.interceptor';
 // import { SecurityInterceptedHttp } from '../../http.securityinterceptor';
 
@@ -66,83 +67,65 @@ export class NatureOfCompaintCategoryMappingService {
       this.providerAdmin_Base_Url + 'm/getunmappedCategoryforFeedbackNature';
   }
   getServiceLines(userID: any): Observable<any> {
-    return this.http.post(this.getServiceLines_url, { userID: userID });
+    return this.http.post(environment.getServiceLines_url, { userID: userID });
     // .map(this.handleState_n_ServiceSuccess)
     // .catch(this.handleError);
   }
   getStates(obj: any) {
-    return this.http.post(this.getStates_url, obj);
+    return this.http.post(environment.getStates_url, obj);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
   getFeedbackTypes(providerServiceMapID: any) {
-    return this.http.post(this.getFeedbackTypes_Url, {
+    return this.http.post(environment.getFeedbackTypes_Url, {
       providerServiceMapID: providerServiceMapID,
     });
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
   getFeedbackNatureTypes(natureObject: any) {
-    return this.http.post(this.getFeedbackNatureTypes_url, natureObject);
+    return this.http.post(environment.getFeedbackNatureTypes_url, natureObject);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
   getMapping(reqObj: any) {
-    return this.http.post(this.getMapping_url, reqObj);
+    return this.http.post(environment.getMapping_url, reqObj);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
   getAllCategory(providerServiceMapID: any) {
-    return this.http.post(this.getCategory_url, {
+    return this.http.post(environment.getCategoryID_url, {
       providerServiceMapID: providerServiceMapID,
     });
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
   unmapCategory(unmapObj: any) {
-    return this.http.post(this.unmapCategory_url, unmapObj);
+    return this.http.post(environment.unmapCategory_url, unmapObj);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
   filterMappedCategory(providerServiceMapID: any) {
-    return this.http.post(this.filterMappedCategory_url, {
+    return this.http.post(environment.filterMappedCategory_url, {
       providerServiceMapID: providerServiceMapID,
     });
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
   saveComplaintToCategoryMapping(mappingObj: any) {
-    return this.http.post(this.saveComplaintToCategoryMapping_url, mappingObj);
+    return this.http.post(
+      environment.saveComplaintToCategoryMapping_url,
+      mappingObj,
+    );
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
   updateComplaintCategoryMapping(updateObj: any) {
-    return this.http.post(this.updateComplaintCategoryMapping_url, updateObj);
+    return this.http.post(
+      environment.updateComplaintCategoryMapping_url,
+      updateObj,
+    );
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
-  // handleState_n_ServiceSuccess(response: Response) {
-
-  //     console.log(response.json().data, 'nature of complaint service file success response');
-  //     let result = [];
-  //     result = response.json().data.filter(function (item) {
-  //         if (item.serviceID === 3 || item.serviceID === 6) {
-  //             return item;
-  //         }
-  //     });
-  //     return result;
-  // }
-
-  // handleSuccess(res: Response) {
-  //     console.log(res.json().data, '--- in nature of complaint service');
-  //     if (res.json().data) {
-  //         return res.json().data;
-  //     } else {
-  //         return Observable.throw(res.json());
-  //     }
-  // }
-
-  // handleError(error: Response | any) {
-  //     return Observable.throw(error.json());
-  // }
 }

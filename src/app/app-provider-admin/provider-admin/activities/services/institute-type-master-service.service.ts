@@ -23,6 +23,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ConfigService } from 'src/app/core/services/config/config.service';
+import { environment } from 'src/environments/environment';
 // import 'rxjs/add/operator/catch';
 // import 'rxjs/add/operator/map';
 // import { InterceptedHttp } from '../../http.interceptor';
@@ -57,28 +58,26 @@ export class InstituteTypeMasterService {
     this.get_Service_Url = this.admin_Base_Url + 'm/role/serviceNew';
 
     this.get_InstitutesType_Url = this.admin_Base_Url + 'm/getInstituteType';
-    //this.get_InstituteType_Url = this.admin_Base_Url + 'm/getInstituteTypeByDist';
     this.save_InstituteType_Url = this.admin_Base_Url + 'm/createInstituteType';
-    //this.save_InstituteType_Url = this.admin_Base_Url + '/m/createInstituteTypeByDist';
     this.edit_InstituteType_Url = this.admin_Base_Url + 'm/editInstituteType';
     this.delete_InstituteType_Url =
       this.admin_Base_Url + 'm/deleteInstituteType';
   }
 
   getServices(userID: any) {
-    return this.http.post(this.get_Service_Url, { userID: userID });
+    return this.http.post(environment.get_Service_Url, { userID: userID });
     // .map(this.handleState_n_ServiceSuccess)
     // .catch(this.handleError);
   }
 
   getServicesForInstTypeMaster(userID: any) {
-    return this.http.post(this.get_Service_Url, { userID: userID });
+    return this.http.post(environment.get_Service_Url, { userID: userID });
     // .map(this.handleState_t_ServiceSuccess)
     // .catch(this.handleError);
   }
 
   getStates(userID: any, serviceID: any, isNationalFlag: any) {
-    return this.http.post(this.get_State_Url, {
+    return this.http.post(environment.get_State_Url, {
       userID: userID,
       serviceID: serviceID,
       isNational: isNationalFlag,
@@ -88,71 +87,28 @@ export class InstituteTypeMasterService {
   }
 
   getInstitutesType(providerServiceMapID: any) {
-    return this.http.post(this.get_InstitutesType_Url, {
+    return this.http.post(environment.get_InstitutesType_Url, {
       providerServiceMapID: providerServiceMapID,
     });
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
-  /* getInstituteType(data) {
-    return this.httpIntercept.post(this.get_InstituteType_Url, data)
-      .map(this.handleSuccess)
-      .catch(this.handleError);
-  }*/
 
   toggle_activate_InstituteType(data: any) {
-    return this.http.post(this.delete_InstituteType_Url, data);
+    return this.http.post(environment.delete_InstituteType_Url, data);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
 
   saveInstituteType(data: any) {
-    return this.http.post(this.save_InstituteType_Url, data);
+    return this.http.post(environment.save_InstituteType_Url, data);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
 
   editInstituteType(data: any) {
-    return this.http.post(this.edit_InstituteType_Url, data);
+    return this.http.post(environment.edit_InstituteType_Url, data);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
-
-  // handleState_n_ServiceSuccess(response: Response) {
-
-  //   console.log(response.json().data, 'role service file success response');
-  //   let result = [];
-  //   result = response.json().data.filter(function (item) {
-  //     if (item.serviceID === 3 || item.serviceID === 1 || item.serviceID === 6) {
-  //       return item;
-  //     }
-  //   });
-  //   return result;
-  // }
-
-  // handleState_t_ServiceSuccess(response: Response) {
-
-  //   console.log(response.json().data, 'role service file success response');
-  //   let result = [];
-  //   result = response.json().data.filter(function (item) {
-  //     if (item.serviceID === 3 || item.serviceID === 11 || item.serviceID === 1 || item.serviceID === 6 || item.serviceID === 2 || item.serviceID === 4 || item.serviceID === 9) {
-  //       return item;
-  //     }
-  //   });
-  //   return result;
-  // }
-
-  // handleSuccess(res: Response) {
-  //   console.log(res.json().data, 'Institute-Type file success response');
-  //   if (res.json().data) {
-  //     return res.json().data;
-  //   } else {
-  //     return Observable.throw(res.json());
-  //   }
-  // }
-
-  // handleError(error: Response | any) {
-  //   return Observable.throw(error.json());
-
-  // }
 }

@@ -26,6 +26,7 @@ import { Observable } from 'rxjs';
 // import 'rxjs/add/operator/map';
 
 import { ConfigService } from '../../../../core/services/config/config.service';
+import { environment } from 'src/environments/environment';
 // import { InterceptedHttp } from './../../http.interceptor';
 // import { SecurityInterceptedHttp } from '../../http.securityinterceptor';
 
@@ -80,19 +81,21 @@ export class CategorySubcategoryService {
   }
 
   getStatesNew(obj: any) {
-    return this.http.post(this.getStates_new_url, obj);
+    return this.http.post(environment.getStates_new_url, obj);
     // .map(this.handleSuccess)
     //   .catch(this.handleError);
   }
 
   getServiceLinesNew(userID: any) {
-    return this.http.post(this.getServiceLines_new_url, { userID: userID });
+    return this.http.post(environment.getServiceLines_new_url, {
+      userID: userID,
+    });
     // .map(this.handleState_n_ServiceSuccess)
     // .catch(this.handleError);
   }
 
   getSubService(serviceProviderMapID: any) {
-    return this.http.post(this.getSubService_url, {
+    return this.http.post(environment.getSubService_url, {
       providerServiceMapID: serviceProviderMapID,
     });
     // .map(this.handleState_n_subservice)
@@ -100,7 +103,7 @@ export class CategorySubcategoryService {
   }
 
   getCategorybySubService(serviceProviderMapID: any, subServiceID: any) {
-    return this.http.post(this.getCategoryBySubService_url, {
+    return this.http.post(environment.getCategoryBySubService_url, {
       providerServiceMapID: serviceProviderMapID,
       subServiceID: subServiceID,
     });
@@ -109,17 +112,17 @@ export class CategorySubcategoryService {
   }
 
   saveCategory(categoryObj: any) {
-    return this.http.post(this.saveCategory_url, categoryObj);
+    return this.http.post(environment.saveCategory_url, categoryObj);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
   saveSubCategory(categoryObj: any) {
-    return this.http.post(this.saveExistCategory_url, categoryObj);
+    return this.http.post(environment.saveExistCategory_url, categoryObj);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
   getCategory(serviceProviderMapID: any, id: any) {
-    return this.http.post(this.getCategory_url, {
+    return this.http.post(environment.getCategory_url, {
       providerServiceMapID: serviceProviderMapID,
       subServiceID: id,
     });
@@ -127,7 +130,7 @@ export class CategorySubcategoryService {
     // .catch(this.handleError);
   }
   deleteCategory(id: any, isActivate: boolean) {
-    return this.http.post(this.deleteCategory_url, {
+    return this.http.post(environment.deleteCategory_url, {
       categoryID: id,
       deleted: isActivate,
     });
@@ -135,7 +138,7 @@ export class CategorySubcategoryService {
     // .catch(this.handleError);
   }
   deleteSubCategory(id: any, isActivate: any) {
-    return this.http.post(this.deleteSubCategory_url, {
+    return this.http.post(environment.deleteSubCategory_url, {
       subCategoryID: id,
       deleted: isActivate,
     });
@@ -143,49 +146,13 @@ export class CategorySubcategoryService {
     // .catch(this.handleError);
   }
   editCategory(catObj: any) {
-    return this.http.post(this.editCategory_url, catObj);
+    return this.http.post(environment.editCategory_url, catObj);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
   editSubCategory(subCatObj: any) {
-    return this.http.post(this.editSubCategory_url, subCatObj);
+    return this.http.post(environment.editSubCategory_url, subCatObj);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
-
-  // handleState_n_ServiceSuccess(response: Response) {
-
-  //   console.log(response.json().data, 'role service file success response');
-  //   let result = [];
-  //   result = response.json().data.filter(function (item) {
-  //     if (item.serviceID === 3 || item.serviceID === 1 || item.serviceID === 6) {
-  //       return item;
-  //     }
-  //   });
-  //   return result;
-  // }
-
-  // handleSuccess(res: Response) {
-  //   console.log(res.json().data, '--- in location-serviceline-mapping service');
-  //   if (res.json().data) {
-  //     return res.json().data;
-  //   } else {
-  //     return Observable.throw(res.json());
-  //   }
-  // }
-  // handleState_n_subservice(response: Response) {
-
-  //   console.log(response.json().data, 'sub service file success response');
-  //   let result = [];
-  //   result = response.json().data.filter(function (item) {
-  //     if (item.deleted === false) {
-  //       return item;
-  //     }
-  //   });
-  //   return result;
-  // }
-
-  // handleError(error: Response | any) {
-  //   return Observable.throw(error.json());
-  // }
 }

@@ -19,7 +19,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see https://www.gnu.org/licenses/.
  */
-import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ProviderAdminRoleService } from '../services/state-serviceline-role.service';
 import { dataService } from 'src/app/core/services/dataService/data.service';
@@ -33,7 +39,7 @@ import { MatSort } from '@angular/material/sort';
   selector: 'app-drug-group',
   templateUrl: './drug-group.component.html',
 })
-export class DrugGroupComponent implements OnInit {
+export class DrugGroupComponent implements OnInit, AfterViewInit {
   showDrugGroups: any = true;
   availableDrugGroups: any = [];
   data: any;
@@ -55,15 +61,9 @@ export class DrugGroupComponent implements OnInit {
   displayAddedColumns = ['sno', 'drugGroup', 'drugGroupDesc', 'action'];
 
   paginator!: MatPaginator;
-  @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
-    this.paginator = mp;
-    this.setDataSourceAttributes();
-  }
+  @ViewChild('paginatorFirst') paginatorFirst!: MatPaginator;
+  @ViewChild('paginatorSecond') paginatorSecond!: MatPaginator;
   filteredavailableDrugGroups = new MatTableDataSource<any>();
-
-  setDataSourceAttributes() {
-    this.filteredavailableDrugGroups.paginator = this.paginator;
-  }
   drugGroupList = new MatTableDataSource<any>();
   @ViewChild(MatSort) sort: MatSort | null = null;
   constructor(
@@ -82,6 +82,10 @@ export class DrugGroupComponent implements OnInit {
   ngOnInit() {
     this.getAvailableDrugs();
     this.getStatesByServiceID();
+  }
+
+  ngAfterViewInit() {
+    this.filteredavailableDrugGroups.paginator = this.paginatorFirst;
   }
 
   stateSelection(stateID: any) {

@@ -25,6 +25,7 @@ import {
   Inject,
   ViewChild,
   ChangeDetectorRef,
+  AfterViewInit,
 } from '@angular/core';
 import { ProviderAdminRoleService } from '../services/state-serviceline-role.service';
 import { dataService } from 'src/app/core/services/dataService/data.service';
@@ -41,7 +42,7 @@ import { MatPaginator } from '@angular/material/paginator';
   templateUrl: './severity-type.component.html',
   styleUrls: ['./severity-type.component.css'],
 })
-export class SeverityTypeComponent implements OnInit {
+export class SeverityTypeComponent implements OnInit, AfterViewInit {
   [x: string]: any;
 
   displayedColumns: string[] = [
@@ -78,16 +79,10 @@ export class SeverityTypeComponent implements OnInit {
   providerServiceMapID_1097: any;
   // severityArray: any = [];
   createdBy: any;
-  paginator!: MatPaginator;
-  @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
-    this.paginator = mp;
-    this.setDataSourceAttributes();
-  }
   filtereddata = new MatTableDataSource<any>();
-
-  setDataSourceAttributes() {
-    this.filtereddata.paginator = this.paginator;
-  }
+  paginator!: MatPaginator;
+  @ViewChild('paginatorFirst') paginatorFirst!: MatPaginator;
+  @ViewChild('paginatorSecond') paginatorSecond!: MatPaginator;
   severityArray = new MatTableDataSource<any>();
   @ViewChild('severityAdding')
   severityAdding!: NgForm;
@@ -123,6 +118,9 @@ export class SeverityTypeComponent implements OnInit {
         console.log('err while getting services', err);
       },
     );
+  }
+  ngAfterViewInit() {
+    this.filtereddata.paginator = this.paginatorFirst;
   }
 
   getProviderStates(serviceID: any, isNational: any) {

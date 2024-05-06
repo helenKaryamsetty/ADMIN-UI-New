@@ -71,50 +71,6 @@
 
   <div class="col-xs-12 col-sm-12" *ngIf="displayTable">
     <div class="">
-      <!-- <table [md2Data]="filteredManufactureList" #md2="md2DataTable" class="table table-hover table-striped" [rowsPerPage]="4">
-        <thead>
-          <tr>
-              <th width="5%">S.No.</th>
-            <th >Manufacturer&nbsp;Code</th>
-            <th md2SortBy="manufacturerName">Manufacturer&nbsp;Name</th>
-            <th  >Manufacturer&nbsp;Description</th>
-            <th >Contact Person</th>
-            <th >Edit</th>
-            <th >Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngIf="filteredManufactureList.length == 0">
-            <td colspan="8" class="record-not-found">No records found</td>
-          </tr>
-          <tr *ngFor="let manufacture of md2.data;let i=index ">
-              <td>{{filteredManufactureList.indexOf(manufacture)+1}}</td>
-            <td>{{manufacture.manufacturerCode}}</td>
-            <td>{{manufacture.manufacturerName}}</td>
-            <td>{{manufacture.manufacturerDesc}}</td>
-            <td>{{manufacture.contactPerson}}</td>
-            <td>
-              <mat-icon mdTooltip="Edit" class="mat-icon material-icons" role="img" aria-hidden="true" style="cursor:pointer" *ngIf="!manufacture.deleted"
-              (click)="editManufacture(manufacture)">edit</mat-icon>
-            </td>
-            <td>
-              <button mat-raised-button color="accent" *ngIf="manufacture.deleted" class=" m-r-10" (click)="activate(manufacture.manufacturerID)">Activate</button>
-              <button mat-raised-button color="primary" *ngIf="!manufacture.deleted" class=" m-r-10" (click)="deactivate(manufacture.manufacturerID)">Deactivate</button>
-
-            </td>
-          </tr>
-        </tbody>
-        <tfoot>
-          <tr>
-            <td colspan="5">
-              <md2-pagination></md2-pagination>
-            </td>
-            <td colspan="2" class="p-r-0">
-              <button mat-raised-button color="primary" *ngIf="createButton" class="pull-right" (click)="showForm()">Create Manufacturer</button>
-            </td>
-          </tr>
-        </tfoot>
-      </table> -->
       <table
         mat-table
         [dataSource]="filteredManufactureList"
@@ -283,17 +239,6 @@
           </mat-select>
         </mat-form-field>
       </div>
-      <!-- <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-            <mat-form-field class="hide_underline" [style.width]="'100%'">
-              <input matInput style="display:none">
-              {{states_array | json}}
-              <mat-select required name="state" placeholder="State" [style.width]="'100%'" [disabled]="true" [(ngModel)]="state">
-                <mat-option *ngFor="let item of states_array" [value]="item">
-                  {{item.stateName}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div> -->
     </form>
     <div class="clearfix visible-md visible-lg"></div>
     <form

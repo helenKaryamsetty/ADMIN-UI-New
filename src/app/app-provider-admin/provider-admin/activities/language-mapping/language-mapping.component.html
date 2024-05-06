@@ -197,9 +197,6 @@
               <!-- </md-input-container> -->
             </div>
             <div class="col-xs-12 col-sm-12 m-t-15">
-              <!-- <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
-                <label>{{lang?.languageName}}</label>
-              </div> -->
               <div class="row" *ngIf="showCheckboxes">
                 <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
                   <div class="row">
@@ -213,8 +210,6 @@
                       >
                     </div>
                     <div class="col-xs-12 col-sm-8">
-                      <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
-                        <input mdInput style="display:none"> -->
                       <mat-select
                         [(ngModel)]="readweightage"
                         name="readweightage"
@@ -251,8 +246,6 @@
                       >
                     </div>
                     <div class="col-xs-12 col-sm-8">
-                      <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
-                        <input mdInput style="display:none"> -->
                       <mat-select
                         [(ngModel)]="writeweightage"
                         name="writeweightage"
@@ -271,9 +264,6 @@
                           >{{ item.Name }}</mat-option
                         >
                       </mat-select>
-                      <!-- </mat-form-field> -->
-
-                      <!-- </md-input-container> -->
                     </div>
                   </div>
                 </div>
@@ -309,9 +299,6 @@
                           >{{ item.Name }}</mat-option
                         >
                       </mat-select>
-                      <!-- </mat-form-field> -->
-
-                      <!-- </md-input-container> -->
                     </div>
                   </div>
                 </div>
@@ -393,9 +380,6 @@
                         >delete</mat-icon
                       >
                     </td>
-                    <!-- <td colspan="4" class="p-r-0" mat-cell>
-          <button md-raised-button color="primary" [disabled]="searchForm.invalid" class="pull-right" (click)="changeTableFlag(false)">Add Work Location</button>
-        </td> -->
                   </ng-container>
                   <tr
                     mat-header-row
@@ -454,8 +438,6 @@
             class="row"
           >
             <div class="col-3 m-t-15">
-              <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
-                <input mdInput style="display:none"> -->
               <mat-form-field>
                 <mat-label>Select User Name </mat-label>
                 <mat-select
@@ -477,8 +459,6 @@
             </div>
 
             <div class="col-3 m-t-15">
-              <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
-                <input mdInput style="display:none"> -->
               <mat-form-field>
                 <mat-label>Select Language </mat-label>
                 <mat-select
@@ -514,8 +494,6 @@
                       >
                     </div>
                     <div class="col-xs-12 col-sm-8">
-                      <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
-                        <input mdInput style="display:none"> -->
                       <mat-select
                         [(ngModel)]="edit_Details.weightageRead"
                         (change)="readWeightage()"
@@ -590,8 +568,6 @@
                       >
                     </div>
                     <div class="col-xs-12 col-sm-8">
-                      <!-- <md-input-container class="hide_underline" [style.width]="'100%'">
-                        <input mdInput style="display:none"> -->
                       <mat-select
                         [(ngModel)]="edit_Details.weightageSpeak"
                         class="pull-left"
@@ -609,11 +585,8 @@
                           *ngFor="let item of SpeakWeightageList"
                           [value]="item.value"
                           >{{ item.Name }}</mat-option
-                        >
-                      </mat-select>
-                      <!-- </mat-form-field> -->
-
-                      <!-- </md-input-container> -->
+                        > </mat-select
+                      >>
                     </div>
                   </div>
                 </div>

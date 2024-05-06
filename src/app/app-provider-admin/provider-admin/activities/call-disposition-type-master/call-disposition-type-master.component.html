@@ -166,9 +166,6 @@
               Deactivate
             </button>
           </td>
-          <!-- <td colspan="4" class="p-r-0" mat-cell>
-          <button md-raised-button color="primary" [disabled]="searchForm.invalid" class="pull-right" (click)="changeTableFlag(false)">Add Work Location</button>
-        </td> -->
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
@@ -184,7 +181,8 @@
         </button>
       </div>
       <mat-paginator
-        [hidden]="filtereddata.data.length === 0"
+        #paginatorFirst
+        [length]="filtereddata.data.length"
         [pageSizeOptions]="[5, 10, 25]"
         [pageSize]="5"
         showFirstLastButtons
@@ -427,7 +425,8 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumnsTable2"></tr>
       </table>
       <mat-paginator
-        [hidden]="temporarySubtypeArray.data.length === 0"
+        #paginatorSecond
+        [length]="temporarySubtypeArray.data.length"
         [pageSizeOptions]="[5, 10, 25]"
         [pageSize]="5"
         showFirstLastButtons
