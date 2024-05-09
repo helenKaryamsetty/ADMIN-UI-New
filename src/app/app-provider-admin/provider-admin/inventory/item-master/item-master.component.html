@@ -7,7 +7,7 @@
   <form #searchForm="ngForm" autocomplete="off" class="col-12 row">
     <div class="col-3">
       <mat-form-field class="hide_underline">
-        <input matInput style="display: none" />
+        <!-- <input matInput style="display: none" /> -->
         <mat-label>Serviceline</mat-label>
         <mat-select
           [(ngModel)]="service"
@@ -23,7 +23,7 @@
     </div>
     <div class="col-3">
       <mat-form-field class="hide_underline">
-        <input matInput style="display: none" />
+        <!-- <input matInput style="display: none" /> -->
         <mat-label>State</mat-label>
         <mat-select [(ngModel)]="state" name="state" required>
           <mat-option
@@ -229,7 +229,7 @@
   >
     <div class="col-3">
       <mat-form-field class="hide_underline">
-        <input matInput style="display: none" />
+        <!-- <input matInput style="display: none" /> -->
         <mat-label>Serviceline</mat-label>
         <mat-select
           [(ngModel)]="service"
@@ -246,7 +246,7 @@
     </div>
     <div class="col-3">
       <mat-form-field class="hide_underline">
-        <input matInput style="display: none" />
+        <!-- <input matInput style="display: none" /> -->
         <mat-label>State</mat-label>
         <mat-select [(ngModel)]="state" name="state" [disabled]="true" required>
           <mat-option
@@ -388,7 +388,7 @@
     </div>
     <div class="col-4">
       <mat-form-field class="hide_underline">
-        <input matInput style="display: none" />
+        <!-- <input matInput style="display: none" /> -->
         <mat-label>UOM</mat-label>
         <mat-select [(ngModel)]="uom" name="uom" required>
           <mat-option *ngFor="let item of measures" [value]="item">
@@ -399,7 +399,7 @@
     </div>
     <div class="col-4">
       <mat-form-field class="hide_underline">
-        <input matInput style="display: none" />
+        <!-- <input matInput style="display: none" /> -->
         <mat-label>Item Category</mat-label>
         <mat-select [(ngModel)]="category" name="category" required>
           <mat-option *ngFor="let item of categories" [value]="item">
@@ -410,7 +410,7 @@
     </div>
     <div class="col-xs-12 col-sm-6 col-md-3 col-lg-4">
       <mat-form-field class="hide_underline">
-        <input matInput style="display: none" />
+        <!-- <input matInput style="display: none" /> -->
         <mat-label>Drug List Type</mat-label>
         <mat-select [(ngModel)]="drugName" name="drugName" required>
           <mat-option
@@ -425,7 +425,7 @@
     </div>
     <div class="col-xs-12 col-sm-6 col-md-3 col-lg-4">
       <mat-form-field class="hide_underline">
-        <input matInput style="display: none" />
+        <!-- <input matInput style="display: none" /> -->
         <mat-label>Item Form</mat-label>
         <mat-select [(ngModel)]="dose" name="dose" required>
           <mat-option *ngFor="let item of dosages" [value]="item">
@@ -436,7 +436,7 @@
     </div>
     <div class="col-xs-12 col-sm-6 col-md-3 col-lg-4">
       <mat-form-field class="hide_underline">
-        <input matInput style="display: none" />
+        <!-- <input matInput style="display: none" /> -->
         <mat-label>Pharmacology Category</mat-label>
         <mat-select [(ngModel)]="pharmacology" name="pharmacology">
           <mat-option *ngFor="let item of pharmacologies" [value]="item">
@@ -447,7 +447,7 @@
     </div>
     <div class="col-xs-12 col-sm-6 col-md-3 col-lg-4">
       <mat-form-field class="hide_underline">
-        <input matInput style="display: none" />
+        <!-- <input matInput style="display: none" /> -->
         <mat-label>Manufacturer</mat-label>
         <mat-select [(ngModel)]="manufacturer" name="manufacturer">
           <mat-option *ngFor="let item of manufacturers" [value]="item">
@@ -491,7 +491,7 @@
     </div>
     <div class="col-4">
       <mat-form-field class="hide_underline">
-        <input matInput style="display: none" />
+        <!-- <input matInput style="display: none" /> -->
         <mat-label>Route Of Admin</mat-label>
         <mat-select [(ngModel)]="route" name="route" required>
           <mat-option *ngFor="let item of routes" [value]="item">
@@ -670,7 +670,7 @@
   <form #editItemCreationForm="ngForm" autocomplete="off" class="col-12 row">
     <div class="col-3">
       <mat-form-field class="hide_underline">
-        <input matInput style="display: none" />
+        <!-- <input matInput style="display: none" /> -->
         <mat-label>Serviceline</mat-label>
         <mat-select
           required
@@ -687,7 +687,7 @@
     </div>
     <div class="col-3">
       <mat-form-field class="hide_underline">
-        <input matInput style="display: none" />
+        <!-- <input matInput style="display: none" /> -->
         <mat-label>State</mat-label>
         <mat-select
           required
@@ -808,7 +808,7 @@
     </div>
     <div class="col-4">
       <mat-form-field class="hide_underline">
-        <input matInput style="display: none" />
+        <!-- <input matInput style="display: none" /> -->
         <mat-label>UOM</mat-label>
         <mat-select [(ngModel)]="edit_Uom" name="uom" disabled="true" required>
           <mat-option *ngFor="let item of edit_measures" [value]="item.uOMID">
@@ -819,7 +819,7 @@
     </div>
     <div class="col-4">
       <mat-form-field class="hide_underline">
-        <input matInput style="display: none" />
+        <!-- <input matInput style="display: none" /> -->
         <mat-label>Item Category</mat-label>
         <mat-select [(ngModel)]="edit_Category" name="category" required>
           <mat-option
@@ -833,7 +833,7 @@
     </div>
     <div class="col-xs-12 col-sm-6 col-md-3 col-lg-4">
       <mat-form-field class="hide_underline">
-        <input matInput style="display: none" />
+        <!-- <input matInput style="display: none" /> -->
         <mat-label>Drug List Type</mat-label>
         <mat-select [(ngModel)]="editDrug" disabled="true" name="drugName">
           <mat-option
@@ -848,7 +848,7 @@
     </div>
     <div class="col-xs-12 col-sm-6 col-md-3 col-lg-4">
       <mat-form-field class="hide_underline">
-        <input matInput style="display: none" />
+        <!-- <input matInput style="display: none" /> -->
         <mat-label>Item Form</mat-label>
         <mat-select
           [(ngModel)]="edit_Dose"
@@ -867,7 +867,7 @@
     </div>
     <div class="col-xs-12 col-sm-6 col-md-3 col-lg-4">
       <mat-form-field class="hide_underline">
-        <input matInput style="display: none" />
+        <!-- <input matInput style="display: none" /> -->
         <mat-label>Pharmacology Category</mat-label>
         <mat-select [(ngModel)]="edit_Pharmacology" name="pharmacology">
           <mat-option
@@ -881,7 +881,7 @@
     </div>
     <div class="col-xs-12 col-sm-6 col-md-3 col-lg-4">
       <mat-form-field class="hide_underline">
-        <input matInput style="display: none" />
+        <!-- <input matInput style="display: none" /> -->
         <mat-label>Manufacturer</mat-label>
         <mat-select [(ngModel)]="edit_Manufacturer" name="manufacturer">
           <mat-option
@@ -928,7 +928,7 @@
     </div>
     <div class="col-4">
       <mat-form-field class="hide_underline">
-        <input matInput style="display: none" />
+        <!-- <input matInput style="display: none" /> -->
         <mat-label>Route Of Admin</mat-label>
         <mat-select
           [(ngModel)]="edit_Route"

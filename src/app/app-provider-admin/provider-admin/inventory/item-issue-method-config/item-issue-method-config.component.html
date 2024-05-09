@@ -9,7 +9,7 @@
       <div class="col-3">
         <mat-form-field class="hide_underline">
           <mat-label>Serviceline</mat-label>
-          <input matInput style="display: none" />
+          <!-- <input matInput style="display: none" /> -->
           <mat-select
             required
             name="Services"
@@ -25,7 +25,7 @@
       <div class="col-3">
         <mat-form-field class="hide_underline">
           <mat-label>State</mat-label>
-          <input matInput style="display: none" />
+          <!-- <input matInput style="display: none" /> -->
           <mat-select required name="state" [(ngModel)]="state">
             <mat-option
               *ngFor="let item of states_array"
@@ -211,7 +211,7 @@
       <div class="col-3">
         <mat-form-field class="hide_underline">
           <mat-label>Serviceline</mat-label>
-          <input matInput style="display: none" />
+          <!-- <input matInput style="display: none" /> -->
           <mat-select
             required
             name="Services"
@@ -228,7 +228,7 @@
       <div class="col-3">
         <mat-form-field class="hide_underline">
           <mat-label>State</mat-label>
-          <input matInput style="display: none" />
+          <!-- <input matInput style="display: none" /> -->
           <mat-select
             required
             name="state"
@@ -247,7 +247,7 @@
       <div class="col-3">
         <mat-form-field class="hide_underline">
           <mat-label>Item Category Name</mat-label>
-          <input matInput style="display: none" />
+          <!-- <input matInput style="display: none" /> -->
           <mat-select required name="itemcategory" [(ngModel)]="category">
             <mat-option
               *ngFor="let item of filterItemCategory"
@@ -262,7 +262,7 @@
       <div class="col-3">
         <mat-form-field class="hide_underline">
           <mat-label>Issue Type</mat-label>
-          <input matInput style="display: none" />
+          <!-- <input matInput style="display: none" /> -->
           <mat-select required name="itemissue" [(ngModel)]="itemIssue">
             <mat-option *ngFor="let item of ItemIssue_array" [value]="item">
               {{ item.Name }}
@@ -433,7 +433,7 @@
     <div class="col-3">
       <mat-form-field class="hide_underline">
         <mat-label>Serviceline</mat-label>
-        <input matInput style="display: none" />
+        <!-- <input matInput style="display: none" /> -->
         <mat-select
           required
           name="Services"
@@ -450,7 +450,7 @@
     <div class="col-3">
       <mat-form-field class="hide_underline">
         <mat-label>State</mat-label>
-        <input matInput style="display: none" />
+        <!-- <input matInput style="display: none" /> -->
         <mat-select
           required
           name="state"
@@ -467,7 +467,7 @@
     <div class="col-3">
       <mat-form-field class="hide_underline">
         <mat-label>Item Category Name</mat-label>
-        <input matInput style="display: none" />
+        <!-- <input matInput style="display: none" /> -->
         <mat-select
           required
           name="itemcategory"
@@ -487,7 +487,7 @@
     <div class="col-3">
       <mat-form-field class="hide_underline">
         <mat-label>Issue Type</mat-label>
-        <input matInput style="display: none" />
+        <!-- <input matInput style="display: none" /> -->
         <mat-select required name="itemissue" [(ngModel)]="edit_itemIssue">
           <mat-option *ngFor="let item of ItemIssue_array" [value]="item.Name">
             {{ item.Name }}

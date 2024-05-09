@@ -4,106 +4,109 @@
     <h4 *ngIf="!editable && !showListOfEmails">Create Authority Email ID</h4>
     <h4 *ngIf="editable && !showListOfEmails">Edit Authority Email ID</h4>
   </div>
-  <form #searchForm="ngForm" autocomplete="off">
-    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 m-t-15">
-      <!-- <mat-form-field class="hide_underline width100">
-        <input matInput style="display:none"> -->
-      <mat-form-field>
-        <mat-select
-          placeholder="Serviceline"
-          disabled="{{ disableSelection }}"
-          [(ngModel)]="serviceline"
-          name="serviceline"
-          class="width100"
-          (selectionChange)="getStates(serviceline)"
-          #bindService="ngModel"
-          required
-        >
-          <mat-option *ngFor="let item of services" [value]="item">
-            {{ item.serviceName }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      <!-- <mat-hint [hidden]=bindService.valid *ngIf="showListOfEmails">
-          <span class="error_text" *ngIf="!bindService.required  && ( bindService.dirty || bindService.touched)">Please select serviceline</span>
-        </mat-hint>
-      </mat-form-field> -->
-    </div>
-    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 m-t-15">
-      <!-- <mat-form-field class="hide_underline width100">
-        <input matInput style="display:none"> -->
-      <mat-form-field>
-        <mat-select
-          placeholder="State"
-          [disabled]="disableSelection"
-          [(ngModel)]="state"
-          name="state"
-          class="width100"
-          (selectionChange)="getDistricts(state)"
-          #bindState="ngModel"
-          required
-        >
-          <mat-option *ngFor="let item of states" [value]="item">
-            {{ item.stateName }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      <!-- <mat-hint [hidden]=bindState.valid *ngIf="showListOfEmails">
-          <span class="error_text" *ngIf="!bindState.required  && ( bindState.dirty || bindState.touched)">Please select state</span>
-        </mat-hint>
-      </mat-form-field> -->
-    </div>
-    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 m-t-15">
-      <!-- <mat-form-field class="hide_underline width100">
-        <input matInput style="display:none"> -->
-      <mat-form-field>
-        <mat-select
-          placeholder="District"
-          [disabled]="disableSelection"
-          class="width100"
-          [(ngModel)]="districtID"
-          name="districtID"
-          #bindDistrict="ngModel"
-          (selectionChange)="getTaluk(districtID)"
-          required
-        >
-          <mat-option *ngFor="let district of districts" [value]="district">
-            {{ district.districtName }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      <!-- <mat-hint [hidden]=bindDistrict.valid *ngIf="showListOfEmails">
-          <span class="error_text" *ngIf="!bindDistrict.required  && ( bindDistrict.dirty || bindDistrict.touched)">Please select district</span>
-        </mat-hint>
-      </mat-form-field> -->
-    </div>
-    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 m-t-15">
-      <!-- <mat-form-field class="hide_underline width100">
-        <input matInput style="display:none"> -->
-      <mat-form-field>
-        <mat-select
-          placeholder="Taluk"
-          class="width100"
-          [disabled]="disableSelection"
-          [(ngModel)]="taluk"
-          name="taluk"
-          (selectionChange)="getAllMailConfig()"
-          #bindTaluk="ngModel"
-        >
-          <mat-option *ngFor="let item of taluks" [value]="item">
-            {{ item.blockName }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      <!-- <mat-hint [hidden]=bindTaluk.valid *ngIf="showListOfEmails">
-          <span class="error_text" *ngIf="!bindTaluk.required  && ( bindTaluk.dirty || bindTaluk.touched)">Please select taluk</span>
-        </mat-hint>
-      </mat-form-field> -->
-    </div>
-  </form>
+  <div class="col-12">
+    <form #searchForm="ngForm" autocomplete="off" class="row">
+      <div class="col-3 m-t-15">
+        <!-- <mat-form-field class="hide_underline width100">
+          <input matInput style="display:none"> -->
+        <mat-form-field>
+          <mat-label>Serviceline</mat-label>
+          <mat-select
+            disabled="{{ disableSelection }}"
+            [(ngModel)]="serviceline"
+            name="serviceline"
+            class="width100"
+            (selectionChange)="getStates(serviceline)"
+            #bindService="ngModel"
+            required
+          >
+            <mat-option *ngFor="let item of services" [value]="item">
+              {{ item.serviceName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <!-- <mat-hint [hidden]=bindService.valid *ngIf="showListOfEmails">
+            <span class="error_text" *ngIf="!bindService.required  && ( bindService.dirty || bindService.touched)">Please select serviceline</span>
+          </mat-hint>
+        </mat-form-field> -->
+      </div>
+      <div class="col-3 m-t-15">
+        <!-- <mat-form-field class="hide_underline width100">
+          <input matInput style="display:none"> -->
+        <mat-form-field>
+          <mat-label>State</mat-label>
+          <mat-select
+            [disabled]="disableSelection"
+            [(ngModel)]="state"
+            name="state"
+            class="width100"
+            (selectionChange)="getDistricts(state)"
+            #bindState="ngModel"
+            required
+          >
+            <mat-option *ngFor="let item of states" [value]="item">
+              {{ item.stateName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <!-- <mat-hint [hidden]=bindState.valid *ngIf="showListOfEmails">
+            <span class="error_text" *ngIf="!bindState.required  && ( bindState.dirty || bindState.touched)">Please select state</span>
+          </mat-hint>
+        </mat-form-field> -->
+      </div>
+      <div class="col-3 m-t-15">
+        <!-- <mat-form-field class="hide_underline width100">
+          <input matInput style="display:none"> -->
+        <mat-form-field>
+          <mat-label>District</mat-label>
+          <mat-select
+            [disabled]="disableSelection"
+            class="width100"
+            [(ngModel)]="districtID"
+            name="districtID"
+            #bindDistrict="ngModel"
+            (selectionChange)="getTaluk(districtID)"
+            required
+          >
+            <mat-option *ngFor="let district of districts" [value]="district">
+              {{ district.districtName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <!-- <mat-hint [hidden]=bindDistrict.valid *ngIf="showListOfEmails">
+            <span class="error_text" *ngIf="!bindDistrict.required  && ( bindDistrict.dirty || bindDistrict.touched)">Please select district</span>
+          </mat-hint>
+        </mat-form-field> -->
+      </div>
+      <div class="col-3 m-t-15">
+        <!-- <mat-form-field class="hide_underline width100">
+          <input matInput style="display:none"> -->
+        <mat-form-field>
+          <mat-label>Taluk</mat-label>
+          <mat-select
+            class="width100"
+            [disabled]="disableSelection"
+            [(ngModel)]="taluk"
+            name="taluk"
+            (selectionChange)="getAllMailConfig()"
+            #bindTaluk="ngModel"
+          >
+            <mat-option *ngFor="let item of taluks" [value]="item">
+              {{ item.blockName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <!-- <mat-hint [hidden]=bindTaluk.valid *ngIf="showListOfEmails">
+            <span class="error_text" *ngIf="!bindTaluk.required  && ( bindTaluk.dirty || bindTaluk.touched)">Please select taluk</span>
+          </mat-hint>
+        </mat-form-field> -->
+      </div>
+    </form>
+  </div>
 </div>
 <div
-  class="pull-right m-t-10"
+  class="m-t-10"
+  style="text-align: end"
   *ngIf="
     showListOfEmails && showTableFlag && !editable && mailConfig.length !== 0
   "
@@ -278,13 +281,13 @@
   </div>
 </div>
 <div *ngIf="!showListOfEmails && (!showListOfEmailconfig || editable)">
-  <div class="row">
-    <form #mailConfigForm="ngForm" autocomplete="off">
-      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 m-t-15">
+  <div class="col-12">
+    <form #mailConfigForm="ngForm" autocomplete="off" class="row">
+      <div class="col-3 m-t-15">
         <!-- <mat-form-field class="hide_underline width100">
           <input matInput style="display:none"> -->
+        <mat-label>Designation</mat-label>
         <mat-select
-          placeholder="Designation"
           class="width100"
           [(ngModel)]="designation"
           name="designation"
@@ -300,11 +303,11 @@
           </mat-hint>
         </mat-form-field> -->
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 m-t-20">
+      <div class="col-3 m-t-20">
         <mat-form-field class="width100" PAN>
+          <mat-label>Authority Name</mat-label>
           <input
             matInput
-            placeholder="Authority Name"
             ngModel
             [(ngModel)]="authorityName"
             name="authorityName"
@@ -321,11 +324,11 @@
         </mat-form-field>
       </div>
       <div class="clearfix visible-sm visible-md"></div>
-      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 m-t-20">
+      <div class="col-3 m-t-20">
         <mat-form-field class="width100">
+          <mat-label>Email</mat-label>
           <input
             matInput
-            placeholder="Email"
             [(ngModel)]="emailID"
             name="emailID"
             #validEmail="ngModel"
@@ -346,7 +349,7 @@
           mat-mini-fab
           color="primary"
           (click)="add_obj(mailConfigForm.value)"
-          class="pull-right"
+          class="pull-right mat_blue_circle"
         >
           <mat-icon
             matSuffix
@@ -440,7 +443,7 @@
       <button
         mat-raised-button
         color="accent"
-        class="pull-right"
+        class="pull-right mat_green"
         *ngIf="!editable"
         [disabled]="emailConfigList.data.length === 0"
         (click)="save()"
@@ -450,7 +453,7 @@
       <button
         mat-raised-button
         color="accent"
-        class="pull-right"
+        class="pull-right mat_green"
         *ngIf="editable"
         [disabled]="mailConfigForm.invalid"
         (click)="update()"
@@ -460,7 +463,7 @@
       <button
         mat-raised-button
         color="primary"
-        class="pull-left"
+        class="pull-left mat_blue"
         (click)="back()"
       >
         Back
