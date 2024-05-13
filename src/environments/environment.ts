@@ -26,9 +26,9 @@
 
 const ADMIN_API = 'http://183.82.107.186:8080/';
 const COMMON_API = 'http://183.82.107.186:8080/';
-const adminBaseUrl = `${ADMIN_API}adminapi-v1.0/`;
-const superadminBaseURL = `${ADMIN_API}adminapi-v1.0/`;
-const commonBaseURL = `${COMMON_API}commonapi-v1.0/`;
+const adminBaseUrl = `${ADMIN_API}adminapi-v1.1/`;
+const superadminBaseURL = `${ADMIN_API}adminapi-v1.1/`;
+const commonBaseURL = `${COMMON_API}commonapi-v1.1/`;
 
 export const environment = {
   production: false,
@@ -151,4 +151,29 @@ export const environment = {
   /* serviceline and state */
   getRolesUrl: `${adminBaseUrl}m/role/search/active`,
   saveUrl: `${adminBaseUrl}m/role/configWrap`,
+
+  //project Master APIs
+  getProjectNames: `${commonBaseURL}customization/get/projectNames/`,
+  addProjectName: `${commonBaseURL}customization/addProject`,
+  updateProjectName: `${commonBaseURL}customization/updateProject`,
+
+  //Master Urls
+  getServicelines: `${adminBaseUrl}m/role/serviceNew`,
+  getStates: `${commonBaseURL}location/states/`,
+  getDistricts: `${commonBaseURL}location/districts/`,
+  getBranches: `${commonBaseURL}location/taluks/`,
+
+  //project-serviceline mapping urls
+  fetchMappedProjects: `${commonBaseURL}customization/fetchProjectServiceline`,
+  saveProjectToServiceline: `${commonBaseURL}customization/saveProjectToServiceline`,
+
+  //project-serviceline mapping urls
+  getSectionMaster: `${commonBaseURL}customization/get/sections`,
+  fetchMappedSections: `${commonBaseURL}customization/fetchMappedSectionsInProject`,
+  mapSectionsToProject: `${commonBaseURL}customization/mapSectionToProject`,
+
+  //fetch fields mapping
+  fetchMappedFields: `${commonBaseURL}customization/fetchMappedFields`,
+  saveSectionFields: `${commonBaseURL}customization/saveSectionAndFields`,
+  getFieldTypes: `${commonBaseURL}master/getAnswerType`,
 };

@@ -19,7 +19,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see https://www.gnu.org/licenses/.
  */
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
@@ -31,7 +31,7 @@ import { dataService } from 'src/app/core/services/dataService/data.service';
   templateUrl: './language-mapping.component.html',
   styleUrls: ['./language-mapping.component.css'],
 })
-export class LanguageMappingComponent implements OnInit {
+export class LanguageMappingComponent implements OnInit, AfterViewInit {
   [x: string]: any;
   // filteredLanguageMappedList: any = [];
   languageID_edit: any;

@@ -1894,7 +1894,9 @@ export class WorkLocationMappingComponent implements OnInit {
 
             if (
               this.edit_Details.serviceName === 'FLW' ||
-              this.edit_Details.serviceName === 'HWC'
+              this.edit_Details.serviceName === 'HWC' ||
+              this.edit_Details.serviceName === 'TM' ||
+              this.edit_Details.serviceName === 'MMU'
             ) {
               this.getEditBlockPatchMaster(this.district_duringEdit);
 
@@ -2271,7 +2273,12 @@ export class WorkLocationMappingComponent implements OnInit {
   }
 
   showBlockDrop(serviceline: any) {
-    if (serviceline === 'FLW' || serviceline === 'HWC') {
+    if (
+      serviceline === 'FLW' ||
+      serviceline === 'HWC' ||
+      serviceline === 'TM' ||
+      serviceline === 'MMU'
+    ) {
       this.blockFlag = true;
       this.villageFlag = true;
     } else {
@@ -2281,7 +2288,12 @@ export class WorkLocationMappingComponent implements OnInit {
   }
 
   showEditBlockDrop(serviceID_duringEdit: any) {
-    if (serviceID_duringEdit !== 'FLW' || serviceID_duringEdit !== 'HWC') {
+    if (
+      serviceID_duringEdit !== 'FLW' ||
+      serviceID_duringEdit !== 'HWC' ||
+      serviceID_duringEdit !== 'TM' ||
+      serviceID_duringEdit !== 'MMU'
+    ) {
       this.enableEditBlockFlag = false;
       this.enableEditVillageFlag = false;
       this.ServiceEditblock = null;

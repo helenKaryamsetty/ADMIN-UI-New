@@ -100,6 +100,15 @@ import {
   EditInstituteSubDirectoryComponent,
   InstituteSubdirectoryMasterComponent,
 } from './institute-subdirectory-master/institute-subdirectory-master.component';
+import { ProjectMasterService } from './services/project-master-service.service';
+import { ProjectServicelineMappingService } from './services/project-serviceline-mapping.service';
+import { ProjectMasterComponent } from './project-master/project-master.component';
+import { ProjectServicelineMappingComponent } from './project-serviceline-mapping/project-serviceline-mapping.component';
+import { ProjectConfigutationScreenComponent } from './project-configutation-screen/project-configutation-screen.component';
+import { ProjectConfigurationService } from './services/project-configuration-service';
+import { AddFieldsToProjectComponent } from './add-fields-to-project/add-fields-to-project.component';
+import { AddFieldsService } from './services/add-fields-service';
+import { MatChipGrid, MatChipsModule } from '@angular/material/chips';
 
 @NgModule({
   declarations: [
@@ -147,6 +156,10 @@ import {
     ComponentNameSearchComponent,
     InstituteSubdirectoryMasterComponent,
     EditInstituteSubDirectoryComponent,
+    ProjectMasterComponent,
+    ProjectServicelineMappingComponent,
+    ProjectConfigutationScreenComponent,
+    AddFieldsToProjectComponent,
   ],
   imports: [
     CommonModule,
@@ -163,6 +176,7 @@ import {
     FormsModule,
     ReactiveFormsModule,
     MatNativeDateModule,
+    MatChipsModule,
   ],
   providers: [
     ProviderAdminRoleService,
@@ -193,6 +207,10 @@ import {
     DrugStrengthService,
     ComponentMasterServiceService,
     InstituteSubDirectoryMasterService,
+    ProjectMasterService,
+    ProjectServicelineMappingService,
+    ProjectConfigurationService,
+    AddFieldsService,
   ],
   exports: [
     LocationServicelineMappingComponent,
@@ -238,6 +256,10 @@ import {
     ComponentNameSearchComponent,
     InstituteSubdirectoryMasterComponent,
     EditInstituteSubDirectoryComponent,
+    ProjectMasterComponent,
+    ProjectServicelineMappingComponent,
+    ProjectConfigutationScreenComponent,
+    AddFieldsToProjectComponent,
   ],
 })
 export class ActivitiesModule {}

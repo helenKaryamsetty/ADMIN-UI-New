@@ -17,6 +17,7 @@ import { SnomedCodeSearchComponent } from './configurations/snomed-code-search/s
 import { ProviderAdminComponent } from './provider-admin.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatChipsModule } from '@angular/material/chips';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     HttpClientModule,
     MaterialModule,
     MatNativeDateModule,
+    MatChipsModule,
   ],
   exports: [ProviderAdminComponent],
 })
