@@ -19,8 +19,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see https://www.gnu.org/licenses/.
  */
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 
 import { Observable, Subject } from 'rxjs';
 import { ComponentMasterServiceService } from 'src/app/core/services/ProviderAdminServices/component-master-service.service';
@@ -32,20 +34,6 @@ import { ComponentMasterServiceService } from 'src/app/core/services/ProviderAdm
 })
 export class ComponentNameSearchComponent implements OnInit {
   searchTerm!: string;
-
-  components = [];
-  pageCount: any;
-  selectedComponentsList = [];
-  currentPage = 1;
-  pager: any = {
-    totalItems: 0,
-    currentPage: 0,
-    totalPages: 0,
-    startPage: 0,
-    endPage: 0,
-    pages: 0,
-  };
-  pagedItems = [];
   placeHolderSearch: any;
   current_language_set: any;
 
@@ -62,6 +50,8 @@ export class ComponentNameSearchComponent implements OnInit {
     'radiobutton',
   ];
 
+  components = new MatTableDataSource<any>();
+  @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
   constructor(
     @Inject(MAT_DIALOG_DATA) public input: any,
     public dialogRef: MatDialogRef<ComponentNameSearchComponent>,
@@ -101,12 +91,8 @@ export class ComponentNameSearchComponent implements OnInit {
               this.showProgressBar = false;
               if (res.data && res.data.lonicMaster.length > 0) {
                 this.showProgressBar = true;
-                this.components = res.data.lonicMaster;
-
-                if (pageNo === 0) {
-                  this.pageCount = res.data.pageCount;
-                }
-                this.pager = this.getPager(pageNo);
+                this.components.data = res.data.lonicMaster;
+                this.components.paginator = this.paginator;
                 this.showProgressBar = false;
               } else {
                 this.message = 'No Record Found';
@@ -123,69 +109,10 @@ export class ComponentNameSearchComponent implements OnInit {
         );
     }
   }
-  checkPager(pager: any, page: any) {
-    if (page === 0 && pager.currentPage !== 0) {
-      this.setPage(page);
-    } else if (pager.currentPage < page) {
-      this.setPage(page);
-    }
-  }
-  setPage(page: number) {
-    if (page <= this.pageCount - 1 && page >= 0) {
-      this.search(this.input.searchTerm, page);
-      // get pager object
-      this.pager = this.getPager(page);
-    }
-  }
-  getPager(page: any) {
-    // Total page count
-    const totalPages = this.pageCount;
-    // ensure current page isn't out of range
-    if (page > totalPages) {
-      page = totalPages - 1;
-    }
-    let startPage: number, endPage: number;
-    if (totalPages <= 5) {
-      // less than 5 total pages so show all
-      startPage = 0;
-      endPage = totalPages - 1;
-    } else {
-      // more than 5 total pages so calculate start and end pages
-      if (page <= 2) {
-        startPage = 0;
-        endPage = 4;
-      } else if (page + 2 >= totalPages) {
-        startPage = totalPages - 5;
-        endPage = totalPages - 1;
-      } else {
-        startPage = page - 2;
-        endPage = page + 2;
-      }
-    }
-    // create an array of pages to ng-repeat in the pager control
-    const pages = Array.from(Array(endPage + 1 - startPage).keys()).map(
-      (i) => startPage + i,
-    );
-    // return object with all pager properties required by the view
-    return {
-      currentPage: page,
-      totalPages: totalPages,
-      startPage: startPage,
-      endPage: endPage,
-      pages: pages,
-    };
-  }
+
   resetData() {
-    this.components = [];
-    this.pageCount = null;
-    this.pager = {
-      totalItems: 0,
-      currentPage: 0,
-      totalPages: 0,
-      startPage: 0,
-      endPage: 0,
-      pages: 0,
-    };
+    this.components.data = [];
+    this.components.paginator = this.paginator;
   }
 
   // setEnable()

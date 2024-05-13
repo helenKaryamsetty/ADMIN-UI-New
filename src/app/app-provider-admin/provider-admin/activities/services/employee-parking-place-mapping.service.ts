@@ -48,7 +48,7 @@ export class EmployeeParkingPlaceMappingService {
   }
 
   getStates(userID: any, serviceID: any, isNationalFlag: any) {
-    return this.http.post(environment._getStateListBYServiceIDURL, {
+    return this.http.post(environment._getStateListURL, {
       userID: userID,
       serviceID: serviceID,
       isNational: isNationalFlag,

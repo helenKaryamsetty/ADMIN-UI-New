@@ -26,6 +26,7 @@ import { Observable } from 'rxjs';
 // import 'rxjs/add/operator/map';
 
 import { ConfigService } from '../config/config.service';
+import { environment } from 'src/environments/environment';
 // import { InterceptedHttp } from '../../http.interceptor';
 // import { SecurityInterceptedHttp } from '../../http.securityinterceptor';
 
@@ -72,67 +73,47 @@ export class ServicePointVillageMapService {
   }
 
   getServicePoints(data: any) {
-    return this.http.post(this.getServicePointsURL, data);
+    return this.http.post(environment.getServicePointsURL, data);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
 
   getServicePointVillageMaps(data: any) {
-    return this.http.post(this.getServicePointVillageMapsURL, data);
+    return this.http.post(environment.getServicePointVillageMapsURL, data);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
 
   getBranches(blockId: number) {
-    return this.http.get(this._getBranchListURL + blockId);
+    return this.http.get(environment._getBranchListURL + blockId);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
   filterMappedVillages(unmappedVillage: any) {
-    return this.http.post(this.filterMappedVillages_url, unmappedVillage);
+    return this.http.post(
+      environment.filterMappedVillages_url,
+      unmappedVillage,
+    );
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
   saveServicePointVillageMaps(data: any) {
-    return this.http.post(this.saveServicePointVillageMapsURL, data);
+    return this.http.post(environment.saveServicePointVillageMapsURL, data);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
   updateServicePointVillageMaps(data: any) {
-    return this.http.post(this.updateServicePointVillageMapsURL, data);
+    return this.http.post(environment.updateServicePointVillageMapsURL, data);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
 
   updateServicePointVillageMapStatus(data: any) {
-    return this.http.post(this.updateServicePointVillageMapStatusURL, data);
+    return this.http.post(
+      environment.updateServicePointVillageMapStatusURL,
+      data,
+    );
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
-
-  // handleState_n_parkingplaces(response: Response) {
-
-  //     console.log(response.json().data, 'service point village file success response');
-  //     let result = [];
-  //     result = response.json().data.filter(function (item) {
-  //         if (!item.deleted) {
-  //             return item;
-  //         }
-  //     });
-  //     return result;
-  // }
-
-  // handleSuccess(res: Response) {
-  //     console.log(res.json().data, '--- in zone master SERVICE');
-  //     if (res.json().data) {
-  //         return res.json().data;
-  //     } else {
-  //         return Observable.throw(res.json());
-  //     }
-  // }
-
-  // handleError(error: Response | any) {
-  //     return Observable.throw(error.json());
-
-  // }
 }

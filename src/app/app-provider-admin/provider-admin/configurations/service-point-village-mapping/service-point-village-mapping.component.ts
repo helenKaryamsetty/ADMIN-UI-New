@@ -34,9 +34,39 @@ import { MatPaginator } from '@angular/material/paginator';
   templateUrl: './service-point-village-mapping.component.html',
 })
 export class ServicePointVillageMapComponent implements OnInit {
+  // filteredavailableServicePointVillageMaps = new MatTableDataSource<any>();
+  // servicePointVillageMapList = new MatTableDataSource<any>();
+  // @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
+  displayedColumns = [
+    'sno',
+    'servicePointName',
+    'districtName',
+    'blockName',
+    'villageName',
+    'action',
+  ];
+
+  displayAddedColumns = [
+    'sno',
+    'parkingPlaceName',
+    'servicePointName',
+    'districtName',
+    'districtBlockName',
+    'villageName',
+    'action',
+  ];
+
+  paginator!: MatPaginator;
+  @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
+    this.paginator = mp;
+    this.setDataSourceAttributes();
+  }
   filteredavailableServicePointVillageMaps = new MatTableDataSource<any>();
   servicePointVillageMapList = new MatTableDataSource<any>();
-  @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
+
+  setDataSourceAttributes() {
+    this.filteredavailableServicePointVillageMaps.paginator = this.paginator;
+  }
 
   // filteredavailableServicePointVillageMaps: any = [];
   formMode = false;
@@ -88,7 +118,7 @@ export class ServicePointVillageMapComponent implements OnInit {
     private alertMessage: ConfirmationDialogsService,
   ) {
     this.data = [];
-    this.service_provider_id = this.commonDataService.service_providerID;
+    this.service_provider_id = sessionStorage.getItem('service_providerID');
     this.countryID = 1; // hardcoded as country is INDIA
     this.serviceID = this.commonDataService.serviceIDMMU;
     this.createdBy = this.commonDataService.uname;
@@ -107,7 +137,16 @@ export class ServicePointVillageMapComponent implements OnInit {
   getProviderServices() {
     this.servicePointMasterService.getServices(this.userID).subscribe(
       (response: any) => {
-        this.services_array = response.data;
+        // this.services_array = response.data;
+        this.services_array = response.data.filter(function (item: any) {
+          console.log('item', item);
+          if (
+            item.serviceID === 2 ||
+            item.serviceID === 4 ||
+            item.serviceID === 9
+          )
+            return item;
+        });
       },
       (err) => {},
     );

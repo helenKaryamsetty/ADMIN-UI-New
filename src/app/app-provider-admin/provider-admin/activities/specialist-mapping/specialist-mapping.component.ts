@@ -34,10 +34,22 @@ import { ProviderAdminRoleService } from '../services/state-serviceline-role.ser
   styleUrls: ['./specialist-mapping.component.css'],
 })
 export class SpecialistMappingComponent implements OnInit {
-  [x: string]: any;
-  @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
-  // dataSource = new MatTableDataSource<any>();
+  // [x: string]: any;
+  // @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
+  // // dataSource = new MatTableDataSource<any>();
+  // filteredspecializationList = new MatTableDataSource<any>();
+  displayedColumns = ['SNo', 'UserName', 'specializationName', 'action'];
+
+  paginator!: MatPaginator;
+  @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
+    this.paginator = mp;
+    this.setDataSourceAttributes();
+  }
   filteredspecializationList = new MatTableDataSource<any>();
+  setDataSourceAttributes() {
+    this.filteredspecializationList.paginator = this.paginator;
+  }
+
   serviceProviderID: any;
   uname: any;
   screenName = 'TC Specialist';
@@ -58,8 +70,6 @@ export class SpecialistMappingComponent implements OnInit {
 
   userSelected: any;
   specializationSelected: any;
-
-  displayedColumns: string[] = ['SNo', 'UserName', 'Specialization', 'action'];
 
   constructor(
     public alertService: ConfirmationDialogsService,
@@ -207,11 +217,6 @@ export class SpecialistMappingComponent implements OnInit {
   }
 
   filterList() {
-    // this.filterUsers = this.users.filter(elem => {
-    //   this.specializationList.filter(element => {
-    //       element.userID === elem.userID)
-    //   });
-    // })
     console.log(this.filterUsers);
   }
 
@@ -229,11 +234,13 @@ export class SpecialistMappingComponent implements OnInit {
           deleted: false,
         },
       ];
-      this.specialistMappingService.saveMappings(apiObj).subscribe((res) => {
-        this.alertService.alert('Mapping saved successfully', 'success');
-        this.getAvailableMapping();
-        this.showTable();
-      });
+      this.specialistMappingService
+        .saveMappings(apiObj)
+        .subscribe((res: any) => {
+          this.alertService.alert('Mapping saved successfully', 'success');
+          this.getAvailableMapping();
+          this.showTable();
+        });
     }
   }
 
@@ -242,7 +249,7 @@ export class SpecialistMappingComponent implements OnInit {
     console.log(this.specializationList, 'listed');
     this.specializationList.map((element: any) => {
       if (
-        element.userID === this.userSelected &&
+        element.userID.toString() === this.userSelected &&
         element.specializationID === this.specializationSelected
       ) {
         exists = true;

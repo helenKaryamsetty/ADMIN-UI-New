@@ -27,6 +27,7 @@ import { Observable } from 'rxjs';
 // import { InterceptedHttp } from '../../http.interceptor';
 // import { SecurityInterceptedHttp } from '../../http.securityinterceptor';
 import { ConfigService } from '../../../../core/services/config/config.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class EmployeeMasterNewServices {
@@ -82,127 +83,109 @@ export class EmployeeMasterNewServices {
     this.userActivationDeactivationUrl =
       this.providerAdmin_base_url + 'deletedUserDetails';
     this.checkEmpIdAvailabilityUrl =
-      this.providerAdmin_base_url + '/m/FindEmployeeDetails';
+      this.providerAdmin_base_url + 'm/FindEmployeeDetails';
   }
   // User Details related methods for fetching all dropdown data
   getCommonRegistrationData(): Observable<any> {
-    return this.http.post(this.getRegistrationDataUrl, {});
+    return this.http.post(environment.getRegistrationDataUrl, {});
     // .map(this.extractData)
     // .catch(this.handleError);
   }
   getAllUsers(serviceProviderID: any): Observable<any> {
-    return this.http.post(this.getAllUsersUrl, {
+    return this.http.post(environment.getAllUsersUrl, {
       serviceProviderID: serviceProviderID,
     });
     // .map(this.extractData)
     // .catch(this.handleError)
   }
   checkUserAvailability(name: any): Observable<any> {
-    return this.http.post(this.checkUserAvailabilityUrl, {
+    return this.http.post(environment.checkUserAvailabilityUrl, {
       userName: name,
     });
     // .map(this.extractData)
     // .catch(this.handleError)
   }
   checkEmpIdAvailability(empID: any): Observable<any> {
-    return this.http.post(this.checkEmpIdAvailabilityUrl, {
+    return this.http.post(environment.checkEmpIdAvailabilityUrl, {
       employeeID: empID,
     });
     // .map(this.extractData)
     // .catch(this.handleError)
   }
   getAllDesignations(): Observable<any> {
-    return this.http.post(this.getAllDesignationsUrl, {});
+    return this.http.post(environment.getAllDesignationsUrl, {});
     // .map(this.extractData)
     // .catch(this.handleError)
   }
   getAllMaritalStatuses(): Observable<any> {
-    return this.http.post(this.getAllMaritalStatusesUrl, {});
+    return this.http.post(environment.getAllMaritalStatusesUrl, {});
     // .map(this.extractData)
     // .catch(this.handleError)
   }
   getAllQualifications(): Observable<any> {
-    return this.http.post(this.getAllQualificationsUrl, {});
+    return this.http.post(environment.getAllQualificationsUrl, {});
     // .map(this.extractData)
     // .catch(this.handleError)
   }
   getAllCommunities(): Observable<any> {
-    return this.http.post(this.getAllCommunitiesUrl, {});
+    return this.http.post(environment.getAllCommunitiesUrl, {});
     // .map(this.extractData)
     // .catch(this.handleError)
   }
   getAllReligions(): Observable<any> {
-    return this.http.post(this.getAllReligionsUrl, {});
+    return this.http.post(environment.getAllReligionsUrl, {});
     // .map(this.extractData)
     // .catch(this.handleError)
   }
   getAllStates(countryId: any): Observable<any> {
     console.log('COuntryID:', countryId);
-    return this.http.get(this.getAllStatesUrl + countryId);
+    return this.http.get(environment.getAllStatesUrl + countryId);
     // .map(this.extractData)
     // .catch(this.handleError)
   }
   getAllDistricts(stateID: any): Observable<any> {
     console.log('stateID', stateID);
 
-    return this.http.get(this.getAllDistrictsUrl + stateID);
+    return this.http.get(environment.getAllDistrictsUrl + stateID);
     // .map(this.extractData)
     // .catch(this.handleError)
   }
   validateAadhar(idNumber: any): Observable<any> {
-    return this.http.post(this.checkID, { aadhaarNo: idNumber });
+    return this.http.post(environment.checkID, { aadhaarNo: idNumber });
     // .map(this.extractCustomData)
     // .catch(this.handleError);
   }
   validatePan(idNumber: any): Observable<any> {
-    return this.http.post(this.checkID, { pAN: idNumber });
+    return this.http.post(environment.checkID, { pAN: idNumber });
     // .map(this.extractCustomData)
     // .catch(this.handleError);
   }
   validateHealthProfessionalID(idNumber: any): Observable<any> {
-    return this.http.post(this.checkID, { healthProfessionalID: idNumber });
+    return this.http.post(environment.checkID, {
+      healthProfessionalID: idNumber,
+    });
     // .map(this.extractCustomData)
     // .catch(this.handleError);
   }
   createNewUser(reqObject: any): Observable<any> {
     console.log('service', reqObject);
 
-    return this.http.post(this.createNewUserUrl, reqObject);
+    return this.http.post(environment.createNewUserUrl, reqObject);
     // .map(this.extractData)
     // .catch(this.handleError)
   }
   editUserDetails(updateObj: any): Observable<any> {
-    return this.http.post(this.editUserDetailsUrl, updateObj);
+    return this.http.post(environment.editUserDetailsUrl, updateObj);
     // .map(this.extractData)
     // .catch(this.handleError)
   }
   userActivationDeactivation(toggle_obj: any): Observable<any> {
     console.log('toggle_obj', toggle_obj);
-    return this.http.post(this.userActivationDeactivationUrl, toggle_obj);
+    return this.http.post(
+      environment.userActivationDeactivationUrl,
+      toggle_obj,
+    );
     // .map(this.extractData)
     // .catch(this.handleError)
   }
-
-  // private extractCustomData(res: Response) {
-  //     if (res.json().data) {
-  //         console.log('Employee Master New Service', res.json().data);
-  //         return res.json().data;
-  //     } else {
-  //         return Observable.throw(res.json());
-  //     }
-  // }
-  // private extractData(res: Response) {
-  //     if (res.json().data && res.json().statusCode == 200) {
-  //         console.log('Employee Master New Service', res.json(), res.json().data);
-  //         return res.json().data;
-  //     } else {
-  //         return Observable.throw(res.json());
-  //     }
-  // }
-  // private handleCustomError(error: Response | any) {
-  //     return Observable.throw(error.json());
-  // }
-  // private handleError(error: Response | any) {
-  //     return Observable.throw(error.json());
-  // }
 }

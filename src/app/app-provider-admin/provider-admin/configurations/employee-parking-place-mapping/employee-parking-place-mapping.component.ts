@@ -106,7 +106,7 @@ export class EmployeeParkingPlaceMappingComponent implements OnInit {
     private alertMessage: ConfirmationDialogsService,
   ) {
     this.data = [];
-    this.service_provider_id = this.commonDataService.service_providerID;
+    this.service_provider_id = sessionStorage.getItem('service_providerID');
     this.countryID = 1; // hardcoded as country is INDIA
     this.serviceID = this.commonDataService.serviceIDMMU;
     this.createdBy = this.commonDataService.uname;
@@ -124,7 +124,15 @@ export class EmployeeParkingPlaceMappingComponent implements OnInit {
       .getServices(this.login_userID)
       .subscribe(
         (response: any) => {
-          this.services_array = response.data;
+          this.services_array = response.data.filter(function (item: any) {
+            console.log('item', item);
+            if (
+              item.serviceID === 1 ||
+              item.serviceID === 3 ||
+              item.serviceID === 6
+            )
+              return item;
+          });
         },
         (err) => {},
       );
@@ -148,7 +156,6 @@ export class EmployeeParkingPlaceMappingComponent implements OnInit {
       this.provider_states = response.data;
       this.availableEmployeeParkingPlaceMappings = [];
       this.filteredavailableEmployeeParkingPlaceMappings.data = [];
-      // this.createButton = false;
     }
   }
   setProviderServiceMapID(providerServiceMapID: any) {
@@ -497,7 +504,6 @@ export class EmployeeParkingPlaceMappingComponent implements OnInit {
   }
 
   employeeParkingPlaceMappingObj: any;
-  // employeeParkingPlaceMappingList.data = [];
   saveParkingMpping() {
     const obj = {
       userParkingPlaceMaps: this.employeeParkingPlaceMappingList.data,
@@ -596,7 +602,6 @@ export class EmployeeParkingPlaceMappingComponent implements OnInit {
     };
 
     if (this.checkDBDuplicates(parkingObj)) {
-      // this.employeeParkingPlaceMappingList.push(parkingObj);
       this.employeeParkingPlaceMappingService
         .updateEmployeeParkingPlaceMappings(parkingObj)
         .subscribe((response) =>
@@ -613,7 +618,6 @@ export class EmployeeParkingPlaceMappingComponent implements OnInit {
       this.searchStateID,
       this.designationID.designationID,
     );
-    // this.editMode = false;;
   }
   filterComponentList(searchTerm?: string) {
     if (!searchTerm) {
@@ -702,7 +706,6 @@ export class EmployeeParkingPlaceMappingComponent implements OnInit {
               },
               (err) => {
                 console.log('error', err);
-                //this.alertService.alert(err, 'error');
               },
             );
         }

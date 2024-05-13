@@ -44,14 +44,13 @@ export class ProviderAdminFetosenseTestMasterService {
     this._getStateListURL = this.providerAdmin_Base_Url + 'm/role/stateNew';
     this._getServiceLineURL = this.providerAdmin_Base_Url + 'm/role/serviceNew';
     this.create_Tests_Url =
-      this.providerAdmin_Base_Url + '/fetosense/createFetosenseTestMaster';
+      this.providerAdmin_Base_Url + 'fetosense/createFetosenseTestMaster';
     this.find_Tests_By_State_Service_Url =
-      this.providerAdmin_Base_Url + '/fetosense/fetchFetosenseTestMaster/';
+      this.providerAdmin_Base_Url + 'fetosense/fetchFetosenseTestMaster/';
     this.edit_Test_Url =
-      this.providerAdmin_Base_Url + '/fetosense/updateFetosenseTestMaster';
+      this.providerAdmin_Base_Url + 'fetosense/updateFetosenseTestMaster';
     this.delete_Test_Url =
-      this.providerAdmin_Base_Url +
-      '/fetosense/updateFetosenseTestMasterStatus';
+      this.providerAdmin_Base_Url + 'fetosense/updateFetosenseTestMasterStatus';
   }
 
   getServices(userID: any): Observable<any> {

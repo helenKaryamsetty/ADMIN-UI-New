@@ -19,7 +19,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see https://www.gnu.org/licenses/.
  */
-import { Component, OnInit, Inject, ViewChild } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Inject,
+  ViewChild,
+  ChangeDetectorRef,
+  AfterViewInit,
+} from '@angular/core';
 import { ProviderAdminRoleService } from '../services/state-serviceline-role.service';
 import { dataService } from 'src/app/core/services/dataService/data.service';
 import { SeverityTypeService } from 'src/app/core/services/ProviderAdminServices/severity-type-service';
@@ -35,11 +42,8 @@ import { MatPaginator } from '@angular/material/paginator';
   templateUrl: './severity-type.component.html',
   styleUrls: ['./severity-type.component.css'],
 })
-export class SeverityTypeComponent implements OnInit {
+export class SeverityTypeComponent implements OnInit, AfterViewInit {
   [x: string]: any;
-  filtereddata = new MatTableDataSource<any>();
-  severityArray = new MatTableDataSource<any>();
-  @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
 
   displayedColumns: string[] = [
     'SNo',
@@ -75,7 +79,11 @@ export class SeverityTypeComponent implements OnInit {
   providerServiceMapID_1097: any;
   // severityArray: any = [];
   createdBy: any;
-
+  filtereddata = new MatTableDataSource<any>();
+  paginator!: MatPaginator;
+  @ViewChild('paginatorFirst') paginatorFirst!: MatPaginator;
+  @ViewChild('paginatorSecond') paginatorSecond!: MatPaginator;
+  severityArray = new MatTableDataSource<any>();
   @ViewChild('severityAdding')
   severityAdding!: NgForm;
   constructor(
@@ -83,11 +91,13 @@ export class SeverityTypeComponent implements OnInit {
     public severityTypeService: SeverityTypeService,
     public dialog: MatDialog,
     private alertService: ConfirmationDialogsService,
+    private cdr: ChangeDetectorRef,
   ) {}
 
   ngOnInit() {
-    this.serviceProviderID =
-      this.commonDataService.service_providerID.toString();
+    this.serviceProviderID = sessionStorage
+      .getItem('service_providerID')
+      ?.toString();
     this.userID = this.commonDataService.uid;
     this.createdBy = this.commonDataService.uname;
 
@@ -98,12 +108,19 @@ export class SeverityTypeComponent implements OnInit {
     this.severityTypeService.getServices(this.userID).subscribe(
       (response: any) => {
         console.log('success while getting services', response);
-        this.services = response.data;
+        // this.services = response.data;
+        this.services = response.data.filter(function (item: any) {
+          console.log('item', item);
+          if (item.serviceID === 3 || item.serviceID === 1) return item;
+        });
       },
       (err) => {
         console.log('err while getting services', err);
       },
     );
+  }
+  ngAfterViewInit() {
+    this.filtereddata.paginator = this.paginatorFirst;
   }
 
   getProviderStates(serviceID: any, isNational: any) {
@@ -186,40 +203,44 @@ export class SeverityTypeComponent implements OnInit {
       this.alreadyExist = true;
     }
   }
+
   add(values: any) {
-    const obj = {
-      severityTypeName: values.severity,
+    // Trim leading and trailing whitespace from the severity type name
+    const newSeverityTypeName = values.severity.trim();
+
+    // Check if the severity type name is empty
+    if (!newSeverityTypeName) {
+      this.alertService.alert('Severity type name cannot be empty.');
+      return; // Exit the function early if the severity type name is empty
+    }
+
+    // Check for duplicates
+    const isDuplicate = this.severityArray.data.some(
+      (item) =>
+        item.severityTypeName.trim().toLowerCase() ===
+        newSeverityTypeName.toLowerCase(),
+    );
+
+    if (isDuplicate) {
+      this.alertService.alert('Severity type name already exists.');
+      return; // Exit the function if a duplicate is found
+    }
+
+    // Create a new object for the severity type
+    const newObj = {
+      severityTypeName: newSeverityTypeName,
       severityDesc: values.description,
       providerServiceMapID: this.providerServiceMapID,
       createdBy: this.createdBy,
     };
-    if (
-      this.severityArray.data.length === 0 &&
-      obj.severityTypeName !== '' &&
-      obj.severityTypeName !== undefined
-    ) {
-      this.severityArray.data.push(obj);
-    } else {
-      let count = 0;
-      for (let i = 0; i < this.severityArray.data.length; i++) {
-        if (
-          obj.severityTypeName === this.severityArray.data[i].severityTypeName
-        ) {
-          count = count + 1;
-        }
-      }
-      if (count === 0) {
-        this.severityArray.data.push(obj);
-      } else {
-        this.alertService.alert('Already exists');
-      }
-    }
 
-    // this.severityArray.push(obj);
+    // Add the new object to the severityArray
+    this.severityArray.data = [...this.severityArray.data, newObj];
+
+    // Reset the form
     this.severityAdding.resetForm();
-    // this.addSeverity(values.severity);
-    // this.alreadyExist = false;
   }
+
   handlingFlag(flag: any) {
     this.firstPage = flag;
 
@@ -241,8 +262,11 @@ export class SeverityTypeComponent implements OnInit {
         }
       });
   }
-  removeObj(i: any) {
-    this.severityArray.data.splice(i, 1);
+  removeObj(index: any) {
+    const newData = [...this.severityArray.data];
+    newData.splice(index, 1);
+    this.severityArray.data = newData;
+    this.cdr.detectChanges();
   }
   finalSubmit() {
     this.severityTypeService.addSeverity(this.severityArray.data).subscribe(

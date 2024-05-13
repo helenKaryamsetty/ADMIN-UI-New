@@ -1,68 +1,78 @@
-<div class="row">
-  <div class="pull-left m-l-15">
-    <h4 class="modal-title">Edit Complaint Nature</h4>
-  </div>
-  <div class="pull-right">
-    <button mat-button class="pull-right" [mat-dialog-close]="true">
-      <mat-icon
-        matTooltip="close"
-        class="mat-icon material-icons pull-right"
-        role="img"
-        aria-hidden="true"
-        style="cursor: pointer"
-        >clear</mat-icon
-      >
-    </button>
-  </div>
-</div>
-<div class="m-t-20">
-  <form #f1="ngForm" autocomplete="off">
-    <div class="m-t-15">
-      <mat-form-field style="width: 100%">
-        <mat-label>Nature of Complaint</mat-label>
-        <input
-          mdInput
-          name="feedbackNature"
-          [(ngModel)]="feedbackNature"
-          (keyup)="validateFeedback(feedbackNature)"
-          #fbNature="ngModel"
-          maxlength="50"
-          required
-        />
-        <mat-hint *ngIf="fbNature.errors && fbNature.touched">
-          <span class="error_text">Nature of complaint is required</span>
-        </mat-hint>
-        <mat-hint *ngIf="natureExists && fbNature.touched">
-          <span class="error_text">{{ msg }}</span>
-        </mat-hint>
-      </mat-form-field>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-6 col-sm-6 col-md-9 col-lg-9">
+      <h4 mat-dialog-title class="modal-title" style="margin: unset">
+        Edit Complaint Nature
+      </h4>
     </div>
-    <div class="m-t-15">
-      <mat-form-field style="width: 100%">
-        <mat-label>Feedback Nature Description</mat-label>
-        <input
-          mdInput
-          textAreaValidator
-          name="feedbackNatureDesc"
-          [(ngModel)]="feedbackNatureDesc"
-          #fbNatureDesc="ngModel"
-          maxlength="100"
-        />
-        <!-- <mat-hint *ngIf="fbNatureDesc.errors && fbNatureDesc.touched">
-              <span class="error_text">Feedback Nature Description is required</span>
-          </mat-hint> -->
-      </mat-form-field>
-    </div>
-    <div class="m-t-20">
+    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
       <button
-        mat-raised-button
-        color="accent"
-        class="pull-right"
-        (click)="update()"
-        [disabled]="f1.invalid || natureExists"
+        mat-button
+        class="pull-right p-r-0"
+        [mat-dialog-close]="true"
+        style="background-color: unset; border: unset; margin: 20px"
       >
-        Update
+        <mat-icon
+          mdTooltip="close"
+          class="mat-icon material-icons pull-right"
+          role="img"
+          aria-hidden="true"
+          style="cursor: pointer"
+          >clear</mat-icon
+        >
       </button>
     </div>
-  </form>
+  </div>
+  <div class="m-t-20">
+    <form #f1="ngForm" autocomplete="off">
+      <div class="m-t-15">
+        <mat-form-field>
+          <mat-label>Nature of Complaint</mat-label>
+          <input
+            mdInput
+            name="feedbackNature"
+            [(ngModel)]="feedbackNature"
+            (keyup)="validateFeedback(feedbackNature)"
+            #fbNature="ngModel"
+            maxlength="50"
+            required
+          />
+          <mat-hint *ngIf="fbNature.errors && fbNature.touched">
+            <span class="error_text">Nature of complaint is required</span>
+          </mat-hint>
+          <mat-hint *ngIf="natureExists && fbNature.touched">
+            <span class="error_text">{{ msg }}</span>
+          </mat-hint>
+        </mat-form-field>
+      </div>
+      <div class="m-t-15">
+        <mat-form-field>
+          <mat-label>Feedback Nature Description</mat-label>
+          <input
+            mdInput
+            appTextAreaValidator
+            name="feedbackNatureDesc"
+            [(ngModel)]="feedbackNatureDesc"
+            #fbNatureDesc="ngModel"
+            maxlength="100"
+          />
+          <!-- <mat-hint *ngIf="fbNatureDesc.errors && fbNatureDesc.touched">
+                <span class="error_text">Feedback Nature Description is required</span>
+            </mat-hint> -->
+        </mat-form-field>
+      </div>
+      <div class="m-t-20">
+        <button
+          mat-raised-button
+          color="accent"
+          style="margin-bottom: 15px"
+          class="pull-right mat_green"
+          (click)="update()"
+          [disabled]="f1.invalid || natureExists"
+        >
+          Update
+        </button>
+      </div>
+    </form>
+  </div>
 </div>

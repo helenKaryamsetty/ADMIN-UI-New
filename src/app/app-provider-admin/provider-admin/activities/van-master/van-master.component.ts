@@ -111,7 +111,7 @@ export class VanComponent implements OnInit {
     private alertMessage: ConfirmationDialogsService,
   ) {
     this.data = [];
-    this.service_provider_id = this.commonDataService.service_providerID;
+    this.service_provider_id = sessionStorage.getItem('service_providerID');
     this.countryID = 1; // hardcoded as country is INDIA
     this.serviceID = this.commonDataService.serviceIDMMU;
     this.createdBy = this.commonDataService.uname;
@@ -131,7 +131,16 @@ export class VanComponent implements OnInit {
   getProviderServices() {
     this.servicePointMasterService.getServices(this.userID).subscribe(
       (response: any) => {
-        this.services_array = response.data;
+        // this.services_array = response.data;
+        this.services_array = response.data.filter(function (item: any) {
+          console.log('item', item);
+          if (
+            item.serviceID === 4 ||
+            item.serviceID === 9 ||
+            item.serviceID === 2
+          )
+            return item;
+        });
       },
       (err: any) => {},
     );
@@ -212,17 +221,6 @@ export class VanComponent implements OnInit {
     }
   }
 
-  // districts: any = [];
-  // getDistricts(zoneID) {
-  //     this.vanMasterService.getDistricts(zoneID).subscribe(response => this.getDistrictsSuccessHandeler(response));
-  // }
-  // getDistrictsSuccessHandeler(response) {
-  //     console.log(response, "districts retrieved");
-  //     this.districts = response;
-  //     this.availableVans = [];
-  //     this.filteredavailableVans = [];
-  //     this.createButton = false;
-  // }
   obj: any;
   getVanTypes() {
     this.vanMasterService
@@ -263,7 +261,7 @@ export class VanComponent implements OnInit {
   }
 
   getVanSuccessHandler(response: any) {
-    this.availableVans.data = response.data;
+    this.availableVans = response.data;
     this.filteredavailableVans.data = response.data;
     this.createButton = true;
     this.showVansTable = true;
@@ -273,31 +271,6 @@ export class VanComponent implements OnInit {
     }
   }
 
-  // taluks: any = [];
-  // GetTaluks(parkingPlaceID, districtID) {
-  //     let talukObj = {
-  //         "parkingPlaceID": parkingPlaceID,
-  //         "districtID": districtID
-  //     }
-  //     this.vanMasterService.getTaluks(talukObj)
-  //         .subscribe(response => this.SetTaluks(response));
-  // }
-  // SetTaluks(response: any) {
-  //     this.taluks = response;
-  //     if (this.editVanValue != undefined) {
-  //         if (this.taluks) {
-  //             let taluk = this.taluks.filter((talukRes) => {
-  //                 if (this.editVanValue.districtBlockID == talukRes.districtBlockID) {
-  //                     return talukRes;
-  //                 }
-  //             })[0];
-  //             if (taluk) {
-  //                 this.talukID = taluk;
-  //             }
-  //         }
-
-  //     }
-  // }
   deleteRow(i: any) {
     this.vanList.data.splice(i, 1);
   }

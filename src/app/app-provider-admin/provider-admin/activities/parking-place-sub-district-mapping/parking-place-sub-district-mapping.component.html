@@ -9,9 +9,9 @@
     <h4 *ngIf="editable && !showListOfMapping">
       Edit Parking Place/Hub - Taluk/Sub-District Mapping
     </h4>
-    <form #searchForm="ngForm" autocomplete="off">
+    <form #searchForm="ngForm" autocomplete="off" class="col-12">
       <div class="row">
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
+        <div class="col-3 m-t-15">
           <mat-form-field>
             <mat-label>Serviceline</mat-label>
             <mat-select
@@ -29,7 +29,7 @@
             </mat-select>
           </mat-form-field>
         </div>
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
+        <div class="col-3 m-t-15">
           <mat-form-field>
             <mat-label>State</mat-label>
             <mat-select
@@ -49,7 +49,7 @@
             </mat-select>
           </mat-form-field>
         </div>
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
+        <div class="col-3 m-t-15">
           <mat-form-field>
             <mat-label>Zone</mat-label>
             <mat-select
@@ -69,11 +69,10 @@
             </mat-select>
           </mat-form-field>
         </div>
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-          <mat-form-field>
+        <div class="col-3 m-t-15">
+          <mat-form-field *ngIf="parkAndHub">
             <mat-label>{{ parkAndHub }}</mat-label>
             <mat-select
-              *ngIf="parkAndHub"
               class="width100"
               [(ngModel)]="parking_Place"
               name="parking_Place"
@@ -187,39 +186,6 @@
             </button>
           </td>
         </ng-container>
-
-        <!-- <thead>
-          <tr>
-            <th width="5%">S.No.</th>
-            <th width="12%">{{parkAndHub}}</th>
-            <th width="12%">District</th>
-            <th width="15%">Sub-District</th>
-            <th width="10%">Edit</th>
-            <th width="12%">Action</th>
-          </tr>
-        </thead> -->
-        <!-- <tbody>
-          <tr *ngIf="md2.data.length == 0" class="record-not-found">
-            <td colspan="6" align="center">No records found</td>
-          </tr>
-          <tr *ngFor="let parkingPlace of md2.data ;let i=index">
-            <td>{{mappedParkingPlaceDistricts.indexOf(parkingPlace)+1}} </td>
-            <td>{{parkingPlace.parkingPlaceName}}</td>
-            <td>{{parkingPlace.districtName}}</td>
-            <td>{{parkingPlace.districtBlockName}}</td>
-            <td>
-              <md-icon mdTooltip="edit" class="mat-icon material-icons" role="img" aria-hidden="true" style="cursor:pointer" *ngIf="!parkingPlace.deleted && !parkingPlace.parkingPlaceDeleted"
-                (click)="editSubDistrictMapping(parkingPlace)">edit</md-icon>
-            </td>
-            <td>
-              <button *ngIf="parkingPlace.deleted || parkingPlace.parkingPlaceDeleted" mat-raised-button color="accent" (click)="activateDeactivateMapping(parkingPlace, parkingPlace.parkingPlaceDeleted)">Activate</button>
-              <button *ngIf="!parkingPlace.deleted && !parkingPlace.parkingPlaceDeleted" mat-raised-button color="primary" (click)="activateDeactivateMapping(parkingPlace, false)">Deactivate</button>
-            </td>
-          </tr>
-        </tbody> -->
-        <tfoot>
-          <tr></tr>
-        </tfoot>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
       </table>
@@ -369,14 +335,14 @@
 
         <tr mat-header-row *matHeaderRowDef="displayAddedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayAddedColumns"></tr>
+        <mat-paginator
+          [hidden]="mappingList.data.length === 0"
+          [pageSizeOptions]="[5, 10, 20]"
+          [pageSize]="5"
+          showFirstLastButtons
+        >
+        </mat-paginator>
       </table>
-      <mat-paginator
-        [hidden]="mappingList.data.length === 0"
-        [pageSizeOptions]="[5, 10, 20]"
-        [pageSize]="5"
-        showFirstLastButtons
-      >
-      </mat-paginator>
     </div>
   </div>
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-20 m-b-10">

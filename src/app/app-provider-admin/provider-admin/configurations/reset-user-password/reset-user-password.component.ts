@@ -70,7 +70,7 @@ export class ResetUserPasswordComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.serviceProviderID = this.data_service.service_providerID;
+    this.serviceProviderID = sessionStorage.getItem('service_providerID');
     this.getAllUserName(this.serviceProviderID);
   }
 

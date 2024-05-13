@@ -23,6 +23,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ConfigService } from 'src/app/core/services/config/config.service';
+import { environment } from 'src/environments/environment';
 // import 'rxjs/add/operator/catch';
 // import 'rxjs/add/operator/map';
 // import { InterceptedHttp } from '../../http.interceptor';
@@ -88,49 +89,45 @@ export class DrugMasterService {
       this.providerAdmin_Base_Url + 'm/location/getStatesByServiceID';
   }
   getServiceLinesNew(userID: any) {
-    return this.http.post(this.getServiceLines_new_url, { userID: userID });
+    return this.http.post(environment.getServiceLines_new_url, {
+      userID: userID,
+    });
     // .map(this.handleState_n_ServiceSuccess)
     // .catch(this.handleError);
   }
   getStatesNew(obj: any) {
-    return this.http.post(this.getStates_new_url, obj);
+    return this.http.post(environment.getStates_new_url, obj);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
   getDrugMappings(data: any) {
-    return this.http.post(this.getDrugMappingsURL, data);
+    return this.http.post(environment.getDrugMappingsURL, data);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
   getDrugGroups(data: any) {
-    return this.http.post(this.getDrugGroupsURL, data);
+    return this.http.post(environment.getDrugGroupsURL, data);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
 
   getDrugsList(data: any) {
-    return this.http.post(this.getDrugsListURL, data);
+    return this.http.post(environment.getDrugsListURL, data);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
 
   mapDrugGroups(data: any) {
-    return this.http.post(this.mapDrugGroupURL, data);
+    return this.http.post(environment.mapDrugGroupURL, data);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
 
   /* End Mapping */
 
-  // getAllDrugStrengths() {
-  //     return this.httpIntercept.post(this.getAllDrugStrengthsUrl, {})
-  //     .map(this.handleSuccess)
-  //     .catch(this.handleError);
-  // }
-
   /*Drug Group Master*/
   getStatesByServiceID(serviceID: any, serviceProviderID: any) {
-    return this.http.post(this._getStateListBYServiceIDURL, {
+    return this.http.post(environment._getStateListByServiceIDURL, {
       serviceID: serviceID,
       serviceProviderID: serviceProviderID,
     });
@@ -138,17 +135,17 @@ export class DrugMasterService {
     // .catch(this.handleError);
   }
   saveDrugGroups(data: any) {
-    return this.http.post(this.saveDrugGroupsURL, data);
+    return this.http.post(environment.saveDrugGroupsURL, data);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
   updateDrugGroup(data: any) {
-    return this.http.post(this.updateDrugGroupURL, data);
+    return this.http.post(environment.updateDrugGroupURL, data);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
   updateDrugStatus(data: any) {
-    return this.http.post(this.updateDrugStatusURL, data);
+    return this.http.post(environment.updateDrugStatusURL, data);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
@@ -157,46 +154,20 @@ export class DrugMasterService {
   /*Drug List*/
 
   saveDrugs(data: any) {
-    return this.http.post(this.saveDrugsURL, data);
+    return this.http.post(environment.saveDrugsURL, data);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
   updateDrugData(data: any) {
-    return this.http.post(this.updateDrugDataURL, data);
+    return this.http.post(environment.updateDrugDataURL, data);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
   /**End drug list**/
 
   updateDrugMappings(data: any) {
-    return this.http.post(this.updateDrugMappingsURL, data);
+    return this.http.post(environment.updateDrugMappingsURL, data);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
-
-  // handleState_n_ServiceSuccess(response: Response) {
-
-  //     console.log(response.json().data, 'role service file success response');
-  //     let result = [];
-  //     result = response.json().data.filter(function (item) {
-  //         if (item.serviceID == 3) {
-  //             return item;
-  //         }
-  //     });
-  //     return result;
-  // }
-
-  // handleSuccess(res: Response) {
-  //     console.log(res.json().data, '--- in drug master SERVICE');
-  //     if (res.json().data) {
-  //         return res.json().data;
-  //     } else {
-  //         return Observable.throw(res.json());
-  //     }
-  // }
-
-  // handleError(error: Response | any) {
-  //     return Observable.throw(error.json());
-
-  // }
 }

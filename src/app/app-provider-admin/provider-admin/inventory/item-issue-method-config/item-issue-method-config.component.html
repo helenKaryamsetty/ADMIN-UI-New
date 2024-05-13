@@ -4,16 +4,15 @@
       <strong>Item Issue Method Configuration</strong>
     </h4>
   </div>
-  <div class="col-xs-12 col-sm-12 p-a-0">
-    <form id="form" #itemIssueForm="ngForm" autocomplete="off">
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <mat-form-field class="hide_underline" [style.width]="'100%'">
+  <div class="col-12 p-a-0">
+    <form id="form" #itemIssueForm="ngForm" autocomplete="off" class="row">
+      <div class="col-3">
+        <mat-form-field class="hide_underline">
           <mat-label>Serviceline</mat-label>
-          <input matInput style="display: none" />
+          <!-- <input matInput style="display: none" /> -->
           <mat-select
             required
             name="Services"
-            [style.width]="'100%'"
             [(ngModel)]="serviceline"
             (selectionChange)="getstates(serviceline)"
           >
@@ -23,16 +22,11 @@
           </mat-select>
         </mat-form-field>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <mat-form-field class="hide_underline" [style.width]="'100%'">
+      <div class="col-3">
+        <mat-form-field class="hide_underline">
           <mat-label>State</mat-label>
-          <input matInput style="display: none" />
-          <mat-select
-            required
-            name="state"
-            [style.width]="'100%'"
-            [(ngModel)]="state"
-          >
+          <!-- <input matInput style="display: none" /> -->
+          <mat-select required name="state" [(ngModel)]="state">
             <mat-option
               *ngFor="let item of states_array"
               [value]="item"
@@ -49,11 +43,11 @@
           tableMode && providerServiceMapID && itemCategory_array?.length > 0
         "
       >
-        <div class="row" class="pull-right">
+        <div class="row" class="" style="text-align: end">
           <mat-form-field id="filterbox">
+            <mat-label> In-Table Search </mat-label>
             <input
               matInput
-              placeholder="In-Table Search"
               name="filterTerm"
               [(ngModel)]="create_filterTerm"
               #filterTerm
@@ -212,17 +206,16 @@
       <strong>Item Issue Method Configuration</strong>
     </h4>
   </div>
-  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-a-0">
-    <form id="form" #ItemIssueAddForm1="ngForm">
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <mat-form-field class="hide_underline" [style.width]="'100%'">
+  <div class="col-12 p-a-0">
+    <form id="form" #ItemIssueAddForm1="ngForm" class="row">
+      <div class="col-3">
+        <mat-form-field class="hide_underline">
           <mat-label>Serviceline</mat-label>
-          <input matInput style="display: none" />
+          <!-- <input matInput style="display: none" /> -->
           <mat-select
             required
             name="Services"
             [disabled]="true"
-            [style.width]="'100%'"
             [(ngModel)]="serviceline"
             (selectionChange)="getstates(serviceline)"
           >
@@ -232,14 +225,13 @@
           </mat-select>
         </mat-form-field>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <mat-form-field class="hide_underline" [style.width]="'100%'">
+      <div class="col-3">
+        <mat-form-field class="hide_underline">
           <mat-label>State</mat-label>
-          <input matInput style="display: none" />
+          <!-- <input matInput style="display: none" /> -->
           <mat-select
             required
             name="state"
-            [style.width]="'100%'"
             [disabled]="true"
             [(ngModel)]="state"
           >
@@ -251,17 +243,12 @@
       </div>
     </form>
     <div class="clearfix visible-md visible-lg"></div>
-    <form id="form" #ItemIssueAddForm="ngForm">
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <mat-form-field class="hide_underline" [style.width]="'100%'">
+    <form id="form" #ItemIssueAddForm="ngForm" class="col-12 row">
+      <div class="col-3">
+        <mat-form-field class="hide_underline">
           <mat-label>Item Category Name</mat-label>
-          <input matInput style="display: none" />
-          <mat-select
-            required
-            name="itemcategory"
-            [style.width]="'100%'"
-            [(ngModel)]="category"
-          >
+          <!-- <input matInput style="display: none" /> -->
+          <mat-select required name="itemcategory" [(ngModel)]="category">
             <mat-option
               *ngFor="let item of filterItemCategory"
               [value]="item"
@@ -272,16 +259,11 @@
           </mat-select>
         </mat-form-field>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <mat-form-field class="hide_underline" [style.width]="'100%'">
+      <div class="col-3">
+        <mat-form-field class="hide_underline">
           <mat-label>Issue Type</mat-label>
-          <input matInput style="display: none" />
-          <mat-select
-            required
-            name="itemissue"
-            [style.width]="'100%'"
-            [(ngModel)]="itemIssue"
-          >
+          <!-- <input matInput style="display: none" /> -->
+          <mat-select required name="itemissue" [(ngModel)]="itemIssue">
             <mat-option *ngFor="let item of ItemIssue_array" [value]="item">
               {{ item.Name }}
             </mat-option>
@@ -442,16 +424,20 @@
       <strong>Edit Item Configuration</strong>
     </h4>
   </div>
-  <form id="form" #ItemIssueeditForm="ngForm" autocomplete="off">
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-      <mat-form-field class="hide_underline" [style.width]="'100%'">
+  <form
+    id="form"
+    #ItemIssueeditForm="ngForm"
+    autocomplete="off"
+    class="col-12 row"
+  >
+    <div class="col-3">
+      <mat-form-field class="hide_underline">
         <mat-label>Serviceline</mat-label>
-        <input matInput style="display: none" />
+        <!-- <input matInput style="display: none" /> -->
         <mat-select
           required
           name="Services"
           [disabled]="true"
-          [style.width]="'100%'"
           [(ngModel)]="edit_Serviceline"
           (selectionChange)="getstates(serviceline)"
         >
@@ -461,14 +447,13 @@
         </mat-select>
       </mat-form-field>
     </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-      <mat-form-field class="hide_underline" [style.width]="'100%'">
+    <div class="col-3">
+      <mat-form-field class="hide_underline">
         <mat-label>State</mat-label>
-        <input matInput style="display: none" />
+        <!-- <input matInput style="display: none" /> -->
         <mat-select
           required
           name="state"
-          [style.width]="'100%'"
           [disabled]="true"
           [(ngModel)]="edit_State"
         >
@@ -479,14 +464,13 @@
       </mat-form-field>
     </div>
     <div class="clearfix visible-md visible-lg"></div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-      <mat-form-field class="hide_underline" [style.width]="'100%'">
+    <div class="col-3">
+      <mat-form-field class="hide_underline">
         <mat-label>Item Category Name</mat-label>
-        <input matInput style="display: none" />
+        <!-- <input matInput style="display: none" /> -->
         <mat-select
           required
           name="itemcategory"
-          [style.width]="'100%'"
           [disabled]="true"
           [(ngModel)]="edit_category"
         >
@@ -500,16 +484,11 @@
         </mat-select>
       </mat-form-field>
     </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-      <mat-form-field class="hide_underline" [style.width]="'100%'">
+    <div class="col-3">
+      <mat-form-field class="hide_underline">
         <mat-label>Issue Type</mat-label>
-        <input matInput style="display: none" />
-        <mat-select
-          required
-          name="itemissue"
-          [style.width]="'100%'"
-          [(ngModel)]="edit_itemIssue"
-        >
+        <!-- <input matInput style="display: none" /> -->
+        <mat-select required name="itemissue" [(ngModel)]="edit_itemIssue">
           <mat-option *ngFor="let item of ItemIssue_array" [value]="item.Name">
             {{ item.Name }}
           </mat-option>

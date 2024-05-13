@@ -95,3 +95,14 @@ mat-card-title {
     top: 0px;
   }
 }
+
+.mat-icon { 
+  -webkit-user-select: none;
+    user-select: none;
+    background-repeat: no-repeat;
+    display: inline-block;
+    fill: currentColor;
+    height: auto !important;
+    width: 24px;
+    overflow: hidden;
+}

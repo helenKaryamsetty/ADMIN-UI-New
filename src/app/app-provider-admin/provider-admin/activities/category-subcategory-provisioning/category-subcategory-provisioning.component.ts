@@ -20,7 +20,13 @@
  * along with this program.  If not, see https://www.gnu.org/licenses/.
  */
 
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { EditCategorySubcategoryComponent } from './edit-category-subcategory/edit-category-subcategory.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -35,13 +41,25 @@ import { dataService } from 'src/app/core/services/dataService/data.service';
   templateUrl: './category-subcategory-provisioning.component.html',
   styleUrls: ['./category-subcategory-provisioning.component.css'],
 })
-export class CategorySubcategoryProvisioningComponent implements OnInit {
+export class CategorySubcategoryProvisioningComponent
+  implements OnInit, AfterViewInit
+{
   [x: string]: any;
   serviceList = new MatTableDataSource<any>();
-  filtereddata = new MatTableDataSource<any>();
   serviceSubCatList = new MatTableDataSource<any>();
+  @ViewChild(MatPaginator) innerpaginator: MatPaginator | null = null;
   filteredsubCat = new MatTableDataSource<any>();
-  @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
+  paginator!: MatPaginator;
+  @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
+    this.paginator = mp;
+    this.setDataSourceAttributes();
+  }
+  filtereddata = new MatTableDataSource<any>();
+
+  setDataSourceAttributes() {
+    this.filtereddata.paginator = this.paginator;
+  }
+
   // filteredsubCat: any = [];
   // filtereddata: any = [];
   serviceproviderID: any;
@@ -126,29 +144,27 @@ export class CategorySubcategoryProvisioningComponent implements OnInit {
     public dialog: MatDialog,
     public CategorySubcategoryService: CategorySubcategoryService,
     private messageBox: ConfirmationDialogsService,
+    private cdr: ChangeDetectorRef,
   ) {
     this.api_choice = '0';
     this.searchChoice = '0';
     this.Add_Category_Subcategory_flag = true;
     this.showTable = true;
-    this.serviceproviderID = this.commonDataService.service_providerID;
+    this.serviceproviderID = sessionStorage.getItem('service_providerID');
     this.createdBy = this.commonDataService.uname;
   }
 
   ngOnInit() {
     this.userID = this.commonDataService.uid;
-    //  this.getStates(); //commented on 12/4/18 w.r.t.1097 changes
     this.getServiceLines();
     this.cateDisabled = 'false';
   }
 
-  // getStates() {
-  //   this.CategorySubcategoryService.getStates(this.serviceproviderID)
-  //     .subscribe((response) => {
-  //       this.states = response;
-  //     }, (err) => {
-  //     });
-  // } //commented on 12/4/18 w.r.t.1097 changes
+  ngAfterViewInit() {
+    this.filtereddata.paginator = this.paginator;
+    this.filteredsubCat.paginator = this.innerpaginator;
+  }
+
   getServiceLines() {
     this.CategorySubcategoryService.getServiceLinesNew(this.userID).subscribe(
       (response: any) => {
@@ -165,7 +181,8 @@ export class CategorySubcategoryProvisioningComponent implements OnInit {
       if (
         item.serviceID === 3 ||
         item.serviceID === 1 ||
-        item.serviceID === 6
+        item.serviceID === 6 ||
+        item.serviceID === 2
       ) {
         return item;
       }
@@ -173,20 +190,7 @@ export class CategorySubcategoryProvisioningComponent implements OnInit {
     //         this.subServices = [];
     //    this.serviceLines = res
   }
-  // getServices(stateID: any) {
-  //   this.service = undefined;
-  //   this.CategorySubcategoryService.getServiceLines(this.serviceproviderID, stateID)
-  //     .subscribe((response) => {
-  //       this.serviceLines = response.filter(function (item) {
-  //         if (item.serviceID === 3 || item.serviceID === 1) {
-  //           return item;
-  //         }
-  //       });
-  //       this.subServices = [];
-  //     }, (err) => {
 
-  //     });
-  // }  //commented on 12/4/18 w.r.t.1097 change
   getStates(value: any) {
     const obj = {
       userID: this.userID,
@@ -227,7 +231,9 @@ export class CategorySubcategoryProvisioningComponent implements OnInit {
   servicesGetting(proServiceMapID: any) {
     this.data = [];
     this.filtereddata.data = [];
+    this.filtereddata.paginator = this.paginator;
     this.filteredsubCat.data = [];
+    this.filteredsubCat.paginator = this.innerpaginator;
     this.subCat = [];
     this.CategorySubcategoryService.getSubService(proServiceMapID).subscribe(
       (response: any) => {
@@ -288,6 +294,7 @@ export class CategorySubcategoryProvisioningComponent implements OnInit {
           });
           this.data = response.data;
           this.filtereddata.data = response.data;
+          this.filtereddata.paginator = this.paginator;
         }
       },
       (err) => {
@@ -309,10 +316,11 @@ export class CategorySubcategoryProvisioningComponent implements OnInit {
           this.subCat = response.data.filter((obj: any) => {
             return obj !== null;
           });
-          this.filteredsubCat = response.data.filter((obj: any) => {
+          this.filteredsubCat.data = response.data.filter((obj: any) => {
             return obj !== null;
           });
         }
+        this.filteredsubCat.paginator = this.innerpaginator;
       },
       (err) => {
         console.log('error', err);
@@ -333,7 +341,7 @@ export class CategorySubcategoryProvisioningComponent implements OnInit {
   searchReqObjChange(choice: any) {
     console.log(choice, 'search choice');
     if (this.nationalFlag !== undefined) {
-      if (choice === 1) {
+      if (choice === '1') {
         this.showCategoryTable = false;
         if (this.nationalFlag) {
           this.getSubCategory(
@@ -392,44 +400,33 @@ export class CategorySubcategoryProvisioningComponent implements OnInit {
   }
 
   addNewCategoryRow() {
-    const obj: any = {};
-    obj['categoryName'] = this.category_name;
-    obj['categoryDesc'] = this.categorydesc;
-    obj['subServiceID'] = this.sub_service.subServiceID;
-    obj['subServiceName'] = this.sub_service.subServiceName;
-    if (this.nationalFlag) {
-      obj['providerServiceMapID'] = this.states[0].providerServiceMapID;
+    const obj: any = {
+      categoryName: this.category_name,
+      categoryDesc: this.categorydesc,
+      subServiceID: this.sub_service.subServiceID,
+      subServiceName: this.sub_service.subServiceName,
+      providerServiceMapID: this.nationalFlag
+        ? this.states[0].providerServiceMapID
+        : this.state.providerServiceMapID,
+      createdBy: this.createdBy,
+      well_being: this.well_being,
+    };
+    const isDuplicate = this.serviceList.data.some(
+      (item) =>
+        item.categoryName.trim().toLowerCase() ===
+          obj.categoryName.trim().toLowerCase() &&
+        item.subServiceID === obj.subServiceID,
+    );
+    if (!isDuplicate) {
+      this.serviceList.data = [...this.serviceList.data, obj];
+      this.category_name = undefined;
+      this.categorydesc = '';
+      this.well_being = false;
     } else {
-      obj['providerServiceMapID'] = this.state.providerServiceMapID;
+      this.messageBox.alert(
+        'Category already exists for the selected sub-service.',
+      );
     }
-    obj['createdBy'] = this.createdBy;
-    obj['well_being'] = this.well_being;
-    let count = 0;
-    for (let a = 0; a < this.serviceList.data.length; a++) {
-      if (
-        this.serviceList.data[a].categoryName !== undefined &&
-        this.serviceList.data[a].categoryName !== null &&
-        this.serviceList.data[a].subServiceID !== undefined &&
-        this.serviceList.data[a].subServiceID !== null &&
-        obj['categoryName'] !== undefined &&
-        obj['categoryName'] !== null &&
-        this.serviceList.data[a].categoryName.toLowerCase().trim() ===
-          obj['categoryName'].toLowerCase().trim() &&
-        this.serviceList.data[a].subServiceID === obj['subServiceID']
-      ) {
-        count = count + 1;
-      }
-      // this.serviceList.push(obj);
-      // this.serviceList = this.filterArray(this.serviceList);
-    }
-    if (count === 0) {
-      this.serviceList.data.push(obj);
-    } else {
-      this.messageBox.alert('Already exists');
-    }
-    this.category_name = undefined;
-    this.categorydesc = '';
-    this.well_being = false;
   }
 
   checkSubService(service: any, sub_service_name: any) {
@@ -638,7 +635,10 @@ export class CategorySubcategoryProvisioningComponent implements OnInit {
   }
 
   deleteRow(index: any) {
-    this.serviceList.data.splice(index, 1);
+    const newData = [...this.serviceList.data];
+    newData.splice(index, 1);
+    this.serviceList.data = newData;
+    this.cdr.detectChanges();
     if (this.serviceList.data.length === 0) {
       this.cateDisabled = 'false';
       this.category_name = '';
@@ -647,7 +647,10 @@ export class CategorySubcategoryProvisioningComponent implements OnInit {
   }
 
   deleteRowSubCat(index: any) {
-    this.serviceSubCatList.data.splice(index, 1);
+    const newData = [...this.serviceSubCatList.data];
+    newData.splice(index, 1);
+    this.serviceSubCatList.data = newData;
+    this.cdr.detectChanges();
   }
   deleteCategory(id: any, isActivate: boolean) {
     let confirmMessage: any;
@@ -745,6 +748,7 @@ export class CategorySubcategoryProvisioningComponent implements OnInit {
             return item.deleted !== true;
           });
         }
+        this.filtereddata.paginator = this.paginator;
       },
       (err) => {
         console.log('error', err);
@@ -762,11 +766,12 @@ export class CategorySubcategoryProvisioningComponent implements OnInit {
           this.subCat = response.data.filter(function (item: any) {
             return item !== null;
           });
-          this.filteredsubCat = response.data.filter(function (item: any) {
+          this.filteredsubCat.data = response.data.filter(function (item: any) {
             return item !== null;
           });
           console.log(this.subCat);
         }
+        this.filteredsubCat.paginator = this.innerpaginator;
       },
       (err) => {
         console.log('error', err);
@@ -1028,8 +1033,10 @@ export class CategorySubcategoryProvisioningComponent implements OnInit {
   filterComponentList(searchTerm?: string) {
     if (!searchTerm) {
       this.filtereddata.data = this.data;
+      this.filtereddata.paginator = this.paginator;
     } else {
       this.filtereddata.data = [];
+      this.filtereddata.paginator = this.paginator;
       this.data.forEach((item: any) => {
         for (const key in item) {
           if (key === 'callGroupType' || key === 'callType') {
@@ -1038,6 +1045,7 @@ export class CategorySubcategoryProvisioningComponent implements OnInit {
               this.filtereddata.data.push(item);
               break;
             }
+            this.filtereddata.paginator = this.paginator;
           }
         }
       });
@@ -1046,6 +1054,7 @@ export class CategorySubcategoryProvisioningComponent implements OnInit {
   filterComponentListSub(searchTerm?: string) {
     if (!searchTerm) {
       this.filteredsubCat.data = this.subCat;
+      this.filteredsubCat.paginator = this.innerpaginator;
     } else {
       this.filteredsubCat.data = [];
       this.subCat.forEach((item: any) => {
@@ -1055,6 +1064,7 @@ export class CategorySubcategoryProvisioningComponent implements OnInit {
             this.filteredsubCat.data.push(item);
             break;
           }
+          this.filteredsubCat.paginator = this.innerpaginator;
         }
       });
     }

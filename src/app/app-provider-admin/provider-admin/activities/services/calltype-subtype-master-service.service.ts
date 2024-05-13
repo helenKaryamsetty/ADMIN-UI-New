@@ -27,6 +27,7 @@ import { Observable } from 'rxjs';
 // import { InterceptedHttp } from '../../http.interceptor';
 // import { SecurityInterceptedHttp } from '../../http.securityinterceptor';
 import { ConfigService } from '../../../../core/services/config/config.service';
+import { environment } from 'src/environments/environment';
 
 /**
  * Author: Diamond Khanna ( 352929 )
@@ -63,20 +64,22 @@ export class CallTypeSubtypeService {
   }
 
   getServiceLinesNew(userID: any) {
-    return this.http.post(this.getServiceLines_new_url, { userID: userID });
+    return this.http.post(environment.getServiceLines_new_url, {
+      userID: userID,
+    });
     // .map(this.handleState_n_ServiceSuccess)
     // .catch(this.handleError);
   }
 
   getStatesNew(obj: any) {
-    return this.http.post(this.getStates_new_url, obj);
+    return this.http.post(environment.getStates_new_url, obj);
     // .map(this.handleSuccess)
     //   .catch(this.handleError);
   }
   // C.R.U.D
 
   getCallTypeSubType(serviceProviderMapID: any) {
-    return this.http.post(this.get_CallTypeSubType_Url, {
+    return this.http.post(environment.get_CallTypeSubType_Url, {
       providerServiceMapID: serviceProviderMapID,
     });
     // .map(this.handleSuccess)
@@ -84,45 +87,18 @@ export class CallTypeSubtypeService {
   }
 
   saveCallTypeSubtype(request_obj: any) {
-    return this.http.post(this.save_CallTypeSubType_Url, request_obj);
+    return this.http.post(environment.save_CallTypeSubType_Url, request_obj);
     // .map(this.handleSuccess)
     //   .catch(this.handleError);
   }
   deleteSubCallType(obj: any) {
-    return this.http.post(this.delete_SubCallType_Url, obj);
+    return this.http.post(environment.delete_SubCallType_Url, obj);
     // .map(this.handleSuccess)
     //   .catch(this.handleError);
   }
   modificallType(obj: any) {
-    return this.http.post(this.modify_CallTypeSubType_Url, obj);
+    return this.http.post(environment.modify_CallTypeSubType_Url, obj);
     // .map(this.handleSuccess)
     //   .catch(this.handleError);
   }
-
-  // C.R.U.D *ends*
-
-  // handleSuccess(res: Response) {
-  //   console.log(res.json(), 'calltype-subtype service file success response');
-  //   if (res.json().data) {
-  //     return res.json().data;
-  //   } else {
-  //     return Observable.throw(res.json());
-  //   }
-  // }
-
-  // handleState_n_ServiceSuccess(response: Response) {
-
-  //   console.log(response.json().data, 'role service file success response');
-  //   let result = [];
-  //   result = response.json().data.filter(function (item) {
-  //     if (item.serviceID === 3 || item.serviceID === 1 || item.serviceID === 6 || item.serviceID === 10) {
-  //       return item;
-  //     }
-  //   });
-  //   return result;
-  // }
-
-  // handleError(error: Response | any) {
-  //   return Observable.throw(error.json());
-  // }
 }

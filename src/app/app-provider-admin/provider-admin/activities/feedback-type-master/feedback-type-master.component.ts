@@ -19,7 +19,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see https://www.gnu.org/licenses/.
  */
-import { Component, OnInit, ViewChild, Inject } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  Inject,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { NgForm } from '@angular/forms';
 import {
   MAT_DIALOG_DATA,
@@ -41,8 +47,9 @@ export class FeedbackTypeMasterComponent implements OnInit {
   [x: string]: any;
   filteredfeedbackTypes = new MatTableDataSource<any>();
   objs = new MatTableDataSource<any>();
-  @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
-  // filteredfeedbackTypes: any = [];
+  paginator!: MatPaginator;
+  @ViewChild('paginatorFirst') paginatorFirst!: MatPaginator;
+  @ViewChild('paginatorSecond') paginatorSecond!: MatPaginator;
   feedbackNameExist = false;
   userID: any;
   previous_state_id: any;
@@ -90,10 +97,11 @@ export class FeedbackTypeMasterComponent implements OnInit {
     private FeedbackTypeService: FeedbackTypeService,
     private alertService: ConfirmationDialogsService,
     public dialog: MatDialog,
+    private cdr: ChangeDetectorRef,
   ) {}
 
   ngOnInit() {
-    this.serviceProviderID = this.commonData.service_providerID;
+    this.serviceProviderID = sessionStorage.getItem('service_providerID');
     this.userID = this.commonData.uid;
     this.getServiceLinesfromSearch(this.userID);
   }
@@ -103,6 +111,9 @@ export class FeedbackTypeMasterComponent implements OnInit {
     if (this.isNational === true) {
       this.search_state = undefined;
     }
+  }
+  ngAfterViewInit() {
+    this.filteredfeedbackTypes.paginator = this.paginatorFirst;
   }
 
   getStates(serviceID: any, isNational: any) {
@@ -134,7 +145,11 @@ export class FeedbackTypeMasterComponent implements OnInit {
       (response: any) => {
         console.log('services', response);
         this.search_serviceline = '';
-        this.servicelines = response.data;
+        // this.servicelines = response.data;
+        this.servicelines = response.data.filter(function (item: any) {
+          console.log('item', item);
+          if (item.serviceID === 3 || item.serviceID === 1) return item;
+        });
       },
       (err) => {
         console.log('Error', err);
@@ -320,45 +335,34 @@ export class FeedbackTypeMasterComponent implements OnInit {
     };
     console.log(tempObj);
     if (this.objs.data.length === 0) {
-      let count = 0;
-      for (let i = 0; i < this.feedbackTypes.length; i++) {
-        if (
-          this.feedbackTypes[i].feedbackTypeName.toUpperCase() ===
-          tempObj.feedbackTypeName.toUpperCase()
-        ) {
-          count = count + 1;
-        }
-      }
+      const isExist = this.feedbackTypes.some(
+        (feedback: any) =>
+          feedback.feedbackTypeName.toUpperCase() ===
+          tempObj.feedbackTypeName.toUpperCase(),
+      );
 
-      if (count === 0) {
-        this.objs.data.push(tempObj);
+      if (!isExist) {
+        this.objs.data = [...this.objs.data, tempObj];
         this.editForm.resetForm();
       } else {
         this.feedbackNameExist = true;
         this.alertService.alert('Already exists');
       }
     } else {
-      let count = 0;
-      for (let i = 0; i < this.objs.data.length; i++) {
-        if (
-          this.objs.data[i].feedbackTypeName.toUpperCase() ===
-          tempObj.feedbackTypeName.toUpperCase()
-        ) {
-          count = count + 1;
-        }
-      }
+      const isExist =
+        this.objs.data.some(
+          (obj) =>
+            obj.feedbackTypeName.toUpperCase() ===
+            tempObj.feedbackTypeName.toUpperCase(),
+        ) ||
+        this.feedbackTypes.some(
+          (feedback: any) =>
+            feedback.feedbackTypeName.toUpperCase() ===
+            tempObj.feedbackTypeName.toUpperCase(),
+        );
 
-      for (let i = 0; i < this.feedbackTypes.length; i++) {
-        if (
-          this.feedbackTypes[i].feedbackTypeName.toUpperCase() ===
-          tempObj.feedbackTypeName.toUpperCase()
-        ) {
-          count = count + 1;
-        }
-      }
-
-      if (count === 0) {
-        this.objs.data.push(tempObj);
+      if (!isExist) {
+        this.objs.data = [...this.objs.data, tempObj];
         this.editForm.resetForm();
       } else {
         this.feedbackNameExist = true;
@@ -371,7 +375,10 @@ export class FeedbackTypeMasterComponent implements OnInit {
   }
 
   remove_obj(index: any) {
-    this.objs.data.splice(index, 1);
+    const newData = [...this.objs.data];
+    newData.splice(index, 1);
+    this.objs.data = newData;
+    this.cdr.detectChanges();
   }
   filterComponentList(searchTerm?: string) {
     if (!searchTerm) {

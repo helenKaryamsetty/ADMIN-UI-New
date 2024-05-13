@@ -26,6 +26,7 @@ import { Observable } from 'rxjs';
 // import 'rxjs/add/operator/map';
 
 import { ConfigService } from '../config/config.service';
+import { environment } from 'src/environments/environment';
 // import { InterceptedHttp } from './../../http.interceptor';
 // import { SecurityInterceptedHttp } from '../../http.securityinterceptor';
 
@@ -110,7 +111,7 @@ export class VanServicePointMappingService {
     // .catch(this.handleError);
   }
   getTaluks(talukObj: any) {
-    return this.http.post(this._getTalukListURL, talukObj);
+    return this.http.post(environment._getTalukNewListURL, talukObj);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }

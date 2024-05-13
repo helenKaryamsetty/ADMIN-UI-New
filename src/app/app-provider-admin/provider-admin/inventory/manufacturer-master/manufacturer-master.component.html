@@ -4,15 +4,20 @@
       <strong>Manufacturer Master</strong>
     </h4>
   </div>
-  <div class="col-xs-12 col-sm-12 p-a-0">
-    <form id="form" #manfactureSearchForm="ngForm" autocomplete="off">
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <mat-form-field class="hide_underline" [style.width]="'100%'">
-          <input matInput style="display: none" />
+  <div class="col-12 p-a-0">
+    <form
+      id="form"
+      #manfactureSearchForm="ngForm"
+      autocomplete="off"
+      class="row"
+    >
+      <div class="col-3">
+        <mat-form-field class="hide_underline">
+          <!-- <input matInput style="display: none" /> -->
+          <mat-label>Serviceline</mat-label>
           <mat-select
             required
             name="Services"
-            placeholder="Serviceline"
             [style.width]="'100%'"
             [(ngModel)]="serviceline"
             (ngModelChange)="getstates(serviceline)"
@@ -23,13 +28,13 @@
           </mat-select>
         </mat-form-field>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <mat-form-field class="hide_underline" [style.width]="'100%'">
-          <input matInput style="display: none" />
+      <div class="col-3">
+        <mat-form-field class="hide_underline">
+          <!-- <input matInput style="display: none" /> -->
+          <mat-label>State</mat-label>
           <mat-select
             required
             name="state"
-            placeholder="State"
             [style.width]="'100%'"
             [(ngModel)]="state"
             (selectionChange)="onStateChange($event)"
@@ -47,11 +52,11 @@
         class="col-xs-12 col-sm-12 col-md-4 col-lg-6"
         *ngIf="tableMode && providerServiceMapID && manufactureList?.length > 0"
       >
-        <div class="row" class="pull-right">
+        <div class="row" class="" style="text-align: end">
           <mat-form-field id="filterbox">
+            <mat-label> In-Table Search </mat-label>
             <input
               matInput
-              placeholder="In-Table Search"
               name="filterTerm"
               [(ngModel)]="create_filterTerm"
               #filterTerm
@@ -66,50 +71,6 @@
 
   <div class="col-xs-12 col-sm-12" *ngIf="displayTable">
     <div class="">
-      <!-- <table [md2Data]="filteredManufactureList" #md2="md2DataTable" class="table table-hover table-striped" [rowsPerPage]="4">
-        <thead>
-          <tr>
-              <th width="5%">S.No.</th>
-            <th >Manufacturer&nbsp;Code</th>
-            <th md2SortBy="manufacturerName">Manufacturer&nbsp;Name</th>
-            <th  >Manufacturer&nbsp;Description</th>
-            <th >Contact Person</th>
-            <th >Edit</th>
-            <th >Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngIf="filteredManufactureList.length == 0">
-            <td colspan="8" class="record-not-found">No records found</td>
-          </tr>
-          <tr *ngFor="let manufacture of md2.data;let i=index ">
-              <td>{{filteredManufactureList.indexOf(manufacture)+1}}</td>
-            <td>{{manufacture.manufacturerCode}}</td>
-            <td>{{manufacture.manufacturerName}}</td>
-            <td>{{manufacture.manufacturerDesc}}</td>
-            <td>{{manufacture.contactPerson}}</td>
-            <td>
-              <mat-icon mdTooltip="Edit" class="mat-icon material-icons" role="img" aria-hidden="true" style="cursor:pointer" *ngIf="!manufacture.deleted"
-              (click)="editManufacture(manufacture)">edit</mat-icon>
-            </td>
-            <td>
-              <button mat-raised-button color="accent" *ngIf="manufacture.deleted" class=" m-r-10" (click)="activate(manufacture.manufacturerID)">Activate</button>
-              <button mat-raised-button color="primary" *ngIf="!manufacture.deleted" class=" m-r-10" (click)="deactivate(manufacture.manufacturerID)">Deactivate</button>
-
-            </td>
-          </tr>
-        </tbody>
-        <tfoot>
-          <tr>
-            <td colspan="5">
-              <md2-pagination></md2-pagination>
-            </td>
-            <td colspan="2" class="p-r-0">
-              <button mat-raised-button color="primary" *ngIf="createButton" class="pull-right" (click)="showForm()">Create Manufacturer</button>
-            </td>
-          </tr>
-        </tfoot>
-      </table> -->
       <table
         mat-table
         [dataSource]="filteredManufactureList"
@@ -241,15 +202,15 @@
       <strong>Manufacturer Master</strong>
     </h4>
   </div>
-  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-a-0">
-    <form id="addform" #manufactureAddForm1="ngForm">
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <mat-form-field class="hide_underline" [style.width]="'100%'">
-          <input matInput style="display: none" />
+  <div class="col-12 p-a-0">
+    <form id="addform" #manufactureAddForm1="ngForm" class="row">
+      <div class="col-3">
+        <mat-form-field class="hide_underline">
+          <!-- <input matInput style="display: none" /> -->
+          <mat-label>Serviceline</mat-label>
           <mat-select
             required
             name="Services"
-            placeholder="Serviceline"
             [disabled]="true"
             [style.width]="'100%'"
             [(ngModel)]="serviceline"
@@ -261,11 +222,12 @@
           </mat-select>
         </mat-form-field>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <mat-form-field class="hide_underline width100">
-          <input matInput style="display: none" />
+      <div class="col-3">
+        <mat-form-field class="hide_underline">
+          <!-- <input matInput style="display: none" /> -->
+          <mat-label>State</mat-label>
           <mat-select
-            placeholder="State"
+            required
             class="width100"
             [(ngModel)]="state"
             name="state"
@@ -277,27 +239,21 @@
           </mat-select>
         </mat-form-field>
       </div>
-      <!-- <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-            <mat-form-field class="hide_underline" [style.width]="'100%'">
-              <input matInput style="display:none">
-              {{states_array | json}}
-              <mat-select required name="state" placeholder="State" [style.width]="'100%'" [disabled]="true" [(ngModel)]="state">
-                <mat-option *ngFor="let item of states_array" [value]="item">
-                  {{item.stateName}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div> -->
     </form>
     <div class="clearfix visible-md visible-lg"></div>
-    <form id="addform" #manufactureAddForm="ngForm" autocomplete="off">
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <mat-form-field [style.width]="'100%'">
+    <form
+      id="addform"
+      #manufactureAddForm="ngForm"
+      autocomplete="off"
+      class="col-12 row"
+    >
+      <div class="col-3">
+        <mat-form-field>
+          <mat-label> Manufacturer Code </mat-label>
           <input
             matInput
             required
-            placeholder="Manufacturer Code"
-            PAN
+            appPAN
             [(ngModel)]="create_manufactureCode"
             (blur)="checkExistance(create_manufactureCode)"
             minlength="1"
@@ -322,13 +278,13 @@
           </mat-hint>
         </mat-form-field>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <mat-form-field [style.width]="'100%'">
+      <div class="col-3">
+        <mat-form-field>
+          <mat-label> Manufacturer Name </mat-label>
           <input
             matInput
             required
-            placeholder="Manufacturer Name"
-            myProviderName
+            appMyProviderName
             [(ngModel)]="create_manufactureName"
             maxlength="100"
             name="manufactureName"
@@ -346,12 +302,12 @@
           </mat-hint>
         </mat-form-field>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <mat-form-field [style.width]="'100%'">
+      <div class="col-3">
+        <mat-form-field>
+          <mat-label> Manufacturer Description </mat-label>
           <input
             matInput
-            placeholder="Manufacturer Description"
-            VehicleNO
+            appVehicleNO
             [(ngModel)]="create_manufactureDesc"
             maxlength="100"
             name="manufactureDesc"
@@ -359,12 +315,12 @@
           />
         </mat-form-field>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <mat-form-field [style.width]="'100%'">
+      <div class="col-3">
+        <mat-form-field>
+          <mat-label> Contact Person </mat-label>
           <input
             matInput
-            placeholder="Contact Person"
-            myProviderName
+            appMyProviderName
             [(ngModel)]="create_contactPerson"
             maxlength="20"
             name="contactPerson"
@@ -376,12 +332,12 @@
         </mat-form-field>
       </div>
 
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
-        <mat-form-field [style.width]="'100%'">
+      <div class="col-3">
+        <mat-form-field>
+          <mat-label> GST No. </mat-label>
           <input
             matInput
-            placeholder="GST No."
-            PAN
+            appPAN
             [(ngModel)]="create_cstNo"
             minlength="15"
             maxlength="15"
@@ -397,12 +353,12 @@
           </mat-hint>
         </mat-form-field>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
-        <mat-form-field class="width100">
+      <div class="col-3">
+        <mat-form-field>
+          <mat-label> Address Line 1 </mat-label>
           <input
             matInput
-            myAddress
-            placeholder="Address Line 1"
+            appMyAddressDirective
             [(ngModel)]="AddressLine1"
             name="addressLine1"
             minlength="2"
@@ -417,12 +373,12 @@
           </mat-hint>
         </mat-form-field>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
-        <mat-form-field class="width100">
+      <div class="col-3">
+        <mat-form-field>
+          <mat-label> Address Line 2 </mat-label>
           <input
             matInput
-            myAddress
-            placeholder="Address Line 2"
+            appMyAddressDirective
             [(ngModel)]="AddressLine2"
             name="addressLine2"
             minlength="2"
@@ -436,13 +392,13 @@
           </mat-hint>
         </mat-form-field>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t--15">
-        <mat-form-field class="hide_underline" [style.width]="'100%'">
-          <input matInput style="display: none" />
+      <div class="col-3">
+        <mat-form-field class="hide_underline">
+          <!-- <input matInput style="display: none" /> -->
+          <mat-label> Country </mat-label>
           <mat-select
             required
             name="country"
-            placeholder="Country"
             [style.width]="'100%'"
             (selectionChange)="getAllStates(create_country.countryID)"
             [(ngModel)]="create_country"
@@ -454,13 +410,13 @@
         </mat-form-field>
       </div>
       <br />
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t--15">
-        <mat-form-field class="hide_underline" [style.width]="'100%'">
-          <input matInput style="display: none" />
+      <div class="col-3">
+        <mat-form-field class="hide_underline">
+          <!-- <input matInput style="display: none" /> -->
+          <mat-label> State </mat-label>
           <mat-select
             required
             name="state"
-            placeholder="State"
             [style.width]="'100%'"
             (selectionChange)="getDistricts(create_permanentstate.stateID)"
             [disabled]="countryCheck"
@@ -476,11 +432,11 @@
         </mat-form-field>
       </div>
       <br />
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t--15">
-        <mat-form-field class="hide_underline width100">
-          <input matInput style="display: none" />
+      <div class="col-3">
+        <mat-form-field class="hide_underline">
+          <!-- <input matInput style="display: none" /> -->
+          <mat-label> District </mat-label>
           <mat-select
-            placeholder="District"
             class="width100"
             [(ngModel)]="District"
             name="district"
@@ -496,11 +452,11 @@
         </mat-form-field>
       </div>
       <br />
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
-        <mat-form-field class="width100" myMobileNumber>
+      <div class="col-3">
+        <mat-form-field appMyMobileNumber>
+          <mat-label> Pincode </mat-label>
           <input
             matInput
-            placeholder="Pincode"
             [(ngModel)]="Pincode"
             name="pincode"
             minlength="6"
@@ -514,7 +470,7 @@
           </mat-hint>
         </mat-form-field>
       </div>
-      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 m-t-10">
+      <div class="col-3">
         <button
           mat-mini-fab
           class="xs-pull-right sm-pull-right md-pull-right lg-pull-left mat_blue"
@@ -713,15 +669,20 @@
       <strong>Edit Manufacturer</strong>
     </h4>
   </div>
-  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-a-0">
-    <form id="Editform" #manufactureEditForm="ngForm" autocomplete="off">
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <mat-form-field class="hide_underline" [style.width]="'100%'">
+  <div class="col-12 p-a-0">
+    <form
+      id="Editform"
+      #manufactureEditForm="ngForm"
+      autocomplete="off"
+      class="row"
+    >
+      <div class="col-3">
+        <mat-form-field class="hide_underline">
           <input matInput style="display: none" />
+          <mat-label>Serviceline</mat-label>
           <mat-select
             required
             name="Services"
-            placeholder="Serviceline"
             [disabled]="true"
             [style.width]="'100%'"
             [(ngModel)]="edit_Serviceline"
@@ -733,13 +694,13 @@
         </mat-form-field>
       </div>
 
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <mat-form-field class="hide_underline" [style.width]="'100%'">
+      <div class="col-3">
+        <mat-form-field class="hide_underline">
           <input matInput style="display: none" />
+          <mat-label>State</mat-label>
           <mat-select
             required
             name="state"
-            placeholder="State"
             [style.width]="'100%'"
             [disabled]="true"
             [(ngModel)]="edit_State"
@@ -751,13 +712,13 @@
         </mat-form-field>
       </div>
       <div class="clearfix visible-md visible-lg"></div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <mat-form-field [style.width]="'100%'">
+      <div class="col-lg-3">
+        <mat-form-field>
+          <mat-label> Manufacturer Code </mat-label>
           <input
             matInput
             required
-            placeholder="Manufacturer Code"
-            PAN
+            appPAN
             [(ngModel)]="edit_manufactureCode"
             [disabled]="true"
             maxlength="100"
@@ -769,13 +730,13 @@
               </mat-hint> -->
         </mat-form-field>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <mat-form-field [style.width]="'100%'">
+      <div class="col-3">
+        <mat-form-field>
+          <mat-label> Manufacturer Name </mat-label>
           <input
             matInput
             required
-            placeholder="Manufacturer Name"
-            PAN
+            appPAN
             [(ngModel)]="edit_manufactureName"
             [disabled]="true"
             maxlength="100"
@@ -787,12 +748,12 @@
               </mat-hint> -->
         </mat-form-field>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <mat-form-field [style.width]="'100%'">
+      <div class="col-3">
+        <mat-form-field>
+          <mat-label> Manufacturer Description </mat-label>
           <input
             matInput
-            placeholder="Manufacturer Description"
-            VehicleNO
+            appVehicleNO
             [(ngModel)]="edit_manufactureDesc"
             maxlength="100"
             name="manufactureDesc"
@@ -800,11 +761,11 @@
           />
         </mat-form-field>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <mat-form-field [style.width]="'100%'">
+      <div class="col-3">
+        <mat-form-field>
+          <mat-label> Contact Person </mat-label>
           <input
             matInput
-            placeholder="Contact Person"
             [(ngModel)]="edit_contactPerson"
             maxlength="100"
             name="contactPerson"
@@ -815,12 +776,12 @@
               </mat-hint> -->
         </mat-form-field>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <mat-form-field [style.width]="'100%'">
+      <div class="col-3">
+        <mat-form-field>
+          <mat-label> GST No. </mat-label>
           <input
             matInput
-            placeholder="GST No."
-            PAN
+            appPAN
             [(ngModel)]="edit_cstNo"
             maxlength="15"
             minlength="15"
@@ -836,12 +797,12 @@
           </mat-hint>
         </mat-form-field>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <mat-form-field class="width100">
+      <div class="col-3">
+        <mat-form-field>
+          <mat-label> Address Line 1 </mat-label>
           <input
             matInput
-            myAddress
-            placeholder="Address Line 1"
+            appMyAddressDirective
             [(ngModel)]="edit_AddressLine1"
             name="addressLine1"
             minlength="2"
@@ -856,12 +817,12 @@
           </mat-hint>
         </mat-form-field>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <mat-form-field class="width100">
+      <div class="col-3">
+        <mat-form-field>
+          <mat-label> Address Line 2 </mat-label>
           <input
             matInput
-            myAddress
-            placeholder="Address Line 2"
+            appMyAddressDirective
             [(ngModel)]="edit_AddressLine2"
             name="addressLine2"
             minlength="2"
@@ -873,13 +834,13 @@
                 </mat-hint> -->
         </mat-form-field>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <mat-form-field class="hide_underline" [style.width]="'100%'">
+      <div class="col-3">
+        <mat-form-field class="hide_underline">
           <input matInput style="display: none" />
+          <mat-label>Country</mat-label>
           <mat-select
             required
             name="country"
-            placeholder="Country"
             [style.width]="'100%'"
             [(ngModel)]="edit_Country"
             (selectionChange)="getAllStates(edit_Country)"
@@ -893,13 +854,13 @@
           </mat-select>
         </mat-form-field>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <mat-form-field class="hide_underline" [style.width]="'100%'">
-          <input matInput style="display: none" />
+      <div class="col-3">
+        <mat-form-field class="hide_underline">
+          <!-- <input matInput style="display: none" /> -->
+          <mat-label> State </mat-label>
           <mat-select
             required
             name="edit_permanentstate"
-            placeholder="State"
             [style.width]="'100%'"
             (selectionChange)="getDistricts(edit_permanentstate)"
             [(ngModel)]="edit_permanentstate"
@@ -913,11 +874,11 @@
           </mat-select>
         </mat-form-field>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <mat-form-field class="hide_underline width100">
-          <input matInput style="display: none" />
+      <div class="col-3">
+        <mat-form-field class="hide_underline">
+          <!-- <input matInput style="display: none" /> -->
+          <mat-label>District</mat-label>
           <mat-select
-            placeholder="District"
             class="width100"
             [(ngModel)]="edit_District"
             name="edit_District"
@@ -931,11 +892,11 @@
           </mat-select>
         </mat-form-field>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <mat-form-field class="width100" myMobileNumber>
+      <div class="col-3">
+        <mat-form-field appMyMobileNumber>
+          <mat-label>Pincode</mat-label>
           <input
             matInput
-            placeholder="Pincode"
             [(ngModel)]="edit_Pincode"
             name="pincode"
             minlength="6"

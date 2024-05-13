@@ -39,9 +39,6 @@ import { MatPaginator } from '@angular/material/paginator';
               the Providers
  */
 export class ServiceProviderMasterComponent implements OnInit {
-  // @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
-  // // dataSource = new MatTableDataSource<any>();
-  // filteredsearchResult = new MatTableDataSource<any>();
   displayedColumns = [
     'sno',
     'serviceProviderName',
@@ -299,7 +296,11 @@ export class ServiceProviderMasterComponent implements OnInit {
         }
       });
   }
-
+  filterValidFrom = (date: Date | null): boolean => {
+    const today = new Date();
+    // Allow dates from today and onwards
+    return date !== null && date >= today;
+  };
   deactivate(serviceProviderID: any) {
     const object = { serviceProviderId: serviceProviderID, deleted: true };
     this.dialogService

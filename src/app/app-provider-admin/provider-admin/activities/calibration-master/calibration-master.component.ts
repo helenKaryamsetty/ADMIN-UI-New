@@ -101,6 +101,11 @@ export class CalibrationMasterComponent implements OnInit {
       );
   }
   successhandeler(response: any) {
+    this.services = response.data.filter(function (item: any) {
+      console.log('item', item);
+      if (item.serviceID === 4 || item.serviceID === 9 || item.serviceID === 2)
+        return item;
+    });
     return response;
   }
   getStates(value: any) {
@@ -172,14 +177,15 @@ export class CalibrationMasterComponent implements OnInit {
       this.filteredsearchresultarray.paginator = this.paginator;
     } else {
       this.filteredsearchresultarray.data = [];
-      this.filteredsearchresultarray.data = this.searchresultarray;
-      this.filteredsearchresultarray.paginator = this.paginator;
+      // this.filteredsearchresultarray.data = this.searchresultarray;
+      // this.filteredsearchresultarray.paginator = this.paginator;
       this.searchresultarray.forEach((item: any) => {
         for (const key in item) {
           if (key === 'stripCode') {
             const value: string = '' + item[key];
             if (value.toLowerCase().indexOf(searchTerm.toLowerCase()) >= 0) {
               this.filteredsearchresultarray.data.push(item);
+              this.filteredsearchresultarray.paginator = this.paginator;
               break;
             }
           }

@@ -1,14 +1,19 @@
 <!-- <div class="row"> -->
 <div class="row">
   <div class="col-xs-6 col-sm-6 col-md-9 col-lg-9">
-    <h4 mat-dialog-title class="modal-title">
+    <h4 mat-dialog-title class="modal-title" style="margin: unset">
       Edit Call Disposition Type/Sub Type
     </h4>
   </div>
   <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
-    <button mat-button class="pull-right p-r-0" [mat-dialog-close]="true">
+    <button
+      mat-button
+      class="pull-right p-r-0"
+      [mat-dialog-close]="true"
+      style="background-color: unset; border: unset; margin: 20px"
+    >
       <mat-icon
-        mdTooltip="close"
+        matTooltip="close"
         class="mat-icon material-icons pull-right"
         role="img"
         aria-hidden="true"
@@ -28,7 +33,7 @@
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10">
       <mat-form-field class="hide_underline width100">
         <mat-label>Call Type</mat-label>
-        <input matInput style="display: none" />
+        <!-- <input matInput style="display: none" /> -->
         <mat-select
           style="width: 100%"
           [(ngModel)]="callType"
@@ -67,93 +72,97 @@
         </mat-hint>
       </mat-form-field>
     </div>
-    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 m-t-10">
-      <span class="f-s-n-b">Fit To Block</span>
-      <mat-radio-group
-        [(ngModel)]="fitToBlock"
-        (change)="fitToBlocks(fitToBlock)"
-        name="fitToBlock"
-      >
-        <mat-radio-button
+    <div class="col-12 row">
+      <div class="col-6 m-t-10">
+        <span class="f-s-n-b">Fit To Block</span>
+        <mat-radio-group
+          [(ngModel)]="fitToBlock"
+          (change)="fitToBlocks(fitToBlock)"
+          name="fitToBlock"
+        >
+          <mat-radio-button
+            color="primary"
+            [checked]="fitToBlock_y"
+            class="p-l-10"
+            [value]="true"
+            >Yes</mat-radio-button
+          >
+          <mat-radio-button
+            color="primary"
+            [checked]="fitToBlock_n"
+            class="p-l-10"
+            [value]="false"
+            >No</mat-radio-button
+          >
+        </mat-radio-group>
+      </div>
+      <div class="col-6 m-t-10">
+        <span class="f-s-n-b">Fit For Follow-up</span>
+        <mat-radio-group
+          [(ngModel)]="fitForFollowup"
+          (change)="fitForFollowups(fitForFollowup)"
+          name="fitForFollowup"
+        >
+          <mat-radio-button color="primary" class="p-l-10" [value]="true"
+            >Yes</mat-radio-button
+          >
+          <mat-radio-button color="primary" class="p-l-10" [value]="false"
+            >No</mat-radio-button
+          >
+        </mat-radio-group>
+      </div>
+    </div>
+    <div class="col-12 row">
+      <div class="col-3 m-t-25">
+        <mat-checkbox
           color="primary"
-          [checked]="fitToBlock_y"
-          class="p-l-10"
-          [value]="true"
-          >Yes</mat-radio-button
+          [(ngModel)]="isInbound"
+          name="IB"
+          (change)="setIsInbound($event)"
+          #isInboundCheckbox
+          >Is-Inbound</mat-checkbox
         >
-        <mat-radio-button
+      </div>
+      <div class="col-3 m-t-25">
+        <mat-checkbox
           color="primary"
-          [checked]="fitToBlock_n"
-          class="p-l-10"
-          [value]="false"
-          >No</mat-radio-button
+          [(ngModel)]="isOutbound"
+          name="OB"
+          (change)="setIsOutbound($event)"
+          #isOutboundCheckbox
+          >Is-Outbound</mat-checkbox
         >
-      </mat-radio-group>
-    </div>
-    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 m-t-10">
-      <span class="f-s-n-b">Fit For Follow-up</span>
-      <mat-radio-group
-        [(ngModel)]="fitForFollowup"
-        (change)="fitForFollowups(fitForFollowup)"
-        name="fitForFollowup"
-      >
-        <mat-radio-button color="primary" class="p-l-10" [value]="true"
-          >Yes</mat-radio-button
-        >
-        <mat-radio-button color="primary" class="p-l-10" [value]="false"
-          >No</mat-radio-button
-        >
-      </mat-radio-group>
-    </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 m-t-25">
-      <mat-checkbox
-        color="primary"
-        [(ngModel)]="isInbound"
-        name="IB"
-        (change)="setIsInbound($event)"
-        #isInboundCheckbox
-        >Is-Inbound</mat-checkbox
-      >
-    </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 m-t-25">
-      <mat-checkbox
-        color="primary"
-        [(ngModel)]="isOutbound"
-        name="OB"
-        (change)="setIsOutbound($event)"
-        #isOutboundCheckbox
-        >Is-Outbound</mat-checkbox
-      >
-    </div>
-    <div
-      class="col-xs-12 col-sm-6 col-md-4 col-lg-4 m-t--20"
-      *ngIf="isOutbound"
-    >
-      <mat-form-field class="hide_underline width100">
-        <mat-label>Maximum Redial</mat-label>
-        <input matInput style="display: none" />
-        <mat-select
-          style="width: 100%"
-          [(ngModel)]="maxRedial"
-          name="maxRedial"
-        >
-          <mat-option value="1">1</mat-option>
-          <mat-option value="2">2</mat-option>
-          <mat-option value="3">3</mat-option>
-          <mat-option value="4">4</mat-option>
-          <mat-option value="5">5</mat-option>
-          <mat-option value="6">6</mat-option>
-          <mat-option value="7">7</mat-option>
-          <mat-option value="8">8</mat-option>
-          <mat-option value="9">9</mat-option>
-          <mat-option value="10">10</mat-option>
-        </mat-select>
-        <span class="maxRedialNote">{{ note }}</span>
-      </mat-form-field>
+      </div>
+      <div class="col-3 m-t-20" *ngIf="isOutbound">
+        <mat-form-field class="hide_underline width100">
+          <mat-label>Maximum Redial</mat-label>
+          <input matInput style="display: none" />
+          <mat-select
+            style="width: 100%"
+            [(ngModel)]="maxRedial"
+            name="maxRedial"
+          >
+            <mat-option value="1">1</mat-option>
+            <mat-option value="2">2</mat-option>
+            <mat-option value="3">3</mat-option>
+            <mat-option value="4">4</mat-option>
+            <mat-option value="5">5</mat-option>
+            <mat-option value="6">6</mat-option>
+            <mat-option value="7">7</mat-option>
+            <mat-option value="8">8</mat-option>
+            <mat-option value="9">9</mat-option>
+            <mat-option value="10">10</mat-option>
+          </mat-select>
+          <span class="maxRedialNote">{{ note }}</span>
+        </mat-form-field>
+      </div>
     </div>
   </form>
 </div>
-<div class="m-t-10" mat-dialog-actions>
+<div
+  class="m-t-10"
+  style="text-align: end !important; margin: 0px 10px 65px 0px"
+>
   <button
     class="pull-right mat_green"
     [disabled]="callTypeSubCallType.invalid || subCallTypeExist"

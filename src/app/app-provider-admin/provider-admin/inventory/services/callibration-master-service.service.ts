@@ -22,6 +22,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ConfigService } from 'src/app/core/services/config/config.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class CallibrationMasterServiceService {
@@ -45,17 +46,17 @@ export class CallibrationMasterServiceService {
       this.basepaths.getAdminBaseUrl() + 'updateCalibrationStrip';
   }
   fetCalibrationMasters(obj: any) {
-    return this.http.post(this.getCalibrationMaster_Url, obj);
+    return this.http.post(environment.getCalibrationMaster_Url, obj);
   }
   deleteCalibrationStrip(obj: any) {
     console.log('service obj', obj);
-    return this.http.post(this.delete_CalibrationStrip_Url, obj);
+    return this.http.post(environment.delete_CalibrationStrip_Url, obj);
   }
   createCalibrationStrip(calibrationObj: any) {
-    return this.http.post(this.save_Calibration_Url, calibrationObj);
+    return this.http.post(environment.save_Calibration_Url, calibrationObj);
   }
 
   updateCalibrationStrip(calibrationObj: any) {
-    return this.http.post(this.update_Calibration_Url, calibrationObj);
+    return this.http.post(environment.update_Calibration_Url, calibrationObj);
   }
 }

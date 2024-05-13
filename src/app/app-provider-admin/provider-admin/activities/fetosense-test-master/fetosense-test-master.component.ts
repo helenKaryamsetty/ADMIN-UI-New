@@ -19,7 +19,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see https://www.gnu.org/licenses/.
  */
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { dataService } from 'src/app/core/services/dataService/data.service';
 import { ConfirmationDialogsService } from 'src/app/core/services/dialog/confirmation.service';
 import { ProviderAdminFetosenseTestMasterService } from '../services/fetosense-test-master-service.service';
@@ -33,9 +33,6 @@ import { MatPaginator } from '@angular/material/paginator';
 })
 export class FetosenseTestMasterComponent implements OnInit {
   [x: string]: any;
-  filteredFetosenseTests = new MatTableDataSource<any>();
-  addedFetosenseTests = new MatTableDataSource<any>();
-  @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
 
   displayedColumns: string[] = [
     'SNo',
@@ -75,10 +72,22 @@ export class FetosenseTestMasterComponent implements OnInit {
   searchTest: any;
   state: any;
   filteredTest: any;
+  paginator!: MatPaginator;
+  @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
+    this.paginator = mp;
+    this.setDataSourceAttributes();
+  }
+  filteredFetosenseTests = new MatTableDataSource<any>();
+
+  setDataSourceAttributes() {
+    this.filteredFetosenseTests.paginator = this.paginator;
+  }
+  addedFetosenseTests = new MatTableDataSource<any>();
   constructor(
     public providerAdminTestMasterService: ProviderAdminFetosenseTestMasterService,
     private commonDataService: dataService,
     private alertService: ConfirmationDialogsService,
+    private cdr: ChangeDetectorRef,
   ) {}
 
   ngOnInit(): void {
@@ -91,7 +100,11 @@ export class FetosenseTestMasterComponent implements OnInit {
       .subscribe(
         (response: any) => {
           if (response !== null && response !== undefined)
-            this.services = response.data;
+            // this.services = response.data;
+            this.services = response.data.filter(function (item: any) {
+              console.log('item', item);
+              if (item.serviceID === 4 || item.serviceID === 9) return item;
+            });
         },
         (err) => {
           this.alertService.alert('error', err);
@@ -164,57 +177,112 @@ export class FetosenseTestMasterComponent implements OnInit {
     this.showTestCreation = true;
     this.showFetosenseTestMaster = false;
   }
+  // addTests(test: any, desc: any) {
+  //   const result = this.validateTest(test);
+  //   let selectedTests = [];
+  //   if (test === null) this.alertService.alert('No more Tests to add');
+  //   if (Array.isArray(test)) {
+  //     selectedTests = test;
+  //     console.log('Selected tests', selectedTests);
+  //   } else {
+  //     selectedTests.push(test);
+  //   }
+  //   if (result) {
+  //     this.validateAddedTest(test, desc);
+  //   }
+  //   this.saveTest = true;
+  //   this.updateTest = false;
+  //   this.test = '';
+  //   this.description = '';
+  // }
+  // validateAddedTest(test: any, desc: any) {
+  //   if (this.addedFetosenseTests.data.length < 1) {
+  //     const fetosenseTest = this.addtempTestMap(test, desc);
+  //     if (
+  //       fetosenseTest.testName !== undefined &&
+  //       fetosenseTest.testName !== null &&
+  //       fetosenseTest.testName.trim().length > 0
+  //     ) {
+  //       this.addedFetosenseTests.data.push(fetosenseTest);
+  //     }
+  //   } else {
+  //     for (const addedTest of this.addedFetosenseTests.data) {
+  //       if (
+  //         addedTest.testName !== undefined &&
+  //         addedTest.testName !== null &&
+  //         test !== undefined &&
+  //         test !== null &&
+  //         addedTest.testName.toLowerCase().trim() === test.toLowerCase().trim()
+  //       ) {
+  //         this.alertService.alert('Test name already exists');
+  //         return;
+  //       }
+  //     }
+  //     const fetosenseTest = this.addtempTestMap(test, desc);
+  //     if (
+  //       fetosenseTest.testName !== undefined &&
+  //       fetosenseTest.testName !== null &&
+  //       fetosenseTest.testName.trim().length > 0
+  //     ) {
+  //       this.addedFetosenseTests.data.push(fetosenseTest);
+  //     }
+  //   }
+  // }
+
   addTests(test: any, desc: any) {
-    const result = this.validateTest(test);
+    if (test === null || test === undefined) {
+      this.alertService.alert('No more Tests to add');
+
+      return;
+    }
+
     let selectedTests = [];
-    if (test === null) this.alertService.alert('No more Tests to add');
     if (Array.isArray(test)) {
       selectedTests = test;
+
       console.log('Selected tests', selectedTests);
     } else {
       selectedTests.push(test);
     }
-    if (result) {
-      this.validateAddedTest(test, desc);
+    for (const selectedTest of selectedTests) {
+      const result = this.validateTest(selectedTest);
+
+      if (result) {
+        this.validateAddedTest(selectedTest, desc);
+      }
     }
+
     this.saveTest = true;
+
     this.updateTest = false;
+
     this.test = '';
+
     this.description = '';
   }
+
   validateAddedTest(test: any, desc: any) {
-    if (this.addedFetosenseTests.data.length < 1) {
-      const fetosenseTest = this.addtempTestMap(test, desc);
-      if (
-        fetosenseTest.testName !== undefined &&
-        fetosenseTest.testName !== null &&
-        fetosenseTest.testName.trim().length > 0
-      ) {
-        this.addedFetosenseTests.data.push(fetosenseTest);
-      }
+    const isDuplicate = this.addedFetosenseTests.data.some(
+      (addedTest) =>
+        addedTest.testName.toLowerCase().trim() === test.toLowerCase().trim(),
+    );
+
+    if (isDuplicate) {
+      this.alertService.alert('Test name already exists');
     } else {
-      for (const addedTest of this.addedFetosenseTests.data) {
-        if (
-          addedTest.testName !== undefined &&
-          addedTest.testName !== null &&
-          test !== undefined &&
-          test !== null &&
-          addedTest.testName.toLowerCase().trim() === test.toLowerCase().trim()
-        ) {
-          this.alertService.alert('Test name already exists');
-          return;
-        }
-      }
       const fetosenseTest = this.addtempTestMap(test, desc);
       if (
         fetosenseTest.testName !== undefined &&
-        fetosenseTest.testName !== null &&
         fetosenseTest.testName.trim().length > 0
       ) {
-        this.addedFetosenseTests.data.push(fetosenseTest);
+        this.addedFetosenseTests.data = [
+          ...this.addedFetosenseTests.data,
+          fetosenseTest,
+        ];
       }
     }
   }
+
   addtempTestMap(test: any, desc: any) {
     this.fetosenseTest = {
       testName: test,
@@ -269,7 +337,10 @@ export class FetosenseTestMasterComponent implements OnInit {
     );
   }
   removeTest(index: any) {
-    this.addedFetosenseTests.data.splice(index, 1);
+    const newData = [...this.addedFetosenseTests.data];
+    newData.splice(index, 1);
+    this.addedFetosenseTests.data = newData;
+    this.cdr.detectChanges();
     if (this.addedFetosenseTests.data.length === 0) this.saveTest = false;
   }
   deleteTest(fetoID: any, flag: any) {

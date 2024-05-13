@@ -4,58 +4,58 @@
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <h4 class="pull-left">Feedback/Complaint Type Master</h4>
   </div>
-  <form #searchFTForm="ngForm" autocomplete="off">
-    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-      <!-- <mat-form-field class="hide_underline" [style.width]="'100%'">
-        <input matInput style="display:none"> -->
-      <mat-form-field>
-        <mat-label>Serviceline</mat-label>
-        <mat-select
-          [style.width]="'100%'"
-          [(ngModel)]="search_serviceline"
-          name="serviceline"
-          required
-        >
-          <mat-option
-            *ngFor="let service of servicelines"
-            value="{{ service.serviceID }}"
-            (click)="
-              getStates(service.serviceID, service.isNational);
-              setIsNational(service.isNational)
-            "
+  <div class="col-12">
+    <form #searchFTForm="ngForm" autocomplete="off" class="row">
+      <div class="col-3">
+        <mat-form-field>
+          <mat-label>Serviceline</mat-label>
+          <mat-select
+            [style.width]="'100%'"
+            [(ngModel)]="search_serviceline"
+            name="serviceline"
+            required
           >
-            {{ service.serviceName }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-      <mat-form-field>
-        <mat-label>State</mat-label>
-        <mat-select
-          [style.width]="'100%'"
-          [disabled]="isNational"
-          [(ngModel)]="search_state"
-          name="state"
-          [required]="!isNational"
-        >
-          <mat-option
-            *ngFor="let state of states"
-            value="{{ state.stateID }}"
-            (click)="findFeedbackTypes(state.providerServiceMapID)"
+            <mat-option
+              *ngFor="let service of servicelines"
+              value="{{ service.serviceID }}"
+              (click)="
+                getStates(service.serviceID, service.isNational);
+                setIsNational(service.isNational)
+              "
+            >
+              {{ service.serviceName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-3">
+        <mat-form-field>
+          <mat-label>State</mat-label>
+          <mat-select
+            [style.width]="'100%'"
+            [disabled]="isNational"
+            [(ngModel)]="search_state"
+            name="state"
+            [required]="!isNational"
           >
-            {{ state.stateName }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+            <mat-option
+              *ngFor="let state of states"
+              value="{{ state.stateID }}"
+              (click)="findFeedbackTypes(state.providerServiceMapID)"
+            >
+              {{ state.stateName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
 
-      <!-- </mat-form-field> -->
-    </div>
-  </form>
+        <!-- </mat-form-field> -->
+      </div>
+    </form>
+  </div>
 </div>
 <!--table area-->
 <div
-  class="pull-right"
+  style="text-align: end"
   *ngIf="feedbackTypes.length !== 0 && searchForm && showTable"
 >
   <mat-form-field id="filterbox">
@@ -73,7 +73,7 @@
     <div class="table-responsive">
       <table
         mat-table
-        [dataSource]="this.filteredfeedbackTypes.data"
+        [dataSource]="filteredfeedbackTypes"
         class="table table-striped table-hover"
       >
         <ng-container matColumnDef="SNo">
@@ -130,9 +130,6 @@
               Deactivate
             </button>
           </td>
-          <!-- <td colspan="4" class="p-r-0" mat-cell>
-          <button md-raised-button color="primary" [disabled]="searchForm.invalid" class="pull-right" (click)="changeTableFlag(false)">Add Work Location</button>
-        </td> -->
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
@@ -149,7 +146,8 @@
         </button>
       </div>
       <mat-paginator
-        [hidden]="filteredfeedbackTypes.data.length === 0"
+        #paginatorFirst
+        [length]="filteredfeedbackTypes.data.length"
         [pageSizeOptions]="[5, 10, 25]"
         [pageSize]="5"
         showFirstLastButtons
@@ -177,10 +175,13 @@
             >
               <mat-option
                 *ngFor="let service of servicelines"
-                value="{{ service }}"
-                (click)="getStates(service, service); setIsNational(service)"
+                value="{{ service.serviceID }}"
+                (click)="
+                  getStates(service.serviceID, service.isNational);
+                  setIsNational(service.isNational)
+                "
               >
-                {{ service }}
+                {{ service.serviceName }}
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -201,10 +202,10 @@
             >
               <mat-option
                 *ngFor="let state of states"
-                value="{{ state }}"
-                (click)="findFeedbackTypes(state)"
+                value="{{ state.stateID }}"
+                (click)="findFeedbackTypes(state.providerServiceMapID)"
               >
-                {{ state }}
+                {{ state.stateName }}
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -224,7 +225,7 @@
             <input
               matInput
               name="feedbackName"
-              myProviderName
+              appMyProviderName
               [(ngModel)]="feedbackName"
               #feedback_name="ngModel"
               required
@@ -273,7 +274,10 @@
           </mat-form-field> -->
         </div>
         <!-- <div class="clearfix visible-md "></div> -->
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20" myProviderName>
+        <div
+          class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20"
+          appMyProviderName
+        >
           <mat-form-field [style.width]="'100%'">
             <mat-label>Feedback Description</mat-label>
             <input
@@ -291,7 +295,7 @@
           <button
             mat-mini-fab
             color="primary"
-            class="xs-pull-right sm-pull-right md-pull-left lg-pull-left mat_blue"
+            class="xs-pull-right sm-pull-right md-pull-left lg-pull-left mat_icon_white"
             type="button"
             (click)="add_obj(feedbackName, feedbackDesc); this.editForm.reset()"
           >
@@ -311,7 +315,7 @@
         <div class="table-responsive">
           <table
             mat-table
-            [dataSource]="this.objs.data"
+            [dataSource]="objs"
             class="table table-striped table-hover"
           >
             <ng-container matColumnDef="SNo">
@@ -347,10 +351,17 @@
             <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns1"></tr>
           </table>
+          <mat-paginator
+            #paginatorSecond
+            [length]="objs.data.length"
+            [pageSizeOptions]="[5, 10, 25]"
+            [pageSize]="5"
+            showFirstLastButtons
+          ></mat-paginator>
         </div>
       </div>
       <div class="col-xs-12 col-sm-12 m-b-10 m-t-10">
-        <div class="row">
+        <div class="">
           <button
             mat-raised-button
             color="accent"

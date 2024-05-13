@@ -40,9 +40,16 @@ import { MatPaginator } from '@angular/material/paginator';
 export class HospitalMasterComponent implements OnInit {
   [x: string]: any;
   filteredsearchResultArray = new MatTableDataSource<any>();
-  @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
   enableUPload = true;
   dataString: any;
+  paginator!: MatPaginator;
+  @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
+    this.paginator = mp;
+    this.setDataSourceAttributes();
+  }
+  setDataSourceAttributes() {
+    this.filteredsearchResultArray.paginator = this.paginator;
+  }
 
   value: any;
   timerSubscription!: Subscription;
@@ -141,7 +148,7 @@ export class HospitalMasterComponent implements OnInit {
     public dialog: MatDialog,
     public alertService: ConfirmationDialogsService,
   ) {
-    this.serviceProviderID = this.commonDataService.service_providerID;
+    this.serviceProviderID = sessionStorage.getItem('service_providerID');
   }
 
   ngOnInit() {
@@ -310,8 +317,8 @@ export class HospitalMasterComponent implements OnInit {
     const requestData = {
       //'InstitutionDetails' : this.dataString,
       InstitutionDetails: this.jsonData.Sheet1,
-      userID: this.userID,
-      serviceProviderID: this.serviceProviderID,
+      userID: Number(this.userID),
+      serviceProviderID: Number(this.serviceProviderID),
       createdBy: this.commonDataService.uname,
     };
     this.HospitalMasterService.postFormData(requestData).subscribe(
@@ -330,19 +337,21 @@ export class HospitalMasterComponent implements OnInit {
             else */
         console.log('Response', response);
         if (response.statusCode === 5000 && response.errorMessage) {
-          console.log('Hello');
-          this.alertService.confirm(response.data, 'error').subscribe(() => {
-            this.uploadForm.resetForm();
-          });
+          if (response.data) {
+            this.alertService.confirm('error', response.data).subscribe(() => {
+              this.uploadForm.resetForm();
+            });
+          } else {
+            this.alertService
+              .confirm('error', response.status)
+              .subscribe(() => {
+                this.uploadForm.resetForm();
+              });
+          }
         } else {
           this.uploadForm.resetForm();
           this.file = undefined;
-          this.alertService.confirm(response.json().data.response, 'info');
-          //this.alertService.alert("Saved Success")
-          /*  if(response.json().data.response != "FileID"){
-                    this.alertService.confirm(response.json().data.response, 'info')
-    
-                  }*/
+          this.alertService.confirm('info', response.data.response);
         }
       },
       (error) => {
@@ -489,12 +498,12 @@ export class HospitalMasterComponent implements OnInit {
     }
   }
 
-  getServices(stateID: any) {
+  getServices(userID: any) {
     // this.state = "";
     // this.district = "";
     // this.taluk = "";
 
-    this.HospitalMasterService.getServices(this.userID).subscribe(
+    this.HospitalMasterService.getServices(userID).subscribe(
       (response: any) => this.getServiceSuccessHandeler(response),
       (err) => {
         console.log('Error', err);
@@ -506,7 +515,7 @@ export class HospitalMasterComponent implements OnInit {
   getServiceSuccessHandeler(response: any) {
     if (response) {
       this.services = response.data.filter(function (item: any) {
-        if (item.serviceID) {
+        if (item.serviceID === 3 || item.serviceID === 1) {
           return item;
         }
       });
@@ -563,12 +572,16 @@ export class HospitalMasterComponent implements OnInit {
         this.taluk = "";
         this.providerServiceMapID = providerServiceMapID;
     }*/
-  setProviderServiceMapID(providerServiceMapID: any) {
+  setProviderServiceMapID(stateId: any) {
+    this.states.map((item: any) => {
+      if (item.stateID === stateId) {
+        this.providerServiceMapID = item.providerServiceMapID;
+      }
+    });
     this.district = '';
     this.taluk = '';
-    this.providerServiceMapID = providerServiceMapID;
     this._instituteTypeMasterService
-      .getInstitutesType(providerServiceMapID)
+      .getInstitutesType(this.providerServiceMapID)
       .subscribe(
         (response: any) => this.instituteSuccessHandeler(response),
         (err) => {
@@ -627,7 +640,7 @@ export class HospitalMasterComponent implements OnInit {
       this.alertService
         .confirm('Confirm', 'Are you sure you want to Deactivate?')
         .subscribe((response: any) => {
-          if (response.data) {
+          if (response) {
             const obj = {
               institutionID: institutionID,
               deleted: toBeDeactivatedFlag,
@@ -643,9 +656,7 @@ export class HospitalMasterComponent implements OnInit {
             );
           }
         });
-    }
-
-    if (toBeDeactivatedFlag === false) {
+    } else if (toBeDeactivatedFlag === false) {
       this.alertService
         .confirm('Confirm', 'Are you sure you want to Activate?')
         .subscribe((response) => {

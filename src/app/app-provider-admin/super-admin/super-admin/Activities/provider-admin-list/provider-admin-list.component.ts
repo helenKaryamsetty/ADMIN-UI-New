@@ -19,7 +19,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see https://www.gnu.org/licenses/.
  */
-import { Component, OnInit, ViewChild, Inject } from '@angular/core';
+import { Component, OnInit, ViewChild, Inject, Input } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import {
   MAT_DIALOG_DATA,
@@ -38,8 +38,6 @@ import { ConfirmationDialogsService } from 'src/app/core/services/dialog/confirm
   styleUrls: ['./provider-admin-list.component.css'],
 })
 export class ProviderAdminListComponent implements OnInit {
-  //ngModel
-
   titleID: any;
   admin_firstName: any;
   admin_middleName: any;
@@ -173,15 +171,6 @@ export class ProviderAdminListComponent implements OnInit {
       },
     );
   }
-  // filterServicePointVan(searchTerm) {
-  //   if (searchTerm) {
-  //     this.filteredServicePoints = this.servicePointsList.filter(servicePoint => {
-  //       return servicePoint.servicePointName.toLowerCase().startsWith(searchTerm.toLowerCase());
-  //     })
-  //   } else {
-  //     this.filteredServicePoints = this.servicePointsList.slice(0, 10);
-  //   }
-  // }
 
   filteredResult(searchValue: any) {
     console.log('Search Valueeee', searchValue);
@@ -265,6 +254,7 @@ export class ProviderAdminListComponent implements OnInit {
         }
       });
   }
+
   calculateAge(date: any) {
     if (date !== undefined) {
       let age = this.today.getFullYear() - date.getFullYear();
@@ -316,12 +306,6 @@ export class ProviderAdminListComponent implements OnInit {
         this.showHint = false;
         this.username_dependent_flag = false;
       }
-      //  else {
-      //   console.log("else response", response);
-      //   this.showHint = true;
-      //   this.username_dependent_flag = true;
-      //   this.username_status = 'Username is required';
-      // }
     }
   }
 
@@ -551,10 +535,6 @@ export class ProviderAdminListComponent implements OnInit {
   /*
   * Clear all the data
   */
-  // clearAll() {
-  //   this.providerAdminCreationForm.resetForm();
-  //   this.adminCredentialsForm.resetForm();
-  // }
   /*
    * provider creation
    */
@@ -740,6 +720,7 @@ export class EditProviderAdminModalComponent implements OnInit {
   emailPattern = /^[0-9a-zA-Z_.]+@[a-zA-Z_]+?\.\b(org|com|COM|IN|in|co.in)\b$/;
 
   @ViewChild('editAdminCreationForm') editAdminCreationForm!: NgForm;
+  tomorrow: any;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -793,11 +774,6 @@ export class EditProviderAdminModalComponent implements OnInit {
    * Reset the dob on adding multiple objects
    */
   resetDob() {
-    // this.maxdate = new Date();
-    // this.maxdate.setFullYear(this.today.getFullYear() - 20);
-    // this.mindate = new Date();
-    // this.mindate.setFullYear(this.today.getFullYear() - 70);
-    // this.calculateAge();
     this.dob = new Date();
     this.dob.setHours(0);
     this.dob.setMinutes(0);

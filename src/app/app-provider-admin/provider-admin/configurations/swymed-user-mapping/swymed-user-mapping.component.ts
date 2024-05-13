@@ -89,7 +89,7 @@ export class SwymedUserMappingComponent implements OnInit {
 
   ngOnInit() {
     this.createdBy = this.dataServiceValue.uname;
-    this.serviceProviderID = this.dataServiceValue.service_providerID;
+    this.serviceProviderID = sessionStorage.getItem('service_providerID');
     this.getAllSwymedUserDetails();
   }
   /*

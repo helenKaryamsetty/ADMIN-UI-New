@@ -6,7 +6,11 @@
   </div>
   <!-- pre-populated table showing the number of providers available -->
 </div>
-<div class="pull-right m-t-10" *ngIf="tableMode && searchResult.length !== 0">
+<div
+  class="m-t-10"
+  style="text-align: end"
+  *ngIf="tableMode && searchResult.length !== 0"
+>
   <mat-form-field id="filterbox">
     <input
       matInput
@@ -14,54 +18,12 @@
       #filterTerm
       (keyup)="filterComponentList(filterTerm.value)"
     />
-    <mat-icon mdSuffix>search</mat-icon>
+    <mat-icon matSuffix>search</mat-icon>
   </mat-form-field>
 </div>
 <div class="row" *ngIf="tableMode">
   <div class="col-xs-12 col-sm-12 m-t-10">
     <div class="">
-      <!-- <table class="table table-hover table-striped" [md2Data]="filteredsearchResult" #md2="md2DataTable" [rowsPerPage]="4">
-        <thead>
-          <tr>
-            <th width="5%">S.No.</th>
-            <th width="20%" md2SortBy="serviceProviderName">Provider Name</th>
-            <th width="20%">Contact Person</th>
-            <th width="20%">Contact Number</th>
-            <th width="30%">Address</th>
-            <th width="5%">Edit</th>
-            <th width="10%">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngIf="md2.data.length == 0">
-            <td colspan="7" class="record-not-found">No records found</td>
-          </tr>
-          <tr *ngFor="let item of md2.data;let i = index ">
-            <td>{{(md2.activePage-1)*4+i+1}}</td>
-            <td>{{item.serviceProviderName}}</td>
-            <td>{{item.primaryContactName}}</td>
-            <td>{{item.primaryContactNo}}</td>
-            <td>{{item.primaryContactAddress}}</td>
-            <td>
-              <mat-icon class="cursorPointer" *ngIf="!item.deleted" mdTooltip="Edit" (click)='edit(item)'>mode_edit</mat-icon>
-            </td>
-            <td>
-              <button *ngIf="item.deleted" md-raised-button color="accent" (click)="activate(item.serviceProviderId)">Activate</button>
-              <button *ngIf="!item.deleted" md-raised-button color="primary" (click)="deactivate(item.serviceProviderId)">Deactivate</button>
-            </td>
-          </tr>
-        </tbody>
-        <tfoot>
-          <tr>
-            <td colspan="4">
-              <md2-pagination></md2-pagination>
-            </td>
-            <td colspan="3" class="p-r-0">
-              <button md-raised-button color="primary" class="pull-right" (click)="showForm()">Create New Provider</button>
-            </td>
-          </tr>
-        </tfoot>
-      </table> -->
       <table
         mat-table
         [dataSource]="filteredsearchResult"
@@ -140,32 +102,6 @@
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-        <!-- Header and Row Definitions -->
-        <!-- <mat-header-row
-          *matHeaderRowDef="[
-            'sno',
-            'serviceProviderName',
-            'primaryContactName',
-            'primaryContactNo',
-            'primaryContactAddress',
-            'edit',
-            'action'
-          ]"
-        ></mat-header-row>
-        <mat-row
-          *matRowDef="
-            let row;
-            columns: [
-              'sno',
-              'serviceProviderName',
-              'primaryContactName',
-              'primaryContactNo',
-              'primaryContactAddress',
-              'edit',
-              'action'
-            ]
-          "
-        ></mat-row> -->
       </table>
       <div>
         <button
@@ -195,13 +131,13 @@
       <strong>Edit Provider</strong>
     </h4>
   </div>
-  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-a-0">
-    <form #providerCreationForm="ngForm" autocomplete="off">
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
-        <mat-form-field class="width100" myProviderName>
+  <div class="col-12 p-a-0">
+    <form #providerCreationForm="ngForm" autocomplete="off" class="row">
+      <div class="col-3 m-t-10">
+        <mat-form-field appMyProviderName>
+          <mat-label>Provider/Company Name</mat-label>
           <input
             matInput
-            placeholder="Provider/Company Name"
             ngModel
             name="provider_name"
             [(ngModel)]="providerName"
@@ -222,7 +158,7 @@
         </mat-form-field>
       </div>
 
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
+      <div class="col-3 m-t-10">
         <mat-form-field
           class="input-full-width mat_form_field_background_color"
         >
@@ -231,8 +167,8 @@
             matInput
             [matDatepicker]="validFromPicker"
             name="valid_from"
-            min="today"
             [(ngModel)]="validFrom"
+            [min]="today"
           />
           <mat-datepicker-toggle
             matPrefix
@@ -241,8 +177,8 @@
           <mat-datepicker #validFromPicker></mat-datepicker>
         </mat-form-field>
       </div>
-      <div class="clearfix visible-sm"></div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
+      <!-- <div class="clearfix visible-sm"></div> -->
+      <div class="col-3 m-t-10">
         <mat-form-field
           class="input-full-width mat_form_field_background_color"
         >
@@ -251,8 +187,8 @@
             matInput
             [matDatepicker]="validTillPicker"
             name="valid_till"
-            min="validFrom"
             [(ngModel)]="validTill"
+            [min]="validFrom"
           />
           <mat-datepicker-toggle
             matPrefix
@@ -261,12 +197,12 @@
           <mat-datepicker #validTillPicker></mat-datepicker>
         </mat-form-field>
       </div>
-      <div class="clearfix visible-md"></div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
-        <mat-form-field class="width100" myProviderName>
+      <!-- <div class="clearfix visible-md"></div> -->
+      <div class="col-3 m-t-10">
+        <mat-form-field appMyProviderName>
+          <mat-label>Contact Person</mat-label>
           <input
             matInput
-            placeholder="Contact Person"
             ngModel
             minlength="2"
             maxlength="30"
@@ -280,11 +216,11 @@
           </mat-hint>
         </mat-form-field>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
-        <mat-form-field class="width100" myMobileNumber>
+      <div class="col-3 m-t-10">
+        <mat-form-field appMyMobileNumber>
+          <mat-label>Contact Number</mat-label>
           <input
             matInput
-            placeholder="Contact Number"
             ngModel
             name="contact_number"
             [(ngModel)]="primaryNumber"
@@ -301,11 +237,11 @@
           </mat-hint>
         </mat-form-field>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
-        <mat-form-field class="width100">
+      <div class="col-3 m-t-10">
+        <mat-form-field>
+          <mat-label>Email ID</mat-label>
           <input
             matInput
-            placeholder="Email ID"
             required
             ngModel
             [pattern]="emailPattern"
@@ -321,15 +257,12 @@
           </mat-hint>
         </mat-form-field>
       </div>
-      <div
-        class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10"
-        *ngIf="!editMode"
-      >
-        <mat-form-field class="width100">
+      <div class="col-3 m-t-10" *ngIf="!editMode">
+        <mat-form-field>
+          <mat-label>Address1</mat-label>
           <input
             matInput
-            myAddress
-            placeholder="Address1"
+            appMyAddressDirective
             maxlength="100"
             ngModel
             minlength="3"
@@ -343,15 +276,12 @@
           </mat-hint>
         </mat-form-field>
       </div>
-      <div
-        class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10"
-        *ngIf="!editMode"
-      >
-        <mat-form-field class="width100">
+      <div class="col-3 m-t-10" *ngIf="!editMode">
+        <mat-form-field>
+          <mat-label>Address2</mat-label>
           <input
             matInput
-            myAddress
-            placeholder="Address2"
+            appMyAddressDirective
             maxlength="100"
             ngModel
             name="address2"
@@ -359,12 +289,12 @@
           />
         </mat-form-field>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10" *ngIf="editMode">
-        <mat-form-field class="width100">
+      <div class="col-3 m-t-10" *ngIf="editMode">
+        <mat-form-field>
+          <mat-label>Address</mat-label>
           <input
             matInput
-            myAddress
-            placeholder="Address"
+            appMyAddressDirective
             minlength="3"
             maxlength="100"
             ngModel

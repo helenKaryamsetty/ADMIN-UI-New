@@ -1,10 +1,7 @@
 <div class="row" *ngIf="tableMode">
   <div class="col-xs-12 col-sm-12">
     <h4>Drug Strength Master</h4>
-    <div
-      class="pull-right m-t-10"
-      *ngIf="drugStrength.length !== 0 && tableMode"
-    >
+    <div style="text-align: end" *ngIf="drugStrength.length !== 0 && tableMode">
       <mat-form-field
         class="input-full-width mat_form_field_width_one"
         id="filterbox"
@@ -128,7 +125,8 @@
         <strong>No Records Found</strong>
       </div>
       <mat-paginator
-        [hidden]="filteredDrugStrength.data.length === 0"
+        #paginatorFirst
+        [length]="filteredDrugStrength.data.length"
         [pageSizeOptions]="[5, 10, 20]"
         [pageSize]="5"
         showFirstLastButtons
@@ -142,68 +140,70 @@
     <h4 *ngIf="!editMode && !tableMode">Create Drug Strength</h4>
     <h4 *ngIf="editMode && !tableMode">Edit Drug Strength</h4>
   </div>
-  <form #drugStrengthForm="ngForm" autocomplete="off">
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
-      <mat-form-field class="input-full-width mat_form_field_width_one">
-        <mat-label>Drug Strength </mat-label>
-        <input
-          matInput
-          [(ngModel)]="strength"
-          name="strength"
-          #drugStrength="ngModel"
-          minlength="1"
-          maxlength="10"
-          (keyup)="checkStrengthAvailability(strength)"
-          required
-        />
-        <mat-hint>
-          <span
-            class="error_text"
-            *ngIf="
-              !drugStrength.valid &&
-              (drugStrength.dirty || drugStrength.touched)
-            "
-            >Drug strength is required</span
-          >
-          <span
-            class="error_text"
-            *ngIf="!drugStrength.errors && drugStrengthExist"
-            >Drug strength already exists</span
-          >
-        </mat-hint>
-      </mat-form-field>
-    </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
-      <mat-form-field class="input-full-width mat_form_field_width_one">
-        <mat-label>Drug Strength Description</mat-label>
-        <input
-          matInput
-          textAreaValidator
-          [(ngModel)]="strength_desc"
-          name="strength_desc"
-          #drugStrengthDesc="ngModel"
-        />
-      </mat-form-field>
-    </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
-      <button
-        md-mini-fab
-        color="primary"
-        *ngIf="!editMode && drugStrengthForm.valid && !drugStrengthExist"
-        class="pull-right-xs pull-right-sm pull-left-md pull-left-lg mat_blue"
-        (click)="add_object(drugStrengthForm.value)"
-      >
-        <mat-icon
-          matSuffix
-          class="mat-icon material-icons"
-          role="img"
-          aria-hidden="true"
-          style="cursor: pointer"
-          >add</mat-icon
+  <div class="col-12">
+    <form #drugStrengthForm="ngForm" autocomplete="off" class="row">
+      <div class="col-3 m-t-10">
+        <mat-form-field class="input-full-width mat_form_field_width_one">
+          <mat-label>Drug Strength </mat-label>
+          <input
+            matInput
+            [(ngModel)]="strength"
+            name="strength"
+            #drugStrength="ngModel"
+            minlength="1"
+            maxlength="10"
+            (keyup)="checkStrengthAvailability(strength)"
+            required
+          />
+          <mat-hint>
+            <span
+              class="error_text"
+              *ngIf="
+                !drugStrength.valid &&
+                (drugStrength.dirty || drugStrength.touched)
+              "
+              >Drug strength is required</span
+            >
+            <span
+              class="error_text"
+              *ngIf="!drugStrength.errors && drugStrengthExist"
+              >Drug strength already exists</span
+            >
+          </mat-hint>
+        </mat-form-field>
+      </div>
+      <div class="col-3 m-t-10">
+        <mat-form-field class="input-full-width mat_form_field_width_one">
+          <mat-label>Drug Strength Description</mat-label>
+          <input
+            matInput
+            appTextAreaValidator
+            [(ngModel)]="strength_desc"
+            name="strength_desc"
+            #drugStrengthDesc="ngModel"
+          />
+        </mat-form-field>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
+        <button
+          md-mini-fab
+          color="primary"
+          *ngIf="!editMode && drugStrengthForm.valid && !drugStrengthExist"
+          class="pull-right-xs pull-right-sm pull-left-md pull-left-lg mat_icon_white"
+          (click)="add_object(drugStrengthForm.value)"
         >
-      </button>
-    </div>
-  </form>
+          <mat-icon
+            matSuffix
+            class="mat-icon material-icons"
+            role="img"
+            aria-hidden="true"
+            style="cursor: pointer"
+            >add</mat-icon
+          >
+        </button>
+      </div>
+    </form>
+  </div>
   <div
     class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
     *ngIf="drugStrengthList.data.length > 0"
@@ -261,14 +261,15 @@
         </tbody> -->
         <tr mat-header-row *matHeaderRowDef="displayAddedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayAddedColumns"></tr>
-        <mat-paginator
-          [hidden]="drugStrengthList.data.length === 0"
-          [pageSizeOptions]="[5, 10, 20]"
-          [pageSize]="5"
-          showFirstLastButtons
-        >
-        </mat-paginator>
       </table>
+      <mat-paginator
+        #paginatorSecond
+        [length]="drugStrengthList.data.length"
+        [pageSizeOptions]="[5, 10, 20]"
+        [pageSize]="5"
+        showFirstLastButtons
+      >
+      </mat-paginator>
     </div>
   </div>
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10">

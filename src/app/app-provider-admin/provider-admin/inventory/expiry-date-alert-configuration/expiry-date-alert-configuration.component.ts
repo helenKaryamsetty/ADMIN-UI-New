@@ -39,7 +39,7 @@ export class ExpiryDateAlertConfigurationComponent implements OnInit {
   providerServiceMapID: any;
   uid!: string;
 
-  mode: any;
+  mode!: string;
   filterTerm: any;
   serviceline: any;
   state: any;
@@ -49,11 +49,24 @@ export class ExpiryDateAlertConfigurationComponent implements OnInit {
   itemCategory_array: any;
   // filteredItemCategory_array: any;
   filteredItemCategory_array = new MatTableDataSource<any>();
-  @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
   unmappedItemCategory: any;
   // expiryAlertConfigList: any = [];
   expiryAlertConfigList = new MatTableDataSource<any>();
-
+  paginator!: MatPaginator;
+  @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
+    this.paginator = mp;
+    this.setDataSourceAttributes();
+  }
+  setDataSourceAttributes() {
+    this.filteredItemCategory_array.paginator = this.paginator;
+  }
+  displayedColumns: string[] = [
+    'sno',
+    'itemCategoryCode',
+    'itemCategoryName',
+    'alertBeforeDays',
+    'edit',
+  ];
   constructor(
     public commonservice: CommonServices,
     private storeService: Mainstroreandsubstore,
@@ -105,11 +118,15 @@ export class ExpiryDateAlertConfigurationComponent implements OnInit {
               category.deleted !== true &&
               category.alertBeforeDays !== undefined,
           );
-
-          this.filteredItemCategory_array.data =
-            this.itemCategory_array.slice();
+          console.log('this.itemCategory_array', this.itemCategory_array);
+          this.filteredItemCategory_array.data = this.itemCategory_array;
           this.filteredItemCategory_array.paginator = this.paginator;
-          this.mode = new String('view');
+          console.log(
+            'this.filteredItemCategory_array.data',
+            this.filteredItemCategory_array.data,
+          );
+          this.mode = 'view';
+          console.log('this.mode', this.mode);
         }
       });
   }
@@ -148,14 +165,14 @@ export class ExpiryDateAlertConfigurationComponent implements OnInit {
   alertBeforeDays: any;
   createExpiryAlertConfig() {
     if (this.unmappedItemCategory.length > 0) {
-      this.mode = new String('create');
+      this.mode = 'create';
     } else {
       this.dialogService.alert('All item category mapped');
     }
   }
 
   viewExpiryAlertConfig(expiryAlertConfigForm?: NgForm) {
-    this.mode = new String('view');
+    this.mode = 'view';
     this.getItemCategory(this.providerServiceMapID);
     if (expiryAlertConfigForm) {
       expiryAlertConfigForm.reset();
@@ -166,7 +183,7 @@ export class ExpiryDateAlertConfigurationComponent implements OnInit {
   edit_itemCategory: any;
   edit_alertBeforeDays: any;
   editExpiryAlertConfig(expiryAlertConfig: any) {
-    this.mode = new String('edit');
+    this.mode = 'edit';
 
     this.edit_itemCategory = expiryAlertConfig.itemCategoryID;
     this.edit_alertBeforeDays = expiryAlertConfig.alertBeforeDays;
@@ -219,10 +236,13 @@ export class ExpiryDateAlertConfigurationComponent implements OnInit {
       item.itemCategory = undefined;
     });
 
-    this.storeService.saveExpiryAlertConfig(temp).subscribe((response) => {
-      console.log(response);
-      expiryAlertConfigForm.reset();
-      this.viewExpiryAlertConfig();
+    this.storeService.saveExpiryAlertConfig(temp).subscribe((response: any) => {
+      if (response.statusCode === 200) {
+        this.dialogService.alert('Saved successfully', 'success');
+        console.log(response);
+        expiryAlertConfigForm.reset();
+        this.viewExpiryAlertConfig();
+      }
     });
   }
 
@@ -234,11 +254,16 @@ export class ExpiryDateAlertConfigurationComponent implements OnInit {
     temp.itemCategoryID = this.edit_itemCategory;
     temp.edit_alertBeforeDays = undefined;
 
-    this.storeService.saveExpiryAlertConfig([temp]).subscribe((response) => {
-      console.log(response);
-      expiryAlertConfigForm.reset();
-      this.viewExpiryAlertConfig();
-    });
+    this.storeService
+      .saveExpiryAlertConfig([temp])
+      .subscribe((response: any) => {
+        if (response.statusCode === 200) {
+          this.dialogService.alert('Updated successfully', 'success');
+          console.log(response);
+          expiryAlertConfigForm.reset();
+          this.viewExpiryAlertConfig();
+        }
+      });
   }
 
   resetExpiryAlertConfigList() {

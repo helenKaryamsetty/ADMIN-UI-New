@@ -5,18 +5,17 @@
     <div *ngIf="unfilled" class="alert alert-danger" role="alert">
       Please fill all the details
     </div>
-    <div class="row">
-      <form #stateService="ngForm" autocomplete="off">
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-          <!-- <mat-form-field class="hide_underline" class="width100">
-                        <input matInput style="display:none"> -->
+    <div class="col-12">
+      <form #stateService="ngForm" autocomplete="off" class="row">
+        <div class="col-3 m-t-15">
+          <!-- <mat-form-field class="hide_underline"  >
+                          <input matInput style="display:none"> -->
           <mat-form-field>
             <mat-label>Serviceline</mat-label>
             <mat-select
               required
               name="Services"
               disabled="{{ disableSelection }}"
-              class="width100"
               [(ngModel)]="serviceline"
               (selectionChange)="getStates(serviceline.serviceID)"
             >
@@ -28,15 +27,14 @@
 
           <!-- </mat-form-field> -->
         </div>
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-          <!-- <mat-form-field class="hide_underline" class="width100">
-                        <input matInput style="display:none"> -->
+        <div class="col-3 m-t-15">
+          <!-- <mat-form-field class="hide_underline"  >
+                          <input matInput style="display:none"> -->
           <mat-form-field>
             <mat-label>State</mat-label>
             <mat-select
               required
               disabled="{{ disableSelection }}"
-              class="width100"
               [(ngModel)]="searchStateID"
               name="searchStateID"
               (selectionChange)="setProviderServiceMapID()"
@@ -55,10 +53,7 @@
     <div style="display: block" *ngIf="saveMode || editMode" class="m-t-10">
       <div class="row">
         <!-- <form #proccompForm="ngForm" autocomplete="off"> -->
-        <div
-          class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15"
-          *ngIf="saveMode"
-        >
+        <div class="col-3 m-t-15" *ngIf="saveMode">
           <mat-form-field>
             <mat-label>Procedure Name</mat-label>
             <mat-select
@@ -73,30 +68,19 @@
               }}</mat-option>
             </mat-select>
           </mat-form-field>
-
-          <!-- <md2-autocomplete required name="procedures" (change)="procedureSelected()" [items]="procedureList" item-text="procedureName"
-                        placeholder="Procedure Name" [(ngModel)]="selectedProcedure" [min-length]="1" #autocompleteControl="ngModel">
-                    </md2-autocomplete> -->
         </div>
-        <div
-          class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20"
-          *ngIf="saveMode"
-        >
-          <mat-form-field style="width: 100%">
+        <div class="col-3 m-t-20" *ngIf="saveMode">
+          <mat-form-field>
             <mat-label>Description</mat-label>
             <input
               id="procedure-description"
               matInput
-              class="width100"
               [(ngModel)]="selectedProcedureDescription"
               readonly
             />
           </mat-form-field>
         </div>
-        <div
-          class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15"
-          *ngIf="editMode"
-        >
+        <div class="col-3 m-t-15" *ngIf="editMode">
           <mat-autocomplete
             required
             name="procedures"
@@ -111,16 +95,12 @@
           >
           </mat-autocomplete>
         </div>
-        <div
-          class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20"
-          *ngIf="editMode"
-        >
-          <mat-form-field style="width: 100%">
+        <div class="col-3 m-t-20" *ngIf="editMode">
+          <mat-form-field>
             <mat-label>Description</mat-label>
             <input
               id="procedure-description"
               matInput
-              class="width100"
               [(ngModel)]="selectedProcedureDescription"
               readonly
               disabled
@@ -128,7 +108,7 @@
           </mat-form-field>
         </div>
         <div class="clearfix visible-md visible-sm"></div>
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
+        <div class="col-3 m-t-15">
           <mat-form-field>
             <mat-label>Component Name</mat-label>
             <mat-select
@@ -143,20 +123,14 @@
               }}</mat-option>
             </mat-select>
           </mat-form-field>
-
-          <!-- <md2-autocomplete required name="components" [disabled]="!selectedProcedure" (change)="componentSelected()" [items]="componentList"
-                        item-text="testComponentName" placeholder="Component Name" [(ngModel)]="selectedComponent" [min-length]="1"
-                        #autocompleteControl="ngModel">
-                    </md2-autocomplete> -->
         </div>
 
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
-          <mat-form-field style="width: 100%">
+        <div class="col-3 m-t-20">
+          <mat-form-field>
             <mat-label>Loinc Code</mat-label>
             <input
               id="component-loinc"
               matInput
-              class="width100"
               [(ngModel)]="selectedLoincCode"
               disabled
               readonly
@@ -164,13 +138,12 @@
           </mat-form-field>
         </div>
 
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
-          <mat-form-field style="width: 100%">
+        <div class="col-3 m-t-20">
+          <mat-form-field>
             <mat-label>Loinc Component Name</mat-label>
             <input
               id="component-loinc"
               matInput
-              class="width100"
               [(ngModel)]="selectedLoincComponent"
               disabled
               readonly
@@ -178,13 +151,12 @@
           </mat-form-field>
         </div>
 
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
-          <mat-form-field style="width: 100%">
+        <div class="col-3 m-t-20">
+          <mat-form-field>
             <mat-label>Description</mat-label>
             <input
               id="component-description"
               matInput
-              class="width100"
               [(ngModel)]="selectedComponentDescription"
               readonly
             />
@@ -239,7 +211,7 @@
       #tabledData
       class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-20 table-responsive"
     >
-      <div *ngIf="mappedList?.length > 0" class="pull-right">
+      <div style="text-align: end" *ngIf="mappedList?.length > 0" class="">
         <mat-form-field id="filterbox" class="m-t-20-">
           <input
             matInput
@@ -252,37 +224,6 @@
       </div>
       <div class="clearfix"></div>
       <div class="table-responsive">
-        <!-- <table class="table table-striped table-hover" [md2Data]="filteredMappedList" #md2="md2DataTable" [rowsPerPage]="4">
-                    <thead>
-                        <tr>
-                            <th width="10%">S.No.</th>
-                            <th width="15%">Procedure Name</th>
-                            <th width="30%">Description</th>
-                            <th width="25%">Mapped Components</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngIf="filteredMappedList.length == 0" class="record-not-found">
-                            <td colspan="4" align="center">No records found</td>
-                        </tr>
-                        <tr *ngFor="let item of md2.data;let i = index ">
-                            <td>{{(md2.activePage-1)*3+i+1}}</td>
-                            <td>{{item.procedureName}}</td>
-                            <td>{{item.procedureDesc}}</td>
-                            <td>{{item.compList}}</td>
-                        </tr>
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <td colspan="3">
-                                <md2-pagination></md2-pagination>
-                            </td>
-                            <td colspan="1" class="p-r-0">
-                                <button class="pull-right" color="primary" id="resetButton" md-raised-button (click)="showForm();">Create New Mapping</button>
-                            </td>
-                        </tr>
-                    </tfoot>
-                </table> -->
         <table
           mat-table
           [dataSource]="this.filteredMappedList.data"

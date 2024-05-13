@@ -133,8 +133,14 @@ export class LanguageMappingComponent implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit() {
-    this.serviceProviderID = this.saved_data.service_providerID;
+    this.serviceProviderID = sessionStorage.getItem('service_providerID');
     this.createdBy = this.createdBy = this.saved_data.uname;
+    this.WeightageList = [
+      { value: 10, Name: '25%' },
+      { value: 20, Name: '50%' },
+      { value: 30, Name: '75%' },
+      { value: 40, Name: '100%' },
+    ];
     this.getUserName(this.serviceProviderID);
     this.getAllLanguagesList();
     this.getAllMappedLanguagesList();
@@ -754,13 +760,6 @@ export class LanguageMappingComponent implements OnInit, AfterViewInit {
     }
   }
 
-  // checkExistance(langID) {
-  //
-  //   this.langExist = this.filteredLanguage.includes(langID);
-  //   if (!this.langExist)
-  //     this.alertService.alert('Already exists');
-
-  // }
   back() {
     this.alertService
       .confirm(

@@ -57,13 +57,13 @@ export class DataMappingBlockSubcenterComponent implements OnInit {
   ngOnInit() {
     this.userID = this.dataService.uid;
     const servicelines = this.dataService.userPriveliges;
-    for (const element of servicelines) {
-      if (element.serviceDesc.toLowerCase() === '104 helpline') {
-        this.showUpload = true;
-        return this.showUpload;
-      }
-    }
-    this.showUpload = false;
+    // for (let element of servicelines) {
+    //   if (element.serviceDesc?.toLowerCase() === '104 helpline') {
+    //     this.showUpload = true;
+    //     return this.showUpload;
+    //   }
+    // }
+    this.showUpload = true;
     return this.showUpload;
   }
 
@@ -218,7 +218,7 @@ export class DataMappingBlockSubcenterComponent implements OnInit {
       });
     (err: any) => {
       this.showProgressBar = false;
-      this.alertService.alert(err, 'error');
+      this.alertService.alert(err.errorMessage, 'error');
       this.resetFileInput();
       this.file = undefined;
       this.fileContent = null;

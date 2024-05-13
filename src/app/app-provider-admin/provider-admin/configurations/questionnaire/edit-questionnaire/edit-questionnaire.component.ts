@@ -37,7 +37,7 @@ export class EditQuestionnaireComponent implements OnInit {
   answerTypes: any = ['Radio', 'Dropdown', 'Free Text'];
   questionOptionList!: any[];
   questionArrayList!: FormArray;
-  weightFlag: any = false;
+  weightFlag = false;
   optionweightFlag: any = false;
   questionlistValue!: any[];
   providerServiceMapID: any;

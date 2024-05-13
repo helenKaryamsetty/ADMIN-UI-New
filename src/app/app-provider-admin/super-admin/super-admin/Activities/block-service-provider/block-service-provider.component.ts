@@ -141,12 +141,6 @@ export class BlockServiceProviderComponent implements OnInit {
     this.status_array.splice(index, 1);
   }
 
-  // ** Smart Search Logic ** added by Krishna Gunti ** //
-
-  // @HostListener('document:keydown', ['$event'])
-  // handleKeyboardEvent(event: KeyboardEvent): void {
-  //   this.selectKeyPress(event);
-  // }
   selectKeyPress($event: any) {
     let firstWordMatchingStatus = 0;
     if ($event.keyCode !== 123) {
@@ -457,7 +451,7 @@ export class BlockServiceProviderComponent implements OnInit {
     this.block_provider
       .block_unblock_provider(serviceProviderID, statusID, reason)
       .subscribe(
-        (response) =>
+        (response: any) =>
           this.block_unblock_providerSuccessHandeler(
             response,
             serviceProviderID,
@@ -470,9 +464,9 @@ export class BlockServiceProviderComponent implements OnInit {
   }
 
   block_unblock_providerSuccessHandeler(response: any, serviceProviderID: any) {
-    console.log('b u provider success handeler', response);
+    console.log('b u provider success handeler', response.data);
     this.message.alert('Updated successfully', 'success');
-    this.getStatusOnProviderLevel(response[0].serviceProviderID);
+    this.getStatusOnProviderLevel(response.data.serviceProviderID);
     this.getStates(serviceProviderID);
   }
 
@@ -546,7 +540,7 @@ export class BlockServiceProviderComponent implements OnInit {
         reason,
       )
       .subscribe(
-        (response) =>
+        (response: any) =>
           this.block_unblock_serviceOfStateSuccessHandeler(response),
         (err) => {
           console.log('Error', err);
@@ -571,12 +565,12 @@ export class BlockServiceProviderComponent implements OnInit {
     }
   }
   block_unblock_serviceOfStateSuccessHandeler(response: any) {
-    console.log('b u service of state success handeler', response);
+    console.log('b u service of state success handeler', response.data);
     this.message.alert('Updated successfully', 'success');
     this.getStatusOnProviderStateServiceLevel(
-      response.serviceProviderID,
-      response.stateID,
-      response.serviceID,
+      response.data.serviceProviderID,
+      response.data.stateID,
+      response.data.serviceID,
     );
   }
 }

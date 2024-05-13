@@ -5,7 +5,7 @@
   </div>
 </div>
 <div
-  class="m-t-15 pull-right"
+  style="text-align: end"
   *ngIf="swymedUserDetails.length !== 0 && !editMode && showTable"
 >
   <mat-form-field
@@ -160,115 +160,120 @@
 </div>
 <div class="row" *ngIf="!showTable" (mouseup)="hidePWD()">
   <form #mappingForm="ngForm" autocomplete="off">
+    <div class="col-12 row">
+      <div class="col-3 m-t-15">
+        <mat-form-field>
+          <mat-label>Designation</mat-label>
+          <mat-select
+            class="width100"
+            [(ngModel)]="designation"
+            name="designation"
+            [disabled]="disableSelection"
+            #userDesignation="ngModel"
+            (selectionChange)="
+              getUserNameBasedOnDesig(designation.designationID)
+            "
+            required
+          >
+            <mat-option *ngFor="let item of designations" [value]="item">
+              {{ item.designationName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-3 m-t-15">
+        <mat-form-field>
+          <mat-label>User</mat-label>
+          <mat-select
+            class="width100"
+            ngModel
+            [(ngModel)]="username"
+            name="username"
+            [disabled]="disableSelection"
+            #swymedUser="ngModel"
+            required
+          >
+            <mat-option *ngFor="let user of userNamesList" [value]="user">
+              {{ user.UserName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-3 m-t-15">
+        <mat-form-field class="input-full-width mat_form_field_width_one">
+          <mat-label>Email</mat-label>
+          <input
+            matInput
+            ngModel
+            [(ngModel)]="emailID"
+            name="emailID"
+            #validEmail="ngModel"
+            [pattern]="emailPattern"
+            required
+          />
+          <mat-hint>
+            <span class="errorText" [hidden]="!validEmail.hasError('pattern')"
+              >Valid Email ID is required</span
+            >
+          </mat-hint>
+        </mat-form-field>
+      </div>
+      <div class="col-3 m-t-15">
+        <mat-form-field class="input-full-width mat_form_field_width_one">
+          <mat-label>Password</mat-label>
+          <input
+            type="{{ dynamictype }}"
+            matInput
+            ngModel
+            [(ngModel)]="password"
+            name="password"
+            [pattern]="passwordPattern"
+            minlength="8"
+            maxlength="12"
+            #pwrd="ngModel"
+            required
+          />
+          <mat-icon
+            id="eye"
+            matSuffix
+            class="mat-icon material-icons cursorPointer"
+            role="img"
+            aria-hidden="true"
+            mdTooltip="Show Password"
+            (mousedown)="showPWD()"
+            style="color: gray"
+            >visibility</mat-icon
+          >
+          <mat-hint>
+            <span
+              class="error_text"
+              *ngIf="pwrd.errors && !pwrd.hasError('pattern') && pwrd.touched"
+              >Password is required</span
+            >
+            <span class="error_text" *ngIf="pwrd.hasError('pattern')"
+              >Password is required(min:8,max:12,alphanumeric,1 special
+              character,1 upper case)</span
+            >
+          </mat-hint>
+        </mat-form-field>
+      </div>
+    </div>
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
       <mat-form-field>
-        <mat-label>Designation</mat-label>
+        <mat-label>Swymed Domain</mat-label>
         <mat-select
           class="width100"
-          [(ngModel)]="designation"
-          name="designation"
+          [(ngModel)]="domain"
+          name="domain"
           [disabled]="disableSelection"
-          #userDesignation="ngModel"
-          (selectionChange)="getUserNameBasedOnDesig(designation.designationID)"
+          #videoConsultationDomain="ngModel"
           required
         >
-          <mat-option *ngFor="let item of designations" [value]="item">
-            {{ item.designationName }}
+          <mat-option *ngFor="let item of domainList" [value]="item">
+            {{ item.videoConsultationDoamin }}
           </mat-option>
         </mat-select>
       </mat-form-field>
-    </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-      t
-      <mat-form-field>
-        <mat-label>User</mat-label>
-        <mat-select
-          class="width100"
-          ngModel
-          [(ngModel)]="username"
-          name="username"
-          [disabled]="disableSelection"
-          #swymedUser="ngModel"
-          required
-        >
-          <mat-option *ngFor="let user of userNamesList" [value]="user">
-            {{ user.UserName }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
-      <mat-form-field class="input-full-width mat_form_field_width_one">
-        <mat-label>Email</mat-label>
-        <input
-          matInput
-          ngModel
-          [(ngModel)]="emailID"
-          name="emailID"
-          #validEmail="ngModel"
-          [pattern]="emailPattern"
-          required
-        />
-        <mat-hint>
-          <span class="errorText" [hidden]="!validEmail.hasError('pattern')"
-            >Valid Email ID is required</span
-          >
-        </mat-hint>
-      </mat-form-field>
-    </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
-      <mat-form-field class="input-full-width mat_form_field_width_one">
-        <mat-label>Password</mat-label>
-        <input
-          type="{{ dynamictype }}"
-          matInput
-          ngModel
-          [(ngModel)]="password"
-          name="password"
-          [pattern]="passwordPattern"
-          minlength="8"
-          maxlength="12"
-          #pwrd="ngModel"
-          required
-        />
-        <mat-icon
-          id="eye"
-          matSuffix
-          class="mat-icon material-icons cursorPointer"
-          role="img"
-          aria-hidden="true"
-          mdTooltip="Show Password"
-          (mousedown)="showPWD()"
-          style="color: gray"
-          >visibility</mat-icon
-        >
-        <mat-hint>
-          <span
-            class="error_text"
-            *ngIf="pwrd.errors && !pwrd.hasError('pattern') && pwrd.touched"
-            >Password is required</span
-          >
-          <span class="error_text" *ngIf="pwrd.hasError('pattern')"
-            >Password is required(min:8,max:12,alphanumeric,1 special
-            character,1 upper case)</span
-          >
-        </mat-hint>
-      </mat-form-field>
-    </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-      <mat-label>Swymed Domain</mat-label>
-      <mat-select
-        class="width100"
-        [(ngModel)]="domain"
-        name="domain"
-        [disabled]="disableSelection"
-        #videoConsultationDomain="ngModel"
-        required
-      >
-        <mat-option *ngFor="let item of domainList" [value]="item">
-          {{ item.videoConsultationDoamin }}
-        </mat-option>
-      </mat-select>
     </div>
   </form>
 

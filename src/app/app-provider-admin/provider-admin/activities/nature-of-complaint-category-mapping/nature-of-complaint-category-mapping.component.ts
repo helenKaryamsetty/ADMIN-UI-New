@@ -37,7 +37,9 @@ export class NatureOfComplaintCategoryMappingComponent implements OnInit {
   [x: string]: any;
   filteredMappings = new MatTableDataSource<any>();
   complaintCategoryMappingList = new MatTableDataSource<any>();
-  @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
+  paginator!: MatPaginator;
+  @ViewChild('paginatorFirst') paginatorFirst!: MatPaginator;
+  @ViewChild('paginatorSecond') paginatorSecond!: MatPaginator;
 
   serviceline: any;
   state: any;
@@ -93,7 +95,7 @@ export class NatureOfComplaintCategoryMappingComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.userID = this.commonDataService.uid;
+    this.userID = sessionStorage.getItem('uid');
     this.createdBy = this.commonDataService.uname;
     this.getServicelines();
   }
@@ -109,7 +111,11 @@ export class NatureOfComplaintCategoryMappingComponent implements OnInit {
       });
   }
   getServicesSuccessHandeler(response: any) {
-    this.servicelines = response.data;
+    // this.servicelines = response.data;
+    this.servicelines = response.data.filter(function (item: any) {
+      console.log('item', item);
+      if (item.serviceID === 3 || item.serviceID === 1) return item;
+    });
   }
 
   getStates(value: any) {

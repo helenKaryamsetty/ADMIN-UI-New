@@ -20,7 +20,6 @@
  * along with this program.  If not, see https://www.gnu.org/licenses/.
  */
 import { Component, OnInit, ViewChild } from '@angular/core';
-
 import { NgForm } from '@angular/forms';
 import { HospitalInstituteMappingService } from '../../activities/services/hospital-institute-mapping-service.service';
 import { dataService } from 'src/app/core/services/dataService/data.service';
@@ -91,7 +90,7 @@ export class HospitalInstituteDirectorySubdirectoryMappingComponent
     public commonDataService: dataService,
     public alertService: ConfirmationDialogsService,
   ) {
-    this.serviceProviderID = this.commonDataService.service_providerID;
+    this.serviceProviderID = sessionStorage.getItem('service_providerID');
   }
 
   ngOnInit() {
@@ -113,14 +112,21 @@ export class HospitalInstituteDirectorySubdirectoryMappingComponent
       (response: any) => this.getServiceSuccessHandeler(response),
       (err) => {
         console.log('error while fetching service', err);
-        //this.alertService.alert(err, 'error');
       },
     );
   }
 
   getServiceSuccessHandeler(response: any) {
     if (response) {
-      this.services = response.data;
+      this.services = response.data.filter(function (item: any) {
+        console.log('item', item);
+        if (
+          item.serviceID === 1 ||
+          item.serviceID === 3 ||
+          item.serviceID === 6
+        )
+          return item;
+      });
     }
   }
   getStates(serviceID: any, isNational: any) {
@@ -130,7 +136,6 @@ export class HospitalInstituteDirectorySubdirectoryMappingComponent
         (response: any) => this.getStatesSuccessHandeler(response),
         (err) => {
           console.log('error', err);
-          // this.alertService.alert(err, 'error');
         },
       );
   }
@@ -198,7 +203,6 @@ export class HospitalInstituteDirectorySubdirectoryMappingComponent
       (response: any) => this.getDistrictSuccessHandeler(response),
       (err) => {
         console.log('error', err);
-        // this.alertService.alert(err, 'error');
       },
     );
   }
@@ -227,7 +231,6 @@ export class HospitalInstituteDirectorySubdirectoryMappingComponent
       (response: any) => this.getTalukSuccessHandeler(response),
       (err) => {
         console.log('error', err);
-        //this.alertService.alert(err, 'error');
       },
     );
   }
@@ -255,7 +258,6 @@ export class HospitalInstituteDirectorySubdirectoryMappingComponent
       (response: any) => this.getInstitutionSuccessHandeler(response),
       (err) => {
         console.log('error', err);
-        //this.alertService.alert(err, 'error');
       },
     );
     this.hospitalForm2.controls['institute_directory'].reset();
@@ -276,7 +278,6 @@ export class HospitalInstituteDirectorySubdirectoryMappingComponent
         (response: any) => this.getInstituteDirectorySuccessHandeler(response),
         (err) => {
           console.log('error', err);
-          // this.alertService.alert(err, 'error');
         },
       );
   }
@@ -307,7 +308,6 @@ export class HospitalInstituteDirectorySubdirectoryMappingComponent
           this.getInstituteSubDirectorySuccessHandeler(response),
         (err) => {
           console.log('error', err);
-          // this.alertService.alert(err, 'error');
         },
       );
   }
@@ -348,7 +348,6 @@ export class HospitalInstituteDirectorySubdirectoryMappingComponent
         (response: any) => this.mappingHistorySuccessHandeler(response),
         (err) => {
           console.log('error', err);
-          //this.alertService.alert(err, 'error');
         },
       );
     }
@@ -381,7 +380,6 @@ export class HospitalInstituteDirectorySubdirectoryMappingComponent
       if (is_unique) {
         this.bufferArray.data.push(obj);
       } else {
-        // this.alertService.alert("Already exist");
         this.hospital = '';
       }
     } else {
@@ -450,7 +448,6 @@ export class HospitalInstituteDirectorySubdirectoryMappingComponent
         (response: any) => this.saveSuccessHandeler(response),
         (err) => {
           console.log('error', err);
-          // this.alertService.alert(err, 'error');
         },
       );
   }
@@ -488,7 +485,6 @@ export class HospitalInstituteDirectorySubdirectoryMappingComponent
                     ),
                   (err) => {
                     console.log('error', err);
-                    //this.alertService.alert(err, 'error');
                   },
                 );
             }
@@ -515,7 +511,6 @@ export class HospitalInstituteDirectorySubdirectoryMappingComponent
                     ),
                   (err) => {
                     console.log('error', err);
-                    //this.alertService.alert(err, 'error');
                   },
                 );
             }

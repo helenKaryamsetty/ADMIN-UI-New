@@ -44,6 +44,9 @@ import { FetosenseDeviceIdMasterService } from '../activities/services/fetosense
 import { UserSignatureMappingComponent } from './user-signature-mapping/user-signature-mapping.component';
 import { WrapupTimeConfigurationComponent } from './wrapup-time-configuration/wrapup-time-configuration.component';
 import { WrapupTimeConfigurationService } from 'src/app/core/services/ProviderAdminServices/wrapup-time-configuration.service';
+import { CoreModule } from 'src/app/core/core.module';
+import { EmailConfigurationComponent } from './email-configuration/email-configuration.component';
+import { EmailConfigurationService } from 'src/app/core/services/ProviderAdminServices/email-configuration-services.service';
 
 @NgModule({
   declarations: [
@@ -68,6 +71,7 @@ import { WrapupTimeConfigurationService } from 'src/app/core/services/ProviderAd
     VanDeviceIdMappingComponent,
     UserSignatureMappingComponent,
     WrapupTimeConfigurationComponent,
+    EmailConfigurationComponent,
   ],
   imports: [
     CommonModule,
@@ -78,6 +82,7 @@ import { WrapupTimeConfigurationService } from 'src/app/core/services/ProviderAd
     MatTableModule,
     MatIconModule,
     MatNativeDateModule,
+    CoreModule,
   ],
   providers: [
     SnomedMasterService,
@@ -96,6 +101,7 @@ import { WrapupTimeConfigurationService } from 'src/app/core/services/ProviderAd
     FetosenseDeviceIdMasterService,
     EmployeeParkingPlaceMappingService,
     WrapupTimeConfigurationService,
+    EmailConfigurationService,
   ],
   exports: [
     AgentListCreationComponent,
@@ -119,6 +125,7 @@ import { WrapupTimeConfigurationService } from 'src/app/core/services/ProviderAd
     VanDeviceIdMappingComponent,
     UserSignatureMappingComponent,
     WrapupTimeConfigurationComponent,
+    EmailConfigurationComponent,
   ],
 })
 export class ConfigurationsModule {}

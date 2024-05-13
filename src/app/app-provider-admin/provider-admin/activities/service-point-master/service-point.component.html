@@ -4,8 +4,6 @@
     <form #searForm="ngForm" autocomplete="off">
       <div class="row">
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-          <!-- <md-input-container class="hide_underline" class="width100">
-                        <input matInput style="display:none"> -->
           <mat-form-field>
             <mat-label>Serviceline</mat-label>
             <mat-select
@@ -26,8 +24,6 @@
           <!-- </md-input-container> -->
         </div>
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-          <!-- <md-input-container class="hide_underline" class="width100">
-                        <input matInput style="display:none"> -->
           <mat-form-field>
             <mat-label>State</mat-label>
             <mat-select
@@ -48,7 +44,7 @@
 
           <!-- </md-input-container> -->
         </div>
-        <form #resetform="ngForm">
+        <form class="row" style="display: contents" #resetform="ngForm">
           <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
             <mat-form-field>
               <mat-label>Zone</mat-label>
@@ -72,10 +68,9 @@
             </mat-form-field>
           </div>
           <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-            <mat-form-field>
+            <mat-form-field *ngIf="parkAndHub">
               <mat-label>{{ parkAndHub }}</mat-label>
               <mat-select
-                *ngIf="parkAndHub"
                 class="width100"
                 [(ngModel)]="parking_Place"
                 name="parking_Place"
@@ -97,14 +92,6 @@
               </mat-select>
             </mat-form-field>
           </div>
-          <!-- <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 m-t-15">
-                        <md-select placeholder="District" class="width100" [(ngModel)]="district" name="district" (selectionChange)="getServicePoints(searchStateID.stateID, district.districtID, parking_Place.parkingPlaceID)"
-                            #mappingDistrict='ngModel' required>
-                            <md-option *ngFor="let item of districts" [value]="item">
-                                {{item.districtName}}
-                            </md-option>
-                        </md-select>
-                    </div> -->
         </form>
       </div>
     </form>
@@ -206,43 +193,6 @@
             </button>
           </td>
         </ng-container>
-        <!-- <thead>
-                    <tr>
-                        <th width="5%">S.No.</th>
-                        <th width="12%">{{parkAndHub}}</th>
-                        <th width="20%">District</th>
-                        <th width="10%">Sub District</th>
-                        <th width="12%">Service Point</th>
-                        <th width="10%">Description</th>
-                        <th width="12%">Address</th>
-                        <th width="5%">Edit</th>
-                        <th width="10%">Action</th>
-                    </tr>
-                </thead> -->
-        <!-- <tbody>
-                    <tr *ngIf="md2.data.length == 0">
-                        <td colspan="9" class="record-not-found">No records found</td>
-                    </tr>
-                    <tr *ngFor="let servicePoint of md2.data;let i=index ">
-                        <td>{{filteredavailableServicePoints.indexOf(servicePoint)+1}} </td>
-                        <td>{{servicePoint.parkingPlaceName}}</td>
-                        <td>{{servicePoint.districtName}}</td>
-                        <td>{{servicePoint.blockName}}</td>
-                        <td>{{servicePoint.servicePointName}}</td>
-                        <td>{{servicePoint.servicePointDesc}}</td>
-                        <td>{{servicePoint.servicePointHQAddress}}</td>
-                        <td>
-                            <md-icon mdTooltip="Edit" class="mat-icon material-icons" *ngIf="!servicePoint.deleted" role="img" aria-hidden="true" style="cursor: pointer"
-                                (click)="editservicePoint(servicePoint);">edit</md-icon>
-                        </td>
-                        <td *ngIf="servicePoint.deleted=='0'">
-                            <button mat-raised-button color="primary" (click)="updateServicePointStatus(servicePoint)">Deactivate</button>
-                        </td>
-                        <td *ngIf="servicePoint.deleted=='1'">
-                            <button mat-raised-button color="accent" (click)="updateServicePointStatus(servicePoint)">Activate</button>
-                        </td>
-                    </tr>
-                </tbody> -->
         <tfoot>
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
@@ -284,8 +234,6 @@
     <form #servicePointForm="ngForm" autocomplete="off">
       <div class="row">
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-          <!-- <md-input-container class="hide_underline" class="width100">
-                        <input matInput style="display:none"> -->
           <mat-form-field>
             <mat-label>Serviceline</mat-label>
             <mat-select
@@ -301,12 +249,8 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
-
-          <!-- </md-input-container> -->
         </div>
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-          <!-- <md-input-container class="hide_underline" class="width100">
-                        <input matInput style="display:none"> -->
           <mat-form-field>
             <mat-label>State</mat-label>
             <mat-select
@@ -317,14 +261,9 @@
             >
               <mat-option *ngFor="let state of provider_states" [value]="state">
                 {{ state.stateName }}
-                <!-- <mat-option *ngFor="let item of provider_states" value="{{item.stateID}}-{{item.stateName}}">
-                                {{item.stateName}} -->
               </mat-option>
-              <!-- </mat-option> -->
             </mat-select>
           </mat-form-field>
-
-          <!-- </md-input-container> -->
         </div>
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
           <mat-form-field>
@@ -350,10 +289,9 @@
           </mat-form-field>
         </div>
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-          <mat-form-field>
+          <mat-form-field *ngIf="parkAndHub">
             <mat-label>{{ parkAndHub }}</mat-label>
             <mat-select
-              *ngIf="parkAndHub"
               class="width100"
               [(ngModel)]="parking_Place"
               name="parking_Place"
@@ -372,7 +310,11 @@
           </mat-form-field>
         </div>
 
-        <form #servicePointForm1="ngForm" autocomplete="off">
+        <form
+          style="display: contents"
+          #servicePointForm1="ngForm"
+          autocomplete="off"
+        >
           <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 m-t-15">
             <mat-form-field>
               <mat-label>District</mat-label>
@@ -391,11 +333,9 @@
               </mat-select>
             </mat-form-field>
 
-            <span class="maxRedialNote">{{ note }}</span>
+            <p class="maxRedialNote">{{ note }}</p>
           </div>
           <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-            <!-- <md-input-container class="hide_underline" class="width100">
-                            <input matInput style="display:none"> -->
             <mat-form-field>
               <mat-label>Taluk/Sub District</mat-label>
               <mat-select class="width100" [(ngModel)]="talukID" name="talukID">
@@ -404,8 +344,6 @@
                 </mat-option>
               </mat-select>
             </mat-form-field>
-
-            <!-- </md-input-container> -->
           </div>
           <div class="clearfix visible-md visible-sm"></div>
           <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
@@ -413,7 +351,7 @@
               <mat-label>Service Point Name</mat-label>
               <input
                 matInput
-                vehicleNoSpecialCharWithCopyPaste
+                appVehicleNoSpecialCharWithCopyPaste
                 required
                 [(ngModel)]="servicePointName"
                 name="servicePointName"
@@ -439,13 +377,12 @@
               </mat-hint>
             </mat-form-field>
           </div>
-          <!-- <div class="clearfix visible-md visible-sm"></div> -->
           <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
             <mat-form-field class="input-full-width mat_form_field_width_one">
               <mat-label>Description</mat-label>
               <input
                 matInput
-                textAreaWithCopyPaste
+                appTextAreaWithCopyPaste
                 [(ngModel)]="servicePointDesc"
                 name="servicePointDesc"
                 maxlength="100"
@@ -459,7 +396,7 @@
               <input
                 required
                 matInput
-                myAddressWithCopyPaste
+                appMyAddressWithCopyPaste
                 [(ngModel)]="areaHQAddress"
                 name="areaHQAddress"
                 #servicePointAddress="ngModel"
@@ -571,7 +508,6 @@
         </div>
       </div>
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <!-- <button mat-raised-button *ngIf="editMode" color="accent" class=" pull-right " (click)="updateServicePoints()">Update</button> -->
         <button
           mat-raised-button
           *ngIf="formMode"
@@ -599,8 +535,6 @@
     <form #servicePointUpdateForm="ngForm" autocomplete="off">
       <div class="row">
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-          <!-- <md-input-container class="hide_underline" class="width100">
-                        <input matInput style="display:none"> -->
           <mat-form-field>
             <mat-label>Serviceline</mat-label>
             <mat-select
@@ -616,12 +550,8 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
-
-          <!-- </md-input-container> -->
         </div>
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-          <!-- <md-input-container class="hide_underline" class="width100">
-                        <input matInput style="display:none"> -->
           <mat-form-field>
             <mat-label>State</mat-label>
             <mat-select
@@ -632,14 +562,9 @@
             >
               <mat-option *ngFor="let state of provider_states" [value]="state">
                 {{ state.stateName }}
-                <!-- <mat-option *ngFor="let item of provider_states" value="{{item.stateID}}-{{item.stateName}}">
-                                                      {{item.stateName}} -->
               </mat-option>
-              <!-- </mat-option> -->
             </mat-select>
           </mat-form-field>
-
-          <!-- </md-input-container> -->
         </div>
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
           <mat-form-field>
@@ -665,10 +590,9 @@
           </mat-form-field>
         </div>
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-          <mat-form-field>
+          <mat-form-field *ngIf="parkAndHub">
             <mat-label>{{ parkAndHub }}</mat-label>
             <mat-select
-              *ngIf="parkAndHub"
               class="width100"
               [(ngModel)]="parking_Place"
               name="parking_Place"
@@ -709,8 +633,6 @@
             <span class="maxRedialNote">{{ note }}</span>
           </div>
           <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-            <!-- <md-input-container class="hide_underline" class="width100">
-                            <input matInput style="display:none"> -->
             <mat-form-field>
               <mat-label>Taluk/Sub District</mat-label>
               <mat-select class="width100" [(ngModel)]="talukID" name="talukID">
@@ -719,15 +641,13 @@
                 </mat-option>
               </mat-select>
             </mat-form-field>
-
-            <!-- </md-input-container> -->
           </div>
           <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
             <mat-form-field class="input-full-width mat_form_field_width_one">
               <mat-label>Service Point Name </mat-label>
               <input
                 matInput
-                vehicleNoSpecialCharWithCopyPaste
+                appVehicleNoSpecialCharWithCopyPaste
                 required
                 [(ngModel)]="servicePointName"
                 name="servicePointName"
@@ -756,7 +676,7 @@
               <mat-label>Description</mat-label>
               <input
                 matInput
-                textAreaWithCopyPaste
+                appTextAreaWithCopyPaste
                 [(ngModel)]="servicePointDesc"
                 name="servicePointDesc"
               />
@@ -770,7 +690,7 @@
               <input
                 required
                 matInput
-                myAddressWithCopyPaste
+                appMyAddressWithCopyPaste
                 [(ngModel)]="areaHQAddress"
                 name="areaHQAddress"
                 #servicePointAddress="ngModel"
@@ -805,7 +725,6 @@
         >
           Update
         </button>
-        <!-- <button mat-raised-button *ngIf="formMode" [disabled]="!(servicePointList.length>0)" color="accent" class=" pull-right " (click)="storeServicePoints()">Save</button> -->
         <button
           mat-raised-button
           *ngIf="editMode"

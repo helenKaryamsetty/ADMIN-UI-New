@@ -53,9 +53,9 @@
     *ngIf="mode === 'view' && itemCategory_array?.length > 0"
   >
     <mat-form-field class="pull-right">
+      <mat-label> In-Table Search </mat-label>
       <input
         matInput
-        placeholder="In-Table Search"
         name="filterTerm"
         [(ngModel)]="filterTerm"
         (keyup)="filterItemCategory(filterTerm)"
@@ -68,42 +68,6 @@
 <div class="row m-t-20" *ngIf="mode === 'view'">
   <div class="col-xs-12 col-sm-12">
     <div class="table-responsive">
-      <!-- <table [md2Data]="filteredItemCategory_array" #md2="md2DataTable" class="table table-hover table-striped" [rowsPerPage]="4">
-        <thead>
-          <tr>
-            <th width="5%">S.No.</th>
-            <th width="25%">Item Category Code</th>
-            <th width="25%">Item Category Name</th>
-            <th width="25%">Days before Expiry Alert</th>
-            <th width="20%">Edit</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngIf="filteredItemCategory_array.length == 0">
-            <td colspan="5" class="record-not-found">No records found</td>
-          </tr>
-          <tr *ngFor="let itemCategory of md2.data;let i=index ">
-            <td>{{filteredItemCategory_array.indexOf(itemCategory)+1}}</td>
-            <td>{{itemCategory.itemCategoryCode}}</td>
-            <td>{{itemCategory.itemCategoryName}}</td>
-            <td>{{itemCategory.alertBeforeDays}}</td>
-            <td>
-              <mat-icon mdTooltip="Edit" class="mat-icon material-icons" role="img" aria-hidden="true" style="cursor:pointer" *ngIf="!itemCategory.deleted"
-                (click)="editExpiryAlertConfig(itemCategory)">edit</mat-icon>
-            </td>
-          </tr>
-        </tbody>
-        <tfoot>
-          <tr>
-            <td colspan="4">
-              <md2-pagination></md2-pagination>
-            </td>
-            <td colspan="2" class="p-r-0">
-              <button mat-raised-button color="primary" *ngIf="mode == 'view'" class="pull-right" (click)="createExpiryAlertConfig()">Create Expiry Date Alert Config</button>
-            </td>
-          </tr>
-        </tfoot>
-      </table> -->
       <table
         mat-table
         [dataSource]="filteredItemCategory_array"
@@ -211,7 +175,7 @@
     </div>
 
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 box">
-      <mat-form-field [style.width]="'100%'" myMobileNumber>
+      <mat-form-field [style.width]="'100%'" appMyMobileNumber>
         <mat-label>Days before Expiry Alert</mat-label>
         <input
           required
@@ -246,33 +210,6 @@
       *ngIf="expiryAlertConfigList.data.length > 0"
     >
       <div class="table-responsive">
-        <!-- <table class="table table-hover table-striped" [md2Data]="expiryAlertConfigList" #md2="md2DataTable" [rowsPerPage]="4">
-          <thead>
-            <tr>
-              <th width="5%">S.No.</th>
-              <th width="30%">Item Category Name</th>
-              <th width="30%">Days before Expiry Alert</th>
-              <th width="30%">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let item of md2.data;let i = index ">
-              <td>{{expiryAlertConfigList.indexOf(item)+1}}</td>
-              <td>{{item.itemCategory.itemCategoryName}}</td>
-              <td>{{item.alertBeforeDays}}</td>
-              <td>
-                <mat-icon class="cursorPointer" mdTooltip="Delete" (click)="removeFromExpiryAlertConfigList(expiryAlertConfigList.indexOf(item))">delete</mat-icon>
-              </td>
-            </tr>
-          </tbody>
-          <tfoot>
-            <tr>
-              <td colspan="10">
-                <md2-pagination></md2-pagination>
-              </td>
-            </tr>
-          </tfoot>
-        </table> -->
         <table
           mat-table
           [dataSource]="expiryAlertConfigList"

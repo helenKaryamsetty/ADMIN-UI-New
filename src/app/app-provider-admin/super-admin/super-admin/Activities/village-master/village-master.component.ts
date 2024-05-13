@@ -268,7 +268,8 @@ export class VillageMasterComponent implements OnInit {
       )
       .subscribe((res) => {
         if (res) {
-          jQuery('#villageForm').trigger('reset');
+          // jQuery('#villageForm').trigger('reset');
+          this.villageForm.resetForm();
           this.villageList.data = [];
           this.showTableFlag = true;
           this.showFormFlag = false;
@@ -397,8 +398,8 @@ export class VillageMasterComponent implements OnInit {
   clear() {
     // this.stateID = this.searchStateID;
     // this.districtID = this.searchDistrictID;
-    jQuery('#searchFields').trigger('reset');
-
+    // jQuery('#searchFields').trigger('reset');
+    this.villageForm.resetForm();
     this.showTableFlag = false;
     this.availableVillages = [];
     this.filteredavailableVillages.data = [];
@@ -520,10 +521,6 @@ export class EditVillageModalComponent implements OnInit {
     else {
       this.dataObj = {};
       this.dataObj.districtBranchID = this.districtBranchID;
-      //  if(village.blockID!=undefined){
-      // this.dataObj.blockID = village.blockID.split("-")[0];
-      // this.dataObj.blockName = village.blockID.split("-")[1];
-      // }
       this.dataObj.panchayatName = editedVillageData.panchayatName;
       this.dataObj.villageName =
         editedVillageData.villageName !== undefined &&

@@ -62,7 +62,7 @@
   </div>
 </div>
 <div
-  class="pull-right"
+  style="text-align: end"
   *ngIf="availableZones.length !== 0 && showListOfZones && !editable"
 >
   <mat-form-field class="input-full-width mat_form_field_width_one">
@@ -175,123 +175,86 @@
 
 <div *ngIf="!showListOfZones && (!showZones || editable)">
   <div class="row">
-    <form #zoneForm="ngForm" autocomplete="off">
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
-        <mat-form-field
-          class="input-full-width mat_form_field_width_one"
-          myProviderName
-        >
-          <mat-label>Zone Name</mat-label>
-          <input
-            matInput
-            [(ngModel)]="zoneName"
-            name="zoneName"
-            #zoneN="ngModel"
-            (keyup)="checkExistance(zoneName)"
-            minlength="1"
-            maxlength="50"
-            required
-          />
-          <mat-hint>
-            <span
-              class="error_text"
-              *ngIf="!zoneN.valid && (zoneN.dirty || zoneN.touched)"
-              >Zone Name is required</span
-            >
-            <span class="error_text" *ngIf="zoneN.valid && zoneNameExist"
-              >Zone already exists</span
-            >
-          </mat-hint>
-        </mat-form-field>
-      </div>
-      <!-- <div class="clearfix visible-lg visible-sm"></div> -->
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
-        <mat-form-field
-          class="input-full-width mat_form_field_width_one"
-          myProviderName
-        >
-          <mat-label>Description</mat-label>
-          <input
-            matInput
-            [(ngModel)]="zoneDesc"
-            name="zoneDesc"
-            maxlength="100"
-          />
-        </mat-form-field>
-      </div>
-      <!-- Commented - for zone creation these fields are not required-->
-      <!-- <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-        <md-input-container class="hide_underline width100">
-          <input matInput style="display:none">
-        <md-select required placeholder="District" class="width100" [(ngModel)]="districtID" name="districtID" #districtV="ngModel"
-          (selectionChange)="GetTaluks(districtID)">
-          <md-option *ngFor="let district of districts" [value]="district">
-            {{district.districtName}}
-          </md-option>
-        </md-select>
-        <md-hint [hidden]=districtV.valid>
-            <span class="error_text" *ngIf="!districtV.required  && ( districtV.dirty || districtV.touched)">Please select district</span>
-          </md-hint>
-        </md-input-container>
-      </div>
-      <div class="clearfix visible-md"></div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-        <md-input-container class="hide_underline width100">
-          <input matInput style="display:none">
-        <md-select placeholder="Taluk/Sub District" class="width100" [(ngModel)]="talukID" name="talukID" (selectionChange)="GetBranches(talukID)">
-          <md-option *ngFor="let taluk of taluks" [value]="taluk">
-            {{taluk.blockName}}
-          </md-option>
-        </md-select>
-        </md-input-container>
-      </div>
-      <div class="clearfix visible-lg"></div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-        <md-input-container class="hide_underline width100">
-          <input matInput style="display:none">
-        <md-select placeholder="Village" class="width100" [(ngModel)]="branchID" name="branchID">
-          <md-option *ngFor="let branch of branches" [value]="branch">
-            {{branch.villageName}}
-          </md-option>
-        </md-select>
-        </md-input-container>
-      </div> -->
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
-        <mat-form-field class="input-full-width mat_form_field_width_one">
-          <mat-label>Address</mat-label>
-          <input
-            matInput
-            myAddress
-            [(ngModel)]="zoneHQAddress"
-            name="zoneHQAddress"
-            #zoneAddress="ngModel"
-            minlength="2"
-            maxlength="300"
-          />
-        </mat-form-field>
-      </div>
-      <div
-        class="col-xs-12 col-sm-6 col-md-12 col-lg-3 m-t-20"
-        *ngIf="zoneForm.valid && !zoneNameExist"
-      >
-        <button
-          md-mini-fab
-          color="primary"
-          *ngIf="!editable"
-          (click)="addZoneToList(zoneForm.value); zoneForm.reset()"
-          class="xs-pull-right sm-pull-left md-pull-right lg-pull-left mat_blue"
-        >
-          <mat-icon
-            matSuffix
-            class="mat-icon material-icons"
-            role="img"
-            aria-hidden="true"
-            style="cursor: pointer"
-            >add</mat-icon
+    <div class="col-12">
+      <form #zoneForm="ngForm" autocomplete="off" class="row">
+        <div class="col-3 m-t-20">
+          <mat-form-field
+            class="input-full-width mat_form_field_width_one"
+            appMyProviderName
           >
-        </button>
-      </div>
-    </form>
+            <mat-label>Zone Name</mat-label>
+            <input
+              matInput
+              [(ngModel)]="zoneName"
+              name="zoneName"
+              #zoneN="ngModel"
+              (keyup)="checkExistance(zoneName)"
+              minlength="1"
+              maxlength="50"
+              required
+            />
+            <mat-hint>
+              <span
+                class="error_text"
+                *ngIf="!zoneN.valid && (zoneN.dirty || zoneN.touched)"
+                >Zone Name is required</span
+              >
+              <span class="error_text" *ngIf="zoneN.valid && zoneNameExist"
+                >Zone already exists</span
+              >
+            </mat-hint>
+          </mat-form-field>
+        </div>
+        <!-- <div class="clearfix visible-lg visible-sm"></div> -->
+        <div class="col-3 m-t-20">
+          <mat-form-field
+            class="input-full-width mat_form_field_width_one"
+            appMyProviderName
+          >
+            <mat-label>Description</mat-label>
+            <input
+              matInput
+              [(ngModel)]="zoneDesc"
+              name="zoneDesc"
+              maxlength="100"
+            />
+          </mat-form-field>
+        </div>
+
+        <div class="col-3 m-t-20">
+          <mat-form-field class="input-full-width mat_form_field_width_one">
+            <mat-label>Address</mat-label>
+            <input
+              matInput
+              appMyAddressDirective
+              [(ngModel)]="zoneHQAddress"
+              name="zoneHQAddress"
+              #zoneAddress="ngModel"
+              minlength="2"
+              maxlength="300"
+            />
+          </mat-form-field>
+        </div>
+        <div class="col-3 m-t-20" *ngIf="zoneForm.valid && !zoneNameExist">
+          <button
+            md-mini-fab
+            color="primary"
+            *ngIf="!editable"
+            (click)="addZoneToList(zoneForm.value); zoneForm.reset()"
+            class="xs-pull-right sm-pull-left md-pull-right lg-pull-left mat_icon_white"
+          >
+            <mat-icon
+              matSuffix
+              class="mat-icon material-icons"
+              role="img"
+              aria-hidden="true"
+              style="cursor: pointer"
+              >add</mat-icon
+            >
+          </button>
+        </div>
+      </form>
+    </div>
 
     <!-- <div class="cleartext"></div> -->
 
@@ -349,29 +312,7 @@
             showFirstLastButtons
           >
           </mat-paginator>
-          <!-- <thead>
-            <tr>
-              <th width="5%">S.No.</th>
-              <th width="20%">Zone</th>
-              <th width="25%">Zone Description</th>
-              <th width="25%">State</th>
-              <th width="30%">Address</th>
-              <th width="15%">Action</th>
-            </tr>
-          </thead> -->
-          <tbody>
-            <!-- <tr *ngFor="let zone of md2.data ; let i=index">
-              <td>{{zoneList.indexOf(zone)+1}}</td>
-              <td>{{zone.zoneName}}</td>
-              <td>{{zone.zoneDesc}}</td>
-              <td>{{zone.stateName}}</td>
-              <td>{{zone.zoneHQAddress}}
-              </td>
-              <td>
-                <mat-icon class="cursorPointer" mdTooltip="delete" (click)="remove_obj(zoneList.indexOf(zone))">delete</mat-icon>
-              </td>
-            </tr> -->
-          </tbody>
+          <tbody></tbody>
         </table>
       </div>
     </div>

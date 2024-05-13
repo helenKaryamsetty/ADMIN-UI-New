@@ -3,7 +3,11 @@
     <h4>Provider Admin List</h4>
   </div>
 </div>
-<div class="pull-right m-t-10" *ngIf="searchResult.length !== 0 && tableMode">
+<div
+  class="m-t-10"
+  style="text-align: end"
+  *ngIf="searchResult.length !== 0 && tableMode"
+>
   <mat-form-field
     class="input-full-width mat_form_field_width_one"
     id="filterbox"
@@ -117,45 +121,6 @@
             </button>
           </td>
         </ng-container>
-        <!-- <thead>
-          <tr>
-            <th width="4%">S.No.</th>
-            <th width="5%">Title</th>
-            <th width="15%" md2SortBy="userName">Provider Admin Name</th>
-            <th width="10%">Contact No</th>
-            <th width="20%">Emergency&nbsp;Contact&nbsp;No</th>
-            <th width="10%">Email</th>
-            <th width="12%">Aadhar No</th>
-            <th width="12%">PAN Card No</th>
-            <th width="10%">Remarks</th>
-            <th width="5%">Edit</th>
-            <th width="15%">Action</th>
-          </tr>
-        </thead> -->
-        <!-- <tbody>
-          <tr *ngIf="md2.data.length == 0">
-            <td colspan="12" class="record-not-found">No records found</td>
-          </tr>
-          <tr *ngFor="let item of md2.data; let i= index">
-            <td>{{(md2.activePage-1)*4+i+1}}</td>
-            <td>{{item.titleName}}</td>
-            <td>{{item.userName}}</td>
-            <td>{{item.contactNo}}</td>
-            <td>{{item.emergencyContactNo}}</td>
-            <td>{{item.emailID}}</td>
-            <td>{{item.aadhaarNo}}</td>
-            <td>{{item.pAN}}</td>
-            <td>{{item.remarks}}</td>
-            <td>
-              <mat-icon mdTooltip="Edit" class="mat-icon material-icons" role="img" aria-hidden="true" style="cursor:pointer" *ngIf="!item.deleted"
-                (click)="editProviderAdmin(item)">edit</mat-icon>
-            </td>
-            <td>
-              <button *ngIf="item.deleted" mat-raised-button color="accent" (click)="activateDeactivate(item.userID, false)">Activate</button>
-              <button *ngIf="!item.deleted" mat-raised-button color="primary" (click)="activateDeactivate(item.userID, true)">Deactivate</button>
-            </td>
-          </tr>
-        </tbody> -->
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
       </table>
@@ -202,7 +167,7 @@
       <!-- <md-input-container class="hide_underline width100">
         <input matInput style="display:none"> -->
       <mat-select
-        placeholder="Title"
+        placeholder="Title *"
         class="width100"
         [(ngModel)]="titleID"
         name="title_Id"
@@ -216,10 +181,10 @@
       <!-- </md-input-container> -->
     </div>
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-t-3 p-b-10">
-      <mat-form-field class="input-full-width mat_form_field_width_one" myName>
+      <mat-form-field class="input-full-width mat_form_field_width_one">
         <input
           matInput
-          placeholder="First Name"
+          placeholder="First Name *"
           ngModel
           name="firstName"
           [(ngModel)]="admin_firstName"
@@ -227,6 +192,7 @@
           maxlength="50"
           #fname="ngModel"
           required
+          appMyNameDir
         />
         <mat-hint *ngIf="fname.touched">
           <span class="errorText" [hidden]="!fname.errors"
@@ -255,7 +221,7 @@
       <mat-form-field class="input-full-width mat_form_field_width_one" myName>
         <input
           matInput
-          placeholder="Last Name"
+          placeholder="Last Name *"
           ngModel
           name="lastName"
           [(ngModel)]="admin_lastName"
@@ -274,7 +240,7 @@
       <!-- <md-input-container class="hide_underline width100">
         <input matInput style="display:none"> -->
       <mat-select
-        placeholder="Gender"
+        placeholder="Gender *"
         class="width100"
         [(ngModel)]="gender"
         name="adminGender"
@@ -289,11 +255,11 @@
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-t-3 p-b-10">
       <mat-form-field
         class="input-full-width mat_form_field_width_one"
-        myMobileNumber
+        appMyMobileNumber
       >
         <input
           matInput
-          placeholder="Contact Number"
+          placeholder="Contact Number *"
           ngModel
           name="contact_number"
           [(ngModel)]="primaryMobileNumber"
@@ -312,26 +278,32 @@
     </div>
     <div class="clearfix visible-sm visible-md"></div>
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-10">
-      <mat-datepicker
-        class="width100"
-        placeholder="Date of Birth"
-        [(ngModel)]="dob"
-        name="admin_dob"
-        min="mindate"
-        max="maxdate"
-        #dOB="ngModel"
-        (keydown)="preventTyping($event)"
-        (selectionChange)="calculateAge($event)"
-        required
-      ></mat-datepicker>
-      <mat-hint class="errorText" *ngIf="dOB.errors && dOB.touched"
+      <mat-form-field class="width100">
+        <mat-label>Date of Birth </mat-label>
+        <input
+          matInput
+          [matDatepicker]="picker"
+          placeholder="Choose a date"
+          [(ngModel)]="dob"
+          [max]="maxdate"
+          [min]="mindate"
+          #dOB="ngModel"
+          name="admin_dob"
+          (keydown)="preventTyping($event)"
+          required
+          (dateChange)="calculateAge(dob)"
+        />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <mat-hint class="errorText" *ngIf="dob.errors && dob.touched"
         >DOB is required</mat-hint
       >
     </div>
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-t-3 p-b-10">
       <mat-form-field
         class="input-full-width mat_form_field_width_one"
-        myMobileNumber
+        appMyMobileNumber
       >
         <input
           matInput
@@ -350,10 +322,13 @@
     </div>
     <div class="clearfix visible-lg"></div>
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-t-3 p-b-10">
-      <mat-form-field class="input-full-width mat_form_field_width_one" myEmail>
+      <mat-form-field
+        class="input-full-width mat_form_field_width_one"
+        appMyEmail
+      >
         <input
           matInput
-          placeholder="Email ID"
+          placeholder="Email ID *"
           ngModel
           [pattern]="emailPattern"
           name="email"
@@ -391,7 +366,7 @@
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-t-3 p-b-10">
       <mat-form-field
         class="input-full-width mat_form_field_width_one"
-        myMobileNumber
+        appMyMobileNumber
       >
         <input
           matInput
@@ -415,7 +390,7 @@
       </mat-form-field>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-t-3 p-b-10">
-      <mat-form-field class="input-full-width mat_form_field_width_one" PAN>
+      <mat-form-field class="input-full-width mat_form_field_width_one" appPAN>
         <input
           matInput
           placeholder="PAN Card Number"
@@ -442,7 +417,7 @@
       <!-- <md-input-container class="hide_underline width100">
         <input matInput style="display:none"> -->
       <mat-select
-        placeholder="Educational Qualification"
+        placeholder="Educational Qualification *"
         class="width100"
         [(ngModel)]="edu_qualification"
         name="admin_edu_qualification"
@@ -460,11 +435,11 @@
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-t-3">
       <mat-form-field
         class="input-full-width mat_form_field_width_one"
-        myProviderName
+        appMyProviderName
       >
         <input
           matInput
-          placeholder="Emergency Contact Person"
+          placeholder="Emergency Contact Person *"
           ngModel
           name="em_contact_person"
           [(ngModel)]="emergency_cnt_person"
@@ -484,11 +459,11 @@
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-t-3">
       <mat-form-field
         class="input-full-width mat_form_field_width_one"
-        myMobileNumber
+        appMyMobileNumber
       >
         <input
           matInput
-          placeholder="Emergency Contact Number"
+          placeholder="Emergency Contact Number *"
           ngModel
           name="em_contact_number"
           [(ngModel)]="emergencyMobileNumber"
@@ -518,10 +493,10 @@
       class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-t-3 p-b-10"
       *ngIf="!editMode"
     >
-      <mat-form-field class="input-full-width mat_form_field_width_one" PAN>
+      <mat-form-field class="input-full-width mat_form_field_width_one" appPAN>
         <input
           matInput
-          placeholder="User Name"
+          placeholder="User Name *"
           ngModel
           name="user_name"
           [(ngModel)]="username"
@@ -549,7 +524,7 @@
         <input
           type="{{ dynamictype }}"
           matInput
-          placeholder="Password"
+          placeholder="Password *"
           ngModel
           [(ngModel)]="user_password"
           name="password"
@@ -585,7 +560,7 @@
       <mat-form-field class="input-full-width mat_form_field_width_one">
         <input
           matInput
-          textAreaValidator
+          appTextAreaValidator
           placeholder="Remarks"
           ngModel
           maxlength="100"

@@ -114,7 +114,8 @@ export class AddQuestionnaireComponent implements OnInit, AfterViewInit {
   }
   getQuestionTypeSuccessHandeler(response: any) {
     console.log('*QUESTION TYPES*', response);
-    this.questionTypeArray = response.data;
+    this.questionTypeArray = response;
+    console.log('*this.questionTypeArray*', this.questionTypeArray);
   }
 
   getServices(userID: any) {
@@ -350,7 +351,7 @@ export class AddQuestionnaireComponent implements OnInit, AfterViewInit {
   showAddForm() {
     this.showAdd = true;
   }
-  weightFlag: any = true;
+  weightFlag = true;
   weightageInput(index: any) {
     const value = this.newQuestions.at(index).value.questionWeight;
     if (value >= 0 && value <= 100) {
@@ -368,7 +369,7 @@ export class AddQuestionnaireComponent implements OnInit, AfterViewInit {
       questList.at(index).patchValue({ questionWeight: null });
     }
   }
-  optionweightFlag: any = true;
+  optionweightFlag = true;
   optionweightage(index: any, mainIndex: any) {
     console.log('Index', index);
     const questionvalue = this.newQuestions.at(mainIndex).value.answerOptions;
@@ -480,7 +481,7 @@ export class AddQuestionnaireComponent implements OnInit, AfterViewInit {
     const editDialog = this.dialog.open(EditQuestionnaireComponent, {
       disableClose: true,
       width: '700px',
-      height: '500px',
+      height: '700px',
       data: {
         selectedQuestion: row,
       },
@@ -582,7 +583,7 @@ export class AddQuestionnaireComponent implements OnInit, AfterViewInit {
       });
   }
 
-  rankFlag: any = true;
+  rankFlag = false;
   rankInput(index: any) {
     let setRank: any = false;
     const value = this.newQuestions.at(index).value.questionRank;

@@ -23,6 +23,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ConfigService } from 'src/app/core/services/config/config.service';
+import { environment } from 'src/environments/environment';
 // import 'rxjs/add/operator/catch';
 // import 'rxjs/add/operator/map';
 // import { InterceptedHttp } from '../../http.interceptor';
@@ -66,73 +67,42 @@ export class LanguageMapping {
   }
 
   getUserName(serviceProviderID: any) {
-    return this.http.post(this.get_ProviderName_Url, {
+    return this.http.post(environment.get_ProviderName_Url, {
       serviceProviderID: serviceProviderID,
     });
     // .map(this.handleState_n_username).catch(this.handleError);
   }
 
   getLanguageList() {
-    return this.http.get(this.get_LanguageList_Url);
+    return this.http.get(environment.get_LanguageList_Url);
     // .map(this.handleSuccess).catch(this.handleError);
   }
 
   getMappedLanguagesList(serviceProviderID: any) {
-    return this.http.post(this.get_LanguageMappedDetails_Url, {
+    return this.http.post(environment.get_LanguageMappedDetails_Url, {
       serviceProviderID: serviceProviderID,
     });
     // .map(this.handleSuccess).catch(this.handleError);
   }
 
   SaveLanguageMapping(data: any) {
-    return this.http.post(this.get_SaveLanguageMappedDetails_Url, data);
+    return this.http.post(environment.get_SaveLanguageMappedDetails_Url, data);
     // .map(this.handleSuccess).catch(this.handleError);
   }
 
   UpdateLanguageMapping(data: any) {
-    return this.http.post(this.get_UpdateLanguageMappedDetails_Url, data);
+    return this.http.post(
+      environment.get_UpdateLanguageMappedDetails_Url,
+      data,
+    );
     // .map(this.handleSuccess).catch(this.handleError);
   }
 
   DeleteLanguageMapping(data: any) {
-    return this.http.post(this.get_DeleteLanguageMappedDetails_Url, data);
+    return this.http.post(
+      environment.get_DeleteLanguageMappedDetails_Url,
+      data,
+    );
     // .map(this.handleSuccess).catch(this.handleError);
   }
-
-  // handleState_n_ServiceSuccess(response: Response) {
-
-  //     console.log(response.json().data, 'language service file success response');
-  //     let result = [];
-  //     result = response.json().data.filter(function (item) {
-  //         if (item.statusID !== 4) {
-  //             return item;
-  //         }
-  //     });
-  //     return result;
-  // }
-  // handleState_n_username(response: Response) {
-
-  //     console.log(response.json().data, 'usernamelang mapping file success response');
-  //     let result = [];
-  //     result = response.json().data.filter(function (item) {
-  //         if (item.deleted === false) {
-  //             return item;
-  //         }
-  //     });
-  //     return result;
-  // }
-
-  // handleSuccess(res: Response) {
-  //     console.log(res.json().data, 'language mapping file success response');
-  //     if (res.json().data) {
-  //         return res.json().data;
-  //     } else {
-  //         return Observable.throw(res.json());
-  //     }
-  // }
-
-  // handleError(error: Response | any) {
-  //     return Observable.throw(error.json());
-
-  // }
 }

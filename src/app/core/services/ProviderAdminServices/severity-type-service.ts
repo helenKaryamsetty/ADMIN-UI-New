@@ -28,6 +28,7 @@ import { Observable } from 'rxjs';
 // import { SecurityInterceptedHttp } from '../../http.securityinterceptor';
 
 import { ConfigService } from '../config/config.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class SeverityTypeService {
@@ -44,18 +45,18 @@ export class SeverityTypeService {
     public basepaths: ConfigService,
   ) {
     this.admin_Base_Url = this.basepaths.getAdminBaseUrl();
-    this.get_State_Url = this.admin_Base_Url + '/m/getServerity';
+    this.get_State_Url = this.admin_Base_Url + 'm/getServerity';
 
     this.get_State_Url_new = this.admin_Base_Url + 'm/role/stateNew';
     this.get_Service_Url_new = this.admin_Base_Url + 'm/role/serviceNew';
 
-    this.addSeverityUrl = this.admin_Base_Url + '/m/saveServerity ';
-    this.deleteSeverityUrl = this.admin_Base_Url + '/m/deleteServerity';
+    this.addSeverityUrl = this.admin_Base_Url + 'm/saveServerity ';
+    this.deleteSeverityUrl = this.admin_Base_Url + 'm/deleteServerity';
     this.modifySeverityUrl = this.admin_Base_Url + 'm/editServerity';
   }
 
   getStates(userID: any, serviceID: any, isNationalFlag: any) {
-    return this.http.post(this.get_State_Url_new, {
+    return this.http.post(environment.get_State_Url_new, {
       userID: userID,
       serviceID: serviceID,
       isNational: isNationalFlag,
@@ -65,13 +66,13 @@ export class SeverityTypeService {
   }
 
   getServices(userID: any) {
-    return this.http.post(this.get_Service_Url_new, { userID: userID });
+    return this.http.post(environment.get_Service_Url_new, { userID: userID });
     // .map(this.handleState_n_ServiceSuccess)
     // .catch(this.handleError);
   }
 
   getSeverity(providerServiceMapID: any) {
-    return this.http.post(this.get_State_Url, {
+    return this.http.post(environment.get_Serverity_Url, {
       providerServiceMapID: providerServiceMapID,
     });
     // .map(this.handleSuccess)
@@ -79,43 +80,18 @@ export class SeverityTypeService {
   }
 
   addSeverity(array: any) {
-    return this.http.post(this.addSeverityUrl, array);
+    return this.http.post(environment.addSeverityUrl, array);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
   modifySeverity(obj: any) {
-    return this.http.post(this.modifySeverityUrl, obj);
+    return this.http.post(environment.modifySeverityUrl, obj);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
   deleteSeverity(obj: any) {
-    return this.http.post(this.deleteSeverityUrl, obj);
+    return this.http.post(environment.deleteSeverityUrl, obj);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
-
-  // handleSuccess(res: Response) {
-  //   console.log(res.json(), 'calltype-subtype service file success response');
-  //   if (res.json().data) {
-  //     return res.json().data;
-  //   } else {
-  //     return Observable.throw(res.json());
-  //   }
-  // }
-
-  // handleState_n_ServiceSuccess(response: Response) {
-
-  //   console.log(response.json().data, 'severity service file success response');
-  //   let result = [];
-  //   result = response.json().data.filter(function (item) {
-  //     if (item.serviceID === 3 || item.serviceID === 1 || item.serviceID === 6) {
-  //       return item;
-  //     }
-  //   });
-  //   return result;
-  // }
-
-  // handleError(error: Response | any) {
-  //   return Observable.throw(error.json());
-  // }
 }

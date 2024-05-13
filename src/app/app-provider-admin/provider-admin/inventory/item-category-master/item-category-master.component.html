@@ -4,14 +4,13 @@
       <strong>Item Category Master</strong>
     </h4>
   </div>
-  <div class="col-xs-12 col-sm-12 p-a-0">
-    <form #searchForm="ngForm" autocomplete="off">
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <mat-form-field class="hide_underline width100">
-          <input matInput style="display: none" />
+  <div class="col-12 p-a-0">
+    <form #searchForm="ngForm" autocomplete="off" class="row">
+      <div class="col-3">
+        <mat-form-field class="hide_underline">
+          <!-- <input matInput style="display: none" /> -->
+          <mat-label>Serviceline</mat-label>
           <mat-select
-            placeholder="Serviceline"
-            class="width100"
             [(ngModel)]="serviceline"
             name="services"
             (selectionChange)="getStates(serviceline)"
@@ -23,16 +22,11 @@
           </mat-select>
         </mat-form-field>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <mat-form-field class="hide_underline width100">
-          <input matInput style="display: none" />
-          <mat-select
-            placeholder="State"
-            class="width100"
-            [(ngModel)]="state"
-            name="state"
-            required
-          >
+      <div class="col-3">
+        <mat-form-field class="hide_underline">
+          <!-- <input matInput style="display: none" /> -->
+          <mat-label>State</mat-label>
+          <mat-select [(ngModel)]="state" name="state" required>
             <mat-option
               *ngFor="let item of states_array"
               [value]="item"
@@ -47,11 +41,11 @@
         class="col-xs-12 col-sm-12 col-md-4 col-lg-6"
         *ngIf="itemsList.length > 0 && showTableFlag"
       >
-        <div class="row" class="pull-right">
+        <div class="row" class="" style="text-align: end">
           <mat-form-field id="filterbox">
+            <mat-label> In-Table Search </mat-label>
             <input
               matInput
-              placeholder="In-Table Search"
               name="filterTerm"
               [(ngModel)]="create_filterTerm"
               #filterTerm
@@ -198,14 +192,14 @@
       <strong>Item Category Master</strong>
     </h4>
   </div>
-  <form id="addform" #categoryCreationForm1="ngForm">
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+  <form id="addform" #categoryCreationForm1="ngForm" class="row">
+    <div class="col-3">
       <mat-form-field class="hide_underline" [style.width]="'100%'">
-        <input matInput style="display: none" />
+        <!-- <input matInput style="display: none" /> -->
+        <mat-label>Serviceline</mat-label>
         <mat-select
           required
           name="Services"
-          placeholder="Serviceline"
           [disabled]="true"
           [style.width]="'100%'"
           [(ngModel)]="serviceline"
@@ -216,13 +210,13 @@
         </mat-select>
       </mat-form-field>
     </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+    <div class="col-3">
       <mat-form-field class="hide_underline" [style.width]="'100%'">
-        <input matInput style="display: none" />
+        <!-- <input matInput style="display: none" /> -->
+        <mat-label>State</mat-label>
         <mat-select
           required
           name="state"
-          placeholder="State"
           [style.width]="'100%'"
           [disabled]="true"
           [(ngModel)]="state"
@@ -235,13 +229,13 @@
     </div>
   </form>
   <div class="clearfix visible-md visible-lg"></div>
-  <form #categoryCreationForm="ngForm" autocomplete="off">
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-      <mat-form-field class="width100">
+  <form #categoryCreationForm="ngForm" autocomplete="off" class="col-12 row">
+    <div class="col-3">
+      <mat-form-field>
+        <mat-label>Item Category Code</mat-label>
         <input
           matInput
-          placeholder="Item Category Code"
-          PAN
+          appPAN
           [(ngModel)]="itemCategoryCode"
           name="code"
           minlength="1"
@@ -260,12 +254,12 @@
         </mat-hint>
       </mat-form-field>
     </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-      <mat-form-field class="width100">
+    <div class="col-3">
+      <mat-form-field>
+        <mat-label>Item Category Name</mat-label>
         <input
           matInput
-          placeholder="Item Category Name"
-          myProviderName
+          appMyProviderName
           [(ngModel)]="itemCategoryName"
           name="name"
           minlength="1"
@@ -280,12 +274,12 @@
         </mat-hint>
       </mat-form-field>
     </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-      <mat-form-field class="width100">
+    <div class="col-3">
+      <mat-form-field>
+        <mat-label>Item Category Description</mat-label>
         <input
           matInput
-          placeholder="Item Category Description"
-          VehicleNO
+          appVehicleNO
           [(ngModel)]="itemCategoryDesc"
           name="desc"
           minlength="1"
@@ -294,7 +288,7 @@
         />
       </mat-form-field>
     </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+    <div class="col-3">
       <button
         mat-mini-fab
         class="xs-pull-right sm-pull-right md-pull-left lg-pull-left mat_blue"
@@ -430,13 +424,16 @@
       <strong>Edit Item Category</strong>
     </h4>
   </div>
-  <form #editCategoryCreationForm="ngForm" autocomplete="off">
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-      <mat-form-field class="hide_underline width100">
-        <input matInput style="display: none" />
+  <form
+    #editCategoryCreationForm="ngForm"
+    autocomplete="off"
+    class="col-12 row"
+  >
+    <div class="col-3">
+      <mat-form-field class="hide_underline">
+        <!-- <input matInput style="display: none" /> -->
+        <mat-label>Serviceline</mat-label>
         <mat-select
-          placeholder="Serviceline"
-          class="width100"
           [disabled]="true"
           [(ngModel)]="edit_Serviceline"
           name="services"
@@ -449,12 +446,11 @@
         </mat-select>
       </mat-form-field>
     </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-      <mat-form-field class="hide_underline width100">
-        <input matInput style="display: none" />
+    <div class="col-3">
+      <mat-form-field class="hide_underline">
+        <!-- <input matInput style="display: none" /> -->
+        <mat-label>State</mat-label>
         <mat-select
-          placeholder="State"
-          class="width100"
           [disabled]="true"
           [(ngModel)]="edit_State"
           name="state"
@@ -471,11 +467,11 @@
       </mat-form-field>
     </div>
     <div class="clearfix visible-md visible-lg"></div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-      <mat-form-field class="width100">
+    <div class="col-3">
+      <mat-form-field>
+        <mat-label>Category Code</mat-label>
         <input
           matInput
-          placeholder="Category Code"
           [(ngModel)]="edit_code"
           name="code"
           minlength="1"
@@ -486,11 +482,11 @@
         />
       </mat-form-field>
     </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-      <mat-form-field class="width100">
+    <div class="col-3">
+      <mat-form-field>
+        <mat-label>Category Name</mat-label>
         <input
           matInput
-          placeholder="Category Name"
           [(ngModel)]="edit_name"
           name="name"
           minlength="1"
@@ -501,12 +497,12 @@
         />
       </mat-form-field>
     </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-      <mat-form-field class="width100">
+    <div class="col-3">
+      <mat-form-field>
+        <mat-label>Category Description</mat-label>
         <input
           matInput
-          placeholder="Category Description"
-          VehicleNO
+          appVehicleNO
           [(ngModel)]="edit_desc"
           name="desc"
           #itemDesc="ngModel"

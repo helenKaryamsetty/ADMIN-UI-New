@@ -20,7 +20,6 @@
  * along with this program.  If not, see https://www.gnu.org/licenses/.
  */
 import { Component, OnInit, Inject, ViewChild } from '@angular/core';
-
 import { NgForm } from '@angular/forms';
 import { UserRoleAgentID_MappingService } from '../services/user-role-agentID-mapping-service.service';
 import { ConfirmationDialogsService } from 'src/app/core/services/dialog/confirmation.service';
@@ -75,7 +74,7 @@ export class UserRoleAgentIDMappingComponent implements OnInit {
     public alertService: ConfirmationDialogsService,
     public dialog: MatDialog,
   ) {
-    this.serviceProviderID = this.commonDataService.service_providerID;
+    this.serviceProviderID = sessionStorage.getItem('service_providerID');
   }
 
   ngOnInit() {
@@ -131,7 +130,12 @@ export class UserRoleAgentIDMappingComponent implements OnInit {
 
   getServicesSuccessHandeler(response: any) {
     console.log('SERVICES', response);
-    this.services = response.data;
+    // this.services = response.data;
+    this.services = response.data.filter(function (item: any) {
+      console.log('item', item);
+      if (item.serviceID === 1 || item.serviceID === 3 || item.serviceID === 6)
+        return item;
+    });
   }
 
   getRoles(providerServiceMapID: any) {

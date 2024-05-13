@@ -67,14 +67,14 @@
   </div>
 
   <div style="text-align: end" *ngIf="workLocations.length !== 0 && showTable">
-    <mat-form-field>
+    <mat-form-field id="filterbox">
       <input
         matInput
         placeholder="In-Table Search"
         #filterTerm
         (keyup)="filterComponentList(filterTerm.value)"
       />
-      <mat-icon mdSuffix>search</mat-icon>
+      <mat-icon matSuffix>search</mat-icon>
     </mat-form-field>
   </div>
 
@@ -126,6 +126,7 @@
               class="iconbutton"
               color="primary"
               (click)="editOfficeAddress(element)"
+              *ngIf="!element.deleted"
             >
               <mat-icon>edit</mat-icon>
             </button>
@@ -155,9 +156,6 @@
               Deactivate
             </button>
           </td>
-          <!-- <td colspan="4" class="p-r-0" mat-cell>
-            <button md-raised-button color="primary" [disabled]="searchForm.invalid" class="pull-right" (click)="changeTableFlag(false)">Add Work Location</button>
-          </td> -->
         </ng-container>
       </table>
       <div>
@@ -171,9 +169,6 @@
           Add Work Location
         </button>
       </div>
-      <!-- <mat-paginator [length]="200" [pageSizeOptions]="[5, 10, 100]" aria-label="Select page" [hidden]="filteredworkLocations.data.length === 0">
-      </mat-paginator> -->
-      <!-- </div> -->
       <div
         class="pull-center"
         style="margin-top: 35px; text-align: center"
@@ -193,14 +188,9 @@
 
   <!--new location form starts -->
   <div class="row" *ngIf="showForm">
-    <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-    <h4 class="pull-left">Add Work Location</h4>
-  </div> -->
     <div class="col-12">
       <form #f="ngForm" id="locationForm" autocomplete="off" class="row">
         <div class="col-3" *ngIf="!nationalFlag">
-          <!-- <md-input-container class="hide_underline width100">
-        <input mdInput style="display:none"> -->
           <mat-form-field>
             <mat-label>District</mat-label>
             <mat-select
@@ -222,7 +212,7 @@
           <!-- </md-input-container> -->
         </div>
         <div class="col-3">
-          <mat-form-field class="width100" myProviderName>
+          <mat-form-field class="width100" appMyProviderName>
             <mat-label>Office Name</mat-label>
             <input
               matInput
@@ -247,7 +237,7 @@
             <mat-label>Office Address Line 1</mat-label>
             <input
               matInput
-              myAddress
+              appMyAddressDirective
               maxlength="140"
               [(ngModel)]="office_address1"
               name="office_address1"
@@ -264,7 +254,7 @@
             <mat-label>Office Address Line 2</mat-label>
             <input
               matInput
-              myAddress
+              appMyAddressDirective
               maxlength="140"
               [(ngModel)]="office_address2"
               name="office_address2"

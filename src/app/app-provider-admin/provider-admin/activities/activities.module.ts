@@ -109,6 +109,7 @@ import { ProjectConfigurationService } from './services/project-configuration-se
 import { AddFieldsToProjectComponent } from './add-fields-to-project/add-fields-to-project.component';
 import { AddFieldsService } from './services/add-fields-service';
 import { MatChipGrid, MatChipsModule } from '@angular/material/chips';
+import { CoreModule } from 'src/app/core/core.module';
 
 @NgModule({
   declarations: [
@@ -177,6 +178,7 @@ import { MatChipGrid, MatChipsModule } from '@angular/material/chips';
     ReactiveFormsModule,
     MatNativeDateModule,
     MatChipsModule,
+    CoreModule,
   ],
   providers: [
     ProviderAdminRoleService,

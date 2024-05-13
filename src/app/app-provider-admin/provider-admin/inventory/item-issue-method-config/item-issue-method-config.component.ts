@@ -71,7 +71,7 @@ export class ItemIssueMethodConfigComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.createdBy = this.commonDataService.uname;
-    this.serviceProviderID = this.commonDataService.service_providerID;
+    this.serviceProviderID = sessionStorage.getItem('service_providerID');
     this.uid = this.commonDataService.uid;
     this.setItemIssue();
     this.getServices();
@@ -233,13 +233,6 @@ export class ItemIssueMethodConfigComponent implements OnInit, AfterViewInit {
     }
   }
   saveConfig() {
-    // const obj = {
-    //   "issueType": this.itemIssue.Name,
-    //   "itemCategoryID": this.category.itemCategoryID,
-    //   "providerServiceMapID": this.providerServiceMapID
-    // }
-    // this.object.push(obj);
-    //
     this.storeService
       .saveItemIssueConfig(this.bufferArray.data)
       .subscribe((response) => {

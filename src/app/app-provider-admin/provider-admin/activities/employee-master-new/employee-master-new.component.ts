@@ -43,7 +43,6 @@ export class EmployeeMasterNewComponent implements OnInit {
   disabled = true;
   displayedColumns: string[] = [
     'activePage',
-    'UserID',
     'Title',
     'Username',
     'EmergencyContact',
@@ -192,7 +191,7 @@ export class EmployeeMasterNewComponent implements OnInit {
     this.createdBy = this.dataServiceValue.uname;
     console.log('createdBY', this.createdBy);
 
-    this.serviceProviderID = this.dataServiceValue.service_providerID;
+    this.serviceProviderID = sessionStorage.getItem('service_providerID');
     this.getAllUserDetails();
     this.minDate_doj = new Date();
   }
@@ -650,6 +649,17 @@ export class EmployeeMasterNewComponent implements OnInit {
       this.errorMessageForPan = '';
     }
   }
+  omit_special_char(event: any) {
+    const k = event.charCode; // Use const instead of let
+    return (
+      (k > 64 && k < 91) ||
+      (k > 96 && k < 123) ||
+      k === 8 ||
+      k === 32 ||
+      (k >= 48 && k <= 57)
+    );
+  }
+
   // to check existance of health professional ID
   checkHealthProfessionalID() {
     //this.isHPIdExist = false;
@@ -1141,35 +1151,12 @@ export class EmployeeMasterNewComponent implements OnInit {
   createUser() {
     const reqObject = [];
     for (let i = 0; i < this.objs.data.length; i++) {
-      /*dob*/
-      this.objs.data[i].dob.setHours(0);
-      this.objs.data[i].dob.setMinutes(0);
-      this.objs.data[i].dob.setSeconds(0);
-      this.objs.data[i].dob.setMilliseconds(0);
-      /*doj*/
-      if (this.objs.data[i].isExternal === false) {
-        this.objs.data[i].doj.setHours(0);
-        this.objs.data[i].doj.setMinutes(0);
-        this.objs.data[i].doj.setSeconds(0);
-        this.objs.data[i].doj.setMilliseconds(0);
-        this.setDoj = new Date(
-          this.objs.data[i].doj.valueOf() -
-            1 * this.objs.data[i].doj.getTimezoneOffset() * 60 * 1000,
-        );
-      } else {
-        this.objs.data[i].doj = null;
-        this.setDoj = null;
-      }
-      const tempObj = {
+      const tempObj: any = {
         titleID: this.objs.data[i].titleID,
         firstName: this.objs.data[i].firstname,
         middleName: this.objs.data[i].middlename,
         lastName: this.objs.data[i].lastname,
         genderID: this.objs.data[i].genderID,
-        dOB: new Date(
-          this.objs.data[i].dob.valueOf() -
-            1 * this.objs.data[i].dob.getTimezoneOffset() * 60 * 1000,
-        ),
         age: this.objs.data[i].age,
         contactNo: this.objs.data[i].contactNo,
         emailID: this.objs.data[i].emailID,
@@ -1178,45 +1165,26 @@ export class EmployeeMasterNewComponent implements OnInit {
         aadhaarNo: this.objs.data[i].aadharNumber,
         pAN: this.objs.data[i].panNumber,
         qualificationID: this.objs.data[i].qualificationID,
-        healthProfessionalID:
-          this.objs.data[i].healthProfessionalID !== undefined &&
-          this.objs.data[i].healthProfessionalID !== null
-            ? this.objs.data[i].healthProfessionalID + '@hpr.sbx'
-            : this.objs.data[i].healthProfessionalID,
+        healthProfessionalID: this.objs.data[i].healthProfessionalID
+          ? this.objs.data[i].healthProfessionalID + '@hpr.sbx'
+          : this.objs.data[i].healthProfessionalID,
         emergencyContactNo: this.objs.data[i].emergency_contactNo,
         userName: this.objs.data[i].username,
-        employeeID: this.objs.data[i].employeeID
-          ? this.objs.data[i].employeeID
-          : null,
+        employeeID: this.objs.data[i].employeeID || null,
         password: this.objs.data[i].password,
-        dOJ: this.setDoj,
         fathersName: this.objs.data[i].fatherName,
         mothersName: this.objs.data[i].motherName,
         communityID: this.objs.data[i].communityID,
         religionID: this.objs.data[i].religionID,
-        addressLine1:
-          this.objs.data[i].currentAddressLine1 !== undefined &&
-          this.objs.data[i].currentAddressLine1 !== null
-            ? this.objs.data[i].currentAddressLine1.trim()
-            : null,
-        addressLine2:
-          this.objs.data[i].currentAddressLine2 !== undefined &&
-          this.objs.data[i].currentAddressLine2 !== null
-            ? this.objs.data[i].currentAddressLine2.trim()
-            : null,
+        addressLine1: this.objs.data[i].currentAddressLine1?.trim() || null,
+        addressLine2: this.objs.data[i].currentAddressLine2?.trim() || null,
         stateID: this.objs.data[i].currentState,
         districtID: this.objs.data[i].currentDistrict,
         pinCode: this.objs.data[i].currentPincode,
         permAddressLine1:
-          this.objs.data[i].permanentAddressLine1 !== undefined &&
-          this.objs.data[i].permanentAddressLine1 !== null
-            ? this.objs.data[i].permanentAddressLine1.trim()
-            : null,
+          this.objs.data[i].permanentAddressLine1?.trim() || null,
         permAddressLine2:
-          this.objs.data[i].permanentAddressLine2 !== undefined &&
-          this.objs.data[i].permanentAddressLine2 !== null
-            ? this.objs.data[i].permanentAddressLine2.trim()
-            : null,
+          this.objs.data[i].permanentAddressLine2?.trim() || null,
         permStateID: this.objs.data[i].permanentState,
         permDistrictID: this.objs.data[i].permanenttDistrict,
         permPinCode: this.objs.data[i].permanentPincode,
@@ -1228,6 +1196,18 @@ export class EmployeeMasterNewComponent implements OnInit {
         serviceProviderID: this.serviceProviderID,
         isExternal: this.objs.data[i].isExternal,
       };
+      if (this.objs.data[i].dob) {
+        const dob = new Date(this.objs.data[i].dob);
+        dob.setHours(0, 0, 0, 0);
+        tempObj.dOB = dob;
+      }
+      if (this.objs.data[i].doj && !this.objs.data[i].isExternal) {
+        const doj = new Date(this.objs.data[i].doj);
+        doj.setHours(0, 0, 0, 0);
+        tempObj.dOJ = doj;
+      } else {
+        tempObj.dOJ = null;
+      }
       reqObject.push(tempObj);
     }
     console.log('Details to be saved', reqObject);
@@ -1235,7 +1215,6 @@ export class EmployeeMasterNewComponent implements OnInit {
       .createNewUser(reqObject)
       .subscribe((response) => {
         console.log('response', response.data);
-        // if (response.stat)
         this.dialogService.alert('Saved successfully', 'success');
         this.objs.data = [];
         this.getAllUserDetails();
@@ -1244,12 +1223,6 @@ export class EmployeeMasterNewComponent implements OnInit {
       }),
       (err: any) => console.log('error', err);
   }
-
-  // clearAll() {
-  //   this.userCreationForm.resetForm();
-  //   this.demographicsDetailsForm.resetForm();
-  //   this.communicationDetailsForm.resetForm();
-  // }
 
   showEditForm() {
     this.tableMode = false;

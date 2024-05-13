@@ -6,7 +6,8 @@
   </div>
 </div>
 <div
-  class="pull-right m-t-10"
+  class="m-t-10"
+  style="text-align: end"
   *ngIf="providerAdminList.length !== 0 && tableMode"
 >
   <mat-form-field id="filterbox">
@@ -73,15 +74,9 @@
               role="img"
               aria-hidden="true"
               style="cursor: pointer"
-              *ngIf="
-                !service.uSRMDeleted &&
-                !service.serviceProviderDeleted &&
-                !service.userDeleted &&
-                !service.providerServiceMapDeleted
-              "
+              *ngIf="!service.uSRMDeleted"
               (click)="editRow(service)"
               >edit</mat-icon
-            >
             >
           </td>
         </ng-container>
@@ -91,12 +86,7 @@
             <button
               md-raised-button
               color="accent"
-              *ngIf="
-                service.uSRMDeleted ||
-                service.serviceProviderDeleted ||
-                service.userDeleted ||
-                service.providerServiceMapDeleted
-              "
+              *ngIf="service.uSRMDeleted"
               class="m-r-10 mat_green"
               (click)="
                 activate(
@@ -111,12 +101,7 @@
             <button
               md-raised-button
               color="primary"
-              *ngIf="
-                !service.uSRMDeleted &&
-                !service.serviceProviderDeleted &&
-                !service.userDeleted &&
-                !service.providerServiceMapDeleted
-              "
+              *ngIf="!service.uSRMDeleted"
               class="m-r-10 mat_blue"
               (click)="deactivate(service.uSRMappingID)"
             >
@@ -130,6 +115,7 @@
       <div>
         <button
           md-raised-button
+          style="margin-top: 15px"
           color="primary"
           class="pull-right mat_blue"
           (click)="showForm()"
@@ -145,6 +131,7 @@
         <strong>No Records Found</strong>
       </div>
       <mat-paginator
+        #paginatorFirst
         [hidden]="filteredproviderAdminList.data.length === 0"
         [pageSizeOptions]="[5, 10, 20]"
         [pageSize]="5"
@@ -163,81 +150,85 @@
       <strong>Edit Provider Admin-Provider Mapping</strong>
     </h4>
   </div>
-  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-a-0">
-    <form id="myForm" #form="ngForm" autocomplete="off">
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-        <input matInput style="display: none" />
-        <mat-select
-          required
-          name="ProviderAdmin"
-          placeholder="Provider Admin"
-          [style.width]="'100%'"
-          [(ngModel)]="service_provider_admin"
-        >
-          <mat-option
-            *ngFor="let item of service_provider_admin_array"
-            [value]="item"
+  <div class="col-12 p-a-0">
+    <form id="myForm" #form="ngForm" autocomplete="off" class="row">
+      <div class="col-3 m-t-15">
+        <!-- <input matInput style="display: none" /> -->
+        <mat-form-field>
+          <mat-label>Provider Admin</mat-label>
+          <mat-select
+            required
+            name="ProviderAdmin"
+            [(ngModel)]="service_provider_admin"
           >
-            {{ item.userName }}
-          </mat-option>
-        </mat-select>
+            <mat-option
+              *ngFor="let item of service_provider_admin_array"
+              [value]="item"
+            >
+              {{ item.userName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-        <input matInput style="display: none" />
-        <mat-select
-          required
-          name="serviceProvider"
-          placeholder="Provider Name"
-          [style.width]="'100%'"
-          [(ngModel)]="service_provider"
-          (selectionChange)="getProviderServices(service_provider)"
-        >
-          <mat-option
-            *ngFor="let item of service_provider_array"
-            [value]="item"
+      <div class="col-3 m-t-15">
+        <!-- <input matInput style="display: none" /> -->
+        <mat-form-field>
+          <mat-label>Provider Name</mat-label>
+          <mat-select
+            required
+            name="serviceProvider"
+            [(ngModel)]="service_provider"
+            (selectionChange)="getProviderServices(service_provider)"
           >
-            {{ item.serviceProviderName }}
-          </mat-option>
-        </mat-select>
+            <mat-option
+              *ngFor="let item of service_provider_array"
+              [value]="item"
+            >
+              {{ item.serviceProviderName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-        <input matInput style="display: none" />
-        <mat-select
-          required
-          name="Services"
-          placeholder="Serviceline"
-          [style.width]="'100%'"
-          [(ngModel)]="serviceline"
-          (selectionChange)="
-            getProviderStatesInService(
-              service_provider_admin,
-              service_provider,
-              serviceline,
-              serviceline.isNational
-            );
-            setIsNational(serviceline.isNational)
-          "
-        >
-          <mat-option *ngFor="let item of services_array" [value]="item">
-            {{ item.serviceName }}
-          </mat-option>
-        </mat-select>
+      <div class="col-3 m-t-15">
+        <!-- <input matInput style="display: none" /> -->
+        <mat-form-field>
+          <mat-label>Serviceline</mat-label>
+          <mat-select
+            required
+            name="Services"
+            [(ngModel)]="serviceline"
+            (selectionChange)="
+              getProviderStatesInService(
+                service_provider_admin,
+                service_provider,
+                serviceline,
+                serviceline.isNational
+              );
+              setIsNational(serviceline.isNational)
+            "
+          >
+            <mat-option *ngFor="let item of services_array" [value]="item">
+              {{ item.serviceName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-        <input matInput style="display: none" />
-        <mat-select
-          required
-          name="state"
-          placeholder="State"
-          [style.width]="'100%'"
-          [disabled]="isNational"
-          multiple
-          [(ngModel)]="state"
-        >
-          <mat-option *ngFor="let item of filteredStates" [value]="item">
-            {{ item.stateName }}
-          </mat-option>
-        </mat-select>
+      <div class="col-3 m-t-15">
+        <!-- <input matInput style="display: none" /> -->
+        <mat-form-field>
+          <mat-label>State</mat-label>
+          <mat-select
+            required
+            name="state"
+            [disabled]="isNational"
+            multiple
+            [(ngModel)]="state"
+          >
+            <mat-option *ngFor="let item of filteredStates" [value]="item">
+              {{ item.stateName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
       </div>
     </form>
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-12 m-t-10">
@@ -250,7 +241,7 @@
       >
         <mat-icon
           matSuffix
-          class="mat-icon material-icons"
+          class="mat-icon material-icons mat_blue_circle"
           role="img"
           aria-hidden="true"
           style="cursor: pointer"
@@ -260,7 +251,7 @@
     </div>
   </div>
   <div class="col-xs-12 col-sm-12 m-t-15" *ngIf="bufferArray.data.length > 0">
-    <div class="">
+    <div class="table-responsive">
       <table
         mat-table
         [dataSource]="bufferArray"
@@ -294,16 +285,21 @@
         </ng-container>
         <ng-container matColumnDef="State">
           <th mat-header-cell *matHeaderCellDef>State</th>
-          <td mat-cell *matCellDef="let obj; let i = index">
-            {{ obj.stateName }}
-            <mat-icon
-              class="cursorPointer"
-              matTooltip="Remove {{ obj.stateName }}"
-              (click)="removeService(bufferArray.data.indexOf(obj), j)"
-              >cancel</mat-icon
+          <td mat-cell *matCellDef="let element">
+            <ng-container
+              *ngFor="let obj of element.serviceProviderMapID1; let j = index"
             >
+              {{ obj.stateName }}
+              <mat-icon
+                class="cursorPointer"
+                matTooltip="Remove {{ obj.stateName }}"
+                (click)="removeService(bufferArray.data.indexOf(element), j)"
+                >cancel</mat-icon
+              >
+            </ng-container>
           </td>
         </ng-container>
+
         <ng-container matColumnDef="action">
           <th mat-header-cell *matHeaderCellDef>Action</th>
           <td mat-cell *matCellDef="let item; let i = index">
@@ -317,14 +313,15 @@
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayAddedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayAddedColumns"></tr>
-        <mat-paginator
-          [hidden]="bufferArray.data.length === 0"
-          [pageSizeOptions]="[5, 10, 20]"
-          [pageSize]="5"
-          showFirstLastButtons
-        >
-        </mat-paginator>
       </table>
+      <mat-paginator
+        #paginatorSecond
+        [length]="bufferArray.data.length"
+        [pageSizeOptions]="[5, 10, 20]"
+        [pageSize]="5"
+        showFirstLastButtons
+      >
+      </mat-paginator>
     </div>
   </div>
   <div class="col-xs-12 col-sm-12 m-t-15 m-b-10">
@@ -356,91 +353,95 @@
       <strong>Edit Provider Admin-Provider Mapping</strong>
     </h4>
   </div>
-  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-a-0 m-t-10">
-    <form autocomplete="off" id="editForm" #eform="ngForm">
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-        <input matInput style="display: none" />
-        <mat-select
-          required
-          name="ProviderAdmin"
-          [disabled]="true"
-          placeholder="Provider Admin"
-          [style.width]="'100%'"
-          [(ngModel)]="edit_Details.userID"
-        >
-          <mat-option
-            *ngFor="let item of service_provider_admin_array"
-            [value]="item.userID"
+  <div class="col-12 p-a-0 m-t-10">
+    <form autocomplete="off" id="editForm" #eform="ngForm" class="row">
+      <div class="col-3 m-t-15">
+        <!-- <input matInput style="display: none" /> -->
+        <mat-form-field>
+          <mat-label>Provider Admin</mat-label>
+          <mat-select
+            required
+            name="ProviderAdmin"
+            [disabled]="true"
+            [(ngModel)]="edit_Details.userID"
           >
-            {{ item.userName }}
-          </mat-option>
-        </mat-select>
+            <mat-option
+              *ngFor="let item of service_provider_admin_array"
+              [value]="item.userID"
+            >
+              {{ item.userName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-        <input matInput style="display: none" />
-        <mat-select
-          required
-          name="serviceProvider"
-          [disabled]="true"
-          placeholder="Provider Name"
-          [style.width]="'100%'"
-          (selectionChange)="
-            getProviderServices_Edit(edit_Details.serviceProviderID)
-          "
-          [(ngModel)]="edit_Details.serviceProviderID"
-        >
-          <mat-option
-            *ngFor="let item of service_provider_array"
-            [value]="item.serviceProviderId"
+      <div class="col-3 m-t-15">
+        <!-- <input matInput style="display: none" /> -->
+        <mat-form-field>
+          <mat-label>Provider Name</mat-label>
+          <mat-select
+            required
+            name="serviceProvider"
+            [disabled]="true"
+            (selectionChange)="
+              getProviderServices_Edit(edit_Details.serviceProviderID)
+            "
+            [(ngModel)]="edit_Details.serviceProviderID"
           >
-            {{ item.serviceProviderName }}
-          </mat-option>
-        </mat-select>
+            <mat-option
+              *ngFor="let item of service_provider_array"
+              [value]="item.serviceProviderId"
+            >
+              {{ item.serviceProviderName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-        <input matInput style="display: none" />
-        <mat-select
-          required
-          name="Serviceline"
-          placeholder="Serviceline"
-          [disabled]="true"
-          (selectionChange)="
-            getProviderStatesInService_edit(
-              edit_Details.userID,
-              edit_Details,
-              edit_Details.serviceID,
-              edit_Details.serviceID
-            )
-          "
-          [style.width]="'100%'"
-          [(ngModel)]="edit_Details.serviceID"
-        >
-          <mat-option
-            *ngFor="let item of services_array"
-            [value]="item.serviceID"
+      <div class="col-3 m-t-15">
+        <!-- <input matInput style="display: none" /> -->
+        <mat-form-field>
+          <mat-label>Serviceline</mat-label>
+          <mat-select
+            required
+            name="Serviceline"
+            [disabled]="true"
+            (selectionChange)="
+              getProviderStatesInService_edit(
+                edit_Details.userID,
+                edit_Details,
+                edit_Details.serviceID,
+                edit_Details.serviceID
+              )
+            "
+            [(ngModel)]="edit_Details.serviceID"
           >
-            {{ item.serviceName }}
-          </mat-option>
-        </mat-select>
+            <mat-option
+              *ngFor="let item of services_array"
+              [value]="item.serviceID"
+            >
+              {{ item.serviceName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-        <input matInput style="display: none" />
-        <mat-select
-          required
-          name="states"
-          placeholder="State"
-          [style.width]="'100%'"
-          [disabled]="isNational"
-          [(ngModel)]="edit_state"
-        >
-          <mat-option
-            *ngFor="let item of filteredStates"
-            (click)="getPrividerMapID(item.providerServiceMapID)"
-            [value]="item.stateID"
+      <div class="col-3 m-t-15">
+        <!-- <input matInput style="display: none" /> -->
+        <mat-form-field>
+          <mat-label>State</mat-label>
+          <mat-select
+            required
+            name="states"
+            [disabled]="isNational"
+            [(ngModel)]="edit_state"
           >
-            {{ item.stateName }}
-          </mat-option>
-        </mat-select>
+            <mat-option
+              *ngFor="let item of filteredStates"
+              (click)="getPrividerMapID(item.providerServiceMapID)"
+              [value]="item.stateID"
+            >
+              {{ item.stateName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
       </div>
     </form>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-20">

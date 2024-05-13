@@ -20,7 +20,13 @@
  * along with this program.  If not, see https://www.gnu.org/licenses/.
  */
 
-import { Component, OnInit, ViewChild, Inject } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  Inject,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { FeedbackTypeService } from '../services/feedback-type-master-service.service';
 import { dataService } from 'src/app/core/services/dataService/data.service';
@@ -39,9 +45,6 @@ import { MatPaginator } from '@angular/material/paginator';
 })
 export class FeedbackComplaintNatureMasterComponent implements OnInit {
   [x: string]: any;
-  filterednatureTypes = new MatTableDataSource<any>();
-  objs = new MatTableDataSource<any>();
-  @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
   // filterednatureTypes: any = [];
   previous_state_id: any;
   previous_service_id: any;
@@ -70,7 +73,17 @@ export class FeedbackComplaintNatureMasterComponent implements OnInit {
   natureExists = false;
   searchFeedbackNatureArray: any = [];
   msg = 'Complaint nature already exists';
+  paginator!: MatPaginator;
+  @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
+    this.paginator = mp;
+    this.setDataSourceAttributes();
+  }
+  filterednatureTypes = new MatTableDataSource<any>();
 
+  setDataSourceAttributes() {
+    this.filterednatureTypes.paginator = this.paginator;
+  }
+  objs = new MatTableDataSource<any>();
   isNational = false;
   userID: any;
 
@@ -96,10 +109,11 @@ export class FeedbackComplaintNatureMasterComponent implements OnInit {
     private _feedbackTypeService: FeedbackTypeService,
     private alertService: ConfirmationDialogsService,
     public dialog: MatDialog,
+    private cdr: ChangeDetectorRef,
   ) {}
 
   ngOnInit() {
-    this.serviceProviderID = this.commonData.service_providerID;
+    this.serviceProviderID = sessionStorage.getItem('service_providerID');
     this.userID = this.commonData.uid;
     this.getServiceLinesfromSearch(this.userID);
   }
@@ -136,7 +150,11 @@ export class FeedbackComplaintNatureMasterComponent implements OnInit {
       (response: any) => {
         console.log('services', response);
         // this.search_serviceline = "";
-        this.servicelines = response.data;
+        // this.servicelines = response.data;
+        this.servicelines = response.data.filter(function (item: any) {
+          console.log('item', item);
+          if (item.serviceID === 3 || item.serviceID === 1) return item;
+        });
       },
       (err) => {
         console.log('Error', err);
@@ -333,19 +351,25 @@ export class FeedbackComplaintNatureMasterComponent implements OnInit {
   }
 
   add_obj(nature: any, desc: any) {
-    const tempObj = {
-      feedbackNature: nature,
-      feedbackNatureDesc: desc,
-    };
-    console.log(tempObj);
-    // this.objs.push(tempObj);
-    this.validateFeedbackNature(nature);
-    this.checkDuplicates(tempObj);
-    //this.feedbackNature = null;
-    // this.feedbackNatureDesc = null;
-    this.natureExists = false;
-    console.log('this.feedbackNature', this.feedbackNature);
+    const isDuplicate = this.objs.data.some(
+      (obj) => obj.feedbackNature === nature,
+    );
+    if (!isDuplicate) {
+      const tempObj = {
+        feedbackNature: nature,
+        feedbackNatureDesc: desc,
+      };
+
+      console.log(tempObj);
+      this.validateFeedbackNature(nature);
+      this.natureExists = false;
+      console.log('this.feedbackNature', this.feedbackNature);
+      this.objs.data = [...this.objs.data, tempObj];
+    } else {
+      this.alertService.alert('Nature already exists');
+    }
   }
+
   back() {
     this.alertService
       .confirm(
@@ -380,7 +404,10 @@ export class FeedbackComplaintNatureMasterComponent implements OnInit {
   }
 
   remove_obj(index: any) {
-    this.objs.data.splice(index, 1);
+    const newData = [...this.objs.data];
+    newData.splice(index, 1);
+    this.objs.data = newData;
+    this.cdr.detectChanges();
   }
   filterComponentList(searchTerm?: string) {
     if (!searchTerm) {

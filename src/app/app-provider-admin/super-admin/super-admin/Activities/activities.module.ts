@@ -28,6 +28,7 @@ import {
   EditVillageModalComponent,
   VillageMasterComponent,
 } from './village-master/village-master.component';
+import { CoreModule } from 'src/app/core/core.module';
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import {
     FormsModule,
     ReactiveFormsModule,
     MatNativeDateModule,
+    CoreModule,
   ],
   providers: [SuperAdmin_ServiceProvider_Service, BlockProvider],
   exports: [

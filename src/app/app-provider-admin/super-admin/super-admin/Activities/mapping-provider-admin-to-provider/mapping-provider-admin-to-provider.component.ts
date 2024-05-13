@@ -19,7 +19,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see https://www.gnu.org/licenses/.
  */
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ConfirmationDialogsService } from 'src/app/core/services/dialog/confirmation.service';
 import { dataService } from 'src/app/core/services/dataService/data.service';
@@ -31,7 +37,9 @@ import { MatTableDataSource } from '@angular/material/table';
   templateUrl: './mapping-provider-admin-to-provider.component.html',
   styleUrls: ['./mapping-provider-admin-to-provider.component.css'],
 })
-export class MappingProviderAdminToProviderComponent implements OnInit {
+export class MappingProviderAdminToProviderComponent
+  implements OnInit, AfterViewInit
+{
   displayedColumns = [
     'sno',
     'ProviderName',
@@ -51,17 +59,18 @@ export class MappingProviderAdminToProviderComponent implements OnInit {
     'action',
   ];
 
-  paginator!: MatPaginator;
-  j: any;
-  @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
-    this.paginator = mp;
-    this.setDataSourceAttributes();
+  @ViewChild('paginatorFirst') paginatorFirst!: MatPaginator;
+  @ViewChild('paginatorSecond') paginatorSecond!: MatPaginator;
+
+  ngAfterViewInit() {
+    this.filteredproviderAdminList.paginator = this.paginatorFirst;
+    this.bufferArray.paginator = this.paginatorSecond;
   }
   filteredproviderAdminList = new MatTableDataSource<any>();
   bufferArray = new MatTableDataSource<any>();
 
   setDataSourceAttributes() {
-    this.filteredproviderAdminList.paginator = this.paginator;
+    this.filteredproviderAdminList.paginator = this.paginatorFirst;
   }
 
   // filteredproviderAdminList: any = [];
@@ -115,6 +124,7 @@ export class MappingProviderAdminToProviderComponent implements OnInit {
     public superadminService: SuperAdmin_ServiceProvider_Service,
     public commonDataService: dataService,
     public dialogService: ConfirmationDialogsService,
+    private changeDetectorRefs: ChangeDetectorRef,
   ) {}
 
   ngOnInit() {
@@ -291,18 +301,6 @@ export class MappingProviderAdminToProviderComponent implements OnInit {
     }
   }
 
-  // getProviderServicesInState(state, providerAdmin, serviceProvider) {
-  //   this.superadminService.getProviderServicesInState(serviceProvider.serviceProviderId || serviceProvider.serviceProviderID, state.stateID)
-  //     .subscribe(response => {
-  //       if (response) {
-  //         console.log('Provider Services in State', response);
-  //         this.services_array = response;
-  //         this.getAvailableServiceLines(state, providerAdmin, serviceProvider.serviceProviderId || serviceProvider.serviceProviderID)
-  //       }
-  //     });
-
-  // }
-
   getServicesSuccessHandeler(response: any) {
     if (response) {
       console.log('Provider Services in State', response.data);
@@ -474,6 +472,7 @@ export class MappingProviderAdminToProviderComponent implements OnInit {
     /* case:1 If the buffer array is empty */
     if (this.bufferArray.data.length === 0) {
       this.bufferArray.data.push(object);
+      this.bufferArray.paginator = this.paginatorSecond;
       console.log('bufferArray', this.bufferArray.data);
       this.resetForm();
     } else if (this.bufferArray.data.length > 0) {
@@ -536,20 +535,11 @@ export class MappingProviderAdminToProviderComponent implements OnInit {
           }
         }
       }
-      // if (providerCount === 1 && servicesMatched === false) {
-      //   this.bufferArray.push(object);
-      //   this.resetForm();
-      // }
-      // if (providerCount === 2 && servicesMatched === false) {
-      //   this.bufferArray.push(object);
-      //   this.resetForm();
-      // }
-      // if (providerCount === 0) {
-      //   this.bufferArray.push(object);
-      //   this.resetForm();
-      // }
       if (servicesMatched === false) {
         this.bufferArray.data.push(object);
+        this.bufferArray.paginator = this.paginatorSecond;
+        console.log(this.bufferArray.data);
+        this.changeDetectorRefs.detectChanges();
         this.resetForm();
       }
     }
@@ -591,12 +581,15 @@ export class MappingProviderAdminToProviderComponent implements OnInit {
     );
   }
   resetForm() {
-    this.form.reset();
-    this.provider = undefined;
-    this.serviceline = undefined;
-    this.state = undefined;
-    this.uSRMappingID = undefined;
-    this.edit_Details = undefined;
+    if (this.form !== undefined && this.form !== null) {
+      this.form.reset();
+      this.provider = undefined;
+      this.serviceline = undefined;
+      this.state = undefined;
+      this.uSRMappingID = undefined;
+      this.edit_Details = undefined;
+      this.changeDetectorRefs.detectChanges();
+    }
   }
   removeService(rowIndex: any, serviceIndex: any) {
     this.bufferArray.data[rowIndex].serviceProviderMapID1.splice(

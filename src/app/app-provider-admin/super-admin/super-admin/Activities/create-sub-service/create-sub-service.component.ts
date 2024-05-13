@@ -95,32 +95,6 @@ export class CreateSubServiceComponent implements OnInit {
   getAllProvidersSuccesshandeler(response: any) {
     this.serviceProviders = response.data;
   }
-  // getAllStates(serviceProviderID) {
-  //   this.sub_service.getStates(serviceProviderID.serviceProviderId).subscribe(response => {
-  //     this.getAllStatesSuccesshandeler(response);
-  //   });
-  // }
-
-  // getAllStatesSuccesshandeler(response) {
-
-  //   this.states = response;
-  //   this.services = [];
-  //   // if(this.added){
-  //   //   this.searchState = this.state;
-  //   //   ;
-  //   // }
-  // }
-  // getAllServicesInState(serviceProviderObj, stateObj) {
-  //   this.sub_service.getServicesInState(serviceProviderObj.serviceProviderId, stateObj.stateID)
-  //     .subscribe(response => this.getAllServicesInStatesSuccess(response));
-  // }
-
-  // getAllServicesInStatesSuccess(response) {
-
-  //   this.services = response.filter(function (obj) {
-  //     return obj.serviceID == 3 || obj.serviceID == 1;
-  //   });
-  // }
 
   getAllStatesInService(serviceProviderID: any, serviceID: any) {
     const data = {
@@ -170,23 +144,6 @@ export class CreateSubServiceComponent implements OnInit {
     }
   }
 
-  // getStates(serviceProviderID) {
-  //   this.sub_service.getStates(serviceProviderID.serviceProviderId).subscribe(response => {
-  //     this.getStatesSuccesshandeler(response);
-  //   });
-  // }
-
-  // getStatesSuccesshandeler(response) {
-  //   this.states = response;
-  // }
-  // getServicesInState(serviceProviderObj, stateObj) {
-  //   this.sub_service.getServicesInState(serviceProviderObj.serviceProviderId, stateObj.stateID)
-  //     .subscribe(response => this.getServicesInStatesSuccesshandeler(response));
-  // }
-
-  // getServicesInStatesSuccesshandeler(response) {
-  //   this.services = response;
-  // }
   getExistingOnSearch(providerServiceMapID: any) {
     this.providerServiceMapID = providerServiceMapID;
     this.sub_service.getSubServiceDetails(providerServiceMapID).subscribe(
@@ -273,41 +230,6 @@ export class CreateSubServiceComponent implements OnInit {
         //  this.message.alert(err, 'error');
       },
     );
-    // const data_obj = {
-    //   'providerServiceId': providerService.serviceProviderId,
-    //   'providerServiceName': providerService.serviceProviderName,
-    //   'serviceName': service.serviceName,
-    //   'serviceId': service.serviceID,
-    //   'stateName': state.stateName,
-    //   'stateId': state.stateID,
-    //   'subServices': subServices,
-    //   'subServiceDesc': subServiceDesc
-    // }
-    // if (this.services_array.length > 0) {
-    //   let count = 0;
-    //   for (let i = 0; i < this.services_array.length; i++) {
-    //     data_obj = data_obj.filter(val => !(this.services_array[i].subServices.includes(val)));
-    //     if (data_obj.subServices.length === 0) {
-    //       count = count + 1;
-    //     }
-    //   }
-    //   if (count === 0) {
-    //     if (data_obj.serviceId !== '') {
-    //       this.services_array.push(data_obj);
-    //     }
-    //   }
-    // } else {
-    //   if (data_obj.serviceId !== '') {
-    //     this.services_array.push(data_obj);
-    //   }
-
-    //   console.log(this.services_array);
-
-    // }
-
-    // /** once data is pushed in the table array..do the following */
-    // this.serviceObj = '';
-    // this.showTable = true;
   }
   getSubServices(service: any) {
     this.allServicesAdded = false;
@@ -364,15 +286,6 @@ export class CreateSubServiceComponent implements OnInit {
     } else {
       this.getExistingOnSearch(this.states[0].providerServiceMapID);
     }
-    // this.addSubService(true);
-    // this.showTable = true;
-    // this.data = response.map(function (element) {
-    //   element.serviceName = serviceName
-    //   return element;
-    // });
-    // this.data = response.map(function (item) {
-    //   item.serviceName = serviceName;
-    // });
   }
   addSubService(flag: any) {
     this.searchForm = flag;
@@ -382,11 +295,6 @@ export class CreateSubServiceComponent implements OnInit {
     } else {
       this.getExistingOnSearch(this.states[0].providerServiceMapID);
     }
-    //  }
-    // this.serviceProvider = this.searchServiceProvider;
-    // this.state = this.searchState;
-    // this.serviceObj = this.searchServiceObj;
-    // jQuery('#addingForm').trigger('reset');
   }
   back() {
     this.message

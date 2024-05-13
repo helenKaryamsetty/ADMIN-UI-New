@@ -20,11 +20,87 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { CommonServices } from './services/inventory-services/commonServices';
 import { VanMasterService } from './services/ProviderAdminServices/van-master-service.service';
+import { MyAddressWithCopyPasteDirective } from './directives/address/myAddressWithCopyPaste.directive';
+import { AnswerDirective } from './directives/answer/answer.directive';
+import { DotallowDirective } from './directives/dotallow/dotallow';
+import { DrugStrengthWithCopyPasteDirective } from './directives/drugStrength/drugStrengthWithCopyPaste.directive';
+import { myEmailDirective } from './directives/email/myEmail.directive';
+import { itemNameMasterDirective } from './directives/itemNameMaster/itemNameMaster.directive';
+import { ItemNameWithSpecialCharCopyPasteDirective } from './directives/itemNameMaster/itemNameWithSpecialCharCopyPaste.directive';
+import { myMobileNumberDirective } from './directives/MobileNumber/myMobileNumber.directive';
+import { MyMobileNumberWithCopyPasteDirective } from './directives/MobileNumber/myMobileNumberWithCopyPaste.directive';
+import {
+  DLNODirective,
+  PANDirective,
+  VehicleNODirective,
+  VehicleNONewDirective,
+  agentID_oneDirective,
+  agentID_twoDirective,
+  measuringUnitDirective,
+  myNameDirective,
+  myName2Directive,
+  myProviderNameDirective,
+} from './directives/name/myName.directive';
+
+import { myPasswordDirective } from './directives/password/myPassword.directive';
+import { myQuestionnaireDirective } from './directives/questionnaire/questionnaire.directive';
+import { mySmsTemplateDirective } from './directives/smsTemplate/smsTemplate.directive';
+import { StringValidatorDirective } from './directives/stringValidator/stringValidator.directive';
+import { MyTextareaDirective } from './directives/textarea/textArea.directive';
+import { TextAreaWithCopyPasteDirective } from './directives/textarea/textAreaWithCopyPaste.directive';
+import { userNameDirective } from './directives/userName/userName.directive';
+import { userNameWithSpaceDirective } from './directives/userName/userNameWithSpace.directive';
+import {
+  MyNameWithCopyPasteDirective,
+  MyProviderNameWithCopyPasteDirective,
+  NameWithSpecialCharCopyPasteDirective,
+  PanWithCopyPasteDirective,
+  VehicleNoWithCopyPasteDirective,
+  VehicleNoWithSpecialCharCopyPasteDirective,
+} from './directives/name/myNameWithCopyPaste.directive';
+import { myUserNameDirective } from './directives/address/myAddress.directive';
+import { MyInputAreaDirective } from './directives/Inputfeild/inputFeild.directive';
 
 @NgModule({
   declarations: [
     ViewVersionDetailsComponent,
     CommonDialogComponent,
+    myUserNameDirective,
+    MyAddressWithCopyPasteDirective,
+    AnswerDirective,
+    DotallowDirective,
+    myEmailDirective,
+    MyInputAreaDirective,
+    itemNameMasterDirective,
+    ItemNameWithSpecialCharCopyPasteDirective,
+    myMobileNumberDirective,
+    MyMobileNumberWithCopyPasteDirective,
+    myNameDirective,
+    myPasswordDirective,
+    myQuestionnaireDirective,
+    mySmsTemplateDirective,
+    StringValidatorDirective,
+    MyTextareaDirective,
+    userNameDirective,
+    userNameWithSpaceDirective,
+    myName2Directive,
+    agentID_oneDirective,
+    agentID_twoDirective,
+    myProviderNameDirective,
+    PANDirective,
+    VehicleNODirective,
+    VehicleNONewDirective,
+    measuringUnitDirective,
+    DLNODirective,
+    MyNameWithCopyPasteDirective,
+    NameWithSpecialCharCopyPasteDirective,
+    MyProviderNameWithCopyPasteDirective,
+    VehicleNoWithCopyPasteDirective,
+    VehicleNoWithSpecialCharCopyPasteDirective,
+    PanWithCopyPasteDirective,
+    TextAreaWithCopyPasteDirective,
+    DrugStrengthWithCopyPasteDirective,
+
     // ProviderAdminComponent,
   ],
   imports: [
@@ -34,7 +110,44 @@ import { VanMasterService } from './services/ProviderAdminServices/van-master-se
     MatFormFieldModule,
     FormsModule,
   ],
-  exports: [CommonDialogComponent],
+  exports: [
+    CommonDialogComponent,
+    myUserNameDirective,
+    MyAddressWithCopyPasteDirective,
+    AnswerDirective,
+    DotallowDirective,
+    myEmailDirective,
+    MyInputAreaDirective,
+    itemNameMasterDirective,
+    ItemNameWithSpecialCharCopyPasteDirective,
+    MyMobileNumberWithCopyPasteDirective,
+    myNameDirective,
+    myPasswordDirective,
+    myQuestionnaireDirective,
+    mySmsTemplateDirective,
+    StringValidatorDirective,
+    MyTextareaDirective,
+    userNameDirective,
+    userNameWithSpaceDirective,
+    myName2Directive,
+    agentID_oneDirective,
+    agentID_twoDirective,
+    myProviderNameDirective,
+    PANDirective,
+    VehicleNODirective,
+    VehicleNONewDirective,
+    measuringUnitDirective,
+    DLNODirective,
+    MyNameWithCopyPasteDirective,
+    NameWithSpecialCharCopyPasteDirective,
+    MyProviderNameWithCopyPasteDirective,
+    VehicleNoWithCopyPasteDirective,
+    VehicleNoWithSpecialCharCopyPasteDirective,
+    PanWithCopyPasteDirective,
+    TextAreaWithCopyPasteDirective,
+    myMobileNumberDirective,
+    DrugStrengthWithCopyPasteDirective,
+  ],
   providers: [
     HttpClient,
     ConfigService,

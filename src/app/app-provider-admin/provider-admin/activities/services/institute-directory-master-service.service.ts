@@ -23,6 +23,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ConfigService } from 'src/app/core/services/config/config.service';
+import { environment } from 'src/environments/environment';
 // import { InterceptedHttp } from '../../http.interceptor';
 // import { SecurityInterceptedHttp } from '../../http.securityinterceptor';
 
@@ -67,35 +68,39 @@ export class InstituteDirectoryMasterService {
   }
 
   getStatesNew(obj: any): Observable<any> {
-    return this.http.post(this.getStates_new_url, obj);
+    return this.http.post(environment.getStates_new_url, obj);
     // .map(this.handleSuccess)
     // 	.catch(this.handleError);
   }
 
   getServiceLinesNew(userID: any) {
-    return this.http.post(this.getServiceLines_new_url, { userID: userID });
+    return this.http.post(environment.getServiceLines_new_url, {
+      userID: userID,
+    });
     // .map(this.handleState_n_ServiceSuccess)
     // .catch(this.handleError);
   }
   getServiceLinesNewCdss(userID: any) {
-    return this.http.post(this.getServiceLines_new_url, { userID: userID });
+    return this.http.post(environment.getServiceLines_new_url, {
+      userID: userID,
+    });
     // .map(this.handleStateCdss)
     // .catch(this.handleError);
   }
 
   saveCdssMapping(reqObj: any) {
     console.log('save Institute Directory', reqObj);
-    return this.http.post(this.save_Cdss_Mapping, reqObj);
+    return this.http.post(environment.save_Cdss_Mapping, reqObj);
     // .map(this.handleSuccess).catch(this.handleError);
   }
   getCdssDetails(providerServiceMapID: any) {
     console.log('psmID', providerServiceMapID);
-    return this.http.get(this.get_Cdss_Url + '/' + providerServiceMapID);
+    return this.http.get(environment.get_Cdss_Url + '/' + providerServiceMapID);
     // .map(this.handleSuccess).catch(this.handleError);
   }
   getInstituteDirectory(providerServiceMapID: any) {
     console.log('psmID', providerServiceMapID);
-    return this.http.post(this.get_InstituteDirectory_Url, {
+    return this.http.post(environment.get_InstituteDirectory_Url, {
       providerServiceMapId: providerServiceMapID,
     });
     // .map(this.handleSuccess).catch(this.handleError);
@@ -103,55 +108,21 @@ export class InstituteDirectoryMasterService {
 
   saveInstituteDirectory(data: any) {
     console.log('save Institute Directory', data);
-    return this.http.post(this.save_InstituteDirectory_Url, data);
+    return this.http.post(environment.save_InstituteDirectory_Url, data);
     // .map(this.handleSuccess).catch(this.handleError);
   }
 
   editInstituteDirectory(data: any) {
-    return this.http.post(this.edit_InstituteDirectory_Url, data);
+    return this.http.post(environment.edit_InstituteDirectory_Url, data);
     // .map(this.handleSuccess).catch(this.handleError);
   }
 
   toggle_activate_InstituteDirectory(data: any) {
     console.log(data, 'delete req obj');
-    return this.http.post(this.toggle_activate_InstituteDirectory_Url, data);
+    return this.http.post(
+      environment.toggle_activate_InstituteDirectory_Url,
+      data,
+    );
     // .map(this.handleSuccess).catch(this.handleError);
   }
-
-  // handleSuccess(res: Response) {
-  // 	console.log(res.json().data, 'INSTITUTE-DIRECTORY file success response');
-  // 	if (res.json().data) {
-  // 		return res.json().data;
-  // 	} else {
-  // 		return Observable.throw(res.json());
-  // 	}
-  // }
-
-  // handleState_n_ServiceSuccess(response: Response) {
-
-  // 	console.log(response.json().data, 'role service file success response');
-  // 	let result = [];
-  // 	result = response.json().data.filter(function (item) {
-  // 		if (item.serviceID === 3 || item.serviceID === 1 || item.serviceID === 6) {
-  // 			return item;
-  // 		}
-  // 	});
-  // 	return result;
-  // }
-
-  // handleStateCdss(response: Response) {
-
-  // 	console.log(response.json().data, 'role service file success response');
-  // 	let result = [];
-  // 	result = response.json().data.filter(function (item) {
-  // 		if (item.serviceID === 9) {
-  // 			return item;
-  // 		}
-  // 	});
-  // 	return result;
-  // }
-
-  // handleError(error: Response | any) {
-  // 	return Observable.throw(error.json());
-  // }
 }

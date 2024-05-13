@@ -23,6 +23,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ConfigService } from 'src/app/core/services/config/config.service';
+import { environment } from 'src/environments/environment';
 // import 'rxjs/add/operator/catch';
 // import 'rxjs/add/operator/map';
 // import { InterceptedHttp } from '../../http.interceptor';
@@ -68,7 +69,7 @@ export class FeedbackTypeService {
   }
 
   getStates(userID: any, serviceID: any, isNational: any) {
-    return this.http.post(this.getStates_url, {
+    return this.http.post(environment.getStates_url, {
       userID: userID,
       serviceID: serviceID,
       isNational: isNational,
@@ -78,99 +79,63 @@ export class FeedbackTypeService {
   }
 
   getServiceLines(userID: any) {
-    return this.http.post(this.getServiceLines_url, { userID: userID });
+    return this.http.post(environment.getServiceLines_url, { userID: userID });
     // .map(this.handleState_n_ServiceSuccess)
     // .catch(this.handleError);
   }
 
   getFeedbackTypes(data: any) {
     // console.log(data,'reqObj');
-    return this.http.post(this.getFeedbackTypes_url, data);
+    return this.http.post(environment.getFeedbackTypes_url, data);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
   getFeedbackTypes_nature(data: any) {
     // console.log(data,'reqObj');
-    return this.http.post(this.getFeedbackTypes_url, data);
+    return this.http.post(environment.getFeedbackTypes_url, data);
     // .map(this.handleState_n_feedbacktypes)
     // .catch(this.handleError);
   }
 
   saveFeedback(data: any) {
-    return this.http.post(this.saveFeedback_url, data);
+    return this.http.post(environment.saveFeedback_url, data);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
 
   deleteFeedback(data: any) {
-    return this.http.post(this.deleteFeedback_url, data);
+    return this.http.post(environment.deleteFeedback_url, data);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
 
   editFeedback(data: any) {
-    return this.http.post(this.editFeedback_url, data);
+    return this.http.post(environment.editFeedback_url, data);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
 
   getFeedbackNatureTypes(data: any) {
-    return this.http.post(this.getFeedbackNaturesTypes_url, data);
+    return this.http.post(environment.getFeedbackNaturesTypes_url, data);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
 
   deleteFeedbackNatureType(data: any) {
-    return this.http.post(this.deleteFeedbackNatureType_url, data);
+    return this.http.post(environment.deleteFeedbackNatureType_url, data);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
 
   saveFeedbackNatureType(data: any) {
-    return this.http.post(this.saveFeedbackNatureType_url, data);
+    return this.http.post(environment.saveFeedbackNatureType_url, data);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
 
   editFeedbackNatureType(data: any) {
-    return this.http.post(this.editFeedbackNatureType_url, data);
+    return this.http.post(environment.editFeedbackNatureType_url, data);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
-
-  // handleState_n_ServiceSuccess(response: Response) {
-
-  //   console.log(response.json().data, 'feedback type master service file success response');
-  //   let result = [];
-  //   result = response.json().data.filter(function (item) {
-  //     if (item.serviceID === 3 || item.serviceID === 1 || item.serviceID === 6) {
-  //       return item;
-  //     }
-  //   });
-  //   return result;
-  // }
-  // handleState_n_feedbacktypes(response: Response) {
-
-  //   console.log(response.json().data, 'feedback type master service file success response');
-  //   let result = [];
-  //   result = response.json().data.filter(function (item) {
-  //     if (item.deleted === false) {
-  //       return item;
-  //     }
-  //   });
-  //   return result;
-  // }
-
-  // handleSuccess(res: Response) {
-  //   console.log(res.json().data, '--- in feedback-type-master-service');
-  //   if (res.json().data) {
-  //     return res.json().data;
-  //   } else {
-  //     return Observable.throw(res.json());
-  //   }
-  // }
-
-  // handleError(error: Response | any) {
-  //   return Observable.throw(error.json());
-  // }
 }

@@ -35,7 +35,7 @@ import { MatPaginator } from '@angular/material/paginator';
 })
 export class VanServicePointMappingComponent implements OnInit {
   // [x: string]: any;
-  // filteredsearchResultArray = new MatTableDataSource<any>();
+  filteredsearchResultArray = new MatTableDataSource<any>();
   // bufferArray = new MatTableDataSource<any>();
   @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
   displayedColumns: string[] = [
@@ -43,6 +43,8 @@ export class VanServicePointMappingComponent implements OnInit {
     'servicePoint',
     'district',
     'talukSubDistrict',
+    'morning',
+    'evening',
     'fullDay',
   ];
 
@@ -103,7 +105,7 @@ export class VanServicePointMappingComponent implements OnInit {
     private alertMessage: ConfirmationDialogsService,
   ) {
     this.data = [];
-    this.service_provider_id = this.commonDataService.service_providerID;
+    this.service_provider_id = sessionStorage.getItem('service_providerID');
     this.countryID = 1; // hardcoded as country is INDIA
     this.serviceID = this.commonDataService.serviceIDMMU;
     this.createdBy = this.commonDataService.uname;
@@ -219,38 +221,6 @@ export class VanServicePointMappingComponent implements OnInit {
       }
     }
   }
-  //   getDistricts(zoneID) {
-  //     this.searForm1.resetForm();
-  //     this.taluks = [];
-  //     this.availableVans = [];
-  //     this.MappingForm = this.formBuilder.group({
-  //       mappings: this.formBuilder.array([])
-  //     });
-  //     this.vanServicePointMappingService.getDistricts(zoneID).subscribe(response => this.getDistrictsSuccessHandeler(response));
-
-  //   }
-  //   getDistrictsSuccessHandeler(response) {
-  //     this.districts = response;
-  //     this.availableVanServicePointMappings = [];
-  //     this.reseArray();
-  //   }
-  //   GetTaluks(parkingPlaceID, districtID) {
-  //     this.searForm1.resetForm();
-  //     this.availableVans = [];
-  //     let talukObj = {
-  //         "parkingPlaceID": parkingPlaceID,
-  //         "districtID": districtID
-  //     }
-  //     this.vanServicePointMappingService.getTaluks(talukObj)
-  //         .subscribe(response => this.SetTaluks(response));
-  // }
-  // SetTaluks(response: any) {
-  //     this.taluks = response;
-  //     this.availableVanServicePointMappings = [];
-  //     this.reseArray();
-  //     this.getVanTypes();
-
-  // }
   getVanTypes() {
     this.obj = {};
     this.obj.providerServiceMapID = this.providerServiceMapID;
@@ -336,7 +306,15 @@ export class VanServicePointMappingComponent implements OnInit {
     this.showTable = true;
     this.availableVanServicePointMappings = [];
     this.availableVanServicePointMappings = response.data;
-    const temp = this.MappingForm.controls['mappings'] as FormArray;
+    console.log('response', response);
+    console.log('response.data', response.data);
+    const temp: any = this.MappingForm.controls['mappings'] as FormArray;
+    this.filteredsearchResultArray.data = response.data;
+    // this.filteredsearchResultArray.data = response.data;
+    console.log(
+      'this.filteredsearchResultArray.data',
+      this.filteredsearchResultArray.data,
+    );
     temp.reset();
     this.servicePointIDList = [];
     console.log('temp', temp);
@@ -405,22 +383,6 @@ export class VanServicePointMappingComponent implements OnInit {
       vanSession3: vanSession === '3',
     });
   }
-
-  // servicePointObj: any;
-  // getServicePoints(stateID, districtID, parkingPlaceID) {
-  //     this.servicePointObj = {};
-  //     this.servicePointObj.stateID = stateID;
-  //     this.servicePointObj.districtID = districtID;
-  //     this.servicePointObj.parkingPlaceID = parkingPlaceID;
-  //     this.servicePointObj.serviceProviderID = this.service_provider_id;
-  //     this.vanServicePointMappingService.getServicePoints(this.servicePointObj).subscribe(response => this.getServicePointSuccessHandler(response));
-
-  // }
-
-  // availableServicePoints: any;
-  // getServicePointSuccessHandler(response) {
-  //     this.availableServicePoints = response;
-  // }
 
   vanID: any;
   selectedVan(van: any) {

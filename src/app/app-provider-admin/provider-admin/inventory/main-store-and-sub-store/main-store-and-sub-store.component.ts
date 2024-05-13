@@ -106,7 +106,7 @@ export class MainStoreAndSubStoreComponent implements OnInit {
 
   ngOnInit() {
     this.createdBy = this.commonDataService.uname;
-    this.serviceProviderID = this.commonDataService.service_providerID;
+    this.serviceProviderID = sessionStorage.getItem('service_providerID');
     this.uid = this.commonDataService.uid;
     this.getServices();
   }
@@ -235,15 +235,15 @@ export class MainStoreAndSubStoreComponent implements OnInit {
           };
           this.storeService.deleteStore(object).subscribe(
             (res: any) => {
-              if (res.data !== undefined) {
-                this.dialogService.alert(res.response, 'error');
-              } else {
+              if (res.status === 'Success') {
                 this.dialogService.alert(
                   this.confirmMessage + 'd successfully',
                   'success',
                 );
                 this.getAllStores(this.providerServiceMapID);
                 this.create_filterTerm = '';
+              } else {
+                this.dialogService.alert(res.errorMessage, 'error');
               }
             },
             (err) => {

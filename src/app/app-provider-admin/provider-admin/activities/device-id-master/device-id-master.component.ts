@@ -19,7 +19,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see https://www.gnu.org/licenses/.
  */
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { dataService } from 'src/app/core/services/dataService/data.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogsService } from 'src/app/core/services/dialog/confirmation.service';
@@ -38,11 +38,8 @@ import { MatPaginator } from '@angular/material/paginator';
   templateUrl: './device-id-master.component.html',
   styleUrls: ['./device-id-master.component.css'],
 })
-export class DeviceIdMasterComponent implements OnInit {
+export class DeviceIdMasterComponent implements OnInit, AfterViewInit {
   [x: string]: any;
-  filteredsearchResultArray = new MatTableDataSource<any>();
-  bufferArray = new MatTableDataSource<any>();
-  @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
   displayedColumns: string[] = [
     'SNo',
     'deviceID',
@@ -86,6 +83,11 @@ export class DeviceIdMasterComponent implements OnInit {
   createDeviceIdForm!: NgForm;
   @ViewChild('editDeviceIdForm')
   editDeviceIdForm!: NgForm;
+  paginator!: MatPaginator;
+  @ViewChild('paginatorFirst') paginatorFirst!: MatPaginator;
+  @ViewChild('paginatorSecond') paginatorSecond!: MatPaginator;
+  filteredsearchResultArray = new MatTableDataSource<any>();
+  bufferArray = new MatTableDataSource<any>();
 
   constructor(
     public fetosenseDeviceMasterService: FetosenseDeviceIdMasterService,
@@ -127,6 +129,9 @@ export class DeviceIdMasterComponent implements OnInit {
     });
 
     this.searchTerm = null;
+  }
+  ngAfterViewInit() {
+    this.filteredsearchResultArray.paginator = this.paginatorFirst;
   }
 
   getStates(serviceID: any, isNational: any) {

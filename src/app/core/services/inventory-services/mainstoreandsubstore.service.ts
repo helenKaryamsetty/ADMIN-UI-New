@@ -25,6 +25,7 @@ import { Observable } from 'rxjs';
 // import 'rxjs/add/operator/catch';
 // import 'rxjs/add/operator/map';
 import { ConfigService } from '../config/config.service';
+import { environment } from 'src/environments/environment';
 // import { InterceptedHttp } from './../../http.interceptor';
 // import { SecurityInterceptedHttp } from '../../http.securityinterceptor';
 
@@ -53,25 +54,27 @@ export class Mainstroreandsubstore {
 
     this.get_State_Url = this.admin_Base_Url + 'm/role/stateNew';
     this.get_Service_Url = this.admin_Base_Url + 'm/role/serviceNew';
-    this.get_stores_Url = this.admin_Base_Url + '/getAllStore';
-    this.save_stores_Url = this.admin_Base_Url + '/createStore';
-    this.update_stores_Url = this.admin_Base_Url + '/editStore';
-    this.delete_stores_Url = this.admin_Base_Url + '/deleteStore';
-    this.get_facilities_Url = this.admin_Base_Url + '/getFacility';
-    this.get_itemCategory_Url = this.admin_Base_Url + '/getItemCategory';
-    this.save_itemCategory_Url = this.admin_Base_Url + '/configItemIssue';
-    this.save_expiryAlertConfig_Url =
-      this.admin_Base_Url + '/configexpiryalert';
+    this.get_stores_Url = this.admin_Base_Url + 'getAllStore';
+    this.save_stores_Url = this.admin_Base_Url + 'createStore';
+    this.update_stores_Url = this.admin_Base_Url + 'editStore';
+    this.delete_stores_Url = this.admin_Base_Url + 'deleteStore';
+    this.get_facilities_Url = this.admin_Base_Url + 'getFacility';
+    this.get_itemCategory_Url = this.admin_Base_Url + 'getItemCategory';
+    this.save_itemCategory_Url = this.admin_Base_Url + 'configItemIssue';
+    this.save_expiryAlertConfig_Url = this.admin_Base_Url + 'configexpiryalert';
   }
 
   getAllStores(providerServiceMapID: any) {
-    return this.http.post(this.get_stores_Url + '/' + providerServiceMapID, '');
+    return this.http.post(
+      environment.get_stores_Url + '/' + providerServiceMapID,
+      '',
+    );
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
 
   getAllActiveFacilities(providerServiceMapID: any) {
-    return this.http.post(this.get_facilities_Url, {
+    return this.http.post(environment.get_facilities_Url, {
       providerServiceMapID: providerServiceMapID,
     });
     // .map(this.handleState_n_FilteredSuccess)
@@ -80,7 +83,7 @@ export class Mainstroreandsubstore {
 
   getStoreType(providerServiceMapID: any) {
     return this.http.post(
-      this.get_stores_Url + '/' + providerServiceMapID,
+      environment.get_stores_Url + '/' + providerServiceMapID,
       null,
     );
     // .map(this.handleState_n_FilteredstoreTypeSuccess)
@@ -88,25 +91,25 @@ export class Mainstroreandsubstore {
   }
 
   deleteStore(deleteObj: any) {
-    return this.http.post(this.delete_stores_Url, deleteObj);
+    return this.http.post(environment.delete_stores_Url, deleteObj);
     // .map(this.handleSuccess)
     //     .catch(this.handleError)
   }
 
   saveStore(obj: any) {
-    return this.http.post(this.save_stores_Url, obj);
+    return this.http.post(environment.save_stores_Url, obj);
     // .map(this.handleSuccess)
     //     .catch(this.handleError);
   }
 
   updateStore(editobj: any) {
-    return this.http.post(this.update_stores_Url, editobj);
+    return this.http.post(environment.update_stores_Url, editobj);
     // .map(this.handleSuccess)
     //     .catch(this.handleError);
   }
 
   getServices(userID: any) {
-    return this.http.post(this.get_Service_Url, {
+    return this.http.post(environment.get_Service_Url, {
       userID: userID,
     });
     // .map(this.handleState_n_ServiceSuccess)
@@ -114,7 +117,7 @@ export class Mainstroreandsubstore {
   }
 
   getStates(userID: any, serviceID: any, isNational: any) {
-    return this.http.post(this.get_State_Url, {
+    return this.http.post(environment.get_State_Url, {
       userID: userID,
       serviceID: serviceID,
       isNational: isNational,
@@ -125,7 +128,7 @@ export class Mainstroreandsubstore {
 
   getItemCategory(providerServiceMapID: any) {
     return this.http.get(
-      this.get_itemCategory_Url + '/' + providerServiceMapID + '/' + 0,
+      environment.get_itemCategory_Url + '/' + providerServiceMapID + '/' + 0,
       {},
     );
     // .map(this.handleSuccess)
@@ -133,59 +136,14 @@ export class Mainstroreandsubstore {
   }
 
   saveItemIssueConfig(obj: any) {
-    return this.http.post(this.save_itemCategory_Url, obj);
+    return this.http.post(environment.save_itemCategory_Url, obj);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
 
   saveExpiryAlertConfig(obj: any) {
-    return this.http.post(this.save_expiryAlertConfig_Url, obj);
+    return this.http.post(environment.save_expiryAlertConfig_Url, obj);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
-
-  // handleSuccess(res: Response) {
-  //     console.log(res.json().data, 'Main Stores file success response');
-  //     if (res.json().data) {
-  //         return res.json().data;
-  //     } else {
-  //         return Observable.throw(res.json());
-  //     }
-  // }
-
-  // handleState_n_ServiceSuccess(response: Response) {
-  //     console.log(response.json().data, 'Main Stores service file success response');
-  //     let result = [];
-  //     result = response.json().data.filter(function (item) {
-  //         if (item.serviceID != 1) {
-  //             return item;
-  //         }
-  //     });
-  //     return result;
-  // }
-  // handleState_n_FilteredSuccess(response: Response) {
-  //     console.log(response.json().data, 'filtered facility service file success response');
-  //     let result = [];
-  //     result = response.json().data.filter(function (item) {
-  //         if (!item.deleted) {
-  //             return item;
-  //         }
-  //     });
-  //     return result;
-  // }
-
-  // handleState_n_FilteredstoreTypeSuccess(response: Response) {
-  //     console.log(response.json().data, 'filtered store Types service file success response');
-  //     let result = [];
-  //     result = response.json().data.filter(function (item) {
-  //         if (item.storeType === "MAIN") {
-  //             return item;
-  //         }
-  //     });
-  //     return result;
-  // }
-
-  // handleError(error: Response | any) {
-  //     return Observable.throw(error.json());
-  // }
 }

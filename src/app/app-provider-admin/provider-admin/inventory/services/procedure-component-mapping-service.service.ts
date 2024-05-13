@@ -25,6 +25,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ConfigService } from 'src/app/core/services/config/config.service';
+import { environment } from 'src/environments/environment';
 // import 'rxjs/add/operator/catch';
 // import 'rxjs/add/operator/map';
 
@@ -55,7 +56,9 @@ export class ProcedureComponentMappingServiceService {
   }
 
   getProceduresList(providerServiceMapID: any) {
-    return this.http.get(`${this._getProcedureListURL}${providerServiceMapID}`);
+    return this.http.get(
+      `${environment._getProcedureListURL}${providerServiceMapID}`,
+    );
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
@@ -77,27 +80,16 @@ export class ProcedureComponentMappingServiceService {
   }
 
   getComponentsList(providerServiceMapID: any) {
-    return this.http.get(`${this._getComponentListURL}${providerServiceMapID}`);
+    return this.http.get(
+      `${environment.getComponentNewListURL}${providerServiceMapID}`,
+    );
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
 
   saveProcedureComponentMapping(apiObject: any) {
-    return this.http.post(this._setProcedureComponentMapURL, apiObject);
+    return this.http.post(environment._setProcedureComponentMapURL, apiObject);
     // .map(this.handleSuccess)
     // .catch(this.handleError);
   }
-
-  // handleSuccess(res: Response) {
-  //   console.log(res.json(), 'calltype-subtype service file success response');
-  //   if (res.json().data) {
-  //     return res.json().data;
-  //   } else {
-  //     return Observable.throw(res.json());
-  //   }
-  // }
-
-  // handleError(error: Response | any) {
-  //   return Observable.throw(error.json());
-  // }
 }

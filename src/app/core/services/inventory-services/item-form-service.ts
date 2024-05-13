@@ -25,6 +25,7 @@ import { Observable } from 'rxjs';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import { ConfigService } from '../config/config.service';
+import { environment } from 'src/environments/environment';
 // import { InterceptedHttp } from './../../http.interceptor';
 // import { SecurityInterceptedHttp } from '../../http.securityinterceptor';
 
@@ -50,23 +51,25 @@ export class ItemFormService {
   }
 
   getAllItemForm(providerServiceMapID: any) {
-    return this.http.get(this.get_itemform_Url + '/' + providerServiceMapID);
+    return this.http.get(
+      environment.get_itemform_Url + '/' + providerServiceMapID,
+    );
     // .map(this.handleSuccess)
     //     .catch(this.handleError);
   }
 
   saveItemForm(obj: any) {
-    return this.http.post(this.save_itemform_Url, obj);
+    return this.http.post(environment.save_itemform_Url, obj);
     // .map(this.handleSuccess)
     //     .catch(this.handleError);
   }
   updateItemForm(obj: any) {
-    return this.http.post(this.update_itemform_Url, obj);
+    return this.http.post(environment.update_itemform_Url, obj);
     // .map(this.handleSuccess)
     //     .catch(this.handleError);
   }
   deleteItemForm(obj: any) {
-    return this.http.post(this.delete_itemform_Url, obj);
+    return this.http.post(environment.delete_itemform_Url, obj);
     // .map(this.handleSuccess)
     //     .catch(this.handleError);
   }

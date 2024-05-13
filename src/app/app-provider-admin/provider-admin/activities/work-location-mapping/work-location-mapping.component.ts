@@ -20,7 +20,7 @@
  * along with this program.  If not, see https://www.gnu.org/licenses/.
  */
 
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
@@ -34,10 +34,6 @@ import { WorkLocationMapping } from '../services/work-location-mapping.service';
   styleUrls: ['./work-location-mapping.component.css'],
 })
 export class WorkLocationMappingComponent implements OnInit {
-  // filteredmappedWorkLocationsList: any;
-  filteredmappedWorkLocationsList = new MatTableDataSource<any>();
-  bufferArray = new MatTableDataSource<any>();
-  @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
   userID: any;
   serviceProviderID: any;
   createdBy: any;
@@ -128,7 +124,17 @@ export class WorkLocationMappingComponent implements OnInit {
     'ESanjeevani',
     'delete',
   ];
+  paginator!: MatPaginator;
+  @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
+    this.paginator = mp;
+    this.setDataSourceAttributes();
+  }
+  filteredmappedWorkLocationsList = new MatTableDataSource<any>();
+  bufferArray = new MatTableDataSource<any>();
 
+  setDataSourceAttributes() {
+    this.filteredmappedWorkLocationsList.paginator = this.paginator;
+  }
   @ViewChild('workplaceform')
   eForm!: NgForm;
   @ViewChild('workplaceeform')
@@ -156,17 +162,12 @@ export class WorkLocationMappingComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.serviceProviderID = sessionStorage.getItem('providerServiceMapID_104');
+    this.serviceProviderID = sessionStorage.getItem('service_providerID');
     this.userID = sessionStorage.getItem('uid');
     this.createdBy = sessionStorage.getItem('uname');
-    // this.District=this.worklocationmapping.districtID;
-    //  this.getBlockMaster();
-
     this.getProviderServices(this.userID);
-    // this.getBlockMaster(this.districtID);
     this.getAllMappedWorkLocations();
     this.getUserName(this.serviceProviderID);
-    // this.getAllServicelines(this.serviceProviderID);
   }
 
   setIsNational(value: any) {
@@ -191,7 +192,6 @@ export class WorkLocationMappingComponent implements OnInit {
     if (response) {
       console.log(response, 'Provider States');
       this.states_array = response;
-      // this.services_array = [];
       this.districts_array = [];
       this.workLocationsList = [];
       this.RolesList = [];
@@ -216,10 +216,6 @@ export class WorkLocationMappingComponent implements OnInit {
         console.log(err, 'error');
       },
     );
-
-    // if(this.services_array.serviceName=="1097"){
-    //   this.blockFlag=true;
-    // }
   }
   getAllMappedWorkLocations() {
     this.worklocationmapping
@@ -233,7 +229,6 @@ export class WorkLocationMappingComponent implements OnInit {
             );
             this.mappedWorkLocationsList = response.data;
             this.filteredmappedWorkLocationsList.data = response.data;
-            this.filteredmappedWorkLocationsList.paginator = this.paginator;
           }
         },
         (err) => {
@@ -326,6 +321,7 @@ export class WorkLocationMappingComponent implements OnInit {
           this.State = null;
         }
       });
+      this.bufferArray.paginator = this.paginator;
     }
   }
 
@@ -353,7 +349,6 @@ export class WorkLocationMappingComponent implements OnInit {
   }
 
   getAllRoles(serviceID: any, providerServiceMapID: any, userID: any) {
-    // if value passed is undefined, means NGMODEL is not set, i.e undefined. So, getting the PSMID from the states array
     if (serviceID === 4) {
       this.worklocationmapping.getAllRolesForTM(providerServiceMapID).subscribe(
         (response: any) => {
@@ -405,8 +400,6 @@ export class WorkLocationMappingComponent implements OnInit {
         mappedWorkLocations.userID === userID
       ) {
         if (!mappedWorkLocations.userServciceRoleDeleted) {
-          // this.existingRoles.push(mappedWorkLocations.roleID); // existing roles has roles which are already mapped.
-          // this.existingRoles = this.RolesList.slice();
           this.disableSelectRoles = true;
           return;
         }
@@ -430,8 +423,6 @@ export class WorkLocationMappingComponent implements OnInit {
       }
     });
     this.availableRoles = temp.slice();
-
-    // fi.ltering supervisor / TC specialist roles if other roles are mapped to the user
     if (this.bufferArray.data.length > 0) {
       this.bufferArray.data.forEach((bufferList: any) => {
         if (
@@ -463,9 +454,6 @@ export class WorkLocationMappingComponent implements OnInit {
         );
       }
     });
-
-    // filter the supervisor/specialist from the available roles (from already mapped roles)
-
     const tempsupAndSpecScreenNames: any = [];
     if (this.existingRoles.length > 0) {
       this.availableRoles.forEach((screenNames: any) => {
@@ -495,11 +483,9 @@ export class WorkLocationMappingComponent implements OnInit {
     }
     this.bufferArrayTemp.forEach((roleId: any) => {
       roleId.forEach((role: any) => {
-        this.bufferRoleIds.push(role.roleID1); //  buffer roleID which has role ID's pushed to temp table (yet to save).
+        this.bufferRoleIds.push(role.roleID1);
       });
     });
-
-    // filtered the roles which is mapped to the user in buffer
     const bufferTemp: any = [];
     this.availableRoles.forEach((bufferRoles: any) => {
       const index = this.bufferRoleIds.indexOf(bufferRoles.roleID);
@@ -507,10 +493,7 @@ export class WorkLocationMappingComponent implements OnInit {
         bufferTemp.push(bufferRoles);
       }
     });
-    // available roles has roles except mapped roles with the user(both temp mapping and already mapped);
     this.availableRoles = bufferTemp.slice();
-
-    // filter the supervisor/specialist from the available roles in buffer
     const bufferTempsupAndSpecScreenNames: any[] = [];
     this.availableRoles.forEach((screenNames: any) => {
       const index = this.bufferSupAndSpecScreenNames.indexOf(
@@ -542,6 +525,7 @@ export class WorkLocationMappingComponent implements OnInit {
       this.formMode = false;
       this.editMode = false;
       this.bufferArray.data = [];
+      this.bufferArray.paginator = this.paginator;
       this.editWorkplaceForm.resetForm();
       this.showInOutBoundEdit = false;
       this.isOutboundEdit = false;
@@ -552,12 +536,11 @@ export class WorkLocationMappingComponent implements OnInit {
       this.eSanjeevaniEdit = false;
     } else {
       if (this.bufferArray.data.length > 0) {
-        // this.alertService.confirm('confirm', "Do you really want to go back? Any unsaved data would be lost").subscribe(response => {
-        //   if (response) {
         this.tableMode = true;
         this.formMode = false;
         this.editMode = false;
         this.bufferArray.data = [];
+        this.bufferArray.paginator = this.paginator;
         this.eForm.resetForm();
         this.isNational = false;
         this.isInbound = false;
@@ -571,12 +554,11 @@ export class WorkLocationMappingComponent implements OnInit {
         //   }
         // });
       } else {
-        // this.alertService.confirm('confirm', "Do you really want to go back? Any unsaved data would be lost").subscribe(response => {
-        //   if (response) {
         this.tableMode = true;
         this.formMode = false;
         this.editMode = false;
         this.bufferArray.data = [];
+        this.bufferArray.paginator = this.paginator;
         this.eForm.resetForm();
         this.isNational = false;
         this.isInbound = false;
@@ -937,6 +919,7 @@ export class WorkLocationMappingComponent implements OnInit {
         }
         if (this.bufferArray.data.length > 0) {
           this.eForm.resetForm();
+          this.bufferArray.paginator = this.paginator;
         }
         console.log('Result Array', this.bufferArray);
       }
@@ -956,10 +939,12 @@ export class WorkLocationMappingComponent implements OnInit {
       this.setWorkLocationObject(objectToBeAdded, obj, false, false);
       if (this.bufferArray.data.length > 0) {
         this.eForm.resetForm();
+        this.bufferArray.paginator = this.paginator;
       }
       console.log('Result Array', this.bufferArray);
       if (this.bufferArray.data.length > 0) {
         this.eForm.resetForm();
+        this.bufferArray.paginator = this.paginator;
       }
       // }
     } else if (objectToBeAdded.serviceline.serviceName === 'HWC') {
@@ -1026,6 +1011,7 @@ export class WorkLocationMappingComponent implements OnInit {
         }
         if (this.bufferArray.data.length > 0) {
           this.eForm.resetForm();
+          this.bufferArray.paginator = this.paginator;
           this.disableSelectRoles = false;
         }
       }
@@ -1085,40 +1071,11 @@ export class WorkLocationMappingComponent implements OnInit {
 
       if (this.bufferArray.data.length > 0) {
         this.eForm.resetForm();
+        this.bufferArray.paginator = this.paginator;
         this.disableSelectRoles = false;
       }
       console.log('Result Array', this.bufferArray);
     }
-
-    // if (objectToBeAdded.Servicevillage == 1) {
-
-    //   for (let a = 0; a < objectToBeAdded.Servicevillage; a++) {
-
-    //     let villageObj = {
-
-    //       // 'roleID1': objectToBeAdded.role[a].roleID,
-
-    //       // 'roleName': objectToBeAdded.role[a].roleName,
-
-    //       // 'screenName': objectToBeAdded.role[a].screenName
-
-    //       'blockID': this.Servicevillage.blockID,
-
-    //       'blockName': this.Servicevillage.blockName,
-
-    //       'villageName': this.Servicevillage.villageName,
-
-    //     }
-
-    //     // roleArray.push(obj);
-
-    //          this.setWorkLocationObject(objectToBeAdded,obj,false,false);
-
-    //   }
-
-    // }
-
-    // }
   }
 
   setWorkLocationObject(
@@ -1141,77 +1098,13 @@ export class WorkLocationMappingComponent implements OnInit {
     const allRolesArr = [];
     for (let i = 0; i < roleArr.length; i++) {
       allRolesArr.push(roleArr[i].isSanjeevani);
-
-      // allRolesArr.push({"issanjeevani":roleArr[i].isSanjeevani})
     }
-
-    // let isRoleFlag = false;
-
-    // for(let i=0;i<objectToBeAdded.role.length;i++){
-
-    //   if(objectToBeAdded.role[i].roleName==='Nurse'){
-
-    //     isRoleArr.push(true);
-
-    //     isRoleFlag = true;
-
-    //   }
-
-    //   else{
-
-    //     isRoleArr.push(false);
-
-    //   }
-
-    // }
-
-    // if(objectToBeAdded.role!=undefined){
-
-    //   objectToBeAdded.role.filter(item =>{
-
-    //     isRoleArr.push(item.roleName);
-
-    //   })
-
-    // }
-
-    //  let isRole = false;
-
-    // for(let i=0;i<objectToBeAdded.role.length;i++){
-
-    //     if(objectToBeAdded.role[i].roleName==='Nurse'){
-
-    //       isRole=true;
-
-    //       break;
-
-    //     }
-
-    // }
-
-    // for(let i=0;i<objectToBeAdded.length;i++){
-
-    //   villageNameArr = objectToBeAdded.Servicevillage.filter((item )=>{
-
-    //     if(villageNameArr == item.villageName){
-
-    //       villageNameArr.push(item.villageName);
-
-    //     }
-
-    //   })
-
-    // }
-
     const workLocationObj: any = {
       previleges: [],
       userID: objectToBeAdded.user.userID,
       userName: objectToBeAdded.user.userName,
       serviceID: objectToBeAdded.serviceline.serviceID,
       serviceName: objectToBeAdded.serviceline.serviceName,
-      // 'stateName': objectToBeAdded.state ? objectToBeAdded.state.stateName : '-',
-
-      // 'district': objectToBeAdded.district ? objectToBeAdded.district.districtName : '-',
       blockName:
         objectToBeAdded.Serviceblock !== undefined &&
         objectToBeAdded.Serviceblock.blockName !== undefined &&
@@ -1256,16 +1149,7 @@ export class WorkLocationMappingComponent implements OnInit {
     };
     if (objectToBeAdded.state) {
       workLocationObj['stateName'] = objectToBeAdded.state.stateName;
-    }
-
-    // else if(objectToBeAdded.Serviceblock.blockName===null && villageNameArr===null){
-
-    //     this.blockTableFlag = true;
-
-    //     this.villageTableFlag = true;
-
-    // }
-    else {
+    } else {
       workLocationObj['stateName'] = 'All States';
     }
     if (objectToBeAdded.district !== undefined) {
@@ -1274,6 +1158,7 @@ export class WorkLocationMappingComponent implements OnInit {
       workLocationObj['district'] = null;
     }
     this.bufferArray.data.push(workLocationObj);
+    this.bufferArray.paginator = this.paginator;
   }
 
   resetAllArrays() {
@@ -1296,6 +1181,7 @@ export class WorkLocationMappingComponent implements OnInit {
 
   deleteRow(i: any, serviceID: any, providerServiceMapID: any, userID: any) {
     this.bufferArray.data.splice(i, 1);
+    this.bufferArray.paginator = this.paginator;
     this.getAllRoles(serviceID, providerServiceMapID, userID);
     this.availableRoles = [];
     this.RolesList = [];
@@ -1303,6 +1189,7 @@ export class WorkLocationMappingComponent implements OnInit {
 
   removeRole(rowIndex: any, roleIndex: any) {
     this.bufferArray.data[rowIndex].roleID1.splice(roleIndex, 1);
+    this.bufferArray.paginator = this.paginator;
     this.getAllRoles(
       this.bufferArray.data[rowIndex].serviceID,
       this.bufferArray.data[rowIndex].providerServiceMapID,
@@ -1310,6 +1197,7 @@ export class WorkLocationMappingComponent implements OnInit {
     );
     if (this.bufferArray.data[rowIndex].roleID1.length === 0) {
       this.bufferArray.data.splice(rowIndex, 1);
+      this.bufferArray.paginator = this.paginator;
     }
   }
 
@@ -1340,7 +1228,7 @@ export class WorkLocationMappingComponent implements OnInit {
 
     for (let i = 0; i < this.bufferArray.data.length; i++) {
       const allRoleArr = [];
-      if (this.Role !== undefined) {
+      if (this.Role) {
         this.Role.filter((item: any) => {
           allRoleArr.push(item.roleName);
         });
@@ -1395,6 +1283,7 @@ export class WorkLocationMappingComponent implements OnInit {
     console.log(requestArray, 'after modification array');
 
     this.bufferArray.data = [];
+    this.bufferArray.paginator = this.paginator;
 
     this.worklocationmapping
       .SaveWorkLocationMapping(requestArray)
@@ -1420,6 +1309,7 @@ export class WorkLocationMappingComponent implements OnInit {
           // this.services_array = [];
 
           this.bufferArray.data = [];
+          this.bufferArray.paginator = this.paginator;
         },
         (err) => {
           console.log(err, 'ERROR');
@@ -1537,8 +1427,6 @@ export class WorkLocationMappingComponent implements OnInit {
 
     this.checkService_forIsNational();
 
-    // this.getProviderStates_duringEdit(this.serviceID_duringEdit, this.isNational_edit);
-
     this.getProviderStates_duringPatchEdit(
       this.serviceID_duringEdit,
       this.isNational_edit,
@@ -1559,8 +1447,6 @@ export class WorkLocationMappingComponent implements OnInit {
         this.providerServiceMapID_duringEdit,
         this.userID_duringEdit,
       );
-
-      // this.getAllRoles_duringEdit(this.serviceID_duringEdit, this.providerServiceMapID_duringEdit, this.userID_duringEdit);
     } else {
       this.getAllDistricts_duringEdit2(
         this.edit_Details.stateID,
@@ -1571,10 +1457,6 @@ export class WorkLocationMappingComponent implements OnInit {
         this.providerServiceMapID_duringEdit,
         this.userID_duringEdit,
       );
-
-      // this.getAllWorkLocations_duringEdit2(this.stateID_duringEdit, this.serviceID_duringEdit, this.isNational_edit, this.district_duringEdit,this.providerServiceMapID_duringEdit, this.userID_duringEdit);
-
-      // this.getAllRoles_duringEdit(this.serviceID_duringEdit, this.providerServiceMapID_duringEdit, this.userID_duringEdit);
     }
   }
 
@@ -1605,8 +1487,6 @@ export class WorkLocationMappingComponent implements OnInit {
               psmID,
               userID,
             );
-
-            // this.getAllWorkLocations_duringEdit(this.userID_duringEdit, this.stateID_duringEdit, this.serviceID_duringEdit);
           }
         },
         (err) => {
@@ -1768,12 +1648,10 @@ export class WorkLocationMappingComponent implements OnInit {
     isNational: any,
     blockVillageCheckFlag: any,
   ) {
-    // this.stateID_duringEdit = '';
-
     if (response) {
       console.log(response, 'Provider States');
 
-      this.states_array = response;
+      this.states_array = response.data;
 
       this.districts_array = [];
 
@@ -1817,14 +1695,9 @@ export class WorkLocationMappingComponent implements OnInit {
   }
 
   refresh1() {
-    // refreshing ngModels of district, worklocation, servicelines, roles
-
     this.district_duringEdit = undefined;
 
     this.workLocationID_duringEdit = undefined;
-
-    // this.serviceID_duringEdit = undefined;
-
     this.roleID_duringEdit = undefined;
   }
 
@@ -1833,8 +1706,6 @@ export class WorkLocationMappingComponent implements OnInit {
   }
 
   refresh3() {
-    // refreshing ngModels of worklocation, roles
-
     this.district_duringEdit = undefined;
 
     this.workLocationID_duringEdit = undefined;
@@ -1843,8 +1714,6 @@ export class WorkLocationMappingComponent implements OnInit {
   }
 
   refresh5() {
-    // refreshing ngModels of worklocation, roles
-
     this.workLocationID_duringEdit = undefined;
 
     this.roleID_duringEdit = undefined;
@@ -1861,13 +1730,11 @@ export class WorkLocationMappingComponent implements OnInit {
       .getAllDistricts(state)
 
       .subscribe(
-        (response) => {
+        (response: any) => {
           if (response) {
             console.log(response, 'get all districts success handeler');
 
-            this.districts_array = response;
-
-            // this.getAllWorkLocations_duringEdit(this.userID_duringEdit, this.stateID_duringEdit, this.serviceID_duringEdit);
+            this.districts_array = response.data;
           }
         },
         (err) => {
@@ -1899,17 +1766,7 @@ export class WorkLocationMappingComponent implements OnInit {
               this.edit_Details.serviceName === 'MMU'
             ) {
               this.getEditBlockPatchMaster(this.district_duringEdit);
-
-              // this.ServiceEditblock = this.edit_Details.blockID;
-
-              // this.getEditVillagePatchMaster(this.ServiceEditblock);
-
-              // this.villagename = this.edit_Details.villageName;
-
-              // this.enableEditVillageFlag = true;
             }
-
-            // this.getAllWorkLocations_duringEdit(this.userID_duringEdit, this.stateID_duringEdit, this.serviceID_duringEdit);
           }
         },
         (err) => {
@@ -1942,10 +1799,6 @@ export class WorkLocationMappingComponent implements OnInit {
             );
 
             this.workLocationsList = response.data;
-
-            //  this.getBlockMaster(districtID);
-
-            // this.getAllRoles_duringEdit(this.providerServiceMapID_duringEdit);
           }
         },
         (err) => {
@@ -2058,26 +1911,6 @@ export class WorkLocationMappingComponent implements OnInit {
         workingLocationID: workLocations.worklocation,
 
         modifiedBy: this.createdBy,
-
-        // 'uSRMappingID': this.uSRMappingID,
-
-        // 'userID': this.userID_duringEdit,
-
-        // 'roleID': workLocations.role,
-
-        // 'providerServiceMapID': this.providerServiceMapID_duringEdit,
-
-        // 'blockID':this.edit_Details.blockID,
-
-        // 'blockName':this.edit_Details.blockName,
-
-        // 'villageID':this.edit_Details.villageID,
-
-        // 'villageName':this.edit_Details.villageName,
-
-        // 'workingLocationID': workLocations.worklocation,
-
-        // 'modifiedBy': this.createdBy
       };
 
       console.log('edited request object to be sent to API', langObj);
@@ -2099,6 +1932,7 @@ export class WorkLocationMappingComponent implements OnInit {
             this.getAllMappedWorkLocations();
 
             this.bufferArray.data = [];
+            this.bufferArray.paginator = this.paginator;
           },
           (err) => {
             console.log(err, 'ERROR');
@@ -2149,6 +1983,7 @@ export class WorkLocationMappingComponent implements OnInit {
           this.getAllMappedWorkLocations();
 
           this.bufferArray.data = [];
+          this.bufferArray.paginator = this.paginator;
         },
         (err) => {
           console.log(err, 'ERROR');
@@ -2179,8 +2014,10 @@ export class WorkLocationMappingComponent implements OnInit {
   filterComponentList(searchTerm?: string) {
     if (!searchTerm) {
       this.filteredmappedWorkLocationsList.data = this.mappedWorkLocationsList;
+      this.filteredmappedWorkLocationsList.paginator = this.paginator;
     } else {
       this.filteredmappedWorkLocationsList.data = [];
+      this.filteredmappedWorkLocationsList.paginator = this.paginator;
       this.mappedWorkLocationsList.forEach((item: any) => {
         for (const key in item) {
           if (
@@ -2203,14 +2040,7 @@ export class WorkLocationMappingComponent implements OnInit {
       });
     }
   }
-  // resetDropdowns() {
-  //   this.User = undefined;
-  //   this.State = undefined;
-  //   this.Serviceline = undefined;
-  //   this.District = undefined;
-  //   this.WorkLocation = undefined;
-  //   this.Role = undefined;
-  // }
+
   resetAllFields() {
     this.State = undefined;
     this.Serviceline = undefined;
@@ -2238,8 +2068,6 @@ export class WorkLocationMappingComponent implements OnInit {
   }
 
   showInboundOutbound(value: any) {
-    // this.isInbound=null;
-    // this.isOutbound=null;
     this.isInbound = false;
     this.isOutbound = false;
     if (value === '1097') this.showInOutBound = true;
@@ -2338,7 +2166,7 @@ export class WorkLocationMappingComponent implements OnInit {
 
   getVillageSuccessHandeler(response: any) {
     if (response) {
-      this.village = response;
+      this.village = response.data;
     }
   }
 
@@ -2370,38 +2198,12 @@ export class WorkLocationMappingComponent implements OnInit {
           this.enableEditBlockFlag = true;
           this.getEditVillagePatchMaster(this.ServiceEditblock);
         }
-        // getEditBlockPatchMaster(district_duringEdit){
-        //   // console.log("PARTH****"+district_duringEdit.districtID, this.district_duringEdit.districtID)
-        //   this.villagemasterService.getTaluks(district_duringEdit)
-        //   .subscribe((response)  =>{
-        //     if (response) {
-        //       // console.log('this.searchForm', this.searchForm.valid, this.searchForm.value);
-        //       this.editblocks = response;
-        //       if(this.edit_Details.serviceName == "FLW"){
-        //       this.ServiceEditblock = this.edit_Details.blockID;
-        //           // this.blockid =this.edit_Details.blockID;
-        //           this.blockname=this.edit_Details.blockName;
-        //           this.enableEditBlockFlag = true;
-        //           this.getEditVillagePatchMaster(this.ServiceEditblock);
-        //       }
-        //       else{
-        //         this.enableEditBlockFlag = false;
-        //       }
-        //     }
       },
       (err: any) => {
         console.log('Error', err);
       },
     );
   }
-
-  // getEditTalukSuccessHandeler(response) {
-  // 	// console.log(response, "Taluk")
-  // 	if (response) {
-  // 		// console.log('this.searchForm', this.searchForm.valid, this.searchForm.value);
-  // 		this.editblocks = response;
-  // 	}
-  // }
 
   getEditVillageMaster(ServiceEditblock: any) {
     const requestObject = {
@@ -2481,52 +2283,6 @@ export class WorkLocationMappingComponent implements OnInit {
       this.isSanjeevani = false;
     }
   }
-  //   allowSingleTimeHWC(serviceLine,userID)
-  //   {
-  //     let value=this.checkHWCMappedInBufferTable(serviceLine,userID)
-  //     let value2=this.checkHWCMappedInMainTable(serviceLine,userID)
-
-  //     if(value == true || value2 == true){
-  //       this.Serviceline = {}
-  //      this.alertService.alert("Already Mapped")
-
-  //     }
-
-  // }
-  // checkHWCMappedInMainTable(serviceLine,userID){
-  //   let result=false;
-  //   if(serviceLine != undefined && serviceLine !=null && userID!= undefined && userID !=null){
-  //     if( this.mappedWorkLocationsList.length!=0){
-  //       this.mappedWorkLocationsList.forEach((mappedWorkLocations) => {
-  //         if(serviceLine === "HWC" && serviceLine ===mappedWorkLocations.serviceName &&  mappedWorkLocations.userID == userID){
-  //           if (!mappedWorkLocations.userServciceRoleDeleted) {
-  //            result=true
-  //           }
-  //         }
-  //       });
-  //     }
-
-  //   }
-  //   return result;
-  // }
-
-  //   checkHWCMappedInBufferTable(serviceLine,userID){
-  //     let result=false;
-  //     if(serviceLine != undefined && serviceLine !=null && userID!= undefined && userID !=null){
-  //       if (this.bufferArray.length > 0) {
-  //         this.bufferArray.forEach((bufferArrayList) => {
-  //           if(serviceLine === "HWC" && serviceLine ===bufferArrayList.serviceName && bufferArrayList.userID == userID){
-  //             result=true
-  //           }
-
-  //     });
-  //     }
-  //     }
-
-  // return result
-  // }
-  // setUpdatedVillageName(villageID){
-  //   let villageEditIDArr =[];
 
   eSanjeevaniEditSaveFunction(value: any, role: any) {
     const editRoleName = this.RolesList.filter((response: any) => {

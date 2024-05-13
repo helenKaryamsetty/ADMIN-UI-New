@@ -261,16 +261,9 @@ export class ProvideCtiMappingComponent implements OnInit {
     }
   }
   resetForm() {
-    // this.message.confirm('Confirm','Are you sure want to reset?').subscribe((response) => {
-    //   if (response) {
-    //  jQuery('#myForm').trigger('reset');
     this.states_array = [];
     this.services_array = [];
     this.campaign_array = [];
-
-    //   }
-
-    // }, (err) => { });
   }
   back() {
     this.message

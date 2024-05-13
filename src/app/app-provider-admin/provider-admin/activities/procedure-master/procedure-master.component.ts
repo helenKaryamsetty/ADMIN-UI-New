@@ -110,19 +110,26 @@ export class ProcedureMasterComponent implements OnInit {
     });
 
     // provide service provider ID, (As of now hardcoded, but to be fetched from login response)
-    this.serviceProviderID =
-      this.commonDataService.service_providerID.toString();
+    this.serviceProviderID = sessionStorage
+      .getItem('service_providerID')
+      ?.toString();
     this.userID = this.commonDataService.uid;
-
-    // this.providerAdminRoleService.getStates(this.serviceProviderID)
-    //   .subscribe(response => this.states = this.successhandeler(response));
     this.getProviderServices();
     this.getDiagnosticProcedure();
   }
   getProviderServices() {
     this.stateandservices.getServices(this.userID).subscribe(
       (response: any) => {
-        this.services_array = response.data;
+        // this.services_array = response.data;
+        this.services_array = response.data.filter(function (item: any) {
+          console.log('item', item);
+          if (
+            item.serviceID === 4 ||
+            item.serviceID === 9 ||
+            item.serviceID === 2
+          )
+            return item;
+        });
       },
       (err) => {},
     );

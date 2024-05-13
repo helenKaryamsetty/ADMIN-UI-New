@@ -22,6 +22,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ConfigService } from 'src/app/core/services/config/config.service';
+import { environment } from 'src/environments/environment';
 // import 'rxjs/add/operator/catch';
 // import 'rxjs/add/operator/map';
 // import { InterceptedHttp } from '../../http.interceptor';
@@ -89,12 +90,12 @@ export class FetosenseDeviceIdMasterService {
   }
 
   getServiceLines(userID: any) {
-    return this.http.post(this.getServiceLineUrl, { userID: userID });
+    return this.http.post(environment.getServiceLineUrl, { userID: userID });
     // .map(response => response.json());
   }
 
   getStates(userID: any, serviceID: any, isNationalFlag: any) {
-    return this.http.post(this.getStateUrl, {
+    return this.http.post(environment.getStateUrl, {
       userID: userID,
       serviceID: serviceID,
       isNational: isNationalFlag,
@@ -105,24 +106,24 @@ export class FetosenseDeviceIdMasterService {
   /**Device ID Master screen Api's */
 
   getFetosenseDeviceMaster(providerServiceMapID: any) {
-    return this.http.post(this.getFetosenseDeviceMasterUrl, {
+    return this.http.post(environment.getFetosenseDeviceMasterUrl, {
       providerServiceMapID: providerServiceMapID,
     });
     // .map(response => response.json());
   }
 
   toggle_activate_DeviceMaster(data: any) {
-    return this.http.post(this.deleteFetosenseDeviceMasterUrl, data);
+    return this.http.post(environment.deleteFetosenseDeviceMasterUrl, data);
     // .map(response => response.json());
   }
 
   saveFetosenseDeviceMaster(data: any) {
-    return this.http.post(this.fetosenseDeviceMasterServiceUrl, data);
+    return this.http.post(environment.fetosenseDeviceMasterServiceUrl, data);
     // .map(response => response.json());
   }
 
   editFetosenseDeviceMaster(data: any) {
-    return this.http.post(this.editFetosenseDeviceIdUrl, data);
+    return this.http.post(environment.editFetosenseDeviceIdUrl, data);
     // .map(response => response.json());
   }
 
@@ -131,42 +132,42 @@ export class FetosenseDeviceIdMasterService {
   /**Spoke Device ID Mapping screen Api's */
 
   toggle_activate_SpokeDeviceIdMapping(data: any) {
-    return this.http.post(this.deleteSpokeDeviceIdMappingUrl, data);
+    return this.http.post(environment.deleteSpokeDeviceIdMappingUrl, data);
     // .map(response => response.json());
   }
 
   saveSpokeDeviceIdMapping(data: any) {
-    return this.http.post(this.spokeDeviceIdMappingUrl, data);
+    return this.http.post(environment.spokeDeviceIdMappingUrl, data);
     //  .map(response => response.json());
   }
 
   editSpokeDeviceIdMapping(data: any) {
-    return this.http.post(this.editSpokeDeviceIdMappingUrl, data);
+    return this.http.post(environment.editSpokeDeviceIdMappingUrl, data);
     // .map(response => response.json());
   }
 
   getSpokeIdAndDeviceId(data: any) {
-    return this.http.post(this.getSpokeIdAndDeviceIdUrl, data);
+    return this.http.post(environment.getSpokeIdAndDeviceIdUrl, data);
     // .map(response => response.json());
   }
 
   getZones(data: any) {
-    return this.http.post(this.getZonesURL, data);
+    return this.http.post(environment.getZonesURL, data);
     // .map(response => response.json());
   }
 
   getParkingPlaces(data: any) {
-    return this.http.post(this.getParkingPlacesURL, data);
+    return this.http.post(environment.getParkingPlacesURL, data);
     // .map(response => response.json());
   }
 
   getVanTypes(data: any) {
-    return this.http.post(this.getVanTypesURL, data);
+    return this.http.post(environment.getVanTypesURL, data);
     // .map(response => response.json());
   }
 
   getVanDeviceIdMappings(data: any) {
-    return this.http.post(this.getVanDeviceIdMappingsURL, data);
+    return this.http.post(environment.getVanDeviceIdMappingsURL, data);
     // .map(response => response.json());
   }
 

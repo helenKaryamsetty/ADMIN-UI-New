@@ -76,16 +76,4 @@ export class StoreMappingService {
     // .map(this.extractData)
     // .catch(this.handleError)
   }
-
-  // private extractData(res: Response) {
-  //   if (res.json().data && res.json().statusCode == 200) {
-  //     return res.json().data;
-  //   } else {
-  //     return Observable.throw(res.json());
-  //   }
-  // }
-
-  // private handleError(error: Response | any) {
-  //   return Observable.throw(error.json());
-  // }
 }

@@ -97,7 +97,7 @@ export class HttpInterceptorService implements HttpInterceptor {
       sessionStorage.clear();
       localStorage.clear();
       setTimeout(() => this.router.navigate(['/']), 0);
-      this.confirmationService.alert('error', response.errorMessage);
+      // this.confirmationService.alert('error', response.errorMessage);
     } else {
       this.startTimer();
     }

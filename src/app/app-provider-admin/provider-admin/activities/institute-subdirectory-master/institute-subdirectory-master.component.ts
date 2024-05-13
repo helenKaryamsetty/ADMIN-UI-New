@@ -98,7 +98,7 @@ export class InstituteSubdirectoryMasterComponent implements OnInit {
     public dialog: MatDialog,
     public alertService: ConfirmationDialogsService,
   ) {
-    this.serviceProviderID = this.commonDataService.service_providerID;
+    this.serviceProviderID = sessionStorage.getItem('service_providerID');
   }
 
   ngOnInit() {
@@ -125,7 +125,7 @@ export class InstituteSubdirectoryMasterComponent implements OnInit {
 
   successhandeler(res: any) {
     this.services = res.data.filter(function (item: any) {
-      return item;
+      if (item.serviceID === 3 || item.serviceID === 1) return item;
     });
   }
 
@@ -412,11 +412,14 @@ export class InstituteSubdirectoryMasterComponent implements OnInit {
       }
     });
   }
+
   filterComponentList(searchTerm?: string) {
     if (!searchTerm) {
-      this.filteredsearchResultArray = this.searchResultArray;
+      this.filteredsearchResultArray.data = this.searchResultArray;
+      this.filteredsearchResultArray.paginator = this.paginator;
     } else {
       this.filteredsearchResultArray.data = [];
+      this.filteredsearchResultArray.paginator = this.paginator;
       this.searchResultArray.forEach((item: any) => {
         for (const key in item) {
           if (key === 'instituteSubDirectoryName') {
@@ -427,6 +430,7 @@ export class InstituteSubdirectoryMasterComponent implements OnInit {
             }
           }
         }
+        this.filteredsearchResultArray.paginator = this.paginator;
       });
     }
   }

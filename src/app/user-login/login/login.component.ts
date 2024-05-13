@@ -147,7 +147,8 @@ export class loginContentClassComponent implements OnInit, OnDestroy {
         .superAdminAuthenticate(userId, this.encryptPassword, doLogout)
         .subscribe(
           (response: any) => {
-            if (response.data.isAuthenticated) {
+            // if (response.statusCode === 200) {
+            if (response.data) {
               if (response.data.previlegeObj.length === 0) {
                 console.log(response.data, 'SUPERADMIN VALIDATED');
                 sessionStorage.setItem('authToken', response.data.key);
@@ -158,6 +159,45 @@ export class loginContentClassComponent implements OnInit, OnDestroy {
                 this.router.navigate(['/MultiRoleScreenComponent']);
               } else {
                 this.alertMessage.alert('User is not super admin');
+              }
+            }
+            // }
+            else if (response.statusCode === 5002) {
+              if (
+                response.errorMessage ===
+                'You are already logged in,please confirm to logout from other device and login again'
+              ) {
+                this.alertMessage
+                  .confirm('info', response.errorMessage)
+                  .subscribe((confirmResponse) => {
+                    if (confirmResponse) {
+                      this.loginservice.dologoutUsrFromPreSession(true);
+                    }
+                  });
+              } else if (
+                response.errorMessage.includes(
+                  'User login failed due to incorrect username/password',
+                )
+              ) {
+                this.alertMessage
+                  .confirm('error', response.errorMessage)
+                  .subscribe((confirmResponse) => {
+                    if (confirmResponse) {
+                      this.loginservice.dologoutUsrFromPreSession(true);
+                    }
+                  });
+              } else if (
+                response.errorMessage.includes(
+                  'Your account is locked or de-activated. Please contact administrator',
+                )
+              ) {
+                this.alertMessage
+                  .confirm('info', response.errorMessage)
+                  .subscribe((confirmResponse) => {
+                    if (confirmResponse) {
+                      this.loginservice.dologoutUsrFromPreSession(true);
+                    }
+                  });
               }
             }
           },
@@ -188,6 +228,30 @@ export class loginContentClassComponent implements OnInit, OnDestroy {
                     //   else{
                     //     this.authService.removeToken();
                     // }
+                  });
+              } else if (
+                response.errorMessage.includes(
+                  'User login failed due to incorrect username/password',
+                )
+              ) {
+                this.alertMessage
+                  .confirm('error', response.errorMessage)
+                  .subscribe((confirmResponse) => {
+                    if (confirmResponse) {
+                      this.loginservice.dologoutUsrFromPreSession(true);
+                    }
+                  });
+              } else if (
+                response.errorMessage.includes(
+                  'Your account is locked or de-activated. Please contact administrator',
+                )
+              ) {
+                this.alertMessage
+                  .confirm('info', response.errorMessage)
+                  .subscribe((confirmResponse) => {
+                    if (confirmResponse) {
+                      this.loginservice.dologoutUsrFromPreSession(true);
+                    }
                   });
               }
             }

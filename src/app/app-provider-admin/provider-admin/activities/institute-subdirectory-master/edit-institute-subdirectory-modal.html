@@ -1,57 +1,67 @@
-<div class="row">
-  <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-    <h4 class="modal-title">Edit Institute Sub Directory</h4>
-  </div>
-  <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-    <button mat-button class="pull-right p-r-0" [mat-dialog-close]="true">
-      <md-icon
-        matTooltip="close"
-        class="mat-icon material-icons pull-right"
-        role="img"
-        aria-hidden="true"
-        style="cursor: pointer"
-        >clear</md-icon
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+      <h4 class="modal-title" style="width: max-content">
+        Edit Institute Sub Directory
+      </h4>
+    </div>
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+      <button
+        mat-button
+        class="pull-right p-r-0"
+        [mat-dialog-close]="true"
+        style="background-color: unset; border: unset; margin: 12px"
       >
+        <md-icon
+          matTooltip="close"
+          class="mat-icon material-icons pull-right"
+          role="img"
+          aria-hidden="true"
+          style="cursor: pointer"
+          >clear</md-icon
+        >
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <form #ISDform="ngForm" autocomplete="off">
+      <div class="col-3" appMyProviderName>
+        <mat-form-field>
+          <mat-label>Institute Sub Directory</mat-label>
+          <input
+            matInput
+            [(ngModel)]="instituteSubDirectory"
+            name="instituteDirectory"
+            minlength="2"
+            maxlength="50"
+            required
+            myName2
+          />
+        </mat-form-field>
+      </div>
+      <div class="col-3" appVehicleNO>
+        <mat-form-field>
+          <mat-label>Description</mat-label>
+          <input
+            matInput
+            [(ngModel)]="description"
+            name="description"
+            maxlength="100"
+          />
+        </mat-form-field>
+      </div>
+    </form>
+  </div>
+  <div class="m-t-10">
+    <button
+      mat-raised-button
+      color="accent"
+      style="margin-bottom: 15px"
+      class="pull-right mat_green"
+      [disabled]="!ISDform.valid"
+      (click)="update(instituteSubDirectory, description)"
+    >
+      Update
     </button>
   </div>
-</div>
-<div class="row">
-  <form #ISDform="ngForm" autocomplete="off">
-    <div class="col-3" myProviderName>
-      <mat-form-field>
-        <mat-label>Institute Sub Directory</mat-label>
-        <input
-          matInput
-          [(ngModel)]="instituteSubDirectory"
-          name="instituteDirectory"
-          minlength="2"
-          maxlength="50"
-          required
-          myName2
-        />
-      </mat-form-field>
-    </div>
-    <div class="col-3" VehicleNO>
-      <mat-form-field>
-        <mat-label>Description</mat-label>
-        <input
-          matInput
-          [(ngModel)]="description"
-          name="description"
-          maxlength="100"
-        />
-      </mat-form-field>
-    </div>
-  </form>
-</div>
-<div class="m-t-10">
-  <button
-    mat-raised-button
-    color="accent"
-    class="pull-right"
-    [disabled]="!ISDform.valid"
-    (click)="update(instituteSubDirectory, description)"
-  >
-    Update
-  </button>
 </div>

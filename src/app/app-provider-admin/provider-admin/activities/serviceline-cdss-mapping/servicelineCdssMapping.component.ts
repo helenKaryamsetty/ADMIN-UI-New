@@ -52,7 +52,7 @@ export class ServicelineCdssMappingComponent implements OnInit {
   successhandeler(res: any) {
     this.services = res.data.filter(function (item: any) {
       console.log('item', item);
-      return item;
+      if (item.serviceID === 9) return item;
     });
   }
   getStates(value: any) {
