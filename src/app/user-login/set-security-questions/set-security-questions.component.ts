@@ -53,6 +53,7 @@ export class SetSecurityQuestionsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.uname = localStorage.getItem('userName');
     this.http_calls
       .get(this.configService.getCommonBaseURL() + 'user/getsecurityquetions')
       .subscribe(
@@ -80,7 +81,7 @@ export class SetSecurityQuestionsComponent implements OnInit {
   uid: any = sessionStorage.getItem('uid');
   passwordSection = false;
   questionsection = true;
-  uname: any = this.getUserData.userNameForReset;
+  uname: any;
   key: any;
   iv: any;
   SALT = 'RandomInitVector';
