@@ -26,9 +26,9 @@
 
 const ADMIN_API = '<%= ADMIN_API_BASE %>';
 const COMMON_API = '<%= COMMON_API_BASE %>';
-const adminBaseUrl = `${ADMIN_API}adminapi-v1.0/`;
-const superadminBaseURL = `${ADMIN_API}adminapi-v1.0/`;
-const commonBaseURL = `${COMMON_API}commonapi-v1.0/`;
+const adminBaseUrl = `${ADMIN_API}/`;
+const superadminBaseURL = `${ADMIN_API}/`;
+const commonBaseURL = `${COMMON_API}/`;
 
 export const environment = {
   production: true,
