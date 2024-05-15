@@ -53,7 +53,7 @@ export class SetSecurityQuestionsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.uname = localStorage.getItem('userName');
+    this.uname = sessionStorage.getItem('uname');
     this.http_calls
       .get(this.configService.getCommonBaseURL() + 'user/getsecurityquetions')
       .subscribe(
@@ -366,13 +366,12 @@ export class SetSecurityQuestionsComponent implements OnInit {
   logout() {
     this._loginService.removeTokenFromRedis().subscribe(
       (response) => {
-        if (response === 'success'.toLowerCase()) {
-          console.log(
-            'successfully logged out from CRM and session ended both sides',
-          );
-          sessionStorage.removeItem('authToken');
-          this.router.navigate(['']);
-        }
+        this.router.navigate(['/login']).then((result) => {
+          if (result) {
+            localStorage.clear();
+            sessionStorage.clear();
+          }
+        });
       },
       (err) => {
         console.log(err, 'error while ending session both sides');
