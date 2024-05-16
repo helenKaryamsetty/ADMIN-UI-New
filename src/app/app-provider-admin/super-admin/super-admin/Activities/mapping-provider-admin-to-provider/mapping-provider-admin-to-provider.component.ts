@@ -731,8 +731,10 @@ export class MappingProviderAdminToProviderComponent
   filterComponentList(searchTerm?: string) {
     if (!searchTerm) {
       this.filteredproviderAdminList.data = this.providerAdminList;
+      this.filteredproviderAdminList.paginator = this.paginatorFirst;
     } else {
       this.filteredproviderAdminList.data = [];
+      this.filteredproviderAdminList.paginator = this.paginatorFirst;
       this.providerAdminList.forEach((item: any) => {
         for (const key in item) {
           if (
@@ -748,6 +750,7 @@ export class MappingProviderAdminToProviderComponent
             }
           }
         }
+        this.filteredproviderAdminList.paginator = this.paginatorFirst;
       });
     }
   }

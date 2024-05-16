@@ -60,6 +60,7 @@ import {
 } from './directives/name/myNameWithCopyPaste.directive';
 import { myUserNameDirective } from './directives/address/myAddress.directive';
 import { MyInputAreaDirective } from './directives/Inputfeild/inputFeild.directive';
+import { SpinnerComponent } from './components/spinner/spinner.component';
 
 @NgModule({
   declarations: [
@@ -100,6 +101,7 @@ import { MyInputAreaDirective } from './directives/Inputfeild/inputFeild.directi
     PanWithCopyPasteDirective,
     TextAreaWithCopyPasteDirective,
     DrugStrengthWithCopyPasteDirective,
+    SpinnerComponent,
 
     // ProviderAdminComponent,
   ],
@@ -147,6 +149,7 @@ import { MyInputAreaDirective } from './directives/Inputfeild/inputFeild.directi
     TextAreaWithCopyPasteDirective,
     myMobileNumberDirective,
     DrugStrengthWithCopyPasteDirective,
+    SpinnerComponent,
   ],
   providers: [
     HttpClient,

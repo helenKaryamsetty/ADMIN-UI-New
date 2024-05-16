@@ -42,12 +42,8 @@ export class ProviderServicelineStateMappingComponent
 
   filteredsearchResult = new MatTableDataSource<any>();
   bufferArray = new MatTableDataSource<any>();
-  setDataSourceAttributes() {
-    this.filteredsearchResult.paginator = this.paginatorFirst;
-  }
   ngAfterViewInit() {
     this.filteredsearchResult.paginator = this.paginatorFirst;
-    this.bufferArray.paginator = this.paginatorSecond;
   }
   displayedColumns = [
     'sno',
@@ -593,6 +589,7 @@ export class ProviderServicelineStateMappingComponent
             }
           }
         }
+        this.filteredsearchResult.paginator = this.paginatorFirst;
       });
     }
   }
