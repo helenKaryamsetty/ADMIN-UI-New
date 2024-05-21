@@ -156,7 +156,7 @@ export class ProjectConfigutationScreenComponent implements OnInit {
 
   addFields(data: any) {
     const dialog_Ref = this.dialog.open(AddFieldsToProjectComponent, {
-      width: '800px',
+      width: '1000px',
       height: '500px',
       disableClose: true,
       data: data,
