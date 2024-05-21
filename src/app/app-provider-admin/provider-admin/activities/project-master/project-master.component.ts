@@ -17,6 +17,7 @@ export class ProjectMasterComponent implements OnInit {
   serviceProviderId: any;
   showTable = true;
   projectName: any;
+  enableEditMode = false;
 
   @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
   @ViewChild(MatSort) sort: MatSort | null = null;
@@ -26,6 +27,9 @@ export class ProjectMasterComponent implements OnInit {
 
   @ViewChild('projectNameForm')
   projectNameForm!: NgForm;
+  ProjectList: any = [];
+  originalProjectName = null;
+  projectId: any;
 
   constructor(
     private projectMasterService: ProjectMasterService,
@@ -45,7 +49,11 @@ export class ProjectMasterComponent implements OnInit {
         (res: any) => {
           if (res && res.statusCode === 200) {
             this.showTable = true;
+            this.ProjectList = res.data;
             this.dataSource.data = res.data;
+            this.ProjectList.forEach((item: any, index: number) => {
+              item.sno = index + 1;
+            });
             this.dataSource.data.forEach((item: any, index: number) => {
               item.sno = index + 1;
             });
@@ -97,28 +105,81 @@ export class ProjectMasterComponent implements OnInit {
     );
   }
 
+  filterComponentList(searchTerm?: string) {
+    if (!searchTerm) {
+      this.dataSource.data = this.ProjectList;
+      this.dataSource.paginator = this.paginator;
+    } else {
+      this.dataSource.data = [];
+      this.dataSource.paginator = this.paginator;
+      this.ProjectList.forEach((item: any) => {
+        for (const key in item) {
+          if (key === 'projectName') {
+            const value: string = '' + item[key];
+            if (value.toLowerCase().indexOf(searchTerm.toLowerCase()) >= 0) {
+              this.dataSource.data.push(item);
+              break;
+            }
+          }
+        }
+        this.dataSource.paginator = this.paginator;
+      });
+    }
+  }
+
+  editProjectName(element: any) {
+    this.enableEditMode = true;
+    this.showTable = false;
+    this.projectName = element.projectName;
+    this.projectId = element.projectId;
+    this.originalProjectName = this.projectName;
+  }
+
   updateProjectName(element: any, deactivate: boolean) {
-    const reqObj = {
-      serviceProviderId: this.dataService.service_providerID,
-      projectId: element.projectId,
-      projectName: element.projectName,
-      deleted: deactivate,
-      modifiedBy: this.dataService.uname,
-    };
+    let reqObj;
+    if (element === null) {
+      reqObj = {
+        serviceProviderId: this.dataService.service_providerID,
+        projectId: this.projectId,
+        projectName: this.projectName,
+        deleted: deactivate,
+        modifiedBy: this.dataService.uname,
+      };
+    } else {
+      reqObj = {
+        serviceProviderId: this.dataService.service_providerID,
+        projectId: element.projectId,
+        projectName: element.projectName,
+        deleted: deactivate,
+        modifiedBy: this.dataService.uname,
+      };
+    }
     this.projectMasterService.updateProject(reqObj).subscribe(
       (res: any) => {
         if (res && res.statusCode === 200) {
-          if (deactivate) {
+          if (deactivate && element !== null) {
             this.confirmationService.alert(
               'Project name deactivated successfully',
               'success',
             );
             this.getProjects();
-          } else {
+          } else if (!deactivate && element !== null) {
             this.confirmationService.alert(
               'Project name activated successfully',
               'success',
             );
+            this.getProjects();
+          } else {
+            this.confirmationService.alert(
+              'Project name updated successfully',
+              'success',
+            );
+            this.projectNameForm.reset();
+            this.showTable = true;
+            this.enableEditMode = false;
+            this.projectName = null;
+            this.projectId = null;
+            this.originalProjectName = null;
             this.getProjects();
           }
         } else {

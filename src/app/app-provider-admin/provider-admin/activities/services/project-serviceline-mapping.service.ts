@@ -32,4 +32,8 @@ export class ProjectServicelineMappingService {
   saveProjectToServiceline(reqObj: any) {
     return this.http.post(environment.saveProjectToServiceline, reqObj);
   }
+
+  updateProjectToServiceline(reqObj: any) {
+    return this.http.post(environment.updateProjectToServiceline, reqObj);
+  }
 }

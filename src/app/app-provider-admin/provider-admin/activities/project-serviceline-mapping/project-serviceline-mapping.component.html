@@ -3,13 +3,13 @@
     <h4>Project Serviceline Mapping</h4>
   </div>
 
-  <form #projectServcelineMappingForm="ngForm" autocomplete="off">
+  <form [formGroup]="projectServcelineMappingForm" autocomplete="off">
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
       <mat-form-field>
         <mat-label>Serviceline</mat-label>
         <mat-select
           [style.width]="'100%'"
-          [(ngModel)]="serviceline"
+          formControlName="serviceline"
           name="serviceline"
           required
           (selectionChange)="resetAllFields()"
@@ -26,7 +26,7 @@
         <mat-label>State</mat-label>
         <mat-select
           [style.width]="'100%'"
-          [(ngModel)]="state"
+          formControlName="state"
           name="state"
           (selectionChange)="getDistricts()"
           required
@@ -43,7 +43,7 @@
         <mat-label>District</mat-label>
         <mat-select
           [style.width]="'100%'"
-          [(ngModel)]="district"
+          formControlName="district"
           name="district"
           required
           (selectionChange)="getBlocks()"
@@ -60,7 +60,7 @@
         <mat-label>Block</mat-label>
         <mat-select
           [style.width]="'100%'"
-          [(ngModel)]="block"
+          formControlName="block"
           name="block"
           (selectionChange)="getMappedProjectNames()"
           required
@@ -72,19 +72,20 @@
       </mat-form-field>
     </div>
 
-    <div
-      class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15"
-      *ngIf="enableProjectField"
-    >
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
       <mat-form-field>
         <mat-label>Project Name</mat-label>
         <mat-select
           [style.width]="'100%'"
-          [(ngModel)]="project"
-          name="project"
+          formControlName="projectName"
+          name="projectName"
           required
         >
-          <mat-option *ngFor="let item of projectNames" [value]="item">
+          <mat-option
+            *ngFor="let item of projectNames"
+            [value]="item.projectName"
+            (selectionChange)="setProjectId(item)"
+          >
             {{ item.projectName }}
           </mat-option>
         </mat-select>
@@ -92,6 +93,7 @@
     </div>
     <div class="col-xs-12">
       <button
+        *ngIf="!enableUpdate"
         mat-raised-button
         style="float: right"
         class="pull-right mat_blue"
@@ -99,11 +101,26 @@
         color="primary"
         [disabled]="!projectServcelineMappingForm.valid"
       >
-        Map Serviceline
+        Map Serviceline-Project
+      </button>
+
+      <button
+        *ngIf="enableUpdate"
+        mat-raised-button
+        style="float: right"
+        class="pull-right mat_blue"
+        (click)="updateProjectToServiceline()"
+        color="primary"
+        [disabled]="
+          !projectServcelineMappingForm.valid ||
+          !projectServcelineMappingForm.dirty
+        "
+      >
+        Update Mapped Serviceline-Project
       </button>
     </div>
   </form>
-  <div *ngIf="dataSource.data.length > 0">
+  <!-- <div *ngIf="dataSource.data.length > 0">
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
       <ng-container matColumnDef="sno">
         <th mat-header-cell *matHeaderCellDef>S.No.</th>
@@ -138,5 +155,5 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
-  </div>
+  </div> -->
 </div>

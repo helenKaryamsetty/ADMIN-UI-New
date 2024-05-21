@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
 import { ProjectServicelineMappingService } from '../services/project-serviceline-mapping.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -13,19 +13,21 @@ import { dataService } from 'src/app/core/services/dataService/data.service';
   styleUrls: ['./project-serviceline-mapping.component.css'],
 })
 export class ProjectServicelineMappingComponent implements OnInit {
-  state: any;
-  district: any;
-  block: any;
-  serviceline: any;
-  project: any;
+  // state: any;
+  // district: any;
+  // block: any;
+  // serviceline: any;
+  // project: any;
   servicelines: any = [];
   states: any = [];
   districts: any = [];
   blocks: any = [];
   projectNames: any = [];
 
-  @ViewChild('projectServcelineMappingForm')
-  projectServcelineMappingForm!: NgForm;
+  // @ViewChild('projectServcelineMappingForm')
+  // projectServcelineMappingForm!: NgForm;
+
+  projectServcelineMappingForm!: FormGroup;
 
   @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
   dataSource = new MatTableDataSource<any>();
@@ -33,22 +35,38 @@ export class ProjectServicelineMappingComponent implements OnInit {
   displayedColumns = ['sno', 'projectName', 'deleted'];
   enableProjectField = false;
   serviceProviderId: any;
+  enableUpdate = false;
 
   constructor(
     private projectServicelineMappingService: ProjectServicelineMappingService,
     private confirmationService: ConfirmationDialogsService,
     private projectMasterService: ProjectMasterService,
     private dataService: dataService,
+    private fb: FormBuilder,
   ) {}
 
   ngOnInit() {
+    this.createProjectServicelineForm();
     this.serviceProviderId = this.dataService.service_providerID;
     this.getProviderServices();
+    this.projectServcelineMappingForm.get('projectName')?.disable();
+  }
+
+  createProjectServicelineForm() {
+    return (this.projectServcelineMappingForm = this.fb.group({
+      id: null,
+      serviceline: null,
+      state: null,
+      district: null,
+      block: null,
+      projectName: null,
+      projectId: null,
+    }));
   }
 
   getProviderServices() {
     const reqObj = {
-      userID: 5,
+      userID: sessionStorage.getItem('uid'),
     };
     this.projectServicelineMappingService.getServices(reqObj).subscribe(
       (res: any) => {
@@ -90,12 +108,14 @@ export class ProjectServicelineMappingComponent implements OnInit {
   }
 
   getDistricts() {
-    this.district = null;
-    this.block = null;
-    this.project = null;
+    this.projectServcelineMappingForm.controls['district'].patchValue(null);
+    this.projectServcelineMappingForm.controls['block'].patchValue(null);
+    this.projectServcelineMappingForm.controls['projectName'].patchValue(null);
+    this.projectServcelineMappingForm.controls['projectId'].patchValue(null);
     this.dataSource.data = [];
     this.enableProjectField = false;
-    const stateId = this.state.stateID;
+    const stateId =
+      this.projectServcelineMappingForm.get('state')?.value.stateID;
     this.projectServicelineMappingService.getDistricts(stateId).subscribe(
       (res: any) => {
         if (res.data && res.statusCode === 200) {
@@ -111,11 +131,13 @@ export class ProjectServicelineMappingComponent implements OnInit {
   }
 
   getBlocks() {
-    this.block = null;
-    this.project = null;
-    this.dataSource.data = [];
+    this.projectServcelineMappingForm.controls['block'].patchValue(null);
+    this.projectServcelineMappingForm.controls['projectId'].patchValue(null);
+    this.projectServcelineMappingForm.controls['projectName'].patchValue(null);
+
     this.enableProjectField = false;
-    const districtId = this.district.districtID;
+    const districtId =
+      this.projectServcelineMappingForm.get('district')?.value.districtID;
     this.projectServicelineMappingService.getBlocks(districtId).subscribe(
       (res: any) => {
         if (res.data && res.statusCode === 200) {
@@ -131,19 +153,25 @@ export class ProjectServicelineMappingComponent implements OnInit {
   }
 
   getMappedProjectNames() {
-    this.project = null;
-    this.dataSource.data = [];
+    this.projectServcelineMappingForm.controls['projectId'].patchValue(null);
+    this.projectServcelineMappingForm.controls['projectName'].patchValue(null);
     this.enableProjectField = false;
     const reqObj = {
-      serviceLineId: this.serviceline.serviceID,
-      serviceLine: this.serviceline.serviceName,
-      stateId: this.state.stateID,
-      stateName: this.state.stateName,
-      districtId: this.district.districtID,
-      districtName: this.district.districtName,
+      serviceLineId:
+        this.projectServcelineMappingForm.get('serviceline')?.value.serviceID,
+      serviceLine:
+        this.projectServcelineMappingForm.get('serviceline')?.value.serviceName,
+      stateId: this.projectServcelineMappingForm.get('state')?.value.stateID,
+      stateName:
+        this.projectServcelineMappingForm.get('state')?.value.stateName,
+      districtId:
+        this.projectServcelineMappingForm.get('district')?.value.districtID,
+      districtName:
+        this.projectServcelineMappingForm.get('district')?.value.districtName,
       serviceProviderId: this.dataService.service_providerID,
-      blockId: this.block.blockID,
-      blockName: this.block.blockName,
+      blockId: this.projectServcelineMappingForm.get('block')?.value.blockID,
+      blockName:
+        this.projectServcelineMappingForm.get('block')?.value.blockName,
     };
     this.projectServicelineMappingService.fetchMappedProjects(reqObj).subscribe(
       (res: any) => {
@@ -153,15 +181,23 @@ export class ProjectServicelineMappingComponent implements OnInit {
             res.data.response !== null &&
             res.data.response !== 'null'
           ) {
-            this.project = null;
-            this.enableProjectField = false;
-            const dataSource = res.data;
-            this.dataSource.data = Object.entries(dataSource).map(
-              ([key, value]) => ({ key, value }),
+            this.projectServcelineMappingForm.get('projectName')?.enable();
+            this.getProjects();
+            this.projectServcelineMappingForm.patchValue(res.data);
+            this.projectServcelineMappingForm.controls[
+              'projectName'
+            ].patchValue(res.data.projectName);
+            this.projectServcelineMappingForm.controls['projectId'].patchValue(
+              res.data.projectId,
             );
-            this.dataSource.paginator = this.paginator;
+            this.projectServcelineMappingForm.controls['id'].patchValue(
+              res.data.id,
+            );
+            this.projectServcelineMappingForm.markAsPristine();
+            this.enableUpdate = true;
           } else {
-            this.enableProjectField = true;
+            this.projectServcelineMappingForm.get('projectName')?.enable();
+            this.enableUpdate = false;
             this.getProjects();
           }
         } else {
@@ -176,7 +212,7 @@ export class ProjectServicelineMappingComponent implements OnInit {
 
   getProjects() {
     this.projectMasterService
-      .getProjectMasters(this.serviceProviderId)
+      .getProjectMasters(this.dataService.service_providerID)
       .subscribe(
         (res: any) => {
           if (res && res.statusCode === 200) {
@@ -191,19 +227,78 @@ export class ProjectServicelineMappingComponent implements OnInit {
       );
   }
 
+  setProjectId(project: any) {
+    this.projectNames.forEach((item: any) => {
+      if (project.projectName === item.projectName) {
+        this.projectServcelineMappingForm.controls['projectId'].patchValue(
+          item.projectId,
+        );
+      }
+    });
+  }
+
+  updateProjectToServiceline() {
+    const reqObj = {
+      id: this.projectServcelineMappingForm.get('serviceline')?.value.id,
+      serviceLineId:
+        this.projectServcelineMappingForm.get('serviceline')?.value.serviceID,
+      serviceLine:
+        this.projectServcelineMappingForm.get('serviceline')?.value.serviceName,
+      stateId: this.projectServcelineMappingForm.get('state')?.value.stateID,
+      stateName:
+        this.projectServcelineMappingForm.get('state')?.value.stateName,
+      districtId:
+        this.projectServcelineMappingForm.get('district')?.value.districtID,
+      districtName:
+        this.projectServcelineMappingForm.get('district')?.value.districtName,
+      serviceProviderId: this.dataService.service_providerID,
+      blockId: this.projectServcelineMappingForm.get('block')?.value.blockID,
+      blockName:
+        this.projectServcelineMappingForm.get('block')?.value.blockName,
+      projectName: this.projectServcelineMappingForm.get('projectName')?.value,
+      projectId: this.projectServcelineMappingForm.get('projectId')?.value,
+      modifiedBy: this.dataService.uname,
+    };
+    this.projectServicelineMappingService
+      .updateProjectToServiceline(reqObj)
+      .subscribe(
+        (res: any) => {
+          if (res && res.statusCode === 200) {
+            this.confirmationService.alert(
+              'Project updated to servicveline successfully',
+              'success',
+            );
+            this.projectServcelineMappingForm.reset();
+            this.enableUpdate = false;
+          } else {
+            this.confirmationService.alert(res.errorMessage, 'error');
+          }
+        },
+        (err: any) => {
+          this.confirmationService.alert(err.errorMessage, 'error');
+        },
+      );
+  }
+
   saveProjectToServiceline() {
     const reqObj = {
-      serviceLineId: this.serviceline.serviceID,
-      serviceLine: this.serviceline.serviceName,
-      stateId: this.state.stateID,
-      stateName: this.state.stateName,
-      districtId: this.district.districtID,
-      districtName: this.district.districtName,
+      serviceLineId:
+        this.projectServcelineMappingForm.get('serviceline')?.value.serviceID,
+      serviceLine:
+        this.projectServcelineMappingForm.get('serviceline')?.value.serviceName,
+      stateId: this.projectServcelineMappingForm.get('state')?.value.stateID,
+      stateName:
+        this.projectServcelineMappingForm.get('state')?.value.stateName,
+      districtId:
+        this.projectServcelineMappingForm.get('district')?.value.districtID,
+      districtName:
+        this.projectServcelineMappingForm.get('district')?.value.districtName,
       serviceProviderId: this.dataService.service_providerID,
-      blockId: this.block.blockID,
-      blockName: this.block.blockName,
-      projectName: this.project.projectName,
-      projectId: this.project.projectId,
+      blockId: this.projectServcelineMappingForm.get('block')?.value.blockID,
+      blockName:
+        this.projectServcelineMappingForm.get('block')?.value.blockName,
+      projectName: this.projectServcelineMappingForm.get('projectName')?.value,
+      projectId: this.projectServcelineMappingForm.get('projectId')?.value,
       createdBy: this.dataService.uname,
     };
     this.projectServicelineMappingService
@@ -227,10 +322,13 @@ export class ProjectServicelineMappingComponent implements OnInit {
   }
 
   resetAllFields() {
-    this.state = null;
-    this.district = null;
-    this.block = null;
-    this.project = null;
-    this.dataSource.data = [];
+    this.projectServcelineMappingForm.controls['state'].patchValue(null);
+    this.projectServcelineMappingForm.controls['district'].patchValue(null);
+    this.projectServcelineMappingForm.controls['block'].patchValue(null);
+    this.projectServcelineMappingForm.controls['projectName'].patchValue(null);
+    this.projectServcelineMappingForm.controls['projectId'].patchValue(null);
+    this.districts = [];
+    this.blocks = [];
+    this.projectNames = [];
   }
 }

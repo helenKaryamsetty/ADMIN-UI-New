@@ -35,7 +35,7 @@ export class ProjectConfigutationScreenComponent implements OnInit {
   ngOnInit() {
     this.serviceProviderId = sessionStorage.getItem('service_providerID');
     this.getProjects();
-    this.getSections();
+    this.getSections(null);
   }
 
   displayFn(project: any) {
@@ -69,12 +69,13 @@ export class ProjectConfigutationScreenComponent implements OnInit {
       );
   }
 
-  getSections() {
+  getSections(variable: any) {
     this.projectConfigurationService.getSectionMasters().subscribe(
       (res: any) => {
         if (res && res.statusCode === 200) {
           this.sections = res.data;
           this.sectionsMaster = res.data;
+          if (variable === 'datarefresh') this.dataSource.data = res.data;
         } else {
           this.confirmationService.alert(res.errorMessage, 'error');
         }
@@ -115,7 +116,8 @@ export class ProjectConfigutationScreenComponent implements OnInit {
             });
             console.log('dataSource', this.dataSource.data);
           } else {
-            this.dataSource.data = this.sections;
+            this.getSections('datarefresh');
+            // this.dataSource.data = this.sections;
           }
         }
       });
@@ -154,7 +156,9 @@ export class ProjectConfigutationScreenComponent implements OnInit {
 
   addFields(data: any) {
     const dialog_Ref = this.dialog.open(AddFieldsToProjectComponent, {
-      width: '500px',
+      width: '800px',
+      height: '500px',
+      disableClose: true,
       data: data,
     });
   }

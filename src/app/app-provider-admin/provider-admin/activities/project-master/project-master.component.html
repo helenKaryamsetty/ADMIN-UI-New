@@ -3,6 +3,23 @@
     <h4 class="pull-left">Project Master</h4>
   </div>
 
+  <div style="text-align: end" *ngIf="ProjectList.length !== 0">
+    <mat-form-field
+      class="input-full-width mat_form_field_width_one"
+      id="filterbox"
+    >
+      <input
+        matInput
+        placeholder="In-Table Search"
+        #filterTerm
+        (keyup)="filterComponentList(filterTerm.value)"
+      />
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+  </div>
+
+  {{ dataSource.data | json }}
+
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
     <ng-container matColumnDef="sno">
       <th mat-header-cell *matHeaderCellDef>S.No.</th>
@@ -23,14 +40,14 @@
           class="mat-icon material-icons"
           aria-hidden="true"
           style="cursor: pointer"
-          (click)="updateProjectName(element, false)"
+          (click)="editProjectName(element)"
           >edit</mat-icon
         >
       </td>
     </ng-container>
 
     <ng-container matColumnDef="deleted">
-      <th mat-header-cell *matHeaderCellDef></th>
+      <th mat-header-cell *matHeaderCellDef>Action</th>
       <td mat-cell *matCellDef="let element">
         <button
           *ngIf="element.deleted === true"
@@ -84,9 +101,14 @@
   </button>
 </div>
 <div class="row" *ngIf="!showTable">
-  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="!enableEditMode">
     <h4 class="pull-left">Create Project Name</h4>
   </div>
+
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="enableEditMode">
+    <h4 class="pull-left">Update Project Name</h4>
+  </div>
+
   <form #projectNameForm="ngForm" autocomplete="off">
     <div>
       <mat-form-field>
@@ -97,6 +119,7 @@
   </form>
   <div class="col-xs-12">
     <button
+      *ngIf="!enableEditMode"
       mat-raised-button
       style="float: right"
       class="pull-right mat_blue"
@@ -105,6 +128,17 @@
       [disabled]="!projectName"
     >
       Submit
+    </button>
+    <button
+      *ngIf="enableEditMode"
+      mat-raised-button
+      style="float: right"
+      class="pull-right mat_blue"
+      (click)="updateProjectName(null, false)"
+      color="primary"
+      [disabled]="!projectName || originalProjectName === projectName"
+    >
+      Update
     </button>
   </div>
   <div class="col-xs-12">

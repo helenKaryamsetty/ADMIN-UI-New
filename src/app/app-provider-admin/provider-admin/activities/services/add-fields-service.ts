@@ -16,6 +16,10 @@ export class AddFieldsService {
     return this.http.post(environment.saveSectionFields, reqObj);
   }
 
+  updateFields(reqObj: any) {
+    return this.http.post(environment.updateSectionFields, reqObj);
+  }
+
   getFieldTypes() {
     return this.http.get(environment.getFieldTypes);
   }
