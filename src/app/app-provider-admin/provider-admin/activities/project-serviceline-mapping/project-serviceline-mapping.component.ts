@@ -47,7 +47,7 @@ export class ProjectServicelineMappingComponent implements OnInit {
 
   ngOnInit() {
     this.createProjectServicelineForm();
-    this.serviceProviderId = this.dataService.service_providerID;
+    this.serviceProviderId = sessionStorage.getItem('service_providerID');
     this.getProviderServices();
     this.projectServcelineMappingForm.get('projectName')?.disable();
   }
@@ -168,7 +168,7 @@ export class ProjectServicelineMappingComponent implements OnInit {
         this.projectServcelineMappingForm.get('district')?.value.districtID,
       districtName:
         this.projectServcelineMappingForm.get('district')?.value.districtName,
-      serviceProviderId: this.dataService.service_providerID,
+      serviceProviderId: sessionStorage.getItem('service_providerID'),
       blockId: this.projectServcelineMappingForm.get('block')?.value.blockID,
       blockName:
         this.projectServcelineMappingForm.get('block')?.value.blockName,
@@ -211,25 +211,28 @@ export class ProjectServicelineMappingComponent implements OnInit {
   }
 
   getProjects() {
-    this.projectMasterService
-      .getProjectMasters(this.dataService.service_providerID)
-      .subscribe(
-        (res: any) => {
-          if (res && res.statusCode === 200) {
-            this.projectNames = res.data;
-          } else {
-            this.confirmationService.alert(res.errorMessage, 'error');
-          }
-        },
-        (err: any) => {
-          this.confirmationService.alert(err.errorMessage, 'error');
-        },
-      );
+    const serviceProviderId = sessionStorage.getItem('service_providerID');
+    this.projectMasterService.getProjectMasters(serviceProviderId).subscribe(
+      (res: any) => {
+        if (res && res.statusCode === 200) {
+          res.data.forEach((element: any) => {
+            if (element.deleted === false) this.projectNames.push(element);
+          });
+        } else {
+          this.confirmationService.alert(res.errorMessage, 'error');
+        }
+      },
+      (err: any) => {
+        this.confirmationService.alert(err.errorMessage, 'error');
+      },
+    );
   }
 
-  setProjectId(project: any) {
+  setProjectId() {
+    const projectName =
+      this.projectServcelineMappingForm.controls['projectName'].value;
     this.projectNames.forEach((item: any) => {
-      if (project.projectName === item.projectName) {
+      if (projectName === item.projectName) {
         this.projectServcelineMappingForm.controls['projectId'].patchValue(
           item.projectId,
         );
@@ -251,13 +254,13 @@ export class ProjectServicelineMappingComponent implements OnInit {
         this.projectServcelineMappingForm.get('district')?.value.districtID,
       districtName:
         this.projectServcelineMappingForm.get('district')?.value.districtName,
-      serviceProviderId: this.dataService.service_providerID,
+      serviceProviderId: sessionStorage.getItem('service_providerID'),
       blockId: this.projectServcelineMappingForm.get('block')?.value.blockID,
       blockName:
         this.projectServcelineMappingForm.get('block')?.value.blockName,
       projectName: this.projectServcelineMappingForm.get('projectName')?.value,
       projectId: this.projectServcelineMappingForm.get('projectId')?.value,
-      modifiedBy: this.dataService.uname,
+      modifiedBy: sessionStorage.getItem('uname'),
     };
     this.projectServicelineMappingService
       .updateProjectToServiceline(reqObj)
@@ -293,13 +296,13 @@ export class ProjectServicelineMappingComponent implements OnInit {
         this.projectServcelineMappingForm.get('district')?.value.districtID,
       districtName:
         this.projectServcelineMappingForm.get('district')?.value.districtName,
-      serviceProviderId: this.dataService.service_providerID,
+      serviceProviderId: sessionStorage.getItem('service_providerID'),
       blockId: this.projectServcelineMappingForm.get('block')?.value.blockID,
       blockName:
         this.projectServcelineMappingForm.get('block')?.value.blockName,
       projectName: this.projectServcelineMappingForm.get('projectName')?.value,
       projectId: this.projectServcelineMappingForm.get('projectId')?.value,
-      createdBy: this.dataService.uname,
+      createdBy: sessionStorage.getItem('uname'),
     };
     this.projectServicelineMappingService
       .saveProjectToServiceline(reqObj)

@@ -118,6 +118,7 @@ export class AddFieldsToProjectComponent implements OnInit {
 
   patchDetails(item: any) {
     this.createAddFormFieldsForm();
+    this.getFieldTypes();
     this.showForm = true;
     this.enableUpdate = true;
     this.addFieldsForm.patchValue(item);

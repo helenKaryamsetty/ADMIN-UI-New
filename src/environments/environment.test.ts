@@ -166,6 +166,7 @@ export const environment = {
   //project-serviceline mapping urls
   fetchMappedProjects: `${commonBaseURL}customization/fetchProjectServiceline`,
   saveProjectToServiceline: `${commonBaseURL}customization/saveProjectToServiceline`,
+  updateProjectToServiceline: `${commonBaseURL}customization/updateProjectToServiceline`,
 
   //project-serviceline mapping urls
   getSectionMaster: `${commonBaseURL}customization/get/sections`,
@@ -175,5 +176,6 @@ export const environment = {
   //fetch fields mapping
   fetchMappedFields: `${commonBaseURL}customization/fetchMappedFields`,
   saveSectionFields: `${commonBaseURL}customization/saveSectionAndFields`,
-  getFieldTypes: `${commonBaseURL}master/getAnswerType`,
+  updateSectionFields: `${commonBaseURL}customization/updateSectionAndFields`,
+  getFieldTypes: `${commonBaseURL}customization/get/fileldType`,
 };

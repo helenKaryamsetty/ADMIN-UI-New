@@ -83,12 +83,12 @@
           [style.width]="'100%'"
           formControlName="projectName"
           name="projectName"
+          (selectionChange)="setProjectId()"
           required
         >
           <mat-option
             *ngFor="let item of projectNames"
             [value]="item.projectName"
-            (selectionChange)="setProjectId(item)"
           >
             {{ item.projectName }}
           </mat-option>

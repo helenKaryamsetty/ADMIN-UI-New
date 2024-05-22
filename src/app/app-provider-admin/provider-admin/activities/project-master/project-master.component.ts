@@ -82,7 +82,7 @@ export class ProjectMasterComponent implements OnInit {
     const reqObj = {
       serviceProviderId: this.serviceProviderId,
       projectName: this.projectName,
-      createdBy: this.dataService.uname,
+      createdBy: sessionStorage.getItem('uname'),
     };
     this.projectMasterService.addProject(reqObj).subscribe(
       (res: any) => {
@@ -139,19 +139,19 @@ export class ProjectMasterComponent implements OnInit {
     let reqObj;
     if (element === null) {
       reqObj = {
-        serviceProviderId: this.dataService.service_providerID,
+        serviceProviderId: sessionStorage.getItem('service_providerID'),
         projectId: this.projectId,
         projectName: this.projectName,
         deleted: deactivate,
-        modifiedBy: this.dataService.uname,
+        modifiedBy: sessionStorage.getItem('uname'),
       };
     } else {
       reqObj = {
-        serviceProviderId: this.dataService.service_providerID,
+        serviceProviderId: sessionStorage.getItem('service_providerID'),
         projectId: element.projectId,
         projectName: element.projectName,
         deleted: deactivate,
-        modifiedBy: this.dataService.uname,
+        modifiedBy: sessionStorage.getItem('uname'),
       };
     }
     this.projectMasterService.updateProject(reqObj).subscribe(
