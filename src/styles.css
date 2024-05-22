@@ -203,3 +203,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 /* .mat-mdc-text-field-wrapper {
   width: 145% !important;
 } */
+
+.mat-mdc-form-field-input-control.mat-mdc-form-field-input-control {
+  border:unset !important;
+
+}
