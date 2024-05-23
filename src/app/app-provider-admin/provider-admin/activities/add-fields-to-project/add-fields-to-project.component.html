@@ -11,8 +11,8 @@
 </div>
 <mat-dialog-content>
   <div class="container-fluid">
-    <div style="text-align: end">
-      <mat-form-field id="filterbox" *ngIf="addedFields.length !== 0">
+    <div style="text-align: end" *ngIf="addedFields.length !== 0">
+      <mat-form-field id="filterbox">
         <input
           matInput
           placeholder="In-Table Search"
@@ -82,7 +82,7 @@
             color="primary"
             class="mat_blue"
             [disabled]="!element.isEditable"
-            (click)="updateFields(element, false)"
+            (click)="updateFields(element, true)"
           >
             Deactivate
           </button>
@@ -291,7 +291,7 @@
         mat-raised-button
         style="float: right"
         class="pull-right mat_blue"
-        (click)="createField()"
+        (click)="updateFieldsData()"
         color="primary"
         [disabled]="!addFieldsForm.valid || addFieldsForm.untouched"
       >

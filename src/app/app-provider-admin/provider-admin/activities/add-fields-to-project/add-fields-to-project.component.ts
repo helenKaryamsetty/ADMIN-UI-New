@@ -36,7 +36,11 @@ export class AddFieldsToProjectComponent implements OnInit {
     'delete',
   ];
 
-  @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
+  paginator!: MatPaginator;
+  @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
+    this.paginator = mp;
+    this.setDataSourceAttributes();
+  }
   dataSource = new MatTableDataSource<any>();
   addedFields: any;
 
@@ -53,12 +57,16 @@ export class AddFieldsToProjectComponent implements OnInit {
     this.dialogData = this.input;
     this.fetchAddedFields();
   }
-
+  setDataSourceAttributes() {
+    this.dataSource.paginator = this.paginator;
+  }
   createAddFormFieldsForm() {
     return (this.addFieldsForm = this.fb.group({
+      id: null,
       rank: null,
       fieldName: null,
       fieldType: null,
+      fieldTypeId: null,
       placeholder: null,
       options: null,
       isRequired: null,
@@ -122,84 +130,88 @@ export class AddFieldsToProjectComponent implements OnInit {
     this.showForm = true;
     this.enableUpdate = true;
     this.addFieldsForm.patchValue(item);
+    if (item.createdBy.toLowerCase() === 'admin') {
+      this.addFieldsForm.get('fieldName')?.disable();
+    }
+    this.addFieldsForm.markAsPristine();
     console.log('addfieldsform', this.addFieldsForm.value);
   }
   updateFields(item: any, deleted: any) {
-    if (deleted !== null) {
-      const reqObj = {
-        isRequired: item.isRequired,
-        fieldName: item.fieldName,
-        deleted: deleted,
-        isEditable: item.isEditable,
-        allowMin: item.allowMin,
-        rank: item.rank,
-        allowMax: item.allowMax,
-        allowText: item.allowText,
-        placeholder: item.placeholder,
-        fieldType: item.fieldType,
-        fieldTypeId: item.fieldTypeId,
-      };
-      this.addFieldsService.updateFields(reqObj).subscribe(
-        (res: any) => {
-          if (res && res.data && res.statusCode === 200) {
-            if (deleted) {
-              this.confirmationService.alert(
-                'Field deactivated successfully',
-                'success',
-              );
-            } else {
-              this.confirmationService.alert(
-                'Field activated successfully',
-                'success',
-              );
-            }
+    const reqObj = {
+      id: item.id,
+      isRequired: item.isRequired,
+      fieldName: item.fieldName,
+      deleted: deleted,
+      isEditable: item.isEditable,
+      allowMin: item.allowMin,
+      rank: item.rank,
+      allowMax: item.allowMax,
+      allowText: item.allowText,
+      placeholder: item.placeholder,
+      fieldType: item.fieldType,
+      fieldTypeId: item.fieldTypeId,
+    };
+    this.addFieldsService.updateFields(reqObj).subscribe(
+      (res: any) => {
+        if (res && res.data && res.statusCode === 200) {
+          if (deleted) {
+            this.confirmationService.alert(
+              'Field deactivated successfully',
+              'success',
+            );
+            this.fetchAddedFields();
           } else {
-            this.confirmationService.alert(res.errorMessage, 'error');
+            this.confirmationService.alert(
+              'Field activated successfully',
+              'success',
+            );
+            this.fetchAddedFields();
           }
-        },
-        (err: any) => {
-          this.confirmationService.alert(err.errorMessage, 'error');
-        },
-      );
-    } else {
-      const reqObj = {
-        isRequired: this.addFieldsForm.get('isRequired')?.value,
-        fieldName: this.addFieldsForm.get('isRequired')?.value,
-        deleted: false,
-        isEditable: this.addFieldsForm.get('isEditable')?.value,
-        allowMin: this.addFieldsForm.get('allowMin')?.value,
-        rank: this.addFieldsForm.get('rank')?.value,
-        allowMax: this.addFieldsForm.get('allowMax')?.value,
-        allowText: this.addFieldsForm.get('allowText')?.value,
-        placeholder: this.addFieldsForm.get('placeholder')?.value,
-        fieldType: this.addFieldsForm.get('fieldType')?.value,
-        fieldTypeId: this.addFieldsForm.get('fieldTypeId')?.value,
-        modifiedBy: sessionStorage.getItem('uname'),
-        serviceProviderId: sessionStorage.getItem('service_providerID'),
-      };
-      this.addFieldsService.updateFields(reqObj).subscribe(
-        (res: any) => {
-          if (res && res.data && res.statusCode === 200) {
-            if (deleted) {
-              this.confirmationService.alert(
-                'Field deactivated successfully',
-                'success',
-              );
-            } else {
-              this.confirmationService.alert(
-                'Field activated successfully',
-                'success',
-              );
-            }
-          } else {
-            this.confirmationService.alert(res.errorMessage, 'error');
-          }
-        },
-        (err: any) => {
-          this.confirmationService.alert(err.errorMessage, 'error');
-        },
-      );
-    }
+        } else {
+          this.confirmationService.alert(res.errorMessage, 'error');
+        }
+      },
+      (err: any) => {
+        this.confirmationService.alert(err.errorMessage, 'error');
+      },
+    );
+  }
+
+  updateFieldsData() {
+    const reqObj = {
+      id: this.addFieldsForm.get('id')?.value,
+      isRequired: this.addFieldsForm.get('isRequired')?.value,
+      fieldName: this.addFieldsForm.get('fieldName')?.value,
+      deleted: false,
+      isEditable: this.addFieldsForm.get('isEditable')?.value,
+      allowMin: this.addFieldsForm.get('allowMin')?.value,
+      options: this.addFieldsForm.get('options')?.value,
+      rank: this.addFieldsForm.get('rank')?.value,
+      allowMax: this.addFieldsForm.get('allowMax')?.value,
+      allowText: this.addFieldsForm.get('allowText')?.value,
+      placeholder: this.addFieldsForm.get('placeholder')?.value,
+      fieldType: this.addFieldsForm.get('fieldType')?.value,
+      fieldTypeId: this.addFieldsForm.get('fieldTypeId')?.value,
+      modifiedBy: sessionStorage.getItem('uname'),
+      serviceProviderId: sessionStorage.getItem('service_providerID'),
+    };
+    this.addFieldsService.updateFields(reqObj).subscribe(
+      (res: any) => {
+        if (res && res.data && res.statusCode === 200) {
+          this.confirmationService.alert(
+            'Field Updated successfully',
+            'success',
+          );
+          this.showForm = false;
+          this.fetchAddedFields();
+        } else {
+          this.confirmationService.alert(res.errorMessage, 'error');
+        }
+      },
+      (err: any) => {
+        this.confirmationService.alert(err.errorMessage, 'error');
+      },
+    );
   }
 
   /**
@@ -314,7 +326,7 @@ export class AddFieldsToProjectComponent implements OnInit {
   }
 
   resetOptionsOnChange() {
-    const fieldType = this.addFieldsForm.controls['fieldType'].value;
+    const fieldType: any = this.addFieldsForm.controls['fieldType'].value;
     if (
       fieldType !== 'dropdown' &&
       fieldType !== 'multiSelect' &&
@@ -323,5 +335,9 @@ export class AddFieldsToProjectComponent implements OnInit {
       this.addFieldsForm.get('options')?.reset();
       this.optionList = [];
     }
+    this.fieldTypesList.forEach((item: any) => {
+      if (item.fieldType === fieldType)
+        this.addFieldsForm.get('fieldTypeId')?.patchValue(item.fieldTypeId);
+    });
   }
 }
