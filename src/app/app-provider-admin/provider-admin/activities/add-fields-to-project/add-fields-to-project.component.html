@@ -223,18 +223,23 @@
         "
         class="col-12 row"
       >
-        <div class="col-4">
+        <div class="col-12">
           <mat-label>Allow Text Type</mat-label>
           <mat-radio-group
             aria-label="Select an option"
             id="allowText"
             formControlName="allowText"
+            class="row"
           >
-            <mat-radio-button value="alpha">Alpha</mat-radio-button>
-            <mat-radio-button value="alphaNumeric"
+            <mat-radio-button class="col-3" value="alpha"
+              >Alpha</mat-radio-button
+            >
+            <mat-radio-button class="col-3" value="alphaNumeric"
               >Alpha Numeric</mat-radio-button
             >
-            <mat-radio-button value="numeric">Numeric</mat-radio-button>
+            <mat-radio-button class="col-3" value="numeric"
+              >Numeric</mat-radio-button
+            >
           </mat-radio-group>
         </div>
         <div class="col-4">
