@@ -50,15 +50,10 @@ export class CategorySubcategoryProvisioningComponent
   @ViewChild(MatPaginator) innerpaginator: MatPaginator | null = null;
   filteredsubCat = new MatTableDataSource<any>();
   paginator!: MatPaginator;
-  @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
-    this.paginator = mp;
-    this.setDataSourceAttributes();
-  }
-  filtereddata = new MatTableDataSource<any>();
+  @ViewChild('paginatorFirst') paginatorFirst!: MatPaginator;
+  @ViewChild('paginatorSecond') paginatorSecond!: MatPaginator;
 
-  setDataSourceAttributes() {
-    this.filtereddata.paginator = this.paginator;
-  }
+  filtereddata = new MatTableDataSource<any>();
 
   // filteredsubCat: any = [];
   // filtereddata: any = [];
@@ -161,8 +156,8 @@ export class CategorySubcategoryProvisioningComponent
   }
 
   ngAfterViewInit() {
-    this.filtereddata.paginator = this.paginator;
-    this.filteredsubCat.paginator = this.innerpaginator;
+    this.filtereddata.paginator = this.paginatorFirst;
+    this.filteredsubCat.paginator = this.paginatorSecond;
   }
 
   getServiceLines() {
@@ -231,9 +226,9 @@ export class CategorySubcategoryProvisioningComponent
   servicesGetting(proServiceMapID: any) {
     this.data = [];
     this.filtereddata.data = [];
-    this.filtereddata.paginator = this.paginator;
+    this.filtereddata.paginator = this.paginatorFirst;
     this.filteredsubCat.data = [];
-    this.filteredsubCat.paginator = this.innerpaginator;
+    this.filteredsubCat.paginator = this.paginatorSecond;
     this.subCat = [];
     this.CategorySubcategoryService.getSubService(proServiceMapID).subscribe(
       (response: any) => {
@@ -294,7 +289,7 @@ export class CategorySubcategoryProvisioningComponent
           });
           this.data = response.data;
           this.filtereddata.data = response.data;
-          this.filtereddata.paginator = this.paginator;
+          this.filtereddata.paginator = this.paginatorFirst;
         }
       },
       (err) => {
@@ -320,7 +315,7 @@ export class CategorySubcategoryProvisioningComponent
             return obj !== null;
           });
         }
-        this.filteredsubCat.paginator = this.innerpaginator;
+        this.filteredsubCat.paginator = this.paginatorSecond;
       },
       (err) => {
         console.log('error', err);
@@ -748,7 +743,7 @@ export class CategorySubcategoryProvisioningComponent
             return item.deleted !== true;
           });
         }
-        this.filtereddata.paginator = this.paginator;
+        this.filtereddata.paginator = this.paginatorFirst;
       },
       (err) => {
         console.log('error', err);
@@ -771,7 +766,7 @@ export class CategorySubcategoryProvisioningComponent
           });
           console.log(this.subCat);
         }
-        this.filteredsubCat.paginator = this.innerpaginator;
+        this.filteredsubCat.paginator = this.paginatorSecond;
       },
       (err) => {
         console.log('error', err);
@@ -1033,10 +1028,10 @@ export class CategorySubcategoryProvisioningComponent
   filterComponentList(searchTerm?: string) {
     if (!searchTerm) {
       this.filtereddata.data = this.data;
-      this.filtereddata.paginator = this.paginator;
+      this.filtereddata.paginator = this.paginatorFirst;
     } else {
       this.filtereddata.data = [];
-      this.filtereddata.paginator = this.paginator;
+      this.filtereddata.paginator = this.paginatorFirst;
       this.data.forEach((item: any) => {
         for (const key in item) {
           if (key === 'callGroupType' || key === 'callType') {
@@ -1045,7 +1040,7 @@ export class CategorySubcategoryProvisioningComponent
               this.filtereddata.data.push(item);
               break;
             }
-            this.filtereddata.paginator = this.paginator;
+            this.filtereddata.paginator = this.paginatorFirst;
           }
         }
       });
@@ -1054,7 +1049,7 @@ export class CategorySubcategoryProvisioningComponent
   filterComponentListSub(searchTerm?: string) {
     if (!searchTerm) {
       this.filteredsubCat.data = this.subCat;
-      this.filteredsubCat.paginator = this.innerpaginator;
+      this.filteredsubCat.paginator = this.paginatorSecond;
     } else {
       this.filteredsubCat.data = [];
       this.subCat.forEach((item: any) => {
@@ -1064,7 +1059,7 @@ export class CategorySubcategoryProvisioningComponent
             this.filteredsubCat.data.push(item);
             break;
           }
-          this.filteredsubCat.paginator = this.innerpaginator;
+          this.filteredsubCat.paginator = this.paginatorSecond;
         }
       });
     }
