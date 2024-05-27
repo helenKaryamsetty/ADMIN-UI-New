@@ -102,7 +102,6 @@ export class CategorySubcategoryProvisioningComponent
     'SNo',
     'Category',
     'CategoryDescription',
-    'SubSubService',
     'edit',
     'action',
   ];
@@ -153,6 +152,9 @@ export class CategorySubcategoryProvisioningComponent
     this.userID = this.commonDataService.uid;
     this.getServiceLines();
     this.cateDisabled = 'false';
+    // if (this.boolFlag) {
+    //   this.displayedColumns.splice(3, 0, 'SubSubService');
+    // }
   }
 
   ngAfterViewInit() {
@@ -244,6 +246,9 @@ export class CategorySubcategoryProvisioningComponent
           });
         } else if (this.selected_service_id === 3) {
           this.showWellBeingFlag = true;
+          if (this.showWellBeingFlag) {
+            this.displayedColumns.splice(3, 0, 'SubSubService');
+          }
           this.subServices = response.data.filter(function (item: any) {
             if (
               item.subServiceName.toUpperCase() ===
@@ -433,6 +438,9 @@ export class CategorySubcategoryProvisioningComponent
         service === 3)
     ) {
       this.showWellBeingFlag = true;
+      if (this.showWellBeingFlag) {
+        this.displayedColumns.splice(3, 0, 'SubSubService');
+      }
       this.well_being = false;
     } else {
       this.showWellBeingFlag = false;
