@@ -260,6 +260,7 @@ export class ProjectServicelineMappingComponent implements OnInit {
         this.projectServcelineMappingForm.get('block')?.value.blockName,
       projectName: this.projectServcelineMappingForm.get('projectName')?.value,
       projectId: this.projectServcelineMappingForm.get('projectId')?.value,
+      deleted: false,
       modifiedBy: sessionStorage.getItem('uname'),
       createdBy: sessionStorage.getItem('uname'),
     };
