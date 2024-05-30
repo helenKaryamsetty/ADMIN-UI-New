@@ -261,6 +261,7 @@ export class ProjectServicelineMappingComponent implements OnInit {
       projectName: this.projectServcelineMappingForm.get('projectName')?.value,
       projectId: this.projectServcelineMappingForm.get('projectId')?.value,
       modifiedBy: sessionStorage.getItem('uname'),
+      createdBy: sessionStorage.getItem('uname'),
     };
     this.projectServicelineMappingService
       .updateProjectToServiceline(reqObj)

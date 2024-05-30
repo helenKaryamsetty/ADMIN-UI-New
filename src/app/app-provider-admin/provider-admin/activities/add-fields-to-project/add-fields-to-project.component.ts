@@ -65,6 +65,7 @@ export class AddFieldsToProjectComponent implements OnInit {
       id: null,
       rank: null,
       fieldName: null,
+      fieldTitle: null,
       fieldType: null,
       fieldTypeId: null,
       placeholder: null,
@@ -130,12 +131,14 @@ export class AddFieldsToProjectComponent implements OnInit {
     this.showForm = true;
     this.enableUpdate = true;
     this.addFieldsForm.patchValue(item);
+    this.optionList = item.options;
     if (item.createdBy.toLowerCase() === 'admin') {
       this.addFieldsForm.get('fieldName')?.disable();
     }
     this.addFieldsForm.markAsPristine();
     console.log('addfieldsform', this.addFieldsForm.value);
   }
+
   updateFields(item: any, deleted: any) {
     const reqObj = {
       id: item.id,
@@ -143,6 +146,7 @@ export class AddFieldsToProjectComponent implements OnInit {
       fieldName: item.fieldName,
       deleted: deleted,
       isEditable: item.isEditable,
+      options: item.options,
       allowMin: item.allowMin,
       rank: item.rank,
       allowMax: item.allowMax,
@@ -182,6 +186,7 @@ export class AddFieldsToProjectComponent implements OnInit {
       id: this.addFieldsForm.get('id')?.value,
       isRequired: this.addFieldsForm.get('isRequired')?.value,
       fieldName: this.addFieldsForm.get('fieldName')?.value,
+      fieldTitle: this.addFieldsForm.get('fieldTitle')?.value,
       deleted: false,
       isEditable: this.addFieldsForm.get('isEditable')?.value,
       allowMin: this.addFieldsForm.get('allowMin')?.value,
@@ -270,6 +275,7 @@ export class AddFieldsToProjectComponent implements OnInit {
 
   enableForm() {
     this.showForm = true;
+    this.enableUpdate = false;
     this.createAddFormFieldsForm();
     this.getFieldTypes();
   }

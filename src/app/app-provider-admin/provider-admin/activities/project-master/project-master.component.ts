@@ -135,41 +135,76 @@ export class ProjectMasterComponent implements OnInit {
     this.originalProjectName = this.projectName;
   }
 
-  updateProjectName(element: any, deactivate: boolean) {
-    let reqObj;
-    if (element === null) {
-      reqObj = {
-        serviceProviderId: sessionStorage.getItem('service_providerID'),
-        projectId: this.projectId,
-        projectName: this.projectName,
-        deleted: deactivate,
-        modifiedBy: sessionStorage.getItem('uname'),
-      };
+  checkProjectNameExists(element: any, deactivate: boolean) {
+    const projectExists = this.ProjectList.some(
+      (item: any) =>
+        item.projectName.toLowerCase() === element.projectName.toLowerCase() &&
+        item.projectId !== element.projectId &&
+        !deactivate &&
+        !item.deleted,
+    );
+
+    if (projectExists) {
+      this.confirmationService.alert('Project Name already exists', 'error');
     } else {
-      reqObj = {
-        serviceProviderId: sessionStorage.getItem('service_providerID'),
-        projectId: element.projectId,
-        projectName: element.projectName,
-        deleted: deactivate,
-        modifiedBy: sessionStorage.getItem('uname'),
-      };
+      this.activateDeactivate(element, deactivate);
     }
+  }
+
+  activateDeactivate(element: any, deactivate: boolean) {
+    const reqObj = {
+      serviceProviderId: sessionStorage.getItem('service_providerID'),
+      projectId: element.projectId,
+      projectName: element.projectName,
+      deleted: deactivate,
+      modifiedBy: sessionStorage.getItem('uname'),
+    };
     this.projectMasterService.updateProject(reqObj).subscribe(
       (res: any) => {
         if (res && res.statusCode === 200) {
-          if (deactivate && element !== null) {
+          if (deactivate) {
             this.confirmationService.alert(
               'Project name deactivated successfully',
               'success',
             );
             this.getProjects();
-          } else if (!deactivate && element !== null) {
+          } else {
             this.confirmationService.alert(
               'Project name activated successfully',
               'success',
             );
             this.getProjects();
-          } else {
+          }
+        } else {
+          this.confirmationService.alert(res.errorMessage, 'error');
+        }
+      },
+      (err: any) => {
+        this.confirmationService.alert(err.errorMessage, 'error');
+      },
+    );
+  }
+
+  updateProjectName() {
+    const projectExists = this.ProjectList.some(
+      (item: any) =>
+        item.projectName.toLowerCase() === this.projectName.toLowerCase() &&
+        item.projectId !== this.projectId,
+    );
+
+    if (projectExists) {
+      this.confirmationService.alert('Project Name already exists', 'error');
+    } else {
+      const reqObj = {
+        serviceProviderId: sessionStorage.getItem('service_providerID'),
+        projectId: this.projectId,
+        projectName: this.projectName,
+        deleted: false,
+        modifiedBy: sessionStorage.getItem('uname'),
+      };
+      this.projectMasterService.updateProject(reqObj).subscribe(
+        (res: any) => {
+          if (res && res.statusCode === 200) {
             this.confirmationService.alert(
               'Project name updated successfully',
               'success',
@@ -181,14 +216,14 @@ export class ProjectMasterComponent implements OnInit {
             this.projectId = null;
             this.originalProjectName = null;
             this.getProjects();
+          } else {
+            this.confirmationService.alert(res.errorMessage, 'error');
           }
-        } else {
-          this.confirmationService.alert(res.errorMessage, 'error');
-        }
-      },
-      (err: any) => {
-        this.confirmationService.alert(err.errorMessage, 'error');
-      },
-    );
+        },
+        (err: any) => {
+          this.confirmationService.alert(err.errorMessage, 'error');
+        },
+      );
+    }
   }
 }

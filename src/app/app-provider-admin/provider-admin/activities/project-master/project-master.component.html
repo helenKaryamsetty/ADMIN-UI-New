@@ -57,7 +57,7 @@
             mat-raised-button
             color="accent"
             class="m-r-10 mat_green"
-            (click)="updateProjectName(element, false)"
+            (click)="checkProjectNameExists(element, false)"
           >
             Activate
           </button>
@@ -66,7 +66,7 @@
             mat-raised-button
             color="primary"
             class="m-r-10 mat_blue"
-            (click)="updateProjectName(element, true)"
+            (click)="checkProjectNameExists(element, true)"
           >
             Deactivate
           </button>
@@ -138,7 +138,7 @@
       mat-raised-button
       style="float: right"
       class="pull-right mat_blue"
-      (click)="updateProjectName(null, false)"
+      (click)="updateProjectName()"
       color="primary"
       [disabled]="!projectName || originalProjectName === projectName"
     >

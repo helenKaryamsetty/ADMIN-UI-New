@@ -166,11 +166,22 @@
       </div>
       <div class="col-4">
         <mat-form-field>
-          <mat-label>Placeholder</mat-label>
+          <mat-label>Field Title</mat-label>
           <input
             matInput
             userNameWithSpaceDirective
             required
+            id="fieldTitle"
+            formControlName="fieldTitle"
+          />
+        </mat-form-field>
+      </div>
+      <div class="col-4">
+        <mat-form-field>
+          <mat-label>Placeholder</mat-label>
+          <input
+            matInput
+            userNameWithSpaceDirective
             id="placeholder"
             formControlName="placeholder"
           />
