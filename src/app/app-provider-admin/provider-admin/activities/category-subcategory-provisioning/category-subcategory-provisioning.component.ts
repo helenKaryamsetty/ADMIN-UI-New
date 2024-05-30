@@ -235,42 +235,43 @@ export class CategorySubcategoryProvisioningComponent
     this.CategorySubcategoryService.getSubService(proServiceMapID).subscribe(
       (response: any) => {
         this.showWellBeingFlag = false;
-        if (this.selected_service_id === 1) {
-          this.subServices = response.data.filter(function (item: any) {
-            if (
-              item.subServiceName !== null &&
-              item.subServiceName !== undefined
-            ) {
-              return item;
-            }
-          });
-        } else if (this.selected_service_id === 3) {
-          this.showWellBeingFlag = true;
-          if (this.showWellBeingFlag) {
-            this.displayedColumns.splice(3, 0, 'SubSubService');
-          }
-          this.subServices = response.data.filter(function (item: any) {
-            if (
-              item.subServiceName.toUpperCase() ===
-                'Counselling Service'.toUpperCase() ||
-              item.subServiceName.toUpperCase() ===
-                'Psychiatrist'.toUpperCase() ||
-              item.subServiceName.toUpperCase() ===
-                'Service Improvements'.toUpperCase()
-            ) {
-              return item;
-            }
-          });
-        } else {
-          this.subServices = response.data.filter(function (item: any) {
-            if (
-              item.subServiceName.toUpperCase() !==
-              'Blood Request'.toUpperCase()
-            ) {
-              return item;
-            }
-          });
-        }
+        this.subServices = response.data;
+        // if (this.selected_service_id === 1) {
+        //   this.subServices = response.data.filter(function (item: any) {
+        //     if (
+        //       item.subServiceName !== null &&
+        //       item.subServiceName !== undefined
+        //     ) {
+        //       return item;
+        //     }
+        //   });
+        // } else if (this.selected_service_id === 3) {
+        //   this.showWellBeingFlag = true;
+        //   if (this.showWellBeingFlag) {
+        //     this.displayedColumns.splice(3, 0, 'SubSubService');
+        //   }
+        //   this.subServices = response.data.filter(function (item: any) {
+        //     if (
+        //       item.subServiceName.toUpperCase() ===
+        //         'Counselling Service'.toUpperCase() ||
+        //       item.subServiceName.toUpperCase() ===
+        //         'Psychiatrist'.toUpperCase() ||
+        //       item.subServiceName.toUpperCase() ===
+        //         'Service Improvements'.toUpperCase()
+        //     ) {
+        //       return item;
+        //     }
+        //   });
+        // } else {
+        //   this.subServices = response.data.filter(function (item: any) {
+        //     if (
+        //       item.subServiceName.toUpperCase() !==
+        //       'Blood Request'.toUpperCase()
+        //     ) {
+        //       return item;
+        //     }
+        //   });
+        // }
 
         console.log(this.subServices, 'The array after filter');
       },

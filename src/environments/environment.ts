@@ -41,7 +41,7 @@ export const environment = {
 
   //Role Master APIs
   get_State_Url: `${adminBaseUrl}m/role/state`,
-  get_Service_Url: `${adminBaseUrl}m/role/service`,
+  get_Service_Url: `${adminBaseUrl}m/role/serviceNew`,
   find_Roles_By_State_Service_Url: `${adminBaseUrl}m/role/search`,
   create_Roles_Url: `${adminBaseUrl}m/role/addRole`,
   delete_Role_Url: `${adminBaseUrl}m/role/deleteRole`,
