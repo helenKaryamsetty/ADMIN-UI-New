@@ -71,10 +71,12 @@ export class ProjectMasterComponent implements OnInit {
 
   createProject() {
     this.showTable = false;
+    this.projectName = '';
   }
 
   goBack() {
     this.showTable = true;
+    this.enableEditMode = false;
     this.getProjects();
   }
 

@@ -23,6 +23,8 @@ export class AddFieldsToProjectComponent implements OnInit {
   addOnBlur = true;
   showForm = false;
   enableUpdate = false;
+  setMin: any;
+  setMax: any;
 
   fieldTypesList: any = [];
 
@@ -131,12 +133,17 @@ export class AddFieldsToProjectComponent implements OnInit {
     this.showForm = true;
     this.enableUpdate = true;
     this.addFieldsForm.patchValue(item);
-    this.optionList = item.options;
+    if (item.options) {
+      this.optionList = item.options;
+    } else {
+      this.optionList = [];
+    }
+
     if (item.createdBy.toLowerCase() === 'admin') {
       this.addFieldsForm.get('fieldName')?.disable();
     }
     this.addFieldsForm.markAsPristine();
-    console.log('addfieldsform', this.addFieldsForm.value);
+    console.log('addfieldsform', this.addFieldsForm);
   }
 
   updateFields(item: any, deleted: any) {
@@ -228,7 +235,7 @@ export class AddFieldsToProjectComponent implements OnInit {
     const value = event.value;
 
     if ((value || '').trim()) {
-      if (!this.optionList.includes(value.trim())) {
+      if (this.optionList && !this.optionList.includes(value.trim())) {
         if (
           this.addFieldsForm.controls['fieldType'].value === 'radio' &&
           this.optionList.length >= 2
@@ -250,6 +257,8 @@ export class AddFieldsToProjectComponent implements OnInit {
         // };
         // this.finalOptionList.push(optionObj);
         // this.editQuestionnaireForm.markAsDirty();
+      } else {
+        this.optionList.push(value.trim());
       }
     }
 
@@ -345,5 +354,33 @@ export class AddFieldsToProjectComponent implements OnInit {
       if (item.fieldType === fieldType)
         this.addFieldsForm.get('fieldTypeId')?.patchValue(item.fieldTypeId);
     });
+  }
+  setMinimum() {
+    if (
+      Number(this.addFieldsForm.get('allowMin')?.value) >= 1 &&
+      Number(this.addFieldsForm.get('allowMin')?.value) <= 10000
+    ) {
+      this.setMin = this.addFieldsForm.get('allowMin')?.value;
+    } else {
+      this.setMin = 1;
+    }
+    if (this.addFieldsForm.get('allowMax')?.value <= this.setMin) {
+      this.addFieldsForm.get('allowMax')?.patchValue(this.setMin);
+      this.setMaximum();
+    }
+  }
+  setMaximum() {
+    if (
+      Number(this.addFieldsForm.get('allowMax')?.value) <= 10000 &&
+      Number(this.addFieldsForm.get('allowMax')?.value) >= 1
+    ) {
+      this.setMax = this.addFieldsForm.get('allowMax')?.value;
+    } else {
+      this.setMax = 10000;
+    }
+    if (this.addFieldsForm.get('allowMin')?.value >= this.setMax) {
+      this.addFieldsForm.get('allowMin')?.patchValue(this.setMax);
+      this.setMinimum();
+    }
   }
 }

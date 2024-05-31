@@ -263,8 +263,9 @@
               appMobileNumber
               type="number"
               maxlength="10"
-              [min]="1"
-              [max]="10000"
+              [min]="setMin"
+              [max]="setMax"
+              (input)="setMinimum()"
               defaultNull
               required
             />
@@ -280,8 +281,9 @@
               appMobileNumber
               type="number"
               maxlength="10"
-              [min]="1"
-              [max]="10000"
+              [min]="setMin"
+              [max]="setMax"
+              (input)="setMaximum()"
               defaultNull
               required
             />
@@ -301,7 +303,6 @@
         Submit
       </button>
     </div>
-
     <div *ngIf="enableUpdate" style="margin-bottom: 30px">
       <button
         mat-raised-button
@@ -309,7 +310,9 @@
         class="pull-right mat_blue"
         (click)="updateFieldsData()"
         color="primary"
-        [disabled]="!addFieldsForm.valid || addFieldsForm.untouched"
+        [disabled]="
+          !addFieldsForm.valid || !(addFieldsForm.valid && addFieldsForm.dirty)
+        "
       >
         update
       </button>
