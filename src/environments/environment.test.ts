@@ -26,9 +26,9 @@
 
 const ADMIN_API = 'https://amritwprdev.piramalswasthya.org/';
 const COMMON_API = 'https://amritwprdev.piramalswasthya.org/';
-const adminBaseUrl = `${ADMIN_API}adminapi-v0.1/`;
-const superadminBaseURL = `${ADMIN_API}adminapi-v0.1/`;
-const commonBaseURL = `${COMMON_API}commonapi-v0.1/`;
+const adminBaseUrl = `${ADMIN_API}adminapi-v1.0/`;
+const superadminBaseURL = `${ADMIN_API}adminapi-v1.0/`;
+const commonBaseURL = `${COMMON_API}commonapi-v1.0/`;
 
 export const environment = {
   production: false,
