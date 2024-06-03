@@ -32,7 +32,7 @@ export class ProjectServicelineMappingComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
   dataSource = new MatTableDataSource<any>();
 
-  displayedColumns = ['sno', 'projectName', 'deleted'];
+  displayedColumns = ['sno', 'projectName', 'block', 'deleted'];
   enableProjectField = false;
   serviceProviderId: any;
   enableUpdate = false;
@@ -93,6 +93,7 @@ export class ProjectServicelineMappingComponent implements OnInit {
   }
 
   getStates() {
+    this.dataSource.data = [];
     this.projectServicelineMappingService.getStates().subscribe(
       (res: any) => {
         if (res.data && res.statusCode === 200) {
@@ -112,7 +113,7 @@ export class ProjectServicelineMappingComponent implements OnInit {
     this.projectServcelineMappingForm.controls['block'].patchValue(null);
     this.projectServcelineMappingForm.controls['projectName'].patchValue(null);
     this.projectServcelineMappingForm.controls['projectId'].patchValue(null);
-    this.dataSource.data = [];
+    // this.dataSource.data = [];
     this.enableProjectField = false;
     const stateId =
       this.projectServcelineMappingForm.get('state')?.value.stateID;
@@ -141,7 +142,15 @@ export class ProjectServicelineMappingComponent implements OnInit {
     this.projectServicelineMappingService.getBlocks(districtId).subscribe(
       (res: any) => {
         if (res.data && res.statusCode === 200) {
-          this.blocks = res.data;
+          const existingBlockNames = this.dataSource.data.map(
+            (item: any) => item.blockName,
+          );
+          console.log('existingBlockNames', existingBlockNames);
+          this.blocks = res.data.filter(
+            (element: any) => !existingBlockNames.includes(element.blockName),
+          );
+          console.log('this.blocks ', this.blocks);
+          // this.blocks = res.data;
         } else {
           this.confirmationService.alert(res.errorMessage, 'error');
         }
@@ -152,6 +161,63 @@ export class ProjectServicelineMappingComponent implements OnInit {
     );
   }
 
+  // getMappedProjectNames() {
+  //   this.projectServcelineMappingForm.controls['projectId'].patchValue(null);
+  //   this.projectServcelineMappingForm.controls['projectName'].patchValue(null);
+  //   this.enableProjectField = false;
+  //   const reqObj = {
+  //     serviceLineId:
+  //       this.projectServcelineMappingForm.get('serviceline')?.value.serviceID,
+  //     serviceLine:
+  //       this.projectServcelineMappingForm.get('serviceline')?.value.serviceName,
+  //     stateId: this.projectServcelineMappingForm.get('state')?.value.stateID,
+  //     stateName:
+  //       this.projectServcelineMappingForm.get('state')?.value.stateName,
+  //     districtId:
+  //       this.projectServcelineMappingForm.get('district')?.value.districtID,
+  //     districtName:
+  //       this.projectServcelineMappingForm.get('district')?.value.districtName,
+  //     serviceProviderId: sessionStorage.getItem('service_providerID'),
+  //     blockId: this.projectServcelineMappingForm.get('block')?.value.blockID,
+  //     blockName:
+  //       this.projectServcelineMappingForm.get('block')?.value.blockName,
+  //   };
+  //   this.projectServicelineMappingService.fetchMappedProjects(reqObj).subscribe(
+  //     (res: any) => {
+  //       if (res && res.data && res.statusCode === 200) {
+  //         if (
+  //           res.data &&
+  //           res.data.response !== null &&
+  //           res.data.response !== 'null'
+  //         ) {
+  //           this.projectServcelineMappingForm.get('projectName')?.enable();
+  //           this.getProjects();
+  //           this.projectServcelineMappingForm.patchValue(res.data);
+  //           this.projectServcelineMappingForm.controls[
+  //             'projectName'
+  //           ].patchValue(res.data.projectName);
+  //           this.projectServcelineMappingForm.controls['projectId'].patchValue(
+  //             res.data.projectId,
+  //           );
+  //           this.projectServcelineMappingForm.controls['id'].patchValue(
+  //             res.data.id,
+  //           );
+  //           this.projectServcelineMappingForm.markAsPristine();
+  //           this.enableUpdate = true;
+  //         } else {
+  //           this.projectServcelineMappingForm.get('projectName')?.enable();
+  //           this.enableUpdate = false;
+  //           this.getProjects();
+  //         }
+  //       } else {
+  //         this.confirmationService.alert(res.errorMessage, 'error');
+  //       }
+  //     },
+  //     (err: any) => {
+  //       this.confirmationService.alert(err.errorMessage, 'error');
+  //     },
+  //   );
+  // }
   getMappedProjectNames() {
     this.projectServcelineMappingForm.controls['projectId'].patchValue(null);
     this.projectServcelineMappingForm.controls['projectName'].patchValue(null);
@@ -169,18 +235,16 @@ export class ProjectServicelineMappingComponent implements OnInit {
       districtName:
         this.projectServcelineMappingForm.get('district')?.value.districtName,
       serviceProviderId: sessionStorage.getItem('service_providerID'),
-      blockId: this.projectServcelineMappingForm.get('block')?.value.blockID,
-      blockName:
-        this.projectServcelineMappingForm.get('block')?.value.blockName,
+      // blockId: this.projectServcelineMappingForm.get('block')?.value.blockID,
+      // blockName:
+      //   this.projectServcelineMappingForm.get('block')?.value.blockName,
     };
     this.projectServicelineMappingService.fetchMappedProjects(reqObj).subscribe(
       (res: any) => {
         if (res && res.data && res.statusCode === 200) {
-          if (
-            res.data &&
-            res.data.response !== null &&
-            res.data.response !== 'null'
-          ) {
+          if (res.data && res.data.length > 0) {
+            this.dataSource.data = res.data;
+            console.log('this.dataSource.data', this.dataSource.data);
             this.projectServcelineMappingForm.get('projectName')?.enable();
             this.getProjects();
             this.projectServcelineMappingForm.patchValue(res.data);
@@ -209,7 +273,6 @@ export class ProjectServicelineMappingComponent implements OnInit {
       },
     );
   }
-
   getProjects() {
     const serviceProviderId = sessionStorage.getItem('service_providerID');
     this.projectMasterService.getProjectMasters(serviceProviderId).subscribe(
@@ -240,27 +303,89 @@ export class ProjectServicelineMappingComponent implements OnInit {
     });
   }
 
-  updateProjectToServiceline() {
+  // updateProjectToServiceline() {
+  //   const selectedBlocks = this.projectServcelineMappingForm.get('block')?.value;
+  //   const reqObjUpdateArray = selectedBlocks.map((item: any) => ({
+  //     id: this.projectServcelineMappingForm.get('serviceline')?.value.id,
+  //     serviceLineId:
+  //       this.projectServcelineMappingForm.get('serviceline')?.value.serviceID,
+  //     serviceLine:
+  //       this.projectServcelineMappingForm.get('serviceline')?.value.serviceName,
+  //     stateId: this.projectServcelineMappingForm.get('state')?.value.stateID,
+  //     stateName:
+  //       this.projectServcelineMappingForm.get('state')?.value.stateName,
+  //     districtId:
+  //       this.projectServcelineMappingForm.get('district')?.value.districtID,
+  //     districtName:
+  //       this.projectServcelineMappingForm.get('district')?.value.districtName,
+  //     serviceProviderId: sessionStorage.getItem('service_providerID'),
+  //     blockId: item.blockID,
+  //     blockName: item.blockName,
+  //     projectName: this.projectServcelineMappingForm.get('projectName')?.value,
+  //     projectId: this.projectServcelineMappingForm.get('projectId')?.value,
+  //     deleted: false,
+  //     modifiedBy: sessionStorage.getItem('uname'),
+  //     createdBy: sessionStorage.getItem('uname'),
+  //   }));
+  //   // const reqObj = {
+  //   //   id: this.projectServcelineMappingForm.get('serviceline')?.value.id,
+  //   //   serviceLineId:
+  //   //     this.projectServcelineMappingForm.get('serviceline')?.value.serviceID,
+  //   //   serviceLine:
+  //   //     this.projectServcelineMappingForm.get('serviceline')?.value.serviceName,
+  //   //   stateId: this.projectServcelineMappingForm.get('state')?.value.stateID,
+  //   //   stateName:
+  //   //     this.projectServcelineMappingForm.get('state')?.value.stateName,
+  //   //   districtId:
+  //   //     this.projectServcelineMappingForm.get('district')?.value.districtID,
+  //   //   districtName:
+  //   //     this.projectServcelineMappingForm.get('district')?.value.districtName,
+  //   //   serviceProviderId: sessionStorage.getItem('service_providerID'),
+  //   //   blockId: this.projectServcelineMappingForm.get('block')?.value.blockID,
+  //   //   blockName:
+  //   //     this.projectServcelineMappingForm.get('block')?.value.blockName,
+  //   //   projectName: this.projectServcelineMappingForm.get('projectName')?.value,
+  //   //   projectId: this.projectServcelineMappingForm.get('projectId')?.value,
+  //   //   deleted: false,
+  //   //   modifiedBy: sessionStorage.getItem('uname'),
+  //   //   createdBy: sessionStorage.getItem('uname'),
+  //   // };
+  //   this.projectServicelineMappingService
+  //     .updateProjectToServiceline(reqObjUpdateArray)
+  //     .subscribe(
+  //       (res: any) => {
+  //         if (res && res.statusCode === 200) {
+  //           this.confirmationService.alert(
+  //             'Project updated to servicveline successfully',
+  //             'success',
+  //           );
+  //           this.projectServcelineMappingForm.reset();
+  //           this.enableUpdate = false;
+  //         } else {
+  //           this.confirmationService.alert(res.errorMessage, 'error');
+  //         }
+  //       },
+  //       (err: any) => {
+  //         this.confirmationService.alert(err.errorMessage, 'error');
+  //       },
+  //     );
+  // }
+
+  updateProjectToServiceline(element: any) {
     const reqObj = {
-      id: this.projectServcelineMappingForm.get('serviceline')?.value.id,
-      serviceLineId:
-        this.projectServcelineMappingForm.get('serviceline')?.value.serviceID,
-      serviceLine:
-        this.projectServcelineMappingForm.get('serviceline')?.value.serviceName,
-      stateId: this.projectServcelineMappingForm.get('state')?.value.stateID,
-      stateName:
-        this.projectServcelineMappingForm.get('state')?.value.stateName,
-      districtId:
-        this.projectServcelineMappingForm.get('district')?.value.districtID,
-      districtName:
-        this.projectServcelineMappingForm.get('district')?.value.districtName,
+      id: element.id,
+      serviceLineId: element.serviceLineId,
+      serviceLine: element.serviceName,
+      stateId: element.stateId,
+      stateName: element.stateName,
+      districtId: element.districtId,
+      districtName: element.districtName,
       serviceProviderId: sessionStorage.getItem('service_providerID'),
-      blockId: this.projectServcelineMappingForm.get('block')?.value.blockID,
-      blockName:
-        this.projectServcelineMappingForm.get('block')?.value.blockName,
-      projectName: this.projectServcelineMappingForm.get('projectName')?.value,
-      projectId: this.projectServcelineMappingForm.get('projectId')?.value,
-      deleted: false,
+      blockId: element.blockId,
+      blockName: element.blockName,
+      projectName: element.projectName,
+      projectId: element.projectId,
+      deleted: true,
       modifiedBy: sessionStorage.getItem('uname'),
       createdBy: sessionStorage.getItem('uname'),
     };
@@ -274,6 +399,7 @@ export class ProjectServicelineMappingComponent implements OnInit {
               'success',
             );
             this.projectServcelineMappingForm.reset();
+            this.dataSource.data = [];
             this.enableUpdate = false;
           } else {
             this.confirmationService.alert(res.errorMessage, 'error');
@@ -285,8 +411,53 @@ export class ProjectServicelineMappingComponent implements OnInit {
       );
   }
 
+  // saveProjectToServiceline() {
+  //   const selectedBlocks = this.projectServcelineMappingForm.get('block')?.value;
+  //   const blockIds = selectedBlocks.map((block: any) => block.blockID);
+  //   const blockNames = selectedBlocks.map((block: any) => block.blockName);
+  //   const reqObj = {
+  //     serviceLineId:
+  //       this.projectServcelineMappingForm.get('serviceline')?.value.serviceID,
+  //     serviceLine:
+  //       this.projectServcelineMappingForm.get('serviceline')?.value.serviceName,
+  //     stateId: this.projectServcelineMappingForm.get('state')?.value.stateID,
+  //     stateName:
+  //       this.projectServcelineMappingForm.get('state')?.value.stateName,
+  //     districtId:
+  //       this.projectServcelineMappingForm.get('district')?.value.districtID,
+  //     districtName:
+  //       this.projectServcelineMappingForm.get('district')?.value.districtName,
+  //     serviceProviderId: sessionStorage.getItem('service_providerID'),
+  //     blockId: this.projectServcelineMappingForm.get('block')?.value.blockID,
+  //     blockName: this.projectServcelineMappingForm.get('block')?.value.blockName,
+  //     projectName: this.projectServcelineMappingForm.get('projectName')?.value,
+  //     projectId: this.projectServcelineMappingForm.get('projectId')?.value,
+  //     createdBy: sessionStorage.getItem('uname'),
+  //   };
+  //   this.projectServicelineMappingService
+  //     .saveProjectToServiceline(reqObj)
+  //     .subscribe(
+  //       (res: any) => {
+  //         if (res && res.statusCode === 200) {
+  //           this.confirmationService.alert(
+  //             'Project mapped to servicveline successfully',
+  //             'success',
+  //           );
+  //           this.projectServcelineMappingForm.reset();
+  //         } else {
+  //           this.confirmationService.alert(res.errorMessage, 'error');
+  //         }
+  //       },
+  //       (err: any) => {
+  //         this.confirmationService.alert(err.errorMessage, 'error');
+  //       },
+  //     );
+  // }
+
   saveProjectToServiceline() {
-    const reqObj = {
+    const selectedBlocks =
+      this.projectServcelineMappingForm.get('block')?.value;
+    const reqObjArray = selectedBlocks.map((block: any) => ({
       serviceLineId:
         this.projectServcelineMappingForm.get('serviceline')?.value.serviceID,
       serviceLine:
@@ -299,15 +470,15 @@ export class ProjectServicelineMappingComponent implements OnInit {
       districtName:
         this.projectServcelineMappingForm.get('district')?.value.districtName,
       serviceProviderId: sessionStorage.getItem('service_providerID'),
-      blockId: this.projectServcelineMappingForm.get('block')?.value.blockID,
-      blockName:
-        this.projectServcelineMappingForm.get('block')?.value.blockName,
+      blockId: block.blockID,
+      blockName: block.blockName,
       projectName: this.projectServcelineMappingForm.get('projectName')?.value,
       projectId: this.projectServcelineMappingForm.get('projectId')?.value,
       createdBy: sessionStorage.getItem('uname'),
-    };
+    }));
+
     this.projectServicelineMappingService
-      .saveProjectToServiceline(reqObj)
+      .saveProjectToServiceline(reqObjArray)
       .subscribe(
         (res: any) => {
           if (res && res.statusCode === 200) {
@@ -316,6 +487,7 @@ export class ProjectServicelineMappingComponent implements OnInit {
               'success',
             );
             this.projectServcelineMappingForm.reset();
+            this.dataSource.data = [];
           } else {
             this.confirmationService.alert(res.errorMessage, 'error');
           }
