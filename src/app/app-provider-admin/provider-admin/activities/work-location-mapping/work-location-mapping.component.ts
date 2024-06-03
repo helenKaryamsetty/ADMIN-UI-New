@@ -1761,7 +1761,9 @@ export class WorkLocationMappingComponent implements OnInit {
 
             if (
               this.edit_Details.serviceName === 'FLW' ||
-              this.edit_Details.serviceName === 'HWC'
+              this.edit_Details.serviceName === 'HWC' ||
+              this.edit_Details.serviceName === 'TM' ||
+              this.edit_Details.serviceName === 'MMU'
             ) {
               this.getEditBlockPatchMaster(this.district_duringEdit);
             }
@@ -2099,7 +2101,12 @@ export class WorkLocationMappingComponent implements OnInit {
   }
 
   showBlockDrop(serviceline: any) {
-    if (serviceline === 'FLW' || serviceline === 'HWC') {
+    if (
+      serviceline === 'FLW' ||
+      serviceline === 'HWC' ||
+      serviceline === 'TM' ||
+      serviceline === 'MMU'
+    ) {
       this.blockFlag = true;
       this.villageFlag = true;
     } else {
@@ -2109,7 +2116,12 @@ export class WorkLocationMappingComponent implements OnInit {
   }
 
   showEditBlockDrop(serviceID_duringEdit: any) {
-    if (serviceID_duringEdit !== 'FLW' || serviceID_duringEdit !== 'HWC') {
+    if (
+      serviceID_duringEdit !== 'FLW' ||
+      serviceID_duringEdit !== 'HWC' ||
+      serviceID_duringEdit !== 'TM' ||
+      serviceID_duringEdit !== 'MMU'
+    ) {
       this.enableEditBlockFlag = false;
       this.enableEditVillageFlag = false;
       this.ServiceEditblock = null;
@@ -2162,9 +2174,9 @@ export class WorkLocationMappingComponent implements OnInit {
     // console.log("PARTH****"+district_duringEdit.districtID, this.district_duringEdit.districtID)
     this.villagemasterService.getTaluks(district_duringEdit).subscribe(
       (response: any) => {
-        if (response) {
+        if (response && response.data) {
           // console.log('this.searchForm', this.searchForm.valid, this.searchForm.value);
-          this.editblocks = response;
+          this.editblocks = response.data;
         }
       },
       (err: any) => {
@@ -2177,9 +2189,9 @@ export class WorkLocationMappingComponent implements OnInit {
     // console.log("PARTH****"+district_duringEdit.districtID, this.district_duringEdit.districtID)
     this.villagemasterService.getTaluks(district_duringEdit).subscribe(
       (response: any) => {
-        if (response) {
+        if (response && response.data) {
           // console.log('this.searchForm', this.searchForm.valid, this.searchForm.value);
-          this.editblocks = response;
+          this.editblocks = response.data;
           this.ServiceEditblock = this.edit_Details.blockID;
           // this.blockid =this.edit_Details.blockID;
           this.blockname = this.edit_Details.blockName;
@@ -2206,8 +2218,8 @@ export class WorkLocationMappingComponent implements OnInit {
   }
 
   getEditVillageSuccessHandeler(response: any) {
-    if (response) {
-      this.editVillageArr = response;
+    if (response && response.data) {
+      this.editVillageArr = response.data;
     }
   }
 
@@ -2224,8 +2236,8 @@ export class WorkLocationMappingComponent implements OnInit {
   }
 
   getEditPatchVillageSuccessHandeler(response: any) {
-    if (response) {
-      this.editVillageArr = response;
+    if (response && response.data) {
+      this.editVillageArr = response.data;
       this.enableEditVillageFlag = true;
       this.villageIdValue = this.edit_Details.villageID;
       this.serviceEditvillage = this.edit_Details.villageName;

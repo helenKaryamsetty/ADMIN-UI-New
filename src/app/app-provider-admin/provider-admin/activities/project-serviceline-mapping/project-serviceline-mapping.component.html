@@ -1,0 +1,163 @@
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <h4>Project Serviceline Mapping</h4>
+  </div>
+
+  <form
+    [formGroup]="projectServcelineMappingForm"
+    autocomplete="off"
+    class="row"
+  >
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
+      <mat-form-field>
+        <mat-label>Serviceline</mat-label>
+        <mat-select
+          [style.width]="'100%'"
+          formControlName="serviceline"
+          name="serviceline"
+          required
+          (selectionChange)="resetAllFields()"
+        >
+          <mat-option *ngFor="let item of servicelines" [value]="item">
+            {{ item.serviceName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
+      <mat-form-field>
+        <mat-label>State</mat-label>
+        <mat-select
+          [style.width]="'100%'"
+          formControlName="state"
+          name="state"
+          (selectionChange)="getDistricts()"
+          required
+        >
+          <mat-option *ngFor="let item of states" [value]="item">
+            {{ item.stateName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
+      <mat-form-field>
+        <mat-label>District</mat-label>
+        <mat-select
+          [style.width]="'100%'"
+          formControlName="district"
+          name="district"
+          required
+          (selectionChange)="getBlocks()"
+        >
+          <mat-option *ngFor="let item of districts" [value]="item">
+            {{ item.districtName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
+      <mat-form-field>
+        <mat-label>Block</mat-label>
+        <mat-select
+          [style.width]="'100%'"
+          formControlName="block"
+          name="block"
+          (selectionChange)="getMappedProjectNames()"
+          required
+        >
+          <mat-option *ngFor="let item of blocks" [value]="item">
+            {{ item.blockName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
+      <mat-form-field>
+        <mat-label>Project Name</mat-label>
+        <mat-select
+          [style.width]="'100%'"
+          formControlName="projectName"
+          name="projectName"
+          (selectionChange)="setProjectId()"
+          required
+        >
+          <mat-option
+            *ngFor="let item of projectNames"
+            [value]="item.projectName"
+          >
+            {{ item.projectName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-xs-12">
+      <button
+        *ngIf="!enableUpdate"
+        mat-raised-button
+        style="float: right"
+        class="pull-right mat_blue"
+        (click)="saveProjectToServiceline()"
+        color="primary"
+        [disabled]="!projectServcelineMappingForm.valid"
+      >
+        Map Serviceline-Project
+      </button>
+
+      <button
+        *ngIf="enableUpdate"
+        mat-raised-button
+        style="float: right"
+        class="pull-right mat_blue"
+        (click)="updateProjectToServiceline()"
+        color="primary"
+        [disabled]="
+          !projectServcelineMappingForm.valid ||
+          !projectServcelineMappingForm.dirty
+        "
+      >
+        Update Mapped Serviceline-Project
+      </button>
+    </div>
+  </form>
+  <!-- <div *ngIf="dataSource.data.length > 0">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <ng-container matColumnDef="sno">
+        <th mat-header-cell *matHeaderCellDef>S.No.</th>
+        <td mat-cell *matCellDef="let element">{{ element.sno }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="projectName">
+        <th mat-header-cell *matHeaderCellDef>Project Name</th>
+        <td mat-cell *matCellDef="let element">{{ element.projectName }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="deleted">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element">
+          <button
+            *ngIf="element.deleted === true"
+            mat-raised-button
+            color="primary"
+          >
+            Activate
+          </button>
+          <button
+            *ngIf="element.deleted === false"
+            mat-raised-button
+            color="primary"
+          >
+            Deactivate
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </div> -->
+</div>
