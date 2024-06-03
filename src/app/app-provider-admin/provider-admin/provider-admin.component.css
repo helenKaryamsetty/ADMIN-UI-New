@@ -58,7 +58,8 @@
 }
 .main-section {
     border-radius: 4px;
-    height: 560px !important;
+    /* height: 560px !important; */
+    height: auto !important;
     background-color: #ffffff;
     border-color: #e7e7e7;
     /* margin-left: -30px; */
