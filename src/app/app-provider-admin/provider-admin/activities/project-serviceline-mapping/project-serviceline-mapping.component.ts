@@ -93,7 +93,6 @@ export class ProjectServicelineMappingComponent implements OnInit {
   }
 
   getStates() {
-    this.dataSource.data = [];
     this.projectServicelineMappingService.getStates().subscribe(
       (res: any) => {
         if (res.data && res.statusCode === 200) {
@@ -507,5 +506,6 @@ export class ProjectServicelineMappingComponent implements OnInit {
     this.districts = [];
     this.blocks = [];
     this.projectNames = [];
+    this.dataSource.data = [];
   }
 }
