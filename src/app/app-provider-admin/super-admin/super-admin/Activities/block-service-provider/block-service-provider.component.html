@@ -4,9 +4,9 @@
   </div>
   <form id="myForm" autocomplete="off" class="col-12 row">
     <div class="col-3 m-t-15" (keydown)="selectKeyPress($event)" tabindex="0">
-      <!-- <mat-form-field class="hide_underline width100">
+      <!-- <mat-form-field [style.width]="'100%'" class="hide_underline width100">
         <input matInput style="display:none"> -->
-      <mat-form-field>
+      <mat-form-field [style.width]="'100%'">
         <mat-label>Service Provider</mat-label>
         <mat-select
           name="serviceProvider"
@@ -25,9 +25,9 @@
       <!-- </mat-form-field> -->
     </div>
     <div class="col-3 m-t-15">
-      <!-- <mat-form-field class="hide_underline width100">
+      <!-- <mat-form-field [style.width]="'100%'" class="hide_underline width100">
         <input matInput style="display:none"> -->
-      <mat-form-field>
+      <mat-form-field [style.width]="'100%'">
         <mat-label>Serviceline</mat-label>
         <mat-select name="Services" [(ngModel)]="serviceline">
           <mat-option
@@ -43,9 +43,9 @@
       <!-- </mat-form-field> -->
     </div>
     <div class="col-3 m-t-15">
-      <!-- <mat-form-field class="hide_underline width100">
+      <!-- <mat-form-field [style.width]="'100%'" class="hide_underline width100">
         <input matInput style="display:none"> -->
-      <mat-form-field>
+      <mat-form-field [style.width]="'100%'">
         <mat-label>State</mat-label>
         <mat-select
           name="state"
@@ -66,44 +66,46 @@
 <div class="row" *ngIf="showTable">
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-15">
     <div class="">
-      <mat-table
+      <table
+        mat-table
         [dataSource]="filtereddata"
         class="table table-striped table-hover"
       >
         <!-- S.No. Column -->
         <ng-container matColumnDef="sno">
-          <mat-header-cell *matHeaderCellDef>S.No.</mat-header-cell>
-          <mat-cell *matCellDef="let item; let i = index">{{ i + 1 }}</mat-cell>
+          <th mat-header-cell *matHeaderCellDef>S.No.</th>
+          <td mat-cell *matCellDef="let item; let i = index">{{ i + 1 }}</td>
         </ng-container>
         <!-- Category Code Column -->
         <ng-container matColumnDef="serviceProviderName">
-          <mat-header-cell *matHeaderCellDef>Provider Name</mat-header-cell>
-          <mat-cell *matCellDef="let item">
-            {{ item.serviceProviderName }}</mat-cell
-          >
+          <th mat-header-cell *matHeaderCellDef>Provider Name</th>
+          <td mat-cell *matCellDef="let item">
+            {{ item.serviceProviderName }}
+          </td>
         </ng-container>
 
         <!-- Category Name Column -->
         <ng-container matColumnDef="serviceName">
-          <mat-header-cell *matHeaderCellDef>Serviceline</mat-header-cell>
-          <mat-cell *matCellDef="let item">{{ item.serviceName }}</mat-cell>
+          <th mat-header-cell *matHeaderCellDef>Serviceline</th>
+          <td mat-cell *matCellDef="let item">{{ item.serviceName }}</td>
         </ng-container>
 
         <!-- Category Description Column -->
         <ng-container matColumnDef="stateName">
-          <mat-header-cell *matHeaderCellDef>State</mat-header-cell>
-          <mat-cell *matCellDef="let element">{{
-            element.stateName ? element.stateName : "All States"
-          }}</mat-cell>
+          <th mat-header-cell *matHeaderCellDef>State</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.stateName ? element.stateName : "All States" }}
+          </td>
         </ng-container>
 
         <ng-container matColumnDef="status">
-          <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
-          <mat-cell *matCellDef="let element">{{ element.status }}</mat-cell>
+          <th mat-header-cell *matHeaderCellDef>Status</th>
+          <td mat-cell *matCellDef="let element">{{ element.status }}</td>
         </ng-container>
 
         <!-- Header and Row Definitions -->
-        <mat-header-row
+        <tr
+          mat-header-row
           *matHeaderRowDef="[
             'sno',
             'serviceProviderName',
@@ -111,8 +113,9 @@
             'stateName',
             'status'
           ]"
-        ></mat-header-row>
-        <mat-row
+        ></tr>
+        <tr
+          mat-row
           *matRowDef="
             let row;
             columns: [
@@ -123,13 +126,13 @@
               'status'
             ]
           "
-        ></mat-row>
-      </mat-table>
+        ></tr>
+      </table>
       <!-- Pagination -->
       <mat-paginator
         [length]="filtereddata.data.length"
-        [pageSize]="4"
-        [pageSizeOptions]="[4, 10, 20]"
+        [pageSize]="5"
+        [pageSizeOptions]="[5, 10, 20]"
       ></mat-paginator>
     </div>
     <form #statusSettingFields="ngForm" autocomplete="off">
@@ -138,9 +141,9 @@
           <h4>Provider Level Provision</h4>
         </div>
         <div class="col-3">
-          <!-- <mat-form-field class="hide_underline width100">
+          <!-- <mat-form-field [style.width]="'100%'" class="hide_underline width100">
             <input matInput style="display:none"> -->
-          <mat-form-field>
+          <mat-form-field [style.width]="'100%'">
             <mat-label>Select Status</mat-label>
             <mat-select
               required
@@ -160,7 +163,7 @@
           <!-- </mat-form-field> -->
         </div>
         <div class="col-3">
-          <mat-form-field appMyProviderName>
+          <mat-form-field [style.width]="'100%'" appMyProviderName>
             <mat-label>Reason</mat-label>
             <input
               matInput
@@ -200,9 +203,9 @@
           <h4>State Level Provision</h4>
         </div>
         <div class="col-3">
-          <!-- <mat-form-field class="hide_underline width100">
+          <!-- <mat-form-field [style.width]="'100%'" class="hide_underline width100">
             <input matInput style="display:none"> -->
-          <mat-form-field>
+          <mat-form-field [style.width]="'100%'">
             <mat-label>Select Status</mat-label>
             <mat-select
               required
@@ -222,7 +225,7 @@
           <!-- </mat-form-field> -->
         </div>
         <div class="col-3">
-          <mat-form-field appMyProviderName>
+          <mat-form-field [style.width]="'100%'" appMyProviderName>
             <mat-label>Reason</mat-label>
             <input
               matInput
@@ -262,9 +265,9 @@
           <h4>Serviceline Level Provision</h4>
         </div>
         <div class="col-3">
-          <!-- <mat-form-field class="hide_underline width100">
+          <!-- <mat-form-field [style.width]="'100%'" class="hide_underline width100">
             <input matInput style="display:none"> -->
-          <mat-form-field>
+          <mat-form-field [style.width]="'100%'">
             <mat-label>Select Status</mat-label>
             <mat-select
               name="status"
@@ -284,7 +287,7 @@
           <!-- </mat-form-field> -->
         </div>
         <div class="col-3">
-          <mat-form-field appMyProviderName>
+          <mat-form-field [style.width]="'100%'" appMyProviderName>
             <mat-label>Reason</mat-label>
             <input
               matInput
@@ -324,9 +327,9 @@
           <h4>Provider State Serviceline Level Provision</h4>
         </div>
         <div class="col-3">
-          <!-- <mat-form-field class="hide_underline width100">
+          <!-- <mat-form-field [style.width]="'100%'" class="hide_underline width100">
             <input matInput style="display:none"> -->
-          <mat-form-field>
+          <mat-form-field [style.width]="'100%'">
             <mat-label>Select Status</mat-label>
             <mat-select
               #statusR="ngModel"
@@ -346,7 +349,7 @@
           <!-- </mat-form-field> -->
         </div>
         <div class="col-3">
-          <mat-form-field appMyProviderName>
+          <mat-form-field [style.width]="'100%'" appMyProviderName>
             <mat-label>Reason</mat-label>
             <input
               matInput

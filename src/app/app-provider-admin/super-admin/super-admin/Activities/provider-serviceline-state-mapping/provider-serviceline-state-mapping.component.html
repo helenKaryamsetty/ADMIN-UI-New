@@ -123,13 +123,13 @@
       <mat-paginator
         #paginatorFirst
         [length]="filteredsearchResult.data.length"
-        [pageSize]="4"
-        [pageSizeOptions]="[4, 10, 20]"
+        [pageSize]="5"
+        [pageSizeOptions]="[5, 10, 20]"
       ></mat-paginator>
     </div>
   </div>
 </div>
-<div class="row" *ngIf="formMode">
+<div class="row" *ngIf="formMode" style="width: 100%; margin-left: 0px">
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <h4>
       <strong>Provider Serviceline State Mapping</strong>
@@ -138,9 +138,9 @@
   <div class="col-12 p-a-0">
     <form autocomplete="off" #mappingFieldsForm="ngForm" class="row">
       <div class="col-3 m-t-10">
-        <!-- <mat-form-field class="hide_underline"  >
+        <!-- <mat-form-field [style.width]="'100%'" class="hide_underline"  >
           <input matInput style="display:none"> -->
-        <mat-form-field>
+        <mat-form-field [style.width]="'100%'">
           <mat-label>Provider</mat-label>
           <mat-select
             [(ngModel)]="provider"
@@ -157,9 +157,9 @@
         <!-- </mat-form-field> -->
       </div>
       <div class="col-3 m-t-10">
-        <!-- <mat-form-field class="hide_underline"  >
+        <!-- <mat-form-field [style.width]="'100%'" class="hide_underline"  >
           <input matInput style="display:none"> -->
-        <mat-form-field>
+        <mat-form-field [style.width]="'100%'">
           <mat-label>Serviceline</mat-label>
           <mat-select
             [(ngModel)]="serviceline"
@@ -182,9 +182,9 @@
         <!-- </mat-form-field> -->
       </div>
       <div class="col-3 m-t-10">
-        <!-- <mat-form-field class="hide_underline"  >
+        <!-- <mat-form-field [style.width]="'100%'" class="hide_underline"  >
           <input matInput style="display:none"> -->
-        <mat-form-field>
+        <mat-form-field [style.width]="'100%'">
           <mat-label>State</mat-label>
           <mat-select
             [disabled]="isNational"
@@ -296,12 +296,12 @@
       <mat-paginator
         #paginatorSecond
         [length]="bufferArray.data.length"
-        [pageSize]="4"
-        [pageSizeOptions]="[4, 10, 20]"
+        [pageSize]="5"
+        [pageSizeOptions]="[5, 10, 20]"
       ></mat-paginator>
     </div>
   </div>
-  <div class="col-xs-12 col-sm-12 m-t-20 m-b-10">
+  <div class="col-xs-12 col-sm-12 m-t-20 m-b-10" style="margin-bottom: 20px">
     <button mat-raised-button color="primary" class="mat_blue" (click)="back()">
       Back
     </button>
@@ -316,18 +316,18 @@
     </button>
   </div>
 </div>
-<div class="row" *ngIf="editMode">
+<div class="row" *ngIf="editMode" style="width: 100%; margin-left: 0px">
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <h4>
       <strong>Edit Provider Serviceline State Mapping</strong>
     </h4>
   </div>
-  <div class="col-12 p-a-0">
+  <div class="col-12 p-a-0" style="margin-bottom: 20px">
     <form autocomplete="off" #editMappingFieldsForm="ngForm" class="row">
       <div class="col-3 m-t-10">
-        <!-- <mat-form-field class="hide_underline"  >
+        <!-- <mat-form-field [style.width]="'100%'" class="hide_underline"  >
           <input matInput style="display:none"> -->
-        <mat-form-field>
+        <mat-form-field [style.width]="'100%'">
           <mat-label>Provider</mat-label>
           <mat-select [(ngModel)]="edit_provider" name="provider" required>
             <mat-option
@@ -342,9 +342,9 @@
         <!-- </mat-form-field> -->
       </div>
       <div class="col-3 m-t-10">
-        <!-- <mat-form-field class="hide_underline"  >
+        <!-- <mat-form-field [style.width]="'100%'" class="hide_underline"  >
           <input matInput style="display:none"> -->
-        <mat-form-field>
+        <mat-form-field [style.width]="'100%'">
           <mat-label>Serviceline</mat-label>
           <mat-select
             [(ngModel)]="edit_serviceline"
@@ -364,9 +364,9 @@
         <!-- </mat-form-field> -->
       </div>
       <div class="col-3 m-t-10">
-        <!-- <mat-form-field class="hide_underline"  >
+        <!-- <mat-form-field [style.width]="'100%'" class="hide_underline"  >
           <input matInput style="display:none"> -->
-        <mat-form-field>
+        <mat-form-field [style.width]="'100%'">
           <mat-label>State</mat-label>
           <mat-select
             [disabled]="isNational_edit"

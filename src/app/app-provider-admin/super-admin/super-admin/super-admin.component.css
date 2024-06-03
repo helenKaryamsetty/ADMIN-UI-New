@@ -58,12 +58,12 @@
 }
 .main-section{
     border-radius: 4px;
-    padding-left: 30px;
-     height:850px ;
+    /* padding-left: 30px; */
+     height:560px !important;
      background-color: #ffffff;
      border-color: #e7e7e7;
      margin-left: -30px;
-    margin-top: 5px;
+    margin-top: 10px;
      
 }
 .mdc-button {
@@ -83,10 +83,11 @@
  .top-element{
     background-color: unset;
     border: unset;
-    font-size: 16px !important;
-    color: #777 !important;
+    font-size: 15px !important;
+    color: black !important;
     font-family: SF-UI-Display-Regular !important;
     padding: 15px;
+    letter-spacing: initial !important;
 }
 .caret {
     display: inline-block;

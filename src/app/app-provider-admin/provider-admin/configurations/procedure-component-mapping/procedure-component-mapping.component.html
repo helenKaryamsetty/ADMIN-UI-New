@@ -1,278 +1,281 @@
-<!-- <md-card> -->
-<div class="row">
-  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-    <h4>Procedure Component Mapping</h4>
-    <div *ngIf="unfilled" class="alert alert-danger" role="alert">
-      Please fill all the details
-    </div>
-    <div class="col-12">
-      <form #stateService="ngForm" autocomplete="off" class="row">
-        <div class="col-3 m-t-15">
-          <!-- <mat-form-field class="hide_underline"  >
+<div class="container-fluid">
+  <!-- <md-card> -->
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <h4>Procedure Component Mapping</h4>
+      <div *ngIf="unfilled" class="alert alert-danger" role="alert">
+        Please fill all the details
+      </div>
+      <div class="col-12">
+        <form #stateService="ngForm" autocomplete="off" class="row">
+          <div class="col-3 m-t-15">
+            <!--  <mat-form-field  [style.width]="'100%'" class="hide_underline"  >
                           <input matInput style="display:none"> -->
-          <mat-form-field>
-            <mat-label>Serviceline</mat-label>
-            <mat-select
-              required
-              name="Services"
-              disabled="{{ disableSelection }}"
-              [(ngModel)]="serviceline"
-              (selectionChange)="getStates(serviceline.serviceID)"
-            >
-              <mat-option *ngFor="let item of services_array" [value]="item">
-                {{ item.serviceName }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
+            <mat-form-field [style.width]="'100%'">
+              <mat-label>Serviceline</mat-label>
+              <mat-select
+                required
+                name="Services"
+                disabled="{{ disableSelection }}"
+                [(ngModel)]="serviceline"
+                (selectionChange)="getStates(serviceline.serviceID)"
+              >
+                <mat-option *ngFor="let item of services_array" [value]="item">
+                  {{ item.serviceName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
 
-          <!-- </mat-form-field> -->
-        </div>
-        <div class="col-3 m-t-15">
-          <!-- <mat-form-field class="hide_underline"  >
+            <!-- </mat-form-field> -->
+          </div>
+          <div class="col-3 m-t-15">
+            <!--  <mat-form-field  [style.width]="'100%'" class="hide_underline"  >
                           <input matInput style="display:none"> -->
-          <mat-form-field>
-            <mat-label>State</mat-label>
-            <mat-select
-              required
-              disabled="{{ disableSelection }}"
-              [(ngModel)]="searchStateID"
-              name="searchStateID"
-              (selectionChange)="setProviderServiceMapID()"
-            >
-              <mat-option *ngFor="let state of provider_states" [value]="state">
-                {{ state.stateName }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
+            <mat-form-field [style.width]="'100%'">
+              <mat-label>State</mat-label>
+              <mat-select
+                required
+                disabled="{{ disableSelection }}"
+                [(ngModel)]="searchStateID"
+                name="searchStateID"
+                (selectionChange)="setProviderServiceMapID()"
+              >
+                <mat-option
+                  *ngFor="let state of provider_states"
+                  [value]="state"
+                >
+                  {{ state.stateName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
 
-          <!-- </mat-form-field> -->
-        </div>
-      </form>
-    </div>
-    <!-- <form #procedureService="ngForm" autocomplete="off"> -->
-    <div style="display: block" *ngIf="saveMode || editMode" class="m-t-10">
-      <div class="row">
-        <!-- <form #proccompForm="ngForm" autocomplete="off"> -->
-        <div class="col-3 m-t-15" *ngIf="saveMode">
-          <mat-form-field>
-            <mat-label>Procedure Name</mat-label>
-            <mat-select
+            <!-- </mat-form-field> -->
+          </div>
+        </form>
+      </div>
+      <!-- <form #procedureService="ngForm" autocomplete="off"> -->
+      <div style="display: block" *ngIf="saveMode || editMode" class="m-t-10">
+        <div class="row">
+          <!-- <form #proccompForm="ngForm" autocomplete="off"> -->
+          <div class="col-3 m-t-15" *ngIf="saveMode">
+            <mat-form-field [style.width]="'100%'">
+              <mat-label>Procedure Name</mat-label>
+              <mat-select
+                required
+                [(ngModel)]="selectedProcedure"
+                name="procedures"
+                (selectionChange)="procedureSelected()"
+              >
+                <mat-option *ngFor="let item of procedureList" [value]="item">{{
+                  item.procedureName
+                }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-3 m-t-20" *ngIf="saveMode">
+            <mat-form-field [style.width]="'100%'">
+              <mat-label>Description</mat-label>
+              <input
+                id="procedure-description"
+                matInput
+                [(ngModel)]="selectedProcedureDescription"
+                readonly
+              />
+            </mat-form-field>
+          </div>
+          <div class="col-3 m-t-15" *ngIf="editMode">
+            <mat-autocomplete
               required
-              [(ngModel)]="selectedProcedure"
               name="procedures"
-              (selectionChange)="procedureSelected()"
-              [style.width]="'100%'"
+              (change)="procedureSelected()"
+              items="procedureList"
+              item-text="procedureName"
+              placeholder="Procedure Name"
+              [(ngModel)]="selectedProcedure"
+              min-length="1"
+              #autocompleteControl="ngModel"
+              disabled
             >
-              <mat-option *ngFor="let item of procedureList" [value]="item">{{
-                item.procedureName
-              }}</mat-option>
-            </mat-select>
-          </mat-form-field>
+            </mat-autocomplete>
+          </div>
+          <div class="col-3 m-t-20" *ngIf="editMode">
+            <mat-form-field [style.width]="'100%'">
+              <mat-label>Description</mat-label>
+              <input
+                id="procedure-description"
+                matInput
+                [(ngModel)]="selectedProcedureDescription"
+                readonly
+                disabled
+              />
+            </mat-form-field>
+          </div>
+          <div class="clearfix visible-md visible-sm"></div>
+          <div class="col-3 m-t-15">
+            <mat-form-field [style.width]="'100%'">
+              <mat-label>Component Name</mat-label>
+              <mat-select
+                required
+                [(ngModel)]="selectedComponent"
+                name="components"
+                (change)="componentSelected()"
+              >
+                <mat-option *ngFor="let item of componentList" [value]="item">{{
+                  item.testComponentName
+                }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="col-3 m-t-20">
+            <mat-form-field [style.width]="'100%'">
+              <mat-label>Loinc Code</mat-label>
+              <input
+                id="component-loinc"
+                matInput
+                [(ngModel)]="selectedLoincCode"
+                disabled
+                readonly
+              />
+            </mat-form-field>
+          </div>
+
+          <div class="col-3 m-t-20">
+            <mat-form-field [style.width]="'100%'">
+              <mat-label>Loinc Component Name</mat-label>
+              <input
+                id="component-loinc"
+                matInput
+                [(ngModel)]="selectedLoincComponent"
+                disabled
+                readonly
+              />
+            </mat-form-field>
+          </div>
+
+          <div class="col-3 m-t-20">
+            <mat-form-field [style.width]="'100%'">
+              <mat-label>Description</mat-label>
+              <input
+                id="component-description"
+                matInput
+                [(ngModel)]="selectedComponentDescription"
+                readonly
+              />
+            </mat-form-field>
+          </div>
+          <!-- </form> -->
         </div>
-        <div class="col-3 m-t-20" *ngIf="saveMode">
-          <mat-form-field>
-            <mat-label>Description</mat-label>
-            <input
-              id="procedure-description"
-              matInput
-              [(ngModel)]="selectedProcedureDescription"
-              readonly
-            />
-          </mat-form-field>
-        </div>
-        <div class="col-3 m-t-15" *ngIf="editMode">
-          <mat-autocomplete
-            required
-            name="procedures"
-            (change)="procedureSelected()"
-            items="procedureList"
-            item-text="procedureName"
-            placeholder="Procedure Name"
-            [(ngModel)]="selectedProcedure"
-            min-length="1"
-            #autocompleteControl="ngModel"
-            disabled
-          >
-          </mat-autocomplete>
-        </div>
-        <div class="col-3 m-t-20" *ngIf="editMode">
-          <mat-form-field>
-            <mat-label>Description</mat-label>
-            <input
-              id="procedure-description"
-              matInput
-              [(ngModel)]="selectedProcedureDescription"
-              readonly
-              disabled
-            />
-          </mat-form-field>
-        </div>
-        <div class="clearfix visible-md visible-sm"></div>
-        <div class="col-3 m-t-15">
-          <mat-form-field>
-            <mat-label>Component Name</mat-label>
-            <mat-select
-              required
-              [(ngModel)]="selectedComponent"
-              name="components"
-              (change)="componentSelected()"
-              [style.width]="'100%'"
+
+        <div class="row">
+          <div class="col-xs-12 col-sm-12" style="margin-bottom: 47px">
+            <button
+              color="primary"
+              class="pull-left mat_blue"
+              id="backButton"
+              md-raised-button
+              (click)="back()"
             >
-              <mat-option *ngFor="let item of componentList" [value]="item">{{
-                item.testComponentName
-              }}</mat-option>
-            </mat-select>
-          </mat-form-field>
+              Back
+            </button>
+            <button
+              *ngIf="saveMode"
+              id="updateButton"
+              class="pull-right mat_green"
+              md-raised-button
+              color="accent"
+              [disabled]="!selectedProcedure || !selectedComponent"
+              (click)="updateComponentMapList()"
+            >
+              Save
+            </button>
+            <button
+              *ngIf="editMode"
+              id="postMapDataButton2"
+              class="pull-right mat_green"
+              md-raised-button
+              color="accent"
+              (click)="updateComponentMapList()"
+            >
+              Update
+            </button>
+          </div>
         </div>
-
-        <div class="col-3 m-t-20">
-          <mat-form-field>
-            <mat-label>Loinc Code</mat-label>
-            <input
-              id="component-loinc"
-              matInput
-              [(ngModel)]="selectedLoincCode"
-              disabled
-              readonly
-            />
-          </mat-form-field>
-        </div>
-
-        <div class="col-3 m-t-20">
-          <mat-form-field>
-            <mat-label>Loinc Component Name</mat-label>
-            <input
-              id="component-loinc"
-              matInput
-              [(ngModel)]="selectedLoincComponent"
-              disabled
-              readonly
-            />
-          </mat-form-field>
-        </div>
-
-        <div class="col-3 m-t-20">
-          <mat-form-field>
-            <mat-label>Description</mat-label>
-            <input
-              id="component-description"
-              matInput
-              [(ngModel)]="selectedComponentDescription"
-              readonly
-            />
-          </mat-form-field>
-        </div>
-        <!-- </form> -->
       </div>
-
-      <div class="row">
-        <div class="col-xs-12 col-sm-12">
-          <button
-            color="primary"
-            class="pull-left mat_blue"
-            id="backButton"
-            md-raised-button
-            (click)="back()"
+      <!-- </form> -->
+    </div>
+  </div>
+  <!-- </md-card> -->
+  <!-- <md-card> -->
+  <div *ngIf="tableMode">
+    <div class="row xs-m-t-20 m-t-sm-0 m-t-md-0 m-t-lg-15">
+      <div
+        #tabledData
+        class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-20 table-responsive"
+      >
+        <div style="text-align: end" *ngIf="mappedList?.length > 0" class="">
+          <mat-form-field id="filterbox" class="m-t-20-">
+            <input
+              matInput
+              placeholder="In-Table Search"
+              #filterTerm
+              (keyup)="filterMappingList(filterTerm.value)"
+            />
+            <mat-icon matSuffix>search</mat-icon>
+          </mat-form-field>
+        </div>
+        <div class="clearfix"></div>
+        <div class="table-responsive">
+          <table
+            mat-table
+            [dataSource]="this.filteredMappedList.data"
+            class="table table-striped table-hover"
           >
-            Back
-          </button>
-          <button
-            *ngIf="saveMode"
-            id="updateButton"
-            class="pull-right mat_green"
-            md-raised-button
-            color="accent"
-            [disabled]="!selectedProcedure || !selectedComponent"
-            (click)="updateComponentMapList()"
-          >
-            Save
-          </button>
-          <button
-            *ngIf="editMode"
-            id="postMapDataButton2"
-            class="pull-right mat_green"
-            md-raised-button
-            color="accent"
-            (click)="updateComponentMapList()"
-          >
-            Update
-          </button>
+            <ng-container matColumnDef="SNo">
+              <th mat-header-cell *matHeaderCellDef>S.No.</th>
+              <td mat-cell *matCellDef="let element; let i = index">
+                {{ i + 1 }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="ProcedureName">
+              <th mat-header-cell *matHeaderCellDef>Procedure Name</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.procedureName }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="Description">
+              <th mat-header-cell *matHeaderCellDef>Description</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.procedureDesc }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="MappedComponents">
+              <th mat-header-cell *matHeaderCellDef>Mapped omponents</th>
+              <td mat-cell *matCellDef="let element">{{ element.compList }}</td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+          </table>
+          <div>
+            <button
+              class="pull-right mat_blue"
+              color="primary"
+              id="resetButton"
+              mat-raised-button
+              (click)="showForm()"
+            >
+              Create New Mapping
+            </button>
+          </div>
+          <mat-paginator
+            [hidden]="filteredMappedList.data.length === 0"
+            [pageSizeOptions]="[5, 10, 25]"
+            [pageSize]="5"
+            showFirstLastButtons
+          ></mat-paginator>
         </div>
       </div>
     </div>
-    <!-- </form> -->
   </div>
+  <!-- </md-card> -->
 </div>
-<!-- </md-card> -->
-<!-- <md-card> -->
-<div *ngIf="tableMode">
-  <div class="row xs-m-t-20 m-t-sm-0 m-t-md-0 m-t-lg-15">
-    <div
-      #tabledData
-      class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-20 table-responsive"
-    >
-      <div style="text-align: end" *ngIf="mappedList?.length > 0" class="">
-        <mat-form-field id="filterbox" class="m-t-20-">
-          <input
-            matInput
-            placeholder="In-Table Search"
-            #filterTerm
-            (keyup)="filterMappingList(filterTerm.value)"
-          />
-          <mat-icon matSuffix>search</mat-icon>
-        </mat-form-field>
-      </div>
-      <div class="clearfix"></div>
-      <div class="table-responsive">
-        <table
-          mat-table
-          [dataSource]="this.filteredMappedList.data"
-          class="table table-striped table-hover"
-        >
-          <ng-container matColumnDef="SNo">
-            <th mat-header-cell *matHeaderCellDef>S.No.</th>
-            <td mat-cell *matCellDef="let element; let i = index">
-              {{ i + 1 }}
-            </td>
-          </ng-container>
-          <ng-container matColumnDef="ProcedureName">
-            <th mat-header-cell *matHeaderCellDef>Procedure Name</th>
-            <td mat-cell *matCellDef="let element">
-              {{ element.procedureName }}
-            </td>
-          </ng-container>
-          <ng-container matColumnDef="Description">
-            <th mat-header-cell *matHeaderCellDef>Description</th>
-            <td mat-cell *matCellDef="let element">
-              {{ element.procedureDesc }}
-            </td>
-          </ng-container>
-          <ng-container matColumnDef="MappedComponents">
-            <th mat-header-cell *matHeaderCellDef>Mapped omponents</th>
-            <td mat-cell *matCellDef="let element">{{ element.compList }}</td>
-          </ng-container>
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-        </table>
-        <div>
-          <button
-            class="pull-right mat_blue"
-            color="primary"
-            id="resetButton"
-            mat-raised-button
-            (click)="showForm()"
-          >
-            Create New Mapping
-          </button>
-        </div>
-        <mat-paginator
-          [hidden]="filteredMappedList.data.length === 0"
-          [pageSizeOptions]="[5, 10, 25]"
-          [pageSize]="5"
-          showFirstLastButtons
-        ></mat-paginator>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- </md-card> -->

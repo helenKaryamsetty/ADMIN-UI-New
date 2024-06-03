@@ -26,7 +26,7 @@
   <div class="col-12">
     <form #editVillageform="ngForm" autocomplete="off" class="row">
       <div class="col-6">
-        <mat-form-field>
+        <mat-form-field [style.width]="'100%'">
           <mat-label>Village</mat-label>
           <input
             matInput
@@ -51,7 +51,7 @@
         </mat-form-field>
       </div>
       <div class="col-6">
-        <mat-form-field>
+        <mat-form-field [style.width]="'100%'">
           <mat-label>Panchayat</mat-label>
           <input
             matInput
@@ -63,7 +63,7 @@
         </mat-form-field>
       </div>
       <div class="col-6">
-        <mat-form-field>
+        <mat-form-field [style.width]="'100%'">
           <mat-label>Habitat</mat-label>
           <input
             matInput
@@ -76,7 +76,7 @@
       </div>
 
       <div class="col-6">
-        <mat-form-field appMyMobileNumber>
+        <mat-form-field [style.width]="'100%'" appMyMobileNumber>
           <mat-label>Pincode</mat-label>
           <input
             matInput
@@ -96,7 +96,7 @@
         </mat-form-field>
       </div>
       <div class="col-6">
-        <mat-form-field>
+        <mat-form-field [style.width]="'100%'">
           <mat-label>Village LGD Code</mat-label>
           <input
             matInput
@@ -119,7 +119,7 @@
         </mat-form-field>
       </div>
       <div class="col-6">
-        <mat-form-field>
+        <mat-form-field [style.width]="'100%'">
           <mat-label>Sub District LGD Code</mat-label>
           <input
             matInput
@@ -130,7 +130,7 @@
           />
         </mat-form-field>
       </div>
-      <div class="col-6">
+      <div class="col-10">
         <span class="f-s-n-b"><strong>Village Type</strong></span>
         <mat-radio-group [(ngModel)]="isRural" name="isRural" appMyMobileNumber>
           <mat-radio-button color="primary" class="p-l-10 f-s-12" [value]="true"
@@ -151,6 +151,7 @@
       mat-raised-button
       color="accent"
       class="pull-right mat_green"
+      style="margin-bottom: 20px"
       [disabled]="editVillageform.invalid || villageExist"
       (click)="update(editVillageform.value)"
     >

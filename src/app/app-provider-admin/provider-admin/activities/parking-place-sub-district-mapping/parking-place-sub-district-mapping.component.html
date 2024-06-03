@@ -1,378 +1,390 @@
-<div class="row">
-  <div class="col-xs-12 col-sm-12">
-    <h4 *ngIf="showListOfMapping">
-      Parking Place/Hub - Taluk/Sub-District Mapping
-    </h4>
-    <h4 *ngIf="!editable && !showListOfMapping">
-      Parking Place/Hub - Taluk/Sub-District Mapping
-    </h4>
-    <h4 *ngIf="editable && !showListOfMapping">
-      Edit Parking Place/Hub - Taluk/Sub-District Mapping
-    </h4>
-    <form #searchForm="ngForm" autocomplete="off" class="col-12">
-      <div class="row">
-        <div class="col-3 m-t-15">
-          <mat-form-field>
-            <mat-label>Serviceline</mat-label>
-            <mat-select
-              class="width100"
-              [(ngModel)]="service"
-              [disabled]="disableSelection"
-              (selectionChange)="getStates(service)"
-              name="service"
-              #bindService="ngModel"
-              required
-            >
-              <mat-option *ngFor="let item of servicelines" [value]="item">
-                {{ item.serviceName }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-        <div class="col-3 m-t-15">
-          <mat-form-field>
-            <mat-label>State</mat-label>
-            <mat-select
-              class="width100"
-              [(ngModel)]="state"
-              [disabled]="disableSelection"
-              (selectionChange)="
-                setProviderServiceMapID(state.providerServiceMapID)
-              "
-              name="state"
-              #bindState="ngModel"
-              required
-            >
-              <mat-option *ngFor="let item of states" [value]="item">
-                {{ item.stateName }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-        <div class="col-3 m-t-15">
-          <mat-form-field>
-            <mat-label>Zone</mat-label>
-            <mat-select
-              class="width100"
-              [(ngModel)]="zoneID"
-              name="zoneID"
-              [disabled]="disableSelection"
-              #zone="ngModel"
-              (selectionChange)="
-                getAllParkingPlaces(zoneID.zoneID, state.providerServiceMapID)
-              "
-              required
-            >
-              <mat-option *ngFor="let zone of zones" [value]="zone">
-                {{ zone.zoneName }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-        <div class="col-3 m-t-15">
-          <mat-form-field *ngIf="parkAndHub">
-            <mat-label>{{ parkAndHub }}</mat-label>
-            <mat-select
-              class="width100"
-              [(ngModel)]="parking_Place"
-              name="parking_Place"
-              [disabled]="disableSelection"
-              (selectionChange)="
-                getParkingPlaceSubDistrictMappings(
-                  state.providerServiceMapID,
-                  zoneID.zoneID,
-                  parking_Place.parkingPlaceID
-                )
-              "
-              #parkingPlace="ngModel"
-              required
-            >
-              <mat-option
-                *ngFor="let parkingPlace of parkingPlaces"
-                [value]="parkingPlace"
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-12 col-sm-12">
+      <h4 *ngIf="showListOfMapping">
+        Parking Place/Hub - Taluk/Sub-District Mapping
+      </h4>
+      <h4 *ngIf="!editable && !showListOfMapping">
+        Parking Place/Hub - Taluk/Sub-District Mapping
+      </h4>
+      <h4 *ngIf="editable && !showListOfMapping">
+        Edit Parking Place/Hub - Taluk/Sub-District Mapping
+      </h4>
+      <form #searchForm="ngForm" autocomplete="off" class="col-12">
+        <div class="row">
+          <div class="col-3 m-t-15">
+            <mat-form-field [style.width]="'100%'">
+              <mat-label>Serviceline</mat-label>
+              <mat-select
+                [(ngModel)]="service"
+                [disabled]="disableSelection"
+                (selectionChange)="getStates(service)"
+                name="service"
+                #bindService="ngModel"
+                required
               >
-                {{ parkingPlace.parkingPlaceName }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
+                <mat-option *ngFor="let item of servicelines" [value]="item">
+                  {{ item.serviceName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-3 m-t-15">
+            <mat-form-field [style.width]="'100%'">
+              <mat-label>State</mat-label>
+              <mat-select
+                [(ngModel)]="state"
+                [disabled]="disableSelection"
+                (selectionChange)="
+                  setProviderServiceMapID(state.providerServiceMapID)
+                "
+                name="state"
+                #bindState="ngModel"
+                required
+              >
+                <mat-option *ngFor="let item of states" [value]="item">
+                  {{ item.stateName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-3 m-t-15">
+            <mat-form-field [style.width]="'100%'">
+              <mat-label>Zone</mat-label>
+              <mat-select
+                [(ngModel)]="zoneID"
+                name="zoneID"
+                [disabled]="disableSelection"
+                #zone="ngModel"
+                (selectionChange)="
+                  getAllParkingPlaces(zoneID.zoneID, state.providerServiceMapID)
+                "
+                required
+              >
+                <mat-option *ngFor="let zone of zones" [value]="zone">
+                  {{ zone.zoneName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-3 m-t-15">
+            <mat-form-field [style.width]="'100%'" *ngIf="parkAndHub">
+              <mat-label>{{ parkAndHub }}</mat-label>
+              <mat-select
+                [(ngModel)]="parking_Place"
+                name="parking_Place"
+                [disabled]="disableSelection"
+                (selectionChange)="
+                  getParkingPlaceSubDistrictMappings(
+                    state.providerServiceMapID,
+                    zoneID.zoneID,
+                    parking_Place.parkingPlaceID
+                  )
+                "
+                #parkingPlace="ngModel"
+                required
+              >
+                <mat-option
+                  *ngFor="let parkingPlace of parkingPlaces"
+                  [value]="parkingPlace"
+                >
+                  {{ parkingPlace.parkingPlaceName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
         </div>
+      </form>
+    </div>
+  </div>
+  <div
+    class="pull-right m-t-15"
+    *ngIf="mappedParkingPlaceDistricts.length !== 0 && showListOfMapping"
+  >
+    <mat-form-field>
+      <input
+        matInput
+        placeholder="In-Table Search"
+        #filterTerm
+        (keyup)="filterComponentList(filterTerm.value)"
+      />
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+  </div>
+  <div class="row" *ngIf="showListOfMapping && showTable && !editable">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-15">
+      <div class="">
+        <table
+          mat-table
+          class="table table-striped table-hover"
+          [dataSource]="filteredMappedParkingPlaceDistricts"
+        >
+          <ng-container matColumnDef="sno">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>SNo.</th>
+            <td mat-cell *matCellDef="let element; let i = index">
+              {{ i + 1 }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="parkingPlaceName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              {{ parkAndHub }}
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.parkingPlaceName }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="districtName">
+            <th mat-header-cell *matHeaderCellDef>District</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.districtName }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="districtBlockName">
+            <th mat-header-cell *matHeaderCellDef>Sub-District</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.districtBlockName }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="edit">
+            <th mat-header-cell *matHeaderCellDef>Edit</th>
+            <td mat-cell *matCellDef="let element">
+              <mat-icon
+                matTooltip="Edit"
+                class="mat-icon material-icons"
+                role="img"
+                aria-hidden="true"
+                style="cursor: pointer"
+                *ngIf="!element.deleted"
+                (click)="editSubDistrictMapping(element)"
+                >edit</mat-icon
+              >
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef>Action</th>
+            <td mat-cell *matCellDef="let element">
+              <button
+                *ngIf="element.deleted"
+                mat-raised-button
+                class="mat_green"
+                color="accent"
+                (click)="
+                  activateDeactivateMapping(
+                    element,
+                    element.parkingPlaceDeleted
+                  )
+                "
+              >
+                Activate
+              </button>
+              <button
+                *ngIf="!element.deleted"
+                mat-raised-button
+                class="mat_blue"
+                color="primary"
+                (click)="activateDeactivateMapping(element, false)"
+              >
+                Deactivate
+              </button>
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+      </div>
+      <div>
+        <button
+          mat-raised-button
+          color="primary"
+          class="pull-right mat_blue"
+          [disabled]="!enableButton"
+          (click)="showForm()"
+        >
+          Add Mapping
+        </button>
+      </div>
+      <div
+        class="pull-center"
+        style="margin-top: 35px; text-align: center"
+        *ngIf="filteredMappedParkingPlaceDistricts.data.length === 0"
+      >
+        <strong>No Records Found</strong>
+      </div>
+      <mat-paginator
+        [hidden]="filteredMappedParkingPlaceDistricts.data.length === 0"
+        [pageSizeOptions]="[5, 10, 20]"
+        [pageSize]="5"
+        showFirstLastButtons
+      >
+      </mat-paginator>
+    </div>
+  </div>
+  <div class="row" *ngIf="!showListOfMapping && !showTable">
+    <form #mappingForm="ngForm" autocomplete="off">
+      <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 m-t-15">
+        <mat-form-field [style.width]="'100%'">
+          <mat-label>District</mat-label>
+          <mat-select
+            [(ngModel)]="district"
+            name="district"
+            (selectionChange)="
+              getTaluks(district.districtID, state.providerServiceMapID)
+            "
+            #mappingDistrict="ngModel"
+            required
+          >
+            <mat-option *ngFor="let item of districts" [value]="item">
+              {{ item.districtName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div
+        class="col-lg-3 col-md-4 col-sm-6 col-xs-12 m-t-15"
+        *ngIf="!editable"
+      >
+        <mat-form-field [style.width]="'100%'">
+          <mat-label>Taluk</mat-label>
+          <mat-select
+            multiple
+            [(ngModel)]="taluk"
+            name="taluk"
+            #mappingTaluk="ngModel"
+            required
+          >
+            <mat-option *ngFor="let item of availableTaluks" [value]="item">
+              {{ item.blockName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 m-t-15" *ngIf="editable">
+        <mat-form-field [style.width]="'100%'">
+          <mat-label>Taluk</mat-label>
+          <mat-select
+            [(ngModel)]="taluk"
+            name="taluk"
+            #mappingTaluk="ngModel"
+            required
+          >
+            <mat-option *ngFor="let item of availableTaluks" [value]="item">
+              {{ item.blockName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 m-t-20">
+        <button
+          mat-mini-fab
+          color="primary"
+          *ngIf="mappingForm.valid && !editable"
+          class="xs-pull-right sm-pull-right md-pull-left lg-pull-left mat_blue"
+          (click)="addMappingObject(mappingForm.value)"
+        >
+          <mat-icon
+            matSuffix
+            class="mat-icon material-icons"
+            role="img"
+            aria-hidden="true"
+            style="cursor: pointer"
+            >add</mat-icon
+          >
+        </button>
       </div>
     </form>
-  </div>
-</div>
-<div
-  class="pull-right m-t-15"
-  *ngIf="mappedParkingPlaceDistricts.length !== 0 && showListOfMapping"
->
-  <mat-form-field class="input-full-width mat_form_field_width_one">
-    <input
-      matInput
-      placeholder="In-Table Search"
-      #filterTerm
-      (keyup)="filterComponentList(filterTerm.value)"
-    />
-    <mat-icon matSuffix>search</mat-icon>
-  </mat-form-field>
-</div>
-<div class="row" *ngIf="showListOfMapping && showTable && !editable">
-  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-15">
-    <div class="">
-      <table
-        mat-table
-        class="table table-striped table-hover"
-        [dataSource]="filteredMappedParkingPlaceDistricts"
-      >
-        <ng-container matColumnDef="sno">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>SNo.</th>
-          <td mat-cell *matCellDef="let element; let i = index">{{ i + 1 }}</td>
-        </ng-container>
+    <div
+      class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-5"
+      *ngIf="mappingList.data.length > 0"
+    >
+      <div class="">
+        <table
+          mat-table
+          [dataSource]="mappingList"
+          class="table table-striped table-hover"
+        >
+          <ng-container matColumnDef="sno">
+            <th mat-header-cell *matHeaderCellDef>SNo.</th>
+            <td mat-cell *matCellDef="let element; let i = index">
+              {{ i + 1 }}
+            </td>
+          </ng-container>
 
-        <ng-container matColumnDef="parkingPlaceName">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>
-            {{ parkAndHub }}
-          </th>
-          <td mat-cell *matCellDef="let element">
-            {{ element.parkingPlaceName }}
-          </td>
-        </ng-container>
-        <ng-container matColumnDef="districtName">
-          <th mat-header-cell *matHeaderCellDef>District</th>
-          <td mat-cell *matCellDef="let element">{{ element.districtName }}</td>
-        </ng-container>
-        <ng-container matColumnDef="districtBlockName">
-          <th mat-header-cell *matHeaderCellDef>Sub-District</th>
-          <td mat-cell *matCellDef="let element">
-            {{ element.districtBlockName }}
-          </td>
-        </ng-container>
-        <ng-container matColumnDef="edit">
-          <th mat-header-cell *matHeaderCellDef>Edit</th>
-          <td mat-cell *matCellDef="let element">
-            <mat-icon
-              matTooltip="Edit"
-              class="mat-icon material-icons"
-              role="img"
-              aria-hidden="true"
-              style="cursor: pointer"
-              *ngIf="!element.deleted"
-              (click)="editSubDistrictMapping(element)"
-              >edit</mat-icon
-            >
-          </td>
-        </ng-container>
+          <ng-container matColumnDef="parkingPlaceName">
+            <th mat-header-cell *matHeaderCellDef>Parking Place</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.parkingPlaceName }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="districtName">
+            <th mat-header-cell *matHeaderCellDef>District</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.districtName }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="districtBlockName">
+            <th mat-header-cell *matHeaderCellDef>Taluk</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.districtBlockName }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef>Action</th>
+            <td mat-cell *matCellDef="let element; let i = index">
+              <mat-icon
+                class="cursorPointer"
+                matTooltip="delete"
+                (click)="remove_obj(mappingList.data.indexOf(element))"
+                >delete</mat-icon
+              >
+            </td>
+          </ng-container>
 
-        <ng-container matColumnDef="action">
-          <th mat-header-cell *matHeaderCellDef>Action</th>
-          <td mat-cell *matCellDef="let element">
-            <button
-              *ngIf="element.deleted"
-              mat-raised-button
-              class="mat_green"
-              color="accent"
-              (click)="
-                activateDeactivateMapping(element, element.parkingPlaceDeleted)
-              "
-            >
-              Activate
-            </button>
-            <button
-              *ngIf="!element.deleted"
-              mat-raised-button
-              class="mat_blue"
-              color="primary"
-              (click)="activateDeactivateMapping(element, false)"
-            >
-              Deactivate
-            </button>
-          </td>
-        </ng-container>
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-      </table>
+          <tr mat-header-row *matHeaderRowDef="displayAddedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayAddedColumns"></tr>
+          <mat-paginator
+            [hidden]="mappingList.data.length === 0"
+            [pageSizeOptions]="[5, 10, 20]"
+            [pageSize]="5"
+            showFirstLastButtons
+          >
+          </mat-paginator>
+        </table>
+      </div>
     </div>
-    <div>
+    <div
+      class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-20 m-b-10"
+      style="margin-bottom: 47px"
+    >
       <button
         mat-raised-button
         color="primary"
-        class="pull-right mat_blue"
-        [disabled]="!enableButton"
-        (click)="showForm()"
+        class="pull-left mat_blue"
+        (click)="back()"
       >
-        Add Mapping
+        Back
       </button>
-    </div>
-    <div
-      class="pull-center"
-      style="margin-top: 35px; text-align: center"
-      *ngIf="filteredMappedParkingPlaceDistricts.data.length === 0"
-    >
-      <strong>No Records Found</strong>
-    </div>
-    <mat-paginator
-      [hidden]="filteredMappedParkingPlaceDistricts.data.length === 0"
-      [pageSizeOptions]="[5, 10, 20]"
-      [pageSize]="5"
-      showFirstLastButtons
-    >
-    </mat-paginator>
-  </div>
-</div>
-<div class="row" *ngIf="!showListOfMapping && !showTable">
-  <form #mappingForm="ngForm" autocomplete="off">
-    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 m-t-15">
-      <mat-form-field>
-        <mat-label>District</mat-label>
-        <mat-select
-          class="width100"
-          [(ngModel)]="district"
-          name="district"
-          (selectionChange)="
-            getTaluks(district.districtID, state.providerServiceMapID)
-          "
-          #mappingDistrict="ngModel"
-          required
-        >
-          <mat-option *ngFor="let item of districts" [value]="item">
-            {{ item.districtName }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 m-t-15" *ngIf="!editable">
-      <mat-form-field>
-        <mat-label>Taluk</mat-label>
-        <mat-select
-          multiple
-          class="width100"
-          [(ngModel)]="taluk"
-          name="taluk"
-          #mappingTaluk="ngModel"
-          required
-        >
-          <mat-option *ngFor="let item of availableTaluks" [value]="item">
-            {{ item.blockName }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 m-t-15" *ngIf="editable">
-      <mat-form-field>
-        <mat-label>Taluk</mat-label>
-        <mat-select
-          class="width100"
-          [(ngModel)]="taluk"
-          name="taluk"
-          #mappingTaluk="ngModel"
-          required
-        >
-          <mat-option *ngFor="let item of availableTaluks" [value]="item">
-            {{ item.blockName }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 m-t-20">
       <button
-        mat-mini-fab
-        color="primary"
-        *ngIf="mappingForm.valid && !editable"
-        class="xs-pull-right sm-pull-right md-pull-left lg-pull-left mat_blue"
-        (click)="addMappingObject(mappingForm.value)"
+        *ngIf="!editable"
+        [disabled]="mappingList.data.length === 0"
+        mat-raised-button
+        color="accent"
+        class="pull-right m-t-10 mat_green"
+        (click)="saveSubdistrictMapping()"
       >
-        <mat-icon
-          matSuffix
-          class="mat-icon material-icons"
-          role="img"
-          aria-hidden="true"
-          style="cursor: pointer"
-          >add</mat-icon
-        >
+        Save
+      </button>
+      <button
+        *ngIf="editable"
+        [disabled]="mappingForm.invalid"
+        mat-raised-button
+        color="accent"
+        class="pull-right mat_green"
+        (click)="updateSubdistrictMapping(mappingForm.value)"
+      >
+        Update
       </button>
     </div>
-  </form>
-  <div
-    class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-5"
-    *ngIf="mappingList.data.length > 0"
-  >
-    <div class="">
-      <table
-        mat-table
-        [dataSource]="mappingList"
-        class="table table-striped table-hover"
-      >
-        <ng-container matColumnDef="sno">
-          <th mat-header-cell *matHeaderCellDef>SNo.</th>
-          <td mat-cell *matCellDef="let element; let i = index">{{ i + 1 }}</td>
-        </ng-container>
-
-        <ng-container matColumnDef="parkingPlaceName">
-          <th mat-header-cell *matHeaderCellDef>Parking Place</th>
-          <td mat-cell *matCellDef="let element">
-            {{ element.parkingPlaceName }}
-          </td>
-        </ng-container>
-        <ng-container matColumnDef="districtName">
-          <th mat-header-cell *matHeaderCellDef>District</th>
-          <td mat-cell *matCellDef="let element">{{ element.districtName }}</td>
-        </ng-container>
-        <ng-container matColumnDef="districtBlockName">
-          <th mat-header-cell *matHeaderCellDef>Taluk</th>
-          <td mat-cell *matCellDef="let element">
-            {{ element.districtBlockName }}
-          </td>
-        </ng-container>
-        <ng-container matColumnDef="action">
-          <th mat-header-cell *matHeaderCellDef>Action</th>
-          <td mat-cell *matCellDef="let element; let i = index">
-            <mat-icon
-              class="cursorPointer"
-              matTooltip="delete"
-              (click)="remove_obj(mappingList.data.indexOf(element))"
-              >delete</mat-icon
-            >
-          </td>
-        </ng-container>
-
-        <tr mat-header-row *matHeaderRowDef="displayAddedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayAddedColumns"></tr>
-        <mat-paginator
-          [hidden]="mappingList.data.length === 0"
-          [pageSizeOptions]="[5, 10, 20]"
-          [pageSize]="5"
-          showFirstLastButtons
-        >
-        </mat-paginator>
-      </table>
-    </div>
-  </div>
-  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-20 m-b-10">
-    <button
-      mat-raised-button
-      color="primary"
-      class="pull-left mat_blue"
-      (click)="back()"
-    >
-      Back
-    </button>
-    <button
-      *ngIf="!editable"
-      [disabled]="mappingList.data.length === 0"
-      mat-raised-button
-      color="accent"
-      class="pull-right m-t-10 mat_green"
-      (click)="saveSubdistrictMapping()"
-    >
-      Save
-    </button>
-    <button
-      *ngIf="editable"
-      [disabled]="mappingForm.invalid"
-      mat-raised-button
-      color="accent"
-      class="pull-right mat_green"
-      (click)="updateSubdistrictMapping(mappingForm.value)"
-    >
-      Update
-    </button>
   </div>
 </div>

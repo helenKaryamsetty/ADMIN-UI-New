@@ -177,7 +177,11 @@
       </button>
     </mat-menu>
 
-    <div [ngSwitch]="Activity_Number" class="col-xs-12 col-sm-12">
+    <div
+      [ngSwitch]="Activity_Number"
+      class="col-xs-12 col-sm-12 main-section"
+      style="margin-left: unset !important"
+    >
       <div>
         <app-location-serviceline-mapping
           *ngSwitchCase="1"

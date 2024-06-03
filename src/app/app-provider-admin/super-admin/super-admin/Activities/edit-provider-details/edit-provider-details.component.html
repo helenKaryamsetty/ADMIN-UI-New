@@ -32,7 +32,7 @@
         </h4>
       </div>
       <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-        <mat-form-field myName2>
+        <mat-form-field [style.width]="'100%'" myName2>
           <mat-label>Provider Name</mat-label>
           <input
             required
@@ -55,7 +55,7 @@
         </mat-form-field>
       </div>
       <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-        <mat-form-field myName2>
+        <mat-form-field [style.width]="'100%'" myName2>
           <mat-label>Contact Name</mat-label>
           <input
             required
@@ -74,7 +74,7 @@
         </mat-form-field>
       </div>
       <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-        <mat-form-field>
+        <mat-form-field [style.width]="'100%'">
           <mat-label>Email ID</mat-label>
           <input
             required
@@ -90,7 +90,7 @@
         </mat-form-field>
       </div>
       <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" appMyMobileNumber>
-        <mat-form-field>
+        <mat-form-field [style.width]="'100%'">
           <mat-label>Phone Number</mat-label>
           <input
             required
@@ -107,7 +107,7 @@
         </mat-form-field>
       </div>
       <div class="col-xs-12 col-sm-12 col-md-6 col-lg-12">
-        <mat-form-field>
+        <mat-form-field [style.width]="'100%'">
           <mat-label>Address</mat-label>
           <input
             matInput
@@ -125,7 +125,7 @@
         </h4>
       </div>
       <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-        <mat-form-field>
+        <mat-form-field [style.width]="'100%'">
           <mat-label>Contact Name</mat-label>
           <input
             matInput
@@ -144,7 +144,7 @@
         </mat-form-field>
       </div>
       <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-        <mat-form-field>
+        <mat-form-field [style.width]="'100%'">
           <mat-label>Email ID</mat-label>
           <input
             matInput
@@ -159,7 +159,7 @@
         </mat-form-field>
       </div>
       <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-        <mat-form-field>
+        <mat-form-field [style.width]="'100%'">
           <mat-label>Phone Number</mat-label>
           <input
             matInput
@@ -178,7 +178,7 @@
         </mat-form-field>
       </div>
       <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-        <mat-form-field>
+        <mat-form-field [style.width]="'100%'">
           <mat-label>Address</mat-label>
           <input
             matInput
@@ -190,9 +190,10 @@
       </div>
     </div>
   </form>
-  <div class="p-r-0">
+  <div class="p-r-0" style="margin-bottom: 20px">
     <button
       class="pull-right mat_green"
+      style="margin-bottom: 20px"
       mat-raised-button
       color="accent"
       [disabled]="!form.valid || providerNameExist"

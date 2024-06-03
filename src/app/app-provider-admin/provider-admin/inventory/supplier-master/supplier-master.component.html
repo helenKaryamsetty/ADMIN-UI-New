@@ -1,194 +1,185 @@
-<div class="row" *ngIf="tableMode">
-  <div class="col-xs-12 col-sm-12">
-    <h4>
-      <strong>Supplier Master</strong>
-    </h4>
-  </div>
-  <div class="col-12 p-a-0">
-    <form id="form" #storeSearchForm="ngForm" autocomplete="off" class="row">
-      <div class="col-3">
-        <mat-form-field class="hide_underline">
-          <mat-label> Serviceline </mat-label>
-          <!-- <input matInput style="display: none" /> -->
-          <mat-select
-            required
-            name="Services"
-            [style.width]="'100%'"
-            [(ngModel)]="serviceline"
-            (selectionChange)="getstates(serviceline)"
-          >
-            <mat-option *ngFor="let item of services_array" [value]="item">
-              {{ item.serviceName }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-      <div class="col-3">
-        <mat-form-field class="hide_underline">
-          <mat-label> State </mat-label>
-          <!-- <input matInput style="display: none" /> -->
-          <mat-select
-            required
-            name="state"
-            [style.width]="'100%'"
-            [(ngModel)]="state"
-          >
-            <mat-option
-              *ngFor="let item of states_array"
-              [value]="item"
-              (click)="getAllSuppliers(item.providerServiceMapID)"
-            >
-              {{ item.stateName }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-      <div
-        class="col-xs-12 col-sm-12 col-md-4 col-lg-6"
-        *ngIf="tableMode && providerServiceMapID"
+<div class="container-fluid">
+  <div class="row" *ngIf="tableMode">
+    <div class="col-xs-12 col-sm-12">
+      <h4>
+        <strong>Supplier Master</strong>
+      </h4>
+    </div>
+    <div class="col-12 p-a-0">
+      <form
+        id="form"
+        #storeSearchForm="ngForm"
+        autocomplete="off"
+        class="row"
+        style="width: 100%; margin-left: 0px"
       >
-        <div
-          class="row"
-          style="text-align: end"
-          *ngIf="supplierList?.length > 0"
-        >
-          <mat-form-field id="filterbox" class="">
-            <mat-label> In-Table Search </mat-label>
-            <input
-              matInput
-              name="filterTerm"
-              [(ngModel)]="create_filterTerm"
-              #filterTerm
-              (keyup)="filtersupplierList(filterTerm.value)"
-            />
-            <mat-icon matSuffix>search</mat-icon>
+        <div class="col-3">
+          <mat-form-field [style.width]="'100%'" class="hide_underline">
+            <mat-label> Serviceline </mat-label>
+            <!-- <input matInput style="display: none" /> -->
+            <mat-select
+              required
+              name="Services"
+              [(ngModel)]="serviceline"
+              (selectionChange)="getstates(serviceline)"
+            >
+              <mat-option *ngFor="let item of services_array" [value]="item">
+                {{ item.serviceName }}
+              </mat-option>
+            </mat-select>
           </mat-form-field>
         </div>
-      </div>
-    </form>
-  </div>
-  <div class="col-xs-12 col-sm-12" *ngIf="displayTable">
-    <div class="">
-      <mat-table
-        [dataSource]="filteredsupplierList"
-        class="table table-striped table-hover"
-      >
-        <!-- S.No. Column -->
-        <ng-container matColumnDef="sno">
-          <mat-header-cell *matHeaderCellDef>S.No.</mat-header-cell>
-          <mat-cell *matCellDef="let supplier; let i = index">{{
-            i + 1
-          }}</mat-cell>
-        </ng-container>
-
-        <!-- Supplier Name Column -->
-        <ng-container matColumnDef="supplierName">
-          <mat-header-cell *matHeaderCellDef mat-sort-header
-            >Supplier Name</mat-header-cell
+        <div class="col-3">
+          <mat-form-field [style.width]="'100%'" class="hide_underline">
+            <mat-label> State </mat-label>
+            <!-- <input matInput style="display: none" /> -->
+            <mat-select required name="state" [(ngModel)]="state">
+              <mat-option
+                *ngFor="let item of states_array"
+                [value]="item"
+                (click)="getAllSuppliers(item.providerServiceMapID)"
+              >
+                {{ item.stateName }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div
+          class="col-xs-12 col-sm-12 col-md-4 col-lg-6"
+          *ngIf="tableMode && providerServiceMapID"
+        >
+          <div
+            class="row"
+            style="text-align: end"
+            *ngIf="supplierList?.length > 0"
           >
-          <mat-cell *matCellDef="let supplier">{{
-            supplier.supplierName
-          }}</mat-cell>
-        </ng-container>
+            <mat-form-field id="filterbox" class="">
+              <mat-label> In-Table Search </mat-label>
+              <input
+                matInput
+                name="filterTerm"
+                [(ngModel)]="create_filterTerm"
+                #filterTerm
+                (keyup)="filtersupplierList(filterTerm.value)"
+              />
+              <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="col-xs-12 col-sm-12" *ngIf="displayTable">
+      <div class="">
+        <table
+          mat-table
+          [dataSource]="filteredsupplierList"
+          class="table table-striped table-hover"
+        >
+          <!-- S.No. Column -->
+          <ng-container matColumnDef="sno">
+            <mat-header-cell *matHeaderCellDef>S.No.</mat-header-cell>
+            <mat-cell *matCellDef="let supplier; let i = index">{{
+              i + 1
+            }}</mat-cell>
+          </ng-container>
 
-        <!-- Supplier Code Column -->
-        <ng-container matColumnDef="supplierCode">
-          <mat-header-cell *matHeaderCellDef>Supplier Code</mat-header-cell>
-          <mat-cell *matCellDef="let supplier">{{
-            supplier.supplierCode
-          }}</mat-cell>
-        </ng-container>
-
-        <!-- Supplier Description Column -->
-        <ng-container matColumnDef="supplierDesc">
-          <mat-header-cell *matHeaderCellDef
-            >Supplier Description</mat-header-cell
-          >
-          <mat-cell *matCellDef="let supplier">{{
-            supplier.supplierDesc
-          }}</mat-cell>
-        </ng-container>
-
-        <!-- Drug License No. Column -->
-        <ng-container matColumnDef="drugLicenseNo">
-          <mat-header-cell *matHeaderCellDef>Drug License No.</mat-header-cell>
-          <mat-cell *matCellDef="let supplier">{{
-            supplier.drugLicenseNo
-          }}</mat-cell>
-        </ng-container>
-
-        <!-- Contact Person Column -->
-        <ng-container matColumnDef="contactPerson">
-          <mat-header-cell *matHeaderCellDef>Contact Person</mat-header-cell>
-          <mat-cell *matCellDef="let supplier">{{
-            supplier.contactPerson
-          }}</mat-cell>
-        </ng-container>
-
-        <!-- TIN No. Column -->
-        <ng-container matColumnDef="tIN_No">
-          <mat-header-cell *matHeaderCellDef>TIN No.</mat-header-cell>
-          <mat-cell *matCellDef="let supplier">{{ supplier.tIN_No }}</mat-cell>
-        </ng-container>
-
-        <!-- Edit Column -->
-        <ng-container matColumnDef="edit">
-          <mat-header-cell *matHeaderCellDef>Edit</mat-header-cell>
-          <mat-cell *matCellDef="let supplier">
-            <button
-              mat-icon-button
-              matTooltip="Edit"
-              *ngIf="!supplier.deleted"
-              (click)="editsupplier(supplier)"
+          <!-- Supplier Name Column -->
+          <ng-container matColumnDef="supplierName">
+            <mat-header-cell *matHeaderCellDef mat-sort-header
+              >Supplier Name</mat-header-cell
             >
-              <mat-icon>edit</mat-icon>
-            </button>
-          </mat-cell>
-        </ng-container>
+            <mat-cell *matCellDef="let supplier">{{
+              supplier.supplierName
+            }}</mat-cell>
+          </ng-container>
 
-        <!-- Action Column -->
-        <ng-container matColumnDef="action">
-          <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
-          <mat-cell *matCellDef="let supplier">
-            <button
-              mat-raised-button
-              color="accent"
-              class="mat_green"
-              *ngIf="supplier.deleted"
-              (click)="activate(supplier.supplierID)"
-            >
-              Activate
-            </button>
-            <button
-              mat-raised-button
-              color="primary"
-              class="mat_blue"
-              *ngIf="!supplier.deleted"
-              (click)="deactivate(supplier.supplierID)"
-            >
-              Deactivate
-            </button>
-          </mat-cell>
-        </ng-container>
+          <!-- Supplier Code Column -->
+          <ng-container matColumnDef="supplierCode">
+            <mat-header-cell *matHeaderCellDef>Supplier Code</mat-header-cell>
+            <mat-cell *matCellDef="let supplier">{{
+              supplier.supplierCode
+            }}</mat-cell>
+          </ng-container>
 
-        <!-- Row with No Records -->
-        <mat-header-row
-          *matHeaderRowDef="[
-            'sno',
-            'supplierName',
-            'supplierCode',
-            'supplierDesc',
-            'drugLicenseNo',
-            'contactPerson',
-            'tIN_No',
-            'edit',
-            'action'
-          ]"
-        ></mat-header-row>
-        <mat-row
-          *matRowDef="
-            let row;
-            columns: [
+          <!-- Supplier Description Column -->
+          <ng-container matColumnDef="supplierDesc">
+            <mat-header-cell *matHeaderCellDef
+              >Supplier Description</mat-header-cell
+            >
+            <mat-cell *matCellDef="let supplier">{{
+              supplier.supplierDesc
+            }}</mat-cell>
+          </ng-container>
+
+          <!-- Drug License No. Column -->
+          <ng-container matColumnDef="drugLicenseNo">
+            <mat-header-cell *matHeaderCellDef
+              >Drug License No.</mat-header-cell
+            >
+            <mat-cell *matCellDef="let supplier">{{
+              supplier.drugLicenseNo
+            }}</mat-cell>
+          </ng-container>
+
+          <!-- Contact Person Column -->
+          <ng-container matColumnDef="contactPerson">
+            <mat-header-cell *matHeaderCellDef>Contact Person</mat-header-cell>
+            <mat-cell *matCellDef="let supplier">{{
+              supplier.contactPerson
+            }}</mat-cell>
+          </ng-container>
+
+          <!-- TIN No. Column -->
+          <ng-container matColumnDef="tIN_No">
+            <mat-header-cell *matHeaderCellDef>TIN No.</mat-header-cell>
+            <mat-cell *matCellDef="let supplier">{{
+              supplier.tIN_No
+            }}</mat-cell>
+          </ng-container>
+
+          <!-- Edit Column -->
+          <ng-container matColumnDef="edit">
+            <mat-header-cell *matHeaderCellDef>Edit</mat-header-cell>
+            <mat-cell *matCellDef="let supplier">
+              <button
+                mat-icon-button
+                matTooltip="Edit"
+                *ngIf="!supplier.deleted"
+                (click)="editsupplier(supplier)"
+              >
+                <mat-icon>edit</mat-icon>
+              </button>
+            </mat-cell>
+          </ng-container>
+
+          <!-- Action Column -->
+          <ng-container matColumnDef="action">
+            <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
+            <mat-cell *matCellDef="let supplier">
+              <button
+                mat-raised-button
+                color="accent"
+                class="mat_green"
+                *ngIf="supplier.deleted"
+                (click)="activate(supplier.supplierID)"
+              >
+                Activate
+              </button>
+              <button
+                mat-raised-button
+                color="primary"
+                class="mat_blue"
+                *ngIf="!supplier.deleted"
+                (click)="deactivate(supplier.supplierID)"
+              >
+                Deactivate
+              </button>
+            </mat-cell>
+          </ng-container>
+
+          <!-- Row with No Records -->
+          <mat-header-row
+            *matHeaderRowDef="[
               'sno',
               'supplierName',
               'supplierCode',
@@ -198,523 +189,530 @@
               'tIN_No',
               'edit',
               'action'
-            ]
-          "
-        ></mat-row>
-      </mat-table>
+            ]"
+          ></mat-header-row>
+          <mat-row
+            *matRowDef="
+              let row;
+              columns: [
+                'sno',
+                'supplierName',
+                'supplierCode',
+                'supplierDesc',
+                'drugLicenseNo',
+                'contactPerson',
+                'tIN_No',
+                'edit',
+                'action'
+              ]
+            "
+          ></mat-row>
+        </table>
 
-      <!-- Pagination -->
-      <div
-        *ngIf="filteredsupplierList && filteredsupplierList.data.length === 0"
-      >
-        <strong class="record-not-found"> No records found</strong>
-      </div>
-      <div>
-        <button
-          mat-raised-button
-          color="primary"
-          *ngIf="createButton"
-          class="pull-right mat_blue"
-          (click)="showForm()"
+        <!-- Pagination -->
+        <div
+          *ngIf="filteredsupplierList && filteredsupplierList.data.length === 0"
         >
-          Create Supplier
-        </button>
+          <strong class="record-not-found"> No records found</strong>
+        </div>
+        <div>
+          <button
+            mat-raised-button
+            color="primary"
+            *ngIf="createButton"
+            class="pull-right mat_blue"
+            (click)="showForm()"
+          >
+            Create Supplier
+          </button>
+        </div>
+        <!-- Pagination -->
+        <mat-paginator
+          [hidden]="filteredsupplierList.data.length === 0"
+          [pageSizeOptions]="[5, 10, 25]"
+          [pageSize]="5"
+          showFirstLastButtons
+        ></mat-paginator>
       </div>
-      <!-- Pagination -->
-      <mat-paginator
-        [hidden]="filteredsupplierList.data.length === 0"
-        [pageSizeOptions]="[5, 10, 25]"
-        [pageSize]="5"
-        showFirstLastButtons
-      ></mat-paginator>
     </div>
   </div>
-</div>
-<div class="row" *ngIf="formMode">
-  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-    <h4>
-      <strong>Supplier Master</strong>
-    </h4>
-  </div>
-  <div class="col-12">
-    <form id="addform" #supplierAddForm1="ngForm" class="row">
-      <div class="col-3">
-        <mat-form-field class="hide_underline">
-          <!-- <input matInput style="display: none" /> -->
-          <mat-label> Serviceline </mat-label>
-          <mat-select
-            required
-            name="Services"
-            [style.width]="'100%'"
-            [(ngModel)]="serviceline"
-            (ngModelChange)="getstates(serviceline)"
-          >
-            <mat-option *ngFor="let item of services_array" [value]="item">
-              {{ item.serviceName }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-      <div class="col-3">
-        <mat-form-field class="hide_underline">
-          <!-- <input matInput style="display: none" /> -->
-          <mat-label> State </mat-label>
-          <mat-select
-            class="width100"
-            [(ngModel)]="state"
-            name="state"
-            [disabled]="true"
-          >
-            <mat-option *ngFor="let item of states_array" [value]="item">
-              {{ item.stateName }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-    </form>
-    <div class="clearfix visible-md visible-lg"></div>
-    <form id="addform" #supplierAddForm="ngForm" autocomplete="off" class="row">
-      <div class="col-3">
-        <mat-form-field>
-          <mat-label> Supplier Code </mat-label>
-          <input
-            matInput
-            required
-            appPAN
-            [(ngModel)]="create_supplierCode"
-            minlength="1"
-            maxlength="15"
-            (blur)="checkExistance(create_supplierCode)"
-            name="supplierCode"
-            #supplierCode="ngModel"
-          />
-          <mat-hint
-            *ngIf="
-              supplierCode.invalid &&
-              (supplierCode.dirty || supplierCode.touched)
-            "
-          >
-            <span class="error_text" *ngIf="supplierCode.hasError('required')"
-              >Supplier Code is required</span
+  <div class="row" *ngIf="formMode">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <h4>
+        <strong>Supplier Master</strong>
+      </h4>
+    </div>
+    <div class="col-12">
+      <form id="addform" #supplierAddForm1="ngForm" class="row">
+        <div class="col-3">
+          <mat-form-field [style.width]="'100%'" class="hide_underline">
+            <!-- <input matInput style="display: none" /> -->
+            <mat-label> Serviceline </mat-label>
+            <mat-select
+              required
+              name="Services"
+              [(ngModel)]="serviceline"
+              (ngModelChange)="getstates(serviceline)"
             >
-            <span class="error_text" *ngIf="supplierCode.hasError('unique')"
-              >Supplier Code already exists</span
-            >
-          </mat-hint>
-        </mat-form-field>
-      </div>
-
-      <div class="col-3">
-        <mat-form-field>
-          <mat-label> Supplier Name </mat-label>
-          <input
-            matInput
-            required
-            appMyProviderName
-            [(ngModel)]="create_supplierName"
-            maxlength="100"
-            name="supplierName"
-            #supplierName="ngModel"
-          />
-          <mat-hint>
-            <span
-              class="error_text"
+              <mat-option *ngFor="let item of services_array" [value]="item">
+                {{ item.serviceName }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-3">
+          <mat-form-field [style.width]="'100%'" class="hide_underline">
+            <!-- <input matInput style="display: none" /> -->
+            <mat-label> State </mat-label>
+            <mat-select [(ngModel)]="state" name="state" [disabled]="true">
+              <mat-option *ngFor="let item of states_array" [value]="item">
+                {{ item.stateName }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </form>
+      <div class="clearfix visible-md visible-lg"></div>
+      <form
+        id="addform"
+        #supplierAddForm="ngForm"
+        autocomplete="off"
+        class="row"
+      >
+        <div class="col-3">
+          <mat-form-field [style.width]="'100%'">
+            <mat-label> Supplier Code </mat-label>
+            <input
+              matInput
+              required
+              appPAN
+              [(ngModel)]="create_supplierCode"
+              minlength="1"
+              maxlength="15"
+              (blur)="checkExistance(create_supplierCode)"
+              name="supplierCode"
+              #supplierCode="ngModel"
+            />
+            <mat-hint
               *ngIf="
-                !supplierName.valid &&
-                (supplierName.dirty || supplierName.touched)
+                supplierCode.invalid &&
+                (supplierCode.dirty || supplierCode.touched)
               "
-              >Supplier Name is required</span
             >
-          </mat-hint>
-        </mat-form-field>
-      </div>
-      <div class="clearfix visible-md"></div>
-      <div class="col-3">
-        <mat-form-field>
-          <mat-label> Supplier Description </mat-label>
-          <input
-            matInput
-            appVehicleNO
-            [(ngModel)]="create_supplierDesc"
-            maxlength="100"
-            name="supplierDesc"
-            #supplierDesc="ngModel"
-          />
-        </mat-form-field>
-      </div>
-      <!-- <div class="clearfix visible-lg"></div> -->
-      <div class="col-3">
-        <mat-form-field>
-          <mat-label> Contact Person </mat-label>
-          <input
-            matInput
-            appMyProviderName
-            [(ngModel)]="create_contactPerson"
-            maxlength="50"
-            name="contactPerson"
-            #contactPerson="ngModel"
-          />
-          <!-- <mat-hint>
+              <span class="error_text" *ngIf="supplierCode.hasError('required')"
+                >Supplier Code is required</span
+              >
+              <span class="error_text" *ngIf="supplierCode.hasError('unique')"
+                >Supplier Code already exists</span
+              >
+            </mat-hint>
+          </mat-form-field>
+        </div>
+
+        <div class="col-3">
+          <mat-form-field [style.width]="'100%'">
+            <mat-label> Supplier Name </mat-label>
+            <input
+              matInput
+              required
+              appMyProviderName
+              [(ngModel)]="create_supplierName"
+              maxlength="100"
+              name="supplierName"
+              #supplierName="ngModel"
+            />
+            <mat-hint>
+              <span
+                class="error_text"
+                *ngIf="
+                  !supplierName.valid &&
+                  (supplierName.dirty || supplierName.touched)
+                "
+                >Supplier Name is required</span
+              >
+            </mat-hint>
+          </mat-form-field>
+        </div>
+        <div class="clearfix visible-md"></div>
+        <div class="col-3">
+          <mat-form-field [style.width]="'100%'">
+            <mat-label> Supplier Description </mat-label>
+            <input
+              matInput
+              appVehicleNO
+              [(ngModel)]="create_supplierDesc"
+              maxlength="100"
+              name="supplierDesc"
+              #supplierDesc="ngModel"
+            />
+          </mat-form-field>
+        </div>
+        <!-- <div class="clearfix visible-lg"></div> -->
+        <div class="col-3">
+          <mat-form-field [style.width]="'100%'">
+            <mat-label> Contact Person </mat-label>
+            <input
+              matInput
+              appMyProviderName
+              [(ngModel)]="create_contactPerson"
+              maxlength="50"
+              name="contactPerson"
+              #contactPerson="ngModel"
+            />
+            <!-- <mat-hint>
             <span class="error_text" *ngIf="contactPerson.errors">Please enter Contact Person</span>
           </mat-hint> -->
-        </mat-form-field>
-      </div>
-      <div class="col-3">
-        <mat-form-field>
-          <mat-label> DL.No.(Drug License No.) </mat-label>
-          <input
-            matInput
-            appDLNO
-            [(ngModel)]="create_drugLicense"
-            minlength="1"
-            maxlength="15"
-            name="drugLicense"
-            #drugLicense="ngModel"
-          />
-          <mat-hint>
-            <span class="error_text" *ngIf="drugLicense.errors"
-              >Required min 1 max 15 digit DL.No</span
-            >
-          </mat-hint>
-        </mat-form-field>
-      </div>
-      <div class="col-3">
-        <mat-form-field>
-          <mat-label> GST No. </mat-label>
-          <input
-            matInput
-            required
-            appPAN
-            [(ngModel)]="create_cstNo"
-            minlength="15"
-            maxlength="15"
-            [pattern]="gstNoPattern"
-            name="cstNo"
-            #cstNo="ngModel"
-          />
-          <!-- <mat-hint>
+          </mat-form-field>
+        </div>
+        <div class="col-3">
+          <mat-form-field [style.width]="'100%'">
+            <mat-label> DL.No.(Drug License No.) </mat-label>
+            <input
+              matInput
+              appDLNO
+              [(ngModel)]="create_drugLicense"
+              minlength="1"
+              maxlength="15"
+              name="drugLicense"
+              #drugLicense="ngModel"
+            />
+            <mat-hint>
+              <span class="error_text" *ngIf="drugLicense.errors"
+                >Required min 1 max 15 digit DL.No</span
+              >
+            </mat-hint>
+          </mat-form-field>
+        </div>
+        <div class="col-3">
+          <mat-form-field [style.width]="'100%'">
+            <mat-label> GST No. </mat-label>
+            <input
+              matInput
+              required
+              appPAN
+              [(ngModel)]="create_cstNo"
+              minlength="15"
+              maxlength="15"
+              [pattern]="gstNoPattern"
+              name="cstNo"
+              #cstNo="ngModel"
+            />
+            <!-- <mat-hint>
             <span class="error_text" *ngIf="!cstNo.valid  && ( cstNo.dirty || cstNo.touched)">Required 15 digit GST number</span>
           </mat-hint> -->
-          <mat-hint class="errorText" [hidden]="!cstNo.hasError('pattern')"
-            >Required 15 digit valid GST number
-          </mat-hint>
-        </mat-form-field>
-      </div>
-      <div class="col-3">
-        <mat-form-field>
-          <mat-label> TIN No. </mat-label>
-          <input
-            matInput
-            appMyMobileNumber
-            [(ngModel)]="create_tinNo"
-            minlength="12"
-            maxlength="12"
-            name="tinNo"
-            #tinNo="ngModel"
-          />
-          <mat-hint>
-            <span class="error_text" *ngIf="tinNo.errors"
-              >Required 12 digit TIN number</span
+            <mat-hint class="errorText" [hidden]="!cstNo.hasError('pattern')"
+              >Required 15 digit valid GST number
+            </mat-hint>
+          </mat-form-field>
+        </div>
+        <div class="col-3">
+          <mat-form-field [style.width]="'100%'">
+            <mat-label> TIN No. </mat-label>
+            <input
+              matInput
+              appMyMobileNumber
+              [(ngModel)]="create_tinNo"
+              minlength="12"
+              maxlength="12"
+              name="tinNo"
+              #tinNo="ngModel"
+            />
+            <mat-hint>
+              <span class="error_text" *ngIf="tinNo.errors"
+                >Required 12 digit TIN number</span
+              >
+            </mat-hint>
+          </mat-form-field>
+        </div>
+        <div class="col-3">
+          <mat-form-field [style.width]="'100%'">
+            <mat-label> Address Line 1 </mat-label>
+            <input
+              matInput
+              appMyAddressDirective
+              [(ngModel)]="AddressLine1"
+              name="addressLine1"
+              minlength="2"
+              maxlength="100"
+              #Address1="ngModel"
+              required
+            />
+            <mat-hint *ngIf="Address1.touched">
+              <span class="errorText" [hidden]="!Address1.errors"
+                >Address is required</span
+              >
+            </mat-hint>
+          </mat-form-field>
+        </div>
+        <div class="col-3">
+          <mat-form-field [style.width]="'100%'">
+            <mat-label> Address Line 2 </mat-label>
+            <input
+              matInput
+              appMyAddressDirective
+              [(ngModel)]="AddressLine2"
+              name="addressLine2"
+              minlength="2"
+              maxlength="100"
+              #Address2="ngModel"
+            />
+            <mat-hint *ngIf="Address2.touched">
+              <span class="errorText" [hidden]="!Address2.errors"
+                >Address is required</span
+              >
+            </mat-hint>
+          </mat-form-field>
+        </div>
+        <div class="col-3">
+          <mat-form-field [style.width]="'100%'" class="hide_underline">
+            <!-- <input matInput style="display: none" /> -->
+            <mat-label> Country </mat-label>
+            <mat-select
+              required
+              name="country"
+              (selectionChange)="getAllStates(create_country.countryID)"
+              [(ngModel)]="create_country"
             >
-          </mat-hint>
-        </mat-form-field>
-      </div>
-      <div class="col-3">
-        <mat-form-field class="width100">
-          <mat-label> Address Line 1 </mat-label>
-          <input
-            matInput
-            appMyAddressDirective
-            [(ngModel)]="AddressLine1"
-            name="addressLine1"
-            minlength="2"
-            maxlength="100"
-            #Address1="ngModel"
-            required
-          />
-          <mat-hint *ngIf="Address1.touched">
-            <span class="errorText" [hidden]="!Address1.errors"
-              >Address is required</span
+              <mat-option *ngFor="let item of country_array" [value]="item">
+                {{ item.countryName }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-3">
+          <mat-form-field [style.width]="'100%'" class="hide_underline">
+            <!-- <input matInput style="display: none" /> -->
+            <mat-label> State </mat-label>
+            <mat-select
+              required
+              name="state"
+              (selectionChange)="getDistricts(create_state.stateID)"
+              [disabled]="countryCheck"
+              [(ngModel)]="create_state"
             >
-          </mat-hint>
-        </mat-form-field>
-      </div>
-      <div class="col-3">
-        <mat-form-field>
-          <mat-label> Address Line 2 </mat-label>
-          <input
-            matInput
-            appMyAddressDirective
-            [(ngModel)]="AddressLine2"
-            name="addressLine2"
-            minlength="2"
-            maxlength="100"
-            #Address2="ngModel"
-          />
-          <mat-hint *ngIf="Address2.touched">
-            <span class="errorText" [hidden]="!Address2.errors"
-              >Address is required</span
+              <mat-option
+                *ngFor="let item of permnantstates_array"
+                [value]="item"
+              >
+                {{ item.stateName }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-3">
+          <mat-form-field [style.width]="'100%'" class="hide_underline">
+            <!-- <input matInput style="display: none" /> -->
+            <mat-label> District </mat-label>
+            <mat-select
+              [(ngModel)]="District"
+              name="district"
+              required
+              [disabled]="countryCheck"
             >
-          </mat-hint>
-        </mat-form-field>
-      </div>
-      <div class="col-3">
-        <mat-form-field class="hide_underline">
-          <!-- <input matInput style="display: none" /> -->
-          <mat-label> Country </mat-label>
-          <mat-select
-            required
-            name="country"
-            (selectionChange)="getAllStates(create_country.countryID)"
-            [(ngModel)]="create_country"
-          >
-            <mat-option *ngFor="let item of country_array" [value]="item">
-              {{ item.countryName }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-      <div class="col-3">
-        <mat-form-field class="hide_underline">
-          <!-- <input matInput style="display: none" /> -->
-          <mat-label> State </mat-label>
-          <mat-select
-            required
-            name="state"
-            [style.width]="'100%'"
-            (selectionChange)="getDistricts(create_state.stateID)"
-            [disabled]="countryCheck"
-            [(ngModel)]="create_state"
-          >
-            <mat-option
-              *ngFor="let item of permnantstates_array"
-              [value]="item"
-            >
-              {{ item.stateName }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-      <div class="col-3">
-        <mat-form-field class="hide_underline">
-          <!-- <input matInput style="display: none" /> -->
-          <mat-label> District </mat-label>
-          <mat-select
-            class="width100"
-            [(ngModel)]="District"
-            name="district"
-            required
-            [disabled]="countryCheck"
-          >
-            <mat-option
-              *ngFor="let item of districts_array"
-              [value]="item.districtID"
-              >{{ item.districtName }}</mat-option
-            >
-          </mat-select>
-        </mat-form-field>
-      </div>
-      <div class="col-3">
-        <mat-form-field>
-          <mat-label> Pincode </mat-label>
-          <input
-            matInput
-            [(ngModel)]="Pincode"
-            name="pincode"
-            appMyMobileNumber
-            minlength="6"
-            maxlength="6"
-            #Pin="ngModel"
-          />
-          <mat-hint *ngIf="Pin.touched">
-            <span class="errorText" [hidden]="!Pin.errors"
-              >Required 6 digit Pincode</span
-            >
-          </mat-hint>
-        </mat-form-field>
-      </div>
-      <!-- <div class="clearfix visible-lg"></div> -->
-      <div class="col-3">
-        <mat-form-field>
-          <mat-label> Contact No. </mat-label>
-          <input
-            matInput
-            [(ngModel)]="contactNo"
-            name="primaryMobileNo"
-            appMyMobileNumber
-            [pattern]="mobileNoPattern"
-            minlength="10"
-            maxlength="10"
-            #mobileNo="ngModel"
-          />
-          <!-- <mat-hint class="errorText" *ngIf="mobileNo.errors">Required 10 digit mobile number
+              <mat-option
+                *ngFor="let item of districts_array"
+                [value]="item.districtID"
+                >{{ item.districtName }}</mat-option
+              >
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-3">
+          <mat-form-field [style.width]="'100%'">
+            <mat-label> Pincode </mat-label>
+            <input
+              matInput
+              [(ngModel)]="Pincode"
+              name="pincode"
+              appMyMobileNumber
+              minlength="6"
+              maxlength="6"
+              #Pin="ngModel"
+            />
+            <mat-hint *ngIf="Pin.touched">
+              <span class="errorText" [hidden]="!Pin.errors"
+                >Required 6 digit Pincode</span
+              >
+            </mat-hint>
+          </mat-form-field>
+        </div>
+        <!-- <div class="clearfix visible-lg"></div> -->
+        <div class="col-3">
+          <mat-form-field [style.width]="'100%'">
+            <mat-label> Contact No. </mat-label>
+            <input
+              matInput
+              [(ngModel)]="contactNo"
+              name="primaryMobileNo"
+              appMyMobileNumber
+              [pattern]="mobileNoPattern"
+              minlength="10"
+              maxlength="10"
+              #mobileNo="ngModel"
+            />
+            <!-- <mat-hint class="errorText" *ngIf="mobileNo.errors">Required 10 digit mobile number
           </mat-hint> -->
-          <mat-hint class="errorText" [hidden]="!mobileNo.hasError('pattern')"
-            >Required 10 digit valid mobile number
-          </mat-hint>
-        </mat-form-field>
-      </div>
+            <mat-hint class="errorText" [hidden]="!mobileNo.hasError('pattern')"
+              >Required 10 digit valid mobile number
+            </mat-hint>
+          </mat-form-field>
+        </div>
 
-      <div class="col-3">
-        <mat-form-field appMyMobileNumber>
-          <mat-label> Emergency Contact No. </mat-label>
-          <input
-            matInput
-            [(ngModel)]="emergency_contactNo"
-            [pattern]="mobileNoPattern"
-            name="emergencyContactNo"
-            minlength="10"
-            maxlength="10"
-            #emergencyMobileNo="ngModel"
-          />
-          <!-- <mat-hint class="errorText" *ngIf="emergencyMobileNo.errors">Required 10 digit mobile number
+        <div class="col-3">
+          <mat-form-field [style.width]="'100%'" appMyMobileNumber>
+            <mat-label> Emergency Contact No. </mat-label>
+            <input
+              matInput
+              [(ngModel)]="emergency_contactNo"
+              [pattern]="mobileNoPattern"
+              name="emergencyContactNo"
+              minlength="10"
+              maxlength="10"
+              #emergencyMobileNo="ngModel"
+            />
+            <!-- <mat-hint class="errorText" *ngIf="emergencyMobileNo.errors">Required 10 digit mobile number
           </mat-hint> -->
-          <mat-hint
-            class="errorText"
-            [hidden]="!emergencyMobileNo.hasError('pattern')"
-            >Required 10 digit valid mobile number
-          </mat-hint>
-        </mat-form-field>
-      </div>
-      <div class="col-3">
-        <mat-form-field>
-          <mat-label> Email </mat-label>
-          <input
-            matInput
-            [(ngModel)]="emailID"
-            name="primaryEmail"
-            #validEmail="ngModel"
-            ngModel
-            [pattern]="emailPattern"
-          />
-          <mat-hint class="errorText" [hidden]="!validEmail.hasError('pattern')"
-            >Enter valid EmailID
-          </mat-hint>
-        </mat-form-field>
-      </div>
-      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 m-t-10">
-        <button
-          mat-mini-fab
-          class="xs-pull-right sm-pull-right md-pull-right lg-pull-left mat_blue"
-          *ngIf="!editMode && supplierAddForm.valid"
-          color="primary"
-          (click)="
-            add2buffer(supplierAddForm.value);
-            this.supplierAddForm.reset();
-            permnantstates_array = [];
-            districts_array = []
-          "
+            <mat-hint
+              class="errorText"
+              [hidden]="!emergencyMobileNo.hasError('pattern')"
+              >Required 10 digit valid mobile number
+            </mat-hint>
+          </mat-form-field>
+        </div>
+        <div class="col-3">
+          <mat-form-field [style.width]="'100%'">
+            <mat-label> Email </mat-label>
+            <input
+              matInput
+              [(ngModel)]="emailID"
+              name="primaryEmail"
+              #validEmail="ngModel"
+              ngModel
+              [pattern]="emailPattern"
+            />
+            <mat-hint
+              class="errorText"
+              [hidden]="!validEmail.hasError('pattern')"
+              >Enter valid EmailID
+            </mat-hint>
+          </mat-form-field>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 m-t-10">
+          <button
+            mat-mini-fab
+            class="xs-pull-right sm-pull-right md-pull-right lg-pull-left mat_blue"
+            *ngIf="!editMode && supplierAddForm.valid"
+            color="primary"
+            (click)="
+              add2buffer(supplierAddForm.value);
+              this.supplierAddForm.reset();
+              permnantstates_array = [];
+              districts_array = []
+            "
+          >
+            <mat-icon
+              matSuffix
+              class="mat-icon material-icons"
+              role="img"
+              aria-hidden="true"
+              style="cursor: pointer"
+              >add</mat-icon
+            >
+          </button>
+        </div>
+      </form>
+    </div>
+    <div class="col-xs-12 col-sm-12 m-t-15" *ngIf="bufferArray.data.length > 0">
+      <div class="">
+        <mat-table
+          [dataSource]="bufferArray"
+          class="table table-striped table-hover"
         >
-          <mat-icon
-            matSuffix
-            class="mat-icon material-icons"
-            role="img"
-            aria-hidden="true"
-            style="cursor: pointer"
-            >add</mat-icon
-          >
-        </button>
-      </div>
-    </form>
-  </div>
-  <div class="col-xs-12 col-sm-12 m-t-15" *ngIf="bufferArray.data.length > 0">
-    <div class="">
-      <mat-table
-        [dataSource]="bufferArray"
-        class="table table-striped table-hover"
-      >
-        <!-- S.No. Column -->
-        <ng-container matColumnDef="sno">
-          <mat-header-cell *matHeaderCellDef>S.No.</mat-header-cell>
-          <mat-cell *matCellDef="let item; let i = index">{{ i + 1 }}</mat-cell>
-        </ng-container>
+          <!-- S.No. Column -->
+          <ng-container matColumnDef="sno">
+            <mat-header-cell *matHeaderCellDef>S.No.</mat-header-cell>
+            <mat-cell *matCellDef="let item; let i = index">{{
+              i + 1
+            }}</mat-cell>
+          </ng-container>
 
-        <!-- Supplier Code Column -->
-        <ng-container matColumnDef="supplierCode">
-          <mat-header-cell *matHeaderCellDef>Supplier Code</mat-header-cell>
-          <mat-cell *matCellDef="let item; let i = index">{{
-            item.supplierCode
-          }}</mat-cell>
-        </ng-container>
+          <!-- Supplier Code Column -->
+          <ng-container matColumnDef="supplierCode">
+            <mat-header-cell *matHeaderCellDef>Supplier Code</mat-header-cell>
+            <mat-cell *matCellDef="let item; let i = index">{{
+              item.supplierCode
+            }}</mat-cell>
+          </ng-container>
 
-        <!-- Supplier Name Column -->
-        <ng-container matColumnDef="supplierName">
-          <mat-header-cell *matHeaderCellDef>Supplier Name</mat-header-cell>
-          <mat-cell *matCellDef="let item; let i = index">{{
-            item.supplierName
-          }}</mat-cell>
-        </ng-container>
+          <!-- Supplier Name Column -->
+          <ng-container matColumnDef="supplierName">
+            <mat-header-cell *matHeaderCellDef>Supplier Name</mat-header-cell>
+            <mat-cell *matCellDef="let item; let i = index">{{
+              item.supplierName
+            }}</mat-cell>
+          </ng-container>
 
-        <!-- Supplier Description Column -->
-        <ng-container matColumnDef="supplierDesc">
-          <mat-header-cell *matHeaderCellDef
-            >Supplier Description</mat-header-cell
-          >
-          <mat-cell *matCellDef="let item; let i = index">{{
-            item.supplierDesc
-          }}</mat-cell>
-        </ng-container>
+          <!-- Supplier Description Column -->
+          <ng-container matColumnDef="supplierDesc">
+            <mat-header-cell *matHeaderCellDef
+              >Supplier Description</mat-header-cell
+            >
+            <mat-cell *matCellDef="let item; let i = index">{{
+              item.supplierDesc
+            }}</mat-cell>
+          </ng-container>
 
-        <!-- Drug License No. Column -->
-        <ng-container matColumnDef="drugLicenseNo">
-          <mat-header-cell *matHeaderCellDef>Drug License No.</mat-header-cell>
-          <mat-cell *matCellDef="let item; let i = index">{{
-            item.drugLicenseNo
-          }}</mat-cell>
-        </ng-container>
+          <!-- Drug License No. Column -->
+          <ng-container matColumnDef="drugLicenseNo">
+            <mat-header-cell *matHeaderCellDef
+              >Drug License No.</mat-header-cell
+            >
+            <mat-cell *matCellDef="let item; let i = index">{{
+              item.drugLicenseNo
+            }}</mat-cell>
+          </ng-container>
 
-        <!-- GST No. Column -->
-        <ng-container matColumnDef="cST_GST_No">
-          <mat-header-cell *matHeaderCellDef>GST No.</mat-header-cell>
-          <mat-cell *matCellDef="let item; let i = index">{{
-            item.cST_GST_No
-          }}</mat-cell>
-        </ng-container>
+          <!-- GST No. Column -->
+          <ng-container matColumnDef="cST_GST_No">
+            <mat-header-cell *matHeaderCellDef>GST No.</mat-header-cell>
+            <mat-cell *matCellDef="let item; let i = index">{{
+              item.cST_GST_No
+            }}</mat-cell>
+          </ng-container>
 
-        <!-- TIN No. Column -->
-        <ng-container matColumnDef="tIN_No">
-          <mat-header-cell *matHeaderCellDef>TIN No.</mat-header-cell>
-          <mat-cell *matCellDef="let item; let i = index">{{
-            item.tIN_No
-          }}</mat-cell>
-        </ng-container>
+          <!-- TIN No. Column -->
+          <ng-container matColumnDef="tIN_No">
+            <mat-header-cell *matHeaderCellDef>TIN No.</mat-header-cell>
+            <mat-cell *matCellDef="let item; let i = index">{{
+              item.tIN_No
+            }}</mat-cell>
+          </ng-container>
 
-        <!-- State Column -->
-        <ng-container matColumnDef="stateName">
-          <mat-header-cell *matHeaderCellDef>State</mat-header-cell>
-          <mat-cell *matCellDef="let item; let i = index">{{
-            item.stateName
-          }}</mat-cell>
-        </ng-container>
+          <!-- State Column -->
+          <ng-container matColumnDef="stateName">
+            <mat-header-cell *matHeaderCellDef>State</mat-header-cell>
+            <mat-cell *matCellDef="let item; let i = index">{{
+              item.stateName
+            }}</mat-cell>
+          </ng-container>
 
-        <!-- Action Column -->
-        <ng-container matColumnDef="action">
-          <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
-          <mat-cell *matCellDef="let item; let i = index">
-            <button mat-icon-button matTooltip="Delete" (click)="removeRow(i)">
-              <mat-icon>delete</mat-icon>
-            </button>
-          </mat-cell>
-        </ng-container>
+          <!-- Action Column -->
+          <ng-container matColumnDef="action">
+            <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
+            <mat-cell *matCellDef="let item; let i = index">
+              <button
+                mat-icon-button
+                matTooltip="Delete"
+                (click)="removeRow(i)"
+              >
+                <mat-icon>delete</mat-icon>
+              </button>
+            </mat-cell>
+          </ng-container>
 
-        <!-- Header and Row Definitions -->
-        <mat-header-row
-          *matHeaderRowDef="[
-            'sno',
-            'supplierCode',
-            'supplierName',
-            'supplierDesc',
-            'drugLicenseNo',
-            'cST_GST_No',
-            'tIN_No',
-            'stateName',
-            'action'
-          ]"
-        ></mat-header-row>
-        <mat-row
-          *matRowDef="
-            let row;
-            columns: [
+          <!-- Header and Row Definitions -->
+          <mat-header-row
+            *matHeaderRowDef="[
               'sno',
               'supplierCode',
               'supplierName',
@@ -724,447 +722,462 @@
               'tIN_No',
               'stateName',
               'action'
-            ]
-          "
-        ></mat-row>
-      </mat-table>
+            ]"
+          ></mat-header-row>
+          <mat-row
+            *matRowDef="
+              let row;
+              columns: [
+                'sno',
+                'supplierCode',
+                'supplierName',
+                'supplierDesc',
+                'drugLicenseNo',
+                'cST_GST_No',
+                'tIN_No',
+                'stateName',
+                'action'
+              ]
+            "
+          ></mat-row>
+        </mat-table>
 
-      <!-- Pagination -->
-      <mat-paginator
-        [pageSizeOptions]="[4, 10, 20]"
-        showFirstLastButtons
-      ></mat-paginator>
+        <!-- Pagination -->
+        <mat-paginator
+          [pageSizeOptions]="[5, 10, 20]"
+          showFirstLastButtons
+        ></mat-paginator>
+      </div>
     </div>
-  </div>
-  <div class="col-xs-12 col-sm-12 m-t-15 m-b-15">
-    <button
-      mat-raised-button
-      color="primary"
-      class="pull-left mat_blue"
-      (click)="
-        showTable();
-        supplierAddForm.reset();
-        districts_array = [];
-        permnantstates_array = []
-      "
-    >
-      Back
-    </button>
-    <button
-      mat-raised-button
-      color="accent"
-      [disabled]="!(bufferArray.data.length > 0)"
-      class="pull-right mat_green"
-      (click)="
-        saveSupplier();
-        supplierAddForm.reset();
-        districts_array = [];
-        permnantstates_array = []
-      "
-    >
-      Save
-    </button>
-    <button
-      mat-raised-button
-      color="primary"
-      class="pull-right m-r-5 mat_blue"
-      (click)="
-        supplierAddForm.reset(); districts_array = []; permnantstates_array = []
-      "
-    >
-      Clear
-    </button>
-  </div>
-</div>
-<div class="row" *ngIf="editMode">
-  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-    <h4>
-      <strong>Edit Supplier</strong>
-    </h4>
-  </div>
-  <div class="col-12">
-    <form
-      id="addform"
-      #supplierEditForm="ngForm"
-      autocomplete="off"
-      class="row"
-    >
-      <div class="col-3">
-        <mat-form-field class="hide_underline">
-          <!-- <input matInput style="display: none" /> -->
-          <mat-label> Serviceline </mat-label>
-          <mat-select
-            required
-            name="Services"
-            [disabled]="true"
-            [style.width]="'100%'"
-            [(ngModel)]="edit_serviceline"
-            (selectionChange)="getstates(serviceline)"
-          >
-            <mat-option
-              *ngFor="let item of services_array"
-              [value]="item.serviceID"
-            >
-              {{ item.serviceName }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-      <div class="col-3">
-        <mat-form-field class="hide_underline">
-          <!-- <input matInput style="display: none" /> -->
-          <mat-label> State </mat-label>
-          <mat-select
-            required
-            name="state"
-            [style.width]="'100%'"
-            [disabled]="true"
-            [(ngModel)]="edit_state"
-          >
-            <mat-option
-              *ngFor="let item of states_array"
-              [value]="item.stateID"
-            >
-              {{ item.stateName }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-      <div class="clearfix visible-md visible-lg"></div>
-      <div class="col-3">
-        <mat-form-field>
-          <mat-label> Supplier Code </mat-label>
-          <input
-            matInput
-            required
-            appPAN
-            [(ngModel)]="edit_supplierCode"
-            [disabled]="true"
-            maxlength="100"
-            name="supplierCode"
-            #supplierCode="ngModel"
-          />
-          <mat-hint>
-            <span
-              class="error_text"
-              *ngIf="
-                !supplierCode.valid &&
-                (supplierCode.dirty || supplierCode.touched)
-              "
-              >Please enter Supplier Code</span
-            >
-          </mat-hint>
-        </mat-form-field>
-      </div>
-
-      <div class="col-3">
-        <mat-form-field>
-          <mat-label> Supplier Name </mat-label>
-          <input
-            matInput
-            required
-            appMyProviderName
-            [(ngModel)]="edit_supplierName"
-            [disabled]="true"
-            maxlength="100"
-            name="supplierName"
-            #supplierName="ngModel"
-          />
-          <mat-hint>
-            <span
-              class="error_text"
-              *ngIf="
-                !supplierName.valid &&
-                (supplierName.dirty || supplierName.touched)
-              "
-              >Please enter Supplier Name</span
-            >
-          </mat-hint>
-        </mat-form-field>
-      </div>
-      <!-- <div class="clearfix visible-md"></div> -->
-      <div class="col-3">
-        <mat-form-field>
-          <mat-label> Supplier Description </mat-label>
-          <input
-            matInput
-            appVehicleNO
-            [(ngModel)]="edit_supplierDesc"
-            maxlength="100"
-            name="supplierDesc"
-            #supplierDesc="ngModel"
-          />
-          <!-- <mat-hint>
-            <span class="error_text" *ngIf="!supplierDesc.valid  && ( supplierDesc.dirty || supplierDesc.touched)">Please enter Supplier Discription</span>
-          </mat-hint> -->
-        </mat-form-field>
-      </div>
-      <div class="clearfix visible-lg"></div>
-      <div class="col-3">
-        <mat-form-field>
-          <mat-label> Contact Person </mat-label>
-          <input
-            matInput
-            appMyProviderName
-            [(ngModel)]="edit_contactPerson"
-            maxlength="100"
-            name="contactPerson"
-            #contactPerson="ngModel"
-          />
-          <mat-hint>
-            <span class="error_text" *ngIf="contactPerson.errors"
-              >Please enter Contact Person</span
-            >
-          </mat-hint>
-        </mat-form-field>
-      </div>
-      <div class="col-3">
-        <mat-form-field>
-          <mat-label> DL.No.(Drug License No.) </mat-label>
-          <input
-            matInput
-            appDLNO
-            [(ngModel)]="edit_drugLicense"
-            maxlength="15"
-            name="drugLicense"
-            #drugLicense="ngModel"
-          />
-          <mat-hint>
-            <span class="error_text" *ngIf="drugLicense.errors"
-              >Required min 1 max 15 digit DL.No
-            </span>
-          </mat-hint>
-        </mat-form-field>
-      </div>
-      <div class="col-3">
-        <mat-form-field>
-          <mat-label> GST No. </mat-label>
-          <input
-            matInput
-            required
-            appPAN
-            [(ngModel)]="edit_cstNo"
-            minlength="15"
-            maxlength="15"
-            name="cstNo"
-            [pattern]="gstNoPattern"
-            #cstNo="ngModel"
-          />
-          <!-- <mat-hint>
-            <span class="error_text" *ngIf="!cstNo.valid  && ( cstNo.dirty || cstNo.touched)">Required 15 digit GST number</span>
-          </mat-hint> -->
-          <mat-hint class="errorText" [hidden]="!cstNo.hasError('pattern')"
-            >Required 15 digit valid GST number
-          </mat-hint>
-        </mat-form-field>
-      </div>
-      <div class="col-3">
-        <mat-form-field>
-          <mat-label> TIN No. </mat-label>
-          <input
-            matInput
-            appMyMobileNumber
-            [(ngModel)]="edit_tinNo"
-            minlength="12"
-            maxlength="12"
-            name="tinNo"
-            #tinNo="ngModel"
-          />
-          <mat-hint>
-            <span class="error_text" *ngIf="tinNo.errors"
-              >Required 12 digit TIN number</span
-            >
-          </mat-hint>
-        </mat-form-field>
-      </div>
-      <div class="col-6">
-        <mat-form-field>
-          <mat-label> Address Line 1 </mat-label>
-          <input
-            matInput
-            appMyAddressDirective
-            [(ngModel)]="edit_AddressLine1"
-            name="addressLine1"
-            minlength="2"
-            #Address1="ngModel"
-            required
-          />
-          <mat-hint *ngIf="Address1.touched">
-            <span class="errorText" [hidden]="!Address1.errors"
-              >Address is required</span
-            >
-          </mat-hint>
-        </mat-form-field>
-      </div>
-      <div class="col-3">
-        <mat-form-field>
-          <mat-label> Address Line 2 </mat-label>
-          <input
-            matInput
-            appMyAddressDirective
-            [(ngModel)]="edit_AddressLine2"
-            name="addressLine2"
-            minlength="2"
-            maxlength="100"
-            #Address2="ngModel"
-          />
-        </mat-form-field>
-      </div>
-      <div class="col-3">
-        <mat-form-field class="hide_underline">
-          <input matInput style="display: none" />
-          <mat-label>Country</mat-label>
-          <mat-select
-            required
-            name="country"
-            [style.width]="'100%'"
-            [(ngModel)]="edit_country"
-            (selectionChange)="getAllStates(edit_country)"
-          >
-            <mat-option
-              *ngFor="let item of country_array"
-              [value]="item.countryID"
-            >
-              {{ item.countryName }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-      <div class="col-3">
-        <mat-form-field class="hide_underline">
-          <input matInput style="display: none" />
-          <mat-label>State</mat-label>
-          <mat-select
-            required
-            name="edit_state1"
-            [style.width]="'100%'"
-            [(ngModel)]="edit_state1"
-            (selectionChange)="getDistricts(edit_state1)"
-          >
-            <mat-option
-              *ngFor="let item of permnantstates_array"
-              [value]="item.stateID"
-            >
-              {{ item.stateName }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-      <div class="col-3">
-        <mat-form-field class="hide_underline">
-          <!-- <input matInput style="display: none" /> -->
-          <mat-label> District </mat-label>
-          <mat-select
-            class="width100"
-            [(ngModel)]="edit_district"
-            name="edit_district"
-            required
-          >
-            <mat-option
-              *ngFor="let item of districts_array"
-              [value]="item.districtID"
-              >{{ item.districtName }}</mat-option
-            >
-          </mat-select>
-        </mat-form-field>
-      </div>
-      <div class="col-3">
-        <mat-form-field appMyMobileNumber>
-          <mat-label> Pincode </mat-label>
-          <input
-            matInput
-            [(ngModel)]="edit_Pincode"
-            name="pincode"
-            minlength="6"
-            maxlength="6"
-            #Pin="ngModel"
-          />
-          <mat-hint *ngIf="Pin.touched">
-            <span class="errorText" [hidden]="!Pin.errors"
-              >Required 6 digit Pincode</span
-            >
-          </mat-hint>
-        </mat-form-field>
-      </div>
-      <div class="clearfix visible-lg"></div>
-      <div class="col-3">
-        <mat-form-field appMyMobileNumber>
-          <mat-label> Contact No. </mat-label>
-          <input
-            matInput
-            [(ngModel)]="edit_contactNo"
-            name="primaryMobileNo"
-            minlength="10"
-            [pattern]="mobileNoPattern"
-            maxlength="10"
-            #mobileNo="ngModel"
-          />
-          <!-- <mat-hint class="errorText" *ngIf="mobileNo.errors">Required 10 digit mobile number
-          </mat-hint> -->
-          <mat-hint class="errorText" [hidden]="!mobileNo.hasError('pattern')"
-            >Required 10 digit valid mobile number
-          </mat-hint>
-        </mat-form-field>
-      </div>
-
-      <div class="col-3">
-        <mat-form-field class="width100" appMyMobileNumber>
-          <mat-label> Emergency Contact No. </mat-label>
-          <input
-            matInput
-            [(ngModel)]="edit_emergencyContactNo"
-            name="emergencyContactNo"
-            [pattern]="mobileNoPattern"
-            minlength="10"
-            maxlength="10"
-            #emergencyMobileNo="ngModel"
-            [pattern]="mobileNoPattern"
-          />
-          <!-- <mat-hint class="errorText" *ngIf="emergencyMobileNo.errors">Required 10 digit mobile number
-          </mat-hint> -->
-
-          <mat-hint
-            class="errorText"
-            [hidden]="!emergencyMobileNo.hasError('pattern')"
-            >Required 10 digit valid mobile number
-          </mat-hint>
-        </mat-form-field>
-      </div>
-      <div class="col-3">
-        <mat-form-field>
-          <mat-label> Email </mat-label>
-          <input
-            matInput
-            [(ngModel)]="edit_emailID"
-            name="primaryEmail"
-            #validEmail="ngModel"
-            [pattern]="emailPattern"
-          />
-          <mat-hint class="errorText" [hidden]="!validEmail.hasError('pattern')"
-            >Enter valid EmailID
-          </mat-hint>
-        </mat-form-field>
-      </div>
-    </form>
-    <div class="col-12">
+    <div class="col-xs-12 col-sm-12 m-t-15 m-b-15">
       <button
         mat-raised-button
         color="primary"
         class="pull-left mat_blue"
-        (click)="showTable(); permnantstates_array = []; districts_array = []"
+        (click)="
+          showTable();
+          supplierAddForm.reset();
+          districts_array = [];
+          permnantstates_array = []
+        "
       >
         Back
       </button>
       <button
-        *ngIf="editMode"
         mat-raised-button
         color="accent"
+        [disabled]="!(bufferArray.data.length > 0)"
         class="pull-right mat_green"
-        [disabled]="supplierEditForm.invalid"
-        (click)="updatesupplier(supplierEditForm.value)"
+        (click)="
+          saveSupplier();
+          supplierAddForm.reset();
+          districts_array = [];
+          permnantstates_array = []
+        "
       >
-        Update
+        Save
       </button>
+      <button
+        mat-raised-button
+        color="primary"
+        class="pull-right m-r-5 mat_blue"
+        (click)="
+          supplierAddForm.reset();
+          districts_array = [];
+          permnantstates_array = []
+        "
+      >
+        Clear
+      </button>
+    </div>
+  </div>
+  <div class="row" *ngIf="editMode">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <h4>
+        <strong>Edit Supplier</strong>
+      </h4>
+    </div>
+    <div class="col-12">
+      <form
+        id="addform"
+        #supplierEditForm="ngForm"
+        autocomplete="off"
+        class="row"
+      >
+        <div class="col-3">
+          <mat-form-field [style.width]="'100%'" class="hide_underline">
+            <!-- <input matInput style="display: none" /> -->
+            <mat-label> Serviceline </mat-label>
+            <mat-select
+              required
+              name="Services"
+              [disabled]="true"
+              [(ngModel)]="edit_serviceline"
+              (selectionChange)="getstates(serviceline)"
+            >
+              <mat-option
+                *ngFor="let item of services_array"
+                [value]="item.serviceID"
+              >
+                {{ item.serviceName }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-3">
+          <mat-form-field [style.width]="'100%'" class="hide_underline">
+            <!-- <input matInput style="display: none" /> -->
+            <mat-label> State </mat-label>
+            <mat-select
+              required
+              name="state"
+              [disabled]="true"
+              [(ngModel)]="edit_state"
+            >
+              <mat-option
+                *ngFor="let item of states_array"
+                [value]="item.stateID"
+              >
+                {{ item.stateName }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="clearfix visible-md visible-lg"></div>
+        <div class="col-3">
+          <mat-form-field [style.width]="'100%'">
+            <mat-label> Supplier Code </mat-label>
+            <input
+              matInput
+              required
+              appPAN
+              [(ngModel)]="edit_supplierCode"
+              [disabled]="true"
+              maxlength="100"
+              name="supplierCode"
+              #supplierCode="ngModel"
+            />
+            <mat-hint>
+              <span
+                class="error_text"
+                *ngIf="
+                  !supplierCode.valid &&
+                  (supplierCode.dirty || supplierCode.touched)
+                "
+                >Please enter Supplier Code</span
+              >
+            </mat-hint>
+          </mat-form-field>
+        </div>
+
+        <div class="col-3">
+          <mat-form-field [style.width]="'100%'">
+            <mat-label> Supplier Name </mat-label>
+            <input
+              matInput
+              required
+              appMyProviderName
+              [(ngModel)]="edit_supplierName"
+              [disabled]="true"
+              maxlength="100"
+              name="supplierName"
+              #supplierName="ngModel"
+            />
+            <mat-hint>
+              <span
+                class="error_text"
+                *ngIf="
+                  !supplierName.valid &&
+                  (supplierName.dirty || supplierName.touched)
+                "
+                >Please enter Supplier Name</span
+              >
+            </mat-hint>
+          </mat-form-field>
+        </div>
+        <!-- <div class="clearfix visible-md"></div> -->
+        <div class="col-3">
+          <mat-form-field [style.width]="'100%'">
+            <mat-label> Supplier Description </mat-label>
+            <input
+              matInput
+              appVehicleNO
+              [(ngModel)]="edit_supplierDesc"
+              maxlength="100"
+              name="supplierDesc"
+              #supplierDesc="ngModel"
+            />
+            <!-- <mat-hint>
+            <span class="error_text" *ngIf="!supplierDesc.valid  && ( supplierDesc.dirty || supplierDesc.touched)">Please enter Supplier Discription</span>
+          </mat-hint> -->
+          </mat-form-field>
+        </div>
+        <div class="clearfix visible-lg"></div>
+        <div class="col-3">
+          <mat-form-field [style.width]="'100%'">
+            <mat-label> Contact Person </mat-label>
+            <input
+              matInput
+              appMyProviderName
+              [(ngModel)]="edit_contactPerson"
+              maxlength="100"
+              name="contactPerson"
+              #contactPerson="ngModel"
+            />
+            <mat-hint>
+              <span class="error_text" *ngIf="contactPerson.errors"
+                >Please enter Contact Person</span
+              >
+            </mat-hint>
+          </mat-form-field>
+        </div>
+        <div class="col-3">
+          <mat-form-field [style.width]="'100%'">
+            <mat-label> DL.No.(Drug License No.) </mat-label>
+            <input
+              matInput
+              appDLNO
+              [(ngModel)]="edit_drugLicense"
+              maxlength="15"
+              name="drugLicense"
+              #drugLicense="ngModel"
+            />
+            <mat-hint>
+              <span class="error_text" *ngIf="drugLicense.errors"
+                >Required min 1 max 15 digit DL.No
+              </span>
+            </mat-hint>
+          </mat-form-field>
+        </div>
+        <div class="col-3">
+          <mat-form-field [style.width]="'100%'">
+            <mat-label> GST No. </mat-label>
+            <input
+              matInput
+              required
+              appPAN
+              [(ngModel)]="edit_cstNo"
+              minlength="15"
+              maxlength="15"
+              name="cstNo"
+              [pattern]="gstNoPattern"
+              #cstNo="ngModel"
+            />
+            <!-- <mat-hint>
+            <span class="error_text" *ngIf="!cstNo.valid  && ( cstNo.dirty || cstNo.touched)">Required 15 digit GST number</span>
+          </mat-hint> -->
+            <mat-hint class="errorText" [hidden]="!cstNo.hasError('pattern')"
+              >Required 15 digit valid GST number
+            </mat-hint>
+          </mat-form-field>
+        </div>
+        <div class="col-3">
+          <mat-form-field [style.width]="'100%'">
+            <mat-label> TIN No. </mat-label>
+            <input
+              matInput
+              appMyMobileNumber
+              [(ngModel)]="edit_tinNo"
+              minlength="12"
+              maxlength="12"
+              name="tinNo"
+              #tinNo="ngModel"
+            />
+            <mat-hint>
+              <span class="error_text" *ngIf="tinNo.errors"
+                >Required 12 digit TIN number</span
+              >
+            </mat-hint>
+          </mat-form-field>
+        </div>
+        <div class="col-6">
+          <mat-form-field [style.width]="'100%'">
+            <mat-label> Address Line 1 </mat-label>
+            <input
+              matInput
+              appMyAddressDirective
+              [(ngModel)]="edit_AddressLine1"
+              name="addressLine1"
+              minlength="2"
+              #Address1="ngModel"
+              required
+            />
+            <mat-hint *ngIf="Address1.touched">
+              <span class="errorText" [hidden]="!Address1.errors"
+                >Address is required</span
+              >
+            </mat-hint>
+          </mat-form-field>
+        </div>
+        <div class="col-3">
+          <mat-form-field [style.width]="'100%'">
+            <mat-label> Address Line 2 </mat-label>
+            <input
+              matInput
+              appMyAddressDirective
+              [(ngModel)]="edit_AddressLine2"
+              name="addressLine2"
+              minlength="2"
+              maxlength="100"
+              #Address2="ngModel"
+            />
+          </mat-form-field>
+        </div>
+        <div class="col-3">
+          <mat-form-field [style.width]="'100%'" class="hide_underline">
+            <input matInput style="display: none" />
+            <mat-label>Country</mat-label>
+            <mat-select
+              required
+              name="country"
+              [(ngModel)]="edit_country"
+              (selectionChange)="getAllStates(edit_country)"
+            >
+              <mat-option
+                *ngFor="let item of country_array"
+                [value]="item.countryID"
+              >
+                {{ item.countryName }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-3">
+          <mat-form-field [style.width]="'100%'" class="hide_underline">
+            <input matInput style="display: none" />
+            <mat-label>State</mat-label>
+            <mat-select
+              required
+              name="edit_state1"
+              [(ngModel)]="edit_state1"
+              (selectionChange)="getDistricts(edit_state1)"
+            >
+              <mat-option
+                *ngFor="let item of permnantstates_array"
+                [value]="item.stateID"
+              >
+                {{ item.stateName }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-3">
+          <mat-form-field [style.width]="'100%'" class="hide_underline">
+            <!-- <input matInput style="display: none" /> -->
+            <mat-label> District </mat-label>
+            <mat-select
+              [(ngModel)]="edit_district"
+              name="edit_district"
+              required
+            >
+              <mat-option
+                *ngFor="let item of districts_array"
+                [value]="item.districtID"
+                >{{ item.districtName }}</mat-option
+              >
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-3">
+          <mat-form-field [style.width]="'100%'" appMyMobileNumber>
+            <mat-label> Pincode </mat-label>
+            <input
+              matInput
+              [(ngModel)]="edit_Pincode"
+              name="pincode"
+              minlength="6"
+              maxlength="6"
+              #Pin="ngModel"
+            />
+            <mat-hint *ngIf="Pin.touched">
+              <span class="errorText" [hidden]="!Pin.errors"
+                >Required 6 digit Pincode</span
+              >
+            </mat-hint>
+          </mat-form-field>
+        </div>
+        <div class="clearfix visible-lg"></div>
+        <div class="col-3">
+          <mat-form-field [style.width]="'100%'" appMyMobileNumber>
+            <mat-label> Contact No. </mat-label>
+            <input
+              matInput
+              [(ngModel)]="edit_contactNo"
+              name="primaryMobileNo"
+              minlength="10"
+              [pattern]="mobileNoPattern"
+              maxlength="10"
+              #mobileNo="ngModel"
+            />
+            <!-- <mat-hint class="errorText" *ngIf="mobileNo.errors">Required 10 digit mobile number
+          </mat-hint> -->
+            <mat-hint class="errorText" [hidden]="!mobileNo.hasError('pattern')"
+              >Required 10 digit valid mobile number
+            </mat-hint>
+          </mat-form-field>
+        </div>
+
+        <div class="col-3">
+          <mat-form-field [style.width]="'100%'" appMyMobileNumber>
+            <mat-label> Emergency Contact No. </mat-label>
+            <input
+              matInput
+              [(ngModel)]="edit_emergencyContactNo"
+              name="emergencyContactNo"
+              [pattern]="mobileNoPattern"
+              minlength="10"
+              maxlength="10"
+              #emergencyMobileNo="ngModel"
+              [pattern]="mobileNoPattern"
+            />
+            <!-- <mat-hint class="errorText" *ngIf="emergencyMobileNo.errors">Required 10 digit mobile number
+          </mat-hint> -->
+
+            <mat-hint
+              class="errorText"
+              [hidden]="!emergencyMobileNo.hasError('pattern')"
+              >Required 10 digit valid mobile number
+            </mat-hint>
+          </mat-form-field>
+        </div>
+        <div class="col-3">
+          <mat-form-field [style.width]="'100%'">
+            <mat-label> Email </mat-label>
+            <input
+              matInput
+              [(ngModel)]="edit_emailID"
+              name="primaryEmail"
+              #validEmail="ngModel"
+              [pattern]="emailPattern"
+            />
+            <mat-hint
+              class="errorText"
+              [hidden]="!validEmail.hasError('pattern')"
+              >Enter valid EmailID
+            </mat-hint>
+          </mat-form-field>
+        </div>
+      </form>
+      <div class="col-12">
+        <button
+          mat-raised-button
+          color="primary"
+          class="pull-left mat_blue"
+          (click)="showTable(); permnantstates_array = []; districts_array = []"
+        >
+          Back
+        </button>
+        <button
+          *ngIf="editMode"
+          mat-raised-button
+          color="accent"
+          class="pull-right mat_green"
+          [disabled]="supplierEditForm.invalid"
+          (click)="updatesupplier(supplierEditForm.value)"
+        >
+          Update
+        </button>
+      </div>
     </div>
   </div>
 </div>
