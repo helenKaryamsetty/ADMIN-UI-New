@@ -39,6 +39,7 @@ export class AddFieldsToProjectComponent implements OnInit {
   ];
 
   paginator!: MatPaginator;
+  allFieldsData: any = [];
   @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
     this.paginator = mp;
     this.setDataSourceAttributes();
@@ -58,6 +59,7 @@ export class AddFieldsToProjectComponent implements OnInit {
     console.log('data', this.input);
     this.dialogData = this.input;
     this.fetchAddedFields();
+    this.getAllSectionsData();
   }
   setDataSourceAttributes() {
     this.dataSource.paginator = this.paginator;
@@ -382,5 +384,41 @@ export class AddFieldsToProjectComponent implements OnInit {
       this.addFieldsForm.get('allowMin')?.patchValue(this.setMax);
       this.setMinimum();
     }
+  }
+
+  validateFieldName() {
+    const fieldName = this.addFieldsForm.get('fieldName')?.value;
+    const exists = this.allFieldsData.some(
+      (item: any) => item.fieldName.toLowerCase() === fieldName.toLowerCase(),
+    );
+
+    if (exists) {
+      this.confirmationService.alert(
+        'Field Name already exixts in the Project, Kindly give different name',
+      );
+      this.addFieldsForm.get('fieldName')?.reset();
+    }
+  }
+
+  getAllSectionsData() {
+    const sectionIds = [1, 2, 3];
+    sectionIds.forEach((item) => {
+      const reqObj = {
+        sectionId: item,
+        serviceProviderId: sessionStorage.getItem('service_providerID'),
+      };
+      this.addFieldsService.fetchFields(reqObj).subscribe(
+        (res: any) => {
+          if (res && res.data && res.statusCode === 200) {
+            this.allFieldsData.push(...res.data.fields);
+          } else {
+            this.confirmationService.alert(res.errorMessage, 'error');
+          }
+        },
+        (err: any) => {
+          this.confirmationService.alert(err.errorMessage, 'error');
+        },
+      );
+    });
   }
 }
