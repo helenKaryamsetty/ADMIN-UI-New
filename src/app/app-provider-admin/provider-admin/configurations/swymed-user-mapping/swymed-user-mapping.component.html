@@ -1,101 +1,103 @@
-<div class="row">
-  <div class="col-xs-12 col-sm-12">
-    <h4 *ngIf="!editMode">User Swymed Mapping</h4>
-    <h4 *ngIf="editMode">Edit User Swymed Mapping</h4>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-12 col-sm-12">
+      <h4 *ngIf="!editMode">User Swymed Mapping</h4>
+      <h4 *ngIf="editMode">Edit User Swymed Mapping</h4>
+    </div>
   </div>
-</div>
-<div
-  style="text-align: end"
-  *ngIf="swymedUserDetails.length !== 0 && !editMode && showTable"
->
-  <mat-form-field
-    class="input-full-width mat_form_field_width_one"
-    id="filterbox"
+  <div
+    style="text-align: end"
+    *ngIf="swymedUserDetails.length !== 0 && !editMode && showTable"
   >
-    <input
-      matInput
-      placeholder="In-Table Search"
-      #filterTerm
-      (keyup)="filterComponentList(filterTerm.value)"
-    />
-    <mat-icon matSuffix>search</mat-icon>
-  </mat-form-field>
-</div>
-<div class="row">
-  <div class="col-xs-12 col-sm-12 m-t-10" *ngIf="showTable">
-    <div class="">
-      <table
-        mat-table
-        class="table table-striped table-hover"
-        [dataSource]="filteredswymedUserDetails"
-      >
-        <ng-container matColumnDef="sno">
-          <th mat-header-cell *matHeaderCellDef>SNo.</th>
-          <td mat-cell *matCellDef="let element; let i = index">{{ i + 1 }}</td>
-        </ng-container>
-        <ng-container matColumnDef="userName">
-          <th mat-header-cell *matHeaderCellDef>Username</th>
-          <td mat-cell *matCellDef="let element">
-            {{ element.userName }}
-          </td>
-        </ng-container>
-        <ng-container matColumnDef="designationName">
-          <th mat-header-cell *matHeaderCellDef>Designation</th>
-          <td mat-cell *matCellDef="let element">
-            {{ element.designationName }}
-          </td>
-        </ng-container>
-        <ng-container matColumnDef="videoConsultationEmailID">
-          <th mat-header-cell *matHeaderCellDef>Email ID</th>
-          <td mat-cell *matCellDef="let element">
-            {{ element.videoConsultationEmailID }}
-          </td>
-        </ng-container>
-        <ng-container matColumnDef="videoConsultationDomain">
-          <th mat-header-cell *matHeaderCellDef>Swymed Domain</th>
-          <td mat-cell *matCellDef="let element">
-            {{ element.videoConsultationDomain }}
-          </td>
-        </ng-container>
-        <ng-container matColumnDef="edit">
-          <th mat-header-cell *matHeaderCellDef>Edit</th>
-          <td mat-cell *matCellDef="let element">
-            <mat-icon
-              matTooltip="Edit"
-              class="mat-icon material-icons"
-              role="img"
-              aria-hidden="true"
-              style="cursor: pointer"
-              *ngIf="!element.Deleted && !element.userDeleted"
-              (click)="editUserDetails(element)"
-              >edit</mat-icon
-            >
-          </td>
-        </ng-container>
-        <ng-container matColumnDef="action">
-          <th mat-header-cell *matHeaderCellDef>Action</th>
-          <td mat-cell *matCellDef="let element">
-            <button
-              *ngIf="element.Deleted || element.userDeleted"
-              mat-raised-button
-              class="mat_green"
-              color="accent"
-              (click)="activateDeactivateMapping(element, element.userDeleted)"
-            >
-              Activate
-            </button>
-            <button
-              *ngIf="!element.Deleted && !element.userDeleted"
-              mat-raised-button
-              class="mat_blue"
-              color="primary"
-              (click)="activateDeactivateMapping(element, false)"
-            >
-              Deactivate
-            </button>
-          </td>
-        </ng-container>
-        <!-- <thead>
+    <mat-form-field id="filterbox">
+      <input
+        matInput
+        placeholder="In-Table Search"
+        #filterTerm
+        (keyup)="filterComponentList(filterTerm.value)"
+      />
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 m-t-10" *ngIf="showTable">
+      <div class="">
+        <table
+          mat-table
+          class="table table-striped table-hover"
+          [dataSource]="filteredswymedUserDetails"
+        >
+          <ng-container matColumnDef="sno">
+            <th mat-header-cell *matHeaderCellDef>SNo.</th>
+            <td mat-cell *matCellDef="let element; let i = index">
+              {{ i + 1 }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="userName">
+            <th mat-header-cell *matHeaderCellDef>Username</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.userName }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="designationName">
+            <th mat-header-cell *matHeaderCellDef>Designation</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.designationName }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="videoConsultationEmailID">
+            <th mat-header-cell *matHeaderCellDef>Email ID</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.videoConsultationEmailID }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="videoConsultationDomain">
+            <th mat-header-cell *matHeaderCellDef>Swymed Domain</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.videoConsultationDomain }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="edit">
+            <th mat-header-cell *matHeaderCellDef>Edit</th>
+            <td mat-cell *matCellDef="let element">
+              <mat-icon
+                matTooltip="Edit"
+                class="mat-icon material-icons"
+                role="img"
+                aria-hidden="true"
+                style="cursor: pointer"
+                *ngIf="!element.Deleted && !element.userDeleted"
+                (click)="editUserDetails(element)"
+                >edit</mat-icon
+              >
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef>Action</th>
+            <td mat-cell *matCellDef="let element">
+              <button
+                *ngIf="element.Deleted || element.userDeleted"
+                mat-raised-button
+                class="mat_green"
+                color="accent"
+                (click)="
+                  activateDeactivateMapping(element, element.userDeleted)
+                "
+              >
+                Activate
+              </button>
+              <button
+                *ngIf="!element.Deleted && !element.userDeleted"
+                mat-raised-button
+                class="mat_blue"
+                color="primary"
+                (click)="activateDeactivateMapping(element, false)"
+              >
+                Deactivate
+              </button>
+            </td>
+          </ng-container>
+          <!-- <thead>
           <tr>
             <th width="5%">S.No.</th>
             <th width="15%" md2SortBy="userName">Username</th>
@@ -106,7 +108,7 @@
             <th width="10%">Action</th>
           </tr>
         </thead> -->
-        <!-- <tbody>
+          <!-- <tbody>
           <tr *ngIf="md2.data.length == 0">
             <td colspan="7" class="record-not-found">No records found</td>
           </tr>
@@ -126,185 +128,186 @@
             </td>
           </tr>
         </tbody> -->
-        <tfoot>
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-        </tfoot>
-      </table>
-      <div>
-        <button
-          mat-raised-button
-          color="primary"
-          class="pull-right mat_blue"
-          (click)="showForm()"
+          <tfoot>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+          </tfoot>
+        </table>
+        <div>
+          <button
+            mat-raised-button
+            color="primary"
+            class="pull-right mat_blue"
+            (click)="showForm()"
+          >
+            Add Mapping
+          </button>
+        </div>
+        <div
+          class="pull-center"
+          style="margin-top: 35px; text-align: center"
+          *ngIf="filteredswymedUserDetails.data.length === 0"
         >
-          Add Mapping
-        </button>
+          <strong>No Records Found</strong>
+        </div>
+        <mat-paginator
+          [hidden]="filteredswymedUserDetails.data.length === 0"
+          [pageSizeOptions]="[5, 10, 20]"
+          [pageSize]="5"
+          showFirstLastButtons
+        >
+        </mat-paginator>
       </div>
-      <div
-        class="pull-center"
-        style="margin-top: 35px; text-align: center"
-        *ngIf="filteredswymedUserDetails.data.length === 0"
-      >
-        <strong>No Records Found</strong>
-      </div>
-      <mat-paginator
-        [hidden]="filteredswymedUserDetails.data.length === 0"
-        [pageSizeOptions]="[5, 10, 20]"
-        [pageSize]="5"
-        showFirstLastButtons
-      >
-      </mat-paginator>
     </div>
   </div>
-</div>
-<div class="row" *ngIf="!showTable" (mouseup)="hidePWD()">
-  <form #mappingForm="ngForm" autocomplete="off">
-    <div class="col-12 row">
-      <div class="col-3 m-t-15">
-        <mat-form-field>
-          <mat-label>Designation</mat-label>
+  <div class="row" *ngIf="!showTable" (mouseup)="hidePWD()">
+    <form #mappingForm="ngForm" autocomplete="off">
+      <div class="col-12 row">
+        <div class="col-3 m-t-15">
+          <mat-form-field [style.width]="'100%'">
+            <mat-label>Designation</mat-label>
+            <mat-select
+              [(ngModel)]="designation"
+              name="designation"
+              [disabled]="disableSelection"
+              #userDesignation="ngModel"
+              (selectionChange)="
+                getUserNameBasedOnDesig(designation.designationID)
+              "
+              required
+            >
+              <mat-option *ngFor="let item of designations" [value]="item">
+                {{ item.designationName }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-3 m-t-15">
+          <mat-form-field [style.width]="'100%'">
+            <mat-label>User</mat-label>
+            <mat-select
+              ngModel
+              [(ngModel)]="username"
+              name="username"
+              [disabled]="disableSelection"
+              #swymedUser="ngModel"
+              required
+            >
+              <mat-option *ngFor="let user of userNamesList" [value]="user">
+                {{ user.UserName }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-3 m-t-15">
+          <mat-form-field [style.width]="'100%'">
+            <mat-label>Email</mat-label>
+            <input
+              matInput
+              ngModel
+              [(ngModel)]="emailID"
+              name="emailID"
+              #validEmail="ngModel"
+              [pattern]="emailPattern"
+              required
+            />
+            <mat-hint>
+              <span class="errorText" [hidden]="!validEmail.hasError('pattern')"
+                >Valid Email ID is required</span
+              >
+            </mat-hint>
+          </mat-form-field>
+        </div>
+        <div class="col-3 m-t-15">
+          <mat-form-field [style.width]="'100%'">
+            <mat-label>Password</mat-label>
+            <input
+              type="{{ dynamictype }}"
+              matInput
+              ngModel
+              [(ngModel)]="password"
+              name="password"
+              [pattern]="passwordPattern"
+              minlength="8"
+              maxlength="12"
+              #pwrd="ngModel"
+              required
+            />
+            <mat-icon
+              id="eye"
+              matSuffix
+              class="mat-icon material-icons cursorPointer"
+              role="img"
+              aria-hidden="true"
+              mdTooltip="Show Password"
+              (mousedown)="showPWD()"
+              style="color: gray"
+              >visibility</mat-icon
+            >
+            <mat-hint>
+              <span
+                class="error_text"
+                *ngIf="pwrd.errors && !pwrd.hasError('pattern') && pwrd.touched"
+                >Password is required</span
+              >
+              <span class="error_text" *ngIf="pwrd.hasError('pattern')"
+                >Password is required(min:8,max:12,alphanumeric,1 special
+                character,1 upper case)</span
+              >
+            </mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
+        <mat-form-field [style.width]="'100%'">
+          <mat-label>Swymed Domain</mat-label>
           <mat-select
-            class="width100"
-            [(ngModel)]="designation"
-            name="designation"
+            [(ngModel)]="domain"
+            name="domain"
             [disabled]="disableSelection"
-            #userDesignation="ngModel"
-            (selectionChange)="
-              getUserNameBasedOnDesig(designation.designationID)
-            "
+            #videoConsultationDomain="ngModel"
             required
           >
-            <mat-option *ngFor="let item of designations" [value]="item">
-              {{ item.designationName }}
+            <mat-option *ngFor="let item of domainList" [value]="item">
+              {{ item.videoConsultationDoamin }}
             </mat-option>
           </mat-select>
         </mat-form-field>
       </div>
-      <div class="col-3 m-t-15">
-        <mat-form-field>
-          <mat-label>User</mat-label>
-          <mat-select
-            class="width100"
-            ngModel
-            [(ngModel)]="username"
-            name="username"
-            [disabled]="disableSelection"
-            #swymedUser="ngModel"
-            required
-          >
-            <mat-option *ngFor="let user of userNamesList" [value]="user">
-              {{ user.UserName }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-      <div class="col-3 m-t-15">
-        <mat-form-field class="input-full-width mat_form_field_width_one">
-          <mat-label>Email</mat-label>
-          <input
-            matInput
-            ngModel
-            [(ngModel)]="emailID"
-            name="emailID"
-            #validEmail="ngModel"
-            [pattern]="emailPattern"
-            required
-          />
-          <mat-hint>
-            <span class="errorText" [hidden]="!validEmail.hasError('pattern')"
-              >Valid Email ID is required</span
-            >
-          </mat-hint>
-        </mat-form-field>
-      </div>
-      <div class="col-3 m-t-15">
-        <mat-form-field class="input-full-width mat_form_field_width_one">
-          <mat-label>Password</mat-label>
-          <input
-            type="{{ dynamictype }}"
-            matInput
-            ngModel
-            [(ngModel)]="password"
-            name="password"
-            [pattern]="passwordPattern"
-            minlength="8"
-            maxlength="12"
-            #pwrd="ngModel"
-            required
-          />
-          <mat-icon
-            id="eye"
-            matSuffix
-            class="mat-icon material-icons cursorPointer"
-            role="img"
-            aria-hidden="true"
-            mdTooltip="Show Password"
-            (mousedown)="showPWD()"
-            style="color: gray"
-            >visibility</mat-icon
-          >
-          <mat-hint>
-            <span
-              class="error_text"
-              *ngIf="pwrd.errors && !pwrd.hasError('pattern') && pwrd.touched"
-              >Password is required</span
-            >
-            <span class="error_text" *ngIf="pwrd.hasError('pattern')"
-              >Password is required(min:8,max:12,alphanumeric,1 special
-              character,1 upper case)</span
-            >
-          </mat-hint>
-        </mat-form-field>
-      </div>
-    </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-      <mat-form-field>
-        <mat-label>Swymed Domain</mat-label>
-        <mat-select
-          class="width100"
-          [(ngModel)]="domain"
-          name="domain"
-          [disabled]="disableSelection"
-          #videoConsultationDomain="ngModel"
-          required
-        >
-          <mat-option *ngFor="let item of domainList" [value]="item">
-            {{ item.videoConsultationDoamin }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-  </form>
+    </form>
 
-  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10">
-    <button
-      mat-raised-button
-      color="primary"
-      class="pull-left mat_blue"
-      (click)="back()"
+    <div
+      class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10"
+      style="margin-bottom: 47px"
     >
-      Back
-    </button>
-    <button
-      mat-raised-button
-      color="accent"
-      *ngIf="!editMode"
-      class="pull-right mat_green"
-      [disabled]="mappingForm.invalid"
-      (click)="saveUserMapping(mappingForm.value)"
-    >
-      Save
-    </button>
-    <button
-      mat-raised-button
-      color="accent"
-      *ngIf="editMode"
-      class="pull-right mat_green"
-      [disabled]="mappingForm.invalid"
-      (click)="updateUsermapping(mappingForm.value)"
-    >
-      Update
-    </button>
+      <button
+        mat-raised-button
+        color="primary"
+        class="pull-left mat_blue"
+        (click)="back()"
+      >
+        Back
+      </button>
+      <button
+        mat-raised-button
+        color="accent"
+        *ngIf="!editMode"
+        class="pull-right mat_green"
+        [disabled]="mappingForm.invalid"
+        (click)="saveUserMapping(mappingForm.value)"
+      >
+        Save
+      </button>
+      <button
+        mat-raised-button
+        color="accent"
+        *ngIf="editMode"
+        class="pull-right mat_green"
+        [disabled]="mappingForm.invalid"
+        (click)="updateUsermapping(mappingForm.value)"
+      >
+        Update
+      </button>
+    </div>
   </div>
 </div>

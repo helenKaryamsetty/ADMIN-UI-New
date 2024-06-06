@@ -126,20 +126,20 @@
           <!-- Pagination -->
           <mat-paginator
             [length]="filtereddata.data.length"
-            [pageSize]="4"
-            [pageSizeOptions]="[4, 10, 20]"
+            [pageSize]="5"
+            [pageSizeOptions]="[5, 10, 20]"
           ></mat-paginator>
         </div>
       </div>
     </div>
   </div>
-  <div *ngIf="!searchPage">
-    <form #modifyForm="ngForm" autocomplete="off">
+  <div *ngIf="!searchPage" style="margin-bottom: 20px">
+    <form #modifyForm="ngForm" autocomplete="off" style="margin-bottom: 20px">
       <div class="col-12 p-a-0 row">
         <div class="col-3 m-t-15">
-          <!-- <mat-form-field class="hide_underline width100">
+          <!-- <mat-form-field [style.width]="'100%'" class="hide_underline width100">
             <input matInput style="display:none"> -->
-          <mat-form-field>
+          <mat-form-field [style.width]="'100%'">
             <mat-label>Serviceline</mat-label>
             <mat-select
               name="serviceLine"
@@ -164,9 +164,9 @@
           >
         </div>
         <div class="col-3 m-t-15">
-          <!-- <mat-form-field class="hide_underline width100">
+          <!-- <mat-form-field [style.width]="'100%'" class="hide_underline width100">
             <input matInput style="display:none"> -->
-          <mat-form-field>
+          <mat-form-field [style.width]="'100%'">
             <mat-label>State</mat-label>
             <mat-select
               multiple

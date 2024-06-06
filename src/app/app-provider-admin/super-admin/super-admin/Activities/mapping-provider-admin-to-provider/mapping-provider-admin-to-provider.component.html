@@ -150,11 +150,17 @@
       <strong>Edit Provider Admin-Provider Mapping</strong>
     </h4>
   </div>
-  <div class="col-12 p-a-0">
-    <form id="myForm" #form="ngForm" autocomplete="off" class="row">
+  <div class="col-12 p-a-0" style="width: 100%; margin-left: 0px">
+    <form
+      id="myForm"
+      #form="ngForm"
+      autocomplete="off"
+      class="row"
+      style="width: 100%; margin-left: 0px"
+    >
       <div class="col-3 m-t-15">
         <!-- <input matInput style="display: none" /> -->
-        <mat-form-field>
+        <mat-form-field [style.width]="'100%'">
           <mat-label>Provider Admin</mat-label>
           <mat-select
             required
@@ -172,7 +178,7 @@
       </div>
       <div class="col-3 m-t-15">
         <!-- <input matInput style="display: none" /> -->
-        <mat-form-field>
+        <mat-form-field [style.width]="'100%'">
           <mat-label>Provider Name</mat-label>
           <mat-select
             required
@@ -191,7 +197,7 @@
       </div>
       <div class="col-3 m-t-15">
         <!-- <input matInput style="display: none" /> -->
-        <mat-form-field>
+        <mat-form-field [style.width]="'100%'">
           <mat-label>Serviceline</mat-label>
           <mat-select
             required
@@ -215,7 +221,7 @@
       </div>
       <div class="col-3 m-t-15">
         <!-- <input matInput style="display: none" /> -->
-        <mat-form-field>
+        <mat-form-field [style.width]="'100%'">
           <mat-label>State</mat-label>
           <mat-select
             required
@@ -344,7 +350,7 @@
     </button>
   </div>
 </div>
-<div class="row" *ngIf="editMode">
+<div class="row" *ngIf="editMode" style="width: 100%; margin-left: 0px">
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <h4 *ngIf="!editMode">
       <strong>Provider Admin-Provider Mapping</strong>
@@ -353,11 +359,17 @@
       <strong>Edit Provider Admin-Provider Mapping</strong>
     </h4>
   </div>
-  <div class="col-12 p-a-0 m-t-10">
-    <form autocomplete="off" id="editForm" #eform="ngForm" class="row">
+  <div class="col-12 p-a-0 m-t-10" style="margin-bottom: 20px">
+    <form
+      autocomplete="off"
+      id="editForm"
+      #eform="ngForm"
+      class="row"
+      style="width: 100%; margin-left: 0px"
+    >
       <div class="col-3 m-t-15">
         <!-- <input matInput style="display: none" /> -->
-        <mat-form-field>
+        <mat-form-field [style.width]="'100%'">
           <mat-label>Provider Admin</mat-label>
           <mat-select
             required
@@ -376,7 +388,7 @@
       </div>
       <div class="col-3 m-t-15">
         <!-- <input matInput style="display: none" /> -->
-        <mat-form-field>
+        <mat-form-field [style.width]="'100%'">
           <mat-label>Provider Name</mat-label>
           <mat-select
             required
@@ -398,7 +410,7 @@
       </div>
       <div class="col-3 m-t-15">
         <!-- <input matInput style="display: none" /> -->
-        <mat-form-field>
+        <mat-form-field [style.width]="'100%'">
           <mat-label>Serviceline</mat-label>
           <mat-select
             required
@@ -425,7 +437,7 @@
       </div>
       <div class="col-3 m-t-15">
         <!-- <input matInput style="display: none" /> -->
-        <mat-form-field>
+        <mat-form-field [style.width]="'100%'">
           <mat-label>State</mat-label>
           <mat-select
             required
@@ -444,7 +456,10 @@
         </mat-form-field>
       </div>
     </form>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-20">
+    <div
+      class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-20"
+      style="margin-bottom: 20px"
+    >
       <button
         mat-raised-button
         color="primary"

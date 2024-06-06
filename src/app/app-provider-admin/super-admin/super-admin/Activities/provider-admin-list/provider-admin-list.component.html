@@ -162,26 +162,35 @@
       </h4> -->
   </div>
 
-  <form #providerAdminCreationForm="ngForm" autocomplete="off">
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-10">
+  <form
+    #providerAdminCreationForm="ngForm"
+    autocomplete="off"
+    class="col-12 row"
+  >
+    <div class="col-3 p-b-10">
       <!-- <md-input-container class="hide_underline width100">
         <input matInput style="display:none"> -->
-      <mat-select
-        placeholder="Title *"
-        class="width100"
-        [(ngModel)]="titleID"
-        name="title_Id"
-        (selectionChange)="setGenderOnCondition()"
-        required
-      >
-        <mat-option *ngFor="let item of titles" [value]="item.titleID">
-          {{ item.titleName }}
-        </mat-option>
-      </mat-select>
+      <mat-form-field [style.width]="'100%'">
+        <mat-label>Title</mat-label>
+        <mat-select
+          class="width100"
+          [(ngModel)]="titleID"
+          name="title_Id"
+          (selectionChange)="setGenderOnCondition()"
+          required
+        >
+          <mat-option *ngFor="let item of titles" [value]="item.titleID">
+            {{ item.titleName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
       <!-- </md-input-container> -->
     </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-t-3 p-b-10">
-      <mat-form-field class="input-full-width mat_form_field_width_one">
+    <div class="col-3 p-t-3 p-b-10">
+      <mat-form-field
+        [style.width]="'100%'"
+        class="input-full-width mat_form_field_width_one"
+      >
         <input
           matInput
           placeholder="First Name *"
@@ -201,9 +210,13 @@
         </mat-hint>
       </mat-form-field>
     </div>
-    <div class="clearfix visible-sm"></div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-t-3 p-b-10">
-      <mat-form-field class="input-full-width mat_form_field_width_one" myName>
+    <!-- <div class="clearfix visible-sm"></div> -->
+    <div class="col-3 p-t-3 p-b-10">
+      <mat-form-field
+        [style.width]="'100%'"
+        class="input-full-width mat_form_field_width_one"
+        myName
+      >
         <input
           matInput
           placeholder="Middle Name"
@@ -216,9 +229,13 @@
         />
       </mat-form-field>
     </div>
-    <div class="clearfix visible-md"></div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-t-3 p-b-10">
-      <mat-form-field class="input-full-width mat_form_field_width_one" myName>
+    <!-- <div class="clearfix visible-md"></div> -->
+    <div class="col-3 p-t-3 p-b-10">
+      <mat-form-field
+        [style.width]="'100%'"
+        class="input-full-width mat_form_field_width_one"
+        myName
+      >
         <input
           matInput
           placeholder="Last Name *"
@@ -235,25 +252,28 @@
         </mat-hint>
       </mat-form-field>
     </div>
-    <div class="clearfix visible-lg"></div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-10">
+    <!-- <div class="clearfix visible-lg"></div> -->
+    <div class="col-3 p-b-10">
       <!-- <md-input-container class="hide_underline width100">
         <input matInput style="display:none"> -->
-      <mat-select
-        placeholder="Gender *"
-        class="width100"
-        [(ngModel)]="gender"
-        name="adminGender"
-        required
-      >
-        <mat-option *ngFor="let item of genders" [value]="item.genderID">
-          {{ item.genderName }}
-        </mat-option>
-      </mat-select>
+      <mat-form-field [style.width]="'100%'">
+        <mat-label>Gender</mat-label>
+        <mat-select
+          class="width100"
+          [(ngModel)]="gender"
+          name="adminGender"
+          required
+        >
+          <mat-option *ngFor="let item of genders" [value]="item.genderID">
+            {{ item.genderName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
       <!-- </md-input-container> -->
     </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-t-3 p-b-10">
+    <div class="col-3 p-t-3 p-b-10">
       <mat-form-field
+        [style.width]="'100%'"
         class="input-full-width mat_form_field_width_one"
         appMyMobileNumber
       >
@@ -276,9 +296,9 @@
         </mat-hint>
       </mat-form-field>
     </div>
-    <div class="clearfix visible-sm visible-md"></div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-10">
-      <mat-form-field class="width100">
+    <!-- <div class="clearfix visible-sm visible-md"></div> -->
+    <div class="col-3 p-b-10">
+      <mat-form-field [style.width]="'100%'" class="width100">
         <mat-label>Date of Birth </mat-label>
         <input
           matInput
@@ -300,8 +320,9 @@
         >DOB is required</mat-hint
       >
     </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-t-3 p-b-10">
+    <div class="col-3 p-t-3 p-b-10">
       <mat-form-field
+        [style.width]="'100%'"
         class="input-full-width mat_form_field_width_one"
         appMyMobileNumber
       >
@@ -320,9 +341,10 @@
                 </mat-hint> -->
       </mat-form-field>
     </div>
-    <div class="clearfix visible-lg"></div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-t-3 p-b-10">
+    <!-- <div class="clearfix visible-lg"></div> -->
+    <div class="col-3 p-t-3 p-b-10">
       <mat-form-field
+        [style.width]="'100%'"
         class="input-full-width mat_form_field_width_one"
         appMyEmail
       >
@@ -344,27 +366,30 @@
         </mat-hint>
       </mat-form-field>
     </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-10">
+    <div class="col-3 p-b-10">
       <!-- <md-input-container class="hide_underline width100">
         <input matInput style="display:none"> -->
-      <mat-select
-        placeholder="Marital Status"
-        class="width100"
-        [(ngModel)]="marital_status"
-        name="admin_maritalStatusId"
-      >
-        <mat-option
-          *ngFor="let item of maritalStatus.m_maritalStatuses"
-          [value]="item.maritalStatusID"
+      <mat-form-field [style.width]="'100%'">
+        <mat-label>Marital Status</mat-label>
+        <mat-select
+          class="width100"
+          [(ngModel)]="marital_status"
+          name="admin_maritalStatusId"
         >
-          {{ item.status }}
-        </mat-option>
-      </mat-select>
+          <mat-option
+            *ngFor="let item of maritalStatus.m_maritalStatuses"
+            [value]="item.maritalStatusID"
+          >
+            {{ item.status }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
       <!-- </md-input-container> -->
     </div>
-    <div class="clearfix visible-sm"></div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-t-3 p-b-10">
+    <!-- <div class="clearfix visible-sm"></div> -->
+    <div class="col-3 p-t-3 p-b-10">
       <mat-form-field
+        [style.width]="'100%'"
         class="input-full-width mat_form_field_width_one"
         appMyMobileNumber
       >
@@ -389,8 +414,12 @@
         </mat-hint>
       </mat-form-field>
     </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-t-3 p-b-10">
-      <mat-form-field class="input-full-width mat_form_field_width_one" appPAN>
+    <div class="col-3 p-t-3 p-b-10">
+      <mat-form-field
+        [style.width]="'100%'"
+        class="input-full-width mat_form_field_width_one"
+        appPAN
+      >
         <input
           matInput
           placeholder="PAN Card Number"
@@ -412,28 +441,32 @@
         </mat-hint>
       </mat-form-field>
     </div>
-    <div class="clearfix"></div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+    <!-- <div class="clearfix"></div> -->
+    <div class="col-3">
       <!-- <md-input-container class="hide_underline width100">
         <input matInput style="display:none"> -->
-      <mat-select
-        placeholder="Educational Qualification *"
-        class="width100"
-        [(ngModel)]="edu_qualification"
-        name="admin_edu_qualification"
-        required
-      >
-        <mat-option
-          *ngFor="let item of eduQualification"
-          [value]="item.qualificationID"
+      <mat-form-field [style.width]="'100%'">
+        <mat-label>Educational Qualification</mat-label>
+        <mat-select
+          class="width100"
+          [(ngModel)]="edu_qualification"
+          name="admin_edu_qualification"
+          required
         >
-          {{ item.name }}
-        </mat-option>
-      </mat-select>
+          <mat-option
+            *ngFor="let item of eduQualification"
+            [value]="item.qualificationID"
+          >
+            {{ item.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
       <!-- </md-input-container> -->
     </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-t-3">
+    <div class="col-3 p-t-3">
       <mat-form-field
+        [style.width]="'100%'"
         class="input-full-width mat_form_field_width_one"
         appMyProviderName
       >
@@ -455,9 +488,10 @@
         </mat-hint>
       </mat-form-field>
     </div>
-    <div class="clearfix visible-sm"></div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-t-3">
+    <!-- <div class="clearfix visible-sm"></div> -->
+    <div class="col-3 p-t-3">
       <mat-form-field
+        [style.width]="'100%'"
         class="input-full-width mat_form_field_width_one"
         appMyMobileNumber
       >
@@ -488,12 +522,19 @@
     </h4>
   </div>
 
-  <form #adminCredentialsForm="ngForm" autocomplete="off" (mouseup)="hidePWD()">
-    <div
-      class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-t-3 p-b-10"
-      *ngIf="!editMode"
-    >
-      <mat-form-field class="input-full-width mat_form_field_width_one" appPAN>
+  <form
+    #adminCredentialsForm="ngForm"
+    autocomplete="off"
+    (mouseup)="hidePWD()"
+    class="col-12 row"
+    style="margin-bottom: 20px"
+  >
+    <div class="col-3 p-t-3 p-b-10" *ngIf="!editMode">
+      <mat-form-field
+        [style.width]="'100%'"
+        class="input-full-width mat_form_field_width_one"
+        appPAN
+      >
         <input
           matInput
           placeholder="User Name *"
@@ -516,11 +557,11 @@
         </mat-hint>
       </mat-form-field>
     </div>
-    <div
-      class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-t-3 p-b-10"
-      *ngIf="!editMode"
-    >
-      <mat-form-field class="input-full-width mat_form_field_width_one">
+    <div class="col-3 p-t-3 p-b-10" *ngIf="!editMode">
+      <mat-form-field
+        [style.width]="'100%'"
+        class="input-full-width mat_form_field_width_one"
+      >
         <input
           type="{{ dynamictype }}"
           matInput
@@ -556,8 +597,11 @@
         </mat-hint>
       </mat-form-field>
     </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-t-3 p-b-10">
-      <mat-form-field class="input-full-width mat_form_field_width_one">
+    <div class="col-3 p-t-3 p-b-10">
+      <mat-form-field
+        [style.width]="'100%'"
+        class="input-full-width mat_form_field_width_one"
+      >
         <input
           matInput
           appTextAreaValidator

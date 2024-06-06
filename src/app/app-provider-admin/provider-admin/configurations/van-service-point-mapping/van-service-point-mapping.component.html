@@ -1,251 +1,257 @@
-<div class="row" *ngIf="showVanServicePointMappings && !editable">
-  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-    <h4>Van Service Point Mapping</h4>
-  </div>
+<div class="container-fluid">
+  <div class="row" *ngIf="showVanServicePointMappings && !editable">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <h4>Van Service Point Mapping</h4>
+    </div>
 
-  <div class="col-12">
-    <form #searForm="ngForm" autocomplete="off" class="row">
-      <div class="col-6 row">
-        <div class="col-3 m-t-15">
-          <!-- <md-input-container class="hide_underline width100">
-                  <input mdInput style="display:none"> -->
-          <mat-form-field>
-            <mat-label>Serviceline</mat-label>
-            <mat-select
-              (selectionChange)="getStates(service)"
-              [(ngModel)]="service"
-              name="service"
-              required
-              #bindService="ngModel"
-            >
-              <mat-option *ngFor="let item of services" [value]="item">
-                {{ item.serviceName }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-
-          <!-- <md-hint [hidden]=bindService.valid>
-                      <span class="error_text" *ngIf="!bindService.required  && ( bindService.dirty || bindService.touched)">Please select serviceline</span>
-                  </md-hint> -->
-          <!-- </md-input-container> -->
-        </div>
-        <div
-          class="col-3 m-t-15"
-          style="margin-left: 140px; width: fit-content"
-        >
-          <!-- <md-input-container class="hide_underline width100">
-                  <input mdInput style="display:none"> -->
-          <mat-form-field>
-            <mat-label>State</mat-label>
-            <mat-select
-              [(ngModel)]="state"
-              (selectionChange)="
-                setProviderServiceMapID(state.providerServiceMapID)
-              "
-              name="state"
-              #bindState="ngModel"
-              required
-            >
-              <mat-option *ngFor="let item of states" [value]="item">
-                {{ item.stateName }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-
-          <!-- <md-hint [hidden]=bindState.valid>
-                      <span class="error_text" *ngIf="!bindState.required  && ( bindState.dirty || bindState.touched)">Please select state</span>
-                  </md-hint> -->
-          <!-- </md-input-container> -->
-        </div>
-      </div>
-      <form #searchDistrictsForm="ngForm" autocomplete="off" class="col-6 row">
-        <div class="col-3 m-t-15">
-          <mat-form-field>
-            <mat-label>Zone</mat-label>
-            <mat-select
-              required
-              [(ngModel)]="zoneID"
-              name="zoneID"
-              [disabled]="disableSelection"
-              #zoneG="ngModel"
-              (selectionChange)="
-                getParkingPlaces(zoneID.zoneID, state.providerServiceMapID)
-              "
-            >
-              <mat-option *ngFor="let zone of zones" [value]="zone">
-                {{ zone.zoneName }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-        <div
-          class="col-3 m-t-15"
-          style="margin-left: 140px; width: fit-content"
-        >
-          <mat-select
-            *ngIf="parkAndHub"
-            placeholder="{{ parkAndHub }}"
-            [(ngModel)]="parking_place"
-            name="parking_place"
-            (selectionChange)="getVanTypes()"
-            #parkingPlace="ngModel"
-            required
-          >
-            <mat-option
-              *ngFor="let parkingPlace of parkingPlaces"
-              [value]="parkingPlace"
-            >
-              {{ parkingPlace.parkingPlaceName }}
-            </mat-option>
-          </mat-select>
-        </div>
-      </form>
-      <form #searForm1="ngForm" autocomplete="off" class="col-6 row">
-        <div class="col-3 m-t-15">
-          <!-- <md-input-container class="hide_underline width100">
+    <div class="col-12">
+      <form #searForm="ngForm" autocomplete="off" class="row">
+        <div class="col-6 row">
+          <div class="col-3 m-t-15">
+            <!-- <md-input-container class="hide_underline width100">
                     <input mdInput style="display:none"> -->
-          <mat-select
-            required
-            *ngIf="parkAndHub"
-            placeholder="{{ codeType }}"
-            [(ngModel)]="vanTypeID"
-            name="vanTypeID"
-            #vanTypes="ngModel"
-            (selectionChange)="
-              getVans(
-                state.providerServiceMapID,
-                parking_place.parkingPlaceID,
-                vanTypeID
-              )
-            "
-          >
-            <mat-option
-              *ngFor="let vanType of filteredVanTypes"
-              [value]="vanType.vanTypeID"
-            >
-              {{ vanType.vanType }}
-            </mat-option>
-          </mat-select>
-          <!-- <md-hint [hidden]=vanTypes.valid>
-                        <span class="error_text" *ngIf="!vanTypes.required  && ( vanTypes.dirty || vanTypes.touched)">Please select van type</span>
+            <mat-form-field [style.width]="'100%'">
+              <mat-label>Serviceline</mat-label>
+              <mat-select
+                (selectionChange)="getStates(service)"
+                [(ngModel)]="service"
+                name="service"
+                required
+                #bindService="ngModel"
+              >
+                <mat-option *ngFor="let item of services" [value]="item">
+                  {{ item.serviceName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <!-- <md-hint [hidden]=bindService.valid>
+                        <span class="error_text" *ngIf="!bindService.required  && ( bindService.dirty || bindService.touched)">Please select serviceline</span>
                     </md-hint> -->
-          <!-- </md-input-container> -->
-        </div>
-        <div
-          class="col-3 m-t-15"
-          style="margin-left: 140px; width: fit-content"
-        >
-          <!-- <md-input-container class="hide_underline width100">
+            <!-- </md-input-container> -->
+          </div>
+          <div
+            class="col-3 m-t-15"
+            style="margin-left: 140px; width: fit-content"
+          >
+            <!-- <md-input-container class="hide_underline width100">
                     <input mdInput style="display:none"> -->
-          <mat-select
-            required
-            *ngIf="parkAndHub"
-            placeholder="{{ vanAndSpoke }}"
-            [(ngModel)]="vanID"
-            name="vanID"
-            #vanVal="ngModel"
-            (selectionChange)="
-              getVanServicePointMappings(parking_place.parkingPlaceID, vanID)
-            "
-          >
-            <mat-option
-              *ngFor="let van of availableVans"
-              [value]="van.vanID"
-              (change)="selectedVan(van)"
-            >
-              {{ van.vanName }}
-            </mat-option>
-          </mat-select>
-          <!-- <md-hint [hidden]=vanVal.valid>
-                        <span class="error_text" *ngIf="!vanVal.required  && ( vanVal.dirty || vanVal.touched )">Please select Van </span>
+            <mat-form-field [style.width]="'100%'">
+              <mat-label>State</mat-label>
+              <mat-select
+                [(ngModel)]="state"
+                (selectionChange)="
+                  setProviderServiceMapID(state.providerServiceMapID)
+                "
+                name="state"
+                #bindState="ngModel"
+                required
+              >
+                <mat-option *ngFor="let item of states" [value]="item">
+                  {{ item.stateName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <!-- <md-hint [hidden]=bindState.valid>
+                        <span class="error_text" *ngIf="!bindState.required  && ( bindState.dirty || bindState.touched)">Please select state</span>
                     </md-hint> -->
-          <!-- </md-input-container> -->
+            <!-- </md-input-container> -->
+          </div>
         </div>
+        <form
+          #searchDistrictsForm="ngForm"
+          autocomplete="off"
+          class="col-6 row"
+        >
+          <div class="col-3 m-t-15">
+            <mat-form-field [style.width]="'100%'">
+              <mat-label>Zone</mat-label>
+              <mat-select
+                required
+                [(ngModel)]="zoneID"
+                name="zoneID"
+                [disabled]="disableSelection"
+                #zoneG="ngModel"
+                (selectionChange)="
+                  getParkingPlaces(zoneID.zoneID, state.providerServiceMapID)
+                "
+              >
+                <mat-option *ngFor="let zone of zones" [value]="zone">
+                  {{ zone.zoneName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div
+            class="col-3 m-t-15"
+            style="margin-left: 140px; width: fit-content"
+          >
+            <mat-select
+              *ngIf="parkAndHub"
+              placeholder="{{ parkAndHub }}"
+              [(ngModel)]="parking_place"
+              name="parking_place"
+              (selectionChange)="getVanTypes()"
+              #parkingPlace="ngModel"
+              required
+            >
+              <mat-option
+                *ngFor="let parkingPlace of parkingPlaces"
+                [value]="parkingPlace"
+              >
+                {{ parkingPlace.parkingPlaceName }}
+              </mat-option>
+            </mat-select>
+          </div>
+        </form>
+        <form #searForm1="ngForm" autocomplete="off" class="col-6 row">
+          <div class="col-3 m-t-15">
+            <!-- <md-input-container class="hide_underline width100">
+                      <input mdInput style="display:none"> -->
+            <mat-select
+              required
+              *ngIf="parkAndHub"
+              placeholder="{{ codeType }}"
+              [(ngModel)]="vanTypeID"
+              name="vanTypeID"
+              #vanTypes="ngModel"
+              (selectionChange)="
+                getVans(
+                  state.providerServiceMapID,
+                  parking_place.parkingPlaceID,
+                  vanTypeID
+                )
+              "
+            >
+              <mat-option
+                *ngFor="let vanType of filteredVanTypes"
+                [value]="vanType.vanTypeID"
+              >
+                {{ vanType.vanType }}
+              </mat-option>
+            </mat-select>
+            <!-- <md-hint [hidden]=vanTypes.valid>
+                          <span class="error_text" *ngIf="!vanTypes.required  && ( vanTypes.dirty || vanTypes.touched)">Please select van type</span>
+                      </md-hint> -->
+            <!-- </md-input-container> -->
+          </div>
+          <div
+            class="col-3 m-t-15"
+            style="margin-left: 140px; width: fit-content"
+          >
+            <!-- <md-input-container class="hide_underline width100">
+                      <input mdInput style="display:none"> -->
+            <mat-select
+              required
+              *ngIf="parkAndHub"
+              placeholder="{{ vanAndSpoke }}"
+              [(ngModel)]="vanID"
+              name="vanID"
+              #vanVal="ngModel"
+              (selectionChange)="
+                getVanServicePointMappings(parking_place.parkingPlaceID, vanID)
+              "
+            >
+              <mat-option
+                *ngFor="let van of availableVans"
+                [value]="van.vanID"
+                (change)="selectedVan(van)"
+              >
+                {{ van.vanName }}
+              </mat-option>
+            </mat-select>
+            <!-- <md-hint [hidden]=vanVal.valid>
+                          <span class="error_text" *ngIf="!vanVal.required  && ( vanVal.dirty || vanVal.touched )">Please select Van </span>
+                      </md-hint> -->
+            <!-- </md-input-container> -->
+          </div>
+        </form>
       </form>
-    </form>
-  </div>
-</div>
-
-<form class="c-b p-t-30" [formGroup]="MappingForm" autocomplete="off">
-  <div class="form-group" *ngIf="showTable">
-    <table
-      mat-table
-      [dataSource]="filteredsearchResultArray"
-      class="mat-elevation-z8"
-    >
-      <!-- S.No. Column -->
-      <ng-container matColumnDef="sNo">
-        <th mat-header-cell *matHeaderCellDef>S.No.</th>
-        <td mat-cell *matCellDef="let i = index">{{ i + 1 }}</td>
-      </ng-container>
-
-      <!-- Service Point Column -->
-      <ng-container matColumnDef="servicePoint">
-        <th mat-header-cell *matHeaderCellDef>Service Point</th>
-        <td mat-cell *matCellDef="let mapping">
-          {{ mapping.servicePointName }}
-        </td>
-      </ng-container>
-
-      <!-- District Column -->
-      <ng-container matColumnDef="district">
-        <th mat-header-cell *matHeaderCellDef>District</th>
-        <td mat-cell *matCellDef="let mapping">{{ mapping.districtName }}</td>
-      </ng-container>
-
-      <!-- Taluk/Sub-District Column -->
-      <ng-container matColumnDef="talukSubDistrict">
-        <th mat-header-cell *matHeaderCellDef>Taluk/Sub-District</th>
-        <td mat-cell *matCellDef="let mapping">{{ mapping.blockName }}</td>
-      </ng-container>
-
-      <!-- Morning Column -->
-      <ng-container matColumnDef="morning">
-        <th mat-header-cell *matHeaderCellDef>Morning</th>
-        <td mat-cell *matCellDef="let mapping">
-          <mat-checkbox
-            color="primary"
-            [formControl]="mapping.vanSession1"
-          ></mat-checkbox>
-        </td>
-      </ng-container>
-
-      <!-- Evening Column -->
-      <ng-container matColumnDef="evening">
-        <th mat-header-cell *matHeaderCellDef>Evening</th>
-        <td mat-cell *matCellDef="let mapping">
-          <mat-checkbox
-            color="primary"
-            [formControl]="mapping.vanSession2"
-          ></mat-checkbox>
-        </td>
-      </ng-container>
-
-      <!-- Full Day Column -->
-      <ng-container matColumnDef="fullDay">
-        <th mat-header-cell *matHeaderCellDef>Full Day</th>
-        <td mat-cell *matCellDef="let mapping; let i = index">
-          <mat-checkbox
-            color="primary"
-            [formControl]="mapping.vanSession3"
-            (click)="setvansession(i, mapping.vanSession3)"
-          ></mat-checkbox>
-        </td>
-      </ng-container>
-
-      <!-- Table Rows -->
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let mapping; columns: displayedColumns"></tr>
-    </table>
-    <div>
-      <button
-        md-raised-button
-        color="accent"
-        class="pull-right mat_green"
-        (click)="storeVanServicePointMapping()"
-      >
-        Add Mapping
-      </button>
     </div>
   </div>
-</form>
+
+  <form class="c-b p-t-30" [formGroup]="MappingForm" autocomplete="off">
+    <div class="form-group" *ngIf="showTable">
+      <table
+        mat-table
+        [dataSource]="filteredsearchResultArray"
+        class="mat-elevation-z8"
+      >
+        <!-- S.No. Column -->
+        <ng-container matColumnDef="sNo">
+          <th mat-header-cell *matHeaderCellDef>S.No.</th>
+          <td mat-cell *matCellDef="let i = index">{{ i + 1 }}</td>
+        </ng-container>
+
+        <!-- Service Point Column -->
+        <ng-container matColumnDef="servicePoint">
+          <th mat-header-cell *matHeaderCellDef>Service Point</th>
+          <td mat-cell *matCellDef="let mapping">
+            {{ mapping.servicePointName }}
+          </td>
+        </ng-container>
+
+        <!-- District Column -->
+        <ng-container matColumnDef="district">
+          <th mat-header-cell *matHeaderCellDef>District</th>
+          <td mat-cell *matCellDef="let mapping">{{ mapping.districtName }}</td>
+        </ng-container>
+
+        <!-- Taluk/Sub-District Column -->
+        <ng-container matColumnDef="talukSubDistrict">
+          <th mat-header-cell *matHeaderCellDef>Taluk/Sub-District</th>
+          <td mat-cell *matCellDef="let mapping">{{ mapping.blockName }}</td>
+        </ng-container>
+
+        <!-- Morning Column -->
+        <ng-container matColumnDef="morning">
+          <th mat-header-cell *matHeaderCellDef>Morning</th>
+          <td mat-cell *matCellDef="let mapping">
+            <mat-checkbox
+              color="primary"
+              [formControl]="mapping.vanSession1"
+            ></mat-checkbox>
+          </td>
+        </ng-container>
+
+        <!-- Evening Column -->
+        <ng-container matColumnDef="evening">
+          <th mat-header-cell *matHeaderCellDef>Evening</th>
+          <td mat-cell *matCellDef="let mapping">
+            <mat-checkbox
+              color="primary"
+              [formControl]="mapping.vanSession2"
+            ></mat-checkbox>
+          </td>
+        </ng-container>
+
+        <!-- Full Day Column -->
+        <ng-container matColumnDef="fullDay">
+          <th mat-header-cell *matHeaderCellDef>Full Day</th>
+          <td mat-cell *matCellDef="let mapping; let i = index">
+            <mat-checkbox
+              color="primary"
+              [formControl]="mapping.vanSession3"
+              (click)="setvansession(i, mapping.vanSession3)"
+            ></mat-checkbox>
+          </td>
+        </ng-container>
+
+        <!-- Table Rows -->
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let mapping; columns: displayedColumns"></tr>
+      </table>
+      <div>
+        <button
+          md-raised-button
+          color="accent"
+          class="pull-right mat_green"
+          (click)="storeVanServicePointMapping()"
+        >
+          Add Mapping
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

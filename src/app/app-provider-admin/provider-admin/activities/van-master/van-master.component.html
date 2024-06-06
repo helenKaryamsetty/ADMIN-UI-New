@@ -1,58 +1,273 @@
-<div class="row">
-  <div *ngIf="showVans && !editable" class="col-xs-12 col-sm-12">
-    <h4>Van Master</h4>
-    <form #searForm="ngForm" autocomplete="off">
-      <div class="row">
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-          <mat-form-field>
-            <mat-label>Serviceline</mat-label>
-            <mat-select
-              required
-              name="Services"
-              [style.width]="'100%'"
-              [(ngModel)]="serviceline"
-              (selectionChange)="getStates(serviceline.serviceID)"
-            >
-              <mat-option *ngFor="let item of services_array" [value]="item">
-                {{ item.serviceName }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-          <mat-form-field>
-            <mat-label>State</mat-label>
-            <mat-select
-              required
-              [style.width]="'100%'"
-              [(ngModel)]="searchStateID"
-              name="searchStateID"
-              (selectionChange)="
-                setProviderServiceMapID(searchStateID.providerServiceMapID)
-              "
-            >
-              <mat-option *ngFor="let state of provider_states" [value]="state">
-                {{ state.stateName }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-        <form #resetform="ngForm">
+<div class="container-fluid">
+  <div class="row">
+    <div *ngIf="showVans && !editable" class="col-xs-12 col-sm-12">
+      <h4>Van Master</h4>
+      <form #searForm="ngForm" autocomplete="off" class="row">
+        <div class="row">
           <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-            <mat-form-field>
+            <mat-form-field [style.width]="'100%'">
+              <mat-label>Serviceline</mat-label>
+              <mat-select
+                required
+                name="Services"
+                [(ngModel)]="serviceline"
+                (selectionChange)="getStates(serviceline.serviceID)"
+              >
+                <mat-option *ngFor="let item of services_array" [value]="item">
+                  {{ item.serviceName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
+            <mat-form-field [style.width]="'100%'">
+              <mat-label>State</mat-label>
+              <mat-select
+                required
+                [(ngModel)]="searchStateID"
+                name="searchStateID"
+                (selectionChange)="
+                  setProviderServiceMapID(searchStateID.providerServiceMapID)
+                "
+              >
+                <mat-option
+                  *ngFor="let state of provider_states"
+                  [value]="state"
+                >
+                  {{ state.stateName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <form #resetform="ngForm" class="row">
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
+              <mat-form-field [style.width]="'100%'">
+                <mat-label>Zone</mat-label>
+                <mat-select
+                  [(ngModel)]="zoneID"
+                  name="zoneID"
+                  #zone="ngModel"
+                  (selectionChange)="
+                    getAllParkingPlaces(
+                      zoneID.zoneID,
+                      searchStateID.providerServiceMapID
+                    )
+                  "
+                  required
+                >
+                  <mat-option *ngFor="let zone of zones" [value]="zone">
+                    {{ zone.zoneName }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div
+              class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15"
+              *ngIf="parkAndHub"
+            >
+              <mat-form-field [style.width]="'100%'">
+                <mat-select
+                  placeholder="{{ parkAndHub }}"
+                  [(ngModel)]="parking_place"
+                  name="parking_place"
+                  (selectionChange)="
+                    getVans(
+                      searchStateID.providerServiceMapID,
+                      parking_place.parkingPlaceID
+                    )
+                  "
+                  #parkingPlace="ngModel"
+                  required
+                >
+                  <mat-option
+                    *ngFor="let parkingPlace of parkingPlaces"
+                    [value]="parkingPlace"
+                  >
+                    {{ parkingPlace.parkingPlaceName }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </form>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div
+    class="pull-right m-t-15"
+    *ngIf="showVansTable && availableVans.length !== 0"
+  >
+    <mat-form-field id="filterbox">
+      <input
+        matInput
+        placeholder="In-Table Search"
+        #filterTerm
+        (keyup)="filterComponentList(filterTerm.value)"
+      />
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+  </div>
+  <div class="row">
+    <div *ngIf="showVansTable" class="col-xs-12 col-sm-12">
+      <div class="">
+        <table
+          mat-table
+          class="table table-striped table-hover"
+          [dataSource]="filteredavailableVans"
+        >
+          <ng-container matColumnDef="sno">
+            <th mat-header-cell *matHeaderCellDef>SNo.</th>
+            <td mat-cell *matCellDef="let element; let i = index">
+              {{ i + 1 }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="parkingPlaceName">
+            <th mat-header-cell *matHeaderCellDef>{{ parkAndHub }}</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.parkingPlaceName }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="vanName">
+            <th mat-header-cell *matHeaderCellDef>{{ vanAndSpoke }}</th>
+            <td mat-cell *matCellDef="let element">{{ element.vanName }}</td>
+          </ng-container>
+          <ng-container matColumnDef="vehicalNo">
+            <th mat-header-cell *matHeaderCellDef>{{ code }}</th>
+            <td mat-cell *matCellDef="let element">{{ element.vehicalNo }}</td>
+          </ng-container>
+          <ng-container matColumnDef="vanType">
+            <th mat-header-cell *matHeaderCellDef>{{ codeType }}</th>
+            <td mat-cell *matCellDef="let element">{{ element.vanType }}</td>
+          </ng-container>
+          <ng-container matColumnDef="edit">
+            <th mat-header-cell *matHeaderCellDef>Edit</th>
+            <td mat-cell *matCellDef="let element">
+              <mat-icon
+                matTooltip="Edit"
+                class="mat-icon material-icons"
+                role="img"
+                aria-hidden="true"
+                style="cursor: pointer"
+                *ngIf="!element.deleted"
+                (click)="editVanData(element)"
+                >edit</mat-icon
+              >
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef>Action</th>
+            <td mat-cell *matCellDef="let element">
+              <button
+                *ngIf="element.deleted"
+                mat-raised-button
+                class="mat_green"
+                color="accent"
+                (click)="updateVanStatus(element)"
+              >
+                Activate
+              </button>
+              <button
+                *ngIf="!element.deleted"
+                mat-raised-button
+                class="mat_blue"
+                color="primary"
+                (click)="updateVanStatus(element)"
+              >
+                Deactivate
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+        <div>
+          <button
+            mat-raised-button
+            color="primary"
+            [disabled]="!createButton"
+            class="pull-right mat_blue"
+            (click)="showForm()"
+          >
+            Create New Van
+          </button>
+        </div>
+      </div>
+      <div
+        class="pull-center"
+        style="margin-top: 35px; text-align: center"
+        *ngIf="filteredavailableVans.data.length === 0"
+      >
+        <strong>No Records Found</strong>
+      </div>
+      <mat-paginator
+        [hidden]="filteredavailableVans.data.length === 0"
+        [pageSizeOptions]="[5, 10, 20]"
+        [pageSize]="5"
+        showFirstLastButtons
+      >
+      </mat-paginator>
+    </div>
+    <div *ngIf="!showVans || editable" class="col-xs-12 col-sm-12">
+      <h4 *ngIf="!editable">Create Van</h4>
+      <h4 *ngIf="editable">Edit Van Details</h4>
+
+      <form #vanForm="ngForm" autocomplete="off" class="row">
+        <div class="row">
+          <input
+            matInput
+            style="display: none"
+            [(ngModel)]="vanID"
+            name="vanID"
+          />
+          <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
+            <mat-form-field [style.width]="'100%'">
+              <mat-label> Serviceline </mat-label>
+              <mat-select
+                required
+                name="Services"
+                [(ngModel)]="serviceline"
+                [disabled]="true"
+              >
+                <mat-option *ngFor="let item of services_array" [value]="item">
+                  {{ item.serviceName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
+            <mat-form-field [style.width]="'100%'">
+              <mat-label>State</mat-label>
+              <mat-select
+                required
+                [(ngModel)]="searchStateID"
+                name="searchStateID"
+                [disabled]="true"
+              >
+                <mat-option
+                  *ngFor="let state of provider_states"
+                  [value]="state"
+                >
+                  {{ state.stateName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
+            <mat-form-field [style.width]="'100%'">
               <mat-label>Zone</mat-label>
               <mat-select
-                class="width100"
+                required
+                [disabled]="true"
                 [(ngModel)]="zoneID"
                 name="zoneID"
-                #zone="ngModel"
+                #zoneG="ngModel"
                 (selectionChange)="
                   getAllParkingPlaces(
                     zoneID.zoneID,
                     searchStateID.providerServiceMapID
                   )
                 "
-                required
               >
                 <mat-option *ngFor="let zone of zones" [value]="zone">
                   {{ zone.zoneName }}
@@ -64,19 +279,13 @@
             class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15"
             *ngIf="parkAndHub"
           >
-            <mat-form-field>
+            <mat-form-field [style.width]="'100%'">
+              <mat-label>{{ parkAndHub }}</mat-label>
               <mat-select
-                placeholder="{{ parkAndHub }}"
-                class="width100"
+                [disabled]="true"
                 [(ngModel)]="parking_place"
                 name="parking_place"
-                (selectionChange)="
-                  getVans(
-                    searchStateID.providerServiceMapID,
-                    parking_place.parkingPlaceID
-                  )
-                "
-                #parkingPlace="ngModel"
+                #parking="ngModel"
                 required
               >
                 <mat-option
@@ -88,452 +297,252 @@
               </mat-select>
             </mat-form-field>
           </div>
-        </form>
-      </div>
-    </form>
-  </div>
-</div>
-<div
-  class="pull-right m-t-15"
-  *ngIf="showVansTable && availableVans.length !== 0"
->
-  <mat-form-field
-    class="input-full-width mat_form_field_width_one"
-    id="filterbox"
-  >
-    <input
-      matInput
-      placeholder="In-Table Search"
-      #filterTerm
-      (keyup)="filterComponentList(filterTerm.value)"
-    />
-    <mat-icon matSuffix>search</mat-icon>
-  </mat-form-field>
-</div>
-<div class="row">
-  <div *ngIf="showVansTable" class="col-xs-12 col-sm-12">
-    <div class="">
-      <table
-        mat-table
-        class="table table-striped table-hover"
-        [dataSource]="filteredavailableVans"
-      >
-        <ng-container matColumnDef="sno">
-          <th mat-header-cell *matHeaderCellDef>SNo.</th>
-          <td mat-cell *matCellDef="let element; let i = index">{{ i + 1 }}</td>
-        </ng-container>
-        <ng-container matColumnDef="parkingPlaceName">
-          <th mat-header-cell *matHeaderCellDef>{{ parkAndHub }}</th>
-          <td mat-cell *matCellDef="let element">
-            {{ element.parkingPlaceName }}
-          </td>
-        </ng-container>
-        <ng-container matColumnDef="vanName">
-          <th mat-header-cell *matHeaderCellDef>{{ vanAndSpoke }}</th>
-          <td mat-cell *matCellDef="let element">{{ element.vanName }}</td>
-        </ng-container>
-        <ng-container matColumnDef="vehicalNo">
-          <th mat-header-cell *matHeaderCellDef>{{ code }}</th>
-          <td mat-cell *matCellDef="let element">{{ element.vehicalNo }}</td>
-        </ng-container>
-        <ng-container matColumnDef="vanType">
-          <th mat-header-cell *matHeaderCellDef>{{ codeType }}</th>
-          <td mat-cell *matCellDef="let element">{{ element.vanType }}</td>
-        </ng-container>
-        <ng-container matColumnDef="edit">
-          <th mat-header-cell *matHeaderCellDef>Edit</th>
-          <td mat-cell *matCellDef="let element">
-            <mat-icon
-              matTooltip="Edit"
-              class="mat-icon material-icons"
-              role="img"
-              aria-hidden="true"
-              style="cursor: pointer"
-              *ngIf="!element.deleted"
-              (click)="editVanData(element)"
-              >edit</mat-icon
-            >
-          </td>
-        </ng-container>
-        <ng-container matColumnDef="action">
-          <th mat-header-cell *matHeaderCellDef>Action</th>
-          <td mat-cell *matCellDef="let element">
-            <button
-              *ngIf="element.deleted"
-              mat-raised-button
-              class="mat_green"
-              color="accent"
-              (click)="updateVanStatus(element)"
-            >
-              Activate
-            </button>
-            <button
-              *ngIf="!element.deleted"
-              mat-raised-button
-              class="mat_blue"
-              color="primary"
-              (click)="updateVanStatus(element)"
-            >
-              Deactivate
-            </button>
-          </td>
-        </ng-container>
+          <form #vanMasterForm1="ngForm" autocomplete="off" class="row">
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
+              <mat-form-field [style.width]="'100%'">
+                <mat-label>{{ codeType }}</mat-label>
+                <mat-select
+                  required
+                  [(ngModel)]="vanTypeID"
+                  name="vanTypeID"
+                  #vanTID="ngModel"
+                >
+                  <mat-option
+                    *ngFor="let vanType of filteredVanTypes"
+                    value="{{ vanType.vanTypeID }}-{{ vanType.vanType }}"
+                  >
+                    {{ vanType.vanType }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-      </table>
-      <div>
-        <button
-          mat-raised-button
-          color="primary"
-          [disabled]="!createButton"
-          class="pull-right mat_blue"
-          (click)="showForm()"
-        >
-          Create New Van
-        </button>
-      </div>
-    </div>
-    <div
-      class="pull-center"
-      style="margin-top: 35px; text-align: center"
-      *ngIf="filteredavailableVans.data.length === 0"
-    >
-      <strong>No Records Found</strong>
-    </div>
-    <mat-paginator
-      [hidden]="filteredavailableVans.data.length === 0"
-      [pageSizeOptions]="[5, 10, 20]"
-      [pageSize]="5"
-      showFirstLastButtons
-    >
-    </mat-paginator>
-  </div>
-  <div *ngIf="!showVans || editable" class="col-xs-12 col-sm-12">
-    <h4 *ngIf="!editable">Create Van</h4>
-    <h4 *ngIf="editable">Edit Van Details</h4>
-
-    <form #vanForm="ngForm" autocomplete="off">
-      <div class="row">
-        <input
-          matInput
-          style="display: none"
-          [(ngModel)]="vanID"
-          name="vanID"
-        />
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
-          <mat-form-field>
-            <mat-label> Serviceline </mat-label>
-            <mat-select
-              required
-              name="Services"
-              [style.width]="'100%'"
-              [(ngModel)]="serviceline"
-              [disabled]="true"
+            <div
+              class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15"
+              appVehicleNO
             >
-              <mat-option *ngFor="let item of services_array" [value]="item">
-                {{ item.serviceName }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
-          <mat-form-field>
-            <mat-label>State</mat-label>
-            <mat-select
-              required
-              [style.width]="'100%'"
-              [(ngModel)]="searchStateID"
-              name="searchStateID"
-              [disabled]="true"
+              <mat-form-field [style.width]="'100%'">
+                <mat-label>{{ vanAndSpoke }}</mat-label>
+                <input
+                  matInput
+                  required
+                  [(ngModel)]="vanName"
+                  name="vanName"
+                  maxlength="30"
+                  #vanN="ngModel"
+                  (keyup)="checkExistance(vanName)"
+                />
+                <mat-hint>
+                  <span
+                    class="error_text"
+                    *ngIf="!vanN.valid && (vanN.dirty || vanN.touched)"
+                    >Please enter Van Name</span
+                  >
+                  <span class="error_text" *ngIf="vanN.valid && vanNameExist"
+                    >Van already exists</span
+                  >
+                </mat-hint>
+              </mat-form-field>
+            </div>
+            <div class="clearfix visible-sm"></div>
+            <div
+              class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15"
+              appVehicleNONew
             >
-              <mat-option *ngFor="let state of provider_states" [value]="state">
-                {{ state.stateName }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-          <mat-form-field>
-            <mat-label>Zone</mat-label>
-            <mat-select
-              required
-              class="width100"
-              [disabled]="true"
-              [(ngModel)]="zoneID"
-              name="zoneID"
-              #zoneG="ngModel"
-              (selectionChange)="
-                getAllParkingPlaces(
-                  zoneID.zoneID,
-                  searchStateID.providerServiceMapID
-                )
-              "
+              <mat-form-field [style.width]="'100%'">
+                <mat-label>{{ code }}</mat-label>
+                <input
+                  matInput
+                  required
+                  [(ngModel)]="vehicalNo"
+                  name="vehicalNo"
+                  minlength="10"
+                  maxlength="13"
+                  #vehicleN="ngModel"
+                  (keyup)="checkVehicleExistance(vehicalNo)"
+                />
+                <mat-hint>
+                  <span
+                    class="error_text"
+                    *ngIf="
+                      !vehicleN.valid && (vehicleN.dirty || vehicleN.touched)
+                    "
+                    >Enter min: 10, max 13</span
+                  >
+                  <span
+                    class="error_text"
+                    *ngIf="vehicleN.valid && vehicleExist"
+                    >Vehicle no already exists</span
+                  >
+                </mat-hint>
+              </mat-form-field>
+            </div>
+            <div
+              class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15"
+              appVehicleNONew
             >
-              <mat-option *ngFor="let zone of zones" [value]="zone">
-                {{ zone.zoneName }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-        <div
-          class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15"
-          *ngIf="parkAndHub"
-        >
-          <mat-form-field>
-            <mat-label>{{ parkAndHub }}</mat-label>
-            <mat-select
-              class="width100"
-              [disabled]="true"
-              [(ngModel)]="parking_place"
-              name="parking_place"
-              #parking="ngModel"
-              required
-            >
-              <mat-option
-                *ngFor="let parkingPlace of parkingPlaces"
-                [value]="parkingPlace"
+              <mat-form-field [style.width]="'100%'" appMyEmail>
+                <mat-label>Swymed Domain</mat-label>
+                <input
+                  matInput
+                  [(ngModel)]="domain"
+                  name="domain"
+                  #sDomain="ngModel"
+                />
+              </mat-form-field>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15" appPAN>
+              <mat-form-field [style.width]="'100%'">
+                <mat-label>Swymed ID</mat-label>
+                <input
+                  matInput
+                  [(ngModel)]="sID"
+                  name="sID"
+                  #videoConsultationID="ngModel"
+                />
+              </mat-form-field>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
+              <mat-form-field [style.width]="'100%'">
+                <mat-label>Swymed Email</mat-label>
+                <input
+                  matInput
+                  [(ngModel)]="sEmail"
+                  name="sEmail"
+                  #videoConsultationEmail="ngModel"
+                />
+              </mat-form-field>
+              <span class="maxRedialNote">{{ note }}</span>
+            </div>
+            <div class="col-xs-12 col-sm-4 col-md-12 col-lg-3 m-t-15">
+              <button
+                mat-mini-fab
+                color="primary"
+                *ngIf="
+                  !editable &&
+                  vanMasterForm1.valid &&
+                  !vehicleExist &&
+                  !vanNameExist
+                "
+                class="xs-pull-right sm-pull-left md-pull-right lg-pull-left mat_blue"
+                (click)="
+                  addVanToList(vanMasterForm1.value); vanMasterForm1.reset()
+                "
               >
-                {{ parkingPlace.parkingPlaceName }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
+                <mat-icon
+                  matSuffix
+                  class="mat-icon material-icons"
+                  role="img"
+                  aria-hidden="true"
+                  style="cursor: pointer"
+                  >add</mat-icon
+                >
+              </button>
+            </div>
+          </form>
         </div>
-        <form #vanMasterForm1="ngForm" autocomplete="off">
-          <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
-            <mat-form-field>
-              <mat-label>{{ codeType }}</mat-label>
-              <mat-select
-                required
-                [style.width]="'100%'"
-                [(ngModel)]="vanTypeID"
-                name="vanTypeID"
-                #vanTID="ngModel"
-              >
-                <mat-option
-                  *ngFor="let vanType of filteredVanTypes"
-                  value="{{ vanType.vanTypeID }}-{{ vanType.vanType }}"
-                >
-                  {{ vanType.vanType }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-
-          <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15" appVehicleNO>
-            <mat-form-field class="input-full-width mat_form_field_width_one">
-              <mat-label>{{ vanAndSpoke }}</mat-label>
-              <input
-                matInput
-                required
-                [(ngModel)]="vanName"
-                name="vanName"
-                maxlength="30"
-                #vanN="ngModel"
-                (keyup)="checkExistance(vanName)"
-              />
-              <mat-hint>
-                <span
-                  class="error_text"
-                  *ngIf="!vanN.valid && (vanN.dirty || vanN.touched)"
-                  >Please enter Van Name</span
-                >
-                <span class="error_text" *ngIf="vanN.valid && vanNameExist"
-                  >Van already exists</span
-                >
-              </mat-hint>
-            </mat-form-field>
-          </div>
-          <div class="clearfix visible-sm"></div>
-          <div
-            class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15"
-            appVehicleNONew
-          >
-            <mat-form-field class="input-full-width mat_form_field_width_one">
-              <mat-label>{{ code }}</mat-label>
-              <input
-                matInput
-                required
-                [(ngModel)]="vehicalNo"
-                name="vehicalNo"
-                minlength="10"
-                maxlength="13"
-                #vehicleN="ngModel"
-                (keyup)="checkVehicleExistance(vehicalNo)"
-              />
-              <mat-hint>
-                <span
-                  class="error_text"
-                  *ngIf="
-                    !vehicleN.valid && (vehicleN.dirty || vehicleN.touched)
-                  "
-                  >Enter min: 10, max 13</span
-                >
-                <span class="error_text" *ngIf="vehicleN.valid && vehicleExist"
-                  >Vehicle no already exists</span
-                >
-              </mat-hint>
-            </mat-form-field>
-          </div>
-          <div
-            class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15"
-            appVehicleNONew
-          >
-            <mat-form-field
-              class="input-full-width mat_form_field_width_one"
-              appMyEmail
-            >
-              <mat-label>Swymed Domain</mat-label>
-              <input
-                matInput
-                [(ngModel)]="domain"
-                name="domain"
-                #sDomain="ngModel"
-              />
-            </mat-form-field>
-          </div>
-          <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15" appPAN>
-            <mat-form-field class="input-full-width mat_form_field_width_one">
-              <mat-label>Swymed ID</mat-label>
-              <input
-                matInput
-                [(ngModel)]="sID"
-                name="sID"
-                #videoConsultationID="ngModel"
-              />
-            </mat-form-field>
-          </div>
-          <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-            <mat-form-field class="input-full-width mat_form_field_width_one">
-              <mat-label>Swymed Email</mat-label>
-              <input
-                matInput
-                [(ngModel)]="sEmail"
-                name="sEmail"
-                #videoConsultationEmail="ngModel"
-              />
-            </mat-form-field>
-            <span class="maxRedialNote">{{ note }}</span>
-          </div>
-          <div class="col-xs-12 col-sm-4 col-md-12 col-lg-3 m-t-15">
-            <button
-              mat-mini-fab
-              color="primary"
-              *ngIf="
-                !editable &&
-                vanMasterForm1.valid &&
-                !vehicleExist &&
-                !vanNameExist
-              "
-              class="xs-pull-right sm-pull-left md-pull-right lg-pull-left mat_blue"
-              (click)="
-                addVanToList(vanMasterForm1.value); vanMasterForm1.reset()
-              "
-            >
+      </form>
+      <div *ngIf="vanList.data.length > 0" class="m-t-10 table-responsive">
+        <table
+          mat-table
+          [dataSource]="vanList"
+          class="table table-striped table-hover"
+        >
+          <ng-container matColumnDef="sno">
+            <th mat-header-cell *matHeaderCellDef>SNo.</th>
+            <td mat-cell *matCellDef="let element; let i = index">
+              {{ i + 1 }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="stateName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>State</th>
+            <td mat-cell *matCellDef="let element">{{ element.stateName }}</td>
+          </ng-container>
+          <ng-container matColumnDef="parkingPlaceName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              {{ parkAndHub }}
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.parkingPlaceName }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="vanName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              {{ vanAndSpoke }}
+            </th>
+            <td mat-cell *matCellDef="let element">{{ element.vanName }}</td>
+          </ng-container>
+          <ng-container matColumnDef="vehicalNo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              {{ code }}
+            </th>
+            <td mat-cell *matCellDef="let element">{{ element.vehicalNo }}</td>
+          </ng-container>
+          <ng-container matColumnDef="vanType">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              {{ codeType }}
+            </th>
+            <td mat-cell *matCellDef="let element">{{ element.vanType }}</td>
+          </ng-container>
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef>Action</th>
+            <td mat-cell *matCellDef="let element; let i = index">
               <mat-icon
-                matSuffix
-                class="mat-icon material-icons"
-                role="img"
-                aria-hidden="true"
-                style="cursor: pointer"
-                >add</mat-icon
+                class="cursorPointer"
+                matTooltip="delete"
+                (click)="deleteRow(vanList.data.indexOf(element))"
+                >delete</mat-icon
               >
-            </button>
-          </div>
-        </form>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayAddedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayAddedColumns"></tr>
+          <mat-paginator
+            [hidden]="vanList.data.length === 0"
+            [pageSizeOptions]="[5, 10, 20]"
+            [pageSize]="5"
+            showFirstLastButtons
+          >
+          </mat-paginator>
+        </table>
       </div>
-    </form>
-    <div *ngIf="vanList.data.length > 0" class="m-t-10 table-responsive">
-      <table
-        mat-table
-        [dataSource]="vanList"
-        class="table table-striped table-hover"
-      >
-        <ng-container matColumnDef="sno">
-          <th mat-header-cell *matHeaderCellDef>SNo.</th>
-          <td mat-cell *matCellDef="let element; let i = index">{{ i + 1 }}</td>
-        </ng-container>
-        <ng-container matColumnDef="stateName">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>State</th>
-          <td mat-cell *matCellDef="let element">{{ element.stateName }}</td>
-        </ng-container>
-        <ng-container matColumnDef="parkingPlaceName">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>
-            {{ parkAndHub }}
-          </th>
-          <td mat-cell *matCellDef="let element">
-            {{ element.parkingPlaceName }}
-          </td>
-        </ng-container>
-        <ng-container matColumnDef="vanName">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>
-            {{ vanAndSpoke }}
-          </th>
-          <td mat-cell *matCellDef="let element">{{ element.vanName }}</td>
-        </ng-container>
-        <ng-container matColumnDef="vehicalNo">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ code }}</th>
-          <td mat-cell *matCellDef="let element">{{ element.vehicalNo }}</td>
-        </ng-container>
-        <ng-container matColumnDef="vanType">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>
-            {{ codeType }}
-          </th>
-          <td mat-cell *matCellDef="let element">{{ element.vanType }}</td>
-        </ng-container>
-        <ng-container matColumnDef="action">
-          <th mat-header-cell *matHeaderCellDef>Action</th>
-          <td mat-cell *matCellDef="let element; let i = index">
-            <mat-icon
-              class="cursorPointer"
-              matTooltip="delete"
-              (click)="deleteRow(vanList.data.indexOf(element))"
-              >delete</mat-icon
-            >
-          </td>
-        </ng-container>
+      <div class="row m-t-10 m-b-20">
+        <div
+          class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
+          style="margin-bottom: 47px"
+        >
+          <button
+            mat-raised-button
+            color="primary"
+            class="pull-left mat_blue"
+            (click)="back(); vanMasterForm1.reset()"
+          >
+            Back
+          </button>
 
-        <tr mat-header-row *matHeaderRowDef="displayAddedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayAddedColumns"></tr>
-        <mat-paginator
-          [hidden]="vanList.data.length === 0"
-          [pageSizeOptions]="[5, 10, 20]"
-          [pageSize]="5"
-          showFirstLastButtons
-        >
-        </mat-paginator>
-      </table>
-    </div>
-    <div class="row m-t-10 m-b-20">
-      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <button
-          mat-raised-button
-          color="primary"
-          class="pull-left mat_blue"
-          (click)="back(); vanMasterForm1.reset()"
-        >
-          Back
-        </button>
-
-        <button
-          mat-raised-button
-          color="accent"
-          *ngIf="editable"
-          class="pull-right mat_green"
-          (click)="updateVanData(vanMasterForm1.value); vanMasterForm1.reset()"
-        >
-          Update
-        </button>
-        <button
-          mat-raised-button
-          color="accent"
-          [disabled]="!(vanList.data.length > 0)"
-          *ngIf="!editable"
-          class="pull-right mat_green"
-          (click)="storeVans()"
-        >
-          Save
-        </button>
+          <button
+            mat-raised-button
+            color="accent"
+            *ngIf="editable"
+            class="pull-right mat_green"
+            (click)="
+              updateVanData(vanMasterForm1.value); vanMasterForm1.reset()
+            "
+          >
+            Update
+          </button>
+          <button
+            mat-raised-button
+            color="accent"
+            [disabled]="!(vanList.data.length > 0)"
+            *ngIf="!editable"
+            class="pull-right mat_green"
+            (click)="storeVans()"
+          >
+            Save
+          </button>
+        </div>
       </div>
     </div>
   </div>

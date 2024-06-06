@@ -1,183 +1,188 @@
-<div class="row">
-  <div class="col-xs-12 col-sm-12">
-    <h4 *ngIf="tableMode && !creationMode">Specialist Mapping</h4>
-    <h4 *ngIf="creationMode && !tableMode">Create Mapping</h4>
-    <form #specialistMapping="ngForm" *ngIf="creationMode">
-      <div class="container-fluid">
-        <div class="row m-t-40">
-          <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-            <mat-form-field>
-              <mat-label>User</mat-label>
-              <mat-select
-                required
-                name="users-select"
-                [style.width]="'100%'"
-                [(ngModel)]="userSelected"
-              >
-                <mat-option *ngFor="let item of users" [value]="item.userID">
-                  {{ item.UserName }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-
-          <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-            <mat-form-field>
-              <mat-label>Specialization</mat-label>
-              <mat-select
-                required
-                name="specialization-select"
-                [style.width]="'100%'"
-                [(ngModel)]="specializationSelected"
-              >
-                <mat-option
-                  *ngFor="let item of specializations"
-                  [value]="item.specializationID"
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-12 col-sm-12">
+      <h4 *ngIf="tableMode && !creationMode">Specialist Mapping</h4>
+      <h4 *ngIf="creationMode && !tableMode">Create Mapping</h4>
+      <form #specialistMapping="ngForm" *ngIf="creationMode">
+        <div class="container-fluid">
+          <div class="row m-t-40">
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
+              <mat-form-field [style.width]="'100%'">
+                <mat-label>User</mat-label>
+                <mat-select
+                  required
+                  name="users-select"
+                  [style.width]="'100%'"
+                  [(ngModel)]="userSelected"
                 >
-                  {{ item.specialization }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-        </div>
-      </div>
-      <div class="container-fluid m-t-40">
-        <div class="">
-          <button
-            color="primary"
-            type="button"
-            class="pull-left mat_blue"
-            id="backButton"
-            mat-raised-button
-            (click)="back()"
-          >
-            Back
-          </button>
-          <button
-            class="pull-right mat_green"
-            id="saveButton"
-            mat-raised-button
-            color="accent"
-            [disabled]="specialistMapping.invalid"
-            (click)="proceed()"
-          >
-            Save
-          </button>
-        </div>
-      </div>
-    </form>
-    <div *ngIf="tableMode">
-      <div style="text-align: end" *ngIf="specializationList?.length > 0">
-        <mat-form-field id="filterbox">
-          <input
-            matInput
-            placeholder="In-Table Search"
-            #filterTerm
-            (keyup)="filterSpecializationList(filterTerm.value)"
-          />
-          <mat-icon matSuffix>search</mat-icon>
-        </mat-form-field>
-      </div>
-      <div class="row" *ngIf="tableMode">
-        <div #tabledData class="col-xs-12 col-sm-12">
-          <div class="table-responsive">
-            <table
-              mat-table
-              [dataSource]="filteredspecializationList"
-              class="mat-elevation-z8"
-            >
-              <ng-container matColumnDef="SNo">
-                <th mat-header-cell *matHeaderCellDef>S.No.</th>
-                <td mat-cell *matCellDef="let element; let i = index">
-                  {{ i + 1 }}
-                </td>
-              </ng-container>
-              <ng-container matColumnDef="UserName">
-                <th mat-header-cell *matHeaderCellDef>User Name</th>
-                <td mat-cell *matCellDef="let element">
-                  {{ element.userName }}
-                </td>
-              </ng-container>
-              <ng-container matColumnDef="specializationName">
-                <th mat-header-cell *matHeaderCellDef>Specialization</th>
-                <td mat-cell *matCellDef="let element">
-                  {{ element.specializationName }}
-                </td>
-              </ng-container>
-              <ng-container matColumnDef="action">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>
-                  Action
-                </th>
-                <td mat-cell *matCellDef="let element">
-                  <button
-                    *ngIf="
-                      element.deleted ||
-                      element.specializationDeleted ||
-                      element.userDeleted
-                    "
-                    color="accent"
-                    class="mat_green"
-                    mat-raised-button
-                    (click)="
-                      activateMapping(
-                        element.userSpecializationMapID,
-                        filteredspecializationList.data.indexOf(element),
-                        false
-                      )
-                    "
-                  >
-                    Activate
-                  </button>
-
-                  <button
-                    *ngIf="
-                      !(
-                        element.deleted ||
-                        element.userDeleted ||
-                        element.specializationDeleted
-                      )
-                    "
-                    class="mat_blue"
-                    color="primary"
-                    mat-raised-button
-                    (click)="
-                      deActivateMapping(
-                        element.userSpecializationMapID,
-                        filteredspecializationList.data.indexOf(element),
-                        true
-                      )
-                    "
-                  >
-                    Deactivate
-                  </button>
-                </td>
-              </ng-container>
-              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-              <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-            </table>
-
-            <div>
-              <button
-                class="pull-right mat_blue"
-                color="primary"
-                id="resetButton"
-                mat-raised-button
-                (click)="showForm()"
-              >
-                Create New Mapping
-              </button>
+                  <mat-option *ngFor="let item of users" [value]="item.userID">
+                    {{ item.UserName }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
             </div>
-            <mat-paginator
-              [hidden]="filteredspecializationList.data.length === 0"
-              [pageSizeOptions]="[5, 10, 20]"
-              [pageSize]="5"
-              showFirstLastButtons
-            >
-            </mat-paginator>
+
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
+              <mat-form-field [style.width]="'100%'">
+                <mat-label>Specialization</mat-label>
+                <mat-select
+                  required
+                  name="specialization-select"
+                  [style.width]="'100%'"
+                  [(ngModel)]="specializationSelected"
+                >
+                  <mat-option
+                    *ngFor="let item of specializations"
+                    [value]="item.specializationID"
+                  >
+                    {{ item.specialization }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
           </div>
         </div>
+        <div class="container-fluid m-t-40" style="margin-bottom: 92px">
+          <div class="">
+            <button
+              color="primary"
+              type="button"
+              class="pull-left mat_blue"
+              id="backButton"
+              mat-raised-button
+              (click)="back()"
+            >
+              Back
+            </button>
+            <button
+              class="pull-right mat_green"
+              id="saveButton"
+              mat-raised-button
+              color="accent"
+              [disabled]="specialistMapping.invalid"
+              (click)="proceed()"
+            >
+              Save
+            </button>
+          </div>
+        </div>
+      </form>
+      <div *ngIf="tableMode">
+        <div style="text-align: end" *ngIf="specializationList?.length > 0">
+          <mat-form-field [style.width]="'100%'" id="filterbox">
+            <input
+              matInput
+              placeholder="In-Table Search"
+              #filterTerm
+              (keyup)="filterSpecializationList(filterTerm.value)"
+            />
+            <mat-icon matSuffix>search</mat-icon>
+          </mat-form-field>
+        </div>
+        <div class="row" *ngIf="tableMode">
+          <div #tabledData class="col-xs-12 col-sm-12">
+            <div class="table-responsive">
+              <table
+                mat-table
+                [dataSource]="filteredspecializationList"
+                class="mat-elevation-z8"
+              >
+                <ng-container matColumnDef="SNo">
+                  <th mat-header-cell *matHeaderCellDef>S.No.</th>
+                  <td mat-cell *matCellDef="let element; let i = index">
+                    {{ i + 1 }}
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="UserName">
+                  <th mat-header-cell *matHeaderCellDef>User Name</th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element.userName }}
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="specializationName">
+                  <th mat-header-cell *matHeaderCellDef>Specialization</th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element.specializationName }}
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="action">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Action
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    <button
+                      *ngIf="
+                        element.deleted ||
+                        element.specializationDeleted ||
+                        element.userDeleted
+                      "
+                      color="accent"
+                      class="mat_green"
+                      mat-raised-button
+                      (click)="
+                        activateMapping(
+                          element.userSpecializationMapID,
+                          filteredspecializationList.data.indexOf(element),
+                          false
+                        )
+                      "
+                    >
+                      Activate
+                    </button>
+
+                    <button
+                      *ngIf="
+                        !(
+                          element.deleted ||
+                          element.userDeleted ||
+                          element.specializationDeleted
+                        )
+                      "
+                      class="mat_blue"
+                      color="primary"
+                      mat-raised-button
+                      (click)="
+                        deActivateMapping(
+                          element.userSpecializationMapID,
+                          filteredspecializationList.data.indexOf(element),
+                          true
+                        )
+                      "
+                    >
+                      Deactivate
+                    </button>
+                  </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr
+                  mat-row
+                  *matRowDef="let row; columns: displayedColumns"
+                ></tr>
+              </table>
+
+              <div>
+                <button
+                  class="pull-right mat_blue"
+                  color="primary"
+                  id="resetButton"
+                  mat-raised-button
+                  (click)="showForm()"
+                >
+                  Create New Mapping
+                </button>
+              </div>
+              <mat-paginator
+                [hidden]="filteredspecializationList.data.length === 0"
+                [pageSizeOptions]="[5, 10, 20]"
+                [pageSize]="5"
+                showFirstLastButtons
+              >
+              </mat-paginator>
+            </div>
+          </div>
+        </div>
+        <!-- </div> -->
       </div>
-      <!-- </div> -->
     </div>
   </div>
 </div>
