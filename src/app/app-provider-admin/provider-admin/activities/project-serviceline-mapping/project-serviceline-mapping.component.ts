@@ -93,6 +93,7 @@ export class ProjectServicelineMappingComponent implements OnInit {
   }
 
   getStates() {
+    this.dataSource.data = [];
     this.projectServicelineMappingService.getStates().subscribe(
       (res: any) => {
         if (res.data && res.statusCode === 200) {
@@ -108,6 +109,7 @@ export class ProjectServicelineMappingComponent implements OnInit {
   }
 
   getDistricts() {
+    this.dataSource.data = [];
     this.projectServcelineMappingForm.controls['district'].patchValue(null);
     this.projectServcelineMappingForm.controls['block'].patchValue(null);
     this.projectServcelineMappingForm.controls['projectName'].patchValue(null);
@@ -131,6 +133,7 @@ export class ProjectServicelineMappingComponent implements OnInit {
   }
 
   getBlocks() {
+    console.log('this.dataSource.dataGetBLOCKS', this.dataSource.data);
     this.projectServcelineMappingForm.controls['block'].patchValue(null);
     this.projectServcelineMappingForm.controls['projectId'].patchValue(null);
     this.projectServcelineMappingForm.controls['projectName'].patchValue(null);
@@ -218,6 +221,7 @@ export class ProjectServicelineMappingComponent implements OnInit {
   //   );
   // }
   getMappedProjectNames() {
+    this.dataSource.data = [];
     this.projectServcelineMappingForm.controls['projectId'].patchValue(null);
     this.projectServcelineMappingForm.controls['projectName'].patchValue(null);
     this.enableProjectField = false;
@@ -244,6 +248,7 @@ export class ProjectServicelineMappingComponent implements OnInit {
           if (res.data && res.data.length > 0) {
             this.dataSource.data = res.data;
             console.log('this.dataSource.data', this.dataSource.data);
+            this.getBlocks();
             this.projectServcelineMappingForm.get('projectName')?.enable();
             this.getProjects();
             this.projectServcelineMappingForm.patchValue(res.data);

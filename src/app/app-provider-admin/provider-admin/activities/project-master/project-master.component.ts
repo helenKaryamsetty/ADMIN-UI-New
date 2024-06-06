@@ -18,6 +18,7 @@ export class ProjectMasterComponent implements OnInit {
   showTable = true;
   projectName: any;
   enableEditMode = false;
+  saveBoolean = false;
 
   @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
   @ViewChild(MatSort) sort: MatSort | null = null;
@@ -80,7 +81,14 @@ export class ProjectMasterComponent implements OnInit {
     this.getProjects();
   }
 
-  addProject() {
+  addProject(element: any) {
+    const projectCheck = element.some(
+      (project: any) => project.projectName === this.projectName,
+    );
+    if (projectCheck) {
+      this.confirmationService.alert('project already exists', 'error');
+      return;
+    }
     const reqObj = {
       serviceProviderId: this.serviceProviderId,
       projectName: this.projectName,
@@ -154,37 +162,46 @@ export class ProjectMasterComponent implements OnInit {
   }
 
   activateDeactivate(element: any, deactivate: boolean) {
-    const reqObj = {
-      serviceProviderId: sessionStorage.getItem('service_providerID'),
-      projectId: element.projectId,
-      projectName: element.projectName,
-      deleted: deactivate,
-      modifiedBy: sessionStorage.getItem('uname'),
-    };
-    this.projectMasterService.updateProject(reqObj).subscribe(
-      (res: any) => {
-        if (res && res.statusCode === 200) {
-          if (deactivate) {
-            this.confirmationService.alert(
-              'Project name deactivated successfully',
-              'success',
-            );
-            this.getProjects();
-          } else {
-            this.confirmationService.alert(
-              'Project name activated successfully',
-              'success',
-            );
-            this.getProjects();
-          }
-        } else {
-          this.confirmationService.alert(res.errorMessage, 'error');
+    let text;
+    if (!deactivate) text = 'Are you sure you want to Activate?';
+    else text = 'Are you sure you want to Deactivate?';
+    this.confirmationService
+      .confirm('Confirm', text)
+      .subscribe((response: any) => {
+        if (response) {
+          const reqObj = {
+            serviceProviderId: sessionStorage.getItem('service_providerID'),
+            projectId: element.projectId,
+            projectName: element.projectName,
+            deleted: deactivate,
+            modifiedBy: sessionStorage.getItem('uname'),
+          };
+          this.projectMasterService.updateProject(reqObj).subscribe(
+            (res: any) => {
+              if (res && res.statusCode === 200) {
+                if (deactivate) {
+                  this.confirmationService.alert(
+                    'Project name deactivated successfully',
+                    'success',
+                  );
+                  this.getProjects();
+                } else {
+                  this.confirmationService.alert(
+                    'Project name activated successfully',
+                    'success',
+                  );
+                  this.getProjects();
+                }
+              } else {
+                this.confirmationService.alert(res.errorMessage, 'error');
+              }
+            },
+            (err: any) => {
+              this.confirmationService.alert(err.errorMessage, 'error');
+            },
+          );
         }
-      },
-      (err: any) => {
-        this.confirmationService.alert(err.errorMessage, 'error');
-      },
-    );
+      });
   }
 
   updateProjectName() {

@@ -18,7 +18,7 @@ export class ProjectConfigutationScreenComponent implements OnInit {
   projectNames: any = [];
   project: any;
   filteredOptions: any;
-  isChecked: any;
+  isChecked!: boolean;
   sectionsMaster: any = [];
   sections: any = [];
   displayedColumns = ['sno', 'sectionName', 'addFields', 'isChecked'];

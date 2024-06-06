@@ -50,7 +50,7 @@
           formControlName="district"
           name="district"
           required
-          (selectionChange)="getMappedProjectNames(); getBlocks()"
+          (selectionChange)="getMappedProjectNames()"
         >
           <mat-option *ngFor="let item of districts" [value]="item">
             {{ item.districtName }}
