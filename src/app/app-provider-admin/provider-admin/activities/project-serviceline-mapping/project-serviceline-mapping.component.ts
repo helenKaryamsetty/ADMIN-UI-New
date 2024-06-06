@@ -264,6 +264,7 @@ export class ProjectServicelineMappingComponent implements OnInit {
             this.projectServcelineMappingForm.markAsPristine();
             this.enableUpdate = true;
           } else {
+            this.getBlocks();
             this.projectServcelineMappingForm.get('projectName')?.enable();
             this.enableUpdate = false;
             this.getProjects();
