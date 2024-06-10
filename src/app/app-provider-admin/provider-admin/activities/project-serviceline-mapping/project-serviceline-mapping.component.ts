@@ -380,7 +380,7 @@ export class ProjectServicelineMappingComponent implements OnInit {
     const reqObj = {
       id: element.id,
       serviceLineId: element.serviceLineId,
-      serviceLine: element.serviceName,
+      serviceLine: element.serviceLine,
       stateId: element.stateId,
       stateName: element.stateName,
       districtId: element.districtId,
