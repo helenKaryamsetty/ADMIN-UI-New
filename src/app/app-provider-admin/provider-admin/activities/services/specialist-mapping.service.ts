@@ -20,39 +20,16 @@
  * along with this program.  If not, see https://www.gnu.org/licenses/.
  */
 import { Injectable } from '@angular/core';
-// import { InterceptedHttp } from '../../http.interceptor';
-// import { SecurityInterceptedHttp } from '../../http.securityinterceptor';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ConfigService } from 'src/app/core/services/config/config.service';
 import { environment } from 'src/environments/environment';
 @Injectable()
 export class SpecialistMappingService {
-  private providerAdmin_Base_Url: any;
-  private common_Base_Url: any;
-
-  private _saveUserSpecializationURL: any;
-  private _getSpecializationURL: any;
-  private _getUserTMURL: any;
-  private _getUserSpecializationURL: any;
-  private _activateUserSpecializationURL: any;
-
   constructor(
     private http: HttpClient,
     public basepaths: ConfigService,
-  ) {
-    this.providerAdmin_Base_Url = this.basepaths.getAdminBaseUrl();
-    this.common_Base_Url = this.basepaths.getCommonBaseURL();
-    this._saveUserSpecializationURL =
-      this.providerAdmin_Base_Url + 'TM/saveUserSpecialization';
-    this._getSpecializationURL =
-      this.providerAdmin_Base_Url + 'TM/getSpecialization';
-    this._getUserTMURL = this.providerAdmin_Base_Url + 'TM/getUser';
-    this._getUserSpecializationURL =
-      this.providerAdmin_Base_Url + 'TM/getUserSpecialization';
-    this._activateUserSpecializationURL =
-      this.providerAdmin_Base_Url + 'TM/activateUserSpecialization';
-  }
+  ) {}
 
   toggleMapping(userSpecializationMapID: any, deleted: any, modifiedBy: any) {
     return this.http.post(environment._activateUserSpecializationURL, {

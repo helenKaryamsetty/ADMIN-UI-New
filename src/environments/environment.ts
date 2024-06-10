@@ -168,6 +168,13 @@ export const environment = {
   get_AgentIDs_Url: `${adminBaseUrl}getAvailableAgentIds`,
   getEmployeeUrl: `${adminBaseUrl}m/SearchEmployeeFilter`,
   mapAgentID_Url: `${adminBaseUrl}usrRoleAndCtiMapping`,
+  getAllRolesForTMUrl: `${adminBaseUrl}searchRoleTM`,
+  getAllMappedRolesForTmUrl: `${adminBaseUrl}getUserRoleTM`,
+
+  get_SaveWorkLocationMappedDetails_Url: `${adminBaseUrl}userRoleMappings`,
+  get_UpdateWorkLocationMappedDetails_Url: `${adminBaseUrl}updateUserRoleMapping`,
+  get_DeleteWorkLocationMappedDetails_Url: `${adminBaseUrl}deleteUserRoleMapping`,
+  get_DeleteWorkLocationMappedDetailsForTM_Url: `${adminBaseUrl}deleteUserRoleMappingTM`,
 
   /* agent-list-creation */
   get_Campaign_Names_Url: `${commonBaseURL}cti/getCampaignNames`,
@@ -224,6 +231,7 @@ export const environment = {
   get_ProviderName_Url: `${adminBaseUrl}m/SearchEmployee4`,
   get_LanguageList_Url: `${commonBaseURL}beneficiary/getLanguageList`,
   get_LanguageMappedDetails_Url: `${adminBaseUrl}getUserMappedLanguage`,
+  get_WorkLocationMappedDetails_Url: `${adminBaseUrl}getUserRoleMapped`,
 
   get_SaveLanguageMappedDetails_Url: `${adminBaseUrl}userLanguageMapping`,
   get_UpdateLanguageMappedDetails_Url: `${adminBaseUrl}updateUserLanguageMapping`,

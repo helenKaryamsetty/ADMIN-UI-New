@@ -19,9 +19,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see https://www.gnu.org/licenses/.
  */
-import { HttpClient, HttpInterceptor } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
+import { throwError } from 'rxjs';
 import { ConfigService } from 'src/app/core/services/config/config.service';
 import { HttpInterceptorService } from 'src/app/core/services/httpInterceptor/http-interceptor.service';
 import { environment } from 'src/environments/environment';
@@ -31,7 +31,6 @@ export class ProviderAdminRoleService {
   constructor(
     private http: HttpClient,
     public basepaths: ConfigService,
-    private httpIntercept: HttpInterceptorService,
   ) {}
 
   getStates(serviceProviderID: any) {

@@ -178,8 +178,7 @@ export class CategorySubcategoryProvisioningComponent
       if (
         item.serviceID === 3 ||
         item.serviceID === 1 ||
-        item.serviceID === 6 ||
-        item.serviceID === 2
+        item.serviceID === 6
       ) {
         return item;
       }
