@@ -24,7 +24,7 @@
 <!-- pre-populated table showing the mappings available of providers to serviceline and state -->
 <div class="row" *ngIf="tableMode">
   <div class="col-xs-12 col-sm-12">
-    <div class="">
+    <div class="table-responsive">
       <table
         mat-table
         [dataSource]="filteredsearchResult"
@@ -222,7 +222,7 @@
     </div>
   </div>
   <div class="col-xs-12 col-sm-12" *ngIf="bufferArray.data.length > 0">
-    <div class="m-t-15">
+    <div class="m-t-15 table-responsive">
       <table
         mat-table
         [dataSource]="bufferArray"

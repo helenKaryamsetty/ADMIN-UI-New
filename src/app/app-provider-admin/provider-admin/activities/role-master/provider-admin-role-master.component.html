@@ -97,7 +97,7 @@
       class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10"
       *ngIf="showAddButtonFlag"
     >
-      <div class="">
+      <div class="table-responsive">
         <table
           mat-table
           [dataSource]="dataSource"
@@ -168,33 +168,33 @@
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
         </table>
-      </div>
-      <div>
-        <button
-          mat-raised-button
-          color="primary"
-          class="pull-right mat_blue"
-          [disabled]="stateService.invalid"
-          (click)="setRoleFormFlag(true)"
+        <div>
+          <button
+            mat-raised-button
+            color="primary"
+            class="pull-right mat_blue"
+            [disabled]="stateService.invalid"
+            (click)="setRoleFormFlag(true)"
+          >
+            Add Roles
+          </button>
+        </div>
+        <div
+          class="pull-center"
+          style="margin-top: 35px; text-align: center"
+          *ngIf="dataSource.data.length === 0"
         >
-          Add Roles
-        </button>
+          <strong>No Records Found</strong>
+        </div>
+        <mat-paginator
+          #paginatorFirst
+          [hidden]="dataSource.data.length === 0"
+          [pageSizeOptions]="[5, 10, 20]"
+          [pageSize]="5"
+          showFirstLastButtons
+        >
+        </mat-paginator>
       </div>
-      <div
-        class="pull-center"
-        style="margin-top: 35px; text-align: center"
-        *ngIf="dataSource.data.length === 0"
-      >
-        <strong>No Records Found</strong>
-      </div>
-      <mat-paginator
-        #paginatorFirst
-        [hidden]="dataSource.data.length === 0"
-        [pageSizeOptions]="[5, 10, 20]"
-        [pageSize]="5"
-        showFirstLastButtons
-      >
-      </mat-paginator>
     </div>
   </div>
   <div class="col-12" *ngIf="showRoleCreationForm">
@@ -323,7 +323,7 @@
       class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-15"
       *ngIf="addRole.data.length !== 0"
     >
-      <div class="">
+      <div class="table-responsive">
         <table
           mat-table
           [dataSource]="addRole"

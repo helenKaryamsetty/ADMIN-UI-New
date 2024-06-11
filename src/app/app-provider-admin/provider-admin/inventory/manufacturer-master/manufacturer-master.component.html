@@ -72,7 +72,7 @@
     </div>
 
     <div class="col-xs-12 col-sm-12" *ngIf="displayTable">
-      <div class="">
+      <div class="table-responsive">
         <table
           mat-table
           [dataSource]="filteredManufactureList"
@@ -204,7 +204,7 @@
         <strong>Manufacturer Master</strong>
       </h4>
     </div>
-    <div class="col-12 p-a-0" style="width: 100%; margin-left: 0px">
+    <div class="col-12" style="width: 100%; margin-left: 0px">
       <form id="addform" #manufactureAddForm1="ngForm" class="row">
         <div class="col-3">
           <mat-form-field [style.width]="'100%'" class="hide_underline">
@@ -476,6 +476,7 @@
             class="xs-pull-right sm-pull-right md-pull-right lg-pull-left mat_blue"
             *ngIf="!editMode && manufactureAddForm.valid"
             color="primary"
+            style="border: unset; background-color: unset"
             (click)="
               add2buffer(manufactureAddForm.value);
               this.manufactureAddForm.reset();

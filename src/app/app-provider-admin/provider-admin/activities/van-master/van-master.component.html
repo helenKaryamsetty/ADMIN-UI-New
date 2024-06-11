@@ -109,7 +109,7 @@
   </div>
   <div class="row">
     <div *ngIf="showVansTable" class="col-xs-12 col-sm-12">
-      <div class="">
+      <div class="table-responsive">
         <table
           mat-table
           class="table table-striped table-hover"
@@ -192,22 +192,23 @@
             Create New Van
           </button>
         </div>
+        <div
+          class="pull-center"
+          style="margin-top: 35px; text-align: center"
+          *ngIf="filteredavailableVans.data.length === 0"
+        >
+          <strong>No Records Found</strong>
+        </div>
+        <mat-paginator
+          [hidden]="filteredavailableVans.data.length === 0"
+          [pageSizeOptions]="[5, 10, 20]"
+          [pageSize]="5"
+          showFirstLastButtons
+        >
+        </mat-paginator>
       </div>
-      <div
-        class="pull-center"
-        style="margin-top: 35px; text-align: center"
-        *ngIf="filteredavailableVans.data.length === 0"
-      >
-        <strong>No Records Found</strong>
-      </div>
-      <mat-paginator
-        [hidden]="filteredavailableVans.data.length === 0"
-        [pageSizeOptions]="[5, 10, 20]"
-        [pageSize]="5"
-        showFirstLastButtons
-      >
-      </mat-paginator>
     </div>
+
     <div *ngIf="!showVans || editable" class="col-xs-12 col-sm-12">
       <h4 *ngIf="!editable">Create Van</h4>
       <h4 *ngIf="editable">Edit Van Details</h4>

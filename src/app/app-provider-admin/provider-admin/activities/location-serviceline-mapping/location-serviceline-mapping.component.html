@@ -79,8 +79,9 @@
   </div>
 
   <div class="row" style="margin-bottom: 15px">
-    <div class="col-xs-12 col-sm-12 m-t-15" *ngIf="showTable">
+    <div class="col-xs-12 col-sm-12 m-t-15 table-responsive" *ngIf="showTable">
       <!-- <div class="table-responsive"> -->
+
       <table
         mat-table
         [dataSource]="filteredworkLocations"

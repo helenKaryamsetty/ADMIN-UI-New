@@ -101,7 +101,7 @@
   </div>
   <div class="row" *ngIf="showListOfParking && showTableFlag && !editable">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10">
-      <div class="">
+      <div class="table-responsive">
         <table
           mat-table
           class="table table-striped table-hover"
@@ -311,7 +311,7 @@
         class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-5"
         *ngIf="parkingPlaceList.data.length > 0"
       >
-        <div class="">
+        <div class="table-responsive">
           <table
             mat-table
             [dataSource]="parkingPlaceList"

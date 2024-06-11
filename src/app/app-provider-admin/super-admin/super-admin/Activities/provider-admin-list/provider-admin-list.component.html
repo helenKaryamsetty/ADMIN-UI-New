@@ -23,7 +23,7 @@
 </div>
 <div class="row" *ngIf="tableMode">
   <div class="col-xs-12 col-sm-12">
-    <div class="">
+    <div class="table-responsive">
       <table
         mat-table
         class="table table-striped table-hover"
@@ -643,7 +643,7 @@
     </div>
   </form>
   <div class="col-xs-12 col-sm-12 m-t-15" *ngIf="objs.data.length !== 0">
-    <div cass="">
+    <div class="table-responsive">
       <table
         mat-table
         [dataSource]="objs"

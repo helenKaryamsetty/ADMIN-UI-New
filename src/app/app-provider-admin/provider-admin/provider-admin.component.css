@@ -34,9 +34,9 @@
     border:1px solid transparent;
 
 }
-.top-element{
+/* .top-element{
     height: 30px;
-}
+} */
 /* .mat-mdc-button-touch-target >>> .top-element{
     height: 0px;
 
@@ -63,8 +63,9 @@
     background-color: #ffffff;
     border-color: #e7e7e7;
     /* margin-left: -30px; */
-    margin-top: 25px;
+    margin-top: 8px;
     width: -webkit-fill-available;
+    /* padding-bottom: 35px; */
 }
 .mdc-button {
     padding: 15px 15px;
