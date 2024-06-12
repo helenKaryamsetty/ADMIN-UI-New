@@ -69,6 +69,7 @@
                 matTooltip="Click to Edit"
                 class="iconbutton"
                 color="primary"
+                style="border: unset; background-color: unset"
                 (click)="editUserDetails(element)"
                 *ngIf="!element.deleted"
               >
@@ -1089,7 +1090,7 @@
             !empIdshowHint &&
             !username_dependent_flag
           "
-          class="pull-right mat_blue"
+          class="pull-right mat_icon_white"
           (click)="
             add_object(
               userCreationForm.value,

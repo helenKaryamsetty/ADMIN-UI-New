@@ -59,7 +59,7 @@
     </form>
 
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="showTableFlag">
-      <div class="">
+      <div class="table-responsive">
         <mat-table
           [dataSource]="filteredItemList"
           class="table table-striped table-hover"
@@ -533,7 +533,7 @@
       <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
         <button
           mat-mini-fab
-          class="xs-pull-right sm-pull-right md-pull-left lg-pull-left mat_blue"
+          class="xs-pull-right sm-pull-right md-pull-left lg-pull-left mat_icon_white"
           *ngIf="itemCreationForm.valid && !itemCodeExist"
           color="primary"
           (click)="addMultipleItemArray(itemCreationForm.value)"
@@ -554,7 +554,7 @@
       class="col-xs-12 col-sm-12 m-t-15"
       *ngIf="itemArrayObj.data.length > 0"
     >
-      <div class="">
+      <div class="table-responsive">
         <mat-table
           [dataSource]="itemArrayObj"
           class="table table-striped table-hover"

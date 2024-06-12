@@ -234,36 +234,10 @@
           hideAdd && multipleFeaturesServiceList.includes(service.serviceID)
         "
       >
-        <mat-label>Feature</mat-label>
-        <mat-select
-          class="width100"
-          multiple="true"
-          name="feature"
-          [(ngModel)]="feature"
-          required
-        >
-          <mat-option
-            *ngFor="let item of features"
-            matTooltip="{{ item.screenDesc }}"
-            [value]="item"
-          >
-            {{ item.screenName }}
-          </mat-option>
-        </mat-select>
-      </div>
-
-      <!-- incase of others, single select is needed in feature -->
-      <div
-        class="col-3"
-        *ngIf="
-          hideAdd && !multipleFeaturesServiceList.includes(service.serviceID)
-        "
-        style="margin-top: 20px"
-      >
-        <mat-form-field [style.width]="'100%'">
+        <mat-form-field style="width: 100%">
           <mat-label>Feature</mat-label>
           <mat-select
-            class="width100"
+            multiple="true"
             name="feature"
             [(ngModel)]="feature"
             required
@@ -279,15 +253,32 @@
         </mat-form-field>
       </div>
 
+      <!-- incase of others, single select is needed in feature -->
+      <div
+        class="col-3"
+        *ngIf="
+          hideAdd && !multipleFeaturesServiceList.includes(service.serviceID)
+        "
+        style="margin-top: 20px"
+      >
+        <mat-form-field [style.width]="'100%'">
+          <mat-label>Feature</mat-label>
+          <mat-select name="feature" [(ngModel)]="feature" required>
+            <mat-option
+              *ngFor="let item of features"
+              matTooltip="{{ item.screenDesc }}"
+              [value]="item"
+            >
+              {{ item.screenName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
       <div class="col-3" *ngIf="!hideAdd" style="margin-top: 20px">
         <mat-form-field [style.width]="'100%'">
           <mat-label>Feature</mat-label>
-          <mat-select
-            class="width100"
-            name="feature"
-            [(ngModel)]="editedFeatureID"
-            required
-          >
+          <mat-select name="feature" [(ngModel)]="editedFeatureID" required>
             <mat-option
               *ngFor="let item of editFeatures"
               matTooltip="{{ item.screenDesc }}"
@@ -307,7 +298,7 @@
         md-mini-fab
         color="primary"
         (click)="add_obj(role, description, feature)"
-        class="xs-pull-right sm-pull-left md-pull-right lg-pull-left mat_blue"
+        class="xs-pull-right sm-pull-left md-pull-right lg-pull-left mat_icon_white"
       >
         <mat-icon
           matSuffix
@@ -456,7 +447,6 @@
       <mat-form-field>
         <mat-label>Feature</mat-label>
         <mat-select
-          class="width100"
           multiple="true"
           name="feature"
           [(ngModel)]="feature_update"

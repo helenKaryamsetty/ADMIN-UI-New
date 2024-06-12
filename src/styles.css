@@ -299,3 +299,9 @@ control.mat-mdc-form-field-input-control {
 .table-responsive {
   padding-bottom: 35px !important;
 }
+
+.mdc-notched-outline {
+  
+  height: 80% !important;
+
+}
