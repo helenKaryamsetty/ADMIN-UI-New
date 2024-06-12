@@ -43,9 +43,6 @@ export class VanServicePointMappingComponent implements OnInit {
     'servicePoint',
     'district',
     'talukSubDistrict',
-    'morning',
-    'evening',
-    'fullDay',
   ];
 
   showTable = false;
@@ -97,6 +94,11 @@ export class VanServicePointMappingComponent implements OnInit {
   @ViewChild('searchDistrictsForm')
   searchDistrictsForm!: NgForm;
   disableSelection: any;
+  vanSession1State: any;
+  vanSession2State: any;
+  vanSession3State: any;
+  vanServicePointMappingObj: any = [];
+  vanServicePointMappingList: any;
 
   constructor(
     public providerAdminRoleService: ProviderAdminRoleService,
@@ -114,7 +116,13 @@ export class VanServicePointMappingComponent implements OnInit {
   ngOnInit() {
     this.userID = this.commonDataService.uid;
     this.MappingForm = this.formBuilder.group({
-      mappings: this.formBuilder.array([]),
+      mappings: this.formBuilder.array([
+        this.formBuilder.group({
+          // vanSession1: [null],
+          // vanSession2: [null],
+          // vanSession3: [null]
+        }),
+      ]),
     });
     this.getServiceLines();
   }
@@ -232,6 +240,11 @@ export class VanServicePointMappingComponent implements OnInit {
   getVanTypesSuccessHandler(response: any) {
     this.availableVanTypes = response.data;
     this.filteredVanTypes = [];
+    if (this.service.serviceID === 4) {
+      this.displayedColumns.push('fullDay');
+    } else {
+      this.displayedColumns.push('morning', 'evening');
+    }
     this.availableVanTypes.filter((vanTypes: any) => {
       if (this.service.serviceName === 'TM' && vanTypes.vanTypeID === 3) {
         this.filteredVanTypes.push(vanTypes);
@@ -303,6 +316,16 @@ export class VanServicePointMappingComponent implements OnInit {
   }
 
   getVanServicePointMappingsSuccessHandler(response: any) {
+    // this.service.serviceID = 4;
+    // if (this.service.serviceID === 4) {
+    //   this.displayedColumns.splice(6, 0, 'fullDay');
+    // }
+    //   if (this.service.serviceID === 4) {
+    //     this.displayedColumns.push('fullDay');
+    // } else {
+    //     this.displayedColumns.push('morning', 'evening');
+    // }
+
     this.showTable = true;
     this.availableVanServicePointMappings = [];
     this.availableVanServicePointMappings = response.data;
@@ -310,11 +333,13 @@ export class VanServicePointMappingComponent implements OnInit {
     console.log('response.data', response.data);
     const temp: any = this.MappingForm.controls['mappings'] as FormArray;
     this.filteredsearchResultArray.data = response.data;
-    // this.filteredsearchResultArray.data = response.data;
     console.log(
       'this.filteredsearchResultArray.data',
       this.filteredsearchResultArray.data,
     );
+    this.vanSession1State = localStorage.getItem('vanSession1') === 'true';
+    this.vanSession2State = localStorage.getItem('vanSession2') === 'true';
+    this.vanSession3State = localStorage.getItem('vanSession3') === 'true';
     temp.reset();
     this.servicePointIDList = [];
     console.log('temp', temp);
@@ -383,7 +408,25 @@ export class VanServicePointMappingComponent implements OnInit {
       vanSession3: vanSession === '3',
     });
   }
+  checkboxChange(event: any, checkboxName: any, i: any) {
+    const mappingsArray = <FormArray>this.MappingForm.get('mappings');
+    const mappingGroup = <FormGroup>mappingsArray.controls[i];
+    const temp2: any = this.MappingForm.controls['mappings'] as FormArray;
 
+    // Update the form control value based on the checkbox state
+    if (checkboxName === 'vanSession1') {
+      mappingGroup.controls['vanSession1'].setValue(event.checked);
+      mappingGroup.controls['vanSession1'].markAsTouched();
+      localStorage.setItem('vanSession1', event.checked);
+    } else if (checkboxName === 'vanSession2') {
+      mappingGroup.controls['vanSession2'].setValue(event.checked);
+      mappingGroup.controls['vanSession2'].markAsTouched();
+      localStorage.setItem('vanSession2', event.checked);
+    }
+
+    console.log('CKFIRST', this.MappingForm.value);
+    console.log('temp2', temp2);
+  }
   vanID: any;
   selectedVan(van: any) {
     (this.vanID = van.vanID),
@@ -391,8 +434,6 @@ export class VanServicePointMappingComponent implements OnInit {
       (this.parkingPlaceID = van.parkingPlaceID);
   }
 
-  vanServicePointMappingObj: any;
-  vanServicePointMappingList: any = [];
   storeVanServicePointMapping() {
     console.log(this.MappingForm.value);
     const mappings = this.MappingForm.value.mappings;
@@ -431,7 +472,7 @@ export class VanServicePointMappingComponent implements OnInit {
     const obj = { vanServicePointMappings: this.vanServicePointMappingList };
     this.vanServicePointMappingService
       .saveVanServicePointMappings(obj)
-      .subscribe((response: any) => this.saveMappingSuccessHandler(response));
+      .subscribe((response) => this.saveMappingSuccessHandler(response));
   }
 
   saveMappingSuccessHandler(response: any) {
@@ -469,7 +510,8 @@ export class VanServicePointMappingComponent implements OnInit {
     mappingGroup.controls['vanSession1'].markAsTouched();
     mappingGroup.controls['vanSession2'].markAsTouched();
 
-    mappingGroup.controls['vanSession1'].patchValue(!value);
-    mappingGroup.controls['vanSession2'].patchValue(!value);
+    mappingGroup.controls['vanSession1'].patchValue(!value.checked);
+    mappingGroup.controls['vanSession2'].patchValue(!value.checked);
+    localStorage.setItem('vanSession3', value.checked);
   }
 }
