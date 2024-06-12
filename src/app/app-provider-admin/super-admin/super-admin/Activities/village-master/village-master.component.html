@@ -95,7 +95,7 @@
 </div>
 <div class="row" *ngIf="showTableFlag">
   <div class="col-xs-12 col-sm-12">
-    <div class="">
+    <div class="table-responsive">
       <table
         mat-table
         class="table table-striped table-hover"
@@ -372,7 +372,7 @@
     >
       <mat-icon
         matSuffix
-        class="mat-icon material-icons mat_blue_circle"
+        class="mat-icon material-icons mat_icon_white"
         role="img"
         aria-hidden="true"
         style="cursor: pointer"
@@ -384,7 +384,7 @@
     class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-15"
     *ngIf="villageList.data.length > 0"
   >
-    <div class="">
+    <div class="table-responsive">
       <table
         mat-table
         [dataSource]="villageList"
@@ -456,7 +456,7 @@
       </table>
     </div>
   </div>
-  <div class="col-xs-12 col-sm-12 m-t-10 m-b-10">
+  <div class="col-xs-12 col-sm-12 m-t-10 m-b-10" style="padding-bottom: 30px">
     <button
       class="pull-left mat_blue"
       mat-raised-button

@@ -72,7 +72,7 @@
     </div>
 
     <div class="col-xs-12 col-sm-12" *ngIf="displayTable">
-      <div class="">
+      <div class="table-responsive">
         <table
           mat-table
           [dataSource]="filteredManufactureList"
@@ -125,6 +125,7 @@
             <th mat-header-cell *matHeaderCellDef>Edit</th>
             <td mat-cell *matCellDef="let manufacture">
               <button
+                style="border: unset; background-color: unset"
                 mat-icon-button
                 matTooltip="Edit"
                 *ngIf="!manufacture.deleted"
@@ -204,7 +205,7 @@
         <strong>Manufacturer Master</strong>
       </h4>
     </div>
-    <div class="col-12 p-a-0" style="width: 100%; margin-left: 0px">
+    <div class="col-12" style="width: 100%; margin-left: 0px">
       <form id="addform" #manufactureAddForm1="ngForm" class="row">
         <div class="col-3">
           <mat-form-field [style.width]="'100%'" class="hide_underline">
@@ -473,7 +474,7 @@
         <div class="col-3">
           <button
             mat-mini-fab
-            class="xs-pull-right sm-pull-right md-pull-right lg-pull-left mat_blue"
+            class="xs-pull-right sm-pull-right md-pull-right lg-pull-left mat_icon_white"
             *ngIf="!editMode && manufactureAddForm.valid"
             color="primary"
             (click)="
@@ -689,7 +690,7 @@
       >
         <div class="col-3">
           <mat-form-field [style.width]="'100%'" class="hide_underline">
-            <input matInput style="display: none" />
+            <!-- <input matInput style="display: none" /> -->
             <mat-label>Serviceline</mat-label>
             <mat-select
               required
@@ -706,7 +707,7 @@
 
         <div class="col-3">
           <mat-form-field [style.width]="'100%'" class="hide_underline">
-            <input matInput style="display: none" />
+            <!-- <input matInput style="display: none" /> -->
             <mat-label>State</mat-label>
             <mat-select
               required
@@ -845,7 +846,7 @@
         </div>
         <div class="col-3">
           <mat-form-field [style.width]="'100%'" class="hide_underline">
-            <input matInput style="display: none" />
+            <!-- <input matInput style="display: none" /> -->
             <mat-label>Country</mat-label>
             <mat-select
               required
@@ -919,7 +920,7 @@
       </form>
       <div
         class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10"
-        style="margin-bottom: 47px"
+        style="margin-bottom: 45px; padding: 15px"
       >
         <button
           mat-raised-button

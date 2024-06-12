@@ -40,7 +40,7 @@
     </form>
 
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="showTableFlag">
-      <div class="">
+      <div class="table-responsive">
         <table
           mat-table
           [dataSource]="dataSource"
@@ -110,21 +110,22 @@
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
         </table>
+        <div
+          class="pull-center"
+          style="margin-top: 35px; text-align: center"
+          *ngIf="dataSource.data.length === 0"
+        >
+          <strong>No Records Found</strong>
+        </div>
+        <mat-paginator
+          [hidden]="dataSource.data.length === 0"
+          [pageSizeOptions]="[5, 10, 20]"
+          [pageSize]="5"
+          showFirstLastButtons
+        >
+        </mat-paginator>
       </div>
-      <div
-        class="pull-center"
-        style="margin-top: 35px; text-align: center"
-        *ngIf="dataSource.data.length === 0"
-      >
-        <strong>No Records Found</strong>
-      </div>
-      <mat-paginator
-        [hidden]="dataSource.data.length === 0"
-        [pageSizeOptions]="[5, 10, 20]"
-        [pageSize]="5"
-        showFirstLastButtons
-      >
-      </mat-paginator>
+
       <div>
         <button
           mat-raised-button
@@ -237,7 +238,7 @@
       <div style="padding-top: 2%">
         <button
           md-mini-fab
-          class="xs-pull-right sm-pull-right md-pull-left lg-pull-left mat_blue"
+          class="xs-pull-right sm-pull-right md-pull-left lg-pull-left mat_icon_white"
           *ngIf="itemCreationForm.valid && itemCodeExist"
           color="primary"
           (click)="addMultipleItemArray(itemCreationForm.value)"
@@ -255,7 +256,7 @@
     </form>
 
     <div class="col-xs-12 col-sm-12 m-t-15" *ngIf="addedItems.data.length > 0">
-      <div class="">
+      <div class="table-responsive">
         <table
           mat-table
           [dataSource]="addedItems"

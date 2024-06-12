@@ -288,3 +288,20 @@ control.mat-mdc-form-field-input-control {
 .mat-mdc-form-field-infix {
   min-height: 48px !important;
 }
+
+.mat-mdc-text-field-wrapper {
+  padding: unset !important;
+}
+.mat-mdc-text-field-wrapper .mat-mdc-form-field-infix .mat-mdc-floating-label {
+ letter-spacing: initial !important;
+ font-family: SF-UI-Display-Regular !important;
+}
+.table-responsive {
+  padding-bottom: 35px !important;
+}
+
+.mdc-notched-outline {
+  
+  height: 80% !important;
+
+}

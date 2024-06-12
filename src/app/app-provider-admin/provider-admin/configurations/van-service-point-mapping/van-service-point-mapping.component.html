@@ -172,82 +172,81 @@
   </div>
 
   <form class="c-b p-t-30" [formGroup]="MappingForm" autocomplete="off">
-    <div class="form-group" *ngIf="showTable">
-      <ng-container formArrayName="mappings">
-        <table
-          mat-table
-          [dataSource]="filteredsearchResultArray"
-          class="mat-elevation-z8"
-        >
-          <ng-container matColumnDef="sNo">
-            <th mat-header-cell *matHeaderCellDef>S.No.</th>
-            <td mat-cell *matCellDef="let i = index">{{ i + 1 }}</td>
-          </ng-container>
+    <div class="form-group table-responsive" *ngIf="showTable">
+      <table
+        mat-table
+        [dataSource]="filteredsearchResultArray"
+        class="mat-elevation-z8"
+      >
+        <!-- S.No. Column -->
+        <ng-container matColumnDef="sNo">
+          <th mat-header-cell *matHeaderCellDef>S.No.</th>
+          <td mat-cell *matCellDef="let i = index">{{ i + 1 }}</td>
+        </ng-container>
 
-          <ng-container matColumnDef="servicePoint">
-            <th mat-header-cell *matHeaderCellDef>Service Point</th>
-            <td mat-cell *matCellDef="let element; let i = index">
-              {{ element.servicePointName }}
-            </td>
-          </ng-container>
+        <ng-container matColumnDef="servicePoint">
+          <th mat-header-cell *matHeaderCellDef>Service Point</th>
+          <td mat-cell *matCellDef="let element; let i = index">
+            {{ element.servicePointName }}
+          </td>
+        </ng-container>
 
-          <ng-container matColumnDef="district">
-            <th mat-header-cell *matHeaderCellDef>District</th>
-            <td mat-cell *matCellDef="let element; let i = index">
-              {{ element.districtName }}
-            </td>
-          </ng-container>
+        <ng-container matColumnDef="district">
+          <th mat-header-cell *matHeaderCellDef>District</th>
+          <td mat-cell *matCellDef="let element; let i = index">
+            {{ element.districtName }}
+          </td>
+        </ng-container>
 
-          <ng-container matColumnDef="talukSubDistrict">
-            <th mat-header-cell *matHeaderCellDef>Taluk/Sub-District</th>
-            <td mat-cell *matCellDef="let element; let i = index">
-              {{ element.blockName }}
-            </td>
-          </ng-container>
+        <ng-container matColumnDef="talukSubDistrict">
+          <th mat-header-cell *matHeaderCellDef>Taluk/Sub-District</th>
+          <td mat-cell *matCellDef="let element; let i = index">
+            {{ element.blockName }}
+          </td>
+        </ng-container>
 
-          <ng-container matColumnDef="morning">
-            <th mat-header-cell *matHeaderCellDef>Morning</th>
-            <td mat-cell *matCellDef="let element; let i = index">
-              <mat-checkbox
-                color="primary"
-                formControlName="vanSession1"
-                (change)="checkboxChange($event, 'vanSession1', i)"
-                [checked]="vanSession1State"
-                *ngIf="service.serviceID !== 4"
-              ></mat-checkbox>
-            </td>
-          </ng-container>
+        <ng-container matColumnDef="morning">
+          <th mat-header-cell *matHeaderCellDef>Morning</th>
+          <td mat-cell *matCellDef="let element; let i = index">
+            <mat-checkbox
+              color="primary"
+              formControlName="vanSession1"
+              (change)="checkboxChange($event, 'vanSession1', i)"
+              [checked]="vanSession1State"
+              *ngIf="service.serviceID !== 4"
+            ></mat-checkbox>
+          </td>
+        </ng-container>
 
-          <ng-container matColumnDef="evening">
-            <th mat-header-cell *matHeaderCellDef>Evening</th>
-            <td mat-cell *matCellDef="let element; let i = index">
-              <mat-checkbox
-                color="primary"
-                formControlName="vanSession2"
-                (change)="checkboxChange($event, 'vanSession2', i)"
-                [checked]="vanSession2State"
-                *ngIf="service.serviceID !== 4"
-              ></mat-checkbox>
-            </td>
-          </ng-container>
+        <ng-container matColumnDef="evening">
+          <th mat-header-cell *matHeaderCellDef>Evening</th>
+          <td mat-cell *matCellDef="let element; let i = index">
+            <mat-checkbox
+              color="primary"
+              formControlName="vanSession2"
+              (change)="checkboxChange($event, 'vanSession2', i)"
+              [checked]="vanSession2State"
+              *ngIf="service.serviceID !== 4"
+            ></mat-checkbox>
+          </td>
+        </ng-container>
 
-          <ng-container matColumnDef="fullDay">
-            <th mat-header-cell *matHeaderCellDef>Full Day</th>
-            <td mat-cell *matCellDef="let element; let i = index">
-              <mat-checkbox
-                color="primary"
-                [formControl]="element.vanSession3"
-                [checked]="vanSession3State"
-                *ngIf="service.serviceID === 4"
-                (change)="setvansession(i, $event)"
-              ></mat-checkbox>
-            </td>
-          </ng-container>
+        <ng-container matColumnDef="fullDay">
+          <th mat-header-cell *matHeaderCellDef>Full Day</th>
+          <td mat-cell *matCellDef="let element; let i = index">
+            <mat-checkbox
+              color="primary"
+              [formControl]="element.vanSession3"
+              [checked]="vanSession3State"
+              *ngIf="service.serviceID === 4"
+              (change)="setvansession(i, $event)"
+            ></mat-checkbox>
+          </td>
+        </ng-container>
 
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let mapping; columns: displayedColumns"></tr>
-        </table>
-      </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let mapping; columns: displayedColumns"></tr>
+      </table>
       <div>
         <button
           md-raised-button

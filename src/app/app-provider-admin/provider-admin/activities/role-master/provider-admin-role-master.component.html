@@ -97,7 +97,7 @@
       class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10"
       *ngIf="showAddButtonFlag"
     >
-      <div class="">
+      <div class="table-responsive">
         <table
           mat-table
           [dataSource]="dataSource"
@@ -168,33 +168,33 @@
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
         </table>
-      </div>
-      <div>
-        <button
-          mat-raised-button
-          color="primary"
-          class="pull-right mat_blue"
-          [disabled]="stateService.invalid"
-          (click)="setRoleFormFlag(true)"
+        <div>
+          <button
+            mat-raised-button
+            color="primary"
+            class="pull-right mat_blue"
+            [disabled]="stateService.invalid"
+            (click)="setRoleFormFlag(true)"
+          >
+            Add Roles
+          </button>
+        </div>
+        <div
+          class="pull-center"
+          style="margin-top: 35px; text-align: center"
+          *ngIf="dataSource.data.length === 0"
         >
-          Add Roles
-        </button>
+          <strong>No Records Found</strong>
+        </div>
+        <mat-paginator
+          #paginatorFirst
+          [hidden]="dataSource.data.length === 0"
+          [pageSizeOptions]="[5, 10, 20]"
+          [pageSize]="5"
+          showFirstLastButtons
+        >
+        </mat-paginator>
       </div>
-      <div
-        class="pull-center"
-        style="margin-top: 35px; text-align: center"
-        *ngIf="dataSource.data.length === 0"
-      >
-        <strong>No Records Found</strong>
-      </div>
-      <mat-paginator
-        #paginatorFirst
-        [hidden]="dataSource.data.length === 0"
-        [pageSizeOptions]="[5, 10, 20]"
-        [pageSize]="5"
-        showFirstLastButtons
-      >
-      </mat-paginator>
     </div>
   </div>
   <div class="col-12" *ngIf="showRoleCreationForm">
@@ -234,36 +234,10 @@
           hideAdd && multipleFeaturesServiceList.includes(service.serviceID)
         "
       >
-        <mat-label>Feature</mat-label>
-        <mat-select
-          class="width100"
-          multiple="true"
-          name="feature"
-          [(ngModel)]="feature"
-          required
-        >
-          <mat-option
-            *ngFor="let item of features"
-            matTooltip="{{ item.screenDesc }}"
-            [value]="item"
-          >
-            {{ item.screenName }}
-          </mat-option>
-        </mat-select>
-      </div>
-
-      <!-- incase of others, single select is needed in feature -->
-      <div
-        class="col-3"
-        *ngIf="
-          hideAdd && !multipleFeaturesServiceList.includes(service.serviceID)
-        "
-        style="margin-top: 20px"
-      >
-        <mat-form-field [style.width]="'100%'">
+        <mat-form-field style="width: 100%">
           <mat-label>Feature</mat-label>
           <mat-select
-            class="width100"
+            multiple="true"
             name="feature"
             [(ngModel)]="feature"
             required
@@ -279,15 +253,32 @@
         </mat-form-field>
       </div>
 
+      <!-- incase of others, single select is needed in feature -->
+      <div
+        class="col-3"
+        *ngIf="
+          hideAdd && !multipleFeaturesServiceList.includes(service.serviceID)
+        "
+        style="margin-top: 20px"
+      >
+        <mat-form-field [style.width]="'100%'">
+          <mat-label>Feature</mat-label>
+          <mat-select name="feature" [(ngModel)]="feature" required>
+            <mat-option
+              *ngFor="let item of features"
+              matTooltip="{{ item.screenDesc }}"
+              [value]="item"
+            >
+              {{ item.screenName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
       <div class="col-3" *ngIf="!hideAdd" style="margin-top: 20px">
         <mat-form-field [style.width]="'100%'">
           <mat-label>Feature</mat-label>
-          <mat-select
-            class="width100"
-            name="feature"
-            [(ngModel)]="editedFeatureID"
-            required
-          >
+          <mat-select name="feature" [(ngModel)]="editedFeatureID" required>
             <mat-option
               *ngFor="let item of editFeatures"
               matTooltip="{{ item.screenDesc }}"
@@ -307,7 +298,7 @@
         md-mini-fab
         color="primary"
         (click)="add_obj(role, description, feature)"
-        class="xs-pull-right sm-pull-left md-pull-right lg-pull-left mat_blue"
+        class="xs-pull-right sm-pull-left md-pull-right lg-pull-left mat_icon_white"
       >
         <mat-icon
           matSuffix
@@ -323,7 +314,7 @@
       class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-15"
       *ngIf="addRole.data.length !== 0"
     >
-      <div class="">
+      <div class="table-responsive">
         <table
           mat-table
           [dataSource]="addRole"
@@ -456,7 +447,6 @@
       <mat-form-field>
         <mat-label>Feature</mat-label>
         <mat-select
-          class="width100"
           multiple="true"
           name="feature"
           [(ngModel)]="feature_update"

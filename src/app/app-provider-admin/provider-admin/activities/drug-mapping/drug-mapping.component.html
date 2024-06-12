@@ -61,7 +61,7 @@
   </div>
   <div class="row" *ngIf="showMappings && showDrudGroupMappedList && !editable">
     <div class="col-xs-12 col-sm-12 m-t-10">
-      <div class="">
+      <div class="table-responsive">
         <table
           mat-table
           class="table table-striped table-hover"
@@ -208,7 +208,7 @@
               *ngIf="!editable"
               md-mini-fab
               color="primary"
-              class="xs-pull-right sm-pull-right md-pull-left lg-pull-right mat_blue"
+              class="xs-pull-right sm-pull-right md-pull-left lg-pull-right mat_icon_white"
               (click)="
                 addDrugToList(drugMappingForm.value); drugMappingForm.reset()
               "
@@ -229,7 +229,7 @@
         class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10"
         *ngIf="drugMapping.data.length > 0"
       >
-        <div class="">
+        <div class="table-responsive">
           <table
             mat-table
             [dataSource]="drugMapping"

@@ -65,7 +65,7 @@
 
   <ng-container *ngIf="mode === 'view'">
     <div class="row m-t-20" *ngIf="providerServiceMapID">
-      <div class="col-xs-12">
+      <div class="col-xs-12 table-responsive">
         <table mat-table [dataSource]="filteredUOMMasterList">
           <ng-container matColumnDef="sNo">
             <th mat-header-cell *matHeaderCellDef>S.No.</th>
