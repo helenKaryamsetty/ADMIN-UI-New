@@ -198,11 +198,11 @@ export class ServiceProviderMasterComponent implements OnInit {
   }
   save(form_value: any) {
     console.log(form_value, 'Form Value');
-    console.log(
-      'address',
-      form_value.address2 === undefined,
-      form_value.address2.trim(),
-    );
+    // console.log(
+    //   'address',
+    //   form_value.address2 === undefined,
+    //   form_value.address2.trim(),
+    // );
     const valid_till: Date = new Date(form_value.valid_till);
 
     valid_till.setHours(23);
