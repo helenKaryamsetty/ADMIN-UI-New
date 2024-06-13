@@ -124,14 +124,10 @@ export class EmployeeParkingPlaceMappingComponent implements OnInit {
       .getServices(this.login_userID)
       .subscribe(
         (response: any) => {
+          // this.services_array = response;
           this.services_array = response.data.filter(function (item: any) {
             console.log('item', item);
-            if (
-              item.serviceID === 1 ||
-              item.serviceID === 3 ||
-              item.serviceID === 6
-            )
-              return item;
+            if (item.serviceID === 4 || item.serviceID === 2) return item;
           });
         },
         (err) => {},
