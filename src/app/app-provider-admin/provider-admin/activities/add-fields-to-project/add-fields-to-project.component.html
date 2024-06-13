@@ -92,14 +92,6 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
-    <mat-paginator
-      [hidden]="dataSource.data.length === 0"
-      [pageSizeOptions]="[3, 6, 9, 12]"
-      [pageSize]="3"
-      showFirstLastButtons
-    >
-    </mat-paginator>
-
     <div>
       <button
         mat-raised-button
@@ -111,11 +103,18 @@
         Create Fields
       </button>
     </div>
+    <mat-paginator
+      [hidden]="dataSource.data.length === 0"
+      [pageSizeOptions]="[3, 6, 9, 12]"
+      [pageSize]="3"
+      showFirstLastButtons
+    >
+    </mat-paginator>
   </div>
   <div *ngIf="showForm" class="col-12">
     <form [formGroup]="addFieldsForm" class="row">
       <div class="col-4">
-        <mat-form-field>
+        <mat-form-field [style.width]="'100%'">
           <mat-label class="fontStyle">Field Rank</mat-label>
           <input
             matInput
@@ -133,7 +132,7 @@
         </mat-form-field>
       </div>
       <div class="col-4">
-        <mat-form-field>
+        <mat-form-field [style.width]="'100%'">
           <mat-label>Field Name</mat-label>
           <input
             matInput
@@ -146,7 +145,7 @@
         </mat-form-field>
       </div>
       <div class="col-4">
-        <mat-form-field>
+        <mat-form-field [style.width]="'100%'">
           <mat-label class="fontStyle"> Field Type </mat-label>
           <mat-select
             [style.width]="'100%'"
@@ -166,7 +165,7 @@
         </mat-form-field>
       </div>
       <div class="col-4">
-        <mat-form-field>
+        <mat-form-field [style.width]="'100%'">
           <mat-label>Field Title</mat-label>
           <input
             matInput
@@ -178,7 +177,7 @@
         </mat-form-field>
       </div>
       <div class="col-4">
-        <mat-form-field>
+        <mat-form-field [style.width]="'100%'">
           <mat-label>Placeholder</mat-label>
           <input
             matInput
@@ -196,7 +195,7 @@
         "
         class="col-4"
       >
-        <mat-form-field class="example-form-field">
+        <mat-form-field [style.width]="'100%'" class="example-form-field">
           <mat-label>Options</mat-label>
           <mat-chip-grid #chipList formControlName="options">
             <mat-chip-row
@@ -255,7 +254,7 @@
           </mat-radio-group>
         </div>
         <div class="col-4">
-          <mat-form-field>
+          <mat-form-field [style.width]="'100%'">
             <mat-label class="fontStyle">Allow Minimum</mat-label>
             <input
               matInput
@@ -273,7 +272,7 @@
           </mat-form-field>
         </div>
         <div class="col-4">
-          <mat-form-field>
+          <mat-form-field [style.width]="'100%'">
             <mat-label class="fontStyle">Allow Maximum</mat-label>
             <input
               matInput
