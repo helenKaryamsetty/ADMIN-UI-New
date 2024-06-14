@@ -6,90 +6,77 @@
 
     <div class="col-12">
       <form #searForm="ngForm" autocomplete="off" class="row">
-        <div class="col-6 row">
-          <div class="col-3 m-t-15">
-            <!-- <md-input-container class="hide_underline width100">
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
+          <!-- <md-input-container class="hide_underline width100">
                     <input mdInput style="display:none"> -->
-            <mat-form-field [style.width]="'100%'">
-              <mat-label>Serviceline</mat-label>
-              <mat-select
-                (selectionChange)="getStates(service)"
-                [(ngModel)]="service"
-                name="service"
-                required
-                #bindService="ngModel"
-              >
-                <mat-option *ngFor="let item of services" [value]="item">
-                  {{ item.serviceName }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
+          <mat-form-field [style.width]="'100%'">
+            <mat-label>Serviceline</mat-label>
+            <mat-select
+              (selectionChange)="getStates(service)"
+              [(ngModel)]="service"
+              name="service"
+              required
+              #bindService="ngModel"
+            >
+              <mat-option *ngFor="let item of services" [value]="item">
+                {{ item.serviceName }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
 
-            <!-- <md-hint [hidden]=bindService.valid>
+          <!-- <md-hint [hidden]=bindService.valid>
                         <span class="error_text" *ngIf="!bindService.required  && ( bindService.dirty || bindService.touched)">Please select serviceline</span>
                     </md-hint> -->
-            <!-- </md-input-container> -->
-          </div>
-          <div
-            class="col-3 m-t-15"
-            style="margin-left: 140px; width: fit-content"
-          >
-            <!-- <md-input-container class="hide_underline width100">
+          <!-- </md-input-container> -->
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
+          <!-- <md-input-container class="hide_underline width100">
                     <input mdInput style="display:none"> -->
-            <mat-form-field [style.width]="'100%'">
-              <mat-label>State</mat-label>
-              <mat-select
-                [(ngModel)]="state"
-                (selectionChange)="
-                  setProviderServiceMapID(state.providerServiceMapID)
-                "
-                name="state"
-                #bindState="ngModel"
-                required
-              >
-                <mat-option *ngFor="let item of states" [value]="item">
-                  {{ item.stateName }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
+          <mat-form-field [style.width]="'100%'">
+            <mat-label>State</mat-label>
+            <mat-select
+              [(ngModel)]="state"
+              (selectionChange)="
+                setProviderServiceMapID(state.providerServiceMapID)
+              "
+              name="state"
+              #bindState="ngModel"
+              required
+            >
+              <mat-option *ngFor="let item of states" [value]="item">
+                {{ item.stateName }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
 
-            <!-- <md-hint [hidden]=bindState.valid>
+          <!-- <md-hint [hidden]=bindState.valid>
                         <span class="error_text" *ngIf="!bindState.required  && ( bindState.dirty || bindState.touched)">Please select state</span>
                     </md-hint> -->
-            <!-- </md-input-container> -->
-          </div>
+          <!-- </md-input-container> -->
         </div>
-        <form
-          #searchDistrictsForm="ngForm"
-          autocomplete="off"
-          class="col-6 row"
-        >
-          <div class="col-3 m-t-15">
-            <mat-form-field [style.width]="'100%'">
-              <mat-label>Zone</mat-label>
-              <mat-select
-                required
-                [(ngModel)]="zoneID"
-                name="zoneID"
-                [disabled]="disableSelection"
-                #zoneG="ngModel"
-                (selectionChange)="
-                  getParkingPlaces(zoneID.zoneID, state.providerServiceMapID)
-                "
-              >
-                <mat-option *ngFor="let zone of zones" [value]="zone">
-                  {{ zone.zoneName }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-          <div
-            class="col-3 m-t-15"
-            style="margin-left: 140px; width: fit-content"
-          >
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
+          <mat-form-field [style.width]="'100%'">
+            <mat-label>Zone</mat-label>
             <mat-select
-              *ngIf="parkAndHub"
-              placeholder="{{ parkAndHub }}"
+              required
+              [(ngModel)]="zoneID"
+              name="zoneID"
+              [disabled]="disableSelection"
+              #zoneG="ngModel"
+              (selectionChange)="
+                getParkingPlaces(zoneID.zoneID, state.providerServiceMapID)
+              "
+            >
+              <mat-option *ngFor="let zone of zones" [value]="zone">
+                {{ zone.zoneName }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
+          <mat-form-field [style.width]="'100%'" *ngIf="parkAndHub">
+            <mat-label>{{ parkAndHub }}</mat-label>
+            <mat-select
               [(ngModel)]="parking_place"
               name="parking_place"
               (selectionChange)="getVanTypes()"
@@ -103,16 +90,18 @@
                 {{ parkingPlace.parkingPlaceName }}
               </mat-option>
             </mat-select>
-          </div>
-        </form>
-        <form #searForm1="ngForm" autocomplete="off" class="col-6 row">
-          <div class="col-3 m-t-15">
-            <!-- <md-input-container class="hide_underline width100">
+          </mat-form-field>
+        </div>
+      </form>
+      <form #searchDistrictsForm="ngForm" autocomplete="off" class="row"></form>
+      <form #searForm1="ngForm" autocomplete="off" class="row">
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
+          <!-- <md-input-container class="hide_underline width100">
                       <input mdInput style="display:none"> -->
+          <mat-form-field [style.width]="'100%'" *ngIf="parkAndHub">
+            <mat-label>{{ codeType }}</mat-label>
             <mat-select
               required
-              *ngIf="parkAndHub"
-              placeholder="{{ codeType }}"
               [(ngModel)]="vanTypeID"
               name="vanTypeID"
               #vanTypes="ngModel"
@@ -131,21 +120,20 @@
                 {{ vanType.vanType }}
               </mat-option>
             </mat-select>
-            <!-- <md-hint [hidden]=vanTypes.valid>
+          </mat-form-field>
+
+          <!-- <md-hint [hidden]=vanTypes.valid>
                           <span class="error_text" *ngIf="!vanTypes.required  && ( vanTypes.dirty || vanTypes.touched)">Please select van type</span>
                       </md-hint> -->
-            <!-- </md-input-container> -->
-          </div>
-          <div
-            class="col-3 m-t-15"
-            style="margin-left: 140px; width: fit-content"
-          >
-            <!-- <md-input-container class="hide_underline width100">
+          <!-- </md-input-container> -->
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
+          <!-- <md-input-container class="hide_underline width100">
                       <input mdInput style="display:none"> -->
+          <mat-form-field [style.width]="'100%'" *ngIf="parkAndHub">
+            <mat-label>{{ vanAndSpoke }}</mat-label>
             <mat-select
               required
-              *ngIf="parkAndHub"
-              placeholder="{{ vanAndSpoke }}"
               [(ngModel)]="vanID"
               name="vanID"
               #vanVal="ngModel"
@@ -161,12 +149,13 @@
                 {{ van.vanName }}
               </mat-option>
             </mat-select>
-            <!-- <md-hint [hidden]=vanVal.valid>
+          </mat-form-field>
+
+          <!-- <md-hint [hidden]=vanVal.valid>
                           <span class="error_text" *ngIf="!vanVal.required  && ( vanVal.dirty || vanVal.touched )">Please select Van </span>
                       </md-hint> -->
-            <!-- </md-input-container> -->
-          </div>
-        </form>
+          <!-- </md-input-container> -->
+        </div>
       </form>
     </div>
   </div>
@@ -177,7 +166,7 @@
         <table
           mat-table
           [dataSource]="filteredsearchResultArray"
-          class="mat-elevation-z8"
+          class="table table-striped table-hover"
         >
           <!-- S.No. Column -->
           <ng-container matColumnDef="sNo">
