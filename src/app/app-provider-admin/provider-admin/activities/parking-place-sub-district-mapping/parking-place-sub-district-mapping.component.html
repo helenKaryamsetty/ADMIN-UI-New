@@ -221,9 +221,9 @@
       </div>
     </div>
   </div>
-  <div class="row" *ngIf="!showListOfMapping && !showTable">
-    <form #mappingForm="ngForm" autocomplete="off">
-      <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 m-t-15">
+  <div class="col-12" *ngIf="!showListOfMapping && !showTable">
+    <form #mappingForm="ngForm" autocomplete="off" class="row">
+      <div class="col-3 m-t-15">
         <mat-form-field [style.width]="'100%'">
           <mat-label>District</mat-label>
           <mat-select
@@ -241,10 +241,7 @@
           </mat-select>
         </mat-form-field>
       </div>
-      <div
-        class="col-lg-3 col-md-4 col-sm-6 col-xs-12 m-t-15"
-        *ngIf="!editable"
-      >
+      <div class="col-3 m-t-15" *ngIf="!editable">
         <mat-form-field [style.width]="'100%'">
           <mat-label>Taluk</mat-label>
           <mat-select
@@ -260,7 +257,7 @@
           </mat-select>
         </mat-form-field>
       </div>
-      <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 m-t-15" *ngIf="editable">
+      <div class="col-3 m-t-15" *ngIf="editable">
         <mat-form-field [style.width]="'100%'">
           <mat-label>Taluk</mat-label>
           <mat-select
@@ -275,7 +272,7 @@
           </mat-select>
         </mat-form-field>
       </div>
-      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 m-t-20">
+      <div class="col-3 m-t-20" style="text-align: center">
         <button
           mat-mini-fab
           color="primary"
@@ -354,8 +351,8 @@
       </div>
     </div>
     <div
-      class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-20 m-b-10"
-      style="margin-bottom: 47px"
+      class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
+      style="padding-bottom: 85px"
     >
       <button
         mat-raised-button
@@ -370,7 +367,7 @@
         [disabled]="mappingList.data.length === 0"
         mat-raised-button
         color="accent"
-        class="pull-right m-t-10 mat_green"
+        class="pull-right mat_green"
         (click)="saveSubdistrictMapping()"
       >
         Save

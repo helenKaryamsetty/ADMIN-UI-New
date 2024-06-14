@@ -29,7 +29,7 @@
         <table
           mat-table
           [dataSource]="this.filteredmappedWorkLocationsList"
-          class="mat-elevation-z8"
+          class="table table-striped table-hover"
         >
           <ng-container matColumnDef="SNo">
             <th mat-header-cell *matHeaderCellDef>S.No.</th>
@@ -399,11 +399,29 @@
 
             <!-- </md-input-container> -->
           </div>
+          <div class="col-3" style="text-align: center">
+            <button
+              mat-mini-fab
+              color="primary"
+              *ngIf="!editMode && !workplaceform.invalid && !disableSelectRoles"
+              (click)="addWorkLocation(workplaceform.value, Role)"
+            >
+              <mat-icon
+                matSuffix
+                class="mat-icon material-icons"
+                role="img"
+                aria-hidden="true"
+                style="cursor: pointer"
+                >add</mat-icon
+              >
+            </button>
+          </div>
         </div>
 
         <div
           *ngIf="eSanjivaniFlag"
-          class="col-xs-6 col-sm-4 col-md-4 col-lg-3 m-t-35"
+          class="col-xs-6 col-sm-4 col-md-4 col-lg-3"
+          style="margin-top: 10px"
         >
           <mat-checkbox
             color="primary"
@@ -417,7 +435,8 @@
 
         <div
           *ngIf="showInOutBound"
-          class="col-xs-6 col-sm-4 col-md-4 col-lg-3 m-t-35"
+          class="col-xs-6 col-sm-4 col-md-4 col-lg-3"
+          style="margin-top: 10px"
         >
           <mat-checkbox
             color="primary"
@@ -430,7 +449,8 @@
         </div>
         <div
           *ngIf="showInOutBound"
-          class="col-xs-6 col-sm-4 col-md-4 col-lg-3 m-t-35 checkboxAlign"
+          class="col-xs-6 col-sm-4 col-md-4 col-lg-3 checkboxAlign"
+          style="margin-top: 10px"
         >
           <mat-checkbox
             color="primary"
@@ -440,26 +460,6 @@
             (selectionChange)="setOutbound($event)"
             >Outbound</mat-checkbox
           >
-        </div>
-
-        <div class="col-xs-6 col-sm-4 col-md-4 col-lg-3" class="pull-right">
-          <button
-            mat-mini-fab
-            color="primary"
-            style="margin-left: -70px; margin-right: 20px; margin-top: 29px"
-            class="xs-pull-right sm-pull-right md-pull-right lg-pull-left mat_icon_white"
-            *ngIf="!editMode && !workplaceform.invalid && !disableSelectRoles"
-            (click)="addWorkLocation(workplaceform.value, Role)"
-          >
-            <mat-icon
-              matSuffix
-              class="mat-icon material-icons"
-              role="img"
-              aria-hidden="true"
-              style="cursor: pointer"
-              >add</mat-icon
-            >
-          </button>
         </div>
       </form>
     </div>
@@ -577,7 +577,7 @@
         ></mat-paginator>
       </div>
     </div>
-    <div class="col-xs-12 col-sm-12 m-b-10" style="margin-bottom: 20px">
+    <div class="col-xs-12 col-sm-12 m-b-10" style="padding-bottom: 20px">
       <button
         mat-raised-button
         color="accent"
@@ -882,8 +882,8 @@
         </div>
       </form>
       <div
-        class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-20"
-        style="margin-bottom: 72px"
+        class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
+        style="padding-bottom: 20px"
       >
         <button
           mat-raised-button

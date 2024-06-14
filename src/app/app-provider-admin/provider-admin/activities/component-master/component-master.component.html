@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid" style="padding-bottom: 35px">
   <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
       <h4 *ngIf="!editMode && !saveEditMode">Component Master</h4>
@@ -385,7 +385,7 @@
     </div>
   </div>
   <div *ngIf="saveEditMode">
-    <div style="margin-bottom: 30px">
+    <div style="padding-bottom: 20px">
       <button
         color="primary"
         class="pull-left mat_blue"
@@ -399,8 +399,7 @@
         *ngIf="!editMode"
         id="saveButton"
         mat-raised-button
-        class="mat_green"
-        style="text-align: end"
+        class="mat_green pull-right"
         color="accent"
         [disabled]="!componentForm.valid || alreadyExist"
         (click)="saveComponent()"
@@ -411,8 +410,7 @@
         *ngIf="editMode"
         id="updateButton"
         mat-raised-button
-        style="text-align: end"
-        class="mat_green"
+        class="mat_green pull-right"
         color="accent"
         [disabled]="!componentForm.valid || alreadyExist"
         (click)="updateComponent()"
@@ -435,7 +433,7 @@
     </div>
     <div class="row">
       <div #tabledData class="col-xs-12 col-sm-12">
-        <div class="table-responsive">
+        <div>
           <table
             mat-table
             class="table table-striped table-hover"

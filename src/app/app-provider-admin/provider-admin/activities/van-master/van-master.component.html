@@ -39,62 +39,62 @@
               </mat-select>
             </mat-form-field>
           </div>
-          <form #resetform="ngForm" class="row">
-            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-              <mat-form-field [style.width]="'100%'">
-                <mat-label>Zone</mat-label>
-                <mat-select
-                  [(ngModel)]="zoneID"
-                  name="zoneID"
-                  #zone="ngModel"
-                  (selectionChange)="
-                    getAllParkingPlaces(
-                      zoneID.zoneID,
-                      searchStateID.providerServiceMapID
-                    )
-                  "
-                  required
+          <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
+            <mat-form-field [style.width]="'100%'">
+              <mat-label>Zone</mat-label>
+              <mat-select
+                [(ngModel)]="zoneID"
+                name="zoneID"
+                #zone="ngModel"
+                (selectionChange)="
+                  getAllParkingPlaces(
+                    zoneID.zoneID,
+                    searchStateID.providerServiceMapID
+                  )
+                "
+                required
+              >
+                <mat-option *ngFor="let zone of zones" [value]="zone">
+                  {{ zone.zoneName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div
+            class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15"
+            *ngIf="parkAndHub"
+          >
+            <mat-form-field [style.width]="'100%'">
+              <mat-select
+                placeholder="{{ parkAndHub }}"
+                [(ngModel)]="parking_place"
+                name="parking_place"
+                (selectionChange)="
+                  getVans(
+                    searchStateID.providerServiceMapID,
+                    parking_place.parkingPlaceID
+                  )
+                "
+                #parkingPlace="ngModel"
+                required
+              >
+                <mat-option
+                  *ngFor="let parkingPlace of parkingPlaces"
+                  [value]="parkingPlace"
                 >
-                  <mat-option *ngFor="let zone of zones" [value]="zone">
-                    {{ zone.zoneName }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-            <div
-              class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15"
-              *ngIf="parkAndHub"
-            >
-              <mat-form-field [style.width]="'100%'">
-                <mat-select
-                  placeholder="{{ parkAndHub }}"
-                  [(ngModel)]="parking_place"
-                  name="parking_place"
-                  (selectionChange)="
-                    getVans(
-                      searchStateID.providerServiceMapID,
-                      parking_place.parkingPlaceID
-                    )
-                  "
-                  #parkingPlace="ngModel"
-                  required
-                >
-                  <mat-option
-                    *ngFor="let parkingPlace of parkingPlaces"
-                    [value]="parkingPlace"
-                  >
-                    {{ parkingPlace.parkingPlaceName }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-          </form>
+                  {{ parkingPlace.parkingPlaceName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <form #resetform="ngForm" class="row"></form>
         </div>
       </form>
     </div>
   </div>
   <div
-    class="pull-right m-t-15"
+    class=""
+    style="text-align: end"
     *ngIf="showVansTable && availableVans.length !== 0"
   >
     <mat-form-field id="filterbox">
@@ -511,7 +511,7 @@
       <div class="row m-t-10 m-b-20">
         <div
           class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
-          style="margin-bottom: 47px"
+          style="padding-bottom: 10px"
         >
           <button
             mat-raised-button

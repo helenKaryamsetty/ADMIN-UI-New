@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid" style="padding-bottom: 50px">
   <div class="row">
     <div
       class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
@@ -199,7 +199,7 @@
   </div>
   <div class="col-12" *ngIf="showRoleCreationForm">
     <form #addingForm="ngForm" id="roleAddForm" class="row" autocomplete="off">
-      <div class="col-3 m-t-20" appMyProviderName>
+      <div class="col-3" appMyProviderName>
         <mat-form-field style="width: 100%">
           <mat-label>Role</mat-label>
           <input
@@ -214,7 +214,7 @@
           />
         </mat-form-field>
       </div>
-      <div class="col-3 m-t-20" appMyProviderName>
+      <div class="col-3" appMyProviderName>
         <mat-form-field style="width: 100%">
           <mat-label>Description</mat-label>
           <input
@@ -229,7 +229,6 @@
       <!-- in case of 104 and dashboard, multiselect needed in feature-->
       <div
         class="col-3"
-        style="margin-top: 20px"
         *ngIf="
           hideAdd && multipleFeaturesServiceList.includes(service.serviceID)
         "
@@ -259,7 +258,6 @@
         *ngIf="
           hideAdd && !multipleFeaturesServiceList.includes(service.serviceID)
         "
-        style="margin-top: 20px"
       >
         <mat-form-field [style.width]="'100%'">
           <mat-label>Feature</mat-label>
@@ -275,7 +273,7 @@
         </mat-form-field>
       </div>
 
-      <div class="col-3" *ngIf="!hideAdd" style="margin-top: 20px">
+      <div class="col-3" *ngIf="!hideAdd">
         <mat-form-field [style.width]="'100%'">
           <mat-label>Feature</mat-label>
           <mat-select name="feature" [(ngModel)]="editedFeatureID" required>
@@ -289,27 +287,29 @@
           </mat-select>
         </mat-form-field>
       </div>
-    </form>
-    <div
-      class="col-xs-12 col-sm-6 col-md-12 col-lg-3 m-t-15"
-      *ngIf="hideAdd && addingForm.valid && !othersExist"
-    >
-      <button
-        md-mini-fab
-        color="primary"
-        (click)="add_obj(role, description, feature)"
-        class="xs-pull-right sm-pull-left md-pull-right lg-pull-left mat_icon_white"
+      <div
+        class="col-3"
+        style="text-align: center"
+        *ngIf="hideAdd && addingForm.valid && !othersExist"
       >
-        <mat-icon
-          matSuffix
-          class="mat-icon material-icons"
-          role="img"
-          aria-hidden="true"
-          style="cursor: pointer"
-          >add</mat-icon
+        <button
+          md-mini-fab
+          color="primary"
+          (click)="add_obj(role, description, feature)"
+          class="mat_icon_white"
         >
-      </button>
-    </div>
+          <mat-icon
+            matSuffix
+            class="mat-icon material-icons"
+            role="img"
+            aria-hidden="true"
+            style="cursor: pointer"
+            >add</mat-icon
+          >
+        </button>
+      </div>
+    </form>
+
     <div
       class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-15"
       *ngIf="addRole.data.length !== 0"
@@ -383,7 +383,7 @@
       </div>
     </div>
 
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-15 m-b-10">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
       <button
         mat-raised-button
         color="primary"
@@ -416,7 +416,7 @@
   </div>
 
   <div class="col-12 row" *ngIf="updateFeaturesToRoleFlag">
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
       <mat-form-field style="width: 100%">
         <mat-label>Role</mat-label>
         <input
@@ -429,7 +429,7 @@
         />
       </mat-form-field>
     </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
       <mat-form-field style="width: 100%">
         <mat-label>Description</mat-label>
         <input
@@ -443,8 +443,8 @@
     </div>
 
     <!-- in case of 104 and dashboard, multiselect needed in feature-->
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" style="margin-top: 20px">
-      <mat-form-field>
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+      <mat-form-field style="width: 100%">
         <mat-label>Feature</mat-label>
         <mat-select
           multiple="true"

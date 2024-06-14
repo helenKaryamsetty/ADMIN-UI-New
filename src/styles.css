@@ -305,3 +305,6 @@ control.mat-mdc-form-field-input-control {
   height: 80% !important;
 
 }
+.mat-mdc-paginator .mat-mdc-select-value {
+  padding-left: 15px !important;
+}
