@@ -19,7 +19,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see https://www.gnu.org/licenses/.
  */
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { ProviderAdminRoleService } from '../../activities/services/state-serviceline-role.service';
 import { dataService } from 'src/app/core/services/dataService/data.service';
 import { VanServicePointMappingService } from 'src/app/core/services/ProviderAdminServices/van-service-point-mapping.service';
@@ -33,11 +33,20 @@ import { MatPaginator } from '@angular/material/paginator';
   selector: 'app-van-service-point-mapping',
   templateUrl: './van-service-point-mapping.component.html',
 })
-export class VanServicePointMappingComponent implements OnInit {
+export class VanServicePointMappingComponent implements OnInit, AfterViewInit {
   // [x: string]: any;
   filteredsearchResultArray = new MatTableDataSource<any>();
   // bufferArray = new MatTableDataSource<any>();
-  @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
+  // @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
+  paginator!: MatPaginator;
+  @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
+    this.paginator = mp;
+    this.setDataSourceAttributes();
+  }
+
+  setDataSourceAttributes() {
+    this.filteredsearchResultArray.paginator = this.paginator;
+  }
   displayedColumns: string[] = [
     'sNo',
     'servicePoint',
@@ -119,6 +128,9 @@ export class VanServicePointMappingComponent implements OnInit {
       mappings: this.formBuilder.array([this.formBuilder.group({})]),
     });
     this.getServiceLines();
+  }
+  ngAfterViewInit() {
+    this.filteredsearchResultArray.paginator = this.paginator;
   }
 
   getServiceLines() {
@@ -332,6 +344,7 @@ export class VanServicePointMappingComponent implements OnInit {
     console.log('response.data', response.data);
     const temp: any = this.MappingForm.controls['mappings'] as FormArray;
     this.filteredsearchResultArray.data = response.data;
+    this.filteredsearchResultArray.paginator = this.paginator;
     console.log(
       'this.filteredsearchResultArray.data',
       this.filteredsearchResultArray.data,
