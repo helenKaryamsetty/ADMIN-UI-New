@@ -54,7 +54,7 @@ export class CallServices {
     // .map(this.extractData_campaignList).catch(this.handleError);
   }
   getStates(userID: any, serviceID: any, isNational: any) {
-    return this._http.post(environment.get_State_Url, {
+    return this._http.post(environment.getStates_new_url, {
       userID: userID,
       serviceID: serviceID,
       isNational: isNational,

@@ -117,7 +117,7 @@ export class Mainstroreandsubstore {
   }
 
   getStates(userID: any, serviceID: any, isNational: any) {
-    return this.http.post(environment.get_State_Url, {
+    return this.http.post(environment.getStates_new_url, {
       userID: userID,
       serviceID: serviceID,
       isNational: isNational,

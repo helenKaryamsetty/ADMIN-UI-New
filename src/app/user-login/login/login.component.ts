@@ -225,9 +225,6 @@ export class loginContentClassComponent implements OnInit, OnDestroy {
                     if (confirmResponse) {
                       this.loginservice.dologoutUsrFromPreSession(true);
                     }
-                    //   else{
-                    //     this.authService.removeToken();
-                    // }
                   });
               } else if (
                 response.errorMessage.includes(
@@ -244,6 +241,18 @@ export class loginContentClassComponent implements OnInit, OnDestroy {
               } else if (
                 response.errorMessage.includes(
                   'Your account is locked or de-activated. Please contact administrator',
+                )
+              ) {
+                this.alertMessage
+                  .confirm('info', response.errorMessage)
+                  .subscribe((confirmResponse) => {
+                    if (confirmResponse) {
+                      this.loginservice.dologoutUsrFromPreSession(true);
+                    }
+                  });
+              } else if (
+                response.errorMessage.includes(
+                  'Contact Administrator as either provider or user or both are inactive',
                 )
               ) {
                 this.alertMessage

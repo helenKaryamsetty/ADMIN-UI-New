@@ -109,10 +109,12 @@ export class InstituteDirectoryMasterComponent
     this.states = response.data;
     if (value.isNational) {
       this.nationalFlag = value.isNational;
-      this.setProviderServiceMapID(response[0].providerServiceMapID);
+      this.setProviderServiceMapID(this.states[0].providerServiceMapID);
     } else {
       this.nationalFlag = value.isNational;
       this.showTableFlag = false;
+      this.searchResultArray = [];
+      this.dataSource.data = [];
     }
   }
   setProviderServiceMapID(providerServiceMapID: any) {
