@@ -84,7 +84,10 @@
             </mat-form-field>
           </div>
 
-          <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+          <div
+            class="col-xs-12 col-sm-6 col-md-4 col-lg-3"
+            style="margin-top: -25px"
+          >
             <mat-form-field [style.width]="'100%'" appMyProviderName>
               <mat-label>Description</mat-label>
               <textarea
@@ -352,6 +355,7 @@
                   <button
                     mat-mini-fab
                     color="warn"
+                    class="mat_warn_circle"
                     *ngIf="componentForm.get('compOpt')?.value.length > 1"
                     (click)="removeID(i)"
                   >
@@ -361,21 +365,20 @@
                       >close</mat-icon
                     >
                   </button>
-                  <span>
-                    <button
-                      mat-mini-fab
-                      class="mat_icon_white"
-                      color="primary"
-                      *ngIf="isLast"
-                      (click)="addID(i)"
+                  <button
+                    mat-mini-fab
+                    class="mat_icon_white"
+                    style="margin-left: 10px"
+                    color="primary"
+                    *ngIf="isLast"
+                    (click)="addID(i)"
+                  >
+                    <mat-icon
+                      class="md-18"
+                      aria-label="Example icon-button with a heart icon"
+                      >add</mat-icon
                     >
-                      <mat-icon
-                        class="md-18"
-                        aria-label="Example icon-button with a heart icon"
-                        >add</mat-icon
-                      >
-                    </button>
-                  </span>
+                  </button>
                 </ng-container>
               </section>
             </div>
