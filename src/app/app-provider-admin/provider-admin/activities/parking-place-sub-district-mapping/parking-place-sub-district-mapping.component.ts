@@ -122,6 +122,9 @@ export class ParkingPlaceSubDistrictMappingComponent implements OnInit {
   }
   getServicesSuccessHandeler(response: any) {
     this.servicelines = response.data;
+    this.servicelines = this.servicelines.filter((item: any) =>
+      [2, 4, 9].includes(item.serviceID),
+    );
   }
   getStates(value: any) {
     this.resetArrays();

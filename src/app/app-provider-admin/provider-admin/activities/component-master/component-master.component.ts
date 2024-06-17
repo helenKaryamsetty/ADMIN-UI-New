@@ -140,9 +140,6 @@ export class ComponentMasterComponent implements OnInit {
     });
     this.componentList = [];
     this.dataSource.data = [];
-    this.dataSource.data.forEach((item: any, i: number) => {
-      item.sno = i + 1;
-    });
     // provide service provider ID, (As of now hardcoded, but to be fetched from login response)
     this.serviceProviderID = sessionStorage.getItem('service_providerID');
     this.userID = this.commonDataService.uid;
@@ -266,9 +263,6 @@ export class ComponentMasterComponent implements OnInit {
       .subscribe((res) => {
         this.componentList = this.successhandeler(res);
         this.dataSource.data = this.successhandeler(res);
-        this.dataSource.data.forEach((item: any, i: number) => {
-          item.sno = i + 1;
-        });
         this.tableMode = true;
       });
   }
@@ -359,10 +353,10 @@ export class ComponentMasterComponent implements OnInit {
         .subscribe((res) => {
           console.log(res, 'resonse here');
           this.componentList.unshift(res);
-          this.dataSource.data[0].data = res;
           this.resetForm();
           this.showTable();
           this.alertService.alert('Saved successfully', 'success');
+          // this.showTable();
         });
     }
   }
@@ -526,15 +520,12 @@ export class ComponentMasterComponent implements OnInit {
       this.dataSource.data = this.componentList;
     } else {
       this.dataSource.data = [];
-      this.dataSource.data.forEach((item: any) => {
+      this.componentList.forEach((item: any) => {
         for (const key in item) {
           if (key === 'testComponentName' || key === 'inputType') {
             const value: string = '' + item[key];
             if (value.toLowerCase().indexOf(searchTerm.toLowerCase()) >= 0) {
               this.dataSource.data.push(item);
-              this.dataSource.data.forEach((item: any, i: number) => {
-                item.sno = i + 1;
-              });
               break;
             }
             this.dataSource.paginator = this.paginator;
@@ -576,9 +567,6 @@ export class ComponentMasterComponent implements OnInit {
       console.log(element, 'elem', res, 'res');
       if (element.testComponentID === res.testComponentID) {
         this.dataSource.data[i] = res;
-        this.dataSource.data[i].forEach((item: any, i: number) => {
-          item.sno = i + 1;
-        });
       }
     });
 
@@ -586,9 +574,6 @@ export class ComponentMasterComponent implements OnInit {
       console.log(element, 'elem', res, 'res');
       if (element.testComponentID === res.testComponentID) {
         this.dataSource.data[i] = res;
-        this.dataSource.data[i].forEach((item: any, i: number) => {
-          item.sno = i + 1;
-        });
       }
     });
   }
@@ -612,23 +597,21 @@ export class ComponentMasterComponent implements OnInit {
   loadDataToEdit(res: any) {
     console.log(JSON.stringify(res, null, 4), 'res', res);
     if (res) {
-      this.editMode = res.data.testComponentID;
-      if (res.data.iotComponentID !== undefined) {
+      this.editMode = res.testComponentID;
+      if (res.iotComponentID !== undefined) {
         this.iotComponentArray.forEach((ele: any) => {
-          if (ele.iotComponentID === res.data.iotComponentID) {
-            res.data.iotComponentID = ele;
+          if (ele.iotComponentID === res.iotComponentID) {
+            res.iotComponentID = ele;
           }
         });
       }
       // debugger;
       this.componentForm.patchValue(res);
 
-      this.componentForm.controls['testLoincCode'].setValue(res.data.lionicNum);
-      this.loincNo = res.data.lionicNum;
-      this.loincTerm = res.data.component;
-      this.componentForm.controls['testLoincComponent'].setValue(
-        res.data.component,
-      );
+      this.componentForm.controls['testLoincCode'].setValue(res.lionicNum);
+      this.loincNo = res.lionicNum;
+      this.loincTerm = res.component;
+      this.componentForm.controls['testLoincComponent'].setValue(res.component);
 
       if (
         this.componentForm.controls['testLoincCode'].value === null ||
@@ -645,9 +628,9 @@ export class ComponentMasterComponent implements OnInit {
         this.enableAlert = false;
         this.componentFlag = true;
       }
-      if (res.data.inputType !== 'TextBox') {
+      if (res.inputType !== 'TextBox') {
         console.log('11111');
-        const options = res.data.compOpt;
+        const options = res.compOpt;
         const val = <FormArray>this.componentForm.controls['compOpt'];
         val.removeAt(0);
         // this.componentForm.setControl('compOpt', new FormArray([]))

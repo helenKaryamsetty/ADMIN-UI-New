@@ -133,6 +133,9 @@ export class ServicePointComponent implements OnInit {
     this.servicePointMasterService.getServices(this.userID).subscribe(
       (response: any) => {
         this.services_array = response.data;
+        this.services_array = this.services_array.filter((item: any) =>
+          [2, 4, 9].includes(item.serviceID),
+        );
       },
       (err) => {},
     );
