@@ -423,7 +423,10 @@
     </div>
   </div>
   <div *ngIf="tableMode">
-    <div style="text-align: end" *ngIf="componentList?.length > 0">
+    <div
+      style="text-align: end"
+      *ngIf="componentList && componentList.length > 0"
+    >
       <mat-form-field id="filterbox">
         <input
           matInput
