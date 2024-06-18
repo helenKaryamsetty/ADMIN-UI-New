@@ -286,25 +286,27 @@
             </mat-hint>
           </mat-form-field>
         </div>
-      </form>
-      <div class="col-3 m-t-20">
-        <button
-          mat-mini-fab
-          color="primary"
-          *ngIf="parkingPlaceForm.valid && !parkingPlaceNameExist && !editable"
-          class="xs-pull-right sm-pull-left at-pull-right lg-pull-left mat_icon_white"
-          (click)="addParkingPlaceToList(parkingPlaceForm.value)"
-        >
-          <mat-icon
-            matSuffix
-            class="mat-icon material-icons"
-            role="img"
-            aria-hidden="true"
-            style="cursor: pointer"
-            >add</mat-icon
+        <div class="col-3 m-t-20" style="text-align: center">
+          <button
+            mat-mini-fab
+            color="primary"
+            *ngIf="
+              parkingPlaceForm.valid && !parkingPlaceNameExist && !editable
+            "
+            class="xs-pull-right sm-pull-left at-pull-right lg-pull-left mat_icon_white"
+            (click)="addParkingPlaceToList(parkingPlaceForm.value)"
           >
-        </button>
-      </div>
+            <mat-icon
+              matSuffix
+              class="mat-icon material-icons"
+              role="img"
+              aria-hidden="true"
+              style="cursor: pointer"
+              >add</mat-icon
+            >
+          </button>
+        </div>
+      </form>
     </div>
     <div class="row">
       <div
