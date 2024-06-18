@@ -22,7 +22,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {
   FormGroup,
-  FormControl,
   FormArray,
   FormBuilder,
   Validators,
@@ -104,11 +103,8 @@ export class ComponentMasterComponent implements OnInit {
   };
   loincNo: any = null;
   componentFlag = false;
-  // enableSave: boolean=true;
-  // enableUpdate: boolean=false;
   enableAlert = true;
   loincTerm: any;
-  // deleteFlag: boolean=true;
   displayedColumns = [
     'sno',
     'testComponentName',
@@ -164,16 +160,10 @@ export class ComponentMasterComponent implements OnInit {
     // provide service provider ID, (As of now hardcoded, but to be fetched from login response)
     this.serviceProviderID = sessionStorage.getItem('service_providerID');
     this.userID = this.commonDataService.uid;
-
-    // this.providerAdminRoleService.getStates(this.serviceProviderID)
-    //   .subscribe(response => {
-    //     this.states = this.successhandeler(response);
-
-    //   }
-    //   );
     this.getProviderServices();
     this.getDiagnosticProcedureComponent();
   }
+
   getProviderServices() {
     this.stateandservices.getServices(this.userID).subscribe(
       (response: any) => {
@@ -191,17 +181,18 @@ export class ComponentMasterComponent implements OnInit {
       (err) => {},
     );
   }
+
   getStates(serviceID: any) {
     this.stateandservices.getStates(this.userID, serviceID, false).subscribe(
       (response: any) => this.getStatesSuccessHandeler(response, false),
       (err) => {},
     );
   }
+
   getStatesSuccessHandeler(response: any, isNational: any) {
     if (response) {
       console.log(response, 'Provider States');
       this.provider_states = response.data;
-      // this.createButton = false;
     }
   }
 
@@ -238,9 +229,11 @@ export class ComponentMasterComponent implements OnInit {
     const isSubmitted = form && form.submitted;
     return !!(control && control.invalid && (control.touched || isSubmitted));
   }
+
   get testComponentName() {
     return this.componentForm.controls['testComponentName'].value;
   }
+
   componentUnique() {
     this.alreadyExist = false;
     console.log('filteredComponentList', this.dataSource.data);
@@ -336,16 +329,19 @@ export class ComponentMasterComponent implements OnInit {
         }
       });
   }
+
   showTable() {
     this.tableMode = true;
     this.saveEditMode = false;
     this.disableSelection = false;
   }
+
   showForm() {
     this.tableMode = false;
     this.saveEditMode = true;
     this.disableSelection = true;
   }
+
   saveComponent() {
     if (this.enableAlert === true) {
       this.alertService
@@ -448,8 +444,6 @@ export class ComponentMasterComponent implements OnInit {
     this.enableAlert = true;
     this.loincNo = null;
     this.loincTerm = null;
-    // this.enableSave=true;
-    // this.enableUpdate=false;
     this.componentFlag = false;
     this.componentForm.controls['testLoincCode'].enable();
     this.componentForm.controls['testLoincCode'].setValue(null);
@@ -533,7 +527,6 @@ export class ComponentMasterComponent implements OnInit {
     this.providerServiceMapID = this.searchStateID.providerServiceMapID;
 
     console.log('psmid', this.searchStateID.providerServiceMapID);
-    //console.log(this.service);
     this.getAvailableComponent();
   }
 
@@ -631,6 +624,7 @@ export class ComponentMasterComponent implements OnInit {
     console.log(JSON.stringify(item, null, 4), 'item to patch');
     console.log(this.componentForm, 'form here');
   }
+
   getComponentForm(): AbstractControl[] | null {
     const componenListControl = this.componentForm.get('compOpt');
     return componenListControl instanceof FormArray
@@ -642,16 +636,24 @@ export class ComponentMasterComponent implements OnInit {
     console.log(JSON.stringify(res, null, 4), 'res', res);
     if (res) {
       this.editMode = res.data.testComponentID;
-      if (res.data.iotComponentID !== undefined) {
+      if (res.data.iotComponentID != undefined) {
         this.iotComponentArray.forEach((ele: any) => {
-          if (ele.iotComponentID === res.data.iotComponentID) {
+          if (ele.iotComponentID == res.data.iotComponentID) {
             res.data.iotComponentID = ele;
           }
+          this.componentForm.controls['iotComponentID'].setValue(
+            res.data.iotComponentID,
+          );
         });
       }
-      // debugger;
       this.componentForm.patchValue(res);
 
+      this.componentForm.controls['testComponentName'].setValue(
+        res.data.testComponentName,
+      );
+      this.componentForm.controls['testComponentDesc'].setValue(
+        res.data.testComponentDesc,
+      );
       this.componentForm.controls['testLoincCode'].setValue(res.data.lionicNum);
       this.loincNo = res.data.lionicNum;
       this.loincTerm = res.data.component;
@@ -660,46 +662,60 @@ export class ComponentMasterComponent implements OnInit {
       );
 
       if (
-        this.componentForm.controls['testLoincCode'].value === null ||
-        this.componentForm.controls['testLoincCode'].value === undefined ||
-        this.componentForm.controls['testLoincCode'].value === ''
+        this.componentForm.controls['testLoincCode'].value == null ||
+        this.componentForm.controls['testLoincCode'].value == undefined ||
+        this.componentForm.controls['testLoincCode'].value == ''
       ) {
-        // this.deleteFlag=false;
         this.componentForm.controls['testLoincCode'].enable();
         this.componentFlag = false;
         this.enableAlert = true;
       } else {
         this.componentForm.controls['testLoincCode'].disable();
-        // this.deleteFlag=true;
         this.enableAlert = false;
         this.componentFlag = true;
       }
-      if (res.data.inputType !== 'TextBox') {
-        console.log('11111');
+      this.componentForm.controls['inputType'].setValue(res.data.inputType);
+      if (res.data.inputType != 'TextBox') {
         const options = res.data.compOpt;
         const val = <FormArray>this.componentForm.controls['compOpt'];
         val.removeAt(0);
-        // this.componentForm.setControl('compOpt', new FormArray([]))
         console.log(val);
         options.forEach((element: any) => {
           val.push(this.fb.group(element));
           console.log(val);
         });
       }
+      this.componentForm.controls['isDecimal'].setValue(res.data.isDecimal);
+      this.componentForm.controls['range_min'].setValue(res.data.range_min);
+      this.componentForm.controls['range_normal_min'].setValue(
+        res.data.range_normal_min,
+      );
+      this.componentForm.controls['range_normal_max'].setValue(
+        res.data.range_normal_max,
+      );
+      this.componentForm.controls['range_max'].setValue(res.data.range_max);
+      this.componentForm.controls['measurementUnit'].setValue(
+        res.data.measurementUnit,
+      );
     }
   }
+
   get range_min() {
     return this.componentForm.controls['range_min'].value;
   }
+
   get range_max() {
     return this.componentForm.controls['range_max'].value;
   }
+
   get range_normal_min() {
     return this.componentForm.controls['range_normal_min'].value;
   }
+
   get range_normal_max() {
     return this.componentForm.controls['range_normal_max'].value;
   }
+
   /*
    * Minimum and maximum range validations
    */
@@ -712,6 +728,7 @@ export class ComponentMasterComponent implements OnInit {
       this.setMaxNormalRange();
     }
   }
+
   setMaxRange() {
     if (
       (this.range_min === undefined || this.range_min === null) &&
@@ -769,6 +786,7 @@ export class ComponentMasterComponent implements OnInit {
       this.setMaxNormalRange();
     }
   }
+
   setMaxNormalRange() {
     if (
       (this.range_min === undefined || this.range_min === null) &&
@@ -862,7 +880,6 @@ export class ComponentMasterComponent implements OnInit {
 
   callDropBinder(vall: any) {
     const call: any = [];
-    // debugger;
     vall.options.forEach((element: any) => {
       call.push({ name: element });
     });
@@ -873,7 +890,6 @@ export class ComponentMasterComponent implements OnInit {
     const options = vall.compOpt;
     const val = <FormArray>this.componentForm.controls['compOpt'];
     val.removeAt(0);
-    // this.componentForm.setControl('compOpt', new FormArray([]))
     console.log(val);
     options.forEach((element: any) => {
       val.push(this.fb.group(element));
@@ -900,16 +916,12 @@ export class ComponentMasterComponent implements OnInit {
           this.loincNo = result.componentNo;
           this.loincTerm = result.component;
           this.componentFlag = true;
-          // console.log("componentFlag",this.componentFlag)
           this.componentForm.controls['testLoincCode'].disable();
-          // this.enableSave=false;
-          // this.enableUpdate=false;
           this.enableAlert = false;
         } else {
           this.enableAlert = true;
           this.componentForm.controls['testLoincCode'].setValue(null);
           this.componentForm.controls['testLoincComponent'].setValue(null);
-          // this.deleteFlag=true;
         }
       });
     }
@@ -921,14 +933,11 @@ export class ComponentMasterComponent implements OnInit {
       .subscribe((response) => {
         if (response) {
           this.enableAlert = true;
-          // this.enableUpdate=true;
           this.loincNo = null;
-          // this.enableSave=true;
           this.componentFlag = false;
           this.componentForm.controls['testLoincCode'].enable();
           this.componentForm.controls['testLoincCode'].setValue(null);
           this.componentForm.controls['testLoincComponent'].setValue(null);
-          // this.deleteFlag=true;
         }
       });
   }
