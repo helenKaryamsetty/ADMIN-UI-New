@@ -22,7 +22,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {
   FormGroup,
-  FormControl,
   FormArray,
   FormBuilder,
   Validators,
@@ -37,6 +36,24 @@ import { MatDialog } from '@angular/material/dialog';
 import { ComponentNameSearchComponent } from '../component-name-search/component-name-search.component';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+
+interface ComponentData {
+  testComponentID: number;
+  testComponentName: string;
+  testComponentDesc: string;
+  inputType: string;
+  measurementUnit?: string;
+  isDecimal?: boolean;
+  range_min?: number;
+  range_normal_min?: number;
+  range_normal_max?: number;
+  range_max?: number;
+  providerServiceMapID?: number;
+  createdBy: string;
+  iotComponentID?: number;
+  lionicNum?: string;
+  lionicTerm?: string;
+}
 
 @Component({
   selector: 'app-component-master',
@@ -70,7 +87,6 @@ export class ComponentMasterComponent implements OnInit {
   unfilled = false;
   editProcedure: any;
   componentForm!: FormGroup;
-  componentList: any;
   tableMode = false;
   saveEditMode = false;
   alreadyExist = false;
@@ -87,11 +103,8 @@ export class ComponentMasterComponent implements OnInit {
   };
   loincNo: any = null;
   componentFlag = false;
-  // enableSave: boolean=true;
-  // enableUpdate: boolean=false;
   enableAlert = true;
   loincTerm: any;
-  // deleteFlag: boolean=true;
   displayedColumns = [
     'sno',
     'testComponentName',
@@ -105,7 +118,8 @@ export class ComponentMasterComponent implements OnInit {
     this.paginator = mp;
     this.setDataSourceAttributes();
   }
-  dataSource = new MatTableDataSource<any>();
+  componentList: ComponentData[] = [];
+  dataSource = new MatTableDataSource<ComponentData>(this.componentList);
 
   setDataSourceAttributes() {
     this.dataSource.paginator = this.paginator;
@@ -140,19 +154,16 @@ export class ComponentMasterComponent implements OnInit {
     });
     this.componentList = [];
     this.dataSource.data = [];
+    this.dataSource.data.forEach((item: any, i: number) => {
+      item.sno = i + 1;
+    });
     // provide service provider ID, (As of now hardcoded, but to be fetched from login response)
     this.serviceProviderID = sessionStorage.getItem('service_providerID');
     this.userID = this.commonDataService.uid;
-
-    // this.providerAdminRoleService.getStates(this.serviceProviderID)
-    //   .subscribe(response => {
-    //     this.states = this.successhandeler(response);
-
-    //   }
-    //   );
     this.getProviderServices();
     this.getDiagnosticProcedureComponent();
   }
+
   getProviderServices() {
     this.stateandservices.getServices(this.userID).subscribe(
       (response: any) => {
@@ -170,17 +181,18 @@ export class ComponentMasterComponent implements OnInit {
       (err) => {},
     );
   }
+
   getStates(serviceID: any) {
     this.stateandservices.getStates(this.userID, serviceID, false).subscribe(
       (response: any) => this.getStatesSuccessHandeler(response, false),
       (err) => {},
     );
   }
+
   getStatesSuccessHandeler(response: any, isNational: any) {
     if (response) {
       console.log(response, 'Provider States');
       this.provider_states = response.data;
-      // this.createButton = false;
     }
   }
 
@@ -217,9 +229,11 @@ export class ComponentMasterComponent implements OnInit {
     const isSubmitted = form && form.submitted;
     return !!(control && control.invalid && (control.touched || isSubmitted));
   }
+
   get testComponentName() {
     return this.componentForm.controls['testComponentName'].value;
   }
+
   componentUnique() {
     this.alreadyExist = false;
     console.log('filteredComponentList', this.dataSource.data);
@@ -263,6 +277,9 @@ export class ComponentMasterComponent implements OnInit {
       .subscribe((res) => {
         this.componentList = this.successhandeler(res);
         this.dataSource.data = this.successhandeler(res);
+        this.dataSource.data.forEach((item: any, i: number) => {
+          item.sno = i + 1;
+        });
         this.tableMode = true;
       });
   }
@@ -312,16 +329,19 @@ export class ComponentMasterComponent implements OnInit {
         }
       });
   }
+
   showTable() {
     this.tableMode = true;
     this.saveEditMode = false;
     this.disableSelection = false;
   }
+
   showForm() {
     this.tableMode = false;
     this.saveEditMode = true;
     this.disableSelection = true;
   }
+
   saveComponent() {
     if (this.enableAlert === true) {
       this.alertService
@@ -351,12 +371,29 @@ export class ComponentMasterComponent implements OnInit {
       this.componentMasterServiceService
         .postComponentData(apiObject)
         .subscribe((res) => {
-          console.log(res, 'resonse here');
-          this.componentList.unshift(res);
-          this.resetForm();
-          this.showTable();
-          this.alertService.alert('Saved successfully', 'success');
-          // this.showTable();
+          console.log(res, 'response here');
+
+          // Type assertion to tell TypeScript the structure of res
+          const response = res as { data: ComponentData };
+
+          if (response && response.data) {
+            // Transform the response to match the table's data structure
+            const newComponent = {
+              ...response.data,
+              sno: this.componentList.length + 1,
+              deleted: false,
+            };
+
+            this.componentList.unshift(newComponent);
+            this.dataSource.data = [...this.componentList]; // Update the data source
+            this.dataSource.data.forEach((item: any, i: number) => {
+              item.sno = i + 1;
+            });
+
+            this.resetForm();
+            this.showTable();
+            this.alertService.alert('Saved successfully', 'success');
+          }
         });
     }
   }
@@ -407,8 +444,6 @@ export class ComponentMasterComponent implements OnInit {
     this.enableAlert = true;
     this.loincNo = null;
     this.loincTerm = null;
-    // this.enableSave=true;
-    // this.enableUpdate=false;
     this.componentFlag = false;
     this.componentForm.controls['testLoincCode'].enable();
     this.componentForm.controls['testLoincCode'].setValue(null);
@@ -492,7 +527,6 @@ export class ComponentMasterComponent implements OnInit {
     this.providerServiceMapID = this.searchStateID.providerServiceMapID;
 
     console.log('psmid', this.searchStateID.providerServiceMapID);
-    //console.log(this.service);
     this.getAvailableComponent();
   }
 
@@ -520,15 +554,18 @@ export class ComponentMasterComponent implements OnInit {
       this.dataSource.data = this.componentList;
     } else {
       this.dataSource.data = [];
-      this.componentList.forEach((item: any) => {
+      this.dataSource.data.forEach((item: any) => {
         for (const key in item) {
           if (key === 'testComponentName' || key === 'inputType') {
             const value: string = '' + item[key];
             if (value.toLowerCase().indexOf(searchTerm.toLowerCase()) >= 0) {
               this.dataSource.data.push(item);
+              this.dataSource.paginator = this.paginator;
+              this.dataSource.data.forEach((item: any, i: number) => {
+                item.sno = i + 1;
+              });
               break;
             }
-            this.dataSource.paginator = this.paginator;
           }
         }
       });
@@ -563,10 +600,10 @@ export class ComponentMasterComponent implements OnInit {
   }
 
   updateList(res: any) {
-    this.dataSource.data.forEach((element: any, i: any) => {
+    this.componentList.forEach((element: any, i: any) => {
       console.log(element, 'elem', res, 'res');
       if (element.testComponentID === res.testComponentID) {
-        this.dataSource.data[i] = res;
+        this.componentList[i] = res;
       }
     });
 
@@ -587,6 +624,7 @@ export class ComponentMasterComponent implements OnInit {
     console.log(JSON.stringify(item, null, 4), 'item to patch');
     console.log(this.componentForm, 'form here');
   }
+
   getComponentForm(): AbstractControl[] | null {
     const componenListControl = this.componentForm.get('compOpt');
     return componenListControl instanceof FormArray
@@ -597,63 +635,87 @@ export class ComponentMasterComponent implements OnInit {
   loadDataToEdit(res: any) {
     console.log(JSON.stringify(res, null, 4), 'res', res);
     if (res) {
-      this.editMode = res.testComponentID;
-      if (res.iotComponentID !== undefined) {
+      this.editMode = res.data.testComponentID;
+      if (res.data.iotComponentID != undefined) {
         this.iotComponentArray.forEach((ele: any) => {
-          if (ele.iotComponentID === res.iotComponentID) {
-            res.iotComponentID = ele;
+          if (ele.iotComponentID == res.data.iotComponentID) {
+            res.data.iotComponentID = ele;
           }
+          this.componentForm.controls['iotComponentID'].setValue(
+            res.data.iotComponentID,
+          );
         });
       }
-      // debugger;
       this.componentForm.patchValue(res);
 
-      this.componentForm.controls['testLoincCode'].setValue(res.lionicNum);
-      this.loincNo = res.lionicNum;
-      this.loincTerm = res.component;
-      this.componentForm.controls['testLoincComponent'].setValue(res.component);
+      this.componentForm.controls['testComponentName'].setValue(
+        res.data.testComponentName,
+      );
+      this.componentForm.controls['testComponentDesc'].setValue(
+        res.data.testComponentDesc,
+      );
+      this.componentForm.controls['testLoincCode'].setValue(res.data.lionicNum);
+      this.loincNo = res.data.lionicNum;
+      this.loincTerm = res.data.component;
+      this.componentForm.controls['testLoincComponent'].setValue(
+        res.data.component,
+      );
 
       if (
-        this.componentForm.controls['testLoincCode'].value === null ||
-        this.componentForm.controls['testLoincCode'].value === undefined ||
-        this.componentForm.controls['testLoincCode'].value === ''
+        this.componentForm.controls['testLoincCode'].value == null ||
+        this.componentForm.controls['testLoincCode'].value == undefined ||
+        this.componentForm.controls['testLoincCode'].value == ''
       ) {
-        // this.deleteFlag=false;
         this.componentForm.controls['testLoincCode'].enable();
         this.componentFlag = false;
         this.enableAlert = true;
       } else {
         this.componentForm.controls['testLoincCode'].disable();
-        // this.deleteFlag=true;
         this.enableAlert = false;
         this.componentFlag = true;
       }
-      if (res.inputType !== 'TextBox') {
-        console.log('11111');
-        const options = res.compOpt;
+      this.componentForm.controls['inputType'].setValue(res.data.inputType);
+      if (res.data.inputType != 'TextBox') {
+        const options = res.data.compOpt;
         const val = <FormArray>this.componentForm.controls['compOpt'];
         val.removeAt(0);
-        // this.componentForm.setControl('compOpt', new FormArray([]))
         console.log(val);
         options.forEach((element: any) => {
           val.push(this.fb.group(element));
           console.log(val);
         });
       }
+      this.componentForm.controls['isDecimal'].setValue(res.data.isDecimal);
+      this.componentForm.controls['range_min'].setValue(res.data.range_min);
+      this.componentForm.controls['range_normal_min'].setValue(
+        res.data.range_normal_min,
+      );
+      this.componentForm.controls['range_normal_max'].setValue(
+        res.data.range_normal_max,
+      );
+      this.componentForm.controls['range_max'].setValue(res.data.range_max);
+      this.componentForm.controls['measurementUnit'].setValue(
+        res.data.measurementUnit,
+      );
     }
   }
+
   get range_min() {
     return this.componentForm.controls['range_min'].value;
   }
+
   get range_max() {
     return this.componentForm.controls['range_max'].value;
   }
+
   get range_normal_min() {
     return this.componentForm.controls['range_normal_min'].value;
   }
+
   get range_normal_max() {
     return this.componentForm.controls['range_normal_max'].value;
   }
+
   /*
    * Minimum and maximum range validations
    */
@@ -666,6 +728,7 @@ export class ComponentMasterComponent implements OnInit {
       this.setMaxNormalRange();
     }
   }
+
   setMaxRange() {
     if (
       (this.range_min === undefined || this.range_min === null) &&
@@ -723,6 +786,7 @@ export class ComponentMasterComponent implements OnInit {
       this.setMaxNormalRange();
     }
   }
+
   setMaxNormalRange() {
     if (
       (this.range_min === undefined || this.range_min === null) &&
@@ -816,7 +880,6 @@ export class ComponentMasterComponent implements OnInit {
 
   callDropBinder(vall: any) {
     const call: any = [];
-    // debugger;
     vall.options.forEach((element: any) => {
       call.push({ name: element });
     });
@@ -827,7 +890,6 @@ export class ComponentMasterComponent implements OnInit {
     const options = vall.compOpt;
     const val = <FormArray>this.componentForm.controls['compOpt'];
     val.removeAt(0);
-    // this.componentForm.setControl('compOpt', new FormArray([]))
     console.log(val);
     options.forEach((element: any) => {
       val.push(this.fb.group(element));
@@ -854,16 +916,12 @@ export class ComponentMasterComponent implements OnInit {
           this.loincNo = result.componentNo;
           this.loincTerm = result.component;
           this.componentFlag = true;
-          // console.log("componentFlag",this.componentFlag)
           this.componentForm.controls['testLoincCode'].disable();
-          // this.enableSave=false;
-          // this.enableUpdate=false;
           this.enableAlert = false;
         } else {
           this.enableAlert = true;
           this.componentForm.controls['testLoincCode'].setValue(null);
           this.componentForm.controls['testLoincComponent'].setValue(null);
-          // this.deleteFlag=true;
         }
       });
     }
@@ -875,14 +933,11 @@ export class ComponentMasterComponent implements OnInit {
       .subscribe((response) => {
         if (response) {
           this.enableAlert = true;
-          // this.enableUpdate=true;
           this.loincNo = null;
-          // this.enableSave=true;
           this.componentFlag = false;
           this.componentForm.controls['testLoincCode'].enable();
           this.componentForm.controls['testLoincCode'].setValue(null);
           this.componentForm.controls['testLoincComponent'].setValue(null);
-          // this.deleteFlag=true;
         }
       });
   }
