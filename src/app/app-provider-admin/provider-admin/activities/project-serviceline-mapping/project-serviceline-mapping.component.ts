@@ -23,6 +23,7 @@ export class ProjectServicelineMappingComponent implements OnInit {
   districts: any = [];
   blocks: any = [];
   projectNames: any = [];
+  addedFields: any;
 
   // @ViewChild('projectServcelineMappingForm')
   // projectServcelineMappingForm!: NgForm;
@@ -63,7 +64,27 @@ export class ProjectServicelineMappingComponent implements OnInit {
       projectId: null,
     }));
   }
-
+  filterComponentList(searchTerm?: string) {
+    if (!searchTerm) {
+      this.dataSource.data = this.addedFields;
+      this.dataSource.paginator = this.paginator;
+    } else {
+      this.dataSource.data = [];
+      this.dataSource.paginator = this.paginator;
+      this.addedFields.forEach((item: any) => {
+        for (const key in item) {
+          if (key === 'projectName' || key === 'blockName') {
+            const value: string = '' + item[key];
+            if (value.toLowerCase().indexOf(searchTerm.toLowerCase()) >= 0) {
+              this.dataSource.data.push(item);
+              break;
+            }
+            this.dataSource.paginator = this.paginator;
+          }
+        }
+      });
+    }
+  }
   getProviderServices() {
     const reqObj = {
       userID: sessionStorage.getItem('uid'),
@@ -247,6 +268,7 @@ export class ProjectServicelineMappingComponent implements OnInit {
         if (res && res.data && res.statusCode === 200) {
           if (res.data && res.data.length > 0) {
             this.dataSource.data = res.data;
+            this.addedFields = res.data;
             console.log('this.dataSource.data', this.dataSource.data);
             this.getBlocks();
             this.projectServcelineMappingForm.get('projectName')?.enable();
