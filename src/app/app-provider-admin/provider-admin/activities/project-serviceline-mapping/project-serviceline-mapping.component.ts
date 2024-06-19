@@ -23,7 +23,7 @@ export class ProjectServicelineMappingComponent implements OnInit {
   districts: any = [];
   blocks: any = [];
   projectNames: any = [];
-  addedFields: any;
+  addedFields: any = [];
 
   // @ViewChild('projectServcelineMappingForm')
   // projectServcelineMappingForm!: NgForm;
