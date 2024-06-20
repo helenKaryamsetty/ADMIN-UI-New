@@ -49,7 +49,7 @@
       class="col-xs-12 col-sm-12 col-md-4 col-lg-6 box"
       *ngIf="mode === 'view' && itemCategory_array?.length > 0"
     >
-      <mat-form-field [style.width]="'100%'" class="pull-right">
+      <mat-form-field class="pull-right">
         <mat-label> In-Table Search </mat-label>
         <input
           matInput
@@ -132,12 +132,6 @@
             "
           ></tr>
         </table>
-        <mat-paginator
-          [hidden]="filteredItemCategory_array.data.length === 0"
-          [pageSizeOptions]="[5, 10, 25]"
-          [pageSize]="5"
-          showFirstLastButtons
-        ></mat-paginator>
         <div>
           <button
             mat-raised-button
@@ -149,12 +143,23 @@
             Create Expiry Date Alert Config
           </button>
         </div>
+        <mat-paginator
+          [hidden]="filteredItemCategory_array.data.length === 0"
+          [pageSizeOptions]="[5, 10, 25]"
+          [pageSize]="5"
+          showFirstLastButtons
+        ></mat-paginator>
       </div>
     </div>
   </div>
 
   <div class="row m-t-20" *ngIf="mode === 'create'">
-    <form id="form" #expiryAlertConfigCreateForm="ngForm" autocomplete="off">
+    <form
+      id="form"
+      #expiryAlertConfigCreateForm="ngForm"
+      autocomplete="off"
+      class="row"
+    >
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 box">
         <mat-form-field [style.width]="'100%'">
           <mat-label>Item Category Name</mat-label>
@@ -235,6 +240,7 @@
               <td mat-cell *matCellDef="let item; let i = index">
                 <button
                   mat-icon-button
+                  style="border-style: unset"
                   matTooltip="Delete"
                   (click)="removeFromExpiryAlertConfigList(i)"
                 >
@@ -274,7 +280,7 @@
         </div>
       </div>
 
-      <div class="col-xs-12 col-sm-12 m-t-15" slot="margin-bottom:47px">
+      <div class="col-xs-12 col-sm-12 m-t-15" style="border-bottom: 40px">
         <button
           type="button"
           mat-raised-button
@@ -307,7 +313,12 @@
   </div>
 
   <div class="row m-t-20" *ngIf="mode === 'edit'">
-    <form id="form" #expiryAlertConfigEditForm="ngForm" autocomplete="off">
+    <form
+      id="form"
+      #expiryAlertConfigEditForm="ngForm"
+      autocomplete="off"
+      class="row"
+    >
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 box">
         <mat-form-field [style.width]="'100%'">
           <mat-label>Item Category Name</mat-label>
@@ -339,13 +350,11 @@
         </mat-form-field>
       </div>
 
-      <div
-        class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10"
-        style="margin-bottom: 47px"
-      >
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10">
         <button
           type="button"
           mat-raised-button
+          style="margin-bottom: 20px"
           color="primary"
           class="pull-left mat_blue"
           (click)="viewExpiryAlertConfig()"
@@ -355,6 +364,7 @@
         <button
           type="button"
           mat-raised-button
+          style="margin-bottom: 20px"
           color="accent"
           class="pull-right mat_green"
           [disabled]="expiryAlertConfigEditForm.invalid"

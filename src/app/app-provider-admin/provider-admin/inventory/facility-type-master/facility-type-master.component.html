@@ -79,46 +79,32 @@
         >
           <!-- S.No. Column -->
           <ng-container matColumnDef="sno">
-            <mat-header-cell *matHeaderCellDef>S.No.</mat-header-cell>
-            <mat-cell *matCellDef="let item; let i = index">{{
-              i + 1
-            }}</mat-cell>
+            <th mat-header-cell *matHeaderCellDef>S.No.</th>
+            <td mat-cell *matCellDef="let item; let i = index">{{ i + 1 }}</td>
           </ng-container>
 
           <!-- Category Code Column -->
           <ng-container matColumnDef="facilityTypeCode">
-            <mat-header-cell *matHeaderCellDef
-              >Facility Type Code</mat-header-cell
-            >
-            <mat-cell *matCellDef="let item">{{
-              item.facilityTypeCode
-            }}</mat-cell>
+            <th mat-header-cell *matHeaderCellDef>Facility Type Code</th>
+            <td mat-cell *matCellDef="let item">{{ item.facilityTypeCode }}</td>
           </ng-container>
 
           <!-- Category Name Column -->
           <ng-container matColumnDef="facilityTypeName">
-            <mat-header-cell *matHeaderCellDef
-              >Facility Type Name</mat-header-cell
-            >
-            <mat-cell *matCellDef="let item">{{
-              item.facilityTypeName
-            }}</mat-cell>
+            <th mat-header-cell *matHeaderCellDef>Facility Type Name</th>
+            <td mat-cell *matCellDef="let item">{{ item.facilityTypeName }}</td>
           </ng-container>
 
           <!-- Category Description Column -->
           <ng-container matColumnDef="facilityTypeDesc">
-            <mat-header-cell *matHeaderCellDef
-              >Facility Type Description</mat-header-cell
-            >
-            <mat-cell *matCellDef="let item">{{
-              item.facilityTypeDesc
-            }}</mat-cell>
+            <th mat-header-cell *matHeaderCellDef>Facility Type Description</th>
+            <td mat-cell *matCellDef="let item">{{ item.facilityTypeDesc }}</td>
           </ng-container>
 
           <!-- Edit Column -->
           <ng-container matColumnDef="edit">
-            <mat-header-cell *matHeaderCellDef>Edit</mat-header-cell>
-            <mat-cell *matCellDef="let item">
+            <th mat-header-cell *matHeaderCellDef>Edit</th>
+            <td mat-cell *matCellDef="let item">
               <button
                 mat-icon-button
                 matTooltip="Edit"
@@ -128,13 +114,13 @@
               >
                 <mat-icon>edit</mat-icon>
               </button>
-            </mat-cell>
+            </td>
           </ng-container>
 
           <!-- Action Column -->
           <ng-container matColumnDef="action">
-            <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
-            <mat-cell *matCellDef="let item">
+            <th mat-header-cell *matHeaderCellDef>Action</th>
+            <td mat-cell *matCellDef="let item">
               <button
                 md-raised-button
                 color="accent"
@@ -153,7 +139,7 @@
               >
                 Deactivate
               </button>
-            </mat-cell>
+            </td>
           </ng-container>
 
           <!-- Header and Row Definitions -->
@@ -360,63 +346,52 @@
     </div>
     <div class="col-xs-12 col-sm-12 m-t-15" *ngIf="bufferArray.data.length > 0">
       <div class="table-responsive">
-        <mat-table
+        <table
+          mat-table
           [dataSource]="bufferArray"
           class="table table-striped table-hover"
         >
           <!-- S.No. Column -->
           <ng-container matColumnDef="sno">
-            <mat-header-cell *matHeaderCellDef>S.No.</mat-header-cell>
-            <mat-cell *matCellDef="let item; let i = index">{{
-              i + 1
-            }}</mat-cell>
+            <th mat-header-cell *matHeaderCellDef>S.No.</th>
+            <td mat-cell *matCellDef="let item; let i = index">{{ i + 1 }}</td>
           </ng-container>
           <!-- Category Code Column -->
           <ng-container matColumnDef="facilityTypeCode">
-            <mat-header-cell *matHeaderCellDef
-              >Facility Type Code</mat-header-cell
-            >
-            <mat-cell *matCellDef="let item">{{
-              item.facilityTypeCode
-            }}</mat-cell>
+            <th mat-header-cell *matHeaderCellDef>Facility Type Code</th>
+            <td mat-cell *matCellDef="let item">{{ item.facilityTypeCode }}</td>
           </ng-container>
 
           <!-- Category Name Column -->
           <ng-container matColumnDef="facilityTypeName">
-            <mat-header-cell *matHeaderCellDef
-              >Facility Type Name</mat-header-cell
-            >
-            <mat-cell *matCellDef="let item">{{
-              item.facilityTypeName
-            }}</mat-cell>
+            <th mat-header-cell *matHeaderCellDef>Facility Type Name</th>
+            <td mat-cell *matCellDef="let item">{{ item.facilityTypeName }}</td>
           </ng-container>
 
           <!-- Category Description Column -->
           <ng-container matColumnDef="facilityTypeDesc">
-            <mat-header-cell *matHeaderCellDef
-              >Facility Type Description</mat-header-cell
-            >
-            <mat-cell *matCellDef="let item">{{
-              item.facilityTypeDesc
-            }}</mat-cell>
+            <th mat-header-cell *matHeaderCellDef>Facility Type Description</th>
+            <td mat-cell *matCellDef="let item">{{ item.facilityTypeDesc }}</td>
           </ng-container>
 
           <!-- Action Column -->
           <ng-container matColumnDef="action">
-            <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
-            <mat-cell *matCellDef="let item; let i = index">
+            <th mat-header-cell *matHeaderCellDef>Action</th>
+            <td mat-cell *matCellDef="let item; let i = index">
               <button
                 mat-icon-button
+                style="border-style: unset"
                 matTooltip="Delete"
                 (click)="removeRow(i)"
               >
                 <mat-icon>delete</mat-icon>
               </button>
-            </mat-cell>
+            </td>
           </ng-container>
 
           <!-- Header and Row Definitions -->
-          <mat-header-row
+          <tr
+            mat-header-row
             *matHeaderRowDef="[
               'sno',
               'facilityTypeCode',
@@ -424,8 +399,9 @@
               'facilityTypeDesc',
               'action'
             ]"
-          ></mat-header-row>
-          <mat-row
+          ></tr>
+          <tr
+            mat-row
             *matRowDef="
               let row;
               columns: [
@@ -436,8 +412,8 @@
                 'action'
               ]
             "
-          ></mat-row>
-        </mat-table>
+          ></tr>
+        </table>
 
         <!-- Pagination -->
         <mat-paginator
@@ -447,7 +423,7 @@
         ></mat-paginator>
       </div>
     </div>
-    <div class="col-xs-12 col-sm-12 m-t-15">
+    <div class="col-xs-12 col-sm-12 m-t-15" style="padding-bottom: 40px">
       <button
         mat-raised-button
         color="primary"
