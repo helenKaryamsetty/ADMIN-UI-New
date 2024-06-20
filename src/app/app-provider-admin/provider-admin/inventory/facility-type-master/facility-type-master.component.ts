@@ -69,6 +69,7 @@ export class FacilityTypeMasterComponent implements OnInit {
   formMode = false;
   editMode = false;
   showTableFlag = false;
+  uid: any;
 
   @ViewChild('facilitySearchForm')
   facilitySearchForm!: NgForm;
@@ -87,24 +88,31 @@ export class FacilityTypeMasterComponent implements OnInit {
   ngOnInit() {
     this.createdBy = this.commonDataService.uname;
     this.serviceProviderID = sessionStorage.getItem('service_providerID');
+    this.uid = sessionStorage.getItem('uid');
     this.getServices();
   }
 
   getServices() {
-    this.commonservice
-      .getServiceLines(this.commonDataService.uid)
-      .subscribe((response: any) => {
-        if (response) {
-          console.log('All services success', response);
-          this.services_array = response.data;
-        }
-      });
+    this.commonservice.getServiceLines(this.uid).subscribe((response: any) => {
+      if (response && response.data) {
+        console.log('All services success', response);
+        this.services_array = response.data.filter(function (item: any) {
+          console.log('item', item);
+          if (
+            item.serviceID === 4 ||
+            item.serviceID === 9 ||
+            item.serviceID === 2
+          )
+            return item;
+        });
+      }
+    });
   }
   getstates(service: any) {
     this.facility
-      .getStates(this.commonDataService.uid, service.serviceID, false)
+      .getStates(this.uid, service.serviceID, false)
       .subscribe((response: any) => {
-        if (response) {
+        if (response && response.data) {
           console.log('All states success based on service', response.data);
           this.states_array = response.data;
         }

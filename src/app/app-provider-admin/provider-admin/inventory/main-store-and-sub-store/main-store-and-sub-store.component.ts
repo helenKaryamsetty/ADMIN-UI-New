@@ -114,7 +114,15 @@ export class MainStoreAndSubStoreComponent implements OnInit {
     this.commonservice.getServiceLines(this.uid).subscribe((response: any) => {
       if (response) {
         console.log('All services success', response.data);
-        this.services_array = response.data;
+        this.services_array = response.data.filter(function (item: any) {
+          console.log('item', item);
+          if (
+            item.serviceID === 4 ||
+            item.serviceID === 9 ||
+            item.serviceID === 2
+          )
+            return item;
+        });
       }
     });
   }

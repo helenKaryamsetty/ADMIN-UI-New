@@ -91,7 +91,15 @@ export class ViewStoreMappingComponent implements OnInit, OnDestroy {
       .getServiceLines(userID)
       .subscribe(
         (response: any) => {
-          this.serviceLineList = response.data;
+          this.serviceLineList = response.data.filter(function (item: any) {
+            console.log('item', item);
+            if (
+              item.serviceID === 4 ||
+              item.serviceID === 9 ||
+              item.serviceID === 2
+            )
+              return item;
+          });
         },
         (err) => {
           this.dialogService.alert(err, 'error');
