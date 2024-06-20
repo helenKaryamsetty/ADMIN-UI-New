@@ -403,7 +403,18 @@
 
           <ng-container matColumnDef="itemName">
             <mat-header-cell *matHeaderCellDef>Item Name</mat-header-cell>
-            <mat-cell *matCellDef="let item">{{ item.itemName }}</mat-cell>
+            <mat-cell *matCellDef="let item; let i = index">
+              <li *ngFor="let obj of item.item; let j = index">
+                {{ obj.itemName }}
+                <mat-icon
+                  mat-icon-button
+                  matTooltip="Remove {{ obj.itemName }}"
+                  (click)="removeItem(i, j)"
+                >
+                  cancel
+                </mat-icon>
+              </li>
+            </mat-cell>
           </ng-container>
 
           <!-- Action Column -->

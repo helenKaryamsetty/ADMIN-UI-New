@@ -188,10 +188,11 @@ export class ItemMasterComponent implements OnInit {
       });
   }
   servicesSuccesshandler(res: any) {
-    this.services = res.data;
-    // this.services = res.filter((item) => {
-    //   console.log('item', item);
-    // })
+    this.services = res.data.filter(function (item: any) {
+      console.log('item', item);
+      if (item.serviceID === 4 || item.serviceID === 9 || item.serviceID === 2)
+        return item;
+    });
   }
   drugTypeChange(item: any) {
     if (item === 'EDL') {

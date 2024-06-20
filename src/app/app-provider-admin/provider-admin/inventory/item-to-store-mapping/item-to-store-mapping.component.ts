@@ -116,10 +116,11 @@ export class ItemToStoreMappingComponent implements OnInit {
     );
   }
   servicesSuccesshandler(res: any) {
-    this.services = res.data;
-    // .filter((item) => {
-    //   console.log('item', item);
-    // })
+    this.services = res.data.filter(function (item: any) {
+      console.log('item', item);
+      if (item.serviceID === 4 || item.serviceID === 9 || item.serviceID === 2)
+        return item;
+    });
   }
 
   setProviderServiceMapID(providerServiceMapID: any) {

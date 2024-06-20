@@ -87,7 +87,7 @@
             <mat-autocomplete
               required
               name="procedures"
-              (change)="procedureSelected()"
+              (selectionChange)="procedureSelected()"
               items="procedureList"
               item-text="procedureName"
               placeholder="Procedure Name"
@@ -118,7 +118,7 @@
                 required
                 [(ngModel)]="selectedComponent"
                 name="components"
-                (change)="componentSelected()"
+                (selectionChange)="componentSelected()"
               >
                 <mat-option *ngFor="let item of componentList" [value]="item">{{
                   item.testComponentName
@@ -250,7 +250,7 @@
               </td>
             </ng-container>
             <ng-container matColumnDef="MappedComponents">
-              <th mat-header-cell *matHeaderCellDef>Mapped omponents</th>
+              <th mat-header-cell *matHeaderCellDef>Mapped Components</th>
               <td mat-cell *matCellDef="let element">{{ element.compList }}</td>
             </ng-container>
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
