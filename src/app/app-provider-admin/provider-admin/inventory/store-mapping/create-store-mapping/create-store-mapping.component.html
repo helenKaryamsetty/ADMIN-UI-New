@@ -73,6 +73,10 @@
               class="input-full-width"
               formControlName="subFacilityName"
               name="subFacilityName"
+              [required]="
+                !storeMappingForm.get('storeMapping')?.get('isMainFacility')
+                  ?.value
+              "
             >
               <mat-option *ngFor="let store of subStoreList" [value]="store">
                 {{ store.facilityName }}
@@ -91,6 +95,10 @@
               class="input-full-width"
               formControlName="vanName"
               name="vanName"
+              [required]="
+                !storeMappingForm.get('storeMapping')?.get('isMainFacility')
+                  ?.value
+              "
             >
               <mat-option *ngFor="let van of vanList" [value]="van">
                 {{ van.vanName }}
@@ -141,13 +149,13 @@
 
         <!-- Category Description Column -->
         <ng-container matColumnDef="parkingPlaceName">
-          <mat-header-cell *matHeaderCellDef>Park And Hub</mat-header-cell>
+          <mat-header-cell *matHeaderCellDef>{{ parkAndHub }}</mat-header-cell>
           <mat-cell *matCellDef="let item">{{
             item.parkingPlaceName
           }}</mat-cell>
         </ng-container>
         <ng-container matColumnDef="vanName">
-          <mat-header-cell *matHeaderCellDef>Van And Spoke</mat-header-cell>
+          <mat-header-cell *matHeaderCellDef>{{ vanAndSpoke }}</mat-header-cell>
           <mat-cell *matCellDef="let item">{{ item.vanName }}</mat-cell>
         </ng-container>
 

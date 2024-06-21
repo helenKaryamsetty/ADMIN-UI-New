@@ -83,7 +83,7 @@
 
           <!-- Category Code Column -->
           <ng-container matColumnDef="facilityName">
-            <mat-header-cell *matHeaderCellDef>Facility Name</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef>Store</mat-header-cell>
             <mat-cell *matCellDef="let item">{{ item.facilityName }}</mat-cell>
           </ng-container>
 
@@ -94,16 +94,18 @@
           </ng-container>
 
           <ng-container matColumnDef="parkingPlaceName">
-            <mat-header-cell *matHeaderCellDef
-              >Parking Place Name</mat-header-cell
-            >
+            <mat-header-cell *matHeaderCellDef>{{
+              parkAndHub
+            }}</mat-header-cell>
             <mat-cell *matCellDef="let item">{{
               item.parkingPlaceName
             }}</mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="vanName">
-            <mat-header-cell *matHeaderCellDef>Van Name</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef>{{
+              vanAndSpoke
+            }}</mat-header-cell>
             <mat-cell *matCellDef="let item">{{ item.vanName }}</mat-cell>
           </ng-container>
           <!-- Edit Column -->
