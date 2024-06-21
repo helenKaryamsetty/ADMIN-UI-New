@@ -163,7 +163,7 @@ export class CreateStoreMappingComponent implements OnInit {
         this.parkAndHub = 'Parking Place';
         this.vanAndSpoke = 'Van';
       }
-      if (value && value.data.parkingPlaceID) {
+      if (value && value.parkingPlaceID) {
         const temp: any = this.mainParkingPlaceList.filter(
           (item: any) => item.parkingPlaceID === value.parkingPlaceID,
         );
@@ -195,7 +195,7 @@ export class CreateStoreMappingComponent implements OnInit {
     ] as FormGroup;
     temp.controls['subFacilityName'].valueChanges.subscribe((value: any) => {
       if (value) {
-        this.getVan(value.data.mainFacilityID);
+        this.getVan(value.mainFacilityID);
       }
     });
   }
