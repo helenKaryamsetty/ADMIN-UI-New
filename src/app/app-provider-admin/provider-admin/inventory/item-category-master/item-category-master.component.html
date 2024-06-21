@@ -72,42 +72,32 @@
         >
           <!-- S.No. Column -->
           <ng-container matColumnDef="sno">
-            <mat-header-cell *matHeaderCellDef>S.No.</mat-header-cell>
-            <mat-cell *matCellDef="let item; let i = index">{{
-              i + 1
-            }}</mat-cell>
+            <th mat-header-cell *matHeaderCellDef>S.No.</th>
+            <td mat-cell *matCellDef="let item; let i = index">{{ i + 1 }}</td>
           </ng-container>
 
           <!-- Category Code Column -->
           <ng-container matColumnDef="itemCategoryCode">
-            <mat-header-cell *matHeaderCellDef>Category Code</mat-header-cell>
-            <mat-cell *matCellDef="let item">{{
-              item.itemCategoryCode
-            }}</mat-cell>
+            <th mat-header-cell *matHeaderCellDef>Category Code</th>
+            <td mat-cell *matCellDef="let item">{{ item.itemCategoryCode }}</td>
           </ng-container>
 
           <!-- Category Name Column -->
           <ng-container matColumnDef="itemCategoryName">
-            <mat-header-cell *matHeaderCellDef>Category Name</mat-header-cell>
-            <mat-cell *matCellDef="let item">{{
-              item.itemCategoryName
-            }}</mat-cell>
+            <th mat-header-cell *matHeaderCellDef>Category Name</th>
+            <td mat-cell *matCellDef="let item">{{ item.itemCategoryName }}</td>
           </ng-container>
 
           <!-- Category Description Column -->
           <ng-container matColumnDef="itemCategoryDesc">
-            <mat-header-cell *matHeaderCellDef
-              >Category Description</mat-header-cell
-            >
-            <mat-cell *matCellDef="let item">{{
-              item.itemCategoryDesc
-            }}</mat-cell>
+            <th mat-header-cell *matHeaderCellDef>Category Description</th>
+            <td mat-cell *matCellDef="let item">{{ item.itemCategoryDesc }}</td>
           </ng-container>
 
           <!-- Edit Column -->
           <ng-container matColumnDef="edit">
-            <mat-header-cell *matHeaderCellDef>Edit</mat-header-cell>
-            <mat-cell *matCellDef="let item">
+            <th mat-header-cell *matHeaderCellDef>Edit</th>
+            <td mat-cell *matCellDef="let item">
               <button
                 mat-icon-button
                 matTooltip="Edit"
@@ -117,13 +107,13 @@
               >
                 <mat-icon>edit</mat-icon>
               </button>
-            </mat-cell>
+            </td>
           </ng-container>
 
           <!-- Action Column -->
           <ng-container matColumnDef="action">
-            <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
-            <mat-cell *matCellDef="let item">
+            <th mat-header-cell *matHeaderCellDef>Action</th>
+            <td mat-cell *matCellDef="let item">
               <button
                 mat-raised-button
                 class="mat_blue"
@@ -142,11 +132,12 @@
               >
                 Activate
               </button>
-            </mat-cell>
+            </td>
           </ng-container>
 
           <!-- Header and Row Definitions -->
-          <mat-header-row
+          <tr
+            mat-header-row
             *matHeaderRowDef="[
               'sno',
               'itemCategoryCode',
@@ -155,8 +146,9 @@
               'edit',
               'action'
             ]"
-          ></mat-header-row>
-          <mat-row
+          ></tr>
+          <tr
+            mat-row
             *matRowDef="
               let row;
               columns: [
@@ -168,7 +160,7 @@
                 'action'
               ]
             "
-          ></mat-row>
+          ></tr>
         </table>
         <div>
           <button
@@ -241,7 +233,7 @@
         </mat-form-field>
       </div>
     </form>
-    <div class="clearfix visible-md visible-lg"></div>
+    <!-- <div class="clearfix visible-md visible-lg"></div> -->
     <form
       #categoryCreationForm="ngForm"
       autocomplete="off"
@@ -330,48 +322,45 @@
       *ngIf="forCreationObjects.data.length > 0"
     >
       <div class="table-responsive">
-        <mat-table
+        <table
+          mat-table
           [dataSource]="forCreationObjects"
           class="table table-striped table-hover"
         >
           <!-- S.No. Column -->
           <ng-container matColumnDef="sno">
-            <mat-header-cell *matHeaderCellDef>S.No.</mat-header-cell>
-            <mat-cell *matCellDef="let item; let i = index">{{
-              i + 1
-            }}</mat-cell>
+            <th mat-header-cell *matHeaderCellDef>S.No.</th>
+            <td mat-cell *matCellDef="let item; let i = index">{{ i + 1 }}</td>
           </ng-container>
 
           <!-- Category Code Column -->
           <ng-container matColumnDef="itemCategoryCode">
-            <mat-header-cell *matHeaderCellDef>Category Code</mat-header-cell>
-            <mat-cell *matCellDef="let item; let i = index">{{
-              item.itemCategoryCode
-            }}</mat-cell>
+            <th mat-header-cell *matHeaderCellDef>Category Code</th>
+            <td mat-cell *matCellDef="let item; let i = index">
+              {{ item.itemCategoryCode }}
+            </td>
           </ng-container>
 
           <!-- Category Name Column -->
           <ng-container matColumnDef="itemCategoryName">
-            <mat-header-cell *matHeaderCellDef>Category Name</mat-header-cell>
-            <mat-cell *matCellDef="let item; let i = index">{{
-              item.itemCategoryName
-            }}</mat-cell>
+            <th mat-header-cell *matHeaderCellDef>Category Name</th>
+            <td mat-cell *matCellDef="let item; let i = index">
+              {{ item.itemCategoryName }}
+            </td>
           </ng-container>
 
           <!-- Category Description Column -->
           <ng-container matColumnDef="itemCategoryDesc">
-            <mat-header-cell *matHeaderCellDef
-              >Category Description</mat-header-cell
-            >
-            <mat-cell *matCellDef="let item; let i = index">{{
-              item.itemCategoryDesc
-            }}</mat-cell>
+            <th mat-header-cell *matHeaderCellDef>Category Description</th>
+            <td mat-cell *matCellDef="let item; let i = index">
+              {{ item.itemCategoryDesc }}
+            </td>
           </ng-container>
 
           <!-- Action Column -->
           <ng-container matColumnDef="action">
-            <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
-            <mat-cell *matCellDef="let item; let i = index">
+            <th mat-header-cell *matHeaderCellDef>Action</th>
+            <td mat-cell *matCellDef="let item; let i = index">
               <button
                 mat-icon-button
                 matTooltip="Delete"
@@ -380,11 +369,12 @@
               >
                 <mat-icon>delete</mat-icon>
               </button>
-            </mat-cell>
+            </td>
           </ng-container>
 
           <!-- Header and Row Definitions -->
-          <mat-header-row
+          <tr
+            mat-header-row
             *matHeaderRowDef="[
               'sno',
               'itemCategoryCode',
@@ -392,8 +382,9 @@
               'itemCategoryDesc',
               'action'
             ]"
-          ></mat-header-row>
-          <mat-row
+          ></tr>
+          <tr
+            mat-row
             *matRowDef="
               let row;
               columns: [
@@ -404,8 +395,8 @@
                 'action'
               ]
             "
-          ></mat-row>
-        </mat-table>
+          ></tr>
+        </table>
 
         <!-- Pagination -->
         <mat-paginator
@@ -495,7 +486,7 @@
           </mat-select>
         </mat-form-field>
       </div>
-      <div class="clearfix visible-md visible-lg"></div>
+      <!-- <div class="clearfix visible-md visible-lg"></div> -->
       <div class="col-3">
         <mat-form-field [style.width]="'100%'">
           <mat-label>Category Code</mat-label>

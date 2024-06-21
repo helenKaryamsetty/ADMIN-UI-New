@@ -241,7 +241,7 @@
           </mat-form-field>
         </div>
       </form>
-      <div class="clearfix visible-md visible-lg"></div>
+      <!-- <div class="clearfix visible-md visible-lg"></div> -->
       <form
         id="addform"
         #manufactureAddForm="ngForm"
@@ -531,68 +531,61 @@
             </tr>
           </tfoot>
         </table> -->
-        <mat-table
+        <table
+          mat-table
           [dataSource]="bufferArray"
           class="table table-striped table-hover"
         >
           <!-- S.No. Column -->
           <ng-container matColumnDef="sno">
-            <mat-header-cell *matHeaderCellDef>S.No.</mat-header-cell>
-            <mat-cell *matCellDef="let item; let i = index">{{
-              i + 1
-            }}</mat-cell>
+            <th mat-header-cell *matHeaderCellDef>S.No.</th>
+            <td mat-cell *matCellDef="let item; let i = index">{{ i + 1 }}</td>
           </ng-container>
 
           <!-- Manufacturer Name Column -->
           <ng-container matColumnDef="manufacturerName">
-            <mat-header-cell *matHeaderCellDef
-              >Manufacturer Name</mat-header-cell
-            >
-            <mat-cell *matCellDef="let item; let i = index">{{
-              item.manufacturerName
-            }}</mat-cell>
+            <th mat-header-cell *matHeaderCellDef>Manufacturer Name</th>
+            <td mat-cell *matCellDef="let item; let i = index">
+              {{ item.manufacturerName }}
+            </td>
           </ng-container>
 
           <!-- Manufacturer Code Column -->
           <ng-container matColumnDef="manufacturerCode">
-            <mat-header-cell *matHeaderCellDef
-              >Manufacturer Code</mat-header-cell
-            >
-            <mat-cell *matCellDef="let item; let i = index">{{
-              item.manufacturerCode
-            }}</mat-cell>
+            <th mat-header-cell *matHeaderCellDef>Manufacturer Code</th>
+            <td mat-cell *matCellDef="let item; let i = index">
+              {{ item.manufacturerCode }}
+            </td>
           </ng-container>
 
           <!-- Manufacturer Description Column -->
           <ng-container matColumnDef="manufacturerDesc">
-            <mat-header-cell *matHeaderCellDef
-              >Manufacturer Description</mat-header-cell
-            >
-            <mat-cell *matCellDef="let item; let i = index">{{
-              item.manufacturerDesc
-            }}</mat-cell>
+            <th mat-header-cell *matHeaderCellDef>Manufacturer Description</th>
+            <td mat-cell *matCellDef="let item; let i = index">
+              {{ item.manufacturerDesc }}
+            </td>
           </ng-container>
 
           <!-- GST No. Column -->
           <ng-container matColumnDef="gstNo">
-            <mat-header-cell *matHeaderCellDef>GST No.</mat-header-cell>
-            <mat-cell *matCellDef="let item; let i = index">{{
-              item.cST_GST_No
-            }}</mat-cell>
+            <th mat-header-cell *matHeaderCellDef>GST No.</th>
+            <td mat-cell *matCellDef="let item; let i = index">
+              {{ item.cST_GST_No }}
+            </td>
           </ng-container>
 
           <!-- State Column -->
           <ng-container matColumnDef="state">
-            <mat-header-cell *matHeaderCellDef>State</mat-header-cell>
-            <mat-cell *matCellDef="let item; let i = index">{{
-              item.stateName
-            }}</mat-cell>
+            <th mat-header-cell *matHeaderCellDef>State</th>
+            <td mat-cell *matCellDef="let item; let i = index">
+              {{ item.stateName }}
+            </td>
           </ng-container>
 
           <!-- Action Column -->
           <ng-container matColumnDef="action">
-            <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
-            <mat-cell *matCellDef="let item; let i = index">
+            <th mat-header-cell *matHeaderCellDef>Action</th>
+            <td mat-cell *matCellDef="let item; let i = index">
               <button
                 mat-icon-button
                 matTooltip="Delete"
@@ -600,11 +593,12 @@
               >
                 <mat-icon aria-label="Delete">delete</mat-icon>
               </button>
-            </mat-cell>
+            </td>
           </ng-container>
 
           <!-- Row with No Records -->
-          <mat-header-row
+          <tr
+            mat-header-row
             *matHeaderRowDef="[
               'sno',
               'manufacturerName',
@@ -614,8 +608,9 @@
               'state',
               'action'
             ]"
-          ></mat-header-row>
-          <mat-row
+          ></tr>
+          <tr
+            mat-row
             *matRowDef="
               let row;
               columns: [
@@ -628,11 +623,11 @@
                 'action'
               ]
             "
-          ></mat-row>
-        </mat-table>
+          ></tr>
+        </table>
       </div>
     </div>
-    <div class="col-xs-12 col-sm-12 m-t-15 m-b-10">
+    <div class="col-xs-12 col-sm-12 m-t-15 m-b-10" style="padding-bottom: 20px">
       <button
         mat-raised-button
         color="primary"
@@ -721,7 +716,7 @@
             </mat-select>
           </mat-form-field>
         </div>
-        <div class="clearfix visible-md visible-lg"></div>
+        <!-- <div class="clearfix visible-md visible-lg"></div> -->
         <div class="col-lg-3">
           <mat-form-field [style.width]="'100%'">
             <mat-label> Manufacturer Code </mat-label>
