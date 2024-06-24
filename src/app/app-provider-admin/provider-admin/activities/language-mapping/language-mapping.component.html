@@ -218,11 +218,6 @@
                               [value]="item"
                               >{{ item.Name }}</mat-option
                             >
-                            <mat-option
-                              *ngFor="let item of ReadWeightageList"
-                              [value]="item"
-                              >{{ item.Name }}</mat-option
-                            >
                           </mat-select>
                         </mat-form-field>
                       </div>
@@ -253,11 +248,6 @@
                               [value]="item"
                               >{{ item.Name }}</mat-option
                             >
-                            <mat-option
-                              *ngFor="let item of WriteWeightageList"
-                              [value]="item"
-                              >{{ item.Name }}</mat-option
-                            >
                           </mat-select>
                         </mat-form-field>
                       </div>
@@ -283,11 +273,6 @@
                             (change)="speakWeightage()"
                             [style.width]="'100%'"
                           >
-                            <mat-option
-                              *ngFor="let item of SpeakWeightageList"
-                              [value]="item"
-                              >{{ item.Name }}</mat-option
-                            >
                             <mat-option
                               *ngFor="let item of SpeakWeightageList"
                               [value]="item"
@@ -509,11 +494,6 @@
                               [value]="item.value"
                               >{{ item.Name }}</mat-option
                             >
-                            <mat-option
-                              *ngFor="let item of ReadWeightageList"
-                              [value]="item.value"
-                              >{{ item.Name }}</mat-option
-                            >
                           </mat-select>
                         </mat-form-field>
                       </div>
@@ -539,11 +519,6 @@
                             name="write_weightage"
                             [style.width]="'100%'"
                           >
-                            <mat-option
-                              *ngFor="let item of WriteWeightageList"
-                              [value]="item.value"
-                              >{{ item.Name }}</mat-option
-                            >
                             <mat-option
                               *ngFor="let item of WriteWeightageList"
                               [value]="item.value"
@@ -580,12 +555,7 @@
                               [value]="item.value"
                               >{{ item.Name }}</mat-option
                             >
-                            <mat-option
-                              *ngFor="let item of SpeakWeightageList"
-                              [value]="item.value"
-                              >{{ item.Name }}</mat-option
-                            > </mat-select
-                          >>
+                          </mat-select>
                         </mat-form-field>
                       </div>
                     </div>
