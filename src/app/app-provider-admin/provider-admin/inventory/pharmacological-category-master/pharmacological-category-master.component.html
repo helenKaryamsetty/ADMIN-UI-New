@@ -74,46 +74,38 @@
         >
           <!-- S.No. Column -->
           <ng-container matColumnDef="sno">
-            <mat-header-cell *matHeaderCellDef>S.No.</mat-header-cell>
-            <mat-cell *matCellDef="let pharm; let i = index">{{
-              i + 1
-            }}</mat-cell>
+            <th mat-header-cell *matHeaderCellDef>S.No.</th>
+            <td mat-cell *matCellDef="let pharm; let i = index">{{ i + 1 }}</td>
           </ng-container>
 
           <!-- Pharmacology Code Column -->
           <ng-container matColumnDef="pharmCategoryCode">
-            <mat-header-cell *matHeaderCellDef
-              >Pharmacology Code</mat-header-cell
-            >
-            <mat-cell *matCellDef="let pharm">{{
-              pharm.pharmCategoryCode
-            }}</mat-cell>
+            <th mat-header-cell *matHeaderCellDef>Pharmacology Code</th>
+            <td mat-cell *matCellDef="let pharm">
+              {{ pharm.pharmCategoryCode }}
+            </td>
           </ng-container>
 
           <!-- Pharmacology Name Column -->
           <ng-container matColumnDef="pharmCategoryName">
-            <mat-header-cell *matHeaderCellDef
-              >Pharmacology Name</mat-header-cell
-            >
-            <mat-cell *matCellDef="let pharm">{{
-              pharm.pharmCategoryName
-            }}</mat-cell>
+            <th mat-header-cell *matHeaderCellDef>Pharmacology Name</th>
+            <td mat-cell *matCellDef="let pharm">
+              {{ pharm.pharmCategoryName }}
+            </td>
           </ng-container>
 
           <!-- Pharmacology Description Column -->
           <ng-container matColumnDef="pharmCategoryDesc">
-            <mat-header-cell *matHeaderCellDef
-              >Pharmacology Description</mat-header-cell
-            >
-            <mat-cell *matCellDef="let pharm">{{
-              pharm.pharmCategoryDesc
-            }}</mat-cell>
+            <th mat-header-cell *matHeaderCellDef>Pharmacology Description</th>
+            <td mat-cell *matCellDef="let pharm">
+              {{ pharm.pharmCategoryDesc }}
+            </td>
           </ng-container>
 
           <!-- Edit Column -->
           <ng-container matColumnDef="edit">
-            <mat-header-cell *matHeaderCellDef>Edit</mat-header-cell>
-            <mat-cell *matCellDef="let pharm">
+            <th mat-header-cell *matHeaderCellDef>Edit</th>
+            <td mat-cell *matCellDef="let pharm">
               <button
                 mat-icon-button
                 matTooltip="Edit"
@@ -123,13 +115,13 @@
               >
                 <mat-icon>edit</mat-icon>
               </button>
-            </mat-cell>
+            </td>
           </ng-container>
 
           <!-- Action Column -->
           <ng-container matColumnDef="action">
-            <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
-            <mat-cell *matCellDef="let pharm">
+            <th mat-header-cell *matHeaderCellDef>Action</th>
+            <td mat-cell *matCellDef="let pharm">
               <button
                 mat-raised-button
                 class="mat_green"
@@ -150,11 +142,12 @@
               >
                 Deactivate
               </button>
-            </mat-cell>
+            </td>
           </ng-container>
 
           <!-- Header and Row Definitions -->
-          <mat-header-row
+          <tr
+            mat-header-row
             *matHeaderRowDef="[
               'sno',
               'pharmCategoryCode',
@@ -163,8 +156,9 @@
               'edit',
               'action'
             ]"
-          ></mat-header-row>
-          <mat-row
+          ></tr>
+          <tr
+            mat-row
             *matRowDef="
               let row;
               columns: [
@@ -176,7 +170,7 @@
                 'action'
               ]
             "
-          ></mat-row>
+          ></tr>
         </table>
         <div>
           <button
@@ -254,7 +248,7 @@
           </mat-form-field>
         </div>
       </form>
-      <div class="clearfix visible-md visible-lg"></div>
+      <!-- <div class="clearfix visible-md visible-lg"></div> -->
       <form
         id="addform"
         #PharmaAddForm="ngForm"
@@ -351,52 +345,45 @@
     </div>
     <div class="col-xs-12 col-sm-12 m-t-15" *ngIf="bufferArray.data.length > 0">
       <div class="table-responsive">
-        <mat-table
+        <table
+          mat-table
           [dataSource]="bufferArray"
           class="table table-striped table-hover"
         >
           <!-- S.No. Column -->
           <ng-container matColumnDef="sno">
-            <mat-header-cell *matHeaderCellDef>S.No.</mat-header-cell>
-            <mat-cell *matCellDef="let item; let i = index">{{
-              i + 1
-            }}</mat-cell>
+            <th mat-header-cell *matHeaderCellDef>S.No.</th>
+            <td mat-cell *matCellDef="let item; let i = index">{{ i + 1 }}</td>
           </ng-container>
 
           <!-- Pharmacology Code Column -->
           <ng-container matColumnDef="pharmCategoryCode">
-            <mat-header-cell *matHeaderCellDef
-              >Pharmacology Code</mat-header-cell
-            >
-            <mat-cell *matCellDef="let item; let i = index">{{
-              item.pharmCategoryCode
-            }}</mat-cell>
+            <th mat-header-cell *matHeaderCellDef>Pharmacology Code</th>
+            <td mat-cell *matCellDef="let item; let i = index">
+              {{ item.pharmCategoryCode }}
+            </td>
           </ng-container>
 
           <!-- Pharmacology Name Column -->
           <ng-container matColumnDef="pharmCategoryName">
-            <mat-header-cell *matHeaderCellDef
-              >Pharmacology Name</mat-header-cell
-            >
-            <mat-cell *matCellDef="let item; let i = index">{{
-              item.pharmCategoryName
-            }}</mat-cell>
+            <th mat-header-cell *matHeaderCellDef>Pharmacology Name</th>
+            <td mat-cell *matCellDef="let item; let i = index">
+              {{ item.pharmCategoryName }}
+            </td>
           </ng-container>
 
           <!-- Pharmacology Description Column -->
           <ng-container matColumnDef="pharmCategoryDesc">
-            <mat-header-cell *matHeaderCellDef
-              >Pharmacology Description</mat-header-cell
-            >
-            <mat-cell *matCellDef="let item; let i = index">{{
-              item.pharmCategoryDesc
-            }}</mat-cell>
+            <th mat-header-cell *matHeaderCellDef>Pharmacology Description</th>
+            <td mat-cell *matCellDef="let item; let i = index">
+              {{ item.pharmCategoryDesc }}
+            </td>
           </ng-container>
 
           <!-- Action Column -->
           <ng-container matColumnDef="action">
-            <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
-            <mat-cell *matCellDef="let item; let i = index">
+            <th mat-header-cell *matHeaderCellDef>Action</th>
+            <td mat-cell *matCellDef="let item; let i = index">
               <button
                 mat-icon-button
                 matTooltip="Delete"
@@ -405,11 +392,12 @@
               >
                 <mat-icon>delete</mat-icon>
               </button>
-            </mat-cell>
+            </td>
           </ng-container>
 
           <!-- Header and Row Definitions -->
-          <mat-header-row
+          <tr
+            mat-header-row
             *matHeaderRowDef="[
               'sno',
               'pharmCategoryCode',
@@ -417,8 +405,9 @@
               'pharmCategoryDesc',
               'action'
             ]"
-          ></mat-header-row>
-          <mat-row
+          ></tr>
+          <tr
+            mat-row
             *matRowDef="
               let row;
               columns: [
@@ -429,8 +418,8 @@
                 'action'
               ]
             "
-          ></mat-row>
-        </mat-table>
+          ></tr>
+        </table>
 
         <!-- Pagination -->
         <mat-paginator
@@ -440,7 +429,7 @@
         ></mat-paginator>
       </div>
     </div>
-    <div class="col-xs-12 col-sm-12 m-t-15 m-b-10">
+    <div class="col-xs-12 col-sm-12 m-t-15 m-b-10" style="padding-bottom: 20px">
       <button
         mat-raised-button
         color="primary"
@@ -515,7 +504,7 @@
             </mat-select>
           </mat-form-field>
         </div>
-        <div class="clearfix visible-md visible-lg"></div>
+        <!-- <div class="clearfix visible-md visible-lg"></div> -->
         <div class="col-3">
           <mat-form-field [style.width]="'100%'">
             <mat-label>Pharmacology Code</mat-label>
@@ -560,7 +549,10 @@
           </mat-form-field>
         </div>
       </form>
-      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10 m-b-10">
+      <div
+        class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10"
+        style="padding: 10px; margin-bottom: 40px"
+      >
         <button
           mat-raised-button
           color="primary"

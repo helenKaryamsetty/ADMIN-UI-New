@@ -57,7 +57,7 @@ mat-dialog-container {
   }
   
   .success {
-    background: #43a047;
+    background: #43a047 !important;
   }
   
   .info,
