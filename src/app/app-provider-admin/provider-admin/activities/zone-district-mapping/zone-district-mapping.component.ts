@@ -213,6 +213,7 @@ export class ZoneDistrictMappingComponent implements OnInit {
       .subscribe((response) => this.getZonesSuccessHandler(response));
   }
   getZonesSuccessHandler(response: any) {
+    this.availableZones = [];
     if (response !== undefined) {
       console.log('response.data', response.data);
       for (const zone of response.data) {
