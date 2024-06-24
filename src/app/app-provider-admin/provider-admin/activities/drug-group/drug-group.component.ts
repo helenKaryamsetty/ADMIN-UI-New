@@ -86,6 +86,7 @@ export class DrugGroupComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.filteredavailableDrugGroups.paginator = this.paginatorFirst;
+    this.drugGroupList.paginator = this.paginatorSecond;
   }
 
   stateSelection(stateID: any) {
@@ -99,7 +100,6 @@ export class DrugGroupComponent implements OnInit, AfterViewInit {
       (response: any) => this.getDrugGroupsSuccessHandeler(response),
       (err) => {
         console.log('error', err);
-        //this.alertMessage.alert(err, 'error')
       },
     );
   }
@@ -166,6 +166,8 @@ export class DrugGroupComponent implements OnInit, AfterViewInit {
     this.showDrugGroups = false;
     this.inValidDrugGroup = false;
     this.invalidDrugDesc = false;
+    this.drugGroupList.data = [];
+    this.drugGroupList.paginator = this.paginatorSecond;
   }
 
   drugGroupObj: any;
@@ -222,6 +224,7 @@ export class DrugGroupComponent implements OnInit, AfterViewInit {
     this.alertMessage.alert('Saved successfully', 'success');
     this.getAvailableDrugs();
     this.clearEdit();
+    this.reset();
   }
   dataObj: any = {};
   updateDrugGroupStatus(drugGroup: any) {
@@ -407,11 +410,18 @@ export class DrugGroupComponent implements OnInit, AfterViewInit {
       .subscribe((res) => {
         if (res) {
           this.drugGroupForm.resetForm();
+          this.reset();
           this.clearEdit();
           this.drugGroupList.data = [];
         }
       });
   }
+
+  reset() {
+    this.drugGroupList.data = [];
+    this.drugGroupList.paginator = this.paginatorSecond;
+  }
+
   checkForValidDrugDesc(drugDesc: any) {
     if (drugDesc !== undefined && drugDesc !== null && drugDesc.trim() === '') {
       this.invalidDrugDesc = true;

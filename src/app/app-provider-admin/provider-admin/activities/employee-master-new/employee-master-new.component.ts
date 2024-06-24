@@ -68,6 +68,7 @@ export class EmployeeMasterNewComponent implements OnInit {
 
   setDataSourceAttributes() {
     this.filteredsearchResult.paginator = this.paginator;
+    this.objs.paginator = this.paginator;
   }
   //ngModel
   titleID: any;
@@ -910,6 +911,7 @@ export class EmployeeMasterNewComponent implements OnInit {
     let duplicateHealthProfessionalID = 0;
     if (this.objs.data.length === 0) {
       this.objs.data.push(tempObj);
+      this.objs.paginator = this.paginator;
       this.resetAllFlags();
       this.resetAllForms();
     } else {
@@ -964,6 +966,7 @@ export class EmployeeMasterNewComponent implements OnInit {
         duplicateHealthProfessionalID === 0
       ) {
         this.objs.data.push(tempObj);
+        this.objs.paginator = this.paginator;
         this.resetAllFlags();
         this.resetAllForms();
       } else if (
