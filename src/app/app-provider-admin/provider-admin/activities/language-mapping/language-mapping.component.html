@@ -386,6 +386,14 @@
                       *matRowDef="let row; columns: displayedColumnsTable2"
                     ></tr>
                   </table>
+                  <div style="text-align: right">
+                    <mat-paginator
+                      [hidden]="bufferArray.data.length === 0"
+                      [pageSizeOptions]="[5, 10, 25]"
+                      [pageSize]="5"
+                      showFirstLastButtons
+                    ></mat-paginator>
+                  </div>
                 </div>
               </div>
               <div

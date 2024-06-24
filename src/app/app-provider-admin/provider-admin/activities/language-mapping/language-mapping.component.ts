@@ -119,6 +119,7 @@ export class LanguageMappingComponent implements OnInit, AfterViewInit {
 
   setDataSourceAttributes() {
     this.filteredLanguageMappedList.paginator = this.paginator;
+    this.bufferArray.paginator = this.paginator;
   }
   bufferArray = new MatTableDataSource<any>();
 
@@ -453,6 +454,7 @@ export class LanguageMappingComponent implements OnInit, AfterViewInit {
     /* case:1 If the buffer array is empty */
     if (this.bufferArray.data.length === 0) {
       this.bufferArray.data.push(object);
+      this.bufferArray.paginator = this.paginator;
       // this.resetForm();
       // this.resetDropdowns();
     } else if (this.bufferArray.data.length > 0) {
@@ -471,6 +473,7 @@ export class LanguageMappingComponent implements OnInit, AfterViewInit {
       if (!LanguageMatched && Count === 0) {
         this.bufferArray.data.push(object);
         console.log('this.bufferArray.dataPARTH1', this.bufferArray.data);
+        this.bufferArray.paginator = this.paginator;
         // this.resetForm();
         //this.resetDropdowns();
       } else {
