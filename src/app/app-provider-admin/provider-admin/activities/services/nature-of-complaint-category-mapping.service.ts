@@ -32,11 +32,11 @@ export class NatureOfCompaintCategoryMappingService {
     public basepaths: ConfigService,
   ) {}
   getServiceLines(userID: any): Observable<any> {
-    return this.http.post(environment.getServiceLines_url, { userID: userID });
+    return this.http.post(environment.get_Service_Url, { userID: userID });
   }
 
   getStates(obj: any) {
-    return this.http.post(environment.getStates_url, obj);
+    return this.http.post(environment.getStates_new_url, obj);
   }
 
   getFeedbackTypes(providerServiceMapID: any) {

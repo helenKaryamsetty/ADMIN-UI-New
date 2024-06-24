@@ -111,7 +111,6 @@ export class NatureOfComplaintCategoryMappingComponent implements OnInit {
       });
   }
   getServicesSuccessHandeler(response: any) {
-    // this.servicelines = response.data;
     this.servicelines = response.data.filter(function (item: any) {
       console.log('item', item);
       if (item.serviceID === 3 || item.serviceID === 1) return item;

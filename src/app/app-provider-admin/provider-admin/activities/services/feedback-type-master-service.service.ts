@@ -69,7 +69,7 @@ export class FeedbackTypeService {
   }
 
   getStates(userID: any, serviceID: any, isNational: any) {
-    return this.http.post(environment.getStates_url, {
+    return this.http.post(environment.getStates_new_url, {
       userID: userID,
       serviceID: serviceID,
       isNational: isNational,
@@ -79,7 +79,7 @@ export class FeedbackTypeService {
   }
 
   getServiceLines(userID: any) {
-    return this.http.post(environment.getServiceLines_url, { userID: userID });
+    return this.http.post(environment.get_Service_Url, { userID: userID });
     // .map(this.handleState_n_ServiceSuccess)
     // .catch(this.handleError);
   }

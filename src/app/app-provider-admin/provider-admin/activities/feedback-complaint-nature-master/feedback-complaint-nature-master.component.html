@@ -5,8 +5,6 @@
       <form #searchCNForm="ngForm" autocomplete="off">
         <div class="row">
           <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-            <!--  <mat-form-field [style.width]="'100%'" class="hide_underline"  >
-              <input matInput style="display:none"> -->
             <mat-form-field [style.width]="'100%'">
               <mat-label>Serviceline</mat-label>
               <mat-select
@@ -26,12 +24,8 @@
                 </mat-option>
               </mat-select>
             </mat-form-field>
-
-            <!-- </mat-form-field> -->
           </div>
           <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-            <!--  <mat-form-field [style.width]="'100%'" class="hide_underline"  >
-              <input matInput style="display:none"> -->
             <mat-form-field [style.width]="'100%'">
               <mat-label>State</mat-label>
               <mat-select
@@ -49,12 +43,8 @@
                 </mat-option>
               </mat-select>
             </mat-form-field>
-
-            <!-- </mat-form-field> -->
           </div>
           <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-            <!--  <mat-form-field [style.width]="'100%'" class="hide_underline"  >
-              <input matInput style="display:none"> -->
             <mat-form-field [style.width]="'100%'">
               <mat-label>Feedback Type</mat-label>
               <mat-select
@@ -71,12 +61,7 @@
                 </mat-option>
               </mat-select>
             </mat-form-field>
-
-            <!-- </mat-form-field> -->
           </div>
-          <!-- <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-              <button *ngIf="showTable" class="pull-right" md-raised-button color="primary" (click)="clear()">Clear</button>
-            </div> -->
         </div>
       </form>
     </div>
@@ -96,7 +81,6 @@
     </mat-form-field>
   </div>
   <div class="row" *ngIf="searchForm">
-    <!--table area-->
     <div class="col-xs-12 col-sm-12 m-t-15" *ngIf="showTable">
       <div class="table-responsive">
         <table
@@ -162,13 +146,23 @@
                 Deactivate
               </button>
             </td>
-            <!-- <td colspan="4" class="p-r-0" mat-cell>
-            <button md-raised-button color="primary" [disabled]="searchForm.invalid" class="pull-right" (click)="changeTableFlag(false)">Add Work Location</button>
-          </td> -->
           </ng-container>
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
         </table>
+        <div
+          class="pull-center"
+          style="margin-top: 35px; text-align: center"
+          *ngIf="this.filterednatureTypes.data.length === 0"
+        >
+          <strong>No Records Found</strong>
+        </div>
+        <mat-paginator
+          [hidden]="filterednatureTypes.data.length === 0"
+          [pageSizeOptions]="[5, 10, 25]"
+          [pageSize]="5"
+          showFirstLastButtons
+        ></mat-paginator>
         <div>
           <button
             class="pull-right mat_blue"
@@ -180,24 +174,15 @@
             Add Feedback Type
           </button>
         </div>
-        <mat-paginator
-          [hidden]="filterednatureTypes.data.length === 0"
-          [pageSizeOptions]="[5, 10, 25]"
-          [pageSize]="5"
-          showFirstLastButtons
-        ></mat-paginator>
       </div>
     </div>
   </div>
-  <!--new feedback page-->
   <div class="row" *ngIf="!searchForm">
     <div class="col-xs-12 col-sm-12">
       <h4 class="width100">Add Feedback/Complaint Nature</h4>
       <form #addForm="ngForm" autocomplete="off">
         <div class="row">
           <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 m-t-15">
-            <!--  <mat-form-field [style.width]="'100%'" class="hide_underline"  >
-              <input matInput style="display:none"> -->
             <mat-form-field [style.width]="'100%'">
               <mat-label>Serviceline</mat-label>
               <mat-select
@@ -217,12 +202,8 @@
                 </mat-option>
               </mat-select>
             </mat-form-field>
-
-            <!-- </mat-form-field> -->
           </div>
           <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 m-t-15">
-            <!--  <mat-form-field [style.width]="'100%'" class="hide_underline"  >
-              <input matInput style="display:none"> -->
             <mat-form-field [style.width]="'100%'">
               <mat-label>State</mat-label>
               <mat-select
@@ -239,12 +220,8 @@
                 </mat-option>
               </mat-select>
             </mat-form-field>
-
-            <!-- </mat-form-field> -->
           </div>
           <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 m-t-15">
-            <!--  <mat-form-field [style.width]="'100%'" class="hide_underline"  >
-              <input matInput style="display:none"> -->
             <mat-form-field [style.width]="'100%'">
               <mat-label>Feedback Type</mat-label>
               <mat-select
@@ -261,8 +238,6 @@
                 </mat-option>
               </mat-select>
             </mat-form-field>
-
-            <!-- </mat-form-field> -->
           </div>
         </div>
       </form>

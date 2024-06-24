@@ -87,16 +87,6 @@
             <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
           </tfoot>
         </table>
-        <div>
-          <button
-            mat-raised-button
-            color="primary"
-            class="pull-right mat_blue"
-            (click)="showForm()"
-          >
-            Create Drug Group
-          </button>
-        </div>
         <div
           class="pull-center"
           style="margin-top: 35px; text-align: center"
@@ -107,11 +97,22 @@
         <mat-paginator
           #paginatorFirst
           [length]="filteredavailableDrugGroups.data.length"
+          [hidden]="filteredavailableDrugGroups.data.length === 0"
           [pageSizeOptions]="[5, 10, 20]"
           [pageSize]="5"
           showFirstLastButtons
         >
         </mat-paginator>
+        <div>
+          <button
+            mat-raised-button
+            color="primary"
+            class="pull-right mat_blue"
+            (click)="showForm()"
+          >
+            Create Drug Group
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -257,6 +258,7 @@
           <mat-paginator
             #paginatorSecond
             [length]="drugGroupList.data.length"
+            [hidden]="drugGroupList.data.length === 0"
             [pageSizeOptions]="[5, 10, 20]"
             [pageSize]="5"
             showFirstLastButtons

@@ -29,7 +29,7 @@
         <mat-form-field>
           <mat-label>Nature of Complaint</mat-label>
           <input
-            mdInput
+            matInput
             name="feedbackNature"
             [(ngModel)]="feedbackNature"
             (keyup)="validateFeedback(feedbackNature)"
@@ -49,16 +49,13 @@
         <mat-form-field>
           <mat-label>Feedback Nature Description</mat-label>
           <input
-            mdInput
+            matInput
             appTextAreaValidator
             name="feedbackNatureDesc"
             [(ngModel)]="feedbackNatureDesc"
             #fbNatureDesc="ngModel"
             maxlength="100"
           />
-          <!-- <mat-hint *ngIf="fbNatureDesc.errors && fbNatureDesc.touched">
-                <span class="error_text">Feedback Nature Description is required</span>
-            </mat-hint> -->
         </mat-form-field>
       </div>
       <div class="m-t-20">

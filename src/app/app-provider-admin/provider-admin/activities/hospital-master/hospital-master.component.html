@@ -1,5 +1,4 @@
 <div class="container-fluid">
-  <!-- <md-card> -->
   <div class="row display-flex">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="!showFormFlag">
       <h4 class="pull-left">Institution Master</h4>
@@ -9,8 +8,6 @@
     </div>
     <form class="display-flex" #hospital="ngForm" autocomplete="off">
       <div class="display-flex-box">
-        <!-- <mat-form-field class="hide_underline"  >
-            <input matInput style="display:none"> -->
         <mat-form-field [style.width]="'100%'">
           <mat-label>Serviceline</mat-label>
           <mat-select
@@ -28,12 +25,8 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
-
-        <!-- </mat-form-field> -->
       </div>
       <div class="display-flex-box">
-        <!-- <mat-form-field class="hide_underline"  >
-            <input matInput style="display:none"> -->
         <mat-form-field [style.width]="'100%'">
           <mat-label>State</mat-label>
           <mat-select
@@ -50,13 +43,9 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
-
-        <!-- </mat-form-field> -->
       </div>
       <div clear-fix></div>
       <div class="display-flex-box">
-        <!-- <mat-form-field class="hide_underline"  >
-            <input matInput style="display:none"> -->
         <mat-form-field [style.width]="'100%'">
           <mat-label>District</mat-label>
           <mat-select
@@ -74,12 +63,8 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
-
-        <!-- </mat-form-field> -->
       </div>
       <div class="display-flex-box">
-        <!-- <mat-form-field class="hide_underline"  >
-            <input matInput style="display:none"> -->
         <mat-form-field [style.width]="'100%'">
           <mat-label>Taluk</mat-label>
           <mat-select
@@ -93,8 +78,6 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
-
-        <!-- </mat-form-field> -->
       </div>
     </form>
   </div>
@@ -196,6 +179,19 @@
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
         </table>
+        <div
+          class="pull-center"
+          style="margin-top: 35px; text-align: center"
+          *ngIf="filteredsearchResultArray.data.length === 0"
+        >
+          <strong>No Records Found</strong>
+        </div>
+        <mat-paginator
+          [hidden]="filteredsearchResultArray.data.length === 0"
+          [pageSizeOptions]="[5, 10, 25]"
+          [pageSize]="5"
+          showFirstLastButtons
+        ></mat-paginator>
         <div>
           <button
             mat-raised-button
@@ -207,17 +203,9 @@
             Add Hospital
           </button>
         </div>
-        <mat-paginator
-          [hidden]="filteredsearchResultArray.data.length === 0"
-          [pageSizeOptions]="[5, 10, 25]"
-          [pageSize]="5"
-          showFirstLastButtons
-        ></mat-paginator>
       </div>
     </div>
   </div>
-
-  <!--File Upload-->
   <br />
   <h4 class="m-t-10" *ngIf="enableUPload">Add Hospital</h4>
   <form
@@ -265,8 +253,6 @@
       <span class="help-block" *ngIf="error2"
         >File size should not exceed {{ maxFileSize }}MB</span
       >
-      <!-- <span class="help-block m-t-5" *ngIf="error1">Please choose a file for upload</span> -->
-      <!-- <span class="help-block m-t-5" *ngIf="file!=undefined && fileSizeIsMoreThanRequired">File Size should not exceed {{maxFileSize}} MB</span> -->
     </div>
     <div class="m-t-20 display-flex-box">
       <button
@@ -294,12 +280,9 @@
     <br />
   </form>
 
-  <!--END-File Upload-->
   <div class="row" *ngIf="showFormFlag">
     <form class="display-flex" #institutionForm1="ngForm" autocomplete="off">
       <div class="display-flex-box">
-        <!-- <mat-form-field class="hide_underline"  >
-                <input matInput style="display:none"> -->
         <mat-form-field [style.width]="'100%'">
           <mat-label>Institution Type</mat-label>
           <mat-select
@@ -312,8 +295,6 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
-
-        <!-- </mat-form-field> -->
       </div>
 
       <div class="display-flex-box" myName2>
@@ -439,8 +420,6 @@
             maxlength="50"
             #validContactname1="ngModel"
           />
-          <!-- <mat-hint class="errorText" *ngIf="valid_contactname1.errors && valid_contactname1.touched">Enter atleast 2 characters
-              </mat-hint> -->
         </mat-form-field>
       </div>
       <div class="display-flex-box" myMobileNumber>
@@ -456,8 +435,6 @@
             #validMobileNumber1="ngModel"
             [pattern]="mobileNoPattern"
           />
-          <!-- <mat-hint class="errorText" *ngIf="validMobileNumber1.errors && validMobileNumber1.touched">Enter 10 digit mobile number
-              </mat-hint> -->
         </mat-form-field>
       </div>
 
@@ -493,8 +470,6 @@
             maxlength="50"
             #validContactname2="ngModel"
           />
-          <!-- <mat-hint class="errorText" *ngIf="valid_contactname2.errors && valid_contactname2.touched">Enter atleast 2 characters
-              </mat-hint> -->
         </mat-form-field>
       </div>
       <div class="display-flex-box" myMobileNumber>
@@ -510,8 +485,6 @@
             #validMobileNumber2="ngModel"
             [pattern]="mobileNoPattern"
           />
-          <!-- <mat-hint class="errorText" *ngIf="validMobileNumber2.errors && validMobileNumber2.touched">Enter 10 digit mobile number
-              </mat-hint> -->
         </mat-form-field>
       </div>
 
@@ -555,5 +528,4 @@
       </button>
     </div>
   </div>
-  <!-- </md-card> -->
 </div>

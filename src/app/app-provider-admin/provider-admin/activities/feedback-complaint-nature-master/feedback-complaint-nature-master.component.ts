@@ -149,8 +149,6 @@ export class FeedbackComplaintNatureMasterComponent implements OnInit {
     this._feedbackTypeService.getServiceLines(userID).subscribe(
       (response: any) => {
         console.log('services', response);
-        // this.search_serviceline = "";
-        // this.servicelines = response.data;
         this.servicelines = response.data.filter(function (item: any) {
           console.log('item', item);
           if (item.serviceID === 3 || item.serviceID === 1) return item;
