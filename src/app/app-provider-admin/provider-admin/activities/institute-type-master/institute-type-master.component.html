@@ -1,5 +1,4 @@
 <div class="container-fluid">
-  <!-- <md-card> -->
   <div class="row">
     <div class="col-xs-12 col-sm-12" *ngIf="!showFormFlag">
       <h4 class="pull-left">Institute Type Master</h4>
@@ -7,12 +6,9 @@
     <div class="col-xs-12 col-sm-12" *ngIf="showFormFlag">
       <h4 class="pull-left">Create Institute Type</h4>
     </div>
-    <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"> -->
     <div class="col-12">
       <form #searchFields="ngForm" autocomplete="off" class="row">
         <div class="col-3 m-t-15">
-          <!--  <mat-form-field [style.width]="'100%'" class="hide_underline"  >
-          <input matInput style="display:none"> -->
           <mat-form-field [style.width]="'100%'">
             <mat-label>Serviceline</mat-label>
             <mat-select
@@ -30,12 +26,8 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
-
-          <!-- </mat-form-field> -->
         </div>
         <div class="col-3 m-t-15">
-          <!--  <mat-form-field [style.width]="'100%'" class="hide_underline"  >
-          <input matInput style="display:none"> -->
           <mat-form-field [style.width]="'100%'">
             <mat-label>State</mat-label>
             <mat-select
@@ -52,8 +44,6 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
-
-          <!-- </mat-form-field> -->
         </div>
       </form>
     </div>
@@ -138,13 +128,23 @@
                 Deactivate
               </button>
             </td>
-            <!-- <td colspan="4" class="p-r-0" mat-cell>
-          <button md-raised-button color="primary" [disabled]="searchForm.invalid" class="pull-right" (click)="changeTableFlag(false)">Add Work Location</button>
-        </td> -->
           </ng-container>
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
         </table>
+        <div
+          class="pull-center"
+          style="margin-top: 35px; text-align: center"
+          *ngIf="this.filteredsearchResultArray.data.length === 0"
+        >
+          <strong>No Records Found</strong>
+        </div>
+        <mat-paginator
+          [hidden]="filteredsearchResultArray.data.length === 0"
+          [pageSizeOptions]="[5, 10, 25]"
+          [pageSize]="5"
+          showFirstLastButtons
+        ></mat-paginator>
         <div>
           <button
             mat-raised-button
@@ -155,12 +155,6 @@
             Add Institute Type
           </button>
         </div>
-        <mat-paginator
-          [hidden]="filteredsearchResultArray.data.length === 0"
-          [pageSizeOptions]="[5, 10, 25]"
-          [pageSize]="5"
-          showFirstLastButtons
-        ></mat-paginator>
       </div>
     </div>
   </div>
@@ -289,6 +283,4 @@
       </button>
     </div>
   </div>
-
-  <!-- </md-card> -->
 </div>

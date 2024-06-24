@@ -101,9 +101,6 @@
                 Deactivate
               </button>
             </td>
-            <!-- <td colspan="4" class="p-r-0" mat-cell>
-              <button md-raised-button color="primary" [disabled]="searchForm.invalid" class="pull-right" (click)="changeTableFlag(false)">Add Work Location</button>
-            </td> -->
           </ng-container>
         </table>
         <div>
@@ -125,8 +122,6 @@
       </div>
     </div>
   </div>
-  <!-- User Details-->
-  <!-- myNameWithCopyPaste, myNameWithCopyPaste, myMobileNumber, PAN are custom directives -->
   <div
     [hidden]="!formMode"
     class="create-user-form"
@@ -153,12 +148,9 @@
           </mat-panel-title>
         </mat-expansion-panel-header>
         <div class="row m-l-0" (mouseup)="hidePWD()">
-          <!-- <div class="row m-l-0"> -->
           <form #userCreationForm="ngForm" autocomplete="off">
             <div class="col-12 row">
               <div class="col-3 m-t-20">
-                <!-- <md-input-container class="hide_underline width100">
-                                <input mdInput style="display:none"> -->
                 <mat-form-field [style.width]="'100%'">
                   <mat-label>Title</mat-label>
                   <mat-select
@@ -176,8 +168,6 @@
                     </mat-option>
                   </mat-select>
                 </mat-form-field>
-
-                <!-- </md-input-container> -->
               </div>
               <div class="col-3 m-t-20">
                 <mat-form-field class="width100" appMyNameWithCopyPaste>
@@ -199,7 +189,6 @@
                   </mat-hint>
                 </mat-form-field>
               </div>
-              <!-- <div class="clearfix visible-sm"></div> -->
               <div class="col-3 m-t-20">
                 <mat-form-field class="width100" appMyNameWithCopyPaste>
                   <mat-label>Middle Name</mat-label>
@@ -219,7 +208,6 @@
                   </mat-hint>
                 </mat-form-field>
               </div>
-              <!-- <div class="clearfix visible-md"></div> -->
               <div class="col-3 m-t-20">
                 <mat-form-field class="width100" appMyNameWithCopyPaste>
                   <mat-label>Last Name</mat-label>
@@ -244,10 +232,7 @@
               </div>
             </div>
             <div class="col-12 row">
-              <!-- <div class="clearfix visible-lg"></div> -->
               <div class="col-3 m-t-20">
-                <!-- <md-input-container class="hide_underline width100">
-                              <input mdInput style="display:none"> -->
                 <mat-form-field [style.width]="'100%'">
                   <mat-label>Gender</mat-label>
                   <mat-select
@@ -264,8 +249,6 @@
                     </mat-option>
                   </mat-select>
                 </mat-form-field>
-
-                <!-- </md-input-container> -->
               </div>
               <div class="col-3 m-t-20">
                 <mat-form-field class="width100" appMyMobileNumberWithCopyPaste>
@@ -289,10 +272,7 @@
                   </mat-hint>
                 </mat-form-field>
               </div>
-              <!-- <div class="clearfix visible-md visible-sm"></div> -->
               <div class="col-3 m-t-20">
-                <!-- <md-input-container class="hide_underline width100">
-                              <input mdInput style="display:none"> -->
                 <mat-form-field [style.width]="'100%'">
                   <mat-label>Designation</mat-label>
                   <mat-select
@@ -314,10 +294,6 @@
                     >
                   </mat-select>
                 </mat-form-field>
-
-                <!-- </mat-form-field> -->
-
-                <!-- </md-input-container> -->
               </div>
               <div class="col-3 m-t-20" *ngIf="enablehealthProfessionalID">
                 <mat-form-field class="width100">
@@ -395,7 +371,6 @@
                   <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
               </div>
-              <!-- <div class="clearfix visible-md"></div> -->
               <div class="col-3 m-t-15">
                 <mat-form-field [style.width]="'100%'">
                   <mat-label>Age</mat-label>
@@ -408,7 +383,6 @@
                     [disabled]="disabled"
                     #userAge="ngModel"
                   />
-                  <!-- Validation message -->
                   <mat-error
                     *ngIf="
                       userAge.invalid && (userAge.dirty || userAge.touched)
@@ -446,8 +420,6 @@
                 *ngIf="enablehealthProfessionalID"
               ></div>
               <div class="col-3 m-t-20">
-                <!-- <md-input-container class="hide_underline width100">
-                              <input mdInput style="display:none"> -->
                 <mat-form-field [style.width]="'100%'">
                   <mat-label>Marital Status</mat-label>
                   <mat-select
@@ -462,8 +434,6 @@
                     >
                   </mat-select>
                 </mat-form-field>
-
-                <!-- </md-input-container> -->
               </div>
               <div class="clearfix" *ngIf="!enablehealthProfessionalID"></div>
               <div class="col-3 m-t-20">
@@ -521,8 +491,6 @@
                 </mat-form-field>
               </div>
               <div class="col-3 m-t-20">
-                <!-- <md-input-container class="hide_underline width100">
-                                <input mdInput style="display:none"> -->
                 <mat-form-field [style.width]="'100%'">
                   <mat-label>Qualification</mat-label>
                   <mat-select
@@ -543,10 +511,6 @@
                     >
                   </mat-select>
                 </mat-form-field>
-
-                <!-- </mat-form-field> -->
-
-                <!-- </md-input-container> -->
               </div>
             </div>
             <div
@@ -711,9 +675,7 @@
             </div>
           </form>
         </div>
-        <!-- </div> -->
       </mat-expansion-panel>
-      <!-- User's Demographic Details-->
       <mat-expansion-panel>
         <mat-expansion-panel-header>
           <mat-panel-title>
@@ -734,7 +696,6 @@
           </mat-panel-title>
         </mat-expansion-panel-header>
         <div class="col-12">
-          <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">  -->
           <form
             #demographicsDetailsForm="ngForm"
             autocomplete="off"
@@ -777,8 +738,6 @@
               </mat-form-field>
             </div>
             <div class="col-3 m-t-20">
-              <!-- <md-input-container class="hide_underline width100">
-                              <input mdInput style="display:none"> -->
               <mat-form-field [style.width]="'100%'">
                 <mat-label>Community</mat-label>
                 <mat-select
@@ -794,12 +753,8 @@
                   </mat-option>
                 </mat-select>
               </mat-form-field>
-
-              <!-- </md-input-container> -->
             </div>
             <div class="col-3 m-t-20">
-              <!-- <md-input-container class="hide_underline width100">
-                              <input mdInput style="display:none"> -->
               <mat-form-field [style.width]="'100%'">
                 <mat-label>Religion</mat-label>
                 <mat-select
@@ -814,17 +769,12 @@
                   >
                 </mat-select>
               </mat-form-field>
-
-              <!-- </md-input-container> -->
             </div>
           </form>
-          <!-- </div> -->
         </div>
-        <!-- Communication Details of the user-->
         <div class="row">
           <form #communicationDetailsForm="ngForm" autocomplete="off">
             <div class="row">
-              <!-- <div ngModelGroup="address" #addressCtrl="ngModelGroup"> -->
               <div
                 class="col-xs-12 col-sm-12 col-md-6 col-lg-6 border-right-1"
                 ngModelGroup="address"
@@ -871,8 +821,6 @@
                   </mat-form-field>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 m-t-10">
-                  <!-- <md-input-container class="hide_underline width100">
-                                      <input mdInput style="display:none"> -->
                   <mat-form-field [style.width]="'100%'">
                     <mat-label>State</mat-label>
                     <mat-select
@@ -890,12 +838,8 @@
                       </mat-option>
                     </mat-select>
                   </mat-form-field>
-
-                  <!-- </md-input-container> -->
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 m-t-10">
-                  <!-- <md-input-container class="hide_underline width100">
-                                      <input mdInput style="display:none"> -->
                   <mat-form-field [style.width]="'100%'">
                     <mat-label>District</mat-label>
                     <mat-select
@@ -912,8 +856,6 @@
                       >
                     </mat-select>
                   </mat-form-field>
-
-                  <!-- </md-input-container> -->
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 m-t-20">
                   <mat-form-field
@@ -937,7 +879,6 @@
                   </mat-form-field>
                 </div>
               </div>
-              <!-- </div> -->
               <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                   <h4 class="pull-left">Permanent Address</h4>
@@ -956,10 +897,6 @@
                     >)
                   </div>
                 </div>
-                <!-- <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                              <md-checkbox color="primary" [(ngModel)]="checkAddress" name="check_address" [disabled]="!addressCtrl.valid" (selectionChange)="addressCheck($event)" #myCheckBox>Same as current address</md-checkbox>
-  
-                          </div> -->
                 <div class="clearfix"></div>
                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 m-t-20">
                   <mat-form-field class="width100">
@@ -1002,8 +939,6 @@
                   </mat-form-field>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 m-t-10">
-                  <!-- <md-input-container class="hide_underline width100">
-                                      <input mdInput style="display:none"> -->
                   <mat-form-field [style.width]="'100%'">
                     <mat-label>State</mat-label>
                     <mat-select
@@ -1021,12 +956,8 @@
                       </mat-option>
                     </mat-select>
                   </mat-form-field>
-
-                  <!-- </md-input-container> -->
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 m-t-10">
-                  <!-- <md-input-container class="hide_underline width100">
-                                      <input mdInput style="display:none"> -->
                   <mat-form-field [style.width]="'100%'">
                     <mat-label>District</mat-label>
                     <mat-select
@@ -1042,8 +973,6 @@
                       >
                     </mat-select>
                   </mat-form-field>
-
-                  <!-- </md-input-container> -->
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 m-t-20">
                   <mat-form-field
@@ -1149,9 +1078,6 @@
                   >delete</mat-icon
                 >
               </td>
-              <!-- <td colspan="4" class="p-r-0" mat-cell>
-            <button md-raised-button color="primary" [disabled]="searchForm.invalid" class="pull-right" (click)="changeTableFlag(false)">Add Work Location</button>
-          </td> -->
             </ng-container>
             <tr mat-header-row *matHeaderRowDef="displayedColumnsTable2"></tr>
             <tr

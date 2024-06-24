@@ -1,6 +1,4 @@
 <div class="container-fluid">
-  <!-- <md-card> -->
-
   <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="!showForm">
       <h4 class="pull-left">Call Disposition Type Master</h4>
@@ -11,8 +9,6 @@
     <div class="col-12">
       <form #searchForm="ngForm" autocomplete="off" class="row">
         <div class="col-3 m-t-15">
-          <!-- <md-input-container class="hide_underline width100">
-          <input mdInput style="display:none"> -->
           <mat-form-field [style.width]="'100%'">
             <mat-label>Serviceline</mat-label>
             <mat-select
@@ -28,12 +24,8 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
-
-          <!-- </md-input-container> -->
         </div>
         <div class="col-3 m-t-15">
-          <!-- <md-input-container class="hide_underline width100">
-          <input mdInput style="display:none"> -->
           <mat-form-field [style.width]="'100%'">
             <mat-label>State</mat-label>
             <mat-select
@@ -51,8 +43,6 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
-
-          <!-- </md-input-container> -->
         </div>
       </form>
     </div>
@@ -191,7 +181,6 @@
       </div>
     </div>
   </div>
-  <!-- <div class="m-t-10" *ngIf="showForm"> -->
   <div class="row m-t-10" *ngIf="showForm">
     <div *ngIf="service.serviceID !== 6" class="col-12 row">
       <div class="col-3 m-t-35">
@@ -217,8 +206,6 @@
         class="col-3 xs-m-t-0 sm-m-t-25 m-t-md--25 m-t-lg-10"
         *ngIf="isOutbound"
       >
-        <!-- <md-input-container class="hide_underline width100">
-        <input mdInput style="display:none"> -->
         <mat-form-field [style.width]="'100%'">
           <mat-label>Maximum Redial</mat-label>
           <mat-select
@@ -239,8 +226,6 @@
           </mat-select>
           <span class="maxRedialNote">{{ note }}</span>
         </mat-form-field>
-
-        <!-- </md-input-container> -->
       </div>
     </div>
     <div class="col-12 p-a-0">
@@ -282,8 +267,6 @@
               >
             </mat-select>
           </mat-form-field>
-
-          <!-- </md-input-container> -->
         </div>
         <div class="col-3 m-t-20">
           <mat-form-field [style.width]="'100%'" class="width100" appVehicleNO>
@@ -303,7 +286,6 @@
             </mat-hint>
           </mat-form-field>
         </div>
-        <!-- <div class="clearfix visible-sm"></div> -->
       </form>
       <div class="col-12 row">
         <div
@@ -323,7 +305,6 @@
             >
           </mat-radio-group>
         </div>
-        <!-- <div class="clearfix visible-md"></div> -->
         <div
           *ngIf="service.serviceID !== 6"
           class="col-3 m-t-lg-25 m-t-md-0 m-t-lg-40"
@@ -346,7 +327,6 @@
         class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
         *ngIf="callTypeSubCallType.valid && !subCallTypeExist"
       >
-        <!-- && (isInbound || isOutbound) -->
         <button
           class="pull-right mat_icon_white"
           mat-mini-fab

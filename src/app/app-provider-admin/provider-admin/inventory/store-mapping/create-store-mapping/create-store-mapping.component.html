@@ -128,12 +128,10 @@
         [dataSource]="storeMappingList"
         class="table table-striped table-hover"
       >
-        <!-- S.No. Column -->
         <ng-container matColumnDef="sno">
           <mat-header-cell *matHeaderCellDef>S.No.</mat-header-cell>
           <mat-cell *matCellDef="let item; let i = index">{{ i + 1 }}</mat-cell>
         </ng-container>
-        <!-- Category Code Column -->
         <ng-container matColumnDef="isMainFacility">
           <mat-header-cell *matHeaderCellDef>Store Type</mat-header-cell>
           <mat-cell *matCellDef="let item">
@@ -141,13 +139,11 @@
           >
         </ng-container>
 
-        <!-- Category Name Column -->
         <ng-container matColumnDef="facilityName">
           <mat-header-cell *matHeaderCellDef>Store</mat-header-cell>
           <mat-cell *matCellDef="let item">{{ item.facilityName }}</mat-cell>
         </ng-container>
 
-        <!-- Category Description Column -->
         <ng-container matColumnDef="parkingPlaceName">
           <mat-header-cell *matHeaderCellDef>{{ parkAndHub }}</mat-header-cell>
           <mat-cell *matCellDef="let item">{{
@@ -159,7 +155,6 @@
           <mat-cell *matCellDef="let item">{{ item.vanName }}</mat-cell>
         </ng-container>
 
-        <!-- Action Column -->
         <ng-container matColumnDef="action">
           <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
           <mat-cell *matCellDef="let item; let i = index">
@@ -173,7 +168,6 @@
           </mat-cell>
         </ng-container>
 
-        <!-- Header and Row Definitions -->
         <mat-header-row
           *matHeaderRowDef="[
             'sno',
@@ -199,7 +193,6 @@
         ></mat-row>
       </mat-table>
 
-      <!-- Pagination -->
       <mat-paginator
         [length]="storeMappingList.data.length"
         [pageSize]="5"
