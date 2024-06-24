@@ -161,6 +161,13 @@
             Add UOM
           </button>
         </div>
+        <div
+          *ngIf="
+            filteredUOMMasterList && filteredUOMMasterList.data.length === 0
+          "
+        >
+          <strong>No Records Found</strong>
+        </div>
         <mat-paginator
           [hidden]="filteredUOMMasterList.data.length === 0"
           [pageSizeOptions]="[5, 10, 25]"

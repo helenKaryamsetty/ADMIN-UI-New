@@ -76,7 +76,7 @@
       <div class="table-responsive">
         <table
           mat-table
-          [dataSource]="this.filtereddata"
+          [dataSource]="filtereddata"
           class="table table-striped table-hover"
         >
           <ng-container matColumnDef="SNo">
@@ -171,6 +171,12 @@
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
         </table>
+        <div
+          *ngIf="filtereddata && filtereddata.data.length === 0"
+          style="text-align: center; font-size: 16px"
+        >
+          <strong>No Records Found</strong>
+        </div>
         <div>
           <button
             class="pull-right mat_blue"
@@ -183,6 +189,7 @@
         </div>
         <mat-paginator
           #paginatorFirst
+          [hidden]="filtereddata.data.length === 0"
           [length]="filtereddata.data.length"
           [pageSizeOptions]="[5, 10, 25]"
           [pageSize]="5"

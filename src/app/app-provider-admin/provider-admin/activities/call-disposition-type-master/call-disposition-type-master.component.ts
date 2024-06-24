@@ -331,10 +331,12 @@ export class CallDispositionTypeMasterComponent
   }
   dataWithoutWrapUp: any = [];
   getCallTypeSubTypeSuccessHandeler(response: any) {
+    console.log('PARTH', response);
     this.dataWithoutWrapUp = [];
     console.log('call type subtype history', response);
     this.data = response.data;
     this.filtereddata.data = response.data;
+    console.log('this.filtereddata.data', this.filtereddata.data);
     this.filtereddata.paginator = this.paginatorFirst;
     console.log('this.data', this.data);
 
@@ -386,7 +388,7 @@ export class CallDispositionTypeMasterComponent
 
   getStatesSuccessHandeler(response: any, value: any) {
     this.provider_states = response.data;
-    console.log(response.data);
+    console.log('UNKNWON', response.data);
     if (value.isNational) {
       this.nationalFlag = value.isNational;
       this.setProviderServiceMapID(response.data[0].providerServiceMapID);

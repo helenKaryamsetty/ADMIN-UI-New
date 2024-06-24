@@ -325,7 +325,9 @@ export class LanguageMappingComponent implements OnInit, AfterViewInit {
   setRead(value: any) {
     if (value.checked) {
       this.read = true;
+      console.log('this.WeightageList', this.WeightageList);
       this.ReadWeightageList = this.WeightageList;
+      console.log('this.ReadWeightageList', this.ReadWeightageList);
       this.readCheckBoxState = false;
       this.readweightage = undefined;
     } else {
@@ -468,11 +470,13 @@ export class LanguageMappingComponent implements OnInit, AfterViewInit {
       }
       if (!LanguageMatched && Count === 0) {
         this.bufferArray.data.push(object);
+        console.log('this.bufferArray.dataPARTH1', this.bufferArray.data);
         // this.resetForm();
         //this.resetDropdowns();
       } else {
         this.alertService.alert('Already exists');
       }
+      console.log('this.bufferArray.dataPARTH2', this.bufferArray.data);
     }
   }
   checkInDb(user: any, langId: any) {

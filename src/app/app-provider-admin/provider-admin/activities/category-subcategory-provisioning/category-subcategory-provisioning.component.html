@@ -208,6 +208,12 @@
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
         </table>
+        <div
+          *ngIf="filtereddata && filtereddata.data.length === 0"
+          style="text-align: center; font-size: 16px"
+        >
+          <strong>No Records Found</strong>
+        </div>
         <div *ngIf="showCategoryTable">
           <button
             class="pull-right mat_blue"
@@ -315,6 +321,12 @@
           <tr mat-header-row *matHeaderRowDef="displayedColumns4"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns4"></tr>
         </table>
+        <div
+          *ngIf="filteredsubCat && filteredsubCat.data.length === 0"
+          style="text-align: center; font-size: 16px"
+        >
+          <strong>No Records Found</strong>
+        </div>
         <mat-paginator
           #paginatorSecond
           [length]="filteredsubCat.data.length"
