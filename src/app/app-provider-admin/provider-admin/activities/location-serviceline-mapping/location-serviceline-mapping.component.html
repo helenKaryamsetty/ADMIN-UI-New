@@ -1,6 +1,4 @@
 <div class="container-fluid">
-  <!-- first page starts -->
-  <!-- search panel -->
   <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="!showForm">
       <h4 class="pull-left">Work Location-Serviceline Master</h4>
@@ -11,8 +9,6 @@
     <div class="col-12">
       <form #searchForm="ngForm" id="searchForm" autocomplete="off" class="row">
         <div class="col-3">
-          <!-- <md-input-container class="hide_underline width100">
-          <input mdInput style="display:none"> -->
           <mat-form-field [style.width]="'100%'">
             <mat-label>Serviceline</mat-label>
             <mat-select
@@ -31,12 +27,8 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
-
-          <!-- </md-input-container> -->
         </div>
         <div class="col-3">
-          <!-- <md-input-container class="hide_underline width100">
-          <input mdInput style="display:none"> -->
           <mat-form-field [style.width]="'100%'">
             <mat-label>State</mat-label>
             <mat-select
@@ -59,8 +51,6 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
-
-          <!-- </md-input-container> -->
         </div>
       </form>
     </div>
@@ -80,8 +70,6 @@
 
   <div class="row" style="margin-bottom: 15px">
     <div class="col-xs-12 col-sm-12 m-t-15 table-responsive" *ngIf="showTable">
-      <!-- <div class="table-responsive"> -->
-
       <table
         mat-table
         [dataSource]="filteredworkLocations"
@@ -187,8 +175,6 @@
       </mat-paginator>
     </div>
   </div>
-
-  <!--new location form starts -->
   <div class="row" *ngIf="showForm">
     <div class="col-12">
       <form #f="ngForm" id="locationForm" autocomplete="off" class="row">
@@ -210,8 +196,6 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
-
-          <!-- </md-input-container> -->
         </div>
         <div class="col-3">
           <mat-form-field class="width100" appMyProviderName>
@@ -284,7 +268,6 @@
       >
         Save
       </button>
-      <!-- <button class="pull-left" md-raised-button color="primary" (click)="changeTableFlag(true)">Back</button> -->
       <button
         class="pull-left mat_blue"
         mat-raised-button

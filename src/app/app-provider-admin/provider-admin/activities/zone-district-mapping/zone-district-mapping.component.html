@@ -9,8 +9,6 @@
       <form #searchForm="ngForm" autocomplete="off">
         <div class="row">
           <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-            <!-- <md-input-container class="hide_underline width100">
-              <input mdInput style="display:none"> -->
             <mat-form-field [style.width]="'100%'">
               <mat-label>Serviceline</mat-label>
               <mat-select
@@ -26,15 +24,8 @@
                 </mat-option>
               </mat-select>
             </mat-form-field>
-
-            <!-- <md-hint [hidden]=bindService.valid *ngIf="showListOfZonemapping">
-                <span class="error_text" *ngIf="!bindService.required  && ( bindService.dirty || bindService.touched)">Please select serviceline</span>
-              </md-hint> -->
-            <!-- </md-input-container> -->
           </div>
           <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-            <!-- <md-input-container class="hide_underline width100">
-              <input mdInput style="display:none"> -->
             <mat-form-field [style.width]="'100%'">
               <mat-label>State</mat-label>
               <mat-select
@@ -52,11 +43,6 @@
                 </mat-option>
               </mat-select>
             </mat-form-field>
-
-            <!-- <md-hint [hidden]=bindState.valid *ngIf="showListOfZonemapping">
-                <span class="error_text" *ngIf="!bindState.required  && ( bindState.dirty || bindState.touched)">Please select state</span>
-              </md-hint> -->
-            <!-- </md-input-container> -->
           </div>
         </div>
       </form>
@@ -196,8 +182,6 @@
             class="row"
           >
             <div class="col-3 m-t-15">
-              <!-- <md-input-container class="hide_underline width100">
-            <input mdInput style="display:none"> -->
               <mat-form-field [style.width]="'100%'">
                 <mat-label>Zone</mat-label>
                 <mat-select
@@ -217,8 +201,6 @@
               </mat-form-field>
             </div>
             <div class="col-3 m-t-15" *ngIf="!editable">
-              <!-- <md-input-container class="hide_underline width100">
-            <input mdInput style="display:none"> -->
               <mat-form-field [style.width]="'100%'">
                 <mat-label>District</mat-label>
                 <mat-select
@@ -238,8 +220,6 @@
               </mat-form-field>
             </div>
             <div class="col-3 m-t-15" *ngIf="editable">
-              <!-- <md-input-container class="hide_underline width100">
-            <input mdInput style="display:none"> -->
               <mat-form-field [style.width]="'100%'">
                 <mat-label>District</mat-label>
                 <mat-select
@@ -256,11 +236,6 @@
                   </mat-option>
                 </mat-select>
               </mat-form-field>
-
-              <!-- <md-hint [hidden]=districtV.valid>
-              <span class="error_text" *ngIf="!districtV.required  && ( districtV.dirty || districtV.touched)">Please select district</span>
-            </md-hint>
-          </md-input-container> -->
             </div>
             <div class="col-3 m-t-15">
               <button

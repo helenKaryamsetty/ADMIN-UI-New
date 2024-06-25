@@ -121,6 +121,10 @@ export class SpecialistMappingComponent implements OnInit {
         console.log(res, 'current mappings');
         this.specializationList = this.successhandeler(res.data);
         this.filteredspecializationList.data = this.successhandeler(res.data);
+        console.log(
+          ' this.filteredspecializationList.data',
+          this.filteredspecializationList.data,
+        );
         this.tableMode = true;
       });
   }

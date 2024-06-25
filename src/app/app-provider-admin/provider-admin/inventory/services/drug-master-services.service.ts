@@ -88,39 +88,31 @@ export class DrugMasterService {
     this._getStateListBYServiceIDURL =
       this.providerAdmin_Base_Url + 'm/location/getStatesByServiceID';
   }
+
   getServiceLinesNew(userID: any) {
     return this.http.post(environment.getServiceLines_new_url, {
       userID: userID,
     });
-    // .map(this.handleState_n_ServiceSuccess)
-    // .catch(this.handleError);
   }
+
   getStatesNew(obj: any) {
     return this.http.post(environment.getStates_new_url, obj);
-    // .map(this.handleSuccess)
-    // .catch(this.handleError);
   }
+
   getDrugMappings(data: any) {
     return this.http.post(environment.getDrugMappingsURL, data);
-    // .map(this.handleSuccess)
-    // .catch(this.handleError);
   }
+
   getDrugGroups(data: any) {
     return this.http.post(environment.getDrugGroupsURL, data);
-    // .map(this.handleSuccess)
-    // .catch(this.handleError);
   }
 
   getDrugsList(data: any) {
     return this.http.post(environment.getDrugsListURL, data);
-    // .map(this.handleSuccess)
-    // .catch(this.handleError);
   }
 
   mapDrugGroups(data: any) {
     return this.http.post(environment.mapDrugGroupURL, data);
-    // .map(this.handleSuccess)
-    // .catch(this.handleError);
   }
 
   /* End Mapping */
@@ -131,23 +123,18 @@ export class DrugMasterService {
       serviceID: serviceID,
       serviceProviderID: serviceProviderID,
     });
-    // .map(this.handleSuccess)
-    // .catch(this.handleError);
   }
+
   saveDrugGroups(data: any) {
     return this.http.post(environment.saveDrugGroupsURL, data);
-    // .map(this.handleSuccess)
-    // .catch(this.handleError);
   }
+
   updateDrugGroup(data: any) {
     return this.http.post(environment.updateDrugGroupURL, data);
-    // .map(this.handleSuccess)
-    // .catch(this.handleError);
   }
+
   updateDrugStatus(data: any) {
     return this.http.post(environment.updateDrugStatusURL, data);
-    // .map(this.handleSuccess)
-    // .catch(this.handleError);
   }
   /**End Group Matser**/
 
@@ -155,19 +142,14 @@ export class DrugMasterService {
 
   saveDrugs(data: any) {
     return this.http.post(environment.saveDrugsURL, data);
-    // .map(this.handleSuccess)
-    // .catch(this.handleError);
   }
+
   updateDrugData(data: any) {
     return this.http.post(environment.updateDrugDataURL, data);
-    // .map(this.handleSuccess)
-    // .catch(this.handleError);
   }
   /**End drug list**/
 
   updateDrugMappings(data: any) {
     return this.http.post(environment.updateDrugMappingsURL, data);
-    // .map(this.handleSuccess)
-    // .catch(this.handleError);
   }
 }

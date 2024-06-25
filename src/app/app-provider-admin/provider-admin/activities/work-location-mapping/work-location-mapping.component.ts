@@ -830,12 +830,8 @@ export class WorkLocationMappingComponent implements OnInit {
     console.log(objectToBeAdded, 'FORM VALUES');
     if (objectToBeAdded.serviceline.serviceName === '1097') {
       if (
-        (this.isInbound === false ||
-          this.isInbound === null ||
-          this.isInbound === undefined) &&
-        (this.isOutbound === false ||
-          this.isOutbound === null ||
-          this.isOutbound === undefined) &&
+        (this.isInbound === false || this.isInbound === null) &&
+        (this.isOutbound === false || this.isOutbound === null) &&
         objectToBeAdded.role.some(
           (item: any) => item.roleName.toLowerCase() !== 'supervisor',
         )

@@ -24,9 +24,7 @@
 
       <div class="clearfix"></div>
 
-      <ng-container
-        *ngIf="isMainFacility !== undefined || isMainFacility !== null"
-      >
+      <ng-container *ngIf="isMainFacility !== null">
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 box">
           <mat-form-field [style.width]="'100%'">
             <mat-label>Main Store</mat-label>
@@ -129,12 +127,10 @@
         [dataSource]="storeMappingList"
         class="table table-striped table-hover"
       >
-        <!-- S.No. Column -->
         <ng-container matColumnDef="sno">
           <th mat-header-cell *matHeaderCellDef>S.No.</th>
           <td mat-cell *matCellDef="let item; let i = index">{{ i + 1 }}</td>
         </ng-container>
-        <!-- Category Code Column -->
         <ng-container matColumnDef="isMainFacility">
           <th mat-header-cell *matHeaderCellDef>Store Type</th>
           <td mat-cell *matCellDef="let item">
@@ -142,13 +138,11 @@
           </td>
         </ng-container>
 
-        <!-- Category Name Column -->
         <ng-container matColumnDef="facilityName">
           <th mat-header-cell *matHeaderCellDef>Store</th>
           <td mat-cell *matCellDef="let item">{{ item.facilityName }}</td>
         </ng-container>
 
-        <!-- Category Description Column -->
         <ng-container matColumnDef="parkingPlaceName">
           <th mat-header-cell *matHeaderCellDef>{{ parkAndHub }}</th>
           <td mat-cell *matCellDef="let item">{{ item.parkingPlaceName }}</td>
@@ -158,7 +152,6 @@
           <td mat-cell *matCellDef="let item">{{ item.vanName }}</td>
         </ng-container>
 
-        <!-- Action Column -->
         <ng-container matColumnDef="action">
           <th mat-header-cell *matHeaderCellDef>Action</th>
           <td mat-cell *matCellDef="let item; let i = index">
@@ -200,7 +193,6 @@
         ></tr>
       </table>
 
-      <!-- Pagination -->
       <mat-paginator
         [length]="storeMappingList.data.length"
         [pageSize]="5"

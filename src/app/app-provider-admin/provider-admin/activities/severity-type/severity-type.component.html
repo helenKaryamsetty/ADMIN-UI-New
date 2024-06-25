@@ -1,5 +1,4 @@
 <div class="container-fluid">
-  <!-- <md-card> -->
   <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
       <h4 *ngIf="firstPage" class="pull-left">Severity Type</h4>
@@ -8,8 +7,6 @@
     <div class="col-12">
       <form #searchForm="ngForm" autocomplete="off" class="row">
         <div class="col-3 m-t-10">
-          <!--    <mat-form-field [style.width]="'100%'" class="hide_underline width100">
-        <input matInput style="display:none"> -->
           <mat-form-field [style.width]="'100%'">
             <mat-label>Serviceline</mat-label>
             <mat-select
@@ -26,12 +23,8 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
-
-          <!-- </mat-form-field> -->
         </div>
         <div class="col-3 m-t-10">
-          <!--    <mat-form-field [style.width]="'100%'" class="hide_underline width100">
-        <input matInput style="display:none"> -->
           <mat-form-field [style.width]="'100%'">
             <mat-label>State</mat-label>
             <mat-select
@@ -46,8 +39,6 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
-
-          <!-- </mat-form-field> -->
         </div>
       </form>
     </div>
@@ -127,13 +118,25 @@
                 Deactivate
               </button>
             </td>
-            <!-- <td colspan="4" class="p-r-0" mat-cell>
-          <button md-raised-button color="primary" [disabled]="searchForm.invalid" class="pull-right" (click)="changeTableFlag(false)">Add Work Location</button>
-        </td> -->
           </ng-container>
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
         </table>
+        <div
+          class="pull-center"
+          style="margin-top: 35px; text-align: center"
+          *ngIf="filtereddata.data.length === 0"
+        >
+          <strong>No Records Found</strong>
+        </div>
+        <mat-paginator
+          #paginatorFirst
+          [length]="filtereddata.data.length"
+          [hidden]="filtereddata.data.length === 0"
+          [pageSizeOptions]="[5, 10, 25]"
+          [pageSize]="5"
+          showFirstLastButtons
+        ></mat-paginator>
         <div>
           <button
             mat-raised-button
@@ -145,13 +148,6 @@
             Add Severity
           </button>
         </div>
-        <mat-paginator
-          #paginatorFirst
-          [length]="filtereddata.data.length"
-          [pageSizeOptions]="[5, 10, 25]"
-          [pageSize]="5"
-          showFirstLastButtons
-        ></mat-paginator>
       </div>
     </div>
   </div>
@@ -293,5 +289,4 @@
       </button>
     </div>
   </div>
-  <!-- </md-card> -->
 </div>

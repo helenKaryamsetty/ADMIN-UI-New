@@ -267,6 +267,12 @@
               Create New Mapping
             </button>
           </div>
+          <div
+            *ngIf="filteredMappedList && filteredMappedList.data.length === 0"
+            style="text-align: center; font-size: 16px"
+          >
+            <strong>No Records Found</strong>
+          </div>
           <mat-paginator
             [hidden]="filteredMappedList.data.length === 0"
             [pageSizeOptions]="[5, 10, 25]"

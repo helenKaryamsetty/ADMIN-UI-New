@@ -213,12 +213,16 @@ export class ZoneDistrictMappingComponent implements OnInit {
       .subscribe((response) => this.getZonesSuccessHandler(response));
   }
   getZonesSuccessHandler(response: any) {
+    this.availableZones = [];
     if (response !== undefined) {
+      console.log('response.data', response.data);
       for (const zone of response.data) {
         if (!zone.deleted) {
+          console.log('zone', zone);
           this.availableZones.push(zone);
         }
       }
+      console.log('this.availableZones', this.availableZones);
     }
 
     // On edit - populate available zones
