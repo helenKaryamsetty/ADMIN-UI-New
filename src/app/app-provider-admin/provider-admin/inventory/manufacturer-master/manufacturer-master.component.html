@@ -234,7 +234,10 @@
               name="state"
               [disabled]="true"
             >
-              <mat-option *ngFor="let item of states_array" [value]="item">
+              <mat-option
+                *ngFor="let item of states_array"
+                [value]="item.providerServiceMapID"
+              >
                 {{ item.stateName }}
               </mat-option>
             </mat-select>
