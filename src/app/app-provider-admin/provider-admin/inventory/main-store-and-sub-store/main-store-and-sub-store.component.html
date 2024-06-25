@@ -151,7 +151,8 @@
               </button>
             </td>
           </ng-container>
-          <mat-header-row
+          <tr
+            mat-header-row
             *matHeaderRowDef="[
               'sno',
               'facilityName',
@@ -163,8 +164,9 @@
               'edit',
               'action'
             ]"
-          ></mat-header-row>
-          <mat-row
+          ></tr>
+          <tr
+            mat-row
             *matRowDef="
               let row;
               columns: [
@@ -179,7 +181,7 @@
                 'action'
               ]
             "
-          ></mat-row>
+          ></tr>
         </table>
         <div>
           <button
@@ -258,9 +260,6 @@
           </mat-form-field>
         </div>
       </form>
-
-      <div class="clearfix visible-lg"></div>
-
       <form
         id="inputform"
         #storeAddForm="ngForm"
@@ -268,7 +267,7 @@
         class="col-12 row"
         style="width: 100%; margin-left: 0px"
       >
-        <div class="col-3 m-t--25">
+        <div class="col-3">
           <mat-form-field [style.width]="'100%'" class="hide_underline">
             <mat-label>Facility Type</mat-label>
             <mat-select
@@ -315,7 +314,7 @@
             </mat-hint>
           </mat-form-field>
         </div>
-        <div class="clearfix visible-sm"></div>
+        <!-- <div class="clearfix visible-sm"></div> -->
         <div class="col-3">
           <mat-form-field [style.width]="'100%'">
             <mat-label>Facility Name</mat-label>
@@ -352,7 +351,7 @@
             />
           </mat-form-field>
         </div>
-        <div class="clearfix visible-lg"></div>
+        <!-- <div class="clearfix visible-lg"></div> -->
         <div class="col-3">
           <mat-form-field [style.width]="'100%'">
             <mat-label>Location</mat-label>
@@ -386,8 +385,8 @@
             />
           </mat-form-field>
         </div>
-        <div class="clearfix visible-sm"></div>
-        <div class="col-3 m-t-20">
+        <!-- <div class="clearfix visible-sm"></div> -->
+        <div class="col-6 m-t-20">
           <span class="f-s-n-b">Store Type</span>
           <mat-radio-group required>
             <mat-radio-button
@@ -409,7 +408,7 @@
           </mat-radio-group>
         </div>
 
-        <div class="col-3 m-t--25">
+        <div class="col-3 m-t-25">
           <mat-form-field [style.width]="'100%'" class="hide_underline">
             <mat-label>Main Store</mat-label>
             <mat-select
@@ -427,7 +426,9 @@
             </mat-select>
           </mat-form-field>
         </div>
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-12 m-t-10">
+        <!-- <div class="clearfix visible-lg"></div> -->
+
+        <div class="col-3 m-t-10">
           <button
             mat-mini-fab
             class="xs-pull-right sm-pull-right md-pull-left lg-pull-right mat_icon_white"
@@ -506,7 +507,7 @@
               <button
                 mat-icon-button
                 matTooltip="Delete"
-                style="border-style: unset"
+                style="border: unset; background-color: unset"
                 (click)="removeRow(bufferArray.data.indexOf(item))"
               >
                 <mat-icon>delete</mat-icon>
@@ -514,7 +515,8 @@
             </td>
           </ng-container>
           <!-- Header and Row Definitions -->
-          <mat-header-row
+          <tr
+            mat-header-row
             *matHeaderRowDef="[
               'sno',
               'facilityType',
@@ -526,8 +528,9 @@
               'storeType',
               'action'
             ]"
-          ></mat-header-row>
-          <mat-row
+          ></tr>
+          <tr
+            mat-row
             *matRowDef="
               let row;
               columns: [
@@ -542,7 +545,7 @@
                 'action'
               ]
             "
-          ></mat-row>
+          ></tr>
         </table>
 
         <!-- Pagination -->
@@ -553,7 +556,7 @@
         ></mat-paginator>
       </div>
     </div>
-    <div class="col-xs-12 col-sm-12 m-t-15 m-b-10">
+    <div class="col-xs-12 col-sm-12 m-t-15 m-b-10" style="padding-bottom: 35px">
       <button
         mat-raised-button
         color="primary"
@@ -627,7 +630,7 @@
             </mat-select>
           </mat-form-field>
         </div>
-        <div class="clearfix visible-lg"></div>
+        <!-- <div class="clearfix visible-lg"></div> -->
 
         <div class="col-3">
           <mat-form-field [style.width]="'100%'" class="hide_underline">
@@ -672,7 +675,7 @@
             </mat-hint>
           </mat-form-field>
         </div>
-        <div class="clearfix visible-sm"></div>
+        <!-- <div class="clearfix visible-sm"></div> -->
         <div class="col-3">
           <mat-form-field [style.width]="'100%'">
             <mat-label>Facility Name</mat-label>
@@ -711,7 +714,7 @@
             />
           </mat-form-field>
         </div>
-        <div class="clearfix visible-lg"></div>
+        <!-- <div class="clearfix visible-lg"></div> -->
         <div class="col-3">
           <mat-form-field [style.width]="'100%'">
             <mat-label>Location</mat-label>
@@ -755,8 +758,8 @@
             </mat-hint>
           </mat-form-field>
         </div>
-        <div class="col-3 m-t-20">
-          <span class="f-s-n-b">Store Type</span>
+        <div class="col-6 m-t-20">
+          <span class="fs-n-b">Store Type</span>
           <mat-radio-group>
             <mat-radio-button
               color="primary"
@@ -776,7 +779,7 @@
             >
           </mat-radio-group>
         </div>
-        <div class="clearfix visible-md"></div>
+        <!-- <div class="clearfix visible-md"></div> -->
         <div class="col-3">
           <mat-form-field [style.width]="'100%'" class="hide_underline">
             <mat-label>Main Store</mat-label>
@@ -798,14 +801,13 @@
       </form>
       <div
         class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10"
-        style="margin-bottom: 47px"
+        style="padding-bottom: 55px"
       >
         <button
           mat-raised-button
           color="primary"
           class="pull-left mat_blue"
           (click)="showTable()"
-          style="margin-top: -3%"
         >
           Back
         </button>
@@ -813,7 +815,6 @@
           *ngIf="editMode"
           mat-raised-button
           color="accent"
-          style="margin-top: -5%"
           class="pull-right mat_green"
           [disabled]="storeEditForm.invalid"
           (click)="updateFacilityType(storeEditForm.value)"
