@@ -168,27 +168,27 @@
             </mat-select>
           </mat-form-field>
         </div>
-      </form>
-      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 m-t-20">
-        <button
-          mat-mini-fab
-          color="primary"
-          class="xs-pull-right sm-pull-right md-pull-right lg-pull-left mat_icon_white"
-          *ngIf="formMode && searchForm.valid"
-          (click)="
-            addParkingPlaceMapping(searchForm.value); this.searchForm.reset()
-          "
-        >
-          <mat-icon
-            matSuffix
-            class="mat-icon material-icons"
-            role="img"
-            aria-hidden="true"
-            style="cursor: pointer"
-            >add</mat-icon
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 m-t-20">
+          <button
+            mat-mini-fab
+            color="primary"
+            class="xs-pull-right sm-pull-right md-pull-right lg-pull-left mat_icon_white"
+            *ngIf="formMode && searchForm.valid"
+            (click)="
+              addParkingPlaceMapping(searchForm.value); this.searchForm.reset()
+            "
           >
-        </button>
-      </div>
+            <mat-icon
+              matSuffix
+              class="mat-icon material-icons"
+              role="img"
+              aria-hidden="true"
+              style="cursor: pointer"
+              >add</mat-icon
+            >
+          </button>
+        </div>
+      </form>
     </div>
     <div
       class="col-xs-12 col-sm-12 m-t-10"
@@ -262,7 +262,7 @@
         </div>
       </div>
     </div>
-    <div class="col-xs-12 col-sm-12 m-t-15" style="padding-bottom: 20px">
+    <div class="col-xs-12 col-sm-12" style="padding-bottom: 45px">
       <button
         mat-raised-button
         color="accent"
@@ -425,7 +425,7 @@
         </mat-form-field>
       </div>
     </form>
-    <div class="col-xs-12 col-sm-12 m-t-15" style="padding-bottom: 20px">
+    <div class="col-xs-12 col-sm-12" style="padding-bottom: 40px">
       <button
         mat-raised-button
         color="accent"
@@ -458,7 +458,7 @@
         availableEmployeeParkingPlaceMappings.length !== 0
       "
     >
-      <mat-form-field [style.width]="'100%'" id="filterbox">
+      <mat-form-field id="filterbox">
         <input
           matInput
           placeholder="In-Table Search"
