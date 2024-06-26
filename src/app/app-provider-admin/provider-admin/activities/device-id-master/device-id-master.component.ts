@@ -65,8 +65,6 @@ export class DeviceIdMasterComponent implements OnInit, AfterViewInit {
   states: any = [];
   services: any = [];
   searchResultArray: any = [];
-  // bufferArray: any = [];
-  // filteredsearchResultArray: any = [];
   availableDeviceIds: any = [];
 
   /*flags*/
@@ -382,7 +380,7 @@ export class DeviceIdMasterComponent implements OnInit, AfterViewInit {
         obj.deviceID !== '' &&
         obj.deviceID !== undefined
       ) {
-        this.bufferArray.data.push(obj);
+        this.bufferArray.data = [...this.bufferArray.data, obj];
       } else {
         this.alertService.alert('Device ID Already exists');
       }
@@ -413,14 +411,15 @@ export class DeviceIdMasterComponent implements OnInit, AfterViewInit {
       obj.deviceID !== '' &&
       obj.deviceID !== undefined
     ) {
-      this.bufferArray.data.push(obj);
+      this.bufferArray.data = [...this.bufferArray.data, obj];
     } else {
       this.alertService.alert('Device ID Already Exists');
     }
   }
 
   removeObj(index: any) {
-    this.bufferArray.data.splice(index, 1);
+    const newData = [...this.bufferArray.data];
+    newData.splice(index, 1);
   }
 
   saveDeviceMasterDetails() {

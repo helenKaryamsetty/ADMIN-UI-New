@@ -103,25 +103,15 @@ export class InstituteSubdirectoryMasterComponent implements OnInit {
 
   ngOnInit() {
     this.userID = this.commonDataService.uid;
-
-    //	this.instituteSubDirectoryMasterService.getStates(this.serviceProviderID).subscribe(response=>this.getStatesSuccessHandeler(response)); // commented on 10/4/18(1097 regarding changes) Gursimran
     this.instituteSubDirectoryMasterService
       .getServiceLinesNew(this.userID)
       .subscribe((response: any) => {
         this.successhandeler(response),
           (err: any) => {
             console.log('Error', err);
-            //this.alertService.alert(err, 'error')
           };
       });
   }
-
-  // getStatesSuccessHandeler(response) {
-  // 	if (response) {
-  // 		this.states = response;
-  // 	}
-
-  // } // commented on 10/4/18(1097 regarding changes) Gursimran
 
   successhandeler(res: any) {
     this.services = res.data.filter(function (item: any) {
@@ -141,7 +131,6 @@ export class InstituteSubdirectoryMasterComponent implements OnInit {
       (response: any) => this.getStatesSuccessHandeler(response, value),
       (err) => {
         console.log('Error', err);
-        //his.alertService.alert(err, 'error')
       },
     );
   }
@@ -152,7 +141,7 @@ export class InstituteSubdirectoryMasterComponent implements OnInit {
     this.institute_directory = '';
     if (value.isNational) {
       this.nationalFlag = value.isNational;
-      this.setProviderServiceMapID(response[0].providerServiceMapID);
+      this.setProviderServiceMapID(response.data[0].providerServiceMapID);
       this.showTableFlag = false;
     } else {
       this.nationalFlag = value.isNational;
@@ -175,7 +164,6 @@ export class InstituteSubdirectoryMasterComponent implements OnInit {
         (response: any) => this.getInstituteDirectorySuccessHandeler(response),
         (err) => {
           console.log('Error', err);
-          //this.alertService.alert(err, 'error')
         },
       );
   }
@@ -204,7 +192,6 @@ export class InstituteSubdirectoryMasterComponent implements OnInit {
           this.getInstituteSubDirectorySuccessHandeler(response),
         (err) => {
           console.log('Error', err);
-          //this.alertService.alert(err, 'error')
         },
       );
   }
@@ -324,7 +311,6 @@ export class InstituteSubdirectoryMasterComponent implements OnInit {
         (response: any) => this.saveSuccessHandeler(response),
         (err) => {
           console.log('Error', err);
-          //this.alertService.alert(err, 'error')
         },
       );
   }
@@ -358,7 +344,6 @@ export class InstituteSubdirectoryMasterComponent implements OnInit {
                   this.toggleActivateSuccessHandeler(response, 'Deactivated'),
                 (err) => {
                   console.log('Error', err);
-                  //s.alertService.alert(err, 'error')
                 },
               );
           }
@@ -382,7 +367,6 @@ export class InstituteSubdirectoryMasterComponent implements OnInit {
                   this.toggleActivateSuccessHandeler(response, 'Activated'),
                 (err) => {
                   console.log('Error', err);
-                  //s.alertService.alert(err, 'error')
                 },
               );
           }
@@ -472,7 +456,6 @@ export class EditInstituteSubDirectoryComponent implements OnInit {
         (response: any) => this.updateSuccessHandeler(response),
         (err) => {
           console.log('Error', err);
-          //this.alertService.alert(err, 'error')
         },
       );
   }

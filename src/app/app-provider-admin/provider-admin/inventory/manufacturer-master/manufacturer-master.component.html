@@ -234,7 +234,10 @@
               name="state"
               [disabled]="true"
             >
-              <mat-option *ngFor="let item of states_array" [value]="item">
+              <mat-option
+                *ngFor="let item of states_array"
+                [value]="item.providerServiceMapID"
+              >
                 {{ item.stateName }}
               </mat-option>
             </mat-select>
@@ -588,6 +591,7 @@
             <td mat-cell *matCellDef="let item; let i = index">
               <button
                 mat-icon-button
+                style="border: unset; background-color: unset"
                 matTooltip="Delete"
                 (click)="removeRow(i)"
               >
@@ -627,7 +631,7 @@
         </table>
       </div>
     </div>
-    <div class="col-xs-12 col-sm-12 m-t-15 m-b-10" style="padding-bottom: 20px">
+    <div class="col-xs-12 col-sm-12" style="padding-bottom: 45px">
       <button
         mat-raised-button
         color="primary"

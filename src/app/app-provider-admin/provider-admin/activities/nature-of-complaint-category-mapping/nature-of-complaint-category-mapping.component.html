@@ -286,7 +286,10 @@
         ></mat-paginator>
       </div>
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-20 m-b-10">
+    <div
+      class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
+      style="padding-bottom: 40px"
+    >
       <button
         mat-raised-button
         color="primary"
@@ -300,7 +303,7 @@
         [disabled]="complaintCategoryMappingList.data.length === 0"
         mat-raised-button
         color="accent"
-        class="pull-right m-t-10 mat_green"
+        class="pull-right mat_green"
         (click)="saveCategoryMapping()"
       >
         Save

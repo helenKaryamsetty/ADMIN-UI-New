@@ -70,7 +70,7 @@
     style="text-align: end"
     *ngIf="natureTypes.length !== 0 && searchForm && showTable"
   >
-    <mat-form-field [style.width]="'100%'" id="filterbox">
+    <mat-form-field id="filterbox">
       <input
         matInput
         placeholder="In-Table Search"
@@ -355,10 +355,7 @@
         </div>
       </div>
       <div class="row">
-        <div
-          class="col-xs-12 col-sm-12 m-t-10 m-b-10"
-          style="margin-bottom: 37px"
-        >
+        <div class="col-xs-12 col-sm-12" style="padding-bottom: 45px">
           <button
             class="pull-right mat_green"
             mat-raised-button

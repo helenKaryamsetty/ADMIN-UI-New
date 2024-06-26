@@ -242,6 +242,7 @@
             <td mat-cell *matCellDef="let element; let i = index">
               <mat-icon
                 class="cursorPointer"
+                style="background-color: unset; border: unset"
                 matTooltip="delete"
                 (click)="remove_obj(drugStrengthList.data.indexOf(element))"
                 >delete</mat-icon

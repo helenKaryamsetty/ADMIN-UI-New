@@ -70,9 +70,7 @@ export class VanSpokeMappingComponent implements OnInit {
   tm_vantypes: any = [];
   tm_spokes: any = [];
   mmu_vans: any = [];
-  // vanSpokeMappedData:any = [];
   listVanSpokeMapping: any = [];
-  // filteredListVanSpokeMapping:any = [];
   availableVans: any = [];
   tempVanIDArray: any = [];
   enabletmSpokeDetailsForm = false;
@@ -126,7 +124,7 @@ export class VanSpokeMappingComponent implements OnInit {
   getProviderMappedServiceline() {
     this.vanSpokeMappingService.getServiceLines(this.userID).subscribe(
       (serviceresponse: any) => {
-        if (this.enabletmSpokeDetailsForm === true) {
+        if (this.enabletmSpokeDetailsForm == true) {
           this.tm_servicelines = serviceresponse.data.filter((item: any) => {
             if (item.serviceID === 4) {
               return item;
@@ -155,7 +153,7 @@ export class VanSpokeMappingComponent implements OnInit {
     };
     this.vanSpokeMappingService.getStates(obj).subscribe(
       (statesResponse: any) => {
-        if (this.enabletmSpokeDetailsForm === true && booleanValue === true) {
+        if (this.enabletmSpokeDetailsForm == true && booleanValue == true) {
           this.tm_states = statesResponse.data;
         } else {
           this.states = statesResponse.data;
@@ -172,7 +170,7 @@ export class VanSpokeMappingComponent implements OnInit {
     };
     this.vanSpokeMappingService.getZones(reqObj).subscribe(
       (zonesResponse: any) => {
-        if (this.enabletmSpokeDetailsForm === true && booleanValue === true) {
+        if (this.enabletmSpokeDetailsForm == true && booleanValue == true) {
           this.tm_zones = zonesResponse.data;
         } else {
           this.zones = zonesResponse.data;
@@ -194,7 +192,7 @@ export class VanSpokeMappingComponent implements OnInit {
     };
     this.vanSpokeMappingService.getParkingPlace(reqObj).subscribe(
       (parkingPlaceResponse: any) => {
-        if (this.enabletmSpokeDetailsForm === true && booleanValue === true) {
+        if (this.enabletmSpokeDetailsForm == true && booleanValue == true) {
           this.tm_hubs = parkingPlaceResponse.data;
         } else {
           this.parkingPlaces = parkingPlaceResponse.data;
@@ -217,7 +215,7 @@ export class VanSpokeMappingComponent implements OnInit {
     };
     this.vanSpokeMappingService.getServicepoints(reqObj).subscribe(
       (servicepointResponse: any) => {
-        if (this.enabletmSpokeDetailsForm === true && booleanValue === true) {
+        if (this.enabletmSpokeDetailsForm == true && booleanValue == true) {
           this.tm_servicepoints = servicepointResponse.data;
         } else {
           this.servicepoints = servicepointResponse.data;
@@ -234,7 +232,7 @@ export class VanSpokeMappingComponent implements OnInit {
     };
     this.vanSpokeMappingService.getVanTypes(reqObj).subscribe(
       (vantypeResponse: any) => {
-        if (this.enabletmSpokeDetailsForm === true && booleanValue === true) {
+        if (this.enabletmSpokeDetailsForm == true && booleanValue == true) {
           this.tm_vantypes = vantypeResponse.data;
         } else {
           this.vantypes = vantypeResponse.data;
@@ -295,7 +293,7 @@ export class VanSpokeMappingComponent implements OnInit {
     this.vanSpokeMappingService
       .getVansOrspoke(reqObj)
       .subscribe((vansResponse: any) => {
-        if (this.enabletmSpokeDetailsForm === true && booleanValue === true) {
+        if (this.enabletmSpokeDetailsForm == true && booleanValue == true) {
           this.tm_spokes = vansResponse.data;
           this.enableMappingForm = true;
         } else {
@@ -409,7 +407,6 @@ export class VanSpokeMappingComponent implements OnInit {
       this.filteredListVanSpokeMapping.data = this.listVanSpokeMapping;
     } else {
       this.filteredListVanSpokeMapping.data = [];
-      // this.listVanSpokeMapping.filter((filterVan) => )
       this.listVanSpokeMapping.forEach((item: any) => {
         for (const key in item) {
           if (key === 'mmu_vanName' || key === 'tm_spokeName') {

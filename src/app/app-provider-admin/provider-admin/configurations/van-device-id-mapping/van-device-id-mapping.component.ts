@@ -43,7 +43,13 @@ export class VanDeviceIdMappingComponent implements OnInit {
   vanSpokeMappedData = new MatTableDataSource<any>();
   @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
   filteredsearchResultArray = new MatTableDataSource<any>();
-  displayedColumns: string[] = ['SNo', 'Spoke', 'DeviceID', 'edit', 'action'];
+  displayedColumns: string[] = [
+    'SNo',
+    'SpokeName',
+    'DeviceID',
+    'edit',
+    'action',
+  ];
 
   /*ngModels*/
   serviceProviderID: any;
@@ -70,7 +76,6 @@ export class VanDeviceIdMappingComponent implements OnInit {
   availableSpokeTypes: any = [];
   filteredSpokeTypes: any = [];
   availableSpokes: any = [];
-  // filteredsearchResultArray: any = [];
   deviceIdArray: any = [];
 
   /*flags*/
