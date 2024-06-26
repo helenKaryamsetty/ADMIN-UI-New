@@ -49,146 +49,151 @@
             </mat-select>
           </mat-form-field>
         </div>
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-          <mat-form-field [style.width]="'100%'">
-            <mat-label>Zone</mat-label>
-            <mat-select
-              required
-              [disabled]="formMode"
-              class="width100"
-              [(ngModel)]="zoneID"
-              name="zoneID"
-              #zoneG="ngModel"
-              (selectionChange)="
-                getAllParkingPlaces(
-                  zoneID.zoneID,
-                  searchStateID.providerServiceMapID
-                )
-              "
-            >
-              <mat-option *ngFor="let zone of zones" [value]="zone">
-                {{ zone.zoneName }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-          <mat-form-field [style.width]="'100%'" *ngIf="parkAndHub">
-            <mat-label>{{ parkAndHub }}</mat-label>
-            <mat-select
-              class="width100"
-              [(ngModel)]="parking_Place"
-              name="parking_Place"
-              [disabled]="formMode"
-              (selectionChange)="getDesignations()"
-              #parkingPlace="ngModel"
-              required
-            >
-              <mat-option
-                *ngFor="let parkingPlace of availableParkingPlaces"
-                [value]="parkingPlace"
+
+        <form #resetform="ngForm" class="row">
+          <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
+            <mat-form-field [style.width]="'100%'">
+              <mat-label>Zone</mat-label>
+              <mat-select
+                required
+                [disabled]="formMode"
+                class="width100"
+                [(ngModel)]="zoneID"
+                name="zoneID"
+                #zoneG="ngModel"
+                (selectionChange)="
+                  getAllParkingPlaces(
+                    zoneID.zoneID,
+                    searchStateID.providerServiceMapID
+                  )
+                "
               >
-                {{ parkingPlace.parkingPlaceName }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-      </form>
-      <form #resetform="ngForm" class="row"></form>
-      <form #resetform1="ngForm" class="row">
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
-          <mat-form-field [style.width]="'100%'" *ngIf="parkAndHub">
-            <mat-label>Designation</mat-label>
-            <mat-select
-              required
-              class="width100"
-              (selectionChange)="
-                getEmployeeParkingPlaceMappings(
-                  searchStateID,
-                  designationID.designationID
-                );
-                selectedParkingPlace(
-                  serviceline.serviceID,
-                  parking_Place.parkingPlaceID,
-                  searchStateID.providerServiceMapID,
-                  designationID
-                )
-              "
-              [(ngModel)]="designationID"
-              name="designationID"
-              #designationVal="ngModel"
-            >
-              <mat-option
-                *ngFor="let designation of designations"
-                [value]="designation"
+                <mat-option *ngFor="let zone of zones" [value]="zone">
+                  {{ zone.zoneName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
+            <mat-form-field [style.width]="'100%'" *ngIf="parkAndHub">
+              <mat-label>{{ parkAndHub }}</mat-label>
+              <mat-select
+                class="width100"
+                [(ngModel)]="parking_Place"
+                name="parking_Place"
+                [disabled]="formMode"
+                (selectionChange)="getDesignations()"
+                #parkingPlace="ngModel"
+                required
               >
-                {{ designation.designationName }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-      </form>
-      <form #searchForm="ngForm" autocomplete="off" class="row">
-        <div
-          class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15"
-          *ngIf="formMode"
-        >
-          <mat-form-field [style.width]="'100%'">
-            <mat-label>Username</mat-label>
-            <mat-select
-              required
-              class="width100"
-              [(ngModel)]="userID"
-              name="userID"
-              #userVal="ngModel"
-            >
-              <mat-option *ngFor="let userName of userNames" [value]="userName">
-                {{ userName.userName }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-        <div
-          class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15"
-          *ngIf="formMode && enableVanField"
-        >
-          <mat-form-field [style.width]="'100%'">
-            <mat-label>Van</mat-label>
-            <mat-select
-              multiple
-              required
-              class="width100"
-              [(ngModel)]="vanUnderPP"
-              name="vanUnderPP"
-              #ppVan="ngModel"
-            >
-              <mat-option *ngFor="let van of availableVans" [value]="van">
-                {{ van.vanName }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-      </form>
-      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 m-t-20">
-        <button
-          mat-mini-fab
-          color="primary"
-          class="xs-pull-right sm-pull-right md-pull-right lg-pull-left mat_icon_white"
-          *ngIf="formMode && searchForm.valid"
-          (click)="
-            addParkingPlaceMapping(searchForm.value); this.searchForm.reset()
-          "
-        >
-          <mat-icon
-            matSuffix
-            class="mat-icon material-icons"
-            role="img"
-            aria-hidden="true"
-            style="cursor: pointer"
-            >add</mat-icon
+                <mat-option
+                  *ngFor="let parkingPlace of availableParkingPlaces"
+                  [value]="parkingPlace"
+                >
+                  {{ parkingPlace.parkingPlaceName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </form>
+        <form #resetform1="ngForm" class="row">
+          <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
+            <mat-form-field [style.width]="'100%'" *ngIf="parkAndHub">
+              <mat-label>Designation</mat-label>
+              <mat-select
+                required
+                class="width100"
+                (selectionChange)="
+                  getEmployeeParkingPlaceMappings(
+                    searchStateID,
+                    designationID.designationID
+                  );
+                  selectedParkingPlace(
+                    serviceline.serviceID,
+                    parking_Place.parkingPlaceID,
+                    searchStateID.providerServiceMapID,
+                    designationID
+                  )
+                "
+                [(ngModel)]="designationID"
+                name="designationID"
+                #designationVal="ngModel"
+              >
+                <mat-option
+                  *ngFor="let designation of designations"
+                  [value]="designation"
+                >
+                  {{ designation.designationName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </form>
+        <form #searchForm="ngForm" autocomplete="off" class="row">
+          <div
+            class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15"
+            *ngIf="formMode"
           >
-        </button>
-      </div>
+            <mat-form-field [style.width]="'100%'">
+              <mat-label>Username</mat-label>
+              <mat-select
+                required
+                class="width100"
+                [(ngModel)]="userID"
+                name="userID"
+                #userVal="ngModel"
+              >
+                <mat-option
+                  *ngFor="let userName of userNames"
+                  [value]="userName"
+                >
+                  {{ userName.userName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div
+            class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15"
+            *ngIf="formMode && enableVanField"
+          >
+            <mat-form-field [style.width]="'100%'">
+              <mat-label>Van</mat-label>
+              <mat-select
+                multiple
+                required
+                class="width100"
+                [(ngModel)]="vanUnderPP"
+                name="vanUnderPP"
+                #ppVan="ngModel"
+              >
+                <mat-option *ngFor="let van of availableVans" [value]="van">
+                  {{ van.vanName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </form>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 m-t-20">
+          <button
+            mat-mini-fab
+            color="primary"
+            class="xs-pull-right sm-pull-right md-pull-right lg-pull-left mat_icon_white"
+            *ngIf="formMode && searchForm.valid"
+            (click)="
+              addParkingPlaceMapping(searchForm.value); this.searchForm.reset()
+            "
+          >
+            <mat-icon
+              matSuffix
+              class="mat-icon material-icons"
+              role="img"
+              aria-hidden="true"
+              style="cursor: pointer"
+              >add</mat-icon
+            >
+          </button>
+        </div>
+      </form>
     </div>
     <div
       class="col-xs-12 col-sm-12 m-t-10"

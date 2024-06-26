@@ -549,8 +549,22 @@ export class VanServicePointMappingComponent implements OnInit, AfterViewInit {
     mappingGroup.controls['vanSession1'].markAsTouched();
     mappingGroup.controls['vanSession2'].markAsTouched();
 
-    mappingGroup.controls['vanSession1'].patchValue(element);
-    mappingGroup.controls['vanSession2'].patchValue(element);
+    mappingGroup.controls['vanSession1'].patchValue(!element);
+    mappingGroup.controls['vanSession2'].patchValue(!element);
+    mappingGroup.controls['vanSession3'].patchValue(!element);
     console.log('formDataLKK2', formData[i]);
   }
+  // setvansession(i: any,element: any){
+  //   const formData = this.MappingForm.controls['mappings'].value;
+  //   console.log("form#####",formData);
+  //   console.log("form#####vanSession1",formData.vanSession1);
+  //   let mappingArray: any = <FormArray>this.MappingForm.controls['mappings'];
+  //   let mappingGroup : any = <FormGroup>(mappingArray).controls[i];
+  //   mappingGroup.controls.vanSession1.markAsTouched();
+  //   mappingGroup.controls.vanSession2.markAsTouched();
+
+  //     mappingGroup.controls.vanSession1.patchValue(!element.value.vanSession1.value);
+  //     mappingGroup.controls.vanSession2.patchValue(!element.value.vanSession2.value);
+
+  // }
 }
