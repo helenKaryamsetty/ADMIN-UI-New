@@ -231,19 +231,19 @@ export class FacilityTypeMasterComponent implements OnInit {
       });
   }
   add2bufferArray(formvalues: any) {
-    this.resetDropdowns();
     console.log('form values', formvalues);
     const obj: any = {
       serviceName: this.serviceline.serviceName,
       stateName: this.state.stateName,
-      facilityTypeName: formvalues.facilityName,
-      facilityTypeDesc: formvalues.facilityDescription,
-      facilityTypeCode: formvalues.facilityCode,
+      facilityTypeName: this.facilityName,
+      facilityTypeDesc: this.facilityDiscription,
+      facilityTypeCode: this.facilityCode,
       status: 'acive',
       providerServiceMapID: this.providerServiceMapID,
       createdBy: this.createdBy,
     };
     this.checkDuplictes(obj);
+    this.resetDropdowns();
   }
   checkDuplictes(object: any) {
     let duplicateStatus = 0;
@@ -324,10 +324,7 @@ export class FacilityTypeMasterComponent implements OnInit {
     );
   }
   resetDropdowns() {
-    // this.facilityAddForm.resetForm();
-    // this.faciliTypEditForm.resetForm();
-    // this.facilitySearchForm.resetForm();
-    // this.facilityName = undefined;
+    this.facilityName = undefined;
     this.facilityCode = undefined;
     this.facilityDiscription = undefined;
     this.edit_facilityName = undefined;
