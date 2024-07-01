@@ -123,7 +123,7 @@ export class VanMasterService {
   }
 
   getStatesByServiceID(serviceID: any, serviceProviderID: any) {
-    return this.http.post(environment._getStateListBYServiceIDURL, {
+    return this.http.post(environment._getStateListByServiceIDURL, {
       serviceID: serviceID,
       serviceProviderID: serviceProviderID,
     });
