@@ -328,8 +328,6 @@ export const environment = {
   updateVanURL: `${adminBaseUrl}vanMaster/update/vanDetails`,
   updateVanStatusURL: `${adminBaseUrl}vanMaster/remove/vanDetails`,
   getParkingNewPlacesURL: `${adminBaseUrl}parkingPlaceMaster/get/parkingPlaces`,
-
-  _getStateListBYServiceIDURL: `${adminBaseUrl}m/location/getStatesByServiceID`,
   _getStateNewListURL: `${commonBaseURL}location/states/`,
   _getServiceNewLineURL: `${adminBaseUrl}m/role/service`,
   _getTalukNewListURL: `${adminBaseUrl}/parkingPlaceTalukMapping/getbyppidanddid/parkingPlacesTalukMapping`,
