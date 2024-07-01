@@ -1,0 +1,423 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <h4 class="pull-left">Hospital-Institute Directory Mapping</h4>
+    </div>
+    <div class="col-12">
+      <form #hospitalForm="ngForm" autocomplete="off" class="row">
+        <div class="col-3 m-t-15">
+          <!-- <md-input-container class="hide_underline"  >
+          <input matInput style="display:none"> -->
+          <mat-form-field [style.width]="'100%'">
+            <mat-label>Serviceline</mat-label>
+            <mat-select
+              disabled="{{ disableSelection }}"
+              [(ngModel)]="service"
+              name="service"
+              #serviceModel="ngModel"
+              required
+            >
+              <mat-option
+                *ngFor="let item of services"
+                value="{{ item.serviceID }}"
+                (click)="getStates(item.serviceID, item.isNational)"
+              >
+                {{ item.serviceName }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <!-- <md-hint [hidden]=serviceModel.valid *ngIf="!disableSelection">
+            <span class="error_text" *ngIf="!serviceModel.required  && ( serviceModel.dirty || serviceModel.touched )">Please select serviceline </span>
+          </md-hint> -->
+          <!-- </md-input-container> -->
+        </div>
+        <div class="col-3 m-t-15">
+          <!-- <md-input-container class="hide_underline"  >
+          <input matInput style="display:none"> -->
+          <mat-form-field [style.width]="'100%'">
+            <mat-label>State</mat-label>
+            <mat-select
+              disabled="{{ disableSelection }}"
+              [(ngModel)]="state"
+              name="state"
+              (selectionChange)="getDistrict(state)"
+              #stateModel="ngModel"
+              required
+            >
+              <mat-option
+                *ngFor="let item of states"
+                value="{{ item.stateID }}"
+                (click)="setProviderServiceMapID(item.providerServiceMapID)"
+              >
+                {{ item.stateName }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <!-- <md-hint [hidden]=stateModel.valid *ngIf="!disableSelection">
+            <span class="error_text" *ngIf="!stateModel.required  && ( stateModel.dirty || stateModel.touched )">Please select state </span>
+          </md-hint>
+        </md-input-container> -->
+        </div>
+        <form #hospitalForm2="ngForm" autocomplete="off" class="row">
+          <div class="col-3 m-t-15">
+            <!-- <md-input-container class="hide_underline"  >
+            <input matInput style="display:none"> -->
+            <mat-form-field [style.width]="'100%'">
+              <mat-label>District</mat-label>
+              <mat-select
+                disabled="{{ disableSelection }}"
+                [(ngModel)]="district"
+                name="district"
+                (selectionChange)="getTaluk(district)"
+                #districtModel="ngModel"
+                required
+              >
+                <mat-option
+                  *ngFor="let item of districts"
+                  value="{{ item.districtID }}"
+                >
+                  {{ item.districtName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <!-- <md-hint [hidden]=districtModel.valid *ngIf="!disableSelection">
+              <span class="error_text" *ngIf="!districtModel.required  && ( districtModel.dirty || districtModel.touched )">Please select district </span>
+            </md-hint> -->
+            <!-- </md-input-container> -->
+          </div>
+          <div class="col-3 m-t-15">
+            <!-- <md-input-container class="hide_underline"  >
+            <input matInput style="display:none"> -->
+            <mat-form-field [style.width]="'100%'">
+              <mat-label>Taluk</mat-label>
+              <mat-select
+                disabled="{{ disableSelection }}"
+                [(ngModel)]="taluk"
+                name="taluk"
+                (selectionChange)="getInstitutions()"
+                #talukModel="ngModel"
+                required
+              >
+                <mat-option
+                  *ngFor="let item of taluks"
+                  value="{{ item.blockID }}"
+                >
+                  {{ item.blockName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <!-- <md-hint [hidden]=talukModel.valid *ngIf="!disableSelection">
+              <span class="error_text" *ngIf="!talukModel.required  && ( talukModel.dirty || talukModel.touched )">Please select taluk </span>
+            </md-hint> -->
+            <!-- </md-input-container> -->
+          </div>
+
+          <div class="col-3 m-t-15">
+            <!-- <md-input-container class="hide_underline"  >
+            <input matInput style="display:none"> -->
+            <mat-form-field [style.width]="'100%'">
+              <mat-label>Institute Directory</mat-label>
+              <mat-select
+                [(ngModel)]="institute_directory"
+                name="institute_directory"
+                disabled="{{ disableSelection }}"
+                (selectionChange)="
+                  getInstituteSubdirectory(institute_directory)
+                "
+                #instituteDirModel="ngModel"
+                required
+              >
+                <mat-option
+                  *ngFor="let item of institute_directories"
+                  value="{{ item.instituteDirectoryID }}"
+                >
+                  {{ item.instituteDirectoryName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <!-- <md-hint [hidden]=instituteDirModel.valid *ngIf="!disableSelection">
+              <span class="error_text" *ngIf="!instituteDirModel.required  && ( instituteDirModel.dirty || instituteDirModel.touched )">Please select institute directory </span>
+            </md-hint> -->
+            <!-- </md-input-container> -->
+          </div>
+          <div class="col-3 m-t-15">
+            <!-- <md-input-container class="hide_underline"  >
+            <input matInput style="display:none"> -->
+            <mat-form-field [style.width]="'100%'">
+              <mat-label>Institute Sub Directory</mat-label>
+              <mat-select
+                [(ngModel)]="institute_subdirectory"
+                name="institute_subdirectory"
+                disabled="{{ disableSelection }}"
+                (selectionChange)="getMappingHistory()"
+                #instituteSubDirModel="ngModel"
+                required
+              >
+                <mat-option
+                  *ngFor="let item of institute_subdirectories"
+                  value="{{ item.instituteSubDirectoryID }}"
+                >
+                  {{ item.instituteSubDirectoryName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </form>
+        <form #hospitalForm1="ngForm" autocomplete="off" class="row">
+          <div class="col-3 m-t-15" *ngIf="showFormFlag">
+            <mat-form-field [style.width]="'100%'">
+              <mat-label>Hospital</mat-label>
+              <mat-select
+                required
+                [(ngModel)]="hospital"
+                name="hospital"
+                #hospitalName="ngModel"
+              >
+                <mat-option
+                  *ngFor="let item of hospitals"
+                  value="{{ item.institutionID }}"
+                  (click)="setHospitalName(item.institutionName)"
+                >
+                  {{ item.institutionName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </form>
+        <div class="col-3 m-t-20">
+          <div>
+            <button
+              md-mini-fab
+              *ngIf="showFormFlag && hospitalForm1.valid"
+              class="xs-pull-right sm-pull-left md-pull-left lg-pull-left mat_icon_white"
+              color="primary"
+              (click)="add_obj(hospital); hospitalForm1.reset()"
+            >
+              <mat-icon
+                matSuffix
+                class="mat-icon material-icons"
+                role="img"
+                aria-hidden="true"
+                style="cursor: pointer"
+                >add</mat-icon
+              >
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div
+    style="text-align: end"
+    *ngIf="showTableFlag && searchResultArray.length !== 0"
+  >
+    <mat-form-field id="filterbox">
+      <input
+        matInput
+        placeholder="In-Table Search"
+        #filterTerm
+        (keyup)="filterComponentList(filterTerm.value)"
+      />
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 col-sm-12" *ngIf="showTableFlag">
+      <div class="table-responsive">
+        <table
+          mat-table
+          class="table table-striped table-hover"
+          [dataSource]="filteredsearchResultArray"
+        >
+          <ng-container matColumnDef="sno">
+            <th mat-header-cell *matHeaderCellDef>SNo.</th>
+            <td mat-cell *matCellDef="let element; let i = index">
+              {{ i + 1 }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="institutionName">
+            <th mat-header-cell *matHeaderCellDef>Institution Name</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.institute.institutionName }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef>Action</th>
+            <td mat-cell *matCellDef="let element">
+              <button
+                *ngIf="element.deleted || element.institute.deleted"
+                mat-raised-button
+                class="mat_green"
+                color="accent"
+                (click)="
+                  toggle_activate(
+                    element.instituteDirMapID,
+                    false,
+                    element.institute.deleted
+                  )
+                "
+              >
+                Activate
+              </button>
+              <button
+                *ngIf="!element.deleted && !element.institute.deleted"
+                mat-raised-button
+                class="mat_blue"
+                color="primary"
+                (click)="
+                  toggle_activate(element.instituteDirMapID, true, false)
+                "
+              >
+                Deactivate
+              </button>
+            </td>
+          </ng-container>
+          <!-- <thead>
+          <tr>
+            <th width="10%">S.No.</th>
+            <th width="30%">Institution Name</th>
+            <th width="20%">Action</th>
+          </tr>
+        </thead> -->
+          <!-- <tbody>
+          <tr *ngIf="md2.data.length == 0">
+            <td colspan="3" class="record-not-found">No records found</td>
+          </tr>
+          <tr *ngFor="let item of md2.data">
+            <td>{{searchResultArray.indexOf(item)+1}}</td>
+            <td>{{item.institute.institutionName}}</td>
+            <td>
+              <button *ngIf="item.deleted  || item.institute.deleted" mat-raised-button color="accent" (click)="toggle_activate(item.instituteDirMapID,false,item.institute.deleted)">Activate</button>
+              <button *ngIf="!item.deleted && ! item.institute.deleted" mat-raised-button color="primary" (click)="toggle_activate(item.instituteDirMapID,true,false)">Deactivate</button>
+            </td>
+          </tr>
+        </tbody> -->
+          <tfoot>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+          </tfoot>
+        </table>
+        <div>
+          <button
+            mat-raised-button
+            color="primary"
+            class="pull-right mat_blue"
+            [disabled]="hospitalForm2.invalid"
+            (click)="showForm()"
+          >
+            Create Mapping
+          </button>
+        </div>
+        <div
+          class="pull-center"
+          style="margin-top: 35px; text-align: center"
+          *ngIf="filteredsearchResultArray.data.length === 0"
+        >
+          <strong>No Records Found</strong>
+        </div>
+        <mat-paginator
+          [hidden]="filteredsearchResultArray.data.length === 0"
+          [pageSizeOptions]="[5, 10, 20]"
+          [pageSize]="5"
+          showFirstLastButtons
+        >
+        </mat-paginator>
+      </div>
+    </div>
+    <div *ngIf="showFormFlag">
+      <div>
+        <div
+          class="col-xs-12 col-sm-12 m-t-15"
+          *ngIf="bufferArray.data.length > 0"
+        >
+          <div class="table-responsive">
+            <table
+              mat-table
+              class="table table-striped table-hover"
+              [dataSource]="bufferArray"
+            >
+              <ng-container matColumnDef="sno">
+                <th mat-header-cell *matHeaderCellDef>SNo.</th>
+                <td mat-cell *matCellDef="let element; let i = index">
+                  {{ i + 1 }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="institutionName">
+                <th mat-header-cell *matHeaderCellDef>Institution Name</th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element.hospital_name }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef>Action</th>
+                <td mat-cell *matCellDef="let element; let i = index">
+                  <mat-icon
+                    class="cursorPointer"
+                    matTooltip="delete"
+                    style="border: unset; background-color: unset"
+                    (click)="removeObj(bufferArray.data.indexOf(element))"
+                    >delete</mat-icon
+                  >
+                </td>
+              </ng-container>
+              <!-- <thead>
+              <tr>
+                  <th width="10%">S.No.</th>
+                  <th width="30%">Institution Name</th>
+                  <th width="20%">Action</th>
+              </tr>
+            </thead> -->
+              <!-- <tbody>
+              <tr *ngFor="let item of md2.data; let k=index; ">
+                <td>{{bufferArray.indexOf(item)+1}}</td>
+                <td>{{item.hospital_name}}</td>
+                <td>
+                  <mat-icon class="cursorPointer" mdTooltip="delete" (click)="removeObj(bufferArray.indexOf(item))">delete</mat-icon>
+                </td>
+              </tr>
+            </tbody> -->
+              <tfoot>
+                <tr mat-header-row *matHeaderRowDef="displayAddedColumns"></tr>
+                <tr
+                  mat-row
+                  *matRowDef="let row; columns: displayAddedColumns"
+                ></tr>
+                <mat-paginator
+                  [hidden]="bufferArray.data.length === 0"
+                  [pageSizeOptions]="[5, 10, 20]"
+                  [pageSize]="5"
+                  showFirstLastButtons
+                >
+                </mat-paginator>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 m-t-15">
+          <button
+            mat-raised-button
+            class="pull-left mat_blue"
+            color="primary"
+            (click)="back()"
+          >
+            Back
+          </button>
+          <button
+            mat-raised-button
+            class="pull-right mat_green"
+            [disabled]="!(bufferArray.data.length > 0)"
+            color="accent"
+            (click)="save()"
+          >
+            Save
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

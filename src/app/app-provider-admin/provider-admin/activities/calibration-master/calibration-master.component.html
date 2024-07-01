@@ -1,0 +1,272 @@
+<div class="container-fluid">
+  <div class="row">
+    <div
+      class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
+      *ngIf="!showCalibrationCreationForm"
+    >
+      <h4 class="pull-left">Calibration Strip Master</h4>
+    </div>
+    <div
+      class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
+      *ngIf="showCalibrationCreationForm && !editHeading"
+    >
+      <h4 class="pull-left">Create Calibration Strip</h4>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="editHeading">
+      <h4 class="pull-left">Edit Calibration Strip</h4>
+    </div>
+    <div class="col-12">
+      <form #stateService="ngForm" autocomplete="off" class="row">
+        <div class="col-3 m-t-15">
+          <mat-form-field [style.width]="'100%'">
+            <mat-label>Serviceline</mat-label>
+            <mat-select
+              disabled="{{ disableSelection }}"
+              [(ngModel)]="service"
+              name="service"
+              #servicess="ngModel"
+              required
+              (selectionChange)="getStates(service)"
+            >
+              <mat-option *ngFor="let ser of services" [value]="ser">
+                {{ ser.serviceName }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-3 m-t-15">
+          <mat-form-field [style.width]="'100%'">
+            <mat-label>State</mat-label>
+            <mat-select
+              [disabled]="disableSelection || nationalFlag"
+              [(ngModel)]="state"
+              name="state"
+              #statess
+              required
+              (selectionChange)="
+                setProviderServiceMapID(state.providerServiceMapID)
+              "
+            >
+              <mat-option *ngFor="let stat of states" [value]="stat">
+                {{ stat.stateName }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="col-xs-12 col-sm-12">
+    <div
+      style="text-align: end"
+      *ngIf="tableMode && searchresultarray.length !== 0"
+    >
+      <mat-form-field id="filterbox">
+        <input
+          matInput
+          placeholder="In-Table Search"
+          #filterTerm
+          (keyup)="filterComponentList(filterTerm.value)"
+        />
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row" *ngIf="tableMode">
+    <div class="col-xs-12 col-sm-12 m-t-20 table-responsive">
+      <div class="">
+        <table
+          mat-table
+          class="table table-striped table-hover"
+          [dataSource]="filteredsearchresultarray"
+        >
+          <ng-container matColumnDef="sno">
+            <th mat-header-cell *matHeaderCellDef>SNo.</th>
+            <td mat-cell *matCellDef="let element; let i = index">
+              {{ i + 1 }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="stripCode">
+            <th mat-header-cell *matHeaderCellDef>Strip Code</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.stripCode }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="expiryDate">
+            <th mat-header-cell *matHeaderCellDef>Expiry Date</th>
+            <td mat-cell *matCellDef="let element">
+              {{
+                element.expiryDate !== undefined && element.expiryDate !== null
+                  ? (element.expiryDate | date: "dd-MM-yyyy")
+                  : "NA"
+              }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="edit">
+            <th mat-header-cell *matHeaderCellDef>Edit</th>
+            <td mat-cell *matCellDef="let element">
+              <mat-icon
+                matTooltip="Edit"
+                class="mat-icon material-icons"
+                role="img"
+                aria-hidden="true"
+                style="cursor: pointer"
+                *ngIf="!element.deleted"
+                (click)="editCalibrationStrip(element)"
+                >edit</mat-icon
+              >
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef>Action</th>
+            <td mat-cell *matCellDef="let element">
+              <button
+                *ngIf="element.deleted"
+                mat-raised-button
+                color="accent"
+                class="mat_green"
+                (click)="
+                  activateDeactivate(
+                    element.calibrationStripID,
+                    false,
+                    element.stripCode
+                  )
+                "
+              >
+                Activate
+              </button>
+              <button
+                *ngIf="!element.deleted"
+                mat-raised-button
+                class="mat_blue"
+                color="primary"
+                (click)="
+                  activateDeactivate(
+                    element.calibrationStripID,
+                    true,
+                    element.stripCode
+                  )
+                "
+              >
+                Deactivate
+              </button>
+            </td>
+          </ng-container>
+
+          <tfoot>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+          </tfoot>
+        </table>
+        <div>
+          <button
+            mat-raised-button
+            color="primary"
+            class="pull-right mat_blue"
+            (click)="showForm(false)"
+          >
+            Create Calibration Strip
+          </button>
+        </div>
+        <div
+          class="pull-center"
+          style="margin-top: 35px; text-align: center"
+          *ngIf="filteredsearchresultarray.data.length === 0"
+        >
+          <strong>No Records Found</strong>
+        </div>
+        <mat-paginator
+          [hidden]="filteredsearchresultarray.data.length === 0"
+          [pageSizeOptions]="[5, 10, 20]"
+          [pageSize]="5"
+          showFirstLastButtons
+        >
+        </mat-paginator>
+      </div>
+    </div>
+  </div>
+
+  <div class="row m-t-20" *ngIf="formMode">
+    <div class="col-12">
+      <form #stripCodeForm="ngForm" autocomplete="off" class="row">
+        <div class="col-3 m-t-20">
+          <mat-form-field [style.width]="'100%'">
+            <mat-label>Strip Code</mat-label>
+            <input
+              matInput
+              alphanumeric
+              disabled="{{ editMode }}"
+              [(ngModel)]="stripCode"
+              name="stripCode"
+              #stripCodeRef="ngModel"
+              minlength="1"
+              maxlength="5"
+              required
+            />
+            <mat-hint>
+              <span
+                class="error_text"
+                *ngIf="!stripCodeRef.errors && stripCodeExist"
+                >Strip Code already exists</span
+              >
+            </mat-hint>
+          </mat-form-field>
+        </div>
+        <div class="col-3 m-t-20">
+          <mat-form-field [style.width]="'100%'">
+            <mat-label>Expiry Date</mat-label>
+            <input
+              matInput
+              [matDatepicker]="picker"
+              [(ngModel)]="expiryDate"
+              [min]="today"
+              name="expiry_Date"
+              (keydown)="preventTyping($event)"
+            />
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="picker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </form>
+    </div>
+    <div
+      class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-20"
+      style="margin-bottom: 47px"
+    >
+      <button
+        mat-raised-button
+        color="primary"
+        class="pull-left mat_blue"
+        (click)="back()"
+      >
+        Back
+      </button>
+      <button
+        mat-raised-button
+        color="accent"
+        *ngIf="!editMode"
+        [disabled]="stripCodeExist || stripCodeForm.invalid"
+        class="pull-right mat_green"
+        (click)="save_UpdateStripCode('save')"
+      >
+        Save
+      </button>
+      <button
+        mat-raised-button
+        color="accent"
+        *ngIf="editMode"
+        [disabled]="
+          stripCodeExist || stripCodeForm.invalid || !stripCodeForm.dirty
+        "
+        class="pull-right mat_green"
+        (click)="save_UpdateStripCode('edit')"
+      >
+        Update
+      </button>
+    </div>
+  </div>
+</div>

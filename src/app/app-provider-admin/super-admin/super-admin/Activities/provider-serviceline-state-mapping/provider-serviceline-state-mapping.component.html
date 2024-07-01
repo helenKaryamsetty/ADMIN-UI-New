@@ -1,0 +1,406 @@
+<div class="row" *ngIf="tableMode">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <h4>
+      <strong>Provider Serviceline-State Mapping</strong>
+    </h4>
+  </div>
+</div>
+<div
+  class="m-t-10"
+  style="text-align: end"
+  *ngIf="tableMode && searchResult.length !== 0"
+>
+  <mat-form-field id="filterbox" class="input-full-width">
+    <input
+      matInput
+      placeholder="In-Table Search"
+      #filterTerm
+      (keyup)="filterComponentList(filterTerm.value)"
+    />
+    <mat-icon matSuffix>search</mat-icon>
+  </mat-form-field>
+</div>
+
+<!-- pre-populated table showing the mappings available of providers to serviceline and state -->
+<div class="row" *ngIf="tableMode">
+  <div class="col-xs-12 col-sm-12">
+    <div class="table-responsive">
+      <table
+        mat-table
+        [dataSource]="filteredsearchResult"
+        class="table table-striped table-hover"
+      >
+        <!-- S.No. Column -->
+        <ng-container matColumnDef="sno">
+          <th mat-header-cell *matHeaderCellDef>S.No.</th>
+          <td mat-cell *matCellDef="let item; let i = index">{{ i + 1 }}</td>
+        </ng-container>
+        <!-- Category Code Column -->
+        <ng-container matColumnDef="serviceProviderName">
+          <th mat-header-cell *matHeaderCellDef>Provider Name</th>
+          <td mat-cell *matCellDef="let item">
+            {{ item?.serviceProviderName }}
+          </td>
+        </ng-container>
+        <!-- Category Name Column -->
+        <ng-container matColumnDef="serviceName">
+          <th mat-header-cell *matHeaderCellDef>Serviceline</th>
+          <td mat-cell *matCellDef="let item">{{ item.serviceName }}</td>
+        </ng-container>
+
+        <!-- Category Description Column -->
+        <ng-container matColumnDef="stateName">
+          <th mat-header-cell *matHeaderCellDef>State</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.stateName ? element.stateName : "All States" }}
+          </td>
+        </ng-container>
+
+        <!-- Action Column -->
+        <ng-container matColumnDef="edit">
+          <th mat-header-cell *matHeaderCellDef>Edit</th>
+          <td mat-cell *matCellDef="let item">
+            <mat-icon
+              mdTooltip="Edit"
+              class="cursorPointer"
+              *ngIf="!item.deleted && !item.serviceProviderDeleted"
+              (click)="edit(item)"
+              >mode_edit</mat-icon
+            >
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Action</th>
+          <td mat-cell *matCellDef="let item">
+            <button
+              mat-raised-button
+              color="accent"
+              *ngIf="item.deleted || item.serviceProviderDeleted"
+              class="mat_green"
+              (click)="
+                activate(item.providerServiceMapID, item.serviceProviderDeleted)
+              "
+            >
+              Activate
+            </button>
+            <button
+              mat-raised-button
+              color="primary"
+              *ngIf="!item.deleted && !item.serviceProviderDeleted"
+              class="mat_blue"
+              (click)="deactivate(item.providerServiceMapID)"
+            >
+              Deactivate
+            </button>
+          </td>
+          <!-- <td colspan="4" class="p-r-0" mat-cell>
+          <button md-raised-button color="primary" [disabled]="searchForm.invalid" class="pull-right" (click)="changeTableFlag(false)">Add Work Location</button>
+        </td> -->
+        </ng-container>
+
+        <!-- Header and Row Definitions -->
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+      <div>
+        <button
+          mat-raised-button
+          color="primary"
+          class="pull-right mat_blue"
+          (click)="showForm()"
+        >
+          Create New Mapping
+        </button>
+      </div>
+      <div
+        class="pull-center"
+        style="margin-top: 35px; text-align: center"
+        *ngIf="filteredsearchResult.data.length === 0"
+      >
+        <strong>No Records Found</strong>
+      </div>
+      <!-- Pagination -->
+      <mat-paginator
+        #paginatorFirst
+        [length]="filteredsearchResult.data.length"
+        [pageSize]="5"
+        [pageSizeOptions]="[5, 10, 20]"
+      ></mat-paginator>
+    </div>
+  </div>
+</div>
+<div class="row" *ngIf="formMode" style="width: 100%; margin-left: 0px">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <h4>
+      <strong>Provider Serviceline State Mapping</strong>
+    </h4>
+  </div>
+  <div class="col-12 p-a-0">
+    <form autocomplete="off" #mappingFieldsForm="ngForm" class="row">
+      <div class="col-3 m-t-10">
+        <!-- <mat-form-field [style.width]="'100%'" class="hide_underline"  >
+          <input matInput style="display:none"> -->
+        <mat-form-field [style.width]="'100%'">
+          <mat-label>Provider</mat-label>
+          <mat-select
+            [(ngModel)]="provider"
+            name="provider"
+            required
+            (selectionChange)="getServices()"
+          >
+            <mat-option *ngFor="let item of providers" [value]="item">
+              {{ item.serviceProviderName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <!-- </mat-form-field> -->
+      </div>
+      <div class="col-3 m-t-10">
+        <!-- <mat-form-field [style.width]="'100%'" class="hide_underline"  >
+          <input matInput style="display:none"> -->
+        <mat-form-field [style.width]="'100%'">
+          <mat-label>Serviceline</mat-label>
+          <mat-select
+            [(ngModel)]="serviceline"
+            name="serviceline"
+            (selectionChange)="
+              getAvailableStates(
+                provider.serviceProviderId,
+                serviceline.serviceID,
+                serviceline
+              )
+            "
+            required
+          >
+            <mat-option *ngFor="let item of services" [value]="item">
+              {{ item.serviceName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <!-- </mat-form-field> -->
+      </div>
+      <div class="col-3 m-t-10">
+        <!-- <mat-form-field [style.width]="'100%'" class="hide_underline"  >
+          <input matInput style="display:none"> -->
+        <mat-form-field [style.width]="'100%'">
+          <mat-label>State</mat-label>
+          <mat-select
+            [disabled]="isNational"
+            [(ngModel)]="state"
+            [multiple]="true"
+            name="state"
+            required
+          >
+            <mat-option *ngFor="let item of filteredStates" [value]="item">
+              {{ item.stateName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <!-- </mat-form-field> -->
+      </div>
+    </form>
+    <div class="col-xs-12 col-sm-6 col-md-12 col-lg-3 m-t-10">
+      <button
+        mat-mini-fab
+        class="xs-pull-right sm-pull-left md-pull-right lg-pull-left mat_blue"
+        *ngIf="!editMode && !mappingFieldsForm.invalid"
+        color="primary"
+        (click)="add2bufferArray(mappingFieldsForm.value)"
+      >
+        <mat-icon
+          mdSuffix
+          class="mat-icon material-icons mat_icon_white"
+          role="img"
+          aria-hidden="true"
+          style="cursor: pointer"
+          >add</mat-icon
+        >
+      </button>
+    </div>
+  </div>
+  <div class="col-xs-12 col-sm-12" *ngIf="bufferArray.data.length > 0">
+    <div class="m-t-15 table-responsive">
+      <table
+        mat-table
+        [dataSource]="bufferArray"
+        class="table table-striped table-hover"
+      >
+        <!-- S.No. Column -->
+        <ng-container matColumnDef="sno">
+          <th mat-header-cell *matHeaderCellDef>S.No.</th>
+          <td mat-cell *matCellDef="let item; let i = index">{{ i + 1 }}</td>
+        </ng-container>
+        <!-- Category Code Column -->
+        <ng-container matColumnDef="serviceProviderName">
+          <th mat-header-cell *matHeaderCellDef>Provider Name</th>
+          <td mat-cell *matCellDef="let item">{{ item?.providerName }}</td>
+        </ng-container>
+
+        <!-- Category Name Column -->
+        <ng-container matColumnDef="serviceName">
+          <th mat-header-cell *matHeaderCellDef>Serviceline</th>
+          <td mat-cell *matCellDef="let item">{{ item.serviceName }}</td>
+        </ng-container>
+
+        <!-- Category Description Column -->
+        <ng-container matColumnDef="stateName">
+          <th mat-header-cell *matHeaderCellDef>State</th>
+          <td mat-cell *matCellDef="let element; let j">
+            <ng-container *ngFor="let obj of element.stateID1">
+              {{ obj.stateName ? obj.stateName : "All States" }}
+              <mat-icon
+                class="cursorPointer"
+                matTooltip="Remove {{ obj.stateName }}"
+                (click)="removeState(bufferArray.data.indexOf(element), j)"
+                >cancel</mat-icon
+              ></ng-container
+            >
+          </td>
+        </ng-container>
+
+        <!-- Action Column -->
+        <ng-container matColumnDef="edit">
+          <th mat-header-cell *matHeaderCellDef>Edit</th>
+          <td mat-cell *matCellDef="let item">
+            <mat-icon
+              mdTooltip="Edit"
+              class="cursorPointer"
+              *ngIf="!item.deleted && !item.serviceProviderDeleted"
+              (click)="edit(item)"
+              >mode_edit</mat-icon
+            >
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Delete</th>
+          <td mat-cell *matCellDef="let item">
+            <mat-icon
+              class="cursorPointer"
+              mdTooltip="delete"
+              (click)="removeRow(bufferArray.data.indexOf(item))"
+              >delete</mat-icon
+            >
+          </td>
+          <!-- <td colspan="4" class="p-r-0" mat-cell>
+          <button md-raised-button color="primary" [disabled]="searchForm.invalid" class="pull-right" (click)="changeTableFlag(false)">Add Work Location</button>
+        </td> -->
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayAddedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayAddedColumns"></tr>
+        <!-- Header and Row Definitions -->
+      </table>
+      <!-- Pagination -->
+      <mat-paginator
+        #paginatorSecond
+        [length]="bufferArray.data.length"
+        [pageSize]="5"
+        [pageSizeOptions]="[5, 10, 20]"
+      ></mat-paginator>
+    </div>
+  </div>
+  <div class="col-xs-12 col-sm-12 m-t-20 m-b-10" style="margin-bottom: 20px">
+    <button mat-raised-button color="primary" class="mat_blue" (click)="back()">
+      Back
+    </button>
+    <button
+      mat-raised-button
+      color="accent"
+      [disabled]="!(bufferArray.data.length > 0)"
+      class="pull-right mat_green"
+      (click)="mapServicelineState()"
+    >
+      Save
+    </button>
+  </div>
+</div>
+<div class="row" *ngIf="editMode" style="width: 100%; margin-left: 0px">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <h4>
+      <strong>Edit Provider Serviceline State Mapping</strong>
+    </h4>
+  </div>
+  <div class="col-12 p-a-0" style="margin-bottom: 20px">
+    <form autocomplete="off" #editMappingFieldsForm="ngForm" class="row">
+      <div class="col-3 m-t-10">
+        <!-- <mat-form-field [style.width]="'100%'" class="hide_underline"  >
+          <input matInput style="display:none"> -->
+        <mat-form-field [style.width]="'100%'">
+          <mat-label>Provider</mat-label>
+          <mat-select [(ngModel)]="edit_provider" name="provider" required>
+            <mat-option
+              *ngFor="let item of providers"
+              [value]="item.serviceProviderId"
+            >
+              {{ item.serviceProviderName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <!-- </mat-form-field> -->
+      </div>
+      <div class="col-3 m-t-10">
+        <!-- <mat-form-field [style.width]="'100%'" class="hide_underline"  >
+          <input matInput style="display:none"> -->
+        <mat-form-field [style.width]="'100%'">
+          <mat-label>Serviceline</mat-label>
+          <mat-select
+            [(ngModel)]="edit_serviceline"
+            name="serviceline"
+            required
+          >
+            <mat-option
+              *ngFor="let item of servicelines"
+              [value]="item.serviceID"
+              (click)="setIsNationalFlag_while_edit(item.isNational)"
+            >
+              {{ item.serviceName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <!-- </mat-form-field> -->
+      </div>
+      <div class="col-3 m-t-10">
+        <!-- <mat-form-field [style.width]="'100%'" class="hide_underline"  >
+          <input matInput style="display:none"> -->
+        <mat-form-field [style.width]="'100%'">
+          <mat-label>State</mat-label>
+          <mat-select
+            [disabled]="isNational_edit"
+            [(ngModel)]="edit_state"
+            name="state"
+            required
+          >
+            <mat-option *ngFor="let item of states" [value]="item.stateID">
+              {{ item.stateName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <!-- </mat-form-field> -->
+      </div>
+    </form>
+    <div class="col-xs-12 col-sm-12 m-t-15">
+      <button
+        mat-raised-button
+        color="accent"
+        [disabled]="editMappingFieldsForm.invalid"
+        class="pull-right m-l-5 m-r-5 mat_green"
+        (click)="update(editMappingFieldsForm.value)"
+      >
+        Update
+      </button>
+      <button
+        mat-raised-button
+        color="primary"
+        class="pull-left mat_blue"
+        (click)="back()"
+      >
+        Back
+      </button>
+    </div>
+  </div>
+</div>

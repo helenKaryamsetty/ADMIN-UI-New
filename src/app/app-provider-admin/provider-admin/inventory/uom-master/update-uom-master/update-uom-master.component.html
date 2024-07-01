@@ -1,0 +1,69 @@
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <h4>
+      <strong>Edit Unit of Measure</strong>
+    </h4>
+  </div>
+</div>
+<form [formGroup]="UOMMasterForm" autocomplete="off">
+  <div class="row m-t-20">
+    <ng-container formGroupName="UOM">
+      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+        <mat-form-field class="input-full-width">
+          <mat-label>UOM Code</mat-label>
+          <input matInput name="uomCode" formControlName="uOMCode" />
+        </mat-form-field>
+      </div>
+
+      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+        <mat-form-field class="input-full-width">
+          <mat-label>UOM Name</mat-label>
+          <input
+            matInput
+            name="uOMName"
+            formControlName="uOMName"
+            maxlength="100"
+          />
+        </mat-form-field>
+      </div>
+
+      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+        <mat-form-field class="input-full-width">
+          <mat-label>UOM Description</mat-label>
+          <input
+            matInput
+            appVehicleNO
+            name="description"
+            formControlName="uOMDesc"
+            maxlength="100"
+          />
+        </mat-form-field>
+      </div>
+    </ng-container>
+  </div>
+
+  <div class="row m-t-20" style="padding-bottom: 20px">
+    <div class="col-xs-12 col-sm-6">
+      <button
+        type="button"
+        mat-raised-button
+        color="primary"
+        class="pull-left mat_blue"
+        (click)="switchToViewMode()"
+      >
+        Back
+      </button>
+    </div>
+    <div class="col-xs-12 col-sm-6">
+      <button
+        type="submit"
+        mat-raised-button
+        color="accent"
+        class="pull-right mat_green"
+        (click)="updateUOMForm()"
+      >
+        Update
+      </button>
+    </div>
+  </div>
+</form>

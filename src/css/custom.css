@@ -1031,10 +1031,10 @@ em {
 
 .header {
   background-color: #253746;
-  padding-top: 0px;
-  text-align: center;
+  /* padding-top: 0px;
+  text-align: center; */
   padding: 5px 10px;
-  /*border-bottom:1px solid #fff;*/
+  border-bottom:1px solid #fff;
 }
 
 .t-a-c {
@@ -1672,7 +1672,7 @@ background-color: #F44336;
   } 
 
 ul.topIcon li {
-  padding: 5px;
+  /* padding: 5px; */
 }
 
  ul.topIcon li a {

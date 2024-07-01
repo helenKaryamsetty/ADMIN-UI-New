@@ -1,0 +1,494 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <h4>
+        <strong>Item to Store Mapping</strong>
+      </h4>
+    </div>
+    <form #searchForm="ngForm" autocomplete="off" class="col-12 row">
+      <div class="col-3">
+        <mat-form-field [style.width]="'100%'" class="hide_underline">
+          <!-- <input matInput style="display: none" /> -->
+          <mat-label>Serviceline</mat-label>
+          <mat-select
+            [(ngModel)]="service"
+            name="services"
+            [disabled]="showFormFlag"
+            (selectionChange)="getStates(service)"
+            required
+          >
+            <mat-option *ngFor="let item of services" [value]="item">
+              {{ item.serviceName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-3">
+        <mat-form-field [style.width]="'100%'" class="hide_underline">
+          <!-- <input matInput style="display: none" /> -->
+          <mat-label>State</mat-label>
+          <mat-select
+            [(ngModel)]="state"
+            name="state"
+            [disabled]="showFormFlag"
+            required
+          >
+            <mat-option
+              *ngFor="let item of states"
+              [value]="item"
+              (click)="setProviderServiceMapID(item.providerServiceMapID)"
+            >
+              {{ item.stateName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div
+        class="col-6"
+        *ngIf="itemFacilityMapList?.length > 0 && showTableFlag"
+      >
+        <div class="row" class="" style="text-align: end">
+          <mat-form-field id="filterbox">
+            <mat-label> In-Table Search </mat-label>
+            <input
+              matInput
+              name="filterTerm"
+              [(ngModel)]="create_filterTerm"
+              #filterTerm
+              (keyup)="filterItemFromList(filterTerm.value)"
+            />
+            <mat-icon matSuffix>search</mat-icon>
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
+    <div
+      class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
+      *ngIf="!showFormFlag && showTableFlag"
+    >
+      <div class="table-responsive">
+        <table
+          mat-table
+          [dataSource]="itemFacilityMapView"
+          *ngIf="showTableFlag"
+          class="table table-striped table-hover"
+        >
+          <!-- S.No. Column -->
+          <ng-container matColumnDef="sno">
+            <th mat-header-cell *matHeaderCellDef>S.No.</th>
+            <td mat-cell *matCellDef="let item; let i = index">{{ i + 1 }}</td>
+          </ng-container>
+
+          <!-- Category Code Column -->
+          <ng-container matColumnDef="facilityTypeName">
+            <th mat-header-cell *matHeaderCellDef>Facility Type Name</th>
+            <td mat-cell *matCellDef="let item">{{ item.facilityTypeName }}</td>
+          </ng-container>
+
+          <!-- Category Name Column -->
+          <ng-container matColumnDef="facilityName">
+            <th mat-header-cell *matHeaderCellDef>Facility Name</th>
+            <td mat-cell *matCellDef="let item">{{ item.facilityName }}</td>
+          </ng-container>
+
+          <!-- Category Description Column -->
+          <ng-container matColumnDef="itemCode">
+            <th mat-header-cell *matHeaderCellDef>Item Code</th>
+            <td mat-cell *matCellDef="let item">{{ item.itemCode }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="itemName">
+            <th mat-header-cell *matHeaderCellDef>Item Name</th>
+            <td mat-cell *matCellDef="let item">{{ item.itemName }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="itemCategoryName">
+            <th mat-header-cell *matHeaderCellDef>Item Category Name</th>
+            <td mat-cell *matCellDef="let item">{{ item.itemCategoryName }}</td>
+          </ng-container>
+
+          <!-- Action Column -->
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef>Action</th>
+            <td mat-cell *matCellDef="let item">
+              <button
+                mat-raised-button
+                color="accent"
+                *ngIf="
+                  item.itemFacilityMappingDeleted ||
+                  item.facilityDeleted ||
+                  item.itemDeleted
+                "
+                class="mat_green"
+                (click)="
+                  activate(
+                    item.itemFacilityMapID,
+                    item.facilityDeleted,
+                    item.itemDeleted
+                  )
+                "
+              >
+                Activate
+              </button>
+              <button
+                mat-raised-button
+                color="primary"
+                *ngIf="
+                  !(
+                    item.itemFacilityMappingDeleted ||
+                    item.facilityDeleted ||
+                    item.itemDeleted
+                  )
+                "
+                class="mat_blue"
+                (click)="
+                  deactivate(
+                    item.itemFacilityMapID,
+                    item.facilityDeleted,
+                    item.itemDeleted
+                  )
+                "
+              >
+                Deactivate
+              </button>
+            </td>
+          </ng-container>
+          <!-- Header and Row Definitions -->
+          <tr
+            mat-header-row
+            *matHeaderRowDef="[
+              'sno',
+              'facilityTypeName',
+              'facilityName',
+              'itemCode',
+              'itemName',
+              'itemCategoryName',
+              'action'
+            ]"
+          ></tr>
+          <tr
+            mat-row
+            *matRowDef="
+              let row;
+              columns: [
+                'sno',
+                'facilityTypeName',
+                'facilityName',
+                'itemCode',
+                'itemName',
+                'itemCategoryName',
+                'action'
+              ]
+            "
+          ></tr>
+        </table>
+        <div>
+          <button
+            md-raised-button
+            color="primary"
+            class="pull-right mat_blue"
+            (click)="showForm()"
+            [disabled]="!(state?.stateID > 0)"
+          >
+            Add Mapping
+          </button>
+        </div>
+        <!-- Pagination -->
+        <div
+          *ngIf="
+            itemFacilityMapView &&
+            itemFacilityMapView.data.length === 0 &&
+            showTableFlag
+          "
+          style="text-align: center; font-size: 16px"
+        >
+          <strong>No records found</strong>
+        </div>
+        <mat-paginator
+          [hidden]="itemFacilityMapView.data.length === 0"
+          [pageSizeOptions]="[5, 10, 25]"
+          [pageSize]="5"
+          showFirstLastButtons
+        ></mat-paginator>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="showFormFlag">
+    <form autocomplete="off" #mappingFieldsForm="ngForm" class="col-12 row">
+      <div class="col-6">
+        <span class="f-s-n-b">Store Type</span>
+        <mat-radio-group [(ngModel)]="storeType" name="storeType">
+          <mat-radio-button
+            (selectionChange)="
+              itemCategoryselected = {}; itemselected = []; subStore = []
+            "
+            color="primary"
+            class="p-l-10"
+            [value]="true"
+            >Main Store</mat-radio-button
+          >
+          <mat-radio-button
+            (selectionChange)="
+              itemCategoryselected = {}; itemselected = []; subStore = []
+            "
+            color="primary"
+            class="p-l-10"
+            [value]="false"
+            >Sub Store</mat-radio-button
+          >
+        </mat-radio-group>
+      </div>
+
+      <div class="col-3">
+        <mat-form-field [style.width]="'100%'" class="hide_underline">
+          <!-- <input matInput style="display: none" /> -->
+          <mat-label>Main Store</mat-label>
+          <mat-select
+            [(ngModel)]="mainStore"
+            name="mainStore"
+            (selectionChange)="subStorelist(mainStore.facilityID)"
+            required
+          >
+            <mat-option *ngFor="let store of mainstores" [value]="store">
+              {{ store.facilityName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-3">
+        <mat-form-field [style.width]="'100%'" class="hide_underline">
+          <!-- <input matInput style="display: none" /> -->
+          <mat-label>Sub Store</mat-label>
+          <mat-select
+            [(ngModel)]="subStore"
+            name="subStore"
+            [disabled]="storeType"
+          >
+            <mat-option *ngFor="let store of substores" [value]="store">
+              {{ store.facilityName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <!-- <div class="clearfix"></div> -->
+      <div class="col-4">
+        <span class="f-s-n-b">Map Type</span>
+        <mat-radio-group [(ngModel)]="mapType" name="mapType">
+          <mat-radio-button color="primary" class="p-l-10" [value]="false"
+            >Individual Mapping</mat-radio-button
+          >
+          <mat-radio-button
+            (click)="itemselected = []"
+            color="primary"
+            class="p-l-10"
+            [value]="true"
+            >Bulk Mapping</mat-radio-button
+          >
+        </mat-radio-group>
+      </div>
+      <div class="col-3">
+        <mat-form-field [style.width]="'100%'" class="hide_underline">
+          <!-- <input matInput style="display: none" /> -->
+          <mat-label>Item Category</mat-label>
+          <mat-select
+            [(ngModel)]="itemCategoryselected"
+            name="itemCategory"
+            [disabled]="
+              (storeType && !(mainStore?.facilityID > 0)) ||
+              (!storeType && !(subStore?.facilityID > 0))
+            "
+          >
+            <mat-option
+              *ngFor="let category of itemCategory"
+              [value]="category"
+              (click)="onCategorySelected(category.itemCategoryID, mainStore)"
+            >
+              {{ category.itemCategoryName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <!-- <div class="clearfix visible-sm"></div> -->
+
+      <div class="col-3">
+        <mat-form-field [style.width]="'100%'" class="hide_underline">
+          <input matInput style="display: none" />
+          <mat-label>Item Name</mat-label>
+          <mat-select
+            [disabled]="mapType || !(itemCategoryselected?.itemCategoryID > 0)"
+            [(ngModel)]="itemselected"
+            name="itemName"
+            [multiple]="true"
+          >
+            <mat-option *ngFor="let store of itemsList" [value]="store">
+              {{ store.itemName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-12 m-t-10">
+        <button
+          mat-mini-fab
+          class="xs-pull-right sm-pull-right md-pull-left lg-pull-right mat_icon_white"
+          *ngIf="
+            ((storeType && mainStore?.facilityID > 0) ||
+              (!storeType && subStore?.facilityID > 0)) &&
+            ((mapType && itemCategoryselected?.itemCategoryID > 0) ||
+              (!mapType && itemselected?.length > 0))
+          "
+          color="primary"
+          (click)="
+            addtoBufferArray(mappingFieldsForm.value);
+            resetForm();
+            itemCategoryselected = {};
+            itemselected = [];
+            subStore = []
+          "
+        >
+          <mat-icon
+            matSuffix
+            class="mat-icon material-icons"
+            role="img"
+            aria-hidden="true"
+            style="cursor: pointer"
+            >add</mat-icon
+          >
+        </button>
+      </div>
+    </form>
+
+    <div class="col-xs-12 col-sm-12 m-t-15" *ngIf="bufferarray.data.length > 0">
+      <div class="">
+        <table
+          mat-table
+          [dataSource]="bufferarray"
+          class="table table-striped table-hover"
+        >
+          <!-- S.No. Column -->
+          <ng-container matColumnDef="sno">
+            <th mat-header-cell *matHeaderCellDef>S.No.</th>
+            <td mat-cell *matCellDef="let item; let i = index">{{ i + 1 }}</td>
+          </ng-container>
+          <!-- Category Code Column -->
+          <ng-container matColumnDef="facilityCode">
+            <th mat-header-cell *matHeaderCellDef>Facility Code</th>
+            <td mat-cell *matCellDef="let item">{{ item.facilityCode }}</td>
+          </ng-container>
+
+          <!-- Category Name Column -->
+          <ng-container matColumnDef="facilityName">
+            <th mat-header-cell *matHeaderCellDef>Facility Name</th>
+            <td mat-cell *matCellDef="let item">{{ item.facilityName }}</td>
+          </ng-container>
+
+          <!-- Category Description Column -->
+          <ng-container matColumnDef="itemCategoryName">
+            <th mat-header-cell *matHeaderCellDef>Item Category Name</th>
+            <td mat-cell *matCellDef="let item">{{ item.itemCategoryName }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="itemName">
+            <th mat-header-cell *matHeaderCellDef>Item Name</th>
+            <td mat-cell *matCellDef="let item; let i = index">
+              <li *ngFor="let obj of item.item; let j = index">
+                {{ obj.itemName }}
+                <mat-icon
+                  mat-icon-button
+                  matTooltip="Remove {{ obj.itemName }}"
+                  (click)="removeItem(i, j)"
+                >
+                  cancel
+                </mat-icon>
+              </li>
+            </td>
+          </ng-container>
+
+          <!-- Action Column -->
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef>Action</th>
+            <td mat-cell *matCellDef="let item; let i = index">
+              <button
+                mat-icon-button
+                matTooltip="Delete"
+                style="border: unset; background-color: unset"
+                (click)="removeRow(i)"
+              >
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <!-- Header and Row Definitions -->
+          <tr
+            mat-header-row
+            *matHeaderRowDef="[
+              'sno',
+              'facilityCode',
+              'facilityName',
+              'itemCategoryName',
+              'itemName',
+              'action'
+            ]"
+          ></tr>
+          <tr
+            mat-row
+            *matRowDef="
+              let row;
+              columns: [
+                'sno',
+                'facilityCode',
+                'facilityName',
+                'itemCategoryName',
+                'itemName',
+                'action'
+              ]
+            "
+          ></tr>
+        </table>
+
+        <!-- Pagination -->
+        <mat-paginator
+          [length]="bufferarray.data.length"
+          [pageSize]="5"
+          [pageSizeOptions]="[5, 10, 20]"
+        ></mat-paginator>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 m-t-15 m-b-10" style="margin-bottom: 47px">
+      <button
+        mat-raised-button
+        color="primary"
+        class="pull-left mat_blue"
+        (click)="
+          back(); itemCategoryselected = {}; itemselected = []; subStore = []
+        "
+      >
+        Back
+      </button>
+      <button
+        mat-raised-button
+        color="accent"
+        class="pull-right mat_green"
+        (click)="submitMapping()"
+        [disabled]="bufferarray.data.length === 0"
+      >
+        Save
+      </button>
+      <button
+        mat-raised-button
+        color="primary"
+        class="pull-right m-r-5 mat_blue"
+        (click)="
+          resetForm();
+          itemCategoryselected = {};
+          itemselected = [];
+          subStore = []
+        "
+      >
+        Clear
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,862 @@
+<div class="container-fluid">
+  <div class="row" *ngIf="tableMode">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <h4>
+        <strong>Work Location Mapping</strong>
+      </h4>
+    </div>
+  </div>
+
+  <div
+    style="text-align: end"
+    *ngIf="mappedWorkLocationsList.length !== 0 && tableMode"
+  >
+    <mat-form-field id="filterbox">
+      <input
+        matInput
+        placeholder="In-Table Search"
+        [(ngModel)]="searchTerm"
+        #filterTerm
+        (keyup)="filterComponentList(filterTerm.value)"
+      />
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+  </div>
+  <div class="row" *ngIf="tableMode">
+    <!-- pre-populated table showing the number of providers available -->
+    <div class="col-xs-12 col-sm-12">
+      <div class="table-responsive">
+        <table
+          mat-table
+          [dataSource]="this.filteredmappedWorkLocationsList"
+          class="table table-striped table-hover"
+        >
+          <ng-container matColumnDef="SNo">
+            <th mat-header-cell *matHeaderCellDef>S.No.</th>
+            <td mat-cell *matCellDef="let element; let i = index">
+              {{ i + 1 }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="UserName">
+            <th mat-header-cell *matHeaderCellDef>User Name</th>
+            <td mat-cell *matCellDef="let element">{{ element.userName }}</td>
+          </ng-container>
+          <ng-container matColumnDef="Serviceline">
+            <th mat-header-cell *matHeaderCellDef>Serviceline</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.serviceName }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="State">
+            <th mat-header-cell *matHeaderCellDef>State</th>
+            <td mat-cell *matCellDef="let element">
+              {{
+                element.serviceName === "1097"
+                  ? "All states"
+                  : element.stateName
+              }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="District">
+            <th mat-header-cell *matHeaderCellDef>District</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.workingDistrictName }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="Block">
+            <th mat-header-cell *matHeaderCellDef>Block</th>
+            <td mat-cell *matCellDef="let element">{{ element.blockName }}</td>
+          </ng-container>
+          <ng-container matColumnDef="Village">
+            <th mat-header-cell *matHeaderCellDef>Village</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.villageName }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="WorkLocation">
+            <th mat-header-cell *matHeaderCellDef>Work Location</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.locationName }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="Role">
+            <th mat-header-cell *matHeaderCellDef>Role</th>
+            <td mat-cell *matCellDef="let element">{{ element.roleName }}</td>
+          </ng-container>
+          <ng-container matColumnDef="Inbound">
+            <th mat-header-cell *matHeaderCellDef>Inbound</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.inbound === undefined ? "N/A" : element.inbound }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="Outbound">
+            <th mat-header-cell *matHeaderCellDef>Outbound</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.outbound === undefined ? "N/A" : element.outbound }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="edit">
+            <th mat-header-cell *matHeaderCellDef>Edit</th>
+            <td mat-cell *matCellDef="let element">
+              <mat-icon
+                matTooltip="Edit"
+                class="mat-icon material-icons"
+                aria-hidden="true"
+                style="cursor: pointer"
+                *ngIf="
+                  !element.userServciceRoleDeleted &&
+                  !element.userDeleted &&
+                  !element.providerServiceMappingDeleted
+                "
+                (click)="editRow(element)"
+                >edit</mat-icon
+              >
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Action</th>
+            <td mat-cell *matCellDef="let element">
+              <button
+                mat-raised-button
+                color="accent"
+                *ngIf="
+                  element.userServciceRoleDeleted ||
+                  element.userDeleted ||
+                  element.providerServiceMappingDeleted
+                "
+                class="m-r-10 mat_green"
+                (click)="
+                  activate(
+                    element.userID,
+                    element.serviceID,
+                    element.uSRMappingID,
+                    element.userDeleted,
+                    element.providerServiceMappingDeleted,
+                    element.stateID,
+                    element.workingDistrictID,
+                    element.blockID,
+                    element.roleID
+                  )
+                "
+              >
+                Activate
+              </button>
+
+              <button
+                mat-raised-button
+                color="primary"
+                *ngIf="
+                  !element.userServciceRoleDeleted &&
+                  !element.userDeleted &&
+                  !element.providerServiceMappingDeleted
+                "
+                class="m-r-10 mat_blue"
+                (click)="deactivate(element.serviceID, element.uSRMappingID)"
+              >
+                Deactivate
+              </button>
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+        <div>
+          <button
+            mat-raised-button
+            color="primary"
+            class="pull-right mat_blue"
+            (click)="showForm()"
+          >
+            Create New Mapping
+          </button>
+        </div>
+        <div
+          class="pull-center"
+          style="margin-top: 35px; text-align: center"
+          *ngIf="filteredmappedWorkLocationsList.data.length === 0"
+        >
+          <strong>No Records Found</strong>
+        </div>
+        <mat-paginator
+          [hidden]="filteredmappedWorkLocationsList.data.length === 0"
+          [pageSizeOptions]="[5, 10, 20]"
+          [pageSize]="5"
+          showFirstLastButtons
+        >
+        </mat-paginator>
+      </div>
+    </div>
+  </div>
+  <div class="row" *ngIf="formMode" style="width: 100%; margin-left: 0px">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <h4 *ngIf="!editMode">
+        <strong>Work Location Mapping</strong>
+      </h4>
+      <h4 *ngIf="editMode">
+        <strong>Edit Work Location Mapping</strong>
+      </h4>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-a-0">
+      <form id="workplaceForm" #workplaceform="ngForm" autocomplete="off">
+        <div class="col-12 row">
+          <div class="col-3">
+            <mat-form-field [style.width]="'100%'">
+              <mat-label>Select User</mat-label>
+              <mat-select
+                [style.width]="'100%'"
+                [(ngModel)]="User"
+                name="user"
+                (selectionChange)="resetAllFields()"
+                required
+              >
+                <mat-option *ngFor="let user of userNamesList" [value]="user">
+                  {{ user.userName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="col-3">
+            <mat-form-field [style.width]="'100%'">
+              <mat-label>Select Serviceline</mat-label>
+              <mat-select
+                [style.width]="'100%'"
+                [(ngModel)]="Serviceline"
+                name="serviceline"
+                (selectionChange)="
+                  getStates(Serviceline.serviceID, Serviceline.isNational);
+                  setIsNational(Serviceline.isNational);
+                  showInboundOutbound(Serviceline.serviceName);
+                  allowSingleRoleOnlyForECD(Serviceline.serviceName);
+                  showBlockDrop(Serviceline.serviceName);
+                  resetBlockVillageFields();
+                  eSanjeevaniSaveFunction('Serviceline', Serviceline)
+                "
+                required
+              >
+                <mat-option *ngFor="let item of services_array" [value]="item">
+                  {{ item.serviceName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="col-3">
+            <mat-form-field [style.width]="'100%'">
+              <mat-label>Select State</mat-label>
+              <mat-select
+                [disabled]="isNational"
+                [style.width]="'100%'"
+                [(ngModel)]="State"
+                name="state"
+                (selectionChange)="
+                  getAllDistricts(Serviceline.serviceID, User, State)
+                "
+                required
+                (selectionChange)="resetBlockVillageFields()"
+              >
+                <mat-option *ngFor="let item of states_array" [value]="item">
+                  {{ item.stateName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="col-3">
+            <mat-form-field [style.width]="'100%'">
+              <mat-label>Select District</mat-label>
+              <mat-select
+                [disabled]="isNational"
+                [style.width]="'100%'"
+                [(ngModel)]="District"
+                (selectionChange)="
+                  getAllWorkLocations(State, Serviceline, isNational)
+                "
+                name="district"
+                required
+                (selectionChange)="getBlockMaster(District)"
+              >
+                <mat-option *ngFor="let item of districts_array" [value]="item">
+                  {{ item.districtName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-12 row">
+          <div class="col-3" *ngIf="blockFlag">
+            <mat-form-field [style.width]="'100%'">
+              <mat-label>Select Block</mat-label>
+              <mat-select
+                [style.width]="'100%'"
+                [(ngModel)]="Serviceblock"
+                (selectionChange)="getVillageMaster(Serviceblock)"
+                name="Serviceblock"
+                required
+              >
+                <mat-option *ngFor="let item of blocks" [value]="item">
+                  {{ item.blockName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="col-3" *ngIf="villageFlag">
+            <mat-form-field [style.width]="'100%'">
+              <mat-label>Select Village</mat-label>
+              <mat-select
+                [style.width]="'100%'"
+                [multiple]="true"
+                [(ngModel)]="Servicevillage"
+                name="Servicevillage"
+                required
+              >
+                <mat-option *ngFor="let item of village" [value]="item">
+                  {{ item.villageName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="col-3">
+            <mat-form-field [style.width]="'100%'">
+              <mat-label>Select Work Location</mat-label>
+              <mat-select
+                [style.width]="'100%'"
+                [(ngModel)]="WorkLocation"
+                (selectionChange)="
+                  getAllRoles(
+                    Serviceline.serviceID,
+                    State.providerServiceMapID,
+                    User.userID
+                  )
+                "
+                name="worklocation"
+                required
+              >
+                <mat-option
+                  *ngFor="let item of workLocationsList"
+                  [value]="item"
+                >
+                  {{ item.locationName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div *ngIf="singleSelectForEcd" class="col-3">
+            <mat-form-field [style.width]="'100%'">
+              <mat-label>Select Role</mat-label>
+              <mat-select
+                [style.width]="'100%'"
+                [(ngModel)]="Role"
+                name="role"
+                [disabled]="disableSelectRoles"
+                required
+              >
+                <mat-option *ngFor="let item of availableRoles" [value]="item">
+                  {{ item.roleName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-hint *ngIf="disableSelectRoles"
+              >One user can be mapped with one role only for ECD
+              serviceLine</mat-hint
+            >
+          </div>
+          <div *ngIf="!singleSelectForEcd" class="col-3">
+            <mat-form-field [style.width]="'100%'">
+              <mat-label>Select Role</mat-label>
+              <mat-select
+                [style.width]="'100%'"
+                [multiple]="true"
+                [(ngModel)]="Role"
+                name="role"
+                required
+                (selectionChange)="eSanjeevaniSaveFunction('Role', Role)"
+              >
+                <mat-option *ngFor="let item of availableRoles" [value]="item">
+                  {{ item.roleName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-3" style="text-align: center">
+            <button
+              mat-mini-fab
+              color="primary"
+              *ngIf="!editMode && !workplaceform.invalid && !disableSelectRoles"
+              (click)="addWorkLocation(workplaceform.value, Role)"
+            >
+              <mat-icon
+                matSuffix
+                class="mat-icon material-icons"
+                role="img"
+                aria-hidden="true"
+                style="cursor: pointer"
+                >add</mat-icon
+              >
+            </button>
+          </div>
+        </div>
+
+        <div
+          *ngIf="eSanjivaniFlag"
+          class="col-xs-6 col-sm-4 col-md-4 col-lg-3"
+          style="margin-top: 10px"
+        >
+          <mat-checkbox
+            color="primary"
+            [(ngModel)]="isSanjeevani"
+            name="eSanjeevani"
+            [checked]="isSanjeevani"
+            (selectionChange)="onESanjeevaniChange($event)"
+            >ESanjeevani</mat-checkbox
+          >
+        </div>
+
+        <div
+          *ngIf="showInOutBound"
+          class="col-xs-6 col-sm-4 col-md-4 col-lg-3"
+          style="margin-top: 10px"
+        >
+          <mat-checkbox
+            color="primary"
+            name="Inbound"
+            [checked]="isInbound"
+            [(ngModel)]="isInbound"
+            (selectionChange)="setInbound($event)"
+            >Inbound</mat-checkbox
+          >
+          <mat-checkbox
+            color="primary"
+            name="Outbound"
+            [checked]="isOutbound"
+            [(ngModel)]="isOutbound"
+            (selectionChange)="setOutbound($event)"
+            >Outbound</mat-checkbox
+          >
+        </div>
+      </form>
+    </div>
+    <div class="col-xs-12 col-sm-12" *ngIf="bufferArray.data.length > 0">
+      <div class="table-responsive">
+        <table
+          mat-table
+          [dataSource]="bufferArray"
+          class="table table-striped table-hover"
+        >
+          <ng-container matColumnDef="SNo">
+            <th mat-header-cell *matHeaderCellDef>S.No.</th>
+            <td mat-cell *matCellDef="let element; let i = index">
+              {{ i + 1 }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="UserName">
+            <th mat-header-cell *matHeaderCellDef>User Name</th>
+            <td mat-cell *matCellDef="let element">{{ element.userName }}</td>
+          </ng-container>
+          <ng-container matColumnDef="Serviceline">
+            <th mat-header-cell *matHeaderCellDef>Serviceline</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.serviceName }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="State">
+            <th mat-header-cell *matHeaderCellDef>State</th>
+            <td mat-cell *matCellDef="let element">
+              {{
+                element.serviceName === "1097"
+                  ? "All states"
+                  : element.stateName
+              }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="District">
+            <th mat-header-cell *matHeaderCellDef>District</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.district }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="Block">
+            <th mat-header-cell *matHeaderCellDef>Block</th>
+            <td mat-cell *matCellDef="let element">{{ element.blockName }}</td>
+          </ng-container>
+          <ng-container matColumnDef="Village">
+            <th mat-header-cell *matHeaderCellDef>Village</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.villageName }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="WorkLocation">
+            <th mat-header-cell *matHeaderCellDef>Work Location</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.workingLocation }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="Role">
+            <th mat-header-cell *matHeaderCellDef>Role</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.roleID1[0].roleName }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="Inbound">
+            <th mat-header-cell *matHeaderCellDef>Inbound</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.inbound }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="Outbound">
+            <th mat-header-cell *matHeaderCellDef>Outbound</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.outbound }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="ESanjeevani">
+            <th mat-header-cell *matHeaderCellDef>ESanjeevani</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.isSanjeevani }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="delete">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Delete</th>
+            <td mat-cell *matCellDef="let element">
+              <mat-icon
+                class="cursorPointer"
+                matTooltip="Remove"
+                (click)="
+                  deleteRow(
+                    bufferArray.data.indexOf(element),
+                    element.serviceID,
+                    element.providerServiceMapID,
+                    element.userID
+                  )
+                "
+                >delete</mat-icon
+              >
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumnsTable2"></tr>
+          <tr
+            mat-row
+            *matRowDef="let row; columns: displayedColumnsTable2"
+          ></tr>
+        </table>
+        <mat-paginator
+          [hidden]="bufferArray.data.length === 0"
+          [pageSizeOptions]="[5, 10, 25]"
+          [pageSize]="5"
+          showFirstLastButtons
+        ></mat-paginator>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 m-b-10" style="padding-bottom: 20px">
+      <button
+        mat-raised-button
+        color="accent"
+        class="pull-right mat_green"
+        [disabled]="!(bufferArray.data.length > 0)"
+        (click)="saveWorkLocations()"
+      >
+        Save
+      </button>
+      <button
+        mat-raised-button
+        color="primary"
+        class="pull-left mat_blue"
+        (click)="back()"
+      >
+        Back
+      </button>
+    </div>
+  </div>
+  <div class="row" *ngIf="editMode" style="width: 100%; margin-left: 0px">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <h4 *ngIf="!editMode">
+        <strong>Work-Location-Mapping</strong>
+      </h4>
+      <h4 *ngIf="editMode">
+        <strong>Edit Work Location Mapping</strong>
+      </h4>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-a-0">
+      <form id="workplaceForm" #workplaceeform="ngForm" autocomplete="off">
+        <div class="col-12 row">
+          <div class="col-3">
+            <mat-form-field [style.width]="'100%'">
+              <mat-label>Select User</mat-label>
+              <mat-select
+                [style.width]="'100%'"
+                [disabled]="disableUsername"
+                [(ngModel)]="userID_duringEdit"
+                name="user_name"
+                required
+              >
+                <mat-option
+                  *ngFor="let user of userNamesList"
+                  [value]="user.userID"
+                >
+                  {{ user.userName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="col-3">
+            <mat-form-field [style.width]="'100%'">
+              <mat-label>Select Serviceline</mat-label>
+              <mat-select
+                [style.width]="'100%'"
+                [(ngModel)]="serviceID_duringEdit"
+                name="serviceID"
+                (selectionChange)="
+                  refresh2();
+                  eSanjeevaniEditSaveFunction(
+                    item.serviceName,
+                    roleID_duringEdit
+                  )
+                "
+                required
+              >
+                <mat-option
+                  *ngFor="let item of services_array"
+                  [value]="item.serviceID"
+                  (click)="
+                    getProviderStates_duringEdit(
+                      item.serviceID,
+                      item.isNational
+                    );
+                    setIsNational_edit(item.isNational);
+                    showInboundOutboundEdit(
+                      item.serviceName,
+                      roleID_duringEdit
+                    );
+                    showEditBlockDrop(item.serviceName)
+                  "
+                >
+                  {{ item.serviceName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="col-3">
+            <mat-form-field [style.width]="'100%'">
+              <mat-label>Select State</mat-label>
+              <mat-select
+                [disabled]="isNational_edit"
+                [style.width]="'100%'"
+                [(ngModel)]="stateID_duringEdit"
+                name="state"
+                (selectionChange)="
+                  refresh1();
+                  getAllDistricts_duringEdit(stateID_duringEdit);
+                  resetEditBlockVillageFields()
+                "
+                required
+              >
+                <mat-option
+                  *ngFor="let item of states_array"
+                  [value]="item.stateID"
+                  (click)="
+                    set_currentPSM_ID_duringEdit(item.providerServiceMapID)
+                  "
+                >
+                  {{ item.stateName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="col-3">
+            <mat-form-field [style.width]="'100%'">
+              <mat-label>Select District</mat-label>
+              <mat-select
+                [disabled]="isNational_edit"
+                [style.width]="'100%'"
+                [(ngModel)]="district_duringEdit"
+                name="district"
+                (selectionChange)="
+                  refresh5();
+                  getAllWorkLocations_duringEdit(
+                    stateID_duringEdit,
+                    serviceID_duringEdit,
+                    isNational_edit,
+                    district_duringEdit
+                  );
+                  getEditBlockMaster(district_duringEdit);
+                  resetEditBlockVillageFields()
+                "
+                required
+              >
+                <mat-option
+                  *ngFor="let item of districts_array"
+                  [value]="item.districtID"
+                >
+                  {{ item.districtName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-12 row">
+          <div class="col-3" *ngIf="enableEditBlockFlag">
+            <mat-form-field [style.width]="'100%'">
+              <mat-label>Select Block</mat-label>
+              <mat-select
+                [style.width]="'100%'"
+                [(ngModel)]="ServiceEditblock"
+                (selectionChange)="getEditVillageMaster(ServiceEditblock)"
+                name="ServiceEditblock"
+                required
+              >
+                <mat-option
+                  *ngFor="let item of editblocks"
+                  [value]="item.blockID"
+                  (click)="setUpdatedBlockName(item.blockName)"
+                >
+                  {{ item.blockName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="col-3" *ngIf="enableEditVillageFlag">
+            <mat-form-field [style.width]="'100%'">
+              <mat-label>Select Village</mat-label>
+              <mat-select
+                [style.width]="'100%'"
+                [multiple]="true"
+                [(ngModel)]="serviceEditvillage"
+                name="serviceEditvillage"
+                required
+              >
+                <mat-option
+                  *ngFor="let item of editVillageArr"
+                  [value]="item.villageName"
+                >
+                  {{ item.villageName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="col-3">
+            <mat-form-field [style.width]="'100%'">
+              <mat-label>Select Work Location</mat-label>
+              <mat-select
+                [style.width]="'100%'"
+                [(ngModel)]="workLocationID_duringEdit"
+                (selectionChange)="
+                  refresh4();
+                  getAllRoles_duringEdit(
+                    serviceID_duringEdit,
+                    providerServiceMapID_duringEdit,
+                    userID_duringEdit
+                  )
+                "
+                name="worklocation"
+                required
+              >
+                <mat-option
+                  *ngFor="let item of workLocationsList"
+                  [value]="item.pSAddMapID"
+                >
+                  {{ item.locationName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-3">
+            <mat-form-field [style.width]="'100%'">
+              <mat-label>Select Role</mat-label>
+              <mat-select
+                [style.width]="'100%'"
+                [(ngModel)]="roleID_duringEdit"
+                name="role"
+                (selectionChange)="
+                  showInboundOutboundEdit(
+                    serviceID_duringEdit,
+                    roleID_duringEdit
+                  );
+                  eSanjeevaniEditSaveFunction(
+                    serviceID_duringEdit,
+                    roleID_duringEdit
+                  )
+                "
+                required
+              >
+                <mat-option
+                  *ngFor="let item of availableRoles"
+                  [value]="item.roleID"
+                >
+                  {{ item.roleName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div
+          *ngIf="eSanjivaniEditFlag"
+          class="col-xs-6 col-sm-4 col-md-4 col-lg-3 m-t-35"
+        >
+          <mat-checkbox
+            color="primary"
+            [(ngModel)]="eSanjeevaniEdit"
+            name="eSanjeevaniEdit"
+            [checked]="eSanjeevaniEdit"
+            (selectionChange)="onESanjeevaniChange($event)"
+            >ESanjeevani</mat-checkbox
+          >
+        </div>
+
+        <div
+          *ngIf="showInOutBoundEdit"
+          class="col-xs-6 col-sm-4 col-md-4 col-lg-3 m-t-35"
+        >
+          <mat-checkbox
+            color="primary"
+            name="Inbound"
+            [checked]="isInboundEdit"
+            [(ngModel)]="isInboundEdit"
+            (selectionChange)="setInbound($event)"
+            >Inbound</mat-checkbox
+          >
+          <mat-checkbox
+            color="primary"
+            name="Outbound"
+            [checked]="isOutboundEdit"
+            [(ngModel)]="isOutboundEdit"
+            (selectionChange)="setOutbound($event)"
+            >Outbound</mat-checkbox
+          >
+        </div>
+      </form>
+      <div
+        class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
+        style="padding-bottom: 20px"
+      >
+        <button
+          mat-raised-button
+          color="primary"
+          class="pull-left mat_blue"
+          (click)="back()"
+        >
+          Back
+        </button>
+        <button
+          *ngIf="!formMode"
+          style="margin-right: 15px"
+          mat-raised-button
+          color="accent"
+          class="pull-right mat_green"
+          [disabled]="workplaceeform.invalid"
+          (click)="updateWorkLocation(workplaceeform.value)"
+        >
+          Update
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

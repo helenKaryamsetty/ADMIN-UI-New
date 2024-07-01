@@ -1,0 +1,202 @@
+<div class="container-fluid">
+  <form [formGroup]="storeSearchForm" autocomplete="off">
+    <div class="row" *ngIf="mode === 'view'">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <h4>
+          <strong>Van/Parking Place to Store Mapping</strong>
+        </h4>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
+        <mat-form-field style="width: 100%">
+          <mat-label>Serviceline</mat-label>
+          <mat-select
+            class="input-full-width"
+            formControlName="service"
+            name="service"
+            required
+            [disabled]="mode !== 'view'"
+          >
+            <mat-option
+              *ngFor="let service of serviceLineList"
+              [value]="service"
+            >
+              {{ service.serviceName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
+        <mat-form-field style="width: 100%">
+          <mat-label>State</mat-label>
+          <mat-select
+            class="input-full-width"
+            formControlName="state"
+            name="state"
+            required
+            [disabled]="mode !== 'view'"
+          >
+            <mat-option *ngFor="let state of stateList" [value]="state">
+              {{ state.stateName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div
+        class="col-xs-12 col-sm-12 col-md-4 col-lg-6"
+        *ngIf="
+          (storeList.length > 0 || filteredStoreList.data.length > 0) &&
+          mode === 'view'
+        "
+      >
+        <div class="row" class="pull-right">
+          <mat-form-field class="input-full-width">
+            <mat-label> In-Table Search </mat-label>
+            <input
+              matInput
+              #filterTerm
+              (keyup)="filterStoreList(filterTerm.value)"
+            />
+            <mat-icon matSuffix>search</mat-icon>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <ng-container *ngIf="mode === 'view'">
+    <div
+      class="row m-t-20"
+      *ngIf="storeSearchForm.value.service && storeSearchForm.value.state"
+    >
+      <div class="col-xs-12 table-responsive">
+        <table
+          mat-table
+          [dataSource]="filteredStoreList"
+          class="table table-striped table-hover"
+        >
+          <!-- S.No. Column -->
+          <ng-container matColumnDef="sno">
+            <th mat-header-cell *matHeaderCellDef>S.No.</th>
+            <td mat-cell *matCellDef="let item; let i = index">{{ i + 1 }}</td>
+          </ng-container>
+
+          <!-- Category Code Column -->
+          <ng-container matColumnDef="facilityName">
+            <th mat-header-cell *matHeaderCellDef>Store</th>
+            <td mat-cell *matCellDef="let item">{{ item.facilityName }}</td>
+          </ng-container>
+
+          <!-- Category Description Column -->
+          <ng-container matColumnDef="storeType">
+            <th mat-header-cell *matHeaderCellDef>Store Type</th>
+            <td mat-cell *matCellDef="let item">{{ item.storeType }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="parkingPlaceName">
+            <th mat-header-cell *matHeaderCellDef>{{ parkAndHub }}</th>
+            <td mat-cell *matCellDef="let item">{{ item.parkingPlaceName }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="vanName">
+            <th mat-header-cell *matHeaderCellDef>{{ vanAndSpoke }}</th>
+            <td mat-cell *matCellDef="let item">{{ item.vanName }}</td>
+          </ng-container>
+          <!-- Edit Column -->
+          <ng-container matColumnDef="edit">
+            <th mat-header-cell *matHeaderCellDef>Edit</th>
+            <td mat-cell *matCellDef="let item">
+              <mat-icon
+                *ngIf="item && (item.parkingPlaceName || item.vanName)"
+                matTooltip="Edit"
+                class="mat-icon material-icons"
+                style="cursor: pointer"
+                (click)="switchToUpdateMode(item)"
+                >edit</mat-icon
+              >
+            </td>
+          </ng-container>
+
+          <!-- Action Column -->
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef>Action</th>
+            <td mat-cell *matCellDef="let item">
+              <button
+                *ngIf="item && (item.parkingPlaceName || item.vanName)"
+                mat-raised-button
+                class="mat_green"
+                color="accent"
+                (click)="deleteMapping(item)"
+              >
+                Unmap
+              </button>
+            </td>
+          </ng-container>
+          <!-- Header and Row Definitions -->
+          <tr
+            mat-header-row
+            *matHeaderRowDef="[
+              'sno',
+              'facilityName',
+              'storeType',
+              'parkingPlaceName',
+              'vanName',
+              'edit',
+              'action'
+            ]"
+          ></tr>
+          <tr
+            mat-row
+            *matRowDef="
+              let row;
+              columns: [
+                'sno',
+                'facilityName',
+                'storeType',
+                'parkingPlaceName',
+                'vanName',
+                'edit',
+                'action'
+              ]
+            "
+          ></tr>
+        </table>
+        <div>
+          <button
+            mat-raised-button
+            color="primary"
+            class="pull-right mat_blue"
+            (click)="switchToCreateMode()"
+          >
+            Map Store
+          </button>
+        </div>
+        <!-- Pagination -->
+        <div
+          *ngIf="filteredStoreList && filteredStoreList.data.length === 0"
+          style="text-align: center; font-size: 16px"
+        >
+          <strong>No records found</strong>
+        </div>
+        <mat-paginator
+          [hidden]="filteredStoreList.data.length === 0"
+          [pageSizeOptions]="[5, 10, 25]"
+          [pageSize]="5"
+          showFirstLastButtons
+        ></mat-paginator>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="mode === 'create'">
+    <app-create-store-mapping
+      [otherDetails]="otherDetails"
+      (modeChange)="switchToViewMode()"
+    ></app-create-store-mapping>
+  </ng-container>
+
+  <ng-container *ngIf="mode === 'update'">
+    <app-update-store-mapping
+      [storeDetails]="storeDetails"
+      (modeChange)="switchToViewMode()"
+    ></app-update-store-mapping>
+  </ng-container>
+</div>

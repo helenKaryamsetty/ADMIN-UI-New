@@ -1,0 +1,329 @@
+<div class="row" *ngIf="searchForm">
+  <div class="col-xs-12 col-sm-12">
+    <h4 class="pull-left">Sub Service</h4>
+  </div>
+  <form #subservices="ngForm" autocomplete="off" class="col-12 row">
+    <div class="col-3 m-t-15">
+      <!-- <mat-form-field [style.width]="'100%'"  class="hide_underline width100">
+        <input matInput style="display:none"> -->
+      <mat-form-field [style.width]="'100%'">
+        <mat-label>Service Provider</mat-label>
+        <mat-select
+          required
+          name="serviceProvider"
+          [(ngModel)]="serviceProvider"
+          (selectionChange)="
+            getServicesFromProvider(serviceProvider.serviceProviderId)
+          "
+        >
+          <mat-option
+            *ngFor="let serviceProviderObj of serviceProviders"
+            [value]="serviceProviderObj"
+          >
+            {{ serviceProviderObj.serviceProviderName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <!-- </mat-form-field> -->
+    </div>
+
+    <div class="col-3 m-t-15">
+      <!-- <mat-form-field [style.width]="'100%'"  class="hide_underline width100">
+        <input matInput style="display:none"> -->
+      <mat-form-field [style.width]="'100%'">
+        <mat-label>Serviceline</mat-label>
+        <mat-select
+          required
+          name="services"
+          [(ngModel)]="serviceObj"
+          (selectionChange)="
+            getAllStatesInService(
+              serviceProvider.serviceProviderId,
+              serviceObj.serviceID
+            );
+            setIsNational(
+              serviceObj.isNational,
+              serviceObj.providerServiceMapID
+            )
+          "
+        >
+          <mat-option *ngFor="let service of services" [value]="service">
+            {{ service.serviceName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <!-- </mat-form-field> -->
+    </div>
+    <div class="col-3 m-t-15">
+      <!-- <mat-form-field [style.width]="'100%'"  class="hide_underline width100">
+        <input matInput style="display:none"> -->
+      <mat-form-field [style.width]="'100%'">
+        <mat-label>State</mat-label>
+        <mat-select
+          required
+          name="state"
+          [disabled]="isNational"
+          [(ngModel)]="state"
+          (selectionChange)="getExistingOnSearch(state.providerServiceMapID)"
+        >
+          <mat-option *ngFor="let stateObj of states" [value]="stateObj">
+            {{ stateObj.stateName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <!-- </mat-form-field> -->
+    </div>
+  </form>
+</div>
+<div class="" style="text-align: end" *ngIf="data.length !== 0 && searchForm">
+  <mat-form-field id="filterbox">
+    <input
+      matInput
+      placeholder="In-Table Search"
+      #filterTerm
+      (keyup)="filterComponentList(filterTerm.value)"
+    />
+    <mat-icon matSuffix>search</mat-icon>
+  </mat-form-field>
+</div>
+<div class="row" *ngIf="searchForm">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="table-responsive">
+      <table
+        mat-table
+        class="table table-striped table-hover"
+        [dataSource]="filtereddata"
+        *ngIf="showTable"
+      >
+        <ng-container matColumnDef="sno">
+          <th mat-header-cell *matHeaderCellDef>SNo.</th>
+          <td mat-cell *matCellDef="let element; let i = index">{{ i + 1 }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="SubService">
+          <th mat-header-cell mat-sort-header *matHeaderCellDef>Sub Service</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.subServiceName }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="Description">
+          <th mat-header-cell *matHeaderCellDef>Description</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.subServiceDesc }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef>Action</th>
+          <td mat-cell *matCellDef="let sub">
+            <button
+              *ngIf="sub.deleted"
+              mat-raised-button
+              class="mat_green"
+              color="accent"
+              (click)="deleteSubService(sub.subServiceID, false)"
+            >
+              Activate
+            </button>
+            <button
+              *ngIf="!sub.deleted"
+              mat-raised-button
+              class="mat_blue"
+              color="primary"
+              (click)="deleteSubService(sub.subServiceID, true)"
+            >
+              Deactivate
+            </button>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+      <div>
+        <button
+          mat-raised-button
+          color="primary"
+          class="pull-right mat_blue"
+          [disabled]="!serviceObj || (!state && !isNational)"
+          (click)="addSubService(false)"
+        >
+          Create Sub Service
+        </button>
+      </div>
+      <div
+        class="pull-center"
+        style="margin-top: 35px; text-align: center"
+        *ngIf="filtereddata.data.length === 0 && state"
+      >
+        <strong>No Records Found</strong>
+      </div>
+      <mat-paginator
+        [hidden]="filtereddata.data.length === 0"
+        [pageSizeOptions]="[5, 10, 20]"
+        [pageSize]="5"
+        showFirstLastButtons
+      >
+      </mat-paginator>
+    </div>
+  </div>
+</div>
+<div class="row" *ngIf="!searchForm">
+  <div class="col-xs-12 col-sm-12">
+    <h4 class="pull-left">Sub Service Mapping</h4>
+  </div>
+  <form #form="ngForm" autocomplete="off" id="addingForm" class="col-12 row">
+    <div class="col-3 m-t-15">
+      <!-- <mat-form-field [style.width]="'100%'"  class="hide_underline width100">
+        <input matInput style="display:none"> -->
+      <mat-form-field [style.width]="'100%'">
+        <mat-label>Service Provider</mat-label>
+        <mat-select
+          required
+          name="serviceProvider"
+          [(ngModel)]="serviceProvider"
+          (selectionChange)="
+            getServicesFromProvider(serviceProvider.serviceProviderId)
+          "
+          disabled
+        >
+          <mat-option
+            *ngFor="let serviceProviderObj of serviceProviders"
+            [value]="serviceProviderObj"
+          >
+            {{ serviceProviderObj.serviceProviderName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <!-- </mat-form-field> -->
+    </div>
+
+    <div class="col-3 m-t-15">
+      <!-- <mat-form-field [style.width]="'100%'"  class="hide_underline width100">
+        <input matInput style="display:none"> -->
+      <mat-form-field [style.width]="'100%'">
+        <mat-label>Serviceline</mat-label>
+        <mat-select
+          required
+          name="services"
+          [(ngModel)]="serviceObj"
+          (selectionChange)="
+            getAllStatesInService(
+              serviceProvider.serviceProviderId,
+              serviceObj.serviceID
+            );
+            setIsNational(
+              serviceObj.isNational,
+              serviceObj.providerServiceMapID
+            )
+          "
+          disabled
+        >
+          <mat-option *ngFor="let service of services" [value]="service">
+            {{ service.serviceName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <!-- </mat-form-field> -->
+    </div>
+    <div class="col-3 m-t-15">
+      <!-- <mat-form-field [style.width]="'100%'"  class="hide_underline width100">
+        <input matInput style="display:none"> -->
+      <mat-form-field [style.width]="'100%'">
+        <mat-label>State</mat-label>
+        <mat-select
+          required
+          name="state"
+          [(ngModel)]="state"
+          (selectionChange)="getExistingOnSearch(state.providerServiceMapID)"
+          disabled
+        >
+          <mat-option *ngFor="let stateObj of states" [value]="stateObj">
+            {{ stateObj.stateName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <!-- </mat-form-field> -->
+    </div>
+    <div
+      class="col-xs-12 col-sm-4 col-md-8 col-lg-8"
+      *ngIf="subServiceAvailable"
+    >
+      <span class="errorText"
+        >No Sub Service available please select different service
+      </span>
+    </div>
+    <div
+      class="col-xs-12 col-sm-4 col-md-8 col-lg-8 m-t-20"
+      *ngIf="allServicesAdded"
+    >
+      <span class="errorText">All states mapped </span>
+    </div>
+    <!-- </form>
+  <form #resetFieldsForm="ngForm" id="form2" autocomplete="off"> -->
+    <div class="col-12 row p-l-0" style="width: 100%; margin-left: 0px">
+      <div class="col-3" *ngIf="!subServiceAvailable && !allServicesAdded">
+        <!-- <mat-form-field [style.width]="'100%'"  class="hide_underline width100">
+          <input matInput style="display:none"> -->
+        <mat-form-field [style.width]="'100%'">
+          <mat-label>Sub Services</mat-label>
+          <mat-select name="subService" [(ngModel)]="subService" required>
+            <mat-option
+              *ngFor="let subService of subServices"
+              [value]="subService"
+            >
+              {{ subService.subServiceName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <!-- </mat-form-field> -->
+      </div>
+      <div class="col-3" *ngIf="!subServiceAvailable && !allServicesAdded">
+        <mat-form-field [style.width]="'100%'" appMyProviderName>
+          <mat-label>Sub Service Description</mat-label>
+          <input
+            id="description"
+            required
+            matInput
+            [(ngModel)]="subServiceDesc"
+            name="subServiceDesc"
+            maxlength="50"
+          />
+        </mat-form-field>
+      </div>
+    </div>
+  </form>
+  <div
+    class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10"
+    style="margin-bottom: 20px"
+  >
+    <button
+      mat-raised-button
+      color="primary"
+      type="button"
+      class="pull-left mat_blue"
+      (click)="back()"
+    >
+      Back
+    </button>
+    <button
+      *ngIf="!subServiceAvailable && !allServicesAdded"
+      mat-raised-button
+      color="accent"
+      type="button"
+      class="pull-right mat_green"
+      [disabled]="form.invalid"
+      (click)="
+        add(serviceProvider, state, serviceObj, subService, subServiceDesc)
+      "
+    >
+      Save
+    </button>
+  </div>
+</div>

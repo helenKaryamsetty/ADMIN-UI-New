@@ -1,0 +1,77 @@
+<div class="row">
+  <div class="pull-left m-l-15">
+    <h4 class="modal-title">Edit Category</h4>
+  </div>
+  <div class="pull-right">
+    <button mat-button class="pull-right" [mat-dialog-close]="true">
+      <mat-icon
+        matTooltip="close"
+        class="mat-icon material-icons pull-right"
+        role="img"
+        aria-hidden="true"
+        style="cursor: pointer"
+        >clear
+      </mat-icon>
+    </button>
+  </div>
+</div>
+<div class="row m-t-20">
+  <form #editCategoryCreationForm="ngForm" autocomplete="off">
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+      <mat-form-field class="width100">
+        <mat-label>Category Code</mat-label>
+        <input
+          matInput
+          [(ngModel)]="code"
+          name="code"
+          minlength="1"
+          maxlength="10"
+          #itemCode="ngModel"
+          disabled="true"
+          required
+        />
+      </mat-form-field>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+      <mat-form-field class="width100">
+        <mat-label>Category Name</mat-label>
+        <input
+          matInput
+          [(ngModel)]="name"
+          name="name"
+          minlength="1"
+          maxlength="50"
+          #itemName="ngModel"
+          disabled="true"
+          required
+        />
+      </mat-form-field>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+      <mat-form-field class="width100">
+        <mat-label>Category Description</mat-label>
+        <input
+          matInput
+          [(ngModel)]="desc"
+          name="desc"
+          #itemDesc="ngModel"
+          minlength="1"
+          maxlength="50"
+          required
+        />
+      </mat-form-field>
+    </div>
+    <div class="clearfix"></div>
+  </form>
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-20">
+    <button
+      mat-raised-button
+      color="accent"
+      class="pull-right"
+      [disabled]="editCategoryCreationForm.pristine"
+      (click)="update()"
+    >
+      Update
+    </button>
+  </div>
+</div>

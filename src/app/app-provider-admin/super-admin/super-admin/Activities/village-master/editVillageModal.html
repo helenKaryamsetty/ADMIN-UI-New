@@ -1,0 +1,161 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-6 col-sm-6 col-md-9 col-lg-9">
+      <h4 mat-dialog-title class="modal-title" style="margin: unset">
+        Edit Village Details
+      </h4>
+    </div>
+    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+      <button
+        mat-button
+        class="pull-right p-r-0"
+        [mat-dialog-close]="true"
+        style="background-color: unset; border: unset; margin: 20px"
+      >
+        <mat-icon
+          mdTooltip="close"
+          class="mat-icon material-icons pull-right"
+          role="img"
+          aria-hidden="true"
+          style="cursor: pointer"
+          >clear</mat-icon
+        >
+      </button>
+    </div>
+  </div>
+  <div class="col-12">
+    <form #editVillageform="ngForm" autocomplete="off" class="row">
+      <div class="col-6">
+        <mat-form-field [style.width]="'100%'">
+          <mat-label>Village</mat-label>
+          <input
+            matInput
+            required
+            [(ngModel)]="villageName"
+            name="villageName"
+            #VillageN="ngModel"
+            (keyup)="checkExistance_edit(villageName)"
+            maxlength="30"
+            pattern="^([a-zA-Z]+\s?)*\s*$"
+          />
+          <mat-hint>
+            <span
+              class="error_text"
+              *ngIf="!VillageN.valid && (VillageN.dirty || VillageN.touched)"
+              >Please enter Village Name</span
+            >
+            <span class="error_text" *ngIf="VillageN.valid && villageExist"
+              >Village already exists</span
+            >
+          </mat-hint>
+        </mat-form-field>
+      </div>
+      <div class="col-6">
+        <mat-form-field [style.width]="'100%'">
+          <mat-label>Panchayat</mat-label>
+          <input
+            matInput
+            [(ngModel)]="panchayatName"
+            maxlength="30"
+            name="panchayatName"
+            myName2
+          />
+        </mat-form-field>
+      </div>
+      <div class="col-6">
+        <mat-form-field [style.width]="'100%'">
+          <mat-label>Habitat</mat-label>
+          <input
+            matInput
+            [(ngModel)]="habitat"
+            maxlength="30"
+            name="habitat"
+            myName2
+          />
+        </mat-form-field>
+      </div>
+
+      <div class="col-6">
+        <mat-form-field [style.width]="'100%'" appMyMobileNumber>
+          <mat-label>Pincode</mat-label>
+          <input
+            matInput
+            [(ngModel)]="pinCode"
+            name="pinCode"
+            maxlength="6"
+            minlength="6"
+            #PINC="ngModel"
+          />
+          <mat-hint [hidden]="PINC.valid">
+            <span
+              class="error_text"
+              *ngIf="!PINC.valid && (PINC.dirty || PINC.touched)"
+              >Please enter valid pincode</span
+            >
+          </mat-hint>
+        </mat-form-field>
+      </div>
+      <div class="col-6">
+        <mat-form-field [style.width]="'100%'">
+          <mat-label>Village LGD Code</mat-label>
+          <input
+            matInput
+            [(ngModel)]="govVillageID"
+            name="govVillageID"
+            #VillageLGD="ngModel"
+            maxlength="6"
+            appMyMobileNumber
+            required
+          />
+          <mat-hint>
+            <span
+              class="error_text"
+              *ngIf="
+                !VillageLGD.valid && (VillageLGD.dirty || VillageLGD.touched)
+              "
+              >Please enter valid Village LGD Code</span
+            >
+          </mat-hint>
+        </mat-form-field>
+      </div>
+      <div class="col-6">
+        <mat-form-field [style.width]="'100%'">
+          <mat-label>Sub District LGD Code</mat-label>
+          <input
+            matInput
+            [(ngModel)]="govSubDistrictID"
+            name="govSubDistrictID"
+            maxlength="6"
+            appMyMobileNumber
+          />
+        </mat-form-field>
+      </div>
+      <div class="col-10">
+        <span class="f-s-n-b"><strong>Village Type</strong></span>
+        <mat-radio-group [(ngModel)]="isRural" name="isRural" appMyMobileNumber>
+          <mat-radio-button color="primary" class="p-l-10 f-s-12" [value]="true"
+            >Rural Area</mat-radio-button
+          >
+          <mat-radio-button
+            color="primary"
+            class="p-l-10 f-s-12"
+            [value]="false"
+            >Urban Area</mat-radio-button
+          >
+        </mat-radio-group>
+      </div>
+    </form>
+  </div>
+  <div class="  ">
+    <button
+      mat-raised-button
+      color="accent"
+      class="pull-right mat_green"
+      style="margin-bottom: 20px"
+      [disabled]="editVillageform.invalid || villageExist"
+      (click)="update(editVillageform.value)"
+    >
+      Update
+    </button>
+  </div>
+</div>

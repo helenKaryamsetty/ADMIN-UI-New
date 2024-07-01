@@ -20,15 +20,14 @@
  * along with this program.  If not, see https://www.gnu.org/licenses/.
  */
 import { Component, OnInit } from '@angular/core';
-// import { dataService } from '../services/dataService/data.service';
-// import { loginService } from '../services/loginService/login.service';
-// import { Router } from '@angular/router';
-// import { HttpServices } from '../services/http-services/http_services.service';
-// import { PlatformLocation } from '@angular/common';
-// import { ConfigService } from '../services/config/config.service';
+import { Router } from '@angular/router';
+import { PlatformLocation } from '@angular/common';
 // import { JsonpModule } from '@angular/http';
-// import { MdDialog } from '@angular/material';
-// import { ViewVersionDetailsComponent } from '../view-version-details/view-version-details.component';
+import { MatDialog } from '@angular/material/dialog';
+import { ViewVersionDetailsComponent } from '../core/components/view-version-details/view-version-details.component';
+import { ConfigService } from '../core/services/config/config.service';
+import { HttpServices } from '../core/services/http-services/http_services.service';
+import { loginService } from '../user-login/loginService/login.service';
 
 declare let jQuery: any;
 
@@ -37,131 +36,134 @@ declare let jQuery: any;
   templateUrl: './multi-role-screen.component.html',
   styleUrls: ['./multi-role-screen.component.css'],
 })
-export class MultiRoleScreenComponent  {
-  // id: any;
-  // role: any;
-  // api_versionDetails: any;
-  // version: any;
-  // uiVersionDetails: any;
+export class MultiRoleScreenComponent implements OnInit {
+  id: any;
+  role: any;
+  api_versionDetails: any;
+  version: any;
+  uiVersionDetails: any;
 
-  // constructor(
-  //   public getCommonData: dataService,
-  //   public router: Router,
-  //   location: PlatformLocation,
-  //   public HttpServices: HttpServices,
-  //   public _loginService: loginService,
-  //   public configService: ConfigService,
-  //   private dialog: MdDialog,
-  // ) {
-  //   location.onPopState((e: any) => {
-  //     window.history.forward();
-  //   });
-  //   this.role = this.getCommonData.role;
-  //   this.id = this.getCommonData.uid;
-  //   console.log(this.role, 'ROLE NAME AS OF NOW');
-  // }
+  constructor(
+    public router: Router,
+    location: PlatformLocation,
+    public HttpServices: HttpServices,
+    public _loginService: loginService,
+    public configService: ConfigService,
+    private dialog: MatDialog,
+  ) {
+    location.onPopState((e: any) => {
+      window.history.forward();
+    });
+    this.role = sessionStorage.getItem('role');
+    this.id = sessionStorage.getItem('uid');
+    console.log(this.role, 'ROLE NAME AS OF NOW');
+  }
 
-  // data: any;
-  // languageFilePath: any = 'assets/languages.json';
-  // selectedlanguage: any = '';
-  // currentlanguageSet: any = {};
-  // language_change: any;
-  // license: any;
-  // commitDetailsPath: any = 'assets/git-version.json';
-  // commitDetails: any;
+  data: any;
+  languageFilePath: any = 'assets/english.json';
+  selectedlanguage: any = '';
+  currentlanguageSet: any = {};
+  language_change: any;
+  license: any;
+  commitDetailsPath: any = 'assets/git-version.json';
+  commitDetails: any;
 
-  // ngOnInit() {
-  //   this.language_change = 'english';
-  //   this.data = this.getCommonData.Userdata;
-  //   // this.router.navigate(['/MultiRoleScreenComponent']);
-  //   this.getLanguageObject(this.language_change);
-  //   this.getLicense();
-  //   this.getCommitDetails();
-  // }
-  // getCommitDetails() {
-  //   const Data = this.commitDetailsPath;
-  //   this.HttpServices.getCommitDetails(this.commitDetailsPath).subscribe(
-  //     (res) => this.successhandeler1(res),
-  //     (err) => this.successhandeler1(err),
-  //   );
-  // }
-  // // langauge POC stuff
+  ngOnInit() {
+    this.language_change = 'english';
+    console.log('userdata', sessionStorage.getItem('Userdata'));
+    this.data = sessionStorage.getItem('Userdata');
+    this.data = JSON.parse(this.data);
+    // this.router.navigate(['/MultiRoleScreenComponent']);
+    this.getLanguageObject(this.language_change);
+    this.getLicense();
+    this.getCommitDetails();
+  }
+  getCommitDetails() {
+    const Data = this.commitDetailsPath;
+    this.HttpServices.getCommitDetails(this.commitDetailsPath).subscribe(
+      (res) => this.successhandeler1(res),
+      (err) => this.successhandeler1(err),
+    );
+  }
+  // langauge POC stuff
 
-  // getLanguageObject(language) {
-  //   this.selectedlanguage = language;
-  //   console.log('language asked for is:', language);
-  //   this.HttpServices.getData(this.languageFilePath).subscribe(
-  //     (response) => this.successhandeler(response, language),
-  //     (err) => this.successhandeler(err, language),
-  //   );
-  // }
+  getLanguageObject(language: any) {
+    this.selectedlanguage = language;
+    console.log('language asked for is:', language);
+    this.HttpServices.getData(this.languageFilePath).subscribe(
+      (response) => this.successhandeler(response, language),
+      (err) => this.successhandeler(err, language),
+    );
+  }
 
-  // successhandeler1(response) {
-  //   this.commitDetails = response;
-  //   this.uiVersionDetails = {
-  //     Version: this.commitDetails['version'],
-  //     Commit: this.commitDetails['commit'],
-  //   };
-  // }
+  successhandeler1(response: any) {
+    this.commitDetails = response;
+    this.uiVersionDetails = {
+      Version: this.commitDetails['version'],
+      Commit: this.commitDetails['commit'],
+    };
+  }
 
-  // successhandeler(response, language) {
-  //   console.log(response, 'language response');
-  //   this.currentlanguageSet = response[language];
+  successhandeler(response: any, language: any) {
+    console.log(response, 'language response');
+    this.currentlanguageSet = response[language];
 
-  //   // var languageEvent = jQuery.Event("changed_language", response[language]);
-  //   // jQuery(window).trigger(languageEvent);
-  // }
+    // var languageEvent = jQuery.Event("changed_language", response[language]);
+    // jQuery(window).trigger(languageEvent);
+  }
 
-  // logOut() {
-  //   this._loginService.removeTokenFromRedis().subscribe(
-  //     (response) => {
-  //       if (response.response.toLowerCase() === 'success'.toLowerCase()) {
-  //         console.log(
-  //           'successfully logged out from CRM and session ended both sides',
-  //         );
-  //         sessionStorage.removeItem('authToken');
-  //         this.router.navigate(['']);
-  //       }
-  //     },
-  //     (err) => {
-  //       console.log(err, 'error while ending session both sides');
-  //     },
-  //   );
-  // }
-  // logOutKeyUp(event: KeyboardEvent): void {
-  //   if (event.key === 'Enter' || event.key === '') {
-  //     console.log('button entered via key board');
-  //   }
-  // }
-  // getLicense() {
-  //   const getPath = this.configService.getCommonBaseURL();
-  //   this.license = getPath + 'license.html';
-  // }
+  logOut() {
+    this._loginService.removeTokenFromRedis().subscribe(
+      (response) => {
+        if (response) {
+          console.log(
+            'successfully logged out from CRM and session ended both sides',
+          );
+          sessionStorage.removeItem('authToken');
+          this.router.navigate(['']);
+        }
+      },
+      (err) => {
+        console.log(err, 'error while ending session both sides');
+      },
+    );
+  }
+  logOutKeyUp() {
+    // if (event.key === 'Enter' || event.key === '') {
+    console.log('button entered via key board');
+    // }
+  }
+  getLicense() {
+    const getPath = this.configService.getCommonBaseURL();
+    this.license = getPath + 'license.html';
+  }
 
-  // viewVersionDetails() {
-  //   this._loginService.getApiVersionDetails().subscribe((apiResponse) => {
-  //     console.log('apiResponse', apiResponse);
-  //     if (apiResponse.statusCode === 200) {
-  //       const api_versionDetails = {
-  //         Version: apiResponse.data['git.build.version'],
-  //         Commit: apiResponse.data['git.commit.id'],
-  //       };
-  //       if (api_versionDetails) {
-  //         this.openVersionDialogComponent(api_versionDetails);
-  //       }
-  //     }
-  //   }),
-  //     (err) => {
-  //       console.log(err, 'error');
-  //     };
-  // }
-  // openVersionDialogComponent(api_versionDetails) {
-  //   this.dialog.open(ViewVersionDetailsComponent, {
-  //     width: '80%',
-  //     data: {
-  //       uiversionDetails: this.uiVersionDetails,
-  //       api_versionDetails: api_versionDetails,
-  //     },
-  //   });
-  // }
+  viewVersionDetails() {
+    this._loginService.getApiVersionDetails().subscribe((apiResponse) => {
+      console.log('apiResponse', apiResponse);
+      if (apiResponse) {
+        const api_versionDetails = {
+          Version: apiResponse,
+          // data['git.build.version'],
+          Commit: apiResponse,
+          // data['git.commit.id'],
+        };
+        if (api_versionDetails) {
+          this.openVersionDialogComponent(api_versionDetails);
+        }
+      }
+    }),
+      (err: any) => {
+        console.log(err, 'error');
+      };
+  }
+  openVersionDialogComponent(api_versionDetails: any) {
+    this.dialog.open(ViewVersionDetailsComponent, {
+      width: '80%',
+      data: {
+        uiversionDetails: this.uiVersionDetails,
+        api_versionDetails: api_versionDetails,
+      },
+    });
+  }
 }

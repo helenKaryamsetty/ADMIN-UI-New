@@ -1,0 +1,98 @@
+<div class="title">
+  <h4>LOINC Code Selection</h4>
+  <button
+    mat-icon-button
+    matDialogClose
+    tooltip="Close"
+    class="pull-right exit width-20px"
+  >
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+<div class="container-fluid">
+  <div class="overlay" *ngIf="showProgressBar">
+    <div class="overlay-content">
+      <mat-spinner></mat-spinner>
+    </div>
+  </div>
+  <mat-dialog-content>
+    <div class="table-responsive">
+      <table
+        mat-table
+        class="table table-striped table-hover"
+        [dataSource]="components"
+      >
+        <ng-container matColumnDef="loinc_Num">
+          <th mat-header-cell *matHeaderCellDef>LOINC No</th>
+          <td mat-cell *matCellDef="let element">{{ element.loinc_Num }}</td>
+        </ng-container>
+        <ng-container matColumnDef="component">
+          <th mat-header-cell *matHeaderCellDef>COMPONENT</th>
+          <td mat-cell *matCellDef="let element">{{ element.component }}</td>
+        </ng-container>
+        <ng-container matColumnDef="system">
+          <th mat-header-cell *matHeaderCellDef>SYSTEM</th>
+          <td mat-cell *matCellDef="let element">{{ element.system }}</td>
+        </ng-container>
+        <ng-container matColumnDef="class1">
+          <th mat-header-cell *matHeaderCellDef>CLASS</th>
+          <td mat-cell *matCellDef="let element">{{ element.class1 }}</td>
+        </ng-container>
+        <ng-container matColumnDef="long_common_name">
+          <th mat-header-cell *matHeaderCellDef>LONG COMMON NAME</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.long_common_name }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="radiobutton">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let element">
+            <mat-radio-group
+              name="componentValue"
+              (change)="
+                selectComponentName(element.loinc_Num, element.component)
+              "
+            >
+              <mat-radio-button
+                [checked]="element.loinc_Num === selectedItem"
+                color="primary"
+                value="Yes"
+              >
+              </mat-radio-button>
+            </mat-radio-group>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+      <div
+        class="pull-center"
+        style="margin-top: 35px; text-align: center"
+        *ngIf="components.data.length === 0"
+      >
+        <strong>No Records Found</strong>
+      </div>
+      <mat-paginator
+        [hidden]="components.data.length === 0"
+        [pageSizeOptions]="[5, 10, 20]"
+        [pageSize]="5"
+        showFirstLastButtons
+      >
+      </mat-paginator>
+    </div>
+    <div class="row m-b-20">
+      <div class="col-xs-12" *ngIf="components.data.length !== 0">
+        <button
+          mat-raised-button
+          class="pull-right mat_blue"
+          (click)="submitComponentList()"
+          [disabled]="selectedComponent === null"
+          color="primary"
+        >
+          Submit
+        </button>
+      </div>
+    </div>
+  </mat-dialog-content>
+</div>

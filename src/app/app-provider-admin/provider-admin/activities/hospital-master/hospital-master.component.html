@@ -1,0 +1,531 @@
+<div class="container-fluid">
+  <div class="row display-flex">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="!showFormFlag">
+      <h4 class="pull-left">Institution Master</h4>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="showFormFlag">
+      <h4 class="pull-left">Create Institution</h4>
+    </div>
+    <form class="display-flex" #hospital="ngForm" autocomplete="off">
+      <div class="display-flex-box">
+        <mat-form-field [style.width]="'100%'">
+          <mat-label>Serviceline</mat-label>
+          <mat-select
+            required
+            disabled="{{ disabled_flag }}"
+            [(ngModel)]="service"
+            name="service"
+          >
+            <mat-option
+              *ngFor="let item of services"
+              [value]="item.serviceID"
+              (click)="getStates(item.serviceID, item.isNational)"
+            >
+              {{ item.serviceName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="display-flex-box">
+        <mat-form-field [style.width]="'100%'">
+          <mat-label>State</mat-label>
+          <mat-select
+            required
+            disabled="{{ disabled_flag }}"
+            [(ngModel)]="state"
+            name="state"
+            (selectionChange)="
+              getDistrict(state); setProviderServiceMapID(state)
+            "
+          >
+            <mat-option *ngFor="let item of states" [value]="item.stateID">
+              {{ item.stateName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div clear-fix></div>
+      <div class="display-flex-box">
+        <mat-form-field [style.width]="'100%'">
+          <mat-label>District</mat-label>
+          <mat-select
+            required
+            disabled="{{ disabled_flag }}"
+            [(ngModel)]="district"
+            name="district"
+            (selectionChange)="getInstitutions(); getTaluk(district)"
+          >
+            <mat-option
+              *ngFor="let item of districts"
+              [value]="item.districtID"
+            >
+              {{ item.districtName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="display-flex-box">
+        <mat-form-field [style.width]="'100%'">
+          <mat-label>Taluk</mat-label>
+          <mat-select
+            disabled="{{ disabled_flag }}"
+            [(ngModel)]="taluk"
+            name="taluk"
+            (selectionChange)="getInstitutions()"
+          >
+            <mat-option *ngFor="let item of taluks" [value]="item.blockID">
+              {{ item.blockName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </form>
+  </div>
+  <div *ngIf="searchResultArray.length !== 0 && showTableFlag">
+    <div class="" style="text-align: end">
+      <mat-form-field id="filterbox">
+        <input
+          matInput
+          placeholder="In-Table Search"
+          #filterTerm
+          (keyup)="filterComponentList(filterTerm.value)"
+        />
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row" *ngIf="showTableFlag">
+    <div class="col-xs-12 col-sm-12 m-t-5">
+      <div class="table-responsive">
+        <table
+          mat-table
+          [dataSource]="filteredsearchResultArray"
+          class="table table-striped table-hover"
+        >
+          <ng-container matColumnDef="SNo">
+            <th mat-header-cell *matHeaderCellDef>S.No.</th>
+            <td mat-cell *matCellDef="let element; let i = index">
+              {{ i + 1 }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="InstitutionName">
+            <th mat-header-cell *matHeaderCellDef>Institution Name</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.institutionName }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="Address">
+            <th mat-header-cell *matHeaderCellDef>Address</th>
+            <td mat-cell *matCellDef="let element">{{ element.address }}</td>
+          </ng-container>
+          <ng-container matColumnDef="Website">
+            <th mat-header-cell *matHeaderCellDef>Website</th>
+            <td mat-cell *matCellDef="let element">{{ element.website }}</td>
+          </ng-container>
+          <ng-container matColumnDef="ContactPerson">
+            <th mat-header-cell *matHeaderCellDef>Contact Person</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.contactPerson1 }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="ContactNumber">
+            <th mat-header-cell *matHeaderCellDef>Contact Number</th>
+            <td mat-cell *matCellDef="let element">{{ element.contactNo1 }}</td>
+          </ng-container>
+          <ng-container matColumnDef="EmailID">
+            <th mat-header-cell *matHeaderCellDef>Email ID</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.contactPerson1_Email }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="edit">
+            <th mat-header-cell *matHeaderCellDef>Edit</th>
+            <td mat-cell *matCellDef="let element">
+              <md-icon
+                matTooltip="Edit"
+                *ngIf="!element.deleted"
+                class="mat-icon material-icons"
+                role="img"
+                aria-hidden="true"
+                style="cursor: pointer"
+                (click)="openEditModal(element)"
+                >edit</md-icon
+              >
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Action</th>
+            <td mat-cell *matCellDef="let element">
+              <button
+                *ngIf="element.deleted"
+                mat-raised-button
+                class="mat_green"
+                color="accent"
+                (click)="toggleActivate(element.institutionID, false)"
+              >
+                Activate
+              </button>
+              <button
+                *ngIf="!element.deleted"
+                mat-raised-button
+                class="mat_blue"
+                color="primary"
+                (click)="toggleActivate(element.institutionID, true)"
+              >
+                Deactivate
+              </button>
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+        <div
+          class="pull-center"
+          style="margin-top: 35px; text-align: center"
+          *ngIf="filteredsearchResultArray.data.length === 0"
+        >
+          <strong>No Records Found</strong>
+        </div>
+        <mat-paginator
+          [hidden]="filteredsearchResultArray.data.length === 0"
+          [pageSizeOptions]="[5, 10, 25]"
+          [pageSize]="5"
+          showFirstLastButtons
+        ></mat-paginator>
+        <div>
+          <button
+            mat-raised-button
+            color="primary"
+            class="pull-right mat_blue"
+            [disabled]="!taluk"
+            (click)="showForm()"
+          >
+            Add Hospital
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br />
+  <h4 class="m-t-10" *ngIf="enableUPload">Add Hospital</h4>
+  <form
+    class="display-flex"
+    (ngSubmit)="onSubmit()"
+    #uploadForm="ngForm"
+    *ngIf="enableUPload"
+  >
+    <div class="m-t-25">
+      <!--<md-radio-group name="choice" ngModel required>
+          <md-radio-button  class="m-r-10" nam [value]="Add Hospital" color="primary">
+            Add Hospital
+          </md-radio-button>
+        </md-radio-group>-->
+    </div>
+    <div class="m-t-20 display-flex-box">
+      <mat-label for="upload-file" *ngIf="file !== undefined"
+        >Upload File(Size :{{ file.size / 1024 / 1024 }}/{{
+          maxFileSize
+        }}MB)</mat-label
+      >
+      <mat-label for="upload-file" *ngIf="file === undefined"
+        >Upload File(Size :0/{{ maxFileSize }}MB), Supported File Formats(.xls,
+        .xlsx, .xlsm, .xlsb)</mat-label
+      >
+      <input
+        class="m-t-10"
+        type="file"
+        accept=".xls, .xlsx, .xlsm, .xlsb"
+        size="100"
+        placeholder="Upload file"
+        id="upload-file"
+        (change)="onFileUpload($event)"
+        name="fileList"
+        ngModel
+        #uploadfile="ngModel"
+      />
+      <span class="help-block" *ngIf="inValidFileName">Invalid file name</span>
+      <span class="help-block" *ngIf="invalid_file_flag"
+        >Supported File Formats(.xls, .xlsx, .xlsm, .xlsb)</span
+      >
+      <span class="file-upload" *ngIf="error1"
+        >*Please choose a file for upload</span
+      >
+      <span class="help-block" *ngIf="error2"
+        >File size should not exceed {{ maxFileSize }}MB</span
+      >
+    </div>
+    <div class="m-t-20 display-flex-box">
+      <button
+        mat-raised-button
+        class="pull-left mat_green"
+        color="accent"
+        type="submit"
+        [disabled]="
+          !uploadForm.valid ||
+          invalid_file_flag ||
+          enableUPloadButton ||
+          error2 ||
+          inValidFileName
+        "
+      >
+        Upload
+      </button>
+    </div>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+  </form>
+
+  <div class="row" *ngIf="showFormFlag">
+    <form class="display-flex" #institutionForm1="ngForm" autocomplete="off">
+      <div class="display-flex-box">
+        <mat-form-field [style.width]="'100%'">
+          <mat-label>Institution Type</mat-label>
+          <mat-select
+            required
+            [(ngModel)]="institutionType"
+            name="institutionType"
+          >
+            <mat-option *ngFor="let inst of InstitutionTypes" [value]="inst">
+              {{ inst.institutionType }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="display-flex-box" myName2>
+        <mat-form-field [style.width]="'100%'" style="width: 100%">
+          <mat-label>Institution Name</mat-label>
+          <input
+            matInput
+            allowText="alphaspace"
+            [(ngModel)]="institutionName"
+            name="institutionName"
+            minlength="3"
+            maxlength="100"
+            required
+            #validInstitutionName="ngModel"
+            myName2
+          />
+          <mat-hint *ngIf="validInstitutionName.touched">
+            <span class="errorText" [hidden]="!validInstitutionName.errors"
+              >Enter atleast 3 characters</span
+            >
+          </mat-hint>
+        </mat-form-field>
+      </div>
+      <div class="display-flex-box">
+        <mat-form-field [style.width]="'100%'" style="width: 100%">
+          <mat-label>Address</mat-label>
+          <input
+            matInput
+            appMyAddressDirective
+            maxlength="300"
+            [(ngModel)]="address"
+            name="address"
+            required
+          />
+        </mat-form-field>
+      </div>
+
+      <div class="display-flex-box">
+        <mat-form-field [style.width]="'100%'" style="width: 100%">
+          <mat-label>Website</mat-label>
+          <input
+            matInput
+            [pattern]="website_expression"
+            [(ngModel)]="website"
+            name="website"
+            #valid_website="ngModel"
+          />
+          <mat-hint
+            class="errorText"
+            [hidden]="!valid_website.hasError('pattern')"
+            >Enter valid Website
+          </mat-hint>
+        </mat-form-field>
+      </div>
+
+      <div class="display-flex-box" myName2>
+        <mat-form-field [style.width]="'100%'" style="width: 100%">
+          <mat-label>Primary Contact Person</mat-label>
+          <input
+            matInput
+            [(ngModel)]="contact_person_name"
+            name="contact_person_name"
+            minlength="2"
+            maxlength="50"
+            #valid_contactname="ngModel"
+          />
+          <mat-hint>
+            <span
+              class="errorText"
+              *ngIf="valid_contactname.errors && valid_contactname.touched"
+              >Enter atleast 2 characters</span
+            >
+          </mat-hint>
+        </mat-form-field>
+      </div>
+      <div class="display-flex-box" myMobileNumber>
+        <mat-form-field [style.width]="'100%'" style="width: 100%">
+          <mat-label>Primary Contact Number</mat-label>
+          <input
+            matInput
+            minlength="10"
+            maxlength="10"
+            [(ngModel)]="contact_number"
+            name="contact_number"
+            #validMobileNumber="ngModel"
+            [pattern]="mobileNoPattern"
+          />
+          <mat-hint>
+            <span
+              class="errorText"
+              [hidden]="!validMobileNumber.hasError('pattern')"
+              >Required 10 digit valid mobile number</span
+            >
+          </mat-hint>
+        </mat-form-field>
+      </div>
+      <div class="display-flex-box">
+        <mat-form-field [style.width]="'100%'" style="width: 100%">
+          <mat-label>Primary Email ID</mat-label>
+          <input
+            matInput
+            type="email"
+            [(ngModel)]="emailID"
+            name="emailID"
+            [pattern]="email_expression"
+            #validEmail="ngModel"
+          />
+          <mat-hint class="errorText" [hidden]="!validEmail.hasError('pattern')"
+            >Valid Email ID is required
+          </mat-hint>
+        </mat-form-field>
+      </div>
+
+      <div class="display-flex-box" myName2>
+        <mat-form-field [style.width]="'100%'" style="width: 100%">
+          <mat-label>Secondary Contact Person</mat-label>
+          <input
+            matInput
+            [(ngModel)]="secondary_contact_person_name"
+            (keyup)="enableSecNumberAndEmailFields()"
+            name="secondary_contact_person_name"
+            minlength="2"
+            maxlength="50"
+            #validContactname1="ngModel"
+          />
+        </mat-form-field>
+      </div>
+      <div class="display-flex-box" myMobileNumber>
+        <mat-form-field [style.width]="'100%'" style="width: 100%">
+          <mat-label>Secondary Contact Number</mat-label>
+          <input
+            matInput
+            minlength="10"
+            maxlength="10"
+            [(ngModel)]="secondary_contact_number"
+            disabled="{{ disableSecFields }}"
+            name="secondary_contact_number"
+            #validMobileNumber1="ngModel"
+            [pattern]="mobileNoPattern"
+          />
+        </mat-form-field>
+      </div>
+
+      <div class="display-flex-box">
+        <mat-form-field [style.width]="'100%'" style="width: 100%">
+          <mat-label>Secondary Email ID</mat-label>
+          <input
+            matInput
+            type="email"
+            [(ngModel)]="secondary_emailID"
+            name="secondary_emailID"
+            [pattern]="email_expression"
+            #validEmail1="ngModel"
+            disabled="{{ disableSecFields }}"
+          />
+          <mat-hint
+            class="errorText"
+            [hidden]="!validEmail1.hasError('pattern')"
+            >Valid Email ID is required
+          </mat-hint>
+        </mat-form-field>
+      </div>
+
+      <div class="display-flex-box" myName2>
+        <mat-form-field [style.width]="'100%'" style="width: 100%">
+          <mat-label>Tertiary Contact Person</mat-label>
+          <input
+            matInput
+            [(ngModel)]="tertiary_contact_person_name"
+            (keyup)="enableTertiaryNumberAndEmailFields()"
+            name="tertiary_contact_person_name"
+            minlength="2"
+            maxlength="50"
+            #validContactname2="ngModel"
+          />
+        </mat-form-field>
+      </div>
+      <div class="display-flex-box" myMobileNumber>
+        <mat-form-field [style.width]="'100%'" style="width: 100%">
+          <mat-label>Tertiary Contact Number</mat-label>
+          <input
+            matInput
+            minlength="10"
+            maxlength="10"
+            [(ngModel)]="tertiary_contact_number"
+            disabled="{{ disableTertiaryFields }}"
+            name="tertiary_contact_number"
+            #validMobileNumber2="ngModel"
+            [pattern]="mobileNoPattern"
+          />
+        </mat-form-field>
+      </div>
+
+      <div class="display-flex-box">
+        <mat-form-field [style.width]="'100%'" style="width: 100%">
+          <mat-label>Tertiary Email ID</mat-label>
+          <input
+            matInput
+            type="email"
+            [(ngModel)]="tertiary_emailID"
+            disabled="{{ disableTertiaryFields }}"
+            name="tertiary_emailID"
+            [pattern]="email_expression"
+            #validEmail2="ngModel"
+          />
+          <mat-hint
+            class="errorText"
+            [hidden]="!validEmail2.hasError('pattern')"
+            >Valid Email ID is required
+          </mat-hint>
+        </mat-form-field>
+      </div>
+    </form>
+    <div class="col-xs-12 col-sm-12 m-b-10 m-t-10">
+      <button
+        mat-raised-button
+        color="primary"
+        class="pull-left mat_blue"
+        (click)="back()"
+      >
+        Back
+      </button>
+      <button
+        mat-raised-button
+        color="accent"
+        [disabled]="!institutionForm1.valid"
+        class="pull-right mat_green"
+        (click)="createInstitution()"
+      >
+        Save
+      </button>
+    </div>
+  </div>
+</div>

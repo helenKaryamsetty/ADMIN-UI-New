@@ -1,0 +1,413 @@
+<div class="container-fluid">
+  <div class="m-t-10">
+    <h4>Questionnaire Configuration</h4>
+
+    <div class="row">
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
+        <mat-form-field [style.width]="'100%'">
+          <mat-label>Serviceline</mat-label>
+          <mat-select
+            [(ngModel)]="service"
+            name="service"
+            [disabled]="showAdd"
+            required
+          >
+            <mat-option
+              *ngFor="let item of services"
+              value="{{ item.serviceName }}"
+              (click)="getStates(item.serviceID, item.isNational)"
+            >
+              {{ item.serviceName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <!-- </mat-form-field> -->
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15">
+        <mat-form-field [style.width]="'100%'">
+          <mat-label>State</mat-label>
+          <mat-select
+            [disabled]="showAdd"
+            [(ngModel)]="state"
+            name="state"
+            required
+          >
+            <mat-option
+              *ngFor="let item of states"
+              value="{{ item.stateID }}"
+              (click)="setProviderServiceMapID(item.providerServiceMapID)"
+            >
+              {{ item.stateName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-15" *ngIf="showtype">
+        <mat-form-field [style.width]="'100%'">
+          <!-- <input matInput appQuestionnaireValidator style="display: none" /> -->
+          <mat-label>Question Type</mat-label>
+          <mat-select
+            name="questionType"
+            [disabled]="showAdd"
+            [(ngModel)]="questionnaireType"
+            required
+          >
+            <mat-option
+              *ngFor="let questions of questionTypeArray"
+              value="{{ questions.questionType }}"
+              >{{ questions.questionType }}</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md- col-lg-12" *ngIf="!showAdd">
+        <div class="m-t-20 col-xs-12 col-sm-12 col-md-3 col-lg-2 pull-right">
+          <button
+            mat-raised-button
+            class="mat_blue"
+            color="primary"
+            (click)="setQuestionType(questionnaireType)"
+            type="submit"
+          >
+            Submit
+          </button>
+        </div>
+      </div>
+      <!-- <div  *ngIf="!showAdd && !disabledFlag" class="col-xs-8 col-sm-4 pull-right" style="margin-top: 1%;">
+          <div class="sw">
+            <input type="search" class="search" autocomplete="off" placeholder="In Table Search" name="filterTerm"
+              [(ngModel)]="filterTerm" (keyup)="filterQuestionList(filterTerm)" />
+            <button class="go" (click)="filterQuestionList(filterTerm)">
+              <i class="material-icons">search</i>
+            </button>
+            </div>
+          </div> -->
+    </div>
+
+    <div
+      class=""
+      style="text-align: end; margin-top: 30px"
+      *ngIf="!showAdd && !disabledFlag"
+    >
+      <mat-form-field id="filterbox">
+        <input
+          matInput
+          placeholder="In-Table Search"
+          #filterTerm
+          (keyup)="filterQuestionList(filterTerm.value)"
+        />
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+    </div>
+
+    <!--Questionnaire List-->
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 m-t-15" *ngIf="!showAdd && !disabledFlag">
+        <div class="table-responsive">
+          <table
+            mat-table
+            [dataSource]="dataSource"
+            class="table table-striped table-hover"
+          >
+            <ng-container matColumnDef="sno">
+              <th mat-header-cell *matHeaderCellDef>S.No.</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.questionRank }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="question">
+              <th mat-header-cell *matHeaderCellDef>Question</th>
+              <td mat-cell *matCellDef="let element">{{ element.question }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="questionWeightage">
+              <th mat-header-cell *matHeaderCellDef>Question Weightage</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.questionWeightage }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="answerType">
+              <th mat-header-cell *matHeaderCellDef>Answer Type</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.answerType }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="edit">
+              <th mat-header-cell *matHeaderCellDef>Edit</th>
+              <td mat-cell *matCellDef="let element">
+                <button (click)="onEditClick(element)">
+                  <mat-icon class="cursorPointer">mode_edit</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="delete">
+              <th mat-header-cell *matHeaderCellDef>Delete</th>
+              <td mat-cell *matCellDef="let element">
+                <span
+                  tabindex="{0}"
+                  (keyup.enter)="onDeleteClick(element, $event)"
+                  (click)="onDeleteClick(element, $event)"
+                  style="border: unset; background-color: unset"
+                >
+                  <mat-icon class="cursorPointer">delete</mat-icon>
+                </span>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+          </table>
+          <div
+            class="pull-center"
+            style="margin-top: 35px; text-align: center"
+            *ngIf="dataSource.data.length === 0"
+          >
+            <strong>No Records Found</strong>
+          </div>
+          <mat-paginator
+            [hidden]="dataSource.data.length === 0"
+            [pageSizeOptions]="[5, 10, 20]"
+            [pageSize]="5"
+            showFirstLastButtons
+          >
+          </mat-paginator>
+        </div>
+        <div class="pull-right" *ngIf="!showAdd">
+          <button
+            mat-raised-button
+            class="mat_blue"
+            color="primary"
+            [disabled]="disabledFlag"
+            (click)="showAddForm()"
+          >
+            Add Questions
+          </button>
+        </div>
+      </div>
+    </div>
+    <!--END -Questionnaire List-->
+
+    <div class="row rowadd" *ngIf="showAdd">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <h4 class="f-s-b m-t-20 m-b-20">Create Questionnaire</h4>
+      </div>
+
+      <form
+        [formGroup]="questionnaireForm"
+        autocomplete="off"
+        autocomplete="off"
+      >
+        <div formArrayName="newQuestions">
+          <div
+            class="enclosingDiv b-b-c clearfix"
+            *ngFor="
+              let newQuestion of getNewQuestionsList();
+              let i = index;
+              let isLast = last
+            "
+          >
+            <div [formGroupName]="i" class="col-12 row">
+              <div class="col-6">
+                <mat-form-field [style.width]="'100%'">
+                  <mat-label>Question</mat-label>
+                  <input
+                    matInput
+                    appQuestionnaireValidator
+                    required
+                    formControlName="questionName"
+                    minlength="5"
+                    maxlength="1000"
+                  />
+                </mat-form-field>
+              </div>
+              <div class="col-3">
+                <mat-form-field [style.width]="'100%'">
+                  <mat-label>Rank</mat-label>
+                  <input
+                    matInput
+                    (selectionChange)="rankInput(i)"
+                    required
+                    formControlName="questionRank"
+                    minlength="1"
+                    appMyMobileNumber
+                  />
+                </mat-form-field>
+              </div>
+
+              <div class="col-3">
+                <mat-form-field [style.width]="'100%'">
+                  <mat-label>Answer Type</mat-label>
+                  <mat-select
+                    formControlName="answerType"
+                    (selectionChange)="enableoptionField(i)"
+                    required
+                  >
+                    <mat-option
+                      *ngFor="let answers of answerTypes"
+                      [value]="answers"
+                      >{{ answers }}</mat-option
+                    >
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+              <div
+                class="col-xs-12 col-sm-12 m-t-15"
+                *ngIf="enableOptionArray[i]"
+              >
+                <mat-form-field [style.width]="'100%'" [style.width]="'25%'">
+                  <mat-label>Weightage</mat-label>
+                  <input
+                    matInput
+                    required
+                    formControlName="questionWeight"
+                    (keyup)="weightageInput(i)"
+                    maxlength="4"
+                    appMyMobileNumber
+                  />
+                </mat-form-field>
+              </div>
+
+              <br />
+
+              <!-- <br> -->
+              <div
+                class="col-xs-12 col-sm-12 m-t-15"
+                formArrayName="answerOptions"
+                *ngIf="enableOptionArray[i]"
+              >
+                <div
+                  class="col-xs-12 col-sm-12 m-t-15"
+                  *ngFor="
+                    let options of getAnswerOptionsList(newQuestion);
+                    index as idx
+                  "
+                >
+                  <div [formGroupName]="idx">
+                    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                      <mat-form-field [style.width]="'100%'">
+                        <mat-label>Option</mat-label>
+                        <input
+                          matInput
+                          appInputFieldValidator
+                          required
+                          formControlName="option"
+                          maxlength="100"
+                        />
+                      </mat-form-field>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                      <mat-form-field [style.width]="'100%'">
+                        <mat-label>Weightage</mat-label>
+                        <input
+                          matInput
+                          required
+                          allowText="number"
+                          formControlName="optionWeightage"
+                          (keyup)="optionweightage(idx, i)"
+                          [min]="minwght"
+                          [max]="maxwght"
+                          minlength="1"
+                          maxlength="3"
+                          appMyMobileNumber
+                        />
+                      </mat-form-field>
+                    </div>
+                    <button
+                      md-mini-fab
+                      class="mat_blue_circle"
+                      color="primary"
+                      mdTooltip="add option"
+                      (click)="addOptionField(i)"
+                      style="text-align: end"
+                    >
+                      <mat-icon class="md-18">add</mat-icon>
+                    </button>
+                    <button
+                      md-mini-fab
+                      color="warn"
+                      class="mat_warn_circle"
+                      style="text-align: end"
+                      mdTooltip="remove option"
+                      (click)="deleteOptionField(i, idx)"
+                    >
+                      <mat-icon class="md-18">close</mat-icon>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="pull-right">
+                <div class="col-12" style="text-align: end">
+                  <div class="row">
+                    <button
+                      md-mini-fab
+                      class="mat_icon_white"
+                      color="primary"
+                      mdTooltip="add question"
+                      *ngIf="isLast"
+                      (click)="onAddRow()"
+                    >
+                      <mat-icon matSuffix class="mat-icon material-icons"
+                        >add</mat-icon
+                      >
+                    </button>
+                    <button
+                      md-mini-fab
+                      class="mat_warn_circle"
+                      color="warn"
+                      mdTooltip="remove question"
+                      (click)="onDeleteRow(i)"
+                    >
+                      <mat-icon
+                        matSuffix
+                        class="mat-icon material-icons"
+                        style="cursor: pointer"
+                        >close</mat-icon
+                      >
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10"
+          style="margin-bottom: 47px"
+        >
+          <button
+            mat-raised-button
+            color="primary"
+            type="button"
+            (click)="navigateToPrev()"
+            class="pull-left m-r-10 mat_blue"
+          >
+            Back
+          </button>
+          <button
+            mat-raised-button
+            color="primary"
+            type="button"
+            (click)="onFormSubmit()"
+            [disabled]="
+              questionnaireForm.invalid ||
+              weightFlag ||
+              optionweightFlag ||
+              rankFlag
+            "
+            class="pull-right mat_blue"
+          >
+            Submit
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

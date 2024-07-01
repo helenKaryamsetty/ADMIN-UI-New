@@ -1,0 +1,194 @@
+<div class="container-fluid">
+  <form [formGroup]="uomMasterSearchForm" autocomplete="off">
+    <div class="row" *ngIf="mode === 'view'">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <h4>
+          <strong>Unit of Measure Master</strong>
+        </h4>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
+        <mat-form-field [style.width]="'100%'">
+          <mat-label>Serviceline</mat-label>
+          <mat-select
+            class="input-full-width"
+            formControlName="service"
+            name="service"
+            required
+            [disabled]="mode !== 'view'"
+          >
+            <mat-option
+              *ngFor="let service of serviceLineList"
+              [value]="service"
+            >
+              {{ service.serviceName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-20">
+        <mat-form-field [style.width]="'100%'">
+          <mat-label>State</mat-label>
+          <mat-select
+            class="input-full-width"
+            formControlName="state"
+            name="state"
+            required
+            [disabled]="mode !== 'view'"
+          >
+            <mat-option *ngFor="let state of stateList" [value]="state">
+              {{ state.stateName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div
+        class="col-xs-12 col-sm-12 col-md-4 col-lg-6"
+        *ngIf="
+          (UOMMasterList.length > 0 || filteredUOMMasterList.data.length > 0) &&
+          mode === 'view'
+        "
+      >
+        <div class="row" class="pull-right">
+          <mat-form-field class="input-full-width">
+            <mat-label> In-Table Search </mat-label>
+            <input
+              matInput
+              #filterTerm
+              (keyup)="filterUOMMasterList(filterTerm.value)"
+            />
+            <mat-icon matSuffix>search</mat-icon>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <ng-container *ngIf="mode === 'view'">
+    <div class="row m-t-20" *ngIf="providerServiceMapID">
+      <div class="col-xs-12 table-responsive">
+        <table
+          mat-table
+          [dataSource]="filteredUOMMasterList"
+          class="table table-striped table-hover"
+        >
+          <ng-container matColumnDef="sNo">
+            <th mat-header-cell *matHeaderCellDef>S.No.</th>
+            <td mat-cell *matCellDef="let uom; let i = index">{{ i + 1 }}</td>
+          </ng-container>
+          <ng-container matColumnDef="uOMCode">
+            <th mat-header-cell *matHeaderCellDef>UOM Code</th>
+            <td mat-cell *matCellDef="let uom">{{ uom.uOMCode }}</td>
+          </ng-container>
+          <ng-container matColumnDef="uOMName">
+            <th mat-header-cell *matHeaderCellDef>UOM Name</th>
+            <td mat-cell *matCellDef="let uom">{{ uom.uOMName }}</td>
+          </ng-container>
+          <ng-container matColumnDef="uOMDesc">
+            <th mat-header-cell *matHeaderCellDef>UOM Description</th>
+            <td mat-cell *matCellDef="let uom">{{ uom.uOMDesc }}</td>
+          </ng-container>
+          <ng-container matColumnDef="edit">
+            <th mat-header-cell *matHeaderCellDef>Edit</th>
+            <td mat-cell *matCellDef="let uom">
+              <button
+                mat-icon-button
+                *ngIf="!uom.deleted"
+                matTooltip="Edit"
+                style="border: unset; background-color: unset"
+                (click)="switchToUpdateMode(uom)"
+              >
+                <mat-icon>edit</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef>Action</th>
+            <td mat-cell *matCellDef="let uom">
+              <button
+                mat-raised-button
+                *ngIf="uom.deleted"
+                class="mat_green"
+                color="accent"
+                (click)="activateDeactivateUOM(uom.uOMID, false)"
+              >
+                Unblock
+              </button>
+              <button
+                mat-raised-button
+                *ngIf="!uom.deleted"
+                color="primary"
+                class="mat_blue"
+                (click)="activateDeactivateUOM(uom.uOMID, true)"
+              >
+                Block
+              </button>
+            </td>
+          </ng-container>
+
+          <tr
+            mat-header-row
+            *matHeaderRowDef="[
+              'sNo',
+              'uOMCode',
+              'uOMName',
+              'uOMDesc',
+              'edit',
+              'action'
+            ]"
+          ></tr>
+          <tr
+            mat-row
+            *matRowDef="
+              let uom;
+              columns: [
+                'sNo',
+                'uOMCode',
+                'uOMName',
+                'uOMDesc',
+                'edit',
+                'action'
+              ]
+            "
+          ></tr>
+        </table>
+        <div>
+          <button
+            mat-raised-button
+            color="primary"
+            class="pull-right mat_blue"
+            (click)="switchToCreateMode()"
+          >
+            Add UOM
+          </button>
+        </div>
+        <div
+          *ngIf="
+            filteredUOMMasterList && filteredUOMMasterList.data.length === 0
+          "
+        >
+          <strong>No Records Found</strong>
+        </div>
+        <mat-paginator
+          [hidden]="filteredUOMMasterList.data.length === 0"
+          [pageSizeOptions]="[5, 10, 25]"
+          [pageSize]="5"
+          showFirstLastButtons
+        ></mat-paginator>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="mode === 'create'">
+    <app-create-uom-master
+      [otherDetails]="otherDetails"
+      (modeChange)="switchToViewMode()"
+    ></app-create-uom-master>
+  </ng-container>
+
+  <ng-container *ngIf="mode === 'update'">
+    <app-update-uom-master
+      [updateUOMValue]="updateUOMValue"
+      (modeChange)="switchToViewMode()"
+    ></app-update-uom-master>
+  </ng-container>
+</div>

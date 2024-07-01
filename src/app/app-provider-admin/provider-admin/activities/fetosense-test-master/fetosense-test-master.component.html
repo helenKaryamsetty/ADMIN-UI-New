@@ -1,0 +1,322 @@
+<div class="container-fluid">
+  <div class="row">
+    <div
+      class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
+      *ngIf="showFetosenseTestMaster"
+    >
+      <h4 class="pull-left">Fetosense Test Master</h4>
+    </div>
+    <div
+      class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
+      *ngIf="showTestCreation"
+    >
+      <h4 class="pull-left">Create Test</h4>
+    </div>
+    <div
+      class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
+      *ngIf="!showTestCreation && !showFetosenseTestMaster"
+    >
+      <h4 class="pull-left">Edit Test</h4>
+    </div>
+
+    <div class="col-12">
+      <form #stateService="ngForm" autocomplete="off" class="row">
+        <div class="col-3 m-t-15">
+          <mat-form-field [style.width]="'100%'">
+            <mat-label>Serviceline</mat-label>
+            <mat-select
+              disabled="{{ disableSelection }}"
+              [(ngModel)]="serviceLine"
+              name="serviceLine"
+              #serviceLines="ngModel"
+              required
+              (selectionChange)="getStates(serviceLine)"
+            >
+              <mat-option *ngFor="let service of services" [value]="service">
+                {{ service.serviceName }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-3 m-t-15">
+          <mat-form-field [style.width]="'100%'">
+            <mat-label>State</mat-label>
+            <mat-select
+              disabled="{{ disableSelection }}"
+              [(ngModel)]="state"
+              name="state"
+              #stateList
+              required
+              (selectionChange)="testWorklist(state)"
+            >
+              <mat-option *ngFor="let state of states" [value]="state">
+                {{ state.stateName }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div
+    style="text-align: end"
+    *ngIf="searchedFetosenseTests.length !== 0 && showWorklist"
+  >
+    <mat-form-field id="filterbox">
+      <input
+        matInput
+        placeholder="In-Table Search"
+        #filterTerm
+        [(ngModel)]="searchTest"
+        name="searchTest"
+        (keyup)="filterTestsList(filterTerm.value)"
+      />
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+  </div>
+
+  <div class="row" *ngIf="showWorklist">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10">
+      <div class="table-responsive">
+        <table
+          mat-table
+          [dataSource]="filteredFetosenseTests"
+          class="table table-striped table-hover"
+        >
+          <ng-container matColumnDef="SNo">
+            <th mat-header-cell *matHeaderCellDef>S.No.</th>
+            <td mat-cell *matCellDef="let element; let i = index">
+              {{ i + 1 }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="TestName">
+            <th mat-header-cell *matHeaderCellDef>Test Name</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.testName }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="TestDescription">
+            <th mat-header-cell *matHeaderCellDef>Test Description</th>
+            <td mat-cell *matCellDef="let element">{{ element.testDesc }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="edit">
+            <th mat-header-cell *matHeaderCellDef>Edit</th>
+            <td mat-cell *matCellDef="let element">
+              <mat-icon
+                matTooltip="Edit"
+                class="mat-icon material-icons"
+                role="img"
+                aria-hidden="true"
+                style="cursor: pointer"
+                *ngIf="!element.deleted"
+                (click)="editTest(element)"
+                >edit</mat-icon
+              >
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Action</th>
+            <td mat-cell *matCellDef="let element">
+              <button
+                mat-raised-button
+                class="mat_green"
+                color="accent"
+                *ngIf="element.deleted"
+                (click)="deleteTest(element.foetalMonitorTestID, false)"
+              >
+                Activate
+              </button>
+              <button
+                mat-raised-button
+                class="mat_blue"
+                color="primary"
+                *ngIf="!element.deleted"
+                (click)="deleteTest(element.foetalMonitorTestID, true)"
+              >
+                Deactivate
+              </button>
+            </td>
+            <!-- <td colspan="4" class="p-r-0" mat-cell>
+            <button md-raised-button color="primary" [disabled]="searchForm.invalid" class="pull-right" (click)="changeTableFlag(false)">Add Work Location</button>
+          </td> -->
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+        <div>
+          <button
+            md-raised-button
+            color="primary"
+            class="pull-right mat_blue"
+            [disabled]="stateService.invalid"
+            (click)="createTest()"
+          >
+            Create Test
+          </button>
+        </div>
+        <div
+          class="pull-center"
+          style="margin-top: 5px; text-align: center"
+          *ngIf="filteredFetosenseTests.data.length === 0"
+        >
+          <strong>No Records Found</strong>
+        </div>
+        <mat-paginator
+          [hidden]="filteredFetosenseTests.data.length === 0"
+          [pageSizeOptions]="[5, 10, 25]"
+          [pageSize]="5"
+          showFirstLastButtons
+        ></mat-paginator>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="showTestCreationForm">
+    <div class="col-12">
+      <form
+        #addingTestsForm="ngForm"
+        id="testsAddingForm"
+        name="testsAddingForm"
+        autocomplete="off"
+        class="row"
+      >
+        <div class="col-3 m-t-20">
+          <mat-form-field [style.width]="'100%'">
+            <mat-label>Test Name</mat-label>
+            <input
+              matInput
+              appInputFieldValidator
+              [(ngModel)]="test"
+              minlength="1"
+              maxlength="100"
+              name="test"
+              (keyup)="validateTest(test)"
+              required
+              #tests="ngModel"
+            />
+            <mat-hint *ngIf="tests.touched">
+              <span class="error_text" *ngIf="othersExist"
+                >Test already exists</span
+              >
+              <span class="error_text" *ngIf="tests.invalid"
+                >Test is required</span
+              >
+            </mat-hint>
+          </mat-form-field>
+        </div>
+        <div class="col-3 m-t-20">
+          <mat-form-field [style.width]="'100%'">
+            <mat-label>Test Description</mat-label>
+            <input
+              matInput
+              appTextAreaValidator
+              [(ngModel)]="description"
+              name="description"
+              maxlength="100"
+              #testDescription="ngModel"
+            />
+          </mat-form-field>
+        </div>
+      </form>
+    </div>
+
+    <div
+      class="col-3 m-t-15"
+      *ngIf="addingTestsForm.valid && !othersExist && addButton"
+    >
+      <button
+        mat-mini-fab
+        color="primary"
+        (click)="addTests(test, description); addingTestsForm.reset()"
+        class="xs-pull-right sm-pull-left md-pull-right lg-pull-left mat_icon_white"
+      >
+        <mat-icon
+          matSuffix
+          class="mat-icon material-icons"
+          role="img"
+          aria-hidden="true"
+          style="cursor: pointer"
+          >add</mat-icon
+        >
+      </button>
+    </div>
+    <div
+      class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-15"
+      *ngIf="saveTest"
+    >
+      <div class="table-responsive">
+        <table
+          mat-table
+          [dataSource]="addedFetosenseTests"
+          class="table table-striped table-hover"
+        >
+          <ng-container matColumnDef="SNo">
+            <th mat-header-cell *matHeaderCellDef>S.No.</th>
+            <td mat-cell *matCellDef="let element; let i = index">
+              {{ i + 1 }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="TestName">
+            <th mat-header-cell *matHeaderCellDef>Test Name</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.testName }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="TestDescription">
+            <th mat-header-cell *matHeaderCellDef>Test Description</th>
+            <td mat-cell *matCellDef="let element">{{ element.testDesc }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="edit">
+            <th mat-header-cell *matHeaderCellDef>Delete</th>
+            <td mat-cell *matCellDef="let element">
+              <mat-icon
+                class="cursorPointer"
+                matTooltip="delete"
+                (click)="removeTest(addedFetosenseTests.data.indexOf(element))"
+                >delete</mat-icon
+              >
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns1"></tr>
+        </table>
+      </div>
+    </div>
+
+    <div
+      class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-15 m-b-10"
+      style="margin-bottom: 47px"
+    >
+      <button
+        mat-raised-button
+        color="primary"
+        class="pull-left mat_blue"
+        (click)="back()"
+      >
+        Back
+      </button>
+      <button
+        mat-raised-button
+        color="accent"
+        class="pull-right mat_green"
+        *ngIf="saveTest"
+        (click)="saveTests()"
+      >
+        Save
+      </button>
+      <button
+        mat-raised-button
+        color="accent"
+        class="pull-right mat_green"
+        [disabled]="tests.errors || othersExist || !addingTestsForm.dirty"
+        *ngIf="updateTest"
+        (click)="updateTestChanges()"
+      >
+        Update
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,24 @@
+{
+    "kannada": {
+        "welcome": "ಸ್ವಾಗತ",
+        "activities": "ಚಟುವಟಿಕೆಗಳು",
+        "activity_dropdown": {
+          "provider_on_board": "ಒದಗಿಸುವವರನ್ನು ರಚಿಸಿ",
+          "block_provider": "ಒದಗಿಸುವವರನ್ನು ನಿರ್ಬಂಧಿಸಿ",
+          "gender_master": "ಹೊಸ ಲಿಂಗ ರಚಿಸಿ",
+          "qualification_master": "ಹೊಸ ಅರ್ಹತೆಯನ್ನು ರಚಿಸಿ",
+          "caste_master": "ಹೊಸ ಜಾತಿಯನ್ನು ರಚಿಸಿ",
+          "religion_master": "ಹೊಸ ಧರ್ಮವನ್ನು ರಚಿಸಿ",
+          "state_master": "ಹೊಸ ರಾಜ್ಯವನ್ನು ರಚಿಸಿ"
+        },
+        "provider_name": "ಒದಗಿಸುವವರ ಹೆಸರು",
+        "valid_till": "ಮಾನ್ಯತೆಯ ದಿನಾಂಕ",
+        "contact_person": "ಸಂಪರ್ಕ ವ್ಯಕ್ತಿಯ ಹೆಸರು",
+        "contact_number": "ಸಂಪರ್ಕಿಸಲು ಫೋನ್ ಸಂಖ್ಯೆ",
+        "emailID": "ಇಮೇಲ್ ಐಡಿ",
+        "address1": "ವಿಳಾಸ 1",
+        "address2": "ವಿಳಾಸ 2",
+        "reports": "ವರದಿ",
+        "configurations": "ಸಂರಚನೆಗಳನ್ನು"
+      }
+}

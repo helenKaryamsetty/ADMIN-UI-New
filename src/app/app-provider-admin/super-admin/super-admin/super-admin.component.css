@@ -1,0 +1,103 @@
+.input-full-width {
+    width: 100%;
+}
+
+.m-t-4 {
+    margin-top: 4px;
+}
+
+.m-t-20 {
+    margin-top: 20px;
+}
+
+.m-r-5 {
+    margin-right: 5px;
+}
+
+.p-r-0 {
+    padding-right: 0px;
+}
+
+.p-l-0 {
+    padding-left: 0px;
+}
+.mainbar{
+   border-radius: 4px;
+   padding-left: 30px;
+    height:50px ;
+    background-color: #f8f8f8;
+    
+    border-color: #e7e7e7;
+    font-family: SF-UI-Display-Regular !important;
+}
+.mainbar-rad{
+    border:1px solid transparent;
+
+}
+.top-element{
+    height: 30px;
+}
+/* .mat-mdc-button-touch-target >>> .top-element{
+    height: 0px;
+
+} */
+@media (min-width: 768px){
+.topbar{
+    width: 100%;
+    padding-left: 15px;
+    padding-top: 5px;
+    padding-right: 15px;
+}
+.main{
+    width: 100%;
+    padding-left: 15px;
+    padding-top: 10px;
+    padding-right: 15px;
+}
+
+}
+.main-section{
+    border-radius: 4px;
+    /* padding-left: 30px; */
+     /* height:560px !important; */
+     height: auto !important;
+     background-color: #ffffff;
+     border-color: #e7e7e7;
+     margin-left: -30px;
+    margin-top: 10px;
+     
+}
+.mdc-button {
+    padding: 15px 15px;
+}
+.mat-mdc-button.mat-mdc-button-base{
+    height:50px;
+    --mat-mdc-button-persistent-ripple-color:none;
+}
+.mat-mdc-menu-item {
+    min-height: unset !important;
+}
+.mainbar >>>.mat-elevation-z8, .mat-mdc-elevation-specific.mat-elevation-z8 {
+    overflow: hidden !important;
+}
+
+ .top-element{
+    background-color: unset;
+    border: unset;
+    font-size: 15px !important;
+    color: black !important;
+    font-family: SF-UI-Display-Regular !important;
+    padding: 15px;
+    letter-spacing: initial !important;
+}
+.caret {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: 2px;
+    vertical-align: middle;
+    border-top: 4px dashed;
+    border-top: 4px solid;
+    border-right: 4px solid transparent;
+    border-left: 4px solid transparent;
+  }

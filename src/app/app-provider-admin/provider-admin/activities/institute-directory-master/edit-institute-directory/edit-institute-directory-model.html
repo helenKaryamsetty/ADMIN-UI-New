@@ -1,0 +1,65 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+      <h4 class="modal-title">Edit Institute Directory</h4>
+    </div>
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+      <button
+        mat-button
+        class="pull-right p-r-0"
+        [mat-dialog-close]="true"
+        style="background-color: unset; margin: 15px; border: unset"
+      >
+        <mat-icon
+          matTooltip="close"
+          class="mat-icon material-icons pull-right"
+          role="img"
+          aria-hidden="true"
+          style="cursor: pointer"
+          >clear</mat-icon
+        >
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <form #IDform="ngForm" autocomplete="off">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10">
+        <mat-form-field class="width100" appMyProviderName>
+          <mat-label>Institute Directory</mat-label>
+          <input
+            matInput
+            [(ngModel)]="instituteDirectory"
+            name="instituteDirectory"
+            minlength="2"
+            maxlength="50"
+            required
+            myName2
+          />
+        </mat-form-field>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10">
+        <mat-form-field class="width100" appMyProviderName>
+          <mat-label>Description</mat-label>
+          <input
+            matInput
+            [(ngModel)]="description"
+            name="description"
+            maxlength="100"
+          />
+        </mat-form-field>
+      </div>
+    </form>
+  </div>
+  <div class="m-t-10">
+    <button
+      mat-raised-button
+      color="accent"
+      style="margin-bottom: 15px"
+      class="pull-right mat_green"
+      [disabled]="!IDform.valid"
+      (click)="update(instituteDirectory, description)"
+    >
+      Update
+    </button>
+  </div>
+</div>

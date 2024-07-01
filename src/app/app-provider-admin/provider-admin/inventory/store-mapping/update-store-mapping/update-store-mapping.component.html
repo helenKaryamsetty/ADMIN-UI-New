@@ -1,0 +1,123 @@
+<!-- {{ storeMappingForm.value | json }} -->
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <h4>
+      <strong>Edit Store Mapping</strong>
+    </h4>
+  </div>
+</div>
+<form [formGroup]="storeMappingForm" autocomplete="off">
+  <div class="row m-t-20">
+    <div class="col-xs-12 col-sm-6 box">
+      <mat-label class="control-label" for="isMainFacility"
+        >Store Type:</mat-label
+      >
+      <mat-radio-group
+        placeholder="Main Store"
+        formControlName="isMainFacility"
+        name="isMainFacility"
+      >
+        <mat-radio-button [value]="true">Main Store</mat-radio-button>
+        <mat-radio-button [value]="false">Sub Store</mat-radio-button>
+      </mat-radio-group>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 box">
+      <mat-form-field>
+        <mat-label>Main Store</mat-label>
+        <mat-select
+          class="input-full-width"
+          formControlName="facilityName"
+          name="facilityName"
+        >
+          <mat-option *ngFor="let store of storeList" [value]="store">
+            {{ store.facilityName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div
+      class="col-xs-12 col-sm-6 col-md-4 col-lg-3 box"
+      *ngIf="isMainFacility === false"
+    >
+      <mat-form-field>
+        <mat-label>Sub Store</mat-label>
+        <mat-select
+          class="input-full-width"
+          formControlName="subFacilityName"
+          name="subFacilityName"
+        >
+          <mat-option *ngFor="let store of storeList" [value]="store">
+            {{ store.facilityName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div
+      class="col-xs-12 col-sm-6 col-md-4 col-lg-3 box"
+      *ngIf="isMainFacility"
+    >
+      <mat-form-field>
+        <mat-label>Parking Place</mat-label>
+        <mat-select
+          class="input-full-width"
+          formControlName="parkingPlaceName"
+          name="parkingPlaceName"
+        >
+          <mat-option
+            *ngFor="let parkingPlace of parkingPlaceList"
+            [value]="parkingPlace"
+          >
+            {{ parkingPlace.parkingPlaceName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div
+      class="col-xs-12 col-sm-6 col-md-4 col-lg-3 box"
+      *ngIf="isMainFacility === false"
+    >
+      <mat-form-field>
+        <mat-label>Van</mat-label>
+        <mat-select
+          class="input-full-width"
+          formControlName="vanName"
+          name="vanName"
+        >
+          <mat-option *ngFor="let van of vanList" [value]="van">
+            {{ van.vanName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+</form>
+
+<div class="row m-t-20">
+  <div class="col-xs-12">
+    <button
+      type="button"
+      mat-raised-button
+      color="accent"
+      class="pull-right mat_green"
+      (click)="updateStoreMapping()"
+    >
+      Update
+    </button>
+    <button
+      type="button"
+      mat-raised-button
+      color="primary"
+      class="pull-left mat_blue"
+      (click)="switchToViewMode()"
+    >
+      Back
+    </button>
+    <!-- <button type="button" md-raised-button color="primary" class="pull-right m-r-5" (click)="resetUOMForm()">Reset</button> -->
+  </div>
+</div>

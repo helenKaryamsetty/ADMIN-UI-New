@@ -1,0 +1,352 @@
+<div class="topbar">
+  <div class="mainbar mainbar-rad">
+    <button mat-button [matMenuTriggerFor]="Activities" class="top-element">
+      Activities
+      <span class="caret"></span>
+    </button>
+    <mat-menu #Activities="matMenu">
+      <button mat-menu-item (click)="show('1')">
+        Job Location-ServiceLine Mapping Master
+      </button>
+      <button mat-menu-item (click)="show('2')">Role Master</button>
+      <button mat-menu-item (click)="show('27')">Employee Master</button>
+      <button mat-menu-item (click)="show('28')">Language Mapping</button>
+      <button mat-menu-item (click)="show('32')">Work Location Mapping</button>
+      <button mat-menu-item (click)="show('59')">Specialist Mapping</button>
+      <button mat-menu-item (click)="show('4')">
+        Call Disposition Type Master
+      </button>
+      <button mat-menu-item (click)="show('77')">
+        Serviceline State CDSS Mapping
+      </button>
+      <button mat-menu-item (click)="show('5')">
+        Category Subcategory Provisioning
+      </button>
+      <button mat-menu-item (click)="show('20')">
+        Institute Directory Master
+      </button>
+      <button mat-menu-item (click)="show('22')">
+        Institute Subdirectory Master
+      </button>
+      <button mat-menu-item (click)="show('18')">
+        Feedback/Complaint Type Master
+      </button>
+      <button mat-menu-item [matMenuTriggerFor]="FeedbackComplaintTypeMaster">
+        Feedback/Complaint Nature Master
+      </button>
+      <mat-menu #FeedbackComplaintTypeMaster="matMenu">
+        <button mat-menu-item (click)="show('19')">
+          Nature Of Complaints List
+        </button>
+        <button mat-menu-item (click)="show('58')">
+          Nature Of Complaint-Category Mapping
+        </button>
+      </mat-menu>
+      <!-- <button mat-menu-item (click)="show('58')">
+        Nature Of Complaint-Category Mapping
+      </button> -->
+      <button mat-menu-item (click)="show('25')">Institute Type Master</button>
+      <button mat-menu-item (click)="show('21')">Institute Master</button>
+      <button mat-menu-item (click)="show('12')">Severity Type</button>
+      <button mat-menu-item [matMenuTriggerFor]="FetosenseMaster">
+        Fetosense Master
+      </button>
+      <button mat-menu-item [matMenuTriggerFor]="DrugGroup">Drug Group</button>
+      <button mat-menu-item [matMenuTriggerFor]="OutreachMaster">
+        Outreach Master
+      </button>
+      <button mat-menu-item (click)="show('72')">
+        Data Mapping Block to Subcenter
+      </button>
+    </mat-menu>
+    <mat-menu #FetosenseMaster="matMenu">
+      <button mat-menu-item (click)="show('70')">Device ID Master</button>
+      <button mat-menu-item (click)="show('68')">Fetosense Test Master</button>
+    </mat-menu>
+    <mat-menu #DrugGroup="matMenu">
+      <button mat-menu-item (click)="show('33')">Drug Group Master</button>
+      <button mat-menu-item (click)="show('56')">Drug Strength</button>
+      <button mat-menu-item (click)="show('34')">Drug Master</button>
+      <button mat-menu-item (click)="show('35')">
+        Drug Group Item Mapping
+      </button>
+    </mat-menu>
+    <mat-menu #OutreachMaster="matMenu">
+      <button mat-menu-item [matMenuTriggerFor]="ZoneMaster">
+        Zone Master
+      </button>
+      <button mat-menu-item [matMenuTriggerFor]="ParkingPlaceMaster">
+        Parking Place Master
+      </button>
+      <button mat-menu-item (click)="show('9')">Service Point Master</button>
+      <button mat-menu-item (click)="show('14')">Van Master</button>
+      <button mat-menu-item (click)="show('29')">Procedure Master</button>
+      <button mat-menu-item (click)="show('30')">Component Master</button>
+      <button mat-menu-item (click)="show('69')">
+        Calibration Strip Master
+      </button>
+    </mat-menu>
+    <mat-menu #ZoneMaster="matMenu">
+      <button mat-menu-item (click)="show('36')">Zone List</button>
+      <button mat-menu-item (click)="show('37')">Zone District Mapping</button>
+    </mat-menu>
+    <mat-menu #ParkingPlaceMaster="matMenu">
+      <button mat-menu-item (click)="show('8')">Parking Place List</button>
+      <button mat-menu-item (click)="show('57')">
+        Parking Place Sub-District Mapping
+      </button>
+    </mat-menu>
+    <button mat-button class="top-element">
+      Reports
+      <span class="caret"></span>
+    </button>
+    <button mat-button [matMenuTriggerFor]="Configuration" class="top-element">
+      Configuration
+      <span class="caret"></span>
+    </button>
+    <mat-menu #Configuration="matMenu">
+      <button mat-menu-item (click)="show('24')">Agent List Creation</button>
+      <button mat-menu-item (click)="show('26')">
+        User-Role AgentID Mapping
+      </button>
+      <button mat-menu-item (click)="show('23')">
+        Hospital-Institute Directory Mapping
+      </button>
+      <button mat-menu-item (click)="show('53')">Email Configuration</button>
+      <button mat-menu-item (click)="show('66')">
+        Email and Contact Number Configuration
+      </button>
+      <button mat-menu-item (click)="show('55')">Reset User Password</button>
+      <button mat-menu-item (click)="show('60')">User Swymed Mapping</button>
+      <button mat-menu-item (click)="show('61')">
+        Wrapup Time Configuration
+      </button>
+      <button mat-menu-item (click)="show('62')">User Signature Mapping</button>
+      <button mat-menu-item [matMenuTriggerFor]="OutreachConfigurations">
+        Outreach Configurations
+      </button>
+      <mat-menu #OutreachConfigurations="matMenu">
+        <button mat-menu-item (click)="show('11')">
+          Service Point Village Mapping
+        </button>
+        <button mat-menu-item (click)="show('16')">
+          Van Service Point Mapping
+        </button>
+        <button mat-menu-item (click)="show('17')">
+          User Parking Place Mapping
+        </button>
+        <button mat-menu-item (click)="show('31')">
+          Procedure Component Mapping
+        </button>
+        <button mat-menu-item (click)="show('67')">Van Spoke Mapping</button>
+        <button mat-menu-item (click)="show('71')">
+          Spoke Fetosense Device ID Mapping
+        </button>
+      </mat-menu>
+      <button mat-menu-item (click)="show('63')">SMS Templates</button>
+      <button mat-menu-item (click)="show('64')">CDI Questionnaire</button>
+      <button mat-menu-item (click)="show('65')">Mapping Snomed CT Code</button>
+    </mat-menu>
+    <button mat-button [matMenuTriggerFor]="Inventory" class="top-element">
+      Inventory
+      <span class="caret"></span>
+    </button>
+    <mat-menu #Inventory="matMenu">
+      <button mat-menu-item [matMenuTriggerFor]="typeMaster">Master</button>
+    </mat-menu>
+    <mat-menu #typeMaster="matMenu">
+      <button mat-menu-item (click)="show('43')">Supplier Master</button>
+      <button mat-menu-item (click)="show('44')">Manufacturer Master</button>
+      <button mat-menu-item (click)="show('45')">
+        Pharmacological Category Master
+      </button>
+      <button mat-menu-item (click)="show('46')">Item Category Master</button>
+      <button mat-menu-item (click)="show('50')">Unit of Measure Master</button>
+      <button mat-menu-item (click)="show('41')">
+        Item Issue Method Config
+      </button>
+      <button mat-menu-item (click)="show('54')">
+        Expiry Date Alert Config
+      </button>
+      <button mat-menu-item (click)="show('38')">Item Master</button>
+      <button mat-menu-item (click)="show('39')">Facility Type Master</button>
+      <button mat-menu-item (click)="show('40')">Main Store & Sub Store</button>
+      <button mat-menu-item (click)="show('42')">Item To Store Mapping</button>
+      <button mat-menu-item (click)="show('51')">
+        Van/Parking Place to Store Mapping
+      </button>
+    </mat-menu>
+
+    <div
+      [ngSwitch]="Activity_Number"
+      class="col-xs-12 col-sm-12 main-section"
+      style="margin-left: unset !important"
+    >
+      <div>
+        <app-location-serviceline-mapping
+          *ngSwitchCase="1"
+        ></app-location-serviceline-mapping>
+        <app-employee-master-new *ngSwitchCase="27"></app-employee-master-new>
+        <app-language-mapping *ngSwitchCase="28"></app-language-mapping>
+        <app-work-location-mapping
+          *ngSwitchCase="32"
+        ></app-work-location-mapping>
+        <app-specialist-mapping *ngSwitchCase="59"></app-specialist-mapping>
+        <app-call-disposition-type-master
+          *ngSwitchCase="4"
+        ></app-call-disposition-type-master>
+        <app-serviceline-cdss-mapping
+          *ngSwitchCase="77"
+        ></app-serviceline-cdss-mapping>
+        <app-category-subcategory-provisioning
+          *ngSwitchCase="5"
+        ></app-category-subcategory-provisioning>
+        <app-feedback-type-master *ngSwitchCase="18"></app-feedback-type-master>
+        <app-supplier-master *ngSwitchCase="43"></app-supplier-master>
+        <app-manufacturer-master *ngSwitchCase="44"></app-manufacturer-master>
+        <app-pharmacological-category-master
+          *ngSwitchCase="45"
+        ></app-pharmacological-category-master>
+        <app-item-category-master *ngSwitchCase="46"></app-item-category-master>
+        <app-search-uom-master *ngSwitchCase="50"></app-search-uom-master>
+        <app-item-issue-method-config
+          *ngSwitchCase="41"
+        ></app-item-issue-method-config>
+        <app-expiry-date-alert-configuration
+          *ngSwitchCase="54"
+        ></app-expiry-date-alert-configuration>
+        <app-agent-list-creation *ngSwitchCase="24"></app-agent-list-creation>
+        <app-institute-directory-master
+          *ngSwitchCase="20"
+        ></app-institute-directory-master>
+        <app-provider-admin-role-master
+          *ngSwitchCase="2"
+        ></app-provider-admin-role-master>
+        <app-feedback-complaint-nature-master
+          *ngSwitchCase="19"
+        ></app-feedback-complaint-nature-master>
+        <app-nature-of-complaint-category-mapping
+          *ngSwitchCase="58"
+        ></app-nature-of-complaint-category-mapping>
+        <app-institute-type-master
+          *ngSwitchCase="25"
+        ></app-institute-type-master>
+        <app-hospital-master *ngSwitchCase="21"></app-hospital-master>
+        <app-severity-type *ngSwitchCase="12"></app-severity-type>
+        <app-fetosense-test-master
+          *ngSwitchCase="68"
+        ></app-fetosense-test-master>
+        <app-device-id-master *ngSwitchCase="70"></app-device-id-master>
+        <app-data-mapping-block-subcenter
+          *ngSwitchCase="72"
+        ></app-data-mapping-block-subcenter>
+        <app-zone *ngSwitchCase="36"></app-zone>
+        <app-zone-district-mapping
+          *ngSwitchCase="37"
+        ></app-zone-district-mapping>
+        <app-parking-place *ngSwitchCase="8"></app-parking-place>
+        <app-parking-place-sub-district-mapping
+          *ngSwitchCase="57"
+        ></app-parking-place-sub-district-mapping>
+        <app-service-point *ngSwitchCase="9"></app-service-point>
+        <app-van-master *ngSwitchCase="14"></app-van-master>
+        <app-procedure-master *ngSwitchCase="29"></app-procedure-master>
+        <app-calibration-master *ngSwitchCase="69"></app-calibration-master>
+        <app-drug-group *ngSwitchCase="33"></app-drug-group>
+        <app-drug-strength *ngSwitchCase="56"></app-drug-strength>
+        <app-drug-list *ngSwitchCase="34"></app-drug-list>
+        <app-drug-mapping *ngSwitchCase="35"></app-drug-mapping>
+        <app-user-role-agent-id-mapping
+          *ngSwitchCase="26"
+        ></app-user-role-agent-id-mapping>
+        <app-hospital-institute-directory-subdirectory-mapping
+          *ngSwitchCase="23"
+        ></app-hospital-institute-directory-subdirectory-mapping>
+        <app-reset-user-password *ngSwitchCase="55"></app-reset-user-password>
+        <app-swymed-user-mapping *ngSwitchCase="60"></app-swymed-user-mapping>
+        <app-component-master *ngSwitchCase="30"></app-component-master>
+        <app-item-master *ngSwitchCase="38"></app-item-master>
+        <app-facility-type-master *ngSwitchCase="39"></app-facility-type-master>
+        <app-main-store-and-sub-store
+          *ngSwitchCase="40"
+        ></app-main-store-and-sub-store>
+        <app-item-to-store-mapping
+          *ngSwitchCase="42"
+        ></app-item-to-store-mapping>
+        <app-view-store-mapping *ngSwitchCase="51"></app-view-store-mapping>
+        <app-service-point-village-mapping
+          *ngSwitchCase="11"
+        ></app-service-point-village-mapping>
+        <app-van-service-point-mapping
+          *ngSwitchCase="16"
+        ></app-van-service-point-mapping>
+        <app-employee-parking-place-mapping
+          *ngSwitchCase="17"
+        ></app-employee-parking-place-mapping>
+        <app-procedure-component-mapping
+          *ngSwitchCase="31"
+        ></app-procedure-component-mapping>
+        <app-van-spoke-mapping *ngSwitchCase="67"></app-van-spoke-mapping>
+        <app-van-device-id-mapping
+          *ngSwitchCase="71"
+        ></app-van-device-id-mapping>
+        <!-- <app-item-master *ngSwitchCase="38"></app-item-master> -->
+        <!-- <app-facility-type-master *ngSwitchCase="39"></app-facility-type-master> -->
+        <!-- <app-main-store-and-sub-store
+          *ngSwitchCase="40"
+        ></app-main-store-and-sub-store> -->
+        <!-- <app-item-to-store-mapping
+          *ngSwitchCase="42"
+        ></app-item-to-store-mapping> -->
+        <!-- <app-view-store-mapping *ngSwitchCase="51"></app-view-store-mapping> -->
+        <app-institute-subdirectory-master
+          *ngSwitchCase="22"
+        ></app-institute-subdirectory-master>
+        <!-- <app-zone *ngSwitchCase="36"></app-zone>
+        <app-zone-district-mapping
+          *ngSwitchCase="37"
+        ></app-zone-district-mapping>
+        <app-parking-place *ngSwitchCase="8"></app-parking-place>
+        <app-service-point *ngSwitchCase="9"></app-service-point>
+        <app-parking-place-sub-district-mapping
+        *ngSwitchCase="57"
+      ></app-parking-place-sub-district-mapping> -->
+        <app-wrapup-time-configuration
+          *ngSwitchCase="61"
+        ></app-wrapup-time-configuration>
+        <app-user-signature-mapping
+          *ngSwitchCase="62"
+        ></app-user-signature-mapping>
+        <app-sms-template *ngSwitchCase="63"></app-sms-template>
+        <app-add-questionnaire *ngSwitchCase="64"></app-add-questionnaire>
+        <app-map-snommed-ctcode *ngSwitchCase="65"></app-map-snommed-ctcode>
+        <app-email-configuration *ngSwitchCase="53"></app-email-configuration>
+      </div>
+    </div>
+    <footer class="footer" style="left: 0px">
+      <div class="row">
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+          <span class="footer-text">Powered by: WIPRO</span>
+        </div>
+        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+          <p class="footer-text t-a-c">
+            2024
+            <mat-icon
+              color=""
+              class="copyright_icon"
+              style="font-size: 12px; padding-top: 12px"
+              >copyright</mat-icon
+            >
+            PSMRI
+          </p>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+          <span class="footer-text pull-right">Version: {{ version }}</span>
+        </div>
+      </div>
+    </footer>
+  </div>
+</div>
+<div class="main">
+  <div class="main-section"></div>
+</div>

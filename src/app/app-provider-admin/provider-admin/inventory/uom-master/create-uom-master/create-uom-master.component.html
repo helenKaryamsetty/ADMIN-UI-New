@@ -1,0 +1,204 @@
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <h4>
+      <strong>Unit of Measure Master</strong>
+    </h4>
+  </div>
+</div>
+<form [formGroup]="UOMMasterForm" autocomplete="off">
+  <div class="row m-t-20">
+    <ng-container formGroupName="UOM">
+      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+        <mat-form-field class="input-full-width">
+          <mat-label>UOM Code</mat-label>
+          <input
+            matInput
+            appPanWithCopyPaste
+            name="uomCode"
+            formControlName="uOMCode"
+            required
+            (blur)="checkForUniqueUOMCode()"
+            maxlength="15"
+          />
+          <mat-hint
+            *ngIf="
+              UOMMasterForm.get('UOM')?.get('uOMCode')?.invalid &&
+              (UOMMasterForm.get('UOM')?.get('uOMCode')?.dirty ||
+                UOMMasterForm.get('UOM')?.get('uOMCode')?.touched)
+            "
+          >
+            <!-- <mat-hint *ngIf="UOMMasterForm.get('UOM').get('uOMCode').invalid && (UOMMasterForm.get('UOM').get('uOMCode').dirty || UOMMasterForm.get('UOM').get('uOMCode').touched)"> -->
+            <span
+              class="error_text"
+              *ngIf="
+                UOMMasterForm.get('UOM')?.get('uOMCode')?.hasError('required')
+              "
+              >UOM Code is required</span
+            >
+            <span
+              class="error_text"
+              *ngIf="
+                UOMMasterForm.get('UOM')?.get('uOMCode')?.hasError('unique')
+              "
+              >UOM Code already exists</span
+            >
+          </mat-hint>
+        </mat-form-field>
+      </div>
+
+      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+        <mat-form-field class="input-full-width">
+          <mat-label>UOM Name</mat-label>
+          <input
+            matInput
+            appVehicleNoSpecialCharWithCopyPaste
+            name="uOMName"
+            formControlName="uOMName"
+            required
+            maxlength="100"
+          />
+          <mat-hint
+            *ngIf="
+              UOMMasterForm.get('UOM')?.get('uOMCode')?.invalid &&
+              (UOMMasterForm.get('UOM')?.get('uOMCode')?.dirty ||
+                UOMMasterForm.get('UOM')?.get('uOMCode')?.touched)
+            "
+          >
+            <span
+              class="errorText"
+              *ngIf="
+                UOMMasterForm.get('UOM')?.get('uOMCode')?.hasError('required')
+              "
+              >UOM Name is required</span
+            >
+          </mat-hint>
+        </mat-form-field>
+      </div>
+
+      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+        <mat-form-field class="input-full-width">
+          <mat-label>UOM Description</mat-label>
+          <input
+            matInput
+            appVehicleNoCopyPaste
+            name="description"
+            formControlName="uOMDesc"
+            maxlength="100"
+          />
+        </mat-form-field>
+      </div>
+
+      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+        <button
+          type="button"
+          mat-mini-fab
+          class="mat_icon_white"
+          color="primary"
+          *ngIf="
+            UOMMasterForm.controls['UOM'].valid &&
+            !UOMMasterForm.get('UOM')?.get('uOMCode')?.hasError('unique')
+          "
+          (click)="addToUOMMasterList()"
+        >
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+    </ng-container>
+  </div>
+</form>
+
+<div class="row m-t-20" *ngIf="UOMMasterList.data.length > 0">
+  <div class="col-xs-12 table-responsive">
+    <table
+      mat-table
+      [dataSource]="UOMMasterList"
+      class="table table-striped table-hover"
+    >
+      <ng-container matColumnDef="sNo">
+        <th mat-header-cell *matHeaderCellDef style="width: 5%">
+          <b>S.No.</b>
+        </th>
+        <td mat-cell *matCellDef="let uom; let i = index">{{ i + 1 }}</td>
+      </ng-container>
+      <ng-container matColumnDef="uOMCode">
+        <th mat-header-cell *matHeaderCellDef><b>UOM Code</b></th>
+        <td mat-cell *matCellDef="let uom; let i = index">{{ uom.uOMCode }}</td>
+      </ng-container>
+      <ng-container matColumnDef="uOMName">
+        <th mat-header-cell *matHeaderCellDef><b>UOM Name</b></th>
+        <td mat-cell *matCellDef="let uom; let i = index">{{ uom.uOMName }}</td>
+      </ng-container>
+      <ng-container matColumnDef="uOMDesc">
+        <th mat-header-cell *matHeaderCellDef><b>Description</b></th>
+        <td mat-cell *matCellDef="let uom; let i = index">{{ uom.uOMDesc }}</td>
+      </ng-container>
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef><b>Action</b></th>
+        <td mat-cell *matCellDef="let uom; let i = index">
+          <button
+            mat-icon-button
+            matTooltip="Delete"
+            style="border: unset; background-color: unset"
+            (click)="deleteFromUOMMasterList(i)"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr
+        mat-header-row
+        *matHeaderRowDef="['sNo', 'uOMCode', 'uOMName', 'uOMDesc', 'action']"
+      ></tr>
+      <tr
+        mat-row
+        *matRowDef="
+          let row;
+          columns: ['sNo', 'uOMCode', 'uOMName', 'uOMDesc', 'action']
+        "
+      ></tr>
+    </table>
+    <div *ngIf="UOMMasterList && UOMMasterList.data.length === 0">
+      <strong>No Records Found</strong>
+    </div>
+    <mat-paginator
+      [hidden]="UOMMasterList.data.length === 0"
+      [pageSizeOptions]="[5, 10, 25]"
+      [pageSize]="5"
+      showFirstLastButtons
+    ></mat-paginator>
+  </div>
+</div>
+
+<div class="row m-t-20">
+  <div class="col-xs-12 col-sm-12 m-t-15" style="padding-bottom: 20px">
+    <button
+      type="button"
+      mat-raised-button
+      color="primary"
+      class="pull-left mat_blue"
+      (click)="switchToViewMode()"
+    >
+      Back
+    </button>
+    <button
+      type="button"
+      [disabled]="UOMMasterList.data.length === 0"
+      mat-raised-button
+      color="accent"
+      class="pull-right mat_green"
+      (click)="submitUOMForm(); UOMMasterForm.controls['UOM'].reset()"
+    >
+      Save
+    </button>
+    <button
+      type="button"
+      mat-raised-button
+      color="primary"
+      class="pull-right m-r-5 mat_blue"
+      (click)="UOMMasterForm.controls['UOM'].reset()"
+    >
+      Clear
+    </button>
+  </div>
+</div>

@@ -1,0 +1,346 @@
+<div class="row" *ngIf="tableMode">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <h4>
+      <strong>Provider Master</strong>
+    </h4>
+  </div>
+  <!-- pre-populated table showing the number of providers available -->
+</div>
+<div
+  class="m-t-10"
+  style="text-align: end"
+  *ngIf="tableMode && searchResult.length !== 0"
+>
+  <mat-form-field id="filterbox">
+    <input
+      matInput
+      placeholder="In-Table Search"
+      #filterTerm
+      (keyup)="filterComponentList(filterTerm.value)"
+    />
+    <mat-icon matSuffix>search</mat-icon>
+  </mat-form-field>
+</div>
+<div class="row" *ngIf="tableMode">
+  <div class="col-xs-12 col-sm-12 m-t-10">
+    <div class="table-responsive">
+      <table
+        mat-table
+        [dataSource]="filteredsearchResult"
+        class="table table-striped table-hover"
+      >
+        <!-- S.No. Column -->
+        <ng-container matColumnDef="sno">
+          <th mat-header-cell *matHeaderCellDef>S.No.</th>
+          <td mat-cell *matCellDef="let item; let i = index">{{ i + 1 }}</td>
+        </ng-container>
+        <!-- Category Code Column -->
+        <ng-container matColumnDef="serviceProviderName">
+          <th mat-header-cell *matHeaderCellDef>Provider Name</th>
+          <td mat-cell *matCellDef="let item">
+            {{ item?.serviceProviderName }}
+          </td>
+        </ng-container>
+
+        <!-- Category Name Column -->
+        <ng-container matColumnDef="primaryContactName">
+          <th mat-header-cell *matHeaderCellDef>Contact Person</th>
+          <td mat-cell *matCellDef="let item">{{ item.primaryContactName }}</td>
+        </ng-container>
+
+        <!-- Category Description Column -->
+        <ng-container matColumnDef="primaryContactNo">
+          <th mat-header-cell *matHeaderCellDef>Contact Number</th>
+          <td mat-cell *matCellDef="let item">{{ item.primaryContactNo }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="primaryContactAddress">
+          <th mat-header-cell *matHeaderCellDef>Address</th>
+          <td mat-cell *matCellDef="let item">
+            {{ item.primaryContactAddress }}
+          </td>
+        </ng-container>
+
+        <!-- Action Column -->
+        <ng-container matColumnDef="edit">
+          <th mat-header-cell *matHeaderCellDef>Edit</th>
+          <td mat-cell *matCellDef="let item">
+            <mat-icon
+              class="cursorPointer"
+              *ngIf="!item.deleted"
+              matTooltip="Edit"
+              (click)="edit(item)"
+              >mode_edit</mat-icon
+            >
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Action</th>
+          <td mat-cell *matCellDef="let item">
+            <button
+              *ngIf="item.deleted"
+              mat-raised-button
+              class="mat_green"
+              color="accent"
+              (click)="activate(item.serviceProviderId)"
+            >
+              Activate
+            </button>
+            <button
+              *ngIf="!item.deleted"
+              mat-raised-button
+              class="mat_blue"
+              color="primary"
+              (click)="deactivate(item.serviceProviderId)"
+            >
+              Deactivate
+            </button>
+          </td>
+          <!-- <td colspan="4" class="p-r-0" mat-cell>
+          <button md-raised-button color="primary" [disabled]="searchForm.invalid" class="pull-right" (click)="changeTableFlag(false)">Add Work Location</button>
+        </td> -->
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+      <div>
+        <button
+          mat-raised-button
+          color="primary"
+          class="pull-right mat_blue"
+          (click)="showForm()"
+        >
+          Create New Provider
+        </button>
+      </div>
+      <!-- Pagination -->
+      <mat-paginator
+        [length]="filteredsearchResult.data.length"
+        [pageSize]="5"
+        [pageSizeOptions]="[5, 10, 20]"
+      ></mat-paginator>
+    </div>
+  </div>
+</div>
+<div class="row" *ngIf="formMode" style="width: 100%; margin-left: 0px">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <h4 *ngIf="!editMode">
+      <strong>Create Provider</strong>
+    </h4>
+    <h4 *ngIf="editMode">
+      <strong>Edit Provider</strong>
+    </h4>
+  </div>
+  <div class="col-12 p-a-0 ng-container" style="margin-bottom: 20px">
+    <form #providerCreationForm="ngForm" autocomplete="off" class="row">
+      <div class="col-3 m-t-10">
+        <mat-form-field [style.width]="'100%'" appMyProviderName>
+          <mat-label>Provider/Company Name</mat-label>
+          <input
+            matInput
+            ngModel
+            name="provider_name"
+            [(ngModel)]="providerName"
+            required="true"
+            minlength="2"
+            maxlength="50"
+            #name="ngModel"
+            (keyup)="checkProviderNameAvailability(name.value)"
+          />
+          <mat-hint *ngIf="name.touched">
+            <span class="errorText" [hidden]="!name.errors"
+              >Enter atleast 2 characters</span
+            >
+            <span class="errorText" [hidden]="!providerNameExist"
+              >Provider exists</span
+            >
+          </mat-hint>
+        </mat-form-field>
+      </div>
+
+      <div class="col-3 m-t-10">
+        <mat-form-field
+          [style.width]="'100%'"
+          class="input-full-width mat_form_field_background_color"
+        >
+          <mat-label>Valid From</mat-label>
+          <input
+            matInput
+            [matDatepicker]="validFromPicker"
+            name="valid_from"
+            [(ngModel)]="validFrom"
+            [min]="today"
+          />
+          <mat-datepicker-toggle
+            matPrefix
+            [for]="validFromPicker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #validFromPicker></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <!-- <div class="clearfix visible-sm"></div> -->
+      <div class="col-3 m-t-10">
+        <mat-form-field
+          [style.width]="'100%'"
+          class="input-full-width mat_form_field_background_color"
+        >
+          <mat-label>Valid Till</mat-label>
+          <input
+            matInput
+            [matDatepicker]="validTillPicker"
+            name="valid_till"
+            [(ngModel)]="validTill"
+            [min]="validFrom"
+          />
+          <mat-datepicker-toggle
+            matPrefix
+            [for]="validTillPicker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #validTillPicker></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <!-- <div class="clearfix visible-md"></div> -->
+      <div class="col-3 m-t-10">
+        <mat-form-field [style.width]="'100%'" appMyProviderName>
+          <mat-label>Contact Person</mat-label>
+          <input
+            matInput
+            ngModel
+            minlength="2"
+            maxlength="30"
+            [(ngModel)]="primaryName"
+            name="contact_person"
+            #cp="ngModel"
+            required
+          />
+          <mat-hint *ngIf="cp.errors && cp.touched">
+            <span class="errorText">Enter minimum 2 characters</span>
+          </mat-hint>
+        </mat-form-field>
+      </div>
+      <div class="col-3 m-t-10">
+        <mat-form-field [style.width]="'100%'" appMyMobileNumber>
+          <mat-label>Contact Number</mat-label>
+          <input
+            matInput
+            ngModel
+            name="contact_number"
+            [(ngModel)]="primaryNumber"
+            minlength="10"
+            maxlength="10"
+            [pattern]="mobileNoPattern"
+            required
+            #number="ngModel"
+          />
+          <mat-hint>
+            <span class="errorText" [hidden]="!number.hasError('pattern')"
+              >Required 10 digit valid mobile number</span
+            >
+          </mat-hint>
+        </mat-form-field>
+      </div>
+      <div class="col-3 m-t-10">
+        <mat-form-field [style.width]="'100%'">
+          <mat-label>Email ID</mat-label>
+          <input
+            matInput
+            required
+            ngModel
+            [pattern]="emailPattern"
+            name="email"
+            [(ngModel)]="primaryEmail"
+            maxlength="30"
+            #validEmail="ngModel"
+          />
+          <mat-hint>
+            <span class="errorText" [hidden]="!validEmail.hasError('pattern')"
+              >Valid Email ID is required</span
+            >
+          </mat-hint>
+        </mat-form-field>
+      </div>
+      <div class="col-3 m-t-10" *ngIf="!editMode">
+        <mat-form-field [style.width]="'100%'">
+          <mat-label>Address1</mat-label>
+          <input
+            matInput
+            appMyAddressDirective
+            maxlength="100"
+            ngModel
+            minlength="3"
+            name="address1"
+            [(ngModel)]="address1"
+            required
+            #address="ngModel"
+          />
+          <mat-hint *ngIf="address.errors && address.touched">
+            <span class="errorText">Enter minimum 3 characters</span>
+          </mat-hint>
+        </mat-form-field>
+      </div>
+      <div class="col-3 m-t-10" *ngIf="!editMode">
+        <mat-form-field [style.width]="'100%'">
+          <mat-label>Address2</mat-label>
+          <input
+            matInput
+            appMyAddressDirective
+            maxlength="100"
+            ngModel
+            name="address2"
+            [(ngModel)]="address2"
+          />
+        </mat-form-field>
+      </div>
+      <div class="col-3 m-t-10" *ngIf="editMode">
+        <mat-form-field [style.width]="'100%'">
+          <mat-label>Address</mat-label>
+          <input
+            matInput
+            appMyAddressDirective
+            minlength="3"
+            maxlength="100"
+            ngModel
+            name="address"
+            [(ngModel)]="primaryAddress"
+            #editAddress="ngModel"
+          />
+          <mat-hint
+            class="errorText"
+            *ngIf="editAddress.errors && editAddress.touched"
+            >Enter minimum 3 characters
+          </mat-hint>
+        </mat-form-field>
+      </div>
+    </form>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10">
+      <button
+        mat-raised-button
+        color="primary"
+        class="pull-left mat_blue"
+        (click)="back()"
+      >
+        Back
+      </button>
+      <button
+        *ngIf="!editMode"
+        mat-raised-button
+        color="accent"
+        class="pull-right mat_green"
+        [disabled]="providerCreationForm.invalid || providerNameExist"
+        (click)="save(providerCreationForm.value)"
+      >
+        Save
+      </button>
+      <button
+        *ngIf="editMode"
+        mat-raised-button
+        color="accent"
+        class="pull-right mat_green"
+        [disabled]="providerCreationForm.invalid || providerNameExist"
+        (click)="update(providerCreationForm.value)"
+      >
+        Update
+      </button>
+    </div>
+  </div>
+</div>

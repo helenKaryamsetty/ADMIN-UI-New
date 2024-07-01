@@ -1,0 +1,310 @@
+<div class="container-fluid">
+  <div class="row" *ngIf="showDrugGroups && !editable">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <h4 class="pull-left">Drug Group Master</h4>
+    </div>
+  </div>
+  <div
+    style="text-align: end"
+    *ngIf="availableDrugGroups.length !== 0 && showDrugGroups && !editable"
+  >
+    <mat-form-field id="filterbox">
+      <input
+        matInput
+        placeholder="In-Table Search"
+        #filterTerm
+        (keyup)="filterComponentList(filterTerm.value)"
+      />
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+  </div>
+  <div class="row" *ngIf="showDrugGroups && !editable">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-15">
+      <div class="table-responsive">
+        <table
+          mat-table
+          class="table table-striped table-hover"
+          [dataSource]="filteredavailableDrugGroups"
+        >
+          <ng-container matColumnDef="sno">
+            <th mat-header-cell *matHeaderCellDef>SNo.</th>
+            <td mat-cell *matCellDef="let element; let i = index">
+              {{ i + 1 }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="drugGroup">
+            <th mat-header-cell *matHeaderCellDef>Drug Group</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.drugGroup }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="drugGroupDesc">
+            <th mat-header-cell *matHeaderCellDef>Description</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.drugGroupDesc }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="edit">
+            <th mat-header-cell *matHeaderCellDef>Edit</th>
+            <td mat-cell *matCellDef="let element">
+              <mat-icon
+                matTooltip="Edit"
+                class="mat-icon material-icons"
+                role="img"
+                aria-hidden="true"
+                style="cursor: pointer"
+                *ngIf="!element.deleted"
+                (click)="editDrugGroup(element)"
+                >edit</mat-icon
+              >
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef>Action</th>
+            <td mat-cell *matCellDef="let element">
+              <button
+                *ngIf="element.deleted"
+                mat-raised-button
+                class="mat_green"
+                color="accent"
+                (click)="updateDrugGroupStatus(element)"
+              >
+                Activate
+              </button>
+              <button
+                *ngIf="!element.deleted"
+                mat-raised-button
+                class="mat_blue"
+                color="primary"
+                (click)="updateDrugGroupStatus(element)"
+              >
+                Deactivate
+              </button>
+            </td>
+          </ng-container>
+          <tfoot>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+          </tfoot>
+        </table>
+        <div
+          class="pull-center"
+          style="margin-top: 35px; text-align: center"
+          *ngIf="filteredavailableDrugGroups.data.length === 0"
+        >
+          <strong>No Records Found</strong>
+        </div>
+        <mat-paginator
+          #paginatorFirst
+          [length]="filteredavailableDrugGroups.data.length"
+          [hidden]="filteredavailableDrugGroups.data.length === 0"
+          [pageSizeOptions]="[5, 10, 20]"
+          [pageSize]="5"
+          showFirstLastButtons
+        >
+        </mat-paginator>
+        <div>
+          <button
+            mat-raised-button
+            color="primary"
+            class="pull-right mat_blue"
+            (click)="showForm()"
+          >
+            Create Drug Group
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="!showDrugGroups || editable">
+    <h4 *ngIf="!editable">Create Drug Group</h4>
+    <h4 *ngIf="editable">Edit Drug Group</h4>
+    <div class="row">
+      <div class="col-12">
+        <form #drugGroupForm="ngForm" autocomplete="off" class="row">
+          <div class="col-3">
+            <mat-form-field [style.width]="'100%'">
+              <mat-label>Drug Group </mat-label>
+              <input
+                matInput
+                appItemNameMasterValidator
+                required
+                [(ngModel)]="drugGroup"
+                name="drugGroup"
+                #drugG="ngModel"
+                (keyup)="checkExistance(drugGroup)"
+                minlength="1"
+                maxlength="50"
+              />
+              <mat-hint>
+                <span
+                  class="error_text"
+                  *ngIf="
+                    (!drugG.valid && (drugG.dirty || drugG.touched)) ||
+                    inValidDrugGroup
+                  "
+                  >Please enter valid Drug Group Name</span
+                >
+                <span class="error_text" *ngIf="groupNameExist"
+                  >Drug Group Already Exists</span
+                >
+              </mat-hint>
+            </mat-form-field>
+          </div>
+          <div class="col-3">
+            <mat-form-field [style.width]="'100%'">
+              <mat-label>Drug Group Description</mat-label>
+              <input
+                matInput
+                appTextAreaValidator
+                required
+                [(ngModel)]="drugGroupDesc"
+                name="drugGroupDesc"
+                #drugD="ngModel"
+                maxlength="100"
+                (keyup)="checkForValidDrugDesc(drugGroupDesc)"
+              />
+              <mat-hint>
+                <span
+                  class="error_text"
+                  *ngIf="
+                    (!drugD.valid && (drugD.dirty || drugD.touched)) ||
+                    invalidDrugDesc
+                  "
+                  >Please enter drug Group Description</span
+                >
+              </mat-hint>
+            </mat-form-field>
+          </div>
+          <div
+            class="col-3"
+            *ngIf="
+              drugG.valid &&
+              drugD.valid &&
+              !groupNameExist &&
+              !inValidDrugGroup &&
+              !invalidDrugDesc
+            "
+          >
+            <button
+              md-mini-fab
+              color="primary"
+              *ngIf="!editable"
+              class="xs-pull-right sm-pull-right md-pull-left mat_icon_white"
+              (click)="
+                addDrugGroupToList(drugGroupForm.value); drugGroupForm.reset()
+              "
+            >
+              <mat-icon
+                matSuffix
+                class="mat-icon material-icons"
+                role="img"
+                aria-hidden="true"
+                style="cursor: pointer"
+                >add</mat-icon
+              >
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <div
+        class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10"
+        *ngIf="drugGroupList.data.length > 0"
+      >
+        <div class="table-responsive">
+          <table
+            mat-table
+            [dataSource]="drugGroupList"
+            class="table table-striped table-hover"
+          >
+            <ng-container matColumnDef="sno">
+              <th mat-header-cell *matHeaderCellDef>SNo.</th>
+              <td mat-cell *matCellDef="let element; let i = index">
+                {{ i + 1 }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="drugGroup">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                Drug Group
+              </th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.drugGroup }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="drugGroupDesc">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                Description
+              </th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.drugGroupDesc }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="action">
+              <th mat-header-cell *matHeaderCellDef>Action</th>
+              <td mat-cell *matCellDef="let element; let i = index">
+                <mat-icon
+                  class="cursorPointer"
+                  matTooltip="delete"
+                  (click)="remove_obj(drugGroupList.data.indexOf(element))"
+                  >delete</mat-icon
+                >
+              </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayAddedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayAddedColumns"></tr>
+          </table>
+          <mat-paginator
+            #paginatorSecond
+            [length]="drugGroupList.data.length"
+            [hidden]="drugGroupList.data.length === 0"
+            [pageSizeOptions]="[5, 10, 20]"
+            [pageSize]="5"
+            showFirstLastButtons
+          >
+          </mat-paginator>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div
+        class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10"
+        style="margin-bottom: 47px"
+      >
+        <button
+          mat-raised-button
+          color="primary"
+          class="pull-left mat_blue"
+          (click)="back()"
+        >
+          Back
+        </button>
+        <button
+          [disabled]="drugGroupList.data.length === 0"
+          *ngIf="!editable"
+          mat-raised-button
+          color="accent"
+          class="pull-right mat_green"
+          (click)="storeDrugGroup()"
+        >
+          Save
+        </button>
+        <button
+          *ngIf="editable"
+          mat-raised-button
+          color="accent"
+          [disabled]="
+            drugGroupForm.invalid ||
+            groupNameExist ||
+            inValidDrugGroup ||
+            invalidDrugDesc
+          "
+          class="pull-right mat_green"
+          (click)="updateDrugGroup(drugGroupForm.value); drugGroupForm.reset()"
+        >
+          Update
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

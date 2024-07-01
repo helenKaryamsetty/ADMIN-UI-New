@@ -1,0 +1,84 @@
+<div class="title">
+  <h4>Snomed CT Code Selection</h4>
+  <button
+    mat-icon-button
+    matDialogClose
+    tooltip="Close"
+    class="pull-right exit width-20px"
+  >
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+<div class="container-fluid">
+  <div class="overlay" *ngIf="showProgressBar">
+    <div class="overlay-content">
+      <mat-spinner></mat-spinner>
+    </div>
+  </div>
+  <mat-dialog-content>
+    <div class="table-responsive">
+      <table
+        mat-table
+        [dataSource]="dataSource"
+        class="table table-striped table-hover"
+      >
+        <ng-container matColumnDef="conceptID">
+          <th mat-header-cell *matHeaderCellDef>Snomed Code</th>
+          <td mat-cell *matCellDef="let element">{{ element?.conceptID }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="term">
+          <th mat-header-cell *matHeaderCellDef>Snomed Term</th>
+          <td mat-cell *matCellDef="let element">{{ element?.term }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="selectedItem">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let element">
+            <mat-radio-group
+              name="componentValue"
+              (change)="selectSnomedCode(element?.conceptID, element?.term)"
+            >
+              <mat-radio-button
+                [checked]="element?.conceptID === selectedItem"
+                color="primary"
+                value="Yes"
+              >
+              </mat-radio-button>
+            </mat-radio-group>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+      <div
+        class="pull-center"
+        style="margin-top: 35px; text-align: center"
+        *ngIf="dataSource.data.length === 0"
+      >
+        <strong>No Records Found</strong>
+      </div>
+      <mat-paginator
+        [hidden]="dataSource.data.length === 0"
+        [pageSizeOptions]="[5, 10, 20]"
+        [pageSize]="5"
+        showFirstLastButtons
+      >
+      </mat-paginator>
+    </div>
+    <div class="row m-b-20">
+      <div class="col-xs-12" *ngIf="dataSource.data.length !== 0">
+        <button
+          mat-raised-button
+          class="pull-right mat_blue"
+          (click)="submitComponentList()"
+          [disabled]="selectedTerm === null"
+          color="primary"
+        >
+          Submit
+        </button>
+      </div>
+    </div>
+  </mat-dialog-content>
+</div>

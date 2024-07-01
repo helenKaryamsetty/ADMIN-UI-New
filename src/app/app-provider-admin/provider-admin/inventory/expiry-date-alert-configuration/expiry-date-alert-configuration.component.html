@@ -1,0 +1,389 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-12">
+      <h4>
+        <strong>Expiry Date Alert Configuration</strong>
+      </h4>
+    </div>
+  </div>
+
+  <div class="row m-t-20">
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 box">
+      <mat-form-field [style.width]="'100%'">
+        <mat-label>Serviceline</mat-label>
+        <mat-select
+          required
+          [disabled]="mode && mode !== 'view'"
+          name="Services"
+          [(ngModel)]="serviceline"
+          (selectionChange)="getstates(serviceline)"
+        >
+          <mat-option *ngFor="let item of services_array" [value]="item">
+            {{ item.serviceName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 box">
+      <mat-form-field [style.width]="'100%'">
+        <mat-label>State</mat-label>
+        <mat-select
+          required
+          [disabled]="mode && mode !== 'view'"
+          name="state"
+          [(ngModel)]="state"
+        >
+          <mat-option
+            *ngFor="let item of states_array"
+            [value]="item"
+            (click)="getItemCategory(item.providerServiceMapID)"
+          >
+            {{ item.stateName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div
+      class="col-xs-12 col-sm-12 col-md-4 col-lg-6 box"
+      *ngIf="mode === 'view' && itemCategory_array?.length > 0"
+    >
+      <mat-form-field class="pull-right">
+        <mat-label> In-Table Search </mat-label>
+        <input
+          matInput
+          name="filterTerm"
+          [(ngModel)]="filterTerm"
+          (keyup)="filterItemCategory(filterTerm)"
+        />
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="row m-t-20" *ngIf="mode === 'view'">
+    <div class="col-xs-12 col-sm-12">
+      <div class="table-responsive">
+        <table
+          mat-table
+          [dataSource]="filteredItemCategory_array"
+          class="table table-hover table-striped"
+        >
+          <ng-container matColumnDef="sNo">
+            <th mat-header-cell *matHeaderCellDef>S.No.</th>
+            <td mat-cell *matCellDef="let itemCategory; let i = index">
+              {{ i + 1 }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="itemCategoryCode">
+            <th mat-header-cell *matHeaderCellDef>Item Category Code</th>
+            <td mat-cell *matCellDef="let itemCategory">
+              {{ itemCategory.itemCategoryCode }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="itemCategoryName">
+            <th mat-header-cell *matHeaderCellDef>Item Category Name</th>
+            <td mat-cell *matCellDef="let itemCategory">
+              {{ itemCategory.itemCategoryName }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="alertBeforeDays">
+            <th mat-header-cell *matHeaderCellDef>Days before Expiry Alert</th>
+            <td mat-cell *matCellDef="let itemCategory">
+              {{ itemCategory.alertBeforeDays }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="edit">
+            <th mat-header-cell *matHeaderCellDef>Edit</th>
+            <td mat-cell *matCellDef="let itemCategory">
+              <button
+                mat-icon-button
+                style="border: unset; background-color: unset"
+                *ngIf="!itemCategory.deleted"
+                matTooltip="Edit"
+                (click)="editExpiryAlertConfig(itemCategory)"
+              >
+                <mat-icon>edit</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+          <tr
+            mat-header-row
+            *matHeaderRowDef="[
+              'sNo',
+              'itemCategoryCode',
+              'itemCategoryName',
+              'alertBeforeDays',
+              'edit'
+            ]"
+          ></tr>
+          <tr
+            mat-row
+            *matRowDef="
+              let itemCategory;
+              columns: [
+                'sNo',
+                'itemCategoryCode',
+                'itemCategoryName',
+                'alertBeforeDays',
+                'edit'
+              ]
+            "
+          ></tr>
+        </table>
+        <div>
+          <button
+            mat-raised-button
+            color="primary"
+            *ngIf="mode === 'view'"
+            class="pull-right mat_blue"
+            (click)="createExpiryAlertConfig()"
+          >
+            Create Expiry Date Alert Config
+          </button>
+        </div>
+        <div
+          *ngIf="
+            filteredItemCategory_array &&
+            filteredItemCategory_array.data.length === 0
+          "
+        >
+          <strong>No Record Found</strong>
+        </div>
+        <mat-paginator
+          [hidden]="filteredItemCategory_array.data.length === 0"
+          [pageSizeOptions]="[5, 10, 25]"
+          [pageSize]="5"
+          showFirstLastButtons
+        ></mat-paginator>
+      </div>
+    </div>
+  </div>
+
+  <div class="row m-t-20" *ngIf="mode === 'create'">
+    <form
+      id="form"
+      #expiryAlertConfigCreateForm="ngForm"
+      autocomplete="off"
+      class="row"
+    >
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 box">
+        <mat-form-field [style.width]="'100%'">
+          <mat-label>Item Category Name</mat-label>
+          <mat-select required name="itemCategory" [(ngModel)]="itemCategory">
+            <mat-option
+              *ngFor="let item of unmappedItemCategory"
+              [value]="item"
+            >
+              {{ item.itemCategoryName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 box">
+        <mat-form-field [style.width]="'100%'" appMyMobileNumber>
+          <mat-label>Days before Expiry Alert</mat-label>
+          <input
+            required
+            matInput
+            name="alertBeforeDays"
+            [(ngModel)]="alertBeforeDays"
+          />
+        </mat-form-field>
+      </div>
+
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 box">
+        <button
+          *ngIf="expiryAlertConfigCreateForm.valid"
+          mat-mini-fab
+          class="xs-pull-right sm-pull-right md-pull-right lg-pull-left mat_icon_white"
+          color="primary"
+          (click)="addToExpiryAlertConfigList(expiryAlertConfigCreateForm)"
+        >
+          <mat-icon
+            matSuffix
+            class="mat-icon material-icons"
+            role="img"
+            aria-hidden="true"
+            style="cursor: pointer"
+            >add</mat-icon
+          >
+        </button>
+      </div>
+
+      <div
+        class="col-xs-12 col-sm-12 m-t-15"
+        *ngIf="expiryAlertConfigList.data.length > 0"
+      >
+        <div class="table-responsive">
+          <table
+            mat-table
+            [dataSource]="expiryAlertConfigList"
+            class="table table-hover table-striped"
+          >
+            <ng-container matColumnDef="sNo">
+              <th mat-header-cell *matHeaderCellDef>S.No.</th>
+              <td mat-cell *matCellDef="let item; let i = index">
+                {{ i + 1 }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="itemCategoryName">
+              <th mat-header-cell *matHeaderCellDef>Item Category Name</th>
+              <td mat-cell *matCellDef="let item; let i = index">
+                {{ item.itemCategory.itemCategoryName }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="alertBeforeDays">
+              <th mat-header-cell *matHeaderCellDef>
+                Days before Expiry Alert
+              </th>
+              <td mat-cell *matCellDef="let item; let i = index">
+                {{ item.alertBeforeDays }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="action">
+              <th mat-header-cell *matHeaderCellDef>Action</th>
+              <td mat-cell *matCellDef="let item; let i = index">
+                <button
+                  mat-icon-button
+                  style="border: unset; background-color: unset"
+                  matTooltip="Delete"
+                  (click)="removeFromExpiryAlertConfigList(i)"
+                >
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+
+            <tr
+              mat-header-row
+              *matHeaderRowDef="[
+                'sNo',
+                'itemCategoryName',
+                'alertBeforeDays',
+                'action'
+              ]"
+            ></tr>
+            <tr
+              mat-row
+              *matRowDef="
+                let item;
+                columns: [
+                  'sNo',
+                  'itemCategoryName',
+                  'alertBeforeDays',
+                  'action'
+                ]
+              "
+            ></tr>
+          </table>
+          <div>
+            <mat-paginator
+              [pageSize]="5"
+              [length]="expiryAlertConfigList.data.length"
+            ></mat-paginator>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xs-12 col-sm-12 m-t-15" style="padding-bottom: 40px">
+        <button
+          type="button"
+          mat-raised-button
+          color="primary"
+          class="pull-left mat_blue"
+          (click)="viewExpiryAlertConfig(expiryAlertConfigCreateForm)"
+        >
+          Back
+        </button>
+        <button
+          type="button"
+          mat-raised-button
+          color="accent"
+          (click)="submitExpiryAlertConfig(expiryAlertConfigCreateForm)"
+          [disabled]="!(expiryAlertConfigList.data.length > 0)"
+          class="pull-right mat_green"
+        >
+          Save
+        </button>
+        <button
+          type="reset"
+          mat-raised-button
+          color="primary"
+          class="pull-right m-r-5 mat_blue"
+        >
+          Clear
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <div class="row m-t-20" *ngIf="mode === 'edit'">
+    <form
+      id="form"
+      #expiryAlertConfigEditForm="ngForm"
+      autocomplete="off"
+      class="row"
+    >
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 box">
+        <mat-form-field [style.width]="'100%'">
+          <mat-label>Item Category Name</mat-label>
+          <mat-select
+            required
+            name="edit_itemCategory"
+            [disabled]="true"
+            [(ngModel)]="edit_itemCategory"
+          >
+            <mat-option
+              *ngFor="let item of itemCategory_array"
+              [value]="item.itemCategoryID"
+            >
+              {{ item.itemCategoryName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 box">
+        <mat-form-field [style.width]="'100%'">
+          <mat-label>Days before Expiry Alert</mat-label>
+          <input
+            matInput
+            required
+            name="edit_alertBeforeDays"
+            [(ngModel)]="edit_alertBeforeDays"
+          />
+        </mat-form-field>
+      </div>
+
+      <div
+        class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10"
+        style="padding-bottom: 20px"
+      >
+        <button
+          type="button"
+          mat-raised-button
+          style="margin-bottom: 20px"
+          color="primary"
+          class="pull-left mat_blue"
+          (click)="viewExpiryAlertConfig()"
+        >
+          Back
+        </button>
+        <button
+          type="button"
+          mat-raised-button
+          style="margin-bottom: 20px"
+          color="accent"
+          class="pull-right mat_green"
+          [disabled]="expiryAlertConfigEditForm.invalid"
+          (click)="updateExpiryAlertConfig(expiryAlertConfigEditForm)"
+        >
+          Update
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

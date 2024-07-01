@@ -1,0 +1,146 @@
+<div class="row">
+  <div class="col-xs-6 col-sm-6 col-md-9 col-lg-9">
+    <h4 mat-dialog-title class="modal-title" style="margin: unset">
+      Edit Questionnaire
+    </h4>
+  </div>
+  <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+    <button
+      mat-button
+      class="pull-right p-r-0"
+      [mat-dialog-close]="true"
+      style="background-color: unset; border: unset; margin: 20px"
+    >
+      <mat-icon
+        mdTooltip="close"
+        class="mat-icon material-icons pull-right"
+        role="img"
+        aria-hidden="true"
+        style="cursor: pointer"
+        >clear</mat-icon
+      >
+    </button>
+  </div>
+</div>
+<div class="m-b-10 col-12">
+  <form [formGroup]="editQuestionnaireForm" class="row">
+    <div class="col-4">
+      <mat-form-field>
+        <mat-label>Question</mat-label>
+        <input
+          matInput
+          appQuestionnaireValidator
+          required
+          formControlName="questionName"
+          minlength="5"
+          maxlength="1000"
+          (keyup)="enableUpdateButton()"
+        />
+      </mat-form-field>
+    </div>
+
+    <div class="col-4">
+      <mat-form-field>
+        <mat-label>Answer Type</mat-label>
+        <mat-select
+          formControlName="answerType"
+          [style.width]="'100%'"
+          (selectionChange)="enableoptionField(); enableUpdateButton()"
+          required
+        >
+          <mat-option *ngFor="let answers of answerTypes" [value]="answers">{{
+            answers
+          }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-4" *ngIf="disableWeightage">
+      <mat-form-field>
+        <mat-label>Weightage</mat-label>
+        <input
+          matInput
+          required
+          formControlName="questionWeight"
+          (keyup)="weightageInput(); enableUpdateButton()"
+          minlength="0"
+          maxlength="3"
+          appMyMobileNumber
+        />
+      </mat-form-field>
+    </div>
+
+    <div formArrayName="answerOptions" *ngIf="enableOptionArray">
+      <div
+        class="col-xs-12 col-sm-12 col-md-12 col-lg-12x"
+        *ngFor="let options of answerOptionValue(); index as idx"
+      >
+        <div [formGroupName]="idx">
+          <div class="col-xs-6 col-sm-6">
+            <mat-form-field *ngIf="this.deleteArray[idx] !== idx">
+              <mat-label>Option</mat-label>
+              <input
+                matInput
+                required
+                formControlName="option"
+                maxlength="100"
+                (keyup)="enableUpdateButton()"
+              />
+            </mat-form-field>
+          </div>
+          <div class="col-xs-6 col-sm-6">
+            <mat-form-field *ngIf="this.deleteArray[idx] !== idx">
+              <mat-label>Weightage</mat-label>
+              <input
+                matInput
+                required
+                allowText="number"
+                formControlName="optionWeightage"
+                (keyup)="optionweightage(idx); enableUpdateButton()"
+                minlength="0"
+                maxlength="3"
+                appMyMobileNumber
+              />
+            </mat-form-field>
+          </div>
+          <button
+            mat-mini-fab
+            class="mat_icon_white"
+            color="primary"
+            (click)="addOptionField(idx)"
+            *ngIf="this.deleteArray[idx] !== idx"
+          >
+            <mat-icon class="md-18">add</mat-icon>
+          </button>
+          <button
+            mat-mini-fab
+            color="warn"
+            class="mat_warn_circle"
+            (click)="deleteOptionField(idx)"
+            *ngIf="this.deleteArray[idx] !== idx"
+          >
+            <mat-icon class="md-18">close</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="col-xs-12 col-sm-12 m-b-10">
+  <button
+    mat-raised-button
+    class="pull-right m-l-15 mat_green"
+    color="accent"
+    [disabled]="
+      editQuestionnaireForm.invalid ||
+      weightFlag ||
+      optionweightFlag ||
+      enableUpdate
+    "
+    (click)="onSubmit()"
+  >
+    Update
+  </button>
+  <button mat-raised-button class="m-l-15 pull-right mat_blue" mat-dialog-close>
+    Close
+  </button>
+</div>

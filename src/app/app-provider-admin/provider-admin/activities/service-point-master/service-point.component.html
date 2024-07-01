@@ -1,0 +1,746 @@
+<div class="container-fluid">
+  <div class="row">
+    <div *ngIf="!editMode && !formMode" class="col-xs-12 col-sm-12">
+      <h4>Service Point Master</h4>
+      <form #searForm="ngForm" autocomplete="off">
+        <div class="row">
+          <div class="col-3 m-t-15">
+            <mat-form-field [style.width]="'100%'">
+              <mat-label>Serviceline</mat-label>
+              <mat-select
+                required
+                name="Services"
+                [(ngModel)]="serviceline"
+                (selectionChange)="
+                  getStates(serviceline.serviceID); resetform.reset()
+                "
+              >
+                <mat-option *ngFor="let item of services_array" [value]="item">
+                  {{ item.serviceName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <!-- </md-input-container> -->
+          </div>
+          <div class="col-3 m-t-15">
+            <mat-form-field [style.width]="'100%'">
+              <mat-label>State</mat-label>
+              <mat-select
+                required
+                [(ngModel)]="searchStateID"
+                name="searchStateID"
+                (selectionChange)="
+                  setProviderServiceMapID(searchStateID.providerServiceMapID);
+                  resetform.reset()
+                "
+              >
+                <mat-option
+                  *ngFor="let state of provider_states"
+                  [value]="state"
+                >
+                  {{ state.stateName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <!-- </md-input-container> -->
+          </div>
+          <form class="row" style="display: contents" #resetform="ngForm">
+            <div class="col-3 m-t-15">
+              <mat-form-field [style.width]="'100%'">
+                <mat-label>Zone</mat-label>
+                <mat-select
+                  [(ngModel)]="zoneID"
+                  name="zoneID"
+                  #zone="ngModel"
+                  (selectionChange)="
+                    getAllParkingPlaces(
+                      zoneID.zoneID,
+                      searchStateID.providerServiceMapID
+                    )
+                  "
+                  required
+                >
+                  <mat-option *ngFor="let zone of zones" [value]="zone">
+                    {{ zone.zoneName }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-3 m-t-15">
+              <mat-form-field [style.width]="'100%'" *ngIf="parkAndHub">
+                <mat-label>{{ parkAndHub }}</mat-label>
+                <mat-select
+                  [(ngModel)]="parking_Place"
+                  name="parking_Place"
+                  (selectionChange)="
+                    getServicePoints(
+                      searchStateID.stateID,
+                      parking_Place.parkingPlaceID
+                    )
+                  "
+                  #parkingPlace="ngModel"
+                  required
+                >
+                  <mat-option
+                    *ngFor="let parkingPlace of parkingPlaces"
+                    [value]="parkingPlace"
+                  >
+                    {{ parkingPlace.parkingPlaceName }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </form>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div
+    class=""
+    style="text-align: end"
+    *ngIf="availableServicePoints.length !== 0 && showServicePoints"
+  >
+    <mat-form-field [style.width]="'100%'">
+      <input
+        matInput
+        placeholder="In-Table Search"
+        #filterTerm
+        (keyup)="filterComponentList(filterTerm.value)"
+      />
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+  </div>
+  <div class="">
+    <div *ngIf="showServicePoints" class="col-xs-12 col-sm-12">
+      <div class="m-t-15 table-responsive">
+        <table
+          [dataSource]="filteredavailableServicePoints"
+          mat-table
+          class="table table-striped table-hover"
+        >
+          <ng-container matColumnDef="sno">
+            <th mat-header-cell *matHeaderCellDef>SNo.</th>
+            <td mat-cell *matCellDef="let element; let i = index">
+              {{ i + 1 }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="parkingPlaceName">
+            <th mat-header-cell *matHeaderCellDef>{{ parkAndHub }}</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.parkingPlaceName }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="districtName">
+            <th mat-header-cell *matHeaderCellDef>District</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.districtName }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="blockName">
+            <th mat-header-cell *matHeaderCellDef>Sub District</th>
+            <td mat-cell *matCellDef="let element">{{ element.blockName }}</td>
+          </ng-container>
+          <ng-container matColumnDef="servicePointName">
+            <th mat-header-cell *matHeaderCellDef>Service Point</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.servicePointName }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="servicePointDesc">
+            <th mat-header-cell *matHeaderCellDef>Description</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.servicePointDesc }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="servicePointHQAddress">
+            <th mat-header-cell *matHeaderCellDef>Address</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.servicePointHQAddress }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="edit">
+            <th mat-header-cell *matHeaderCellDef>Edit</th>
+            <td mat-cell *matCellDef="let element">
+              <mat-icon
+                matTooltip="Edit"
+                class="mat-icon material-icons"
+                role="img"
+                aria-hidden="true"
+                style="cursor: pointer"
+                *ngIf="!element.deleted"
+                (click)="editservicePoint(element)"
+                >edit</mat-icon
+              >
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef>Action</th>
+            <td mat-cell *matCellDef="let element">
+              <button
+                *ngIf="element.deleted"
+                mat-raised-button
+                class="mat_green"
+                color="accent"
+                (click)="updateServicePointStatus(element)"
+              >
+                Activate
+              </button>
+              <button
+                *ngIf="!element.deleted"
+                mat-raised-button
+                class="mat_blue"
+                color="primary"
+                (click)="updateServicePointStatus(element)"
+              >
+                Deactivate
+              </button>
+            </td>
+          </ng-container>
+          <tfoot>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+          </tfoot>
+        </table>
+        <div>
+          <div
+            class="pull-center"
+            style="margin-top: 35px; text-align: center"
+            *ngIf="filteredavailableServicePoints.data.length === 0"
+          >
+            <strong>No Records Found</strong>
+          </div>
+          <button
+            mat-raised-button
+            color="primary"
+            [disabled]="!createButton"
+            class="pull-right mat_blue"
+            (click)="showForm()"
+          >
+            Create New Service Point
+          </button>
+        </div>
+        <mat-paginator
+          [hidden]="filteredavailableServicePoints.data.length === 0"
+          [pageSizeOptions]="[5, 10, 20]"
+          [pageSize]="5"
+          showFirstLastButtons
+        >
+        </mat-paginator>
+      </div>
+    </div>
+
+    <div *ngIf="formMode" class="col-xs-12 col-sm-12">
+      <h4>Create Service Point</h4>
+
+      <form #servicePointForm="ngForm" autocomplete="off">
+        <div class="row">
+          <div class="col-3 m-t-15">
+            <mat-form-field [style.width]="'100%'">
+              <mat-label>Serviceline</mat-label>
+              <mat-select
+                required
+                name="Services"
+                [disabled]="true"
+                [(ngModel)]="serviceline"
+                (selectionChange)="getStates(serviceline)"
+              >
+                <mat-option *ngFor="let item of services_array" [value]="item">
+                  {{ item.serviceName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-3 m-t-15">
+            <mat-form-field [style.width]="'100%'">
+              <mat-label>State</mat-label>
+              <mat-select
+                [disabled]="true"
+                [(ngModel)]="searchStateID"
+                name="searchStateID"
+              >
+                <mat-option
+                  *ngFor="let state of provider_states"
+                  [value]="state"
+                >
+                  {{ state.stateName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-3 m-t-15">
+            <mat-form-field [style.width]="'100%'">
+              <mat-label>Zone</mat-label>
+              <mat-select
+                [(ngModel)]="zoneID"
+                name="zoneID"
+                [disabled]="true"
+                #zone="ngModel"
+                (selectionChange)="
+                  getAllParkingPlaces(
+                    zoneID.zoneID,
+                    searchStateID.providerServiceMapID
+                  )
+                "
+                required
+              >
+                <mat-option *ngFor="let zone of zones" [value]="zone">
+                  {{ zone.zoneName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-3 m-t-15">
+            <mat-form-field [style.width]="'100%'" *ngIf="parkAndHub">
+              <mat-label>{{ parkAndHub }}</mat-label>
+              <mat-select
+                [(ngModel)]="parking_Place"
+                name="parking_Place"
+                [disabled]="true"
+                (selectionChange)="getDistricts(zoneID.zoneID)"
+                #parkingPlace="ngModel"
+                required
+              >
+                <mat-option
+                  *ngFor="let parkingPlace of parkingPlaces"
+                  [value]="parkingPlace"
+                >
+                  {{ parkingPlace.parkingPlaceName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <form
+            style="display: contents"
+            #servicePointForm1="ngForm"
+            autocomplete="off"
+          >
+            <div class="col-3 m-t-15">
+              <mat-form-field [style.width]="'100%'">
+                <mat-label>District</mat-label>
+                <mat-select
+                  [(ngModel)]="district"
+                  name="district"
+                  (selectionChange)="
+                    GetTaluks(parking_Place.parkingPlaceID, district.districtID)
+                  "
+                  #mappingDistrict="ngModel"
+                >
+                  <mat-option *ngFor="let item of districts" [value]="item">
+                    {{ item.districtName }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <p class="maxRedialNote">{{ note }}</p>
+            </div>
+            <div class="col-3 m-t-15">
+              <mat-form-field [style.width]="'100%'">
+                <mat-label>Taluk/Sub District</mat-label>
+                <mat-select [(ngModel)]="talukID" name="talukID">
+                  <mat-option *ngFor="let taluk of taluks" [value]="taluk">
+                    {{ taluk.districtBlockName }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-3 m-t-15">
+              <mat-form-field [style.width]="'100%'">
+                <mat-label>Service Point Name</mat-label>
+                <input
+                  matInput
+                  appVehicleNoSpecialCharWithCopyPaste
+                  required
+                  [(ngModel)]="servicePointName"
+                  name="servicePointName"
+                  #servicePointN="ngModel"
+                  (keyup)="checkExistance(servicePointName)"
+                  minlength="2"
+                  maxlength="50"
+                />
+                <mat-hint>
+                  <span
+                    class="error_text"
+                    *ngIf="
+                      !servicePointN.valid &&
+                      (servicePointN.dirty || servicePointN.touched)
+                    "
+                    >Please enter Service Point Name</span
+                  >
+                  <span
+                    class="error_text"
+                    *ngIf="servicePointN.valid && servicePointNameExist"
+                    >Service Point already exists</span
+                  >
+                </mat-hint>
+              </mat-form-field>
+            </div>
+            <div class="col-3 m-t-15">
+              <mat-form-field [style.width]="'100%'">
+                <mat-label>Description</mat-label>
+                <input
+                  matInput
+                  appTextAreaWithCopyPaste
+                  [(ngModel)]="servicePointDesc"
+                  name="servicePointDesc"
+                  maxlength="100"
+                />
+              </mat-form-field>
+            </div>
+            <div class="col-3 m-t-15">
+              <mat-form-field [style.width]="'100%'">
+                <mat-label>Address</mat-label>
+                <input
+                  required
+                  matInput
+                  appMyAddressWithCopyPaste
+                  [(ngModel)]="areaHQAddress"
+                  name="areaHQAddress"
+                  #servicePointAddress="ngModel"
+                  maxlength="300"
+                />
+                <mat-hint [hidden]="servicePointAddress.valid">
+                  <span
+                    class="error_text"
+                    *ngIf="
+                      servicePointAddress.invalid &&
+                      (servicePointAddress.dirty || servicePointAddress.touched)
+                    "
+                    >Please enter address</span
+                  >
+                </mat-hint>
+              </mat-form-field>
+            </div>
+            <div class="col-3 m-t-15" style="text-align: center">
+              <button
+                mat-mini-fab
+                color="primary"
+                class="mat_icon_white"
+                *ngIf="
+                  !editable && servicePointForm1.valid && !servicePointNameExist
+                "
+                (click)="
+                  addServicePointToList(servicePointForm1.value);
+                  servicePointForm1.reset()
+                "
+              >
+                <mat-icon
+                  matSuffix
+                  class="mat-icon material-icons"
+                  role="img"
+                  aria-hidden="true"
+                  style="cursor: pointer"
+                  >add</mat-icon
+                >
+              </button>
+            </div>
+          </form>
+        </div>
+      </form>
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t--5">
+          <div
+            class="table-responsive"
+            *ngIf="servicePointList.data.length > 0"
+          >
+            <table
+              [dataSource]="servicePointList"
+              mat-table
+              class="table table-striped table-hover"
+            >
+              <ng-container matColumnDef="sno">
+                <th mat-header-cell *matHeaderCellDef>SNo.</th>
+                <td mat-cell *matCellDef="let element; let i = index">
+                  {{ i + 1 }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="parkingPlaceName">
+                <th mat-header-cell *matHeaderCellDef>{{ parkAndHub }}</th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element.parkingPlaceName }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="districtName">
+                <th mat-header-cell *matHeaderCellDef>District</th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element.districtName }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="servicePointName">
+                <th mat-header-cell *matHeaderCellDef>Service Point</th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element.servicePointName }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="servicePointDesc">
+                <th mat-header-cell *matHeaderCellDef>Description</th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element.servicePointDesc }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="servicePointHQAddress">
+                <th mat-header-cell *matHeaderCellDef>Address</th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element.servicePointHQAddress }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef>Action</th>
+                <td mat-cell *matCellDef="let element; let i = index">
+                  <mat-icon
+                    class="cursorPointer"
+                    matTooltip="delete"
+                    (click)="deleteRow(i)"
+                    >delete</mat-icon
+                  >
+                </td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="displayAddedColumns"></tr>
+              <tr
+                mat-row
+                *matRowDef="let row; columns: displayAddedColumns"
+              ></tr>
+            </table>
+            <mat-paginator
+              [hidden]="servicePointList.data.length === 0"
+              [pageSizeOptions]="[5, 10, 20]"
+              [pageSize]="5"
+              showFirstLastButtons
+            >
+            </mat-paginator>
+          </div>
+        </div>
+        <div
+          class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
+          style="padding-bottom: 35px"
+        >
+          <button
+            mat-raised-button
+            *ngIf="formMode"
+            [disabled]="!(servicePointList.data.length > 0)"
+            color="accent"
+            class="pull-right m-b-10 mat_green"
+            (click)="storeServicePoints(); servicePointForm1.reset()"
+          >
+            Save
+          </button>
+          <button
+            mat-raised-button
+            *ngIf="formMode"
+            color="primary"
+            class="pull-left m-b-10 mat_blue"
+            (click)="back()"
+          >
+            Back
+          </button>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="editMode" class="col-xs-12 col-sm-12">
+      <h4>Edit Service Point</h4>
+      <form #servicePointUpdateForm="ngForm" autocomplete="off" class="col-12">
+        <div class="row">
+          <div class="col-3 m-t-15">
+            <mat-form-field [style.width]="'100%'">
+              <mat-label>Serviceline</mat-label>
+              <mat-select
+                required
+                name="Services"
+                [disabled]="true"
+                [(ngModel)]="serviceline"
+                (selectionChange)="getStates(serviceline)"
+              >
+                <mat-option *ngFor="let item of services_array" [value]="item">
+                  {{ item.serviceName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-3 m-t-15">
+            <mat-form-field [style.width]="'100%'">
+              <mat-label>State</mat-label>
+              <mat-select
+                [disabled]="true"
+                [(ngModel)]="searchStateID"
+                name="searchStateID"
+              >
+                <mat-option
+                  *ngFor="let state of provider_states"
+                  [value]="state"
+                >
+                  {{ state.stateName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-3 m-t-15">
+            <mat-form-field [style.width]="'100%'">
+              <mat-label>Zone</mat-label>
+              <mat-select
+                [(ngModel)]="zoneID"
+                name="zoneID"
+                [disabled]="true"
+                #zone="ngModel"
+                (selectionChange)="
+                  getAllParkingPlaces(
+                    zoneID.zoneID,
+                    searchStateID.providerServiceMapID
+                  )
+                "
+                required
+              >
+                <mat-option *ngFor="let zone of zones" [value]="zone">
+                  {{ zone.zoneName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-3 m-t-15">
+            <mat-form-field [style.width]="'100%'" *ngIf="parkAndHub">
+              <mat-label>{{ parkAndHub }}</mat-label>
+              <mat-select
+                [(ngModel)]="parking_Place"
+                name="parking_Place"
+                [disabled]="true"
+                (selectionChange)="getDistricts(zoneID.zoneID)"
+                #parkingPlace="ngModel"
+                required
+              >
+                <mat-option
+                  *ngFor="let parkingPlace of parkingPlaces"
+                  [value]="parkingPlace"
+                >
+                  {{ parkingPlace.parkingPlaceName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-3 m-t-15">
+            <mat-form-field [style.width]="'100%'">
+              <mat-label>District</mat-label>
+              <mat-select
+                [(ngModel)]="district"
+                name="district"
+                (selectionChange)="
+                  GetTaluks(parking_Place.parkingPlaceID, district.districtID)
+                "
+                #mappingDistrict="ngModel"
+              >
+                <mat-option *ngFor="let item of districts" [value]="item">
+                  {{ item.districtName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <span class="maxRedialNote">{{ note }}</span>
+          </div>
+          <div class="col-3 m-t-15">
+            <mat-form-field [style.width]="'100%'">
+              <mat-label>Taluk/Sub District</mat-label>
+              <mat-select [(ngModel)]="talukID" name="talukID">
+                <mat-option *ngFor="let taluk of taluks" [value]="taluk">
+                  {{ taluk.districtBlockName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-3 m-t-15">
+            <mat-form-field [style.width]="'100%'">
+              <mat-label>Service Point Name </mat-label>
+              <input
+                matInput
+                appVehicleNoSpecialCharWithCopyPaste
+                required
+                [(ngModel)]="servicePointName"
+                name="servicePointName"
+                #servicePointN="ngModel"
+                (keyup)="checkExistance(servicePointName)"
+              />
+              <mat-hint>
+                <span
+                  class="error_text"
+                  *ngIf="
+                    !servicePointN.valid &&
+                    (servicePointN.dirty || servicePointN.touched)
+                  "
+                  >Please enter Service Point Name</span
+                >
+                <span
+                  class="error_text"
+                  *ngIf="servicePointN.valid && servicePointNameExist"
+                  >Service Point already exists</span
+                >
+              </mat-hint>
+            </mat-form-field>
+          </div>
+          <div class="col-3 m-t-15">
+            <mat-form-field [style.width]="'100%'">
+              <mat-label>Description</mat-label>
+              <input
+                matInput
+                appTextAreaWithCopyPaste
+                [(ngModel)]="servicePointDesc"
+                name="servicePointDesc"
+              />
+            </mat-form-field>
+          </div>
+          <div class="col-3 m-t-15">
+            <mat-form-field [style.width]="'100%'">
+              <mat-label>Address</mat-label>
+
+              <input
+                required
+                matInput
+                appMyAddressWithCopyPaste
+                [(ngModel)]="areaHQAddress"
+                name="areaHQAddress"
+                #servicePointAddress="ngModel"
+              />
+              <mat-hint [hidden]="servicePointAddress.valid">
+                <span
+                  class="error_text"
+                  *ngIf="
+                    servicePointAddress.invalid &&
+                    (servicePointAddress.dirty || servicePointAddress.touched)
+                  "
+                  >Please enter address</span
+                >
+              </mat-hint>
+            </mat-form-field>
+          </div>
+          <form #servicePointForm2="ngForm" autocomplete="off"></form>
+        </div>
+      </form>
+      <div class="row">
+        <div
+          class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
+          style="padding-bottom: 20px"
+        >
+          <button
+            mat-raised-button
+            *ngIf="editMode"
+            [disabled]="servicePointForm2.invalid || servicePointNameExist"
+            color="accent"
+            class="pull-right m-b-10 mat_green"
+            (click)="
+              updateServicePoints(servicePointForm2.value);
+              servicePointForm2.reset()
+            "
+          >
+            Update
+          </button>
+          <button
+            mat-raised-button
+            *ngIf="editMode"
+            color="primary"
+            class="pull-left m-b-10 mat_blue"
+            (click)="back()"
+          >
+            Back
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

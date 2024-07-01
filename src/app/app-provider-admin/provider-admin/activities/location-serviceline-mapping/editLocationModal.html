@@ -1,0 +1,109 @@
+<div class="row">
+  <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+    <h4 mat-dialog-title class="modal-title" style="margin: unset !important">
+      Edit Work Location
+    </h4>
+  </div>
+  <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+    <button
+      mat-button
+      class="pull-right p-r-0"
+      [mat-dialog-close]="true"
+      style="background-color: unset; border: unset; margin: 20px"
+    >
+      <mat-icon
+        matTooltip="close"
+        class="mat-icon material-icons pull-right"
+        role="img"
+        aria-hidden="true"
+        style="cursor: pointer"
+        >clear</mat-icon
+      >
+    </button>
+  </div>
+</div>
+<div mat-dialog-content class="row m-t-10">
+  <form #f1="ngForm" autocomplete="off">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <mat-form-field class="width100">
+        <mat-label>Service Provider Name</mat-label>
+        <input
+          matInput
+          disabled="true"
+          name="serviceProviderName"
+          [(ngModel)]="serviceProviderName"
+        />
+      </mat-form-field>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <mat-form-field class="width100">
+        <mat-label>State</mat-label>
+        <input
+          matInput
+          disabled="true"
+          name="stateName"
+          [(ngModel)]="stateName"
+        />
+      </mat-form-field>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <mat-form-field class="width100">
+        <mat-label>District</mat-label>
+        <input
+          matInput
+          disabled="true"
+          name="districtName"
+          [(ngModel)]="districtName"
+        />
+      </mat-form-field>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <mat-form-field appMyAddressDirective class="width100">
+        <mat-label>Address</mat-label>
+        <input
+          matInput
+          name="address"
+          [(ngModel)]="address"
+          disabled="true"
+          #addressValue="ngModel"
+          required
+        />
+        <mat-hint *ngIf="addressValue.errors && addressValue.touched">
+          <span class="error_text">Address is required</span>
+        </mat-hint>
+      </mat-form-field>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <mat-form-field class="width100" appMyProviderName>
+        <mat-label>Office Name</mat-label>
+        <input
+          matInput
+          name="officeID"
+          [(ngModel)]="officeID"
+          #officeId="ngModel"
+          minlength="2"
+          maxlength="45"
+          required
+          (keyup)="checkOfficeName(officeID)"
+        />
+        <mat-hint>
+          <span *ngIf="officeId.errors && officeId.touched" class="error_text"
+            >Office Name is required</span
+          >
+          <span [hidden]="!officeNameExist" class="error_text">{{ msg }}</span>
+        </mat-hint>
+      </mat-form-field>
+    </div>
+  </form>
+</div>
+<div mat-dialog-actions class="m-t-10 pull-right">
+  <button
+    mat-raised-button
+    color="accent"
+    (click)="update()"
+    class="width100 mat_green"
+    [disabled]="!f1.valid || officeNameExist"
+  >
+    Update
+  </button>
+</div>

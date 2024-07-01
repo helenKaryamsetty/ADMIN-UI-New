@@ -1,0 +1,260 @@
+<div class="row">
+  <div class="pull-left m-l-15">
+    <h4 class="modal-title">Edit Item Master</h4>
+  </div>
+  <div class="pull-right">
+    <button mat-button class="pull-right" [mat-dialog-close]="true">
+      <mat-icon
+        matTooltip="close"
+        class="mat-icon material-icons pull-right"
+        role="img"
+        aria-hidden="true"
+        style="cursor: pointer"
+        >clear
+      </mat-icon>
+    </button>
+  </div>
+</div>
+<div class="row">
+  <form #editItemCreationForm="ngForm" autocomplete="off">
+    <div class="col-xs-12 col-sm-6 col-md-8 col-lg-8 m-t-20">
+      <span class="f-s-n-b">Item Type</span>
+      <mat-radio-button [(ngModel)]="itemType" name="itemType">
+        <mat-radio-button color="primary" class="p-l-10" [value]="true"
+          >Medical</mat-radio-button
+        >
+        <mat-radio-button color="primary" class="p-l-10" [value]="false"
+          >Non-Medical</mat-radio-button
+        >
+      </mat-radio-button>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+      <mat-form-field class="width100">
+        <mat-label>Item Code</mat-label>
+        <input
+          matInput
+          [(ngModel)]="code"
+          name="code"
+          minlength="1"
+          maxlength="10"
+          #itemCode="ngModel"
+          disabled="true"
+          required
+        />
+        <mat-hint *ngIf="itemCode.touched || itemCode.dirty">
+          <span class="errorText" [hidden]="!itemCode.errors"
+            >Enter minimum 1 characters</span
+          >
+        </mat-hint>
+      </mat-form-field>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+      <mat-form-field class="width100">
+        <mat-label>Item Name</mat-label>
+        <input
+          matInput
+          [(ngModel)]="name"
+          name="name"
+          minlength="1"
+          maxlength="100"
+          #itemName="ngModel"
+          disabled="true"
+          required
+        />
+        <mat-hint *ngIf="itemName.touched || itemName.dirty">
+          <span class="errorText" [hidden]="!itemName.errors"
+            >Enter minimum 1 characters</span
+          >
+        </mat-hint>
+      </mat-form-field>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+      <mat-form-field class="hide_underline width100">
+        <input matInput style="display: none" />
+        <mat-label>Category</mat-label>
+        <mat-select
+          class="width100"
+          [(ngModel)]="category"
+          name="category"
+          required
+        >
+          <mat-option
+            *ngFor="let item of categories"
+            [value]="item.itemCategoryID"
+          >
+            {{ item.itemCategoryName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+      <mat-form-field class="hide_underline width100">
+        <input matInput style="display: none" />
+        <mat-label>Item Form</mat-label>
+        <mat-select
+          class="width100"
+          [(ngModel)]="dose"
+          name="dose"
+          disabled="true"
+          required
+        >
+          <mat-option *ngFor="let item of dosages" [value]="item.itemFormID">
+            {{ item.itemForm }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+      <mat-form-field class="hide_underline width100">
+        <input matInput style="display: none" />
+        <mat-label>Pharmacology Category</mat-label>
+        <mat-select
+          class="width100"
+          [(ngModel)]="pharmacology"
+          name="pharmacology"
+          required
+        >
+          <mat-option
+            *ngFor="let item of pharmacologies"
+            [value]="item.pharmCategoryID"
+          >
+            {{ item.pharmCategoryName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+      <mat-form-field class="hide_underline width100">
+        <input matInput style="display: none" />
+        <mat-label>Manufacturer</mat-label>
+        <mat-select
+          class="width100"
+          [(ngModel)]="manufacturer"
+          name="manufacturer"
+          required
+        >
+          <mat-option
+            *ngFor="let item of manufacturers"
+            [value]="item.manufacturerID"
+          >
+            {{ item.manufacturerName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+      <mat-form-field class="width100">
+        <mat-label>Strength</mat-label>
+        <input
+          matInput
+          [(ngModel)]="strength"
+          name="strength"
+          #itemStrength="ngModel"
+          minlength="1"
+          maxlength="10"
+          disabled="true"
+          required
+        />
+        <mat-hint *ngIf="itemStrength.touched || itemStrength.dirty">
+          <span class="errorText" [hidden]="!itemStrength.errors"
+            >Enter minimum 1 characters</span
+          >
+        </mat-hint>
+      </mat-form-field>
+    </div>
+    <div class="clearfix"></div>
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+      <mat-form-field class="hide_underline width100">
+        <input matInput style="display: none" />
+        <mat-label>UOM</mat-label>
+        <mat-select
+          class="width100"
+          [(ngModel)]="uom"
+          name="uom"
+          disabled="true"
+          required
+        >
+          <mat-option *ngFor="let item of measures" [value]="item.uOMID">
+            {{ item.uOMName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+      <span class="f-s-n-b">Drug Type</span>
+      <mat-radio-button [(ngModel)]="drugType" name="drugType">
+        <mat-radio-button color="primary" class="p-l-10" [value]="true"
+          >Scheduled Drug</mat-radio-button
+        >
+        <mat-radio-button color="primary" class="p-l-10" [value]="false"
+          >Non-Scheduled Drug</mat-radio-button
+        >
+      </mat-radio-button>
+    </div>
+
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+      <mat-form-field class="width100" appMyProviderName>
+        <mat-label>Composition</mat-label>
+        <input
+          matInput
+          [(ngModel)]="composition"
+          name="composition"
+          #itemComposition="ngModel"
+          minlength="2"
+          maxlength="300"
+          disabled="true"
+          required
+        />
+        <mat-hint *ngIf="itemComposition.touched || itemComposition.dirty">
+          <span class="errorText" [hidden]="!itemComposition.errors"
+            >Enter minimum 2 characters</span
+          >
+        </mat-hint>
+      </mat-form-field>
+    </div>
+
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+      <mat-form-field class="hide_underline width100">
+        <input matInput style="display: none" />
+        <mat-label>Route Of Admin</mat-label>
+        <mat-select
+          class="width100"
+          [(ngModel)]="route"
+          name="route"
+          disabled="true"
+          required
+        >
+          <mat-option *ngFor="let item of routes" [value]="item.routeID">
+            {{ item.routeName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4" appVehicleNO>
+      <mat-form-field class="width100">
+        <mat-label>Item Description</mat-label>
+        <input
+          matInput
+          [(ngModel)]="description"
+          name="description"
+          minlength="2"
+          maxlength="100"
+        />
+      </mat-form-field>
+    </div>
+  </form>
+
+  <div class="col-xs-12 col-sm-12 m-t-20">
+    <button
+      mat-raised-button
+      color="accent"
+      class="pull-right mat_green"
+      (click)="update()"
+    >
+      Update
+    </button>
+  </div>
+</div>
