@@ -143,7 +143,6 @@ export class ParkingPlaceSubDistrictMappingComponent implements OnInit {
         (err: any) => {
           console.log('error in fetching states', err);
         };
-      //this.alertMessage.alert(err, 'error');
     });
   }
 
@@ -326,7 +325,7 @@ export class ParkingPlaceSubDistrictMappingComponent implements OnInit {
         districtBlockName: taluks.blockName,
         createdBy: this.createdBy,
       };
-      this.mappingList.data.push(mappingObject);
+      this.mappingList.data = [...this.mappingList.data, mappingObject];
       this.mappingForm.resetForm();
       this.availableTaluks = [];
     }
@@ -337,7 +336,6 @@ export class ParkingPlaceSubDistrictMappingComponent implements OnInit {
     newData.splice(index, 1);
     this.mappingList.data = newData;
     this.cdr.detectChanges();
-    // this.getTaluks(this.district.districtID, this.state.providerServiceMapID);
   }
 
   saveSubdistrictMapping() {
