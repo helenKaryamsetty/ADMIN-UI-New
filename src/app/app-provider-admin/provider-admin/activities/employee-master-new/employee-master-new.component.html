@@ -103,6 +103,19 @@
             </td>
           </ng-container>
         </table>
+        <div
+          class="pull-center"
+          style="margin-top: 35px; text-align: center"
+          *ngIf="filteredsearchResult.data.length === 0"
+        >
+          <strong>No Records Found</strong>
+        </div>
+        <mat-paginator
+          [hidden]="filteredsearchResult.data.length === 0"
+          [pageSizeOptions]="[5, 10, 25]"
+          [pageSize]="5"
+          showFirstLastButtons
+        ></mat-paginator>
         <div>
           <button
             mat-raised-button
@@ -113,12 +126,6 @@
             Create New User
           </button>
         </div>
-        <mat-paginator
-          [hidden]="filteredsearchResult.data.length === 0"
-          [pageSizeOptions]="[5, 10, 25]"
-          [pageSize]="5"
-          showFirstLastButtons
-        ></mat-paginator>
       </div>
     </div>
   </div>
