@@ -58,7 +58,11 @@
     <div class="row">
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-15">
         <div class="table-responsive">
-          <table mat-table [dataSource]="dataSource" class="">
+          <table
+            mat-table
+            [dataSource]="dataSource"
+            class="table table-striped"
+          >
             <ng-container matColumnDef="sno">
               <th mat-header-cell *matHeaderCellDef>S.No.</th>
               <td mat-cell *matCellDef="let element; let i = index">
@@ -128,6 +132,16 @@
           <div *ngIf="dataSource && dataSource.data.length === 0">
             <strong>No Records Found</strong>
           </div>
+          <div>
+            <button
+              md-raised-button
+              color="primary"
+              class="pull-right mat_blue"
+              (click)="showForm()"
+            >
+              Add Institute Directory
+            </button>
+          </div>
           <mat-paginator
             [hidden]="dataSource.data.length === 0"
             [pageSizeOptions]="[5, 10, 20]"
@@ -135,16 +149,6 @@
             showFirstLastButtons
           >
           </mat-paginator>
-        </div>
-        <div>
-          <button
-            md-raised-button
-            color="primary"
-            class="pull-right mat_blue"
-            (click)="showForm()"
-          >
-            Add Institute Directory
-          </button>
         </div>
       </div>
     </div>
@@ -193,7 +197,7 @@
           </mat-form-field>
         </div>
         <div
-          class="col-xs-12 col-sm-12 col-md-4 col-lg-3 m-t-20"
+          class="col-3 m-t-20"
           *ngIf="instituteDir.valid && !instituteDirectoryExist"
         >
           <button
@@ -273,27 +277,28 @@
     </div>
     <!-- </form> -->
     <div class="row">
-      <div
-        class="col-xs-12 col-sm-12 col-sm-12 col-md-12 m-t-10"
-        style="margin-bottom: 37px"
-      >
-        <button
-          mat-raised-button
-          color="accent"
-          class="pull-right mat_green"
-          [disabled]="bufferArray.data.length < 1 && !searchFields.valid"
-          (click)="save()"
-        >
-          Save
-        </button>
-        <button
-          mat-raised-button
-          color="primary"
-          class="pull-left mat_blue"
-          (click)="back()"
-        >
-          Back
-        </button>
+      <div class="col-xs-12 col-sm-12" style="padding-bottom: 40px">
+        <div>
+          <button
+            mat-raised-button
+            color="primary"
+            class="pull-left mat_blue"
+            (click)="back()"
+          >
+            Back
+          </button>
+        </div>
+        <div>
+          <button
+            mat-raised-button
+            color="accent"
+            class="pull-right mat_green"
+            [disabled]="bufferArray.data.length < 1 && !searchFields.valid"
+            (click)="save()"
+          >
+            Save
+          </button>
+        </div>
       </div>
     </div>
   </div>

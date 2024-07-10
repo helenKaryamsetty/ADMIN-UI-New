@@ -20,7 +20,6 @@
     <mat-icon matSuffix>search</mat-icon>
   </mat-form-field>
 </div>
-<!-- pre-populated table showing the number of providers available -->
 <div class="row" *ngIf="tableMode">
   <div class="col-xs-12 col-sm-12">
     <div class="table-responsive">
@@ -133,6 +132,7 @@
       <mat-paginator
         #paginatorFirst
         [hidden]="filteredproviderAdminList.data.length === 0"
+        [length]="filteredproviderAdminList.data.length"
         [pageSizeOptions]="[5, 10, 20]"
         [pageSize]="5"
         showFirstLastButtons
@@ -159,7 +159,6 @@
       style="width: 100%; margin-left: 0px"
     >
       <div class="col-3 m-t-15">
-        <!-- <input matInput style="display: none" /> -->
         <mat-form-field [style.width]="'100%'">
           <mat-label>Provider Admin</mat-label>
           <mat-select
@@ -177,7 +176,6 @@
         </mat-form-field>
       </div>
       <div class="col-3 m-t-15">
-        <!-- <input matInput style="display: none" /> -->
         <mat-form-field [style.width]="'100%'">
           <mat-label>Provider Name</mat-label>
           <mat-select
@@ -196,7 +194,6 @@
         </mat-form-field>
       </div>
       <div class="col-3 m-t-15">
-        <!-- <input matInput style="display: none" /> -->
         <mat-form-field [style.width]="'100%'">
           <mat-label>Serviceline</mat-label>
           <mat-select
@@ -220,7 +217,6 @@
         </mat-form-field>
       </div>
       <div class="col-3 m-t-15">
-        <!-- <input matInput style="display: none" /> -->
         <mat-form-field [style.width]="'100%'">
           <mat-label>State</mat-label>
           <mat-select
@@ -368,7 +364,6 @@
       style="width: 100%; margin-left: 0px"
     >
       <div class="col-3 m-t-15">
-        <!-- <input matInput style="display: none" /> -->
         <mat-form-field [style.width]="'100%'">
           <mat-label>Provider Admin</mat-label>
           <mat-select
@@ -387,7 +382,6 @@
         </mat-form-field>
       </div>
       <div class="col-3 m-t-15">
-        <!-- <input matInput style="display: none" /> -->
         <mat-form-field [style.width]="'100%'">
           <mat-label>Provider Name</mat-label>
           <mat-select
@@ -409,7 +403,6 @@
         </mat-form-field>
       </div>
       <div class="col-3 m-t-15">
-        <!-- <input matInput style="display: none" /> -->
         <mat-form-field [style.width]="'100%'">
           <mat-label>Serviceline</mat-label>
           <mat-select
@@ -436,7 +429,6 @@
         </mat-form-field>
       </div>
       <div class="col-3 m-t-15">
-        <!-- <input matInput style="display: none" /> -->
         <mat-form-field [style.width]="'100%'">
           <mat-label>State</mat-label>
           <mat-select

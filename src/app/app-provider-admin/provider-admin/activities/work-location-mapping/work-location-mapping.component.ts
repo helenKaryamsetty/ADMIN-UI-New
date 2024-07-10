@@ -61,7 +61,6 @@ export class WorkLocationMappingComponent implements OnInit {
   mappedWorkLocationsList: any = [];
   workLocationsList: any = [];
   RolesList: any = [];
-  // bufferArray: any = [];
   edit_Details: any = [];
   previleges: any = [];
   workLocations: any = [];
@@ -181,7 +180,7 @@ export class WorkLocationMappingComponent implements OnInit {
       .subscribe(
         (response: any) =>
           this.getStatesSuccessHandeler(response.data, isNational),
-        (err) => {
+        (err: any) => {
           console.log(err, 'error');
         },
       );
@@ -212,7 +211,7 @@ export class WorkLocationMappingComponent implements OnInit {
       (response: any) => {
         this.services_array = response.data;
       },
-      (err) => {
+      (err: any) => {
         console.log(err, 'error');
       },
     );
@@ -231,7 +230,7 @@ export class WorkLocationMappingComponent implements OnInit {
             this.filteredmappedWorkLocationsList.data = response.data;
           }
         },
-        (err) => {
+        (err: any) => {
           console.log('Error', err);
         },
       );
@@ -245,16 +244,13 @@ export class WorkLocationMappingComponent implements OnInit {
             response,
           );
           this.userNamesList = response.data;
-          // this.services_array = [];
           this.states_array = [];
           this.districts_array = [];
           this.workLocationsList = [];
           this.RolesList = [];
-
-          // this.getProviderStates(serviceID, isNational);
         }
       },
-      (err) => {
+      (err: any) => {
         console.log('Error', err);
         console.log(err, 'error');
       },
@@ -276,7 +272,7 @@ export class WorkLocationMappingComponent implements OnInit {
           this.RolesList = [];
         }
       },
-      (err) => {
+      (err: any) => {
         console.log(err, 'error');
       },
     );
@@ -342,7 +338,7 @@ export class WorkLocationMappingComponent implements OnInit {
             this.RolesList = [];
           }
         },
-        (err) => {
+        (err: any) => {
           console.log(err, 'error');
         },
       );
@@ -358,7 +354,7 @@ export class WorkLocationMappingComponent implements OnInit {
             this.checkExistance(serviceID, providerServiceMapID, userID);
           }
         },
-        (err) => {
+        (err: any) => {
           console.log(err, 'error');
         },
       );
@@ -374,7 +370,7 @@ export class WorkLocationMappingComponent implements OnInit {
             this.checkExistance(serviceID, psmID, userID);
           }
         },
-        (err) => {
+        (err: any) => {
           console.log(err, 'error');
         },
       );
@@ -551,8 +547,6 @@ export class WorkLocationMappingComponent implements OnInit {
         this.RolesList = [];
         this.searchTerm = null;
         this.disableSelectRoles = false;
-        //   }
-        // });
       } else {
         this.tableMode = true;
         this.formMode = false;
@@ -569,8 +563,6 @@ export class WorkLocationMappingComponent implements OnInit {
         this.RolesList = [];
         this.searchTerm = null;
         this.disableSelectRoles = false;
-        //   }
-        // });
       }
     }
   }
@@ -594,7 +586,6 @@ export class WorkLocationMappingComponent implements OnInit {
     this.edit = false;
     this.isInbound = false;
     this.isOutbound = false;
-    // this.getUserName(this.serviceProviderID);
   }
   showEditForm() {
     this.tableMode = false;
@@ -603,7 +594,6 @@ export class WorkLocationMappingComponent implements OnInit {
     this.edit = true;
     this.isInbound = false;
     this.isOutbound = false;
-    // this.getUserName(this.serviceProviderID);
   }
 
   activate(
@@ -646,7 +636,7 @@ export class WorkLocationMappingComponent implements OnInit {
                       this.getAllMappedWorkLocations();
                     }
                   },
-                  (err) => {
+                  (err: any) => {
                     console.log('error', err);
                     this.alertService.alert(err.errorMessage);
                   },
@@ -715,7 +705,7 @@ export class WorkLocationMappingComponent implements OnInit {
                         this.getAllMappedWorkLocations();
                       }
                     },
-                    (err) => {
+                    (err: any) => {
                       console.log('error', err);
                     },
                   );
@@ -750,7 +740,7 @@ export class WorkLocationMappingComponent implements OnInit {
                       this.getAllMappedWorkLocations();
                     }
                   },
-                  (err) => {
+                  (err: any) => {
                     console.log('error', err);
                   },
                 );
@@ -770,7 +760,7 @@ export class WorkLocationMappingComponent implements OnInit {
             this.worklocationmapping
               .DeleteWorkLocationMappingForTM(object)
               .subscribe(
-                (res) => {
+                (res: any) => {
                   if (res) {
                     this.alertService.alert(
                       'Deactivated successfully',
@@ -781,7 +771,7 @@ export class WorkLocationMappingComponent implements OnInit {
                     this.getAllMappedWorkLocations();
                   }
                 },
-                (err) => {
+                (err: any) => {
                   console.log('error', err);
                   console.log(err, 'error');
                 },
@@ -798,7 +788,7 @@ export class WorkLocationMappingComponent implements OnInit {
             this.worklocationmapping
               .DeleteWorkLocationMapping(object)
               .subscribe(
-                (res) => {
+                (res: any) => {
                   if (res) {
                     this.alertService.alert(
                       'Deactivated successfully',
@@ -809,7 +799,7 @@ export class WorkLocationMappingComponent implements OnInit {
                     this.getAllMappedWorkLocations();
                   }
                 },
-                (err) => {
+                (err: any) => {
                   console.log('error', err);
                   console.log(err, 'error');
                 },
@@ -857,7 +847,6 @@ export class WorkLocationMappingComponent implements OnInit {
                 roleName: objectToBeAdded.role[a].roleName,
                 screenName: objectToBeAdded.role[a].screenName,
               };
-              // roleArray.push(obj);
               if (
                 objectToBeAdded.role[a].roleName.toLowerCase() === 'supervisor'
               )
@@ -878,7 +867,6 @@ export class WorkLocationMappingComponent implements OnInit {
                   objectToBeAdded.role[i].screenName === 'Supervisor'
                 ) {
                   this.Role = null;
-                  // roleArray = [];
                   this.alertService.alert('Invaild role mapping');
                   break;
                 } else {
@@ -887,7 +875,6 @@ export class WorkLocationMappingComponent implements OnInit {
                     roleName: objectToBeAdded.role[i].roleName,
                     screenName: objectToBeAdded.role[i].screenName,
                   };
-                  // roleArray.push(obj);
                   if (
                     objectToBeAdded.role[i].roleName.toLowerCase() ===
                     'supervisor'
@@ -920,13 +907,6 @@ export class WorkLocationMappingComponent implements OnInit {
         console.log('Result Array', this.bufferArray);
       }
     } else if (objectToBeAdded.serviceline.serviceName === 'ECD') {
-      // for (let a = 0; a < objectToBeAdded.role.length; a++) {
-      //   let obj = {
-      //     'roleID1': objectToBeAdded.role[a].roleID,
-      //     'roleName': objectToBeAdded.role[a].roleName,
-      //     'screenName': objectToBeAdded.role[a].screenName
-      //   }
-      // roleArray.push(obj);
       const obj = {
         roleID1: objectToBeAdded.role.roleID,
         roleName: objectToBeAdded.role.roleName,
@@ -942,7 +922,6 @@ export class WorkLocationMappingComponent implements OnInit {
         this.eForm.resetForm();
         this.bufferArray.paginator = this.paginator;
       }
-      // }
     } else if (objectToBeAdded.serviceline.serviceName === 'HWC') {
       const result: boolean = this.checkHWCDuplicateBufferArray();
       const result2: boolean = this.checkHWCDuplicateMainArray();
@@ -965,7 +944,6 @@ export class WorkLocationMappingComponent implements OnInit {
                     ? true
                     : false,
               };
-              // roleArray.push(obj);
               this.setWorkLocationObject(objectToBeAdded, obj, false, false);
             }
           } else {
@@ -976,7 +954,6 @@ export class WorkLocationMappingComponent implements OnInit {
                   objectToBeAdded.role[i].screenName === 'Supervisor'
                 ) {
                   this.Role = null;
-                  // roleArray = [];
                   this.alertService.alert('Invaild role mapping');
                   break;
                 } else {
@@ -992,7 +969,6 @@ export class WorkLocationMappingComponent implements OnInit {
                         ? true
                         : false,
                   };
-                  // roleArray.push(obj);
                   this.setWorkLocationObject(
                     objectToBeAdded,
                     obj,
@@ -1026,7 +1002,6 @@ export class WorkLocationMappingComponent implements OnInit {
                   ? false
                   : true,
             };
-            // roleArray.push(obj);
             this.setWorkLocationObject(objectToBeAdded, obj, false, false);
           }
         } else {
@@ -1037,7 +1012,6 @@ export class WorkLocationMappingComponent implements OnInit {
                 objectToBeAdded.role[i].screenName === 'Supervisor'
               ) {
                 this.Role = null;
-                // roleArray = [];
                 this.alertService.alert('Invaild role mapping');
                 break;
               } else {
@@ -1053,8 +1027,6 @@ export class WorkLocationMappingComponent implements OnInit {
                       ? false
                       : true,
                 };
-
-                // roleArray.push(obj);
 
                 this.setWorkLocationObject(objectToBeAdded, obj, false, false);
               }
@@ -1082,7 +1054,6 @@ export class WorkLocationMappingComponent implements OnInit {
   ) {
     const villageIDArr: any = [];
     const villageNameArr: any = [];
-    // villageArr.push(villageObj);
     const roleArr = [];
     roleArr.push(obj);
     if (objectToBeAdded.Serviceblock !== undefined) {
@@ -1116,12 +1087,10 @@ export class WorkLocationMappingComponent implements OnInit {
           : null,
       workingLocation: objectToBeAdded.worklocation.locationName,
       roleID1: roleArr,
-      // 'villageID': villageNameArr,
       villageName:
         villageNameArr !== undefined && villageNameArr.length > 0
           ? villageNameArr
           : null,
-      // 'villageID' : (villageIDArr!=undefined && villageIDArr!=null)?villageIDArr:null ,
       villageID:
         villageIDArr !== undefined && villageIDArr.length > 0
           ? villageIDArr
@@ -1171,8 +1140,6 @@ export class WorkLocationMappingComponent implements OnInit {
     this.showInOutBound = false;
 
     this.eSanjivaniFlag = false;
-
-    // this.eSanjeevaniFlag=false;
   }
 
   deleteRow(i: any, serviceID: any, providerServiceMapID: any, userID: any) {
@@ -1230,8 +1197,6 @@ export class WorkLocationMappingComponent implements OnInit {
         });
       }
       const workLocationObj = {
-        // "is1097": this.bufferArray[i].serviceName == "1097" ? true : false,
-
         previleges: [
           {
             ID: [
@@ -1302,12 +1267,10 @@ export class WorkLocationMappingComponent implements OnInit {
 
           this.filteredStates = [];
 
-          // this.services_array = [];
-
           this.bufferArray.data = [];
           this.bufferArray.paginator = this.paginator;
         },
-        (err) => {
+        (err: any) => {
           console.log(err, 'ERROR');
 
           console.log(err, 'error');
@@ -1383,8 +1346,6 @@ export class WorkLocationMappingComponent implements OnInit {
 
     this.isOutboundEdit = this.edit_Details.outbound;
 
-    // this.isSanjeevani=this.isSanjeevani;
-
     if (
       this.edit_Details.serviceName === '1097' &&
       !(this.edit_Details.roleName.toLowerCase() === 'supervisor')
@@ -1407,10 +1368,6 @@ export class WorkLocationMappingComponent implements OnInit {
 
         this.eSanjeevaniEdit = false;
       }
-
-      // this.eSanjivaniEditFlag=true;
-
-      // this.eSanjeevaniEdit=true;
     } else {
       this.showInOutBoundEdit = false;
 
@@ -1485,7 +1442,7 @@ export class WorkLocationMappingComponent implements OnInit {
             );
           }
         },
-        (err) => {
+        (err: any) => {
           console.log(err, 'error');
         },
       );
@@ -1521,7 +1478,7 @@ export class WorkLocationMappingComponent implements OnInit {
             this.getAllRoles_duringEdit2(serviceID, psmID, userID);
           }
         },
-        (err) => {
+        (err: any) => {
           console.log(err, 'error');
         },
       );
@@ -1541,8 +1498,6 @@ export class WorkLocationMappingComponent implements OnInit {
             this.checkExistance(serviceID, psmID, userID);
           }
 
-          //on edit - populate roles
-
           if (this.edit_Details !== undefined) {
             if (this.RolesList) {
               const edit_role = this.RolesList.filter((mappedRole: any) => {
@@ -1552,14 +1507,12 @@ export class WorkLocationMappingComponent implements OnInit {
               })[0];
 
               if (edit_role) {
-                // this.roleID_duringEdit = edit_role;
-
                 this.availableRoles.push(edit_role);
               }
             }
           }
         },
-        (err) => {
+        (err: any) => {
           console.log(err, 'error');
         },
       );
@@ -1590,7 +1543,7 @@ export class WorkLocationMappingComponent implements OnInit {
 
       .subscribe(
         (response: any) => this.getServicesSuccessHandeler(response.data),
-        (err) => {
+        (err: any) => {
           console.log(err, 'error');
         },
       );
@@ -1615,7 +1568,7 @@ export class WorkLocationMappingComponent implements OnInit {
             isNational,
             true,
           ),
-        (err) => {
+        (err: any) => {
           console.log(err, 'error');
         },
       );
@@ -1632,7 +1585,7 @@ export class WorkLocationMappingComponent implements OnInit {
             isNational,
             false,
           ),
-        (err) => {
+        (err: any) => {
           console.log(err, 'error');
         },
       );
@@ -1685,8 +1638,6 @@ export class WorkLocationMappingComponent implements OnInit {
       } else {
         this.getAllDistricts_duringPatchEdit(this.stateID_duringEdit);
       }
-
-      // this.getProviderServicesInState_duringEdit(this.stateID_duringEdit);
     }
   }
 
@@ -1716,8 +1667,6 @@ export class WorkLocationMappingComponent implements OnInit {
   }
 
   refresh4() {
-    // refreshing ngModels of roles
-
     this.roleID_duringEdit = undefined;
   }
 
@@ -1733,7 +1682,7 @@ export class WorkLocationMappingComponent implements OnInit {
             this.districts_array = response.data;
           }
         },
-        (err) => {
+        (err: any) => {
           console.log(err, 'error');
         },
       );
@@ -1763,7 +1712,7 @@ export class WorkLocationMappingComponent implements OnInit {
             }
           }
         },
-        (err) => {
+        (err: any) => {
           console.log(err, 'error');
         },
       );
@@ -1795,7 +1744,7 @@ export class WorkLocationMappingComponent implements OnInit {
             this.workLocationsList = response.data;
           }
         },
-        (err) => {
+        (err: any) => {
           console.log(err, 'error');
         },
       );
@@ -1826,14 +1775,12 @@ export class WorkLocationMappingComponent implements OnInit {
               })[0];
 
               if (edit_role) {
-                // this.roleID_duringEdit = edit_role;
-
                 this.availableRoles.push(edit_role);
               }
             }
           }
         },
-        (err) => {
+        (err: any) => {
           console.log(err, 'error');
         },
       );
@@ -1898,8 +1845,6 @@ export class WorkLocationMappingComponent implements OnInit {
 
         villageID: editVillageIdArray,
 
-        // 'villageName':this.villagename,
-
         villageName: this.serviceEditvillage,
 
         workingLocationID: workLocations.worklocation,
@@ -1913,7 +1858,7 @@ export class WorkLocationMappingComponent implements OnInit {
         .UpdateWorkLocationMapping(langObj)
 
         .subscribe(
-          (response) => {
+          (response: any) => {
             console.log(
               response,
               'after successful mapping of work location to provider',
@@ -1928,7 +1873,7 @@ export class WorkLocationMappingComponent implements OnInit {
             this.bufferArray.data = [];
             this.bufferArray.paginator = this.paginator;
           },
-          (err) => {
+          (err: any) => {
             console.log(err, 'ERROR');
           },
         );
@@ -1979,7 +1924,7 @@ export class WorkLocationMappingComponent implements OnInit {
           this.bufferArray.data = [];
           this.bufferArray.paginator = this.paginator;
         },
-        (err) => {
+        (err: any) => {
           console.log(err, 'ERROR');
         },
       );
@@ -2128,10 +2073,8 @@ export class WorkLocationMappingComponent implements OnInit {
   }
 
   getTalukSuccessHandeler(response: any) {
-    // console.log(response, "Taluk")
     if (response) {
       this.blockId = response[0].blockID;
-      // console.log('this.searchForm', this.searchForm.valid, this.searchForm.value);
       this.blocks = response;
     }
   }
@@ -2155,11 +2098,9 @@ export class WorkLocationMappingComponent implements OnInit {
   }
 
   getEditBlockMaster(district_duringEdit: any) {
-    // console.log("PARTH****"+district_duringEdit.districtID, this.district_duringEdit.districtID)
     this.villagemasterService.getTaluks(district_duringEdit).subscribe(
       (response: any) => {
         if (response) {
-          // console.log('this.searchForm', this.searchForm.valid, this.searchForm.value);
           this.editblocks = response;
         }
       },
@@ -2170,14 +2111,11 @@ export class WorkLocationMappingComponent implements OnInit {
   }
 
   getEditBlockPatchMaster(district_duringEdit: any) {
-    // console.log("PARTH****"+district_duringEdit.districtID, this.district_duringEdit.districtID)
     this.villagemasterService.getTaluks(district_duringEdit).subscribe(
       (response: any) => {
         if (response) {
-          // console.log('this.searchForm', this.searchForm.valid, this.searchForm.value);
-          this.editblocks = response;
+          this.editblocks = response.data;
           this.ServiceEditblock = this.edit_Details.blockID;
-          // this.blockid =this.edit_Details.blockID;
           this.blockname = this.edit_Details.blockName;
           this.enableEditBlockFlag = true;
           this.getEditVillagePatchMaster(this.ServiceEditblock);
@@ -2221,7 +2159,7 @@ export class WorkLocationMappingComponent implements OnInit {
 
   getEditPatchVillageSuccessHandeler(response: any) {
     if (response) {
-      this.editVillageArr = response;
+      this.editVillageArr = response.data;
       this.enableEditVillageFlag = true;
       this.villageIdValue = this.edit_Details.villageID;
       this.serviceEditvillage = this.edit_Details.villageName;
@@ -2276,7 +2214,6 @@ export class WorkLocationMappingComponent implements OnInit {
     })[0];
 
     this.eSanjeevaniEdit = false;
-    // this.isOutboundEdit=false;
     if (
       (this.edit_Details.serviceName === 'TM' ||
         this.edit_Details.serviceName === 'HWC') &&
