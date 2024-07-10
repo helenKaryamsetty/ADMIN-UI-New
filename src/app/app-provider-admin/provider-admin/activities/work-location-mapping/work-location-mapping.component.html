@@ -160,16 +160,6 @@
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
         </table>
-        <div>
-          <button
-            mat-raised-button
-            color="primary"
-            class="pull-right mat_blue"
-            (click)="showForm()"
-          >
-            Create New Mapping
-          </button>
-        </div>
         <div
           class="pull-center"
           style="margin-top: 35px; text-align: center"
@@ -184,6 +174,16 @@
           showFirstLastButtons
         >
         </mat-paginator>
+        <div>
+          <button
+            mat-raised-button
+            color="primary"
+            class="pull-right mat_blue"
+            (click)="showForm()"
+          >
+            Create New Mapping
+          </button>
+        </div>
       </div>
     </div>
   </div>

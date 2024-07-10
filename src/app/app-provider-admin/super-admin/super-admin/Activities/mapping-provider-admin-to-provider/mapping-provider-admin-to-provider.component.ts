@@ -73,18 +73,15 @@ export class MappingProviderAdminToProviderComponent
     this.filteredproviderAdminList.paginator = this.paginatorFirst;
   }
 
-  // filteredproviderAdminList: any = [];
   service_provider_array: any = [];
   service_provider_admin_array: any = [];
   states_array: any = [];
   services_array: any = [];
-  // constants & variables
 
   isNational = false;
   providerServiceMapID_for1097: any;
 
   providerNameBeforeEdit: any;
-  ////////////////////////////////
   service_provider_admin: any;
   service_provider: any;
   provider: any;
@@ -100,7 +97,6 @@ export class MappingProviderAdminToProviderComponent
   providers: any = [];
   servicelines: any = [];
   states: any = [];
-  // bufferArray: any = [];
   providerAdminList: any = [];
   filteredStates: any = [];
   edit_state: any;
@@ -145,7 +141,6 @@ export class MappingProviderAdminToProviderComponent
         }
       },
       (err) => {
-        // this.dialogService.alert(err, 'error');
         console.log('Error', err);
       },
     );
@@ -159,7 +154,6 @@ export class MappingProviderAdminToProviderComponent
         }
       },
       (err) => {
-        // this.dialogService.alert(err, 'error');
         console.log('Error', err);
       },
     );
@@ -174,16 +168,11 @@ export class MappingProviderAdminToProviderComponent
         }
       },
       (err) => {
-        //this.dialogService.alert(err, 'error');
         console.log('Error', err);
       },
     );
   }
 
-  // getProviderStates(state) {
-  //   this.superadminService.getProviderStates(state.serviceProviderId || state.serviceProviderID).
-  //     subscribe(response => this.getStatesSuccessHandeler(response));
-  // }
   getProviderServices(serviceProvider: any) {
     this.superadminService
       .getProviderServices(
@@ -192,7 +181,6 @@ export class MappingProviderAdminToProviderComponent
       .subscribe(
         (response: any) => this.getServiceSuccessHandeler(response),
         (err) => {
-          // this.dialogService.alert(err, 'error');
           console.log('Error', err);
         },
       );
@@ -201,7 +189,6 @@ export class MappingProviderAdminToProviderComponent
     this.superadminService.getProviderServices(serviceProvider).subscribe(
       (response: any) => this.getServiceSuccessHandeler(response),
       (err) => {
-        // this.dialogService.alert(err, 'error');
         console.log('Error', err);
       },
     );
@@ -213,12 +200,6 @@ export class MappingProviderAdminToProviderComponent
     }
   }
 
-  // getStatesSuccessHandeler(response) {
-  //   if (response) {
-  //     console.log(response, 'Provider States');
-  //     this.states_array = response;
-  //   }
-  // }
   getProviderStatesInService(
     providerAdmin: any,
     serviceProvider: any,
@@ -285,7 +266,6 @@ export class MappingProviderAdminToProviderComponent
           this.setIsNational(national);
         },
         (err) => {
-          // this.dialogService.alert(err, 'error');
           console.log('Error', err);
         },
       );
@@ -294,10 +274,8 @@ export class MappingProviderAdminToProviderComponent
   setIsNational(value: any) {
     this.isNational = value;
     if (value) {
-      // this.myForm.form.patchValue({ 'state': undefined });
       this.state = undefined;
       this.edit_state = undefined;
-      // this.providerServiceMapID_for1097 = this.states_array[0].providerServiceMapID;
     }
   }
 
@@ -397,7 +375,6 @@ export class MappingProviderAdminToProviderComponent
       }
     }
   }
-  // --end
   showTable() {
     if (this.editMode) {
       this.tableMode = true;
@@ -641,7 +618,6 @@ export class MappingProviderAdminToProviderComponent
                 }
               },
               (err) => {
-                // this.dialogService.alert(err, 'error');
                 console.log('error', err);
               },
             );
@@ -665,7 +641,6 @@ export class MappingProviderAdminToProviderComponent
               }
             },
             (err) => {
-              // this.dialogService.alert(err, 'error');
               console.log('error', err);
             },
           );
@@ -680,7 +655,6 @@ export class MappingProviderAdminToProviderComponent
     this.edit_Details = rowObject;
     this.edit_state = rowObject.stateID;
     this.getProviderServices(rowObject);
-    //  this.getProviderServicesInState(rowObject, rowObject, rowObject);
     if (rowObject.serviceName === '1097') {
       this.getProviderStatesInService_edit(
         this.edit_Details.userID,
@@ -723,7 +697,6 @@ export class MappingProviderAdminToProviderComponent
         this.providermapID = '';
       },
       (err) => {
-        // this.dialogService.alert(err, 'error');
         console.log('error', err);
       },
     );
