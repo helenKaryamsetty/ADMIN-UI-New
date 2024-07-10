@@ -140,7 +140,7 @@ export class MappingProviderAdminToProviderComponent
           this.filteredproviderAdminList.data = response.data;
         }
       },
-      (err) => {
+      (err: any) => {
         console.log('Error', err);
       },
     );
@@ -153,7 +153,7 @@ export class MappingProviderAdminToProviderComponent
           this.service_provider_array = response.data;
         }
       },
-      (err) => {
+      (err: any) => {
         console.log('Error', err);
       },
     );
@@ -188,7 +188,7 @@ export class MappingProviderAdminToProviderComponent
   getProviderServices_Edit(serviceProvider: any) {
     this.superadminService.getProviderServices(serviceProvider).subscribe(
       (response: any) => this.getServiceSuccessHandeler(response),
-      (err) => {
+      (err: any) => {
         console.log('Error', err);
       },
     );
@@ -265,7 +265,7 @@ export class MappingProviderAdminToProviderComponent
           );
           this.setIsNational(national);
         },
-        (err) => {
+        (err: any) => {
           console.log('Error', err);
         },
       );
@@ -552,7 +552,7 @@ export class MappingProviderAdminToProviderComponent
         this.states_array = [];
         this.bufferArray.data = [];
       },
-      (err) => {
+      (err: any) => {
         console.log(err, 'ERROR');
       },
     );
@@ -617,7 +617,7 @@ export class MappingProviderAdminToProviderComponent
                   this.getAllMappedProviders();
                 }
               },
-              (err) => {
+              (err: any) => {
                 console.log('error', err);
               },
             );
@@ -633,14 +633,14 @@ export class MappingProviderAdminToProviderComponent
           const object = { uSRMappingID: userID, deleted: true };
 
           this.superadminService.deactivateProviderAdmin(object).subscribe(
-            (deactivatedresponse) => {
+            (deactivatedresponse: any) => {
               if (deactivatedresponse) {
                 this.dialogService.alert('Deactivated successfully', 'success');
                 /* refresh table */
                 this.getAllMappedProviders();
               }
             },
-            (err) => {
+            (err: any) => {
               console.log('error', err);
             },
           );
@@ -685,7 +685,7 @@ export class MappingProviderAdminToProviderComponent
 
     console.log('edited request object', object);
     this.superadminService.updateProviderAdminDetails(object).subscribe(
-      (response) => {
+      (response: any) => {
         console.log('Edit success callback', response);
         this.dialogService.alert('Mapping updated successfully', 'success');
         /* resetting form and ngModels used in editing */
@@ -696,7 +696,7 @@ export class MappingProviderAdminToProviderComponent
         this.uSRMappingID = '';
         this.providermapID = '';
       },
-      (err) => {
+      (err: any) => {
         console.log('error', err);
       },
     );

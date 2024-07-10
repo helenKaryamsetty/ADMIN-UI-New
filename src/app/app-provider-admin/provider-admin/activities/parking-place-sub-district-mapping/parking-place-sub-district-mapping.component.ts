@@ -113,7 +113,7 @@ export class ParkingPlaceSubDistrictMappingComponent implements OnInit {
   getServicelines() {
     this.parkingPlaceMasterService
       .getServiceLinesNew(this.userID)
-      .subscribe((response) => {
+      .subscribe((response: any) => {
         this.getServicesSuccessHandeler(response),
           (err: any) => {
             console.log('ERROR in fetching serviceline', err);
@@ -138,12 +138,14 @@ export class ParkingPlaceSubDistrictMappingComponent implements OnInit {
       serviceID: value.serviceID,
       isNational: value.isNational,
     };
-    this.parkingPlaceMasterService.getStatesNew(obj).subscribe((response) => {
-      this.getStatesSuccessHandeler(response),
-        (err: any) => {
-          console.log('error in fetching states', err);
-        };
-    });
+    this.parkingPlaceMasterService
+      .getStatesNew(obj)
+      .subscribe((response: any) => {
+        this.getStatesSuccessHandeler(response),
+          (err: any) => {
+            console.log('error in fetching states', err);
+          };
+      });
   }
 
   getStatesSuccessHandeler(response: any) {
@@ -165,7 +167,7 @@ export class ParkingPlaceSubDistrictMappingComponent implements OnInit {
   getAvailableZones(providerServiceMapID: any) {
     this.parkingPlaceMasterService
       .getZones({ providerServiceMapID: providerServiceMapID })
-      .subscribe((response) => this.getZonesSuccessHandler(response));
+      .subscribe((response: any) => this.getZonesSuccessHandler(response));
   }
   getZonesSuccessHandler(response: any) {
     if (response !== undefined) {
@@ -186,7 +188,9 @@ export class ParkingPlaceSubDistrictMappingComponent implements OnInit {
     };
     this.parkingPlaceMasterService
       .getParkingPlaces(parkingPlaceObj)
-      .subscribe((response) => this.getParkingPlaceSuccessHandler(response));
+      .subscribe((response: any) =>
+        this.getParkingPlaceSuccessHandler(response),
+      );
   }
   getParkingPlaceSuccessHandler(response: any) {
     this.parkingPlaces = response.data;
@@ -203,7 +207,7 @@ export class ParkingPlaceSubDistrictMappingComponent implements OnInit {
     };
     this.parkingPlaceMasterService
       .getAllParkingPlaceSubDistrictMapping(mappedReqObj)
-      .subscribe((response) => this.getMappingSuccessHandler(response));
+      .subscribe((response: any) => this.getMappingSuccessHandler(response));
   }
   getMappingSuccessHandler(response: any) {
     this.mappedParkingPlaceDistricts.data = response.data;
@@ -221,7 +225,7 @@ export class ParkingPlaceSubDistrictMappingComponent implements OnInit {
   getDistricts(zoneID: any) {
     this.parkingPlaceMasterService
       .getDistricts(zoneID)
-      .subscribe((districtResponse) =>
+      .subscribe((districtResponse: any) =>
         this.getDistrictsSuccessHandeler(districtResponse),
       );
   }
@@ -245,7 +249,7 @@ export class ParkingPlaceSubDistrictMappingComponent implements OnInit {
     this.taluk = null;
     this.parkingPlaceMasterService
       .getTaluks(districtID)
-      .subscribe((talukResponse) =>
+      .subscribe((talukResponse: any) =>
         this.getTaluksSuccessHandler(
           talukResponse,
           districtID,
@@ -341,7 +345,7 @@ export class ParkingPlaceSubDistrictMappingComponent implements OnInit {
   saveSubdistrictMapping() {
     this.parkingPlaceMasterService
       .saveParkingPlaceSubDistrictMapping(this.mappingList.data)
-      .subscribe((response) => this.saveSuccessHandler(response));
+      .subscribe((response: any) => this.saveSuccessHandler(response));
   }
   saveSuccessHandler(response: any) {
     this.alertService.alert('Mapping saved successfully', 'success');
@@ -354,7 +358,7 @@ export class ParkingPlaceSubDistrictMappingComponent implements OnInit {
         'Confirm',
         'Do you really want to cancel? Any unsaved data would be lost',
       )
-      .subscribe((res) => {
+      .subscribe((res: any) => {
         if (res) {
           this.showList();
           this.mappingList.data = [];
@@ -400,7 +404,7 @@ export class ParkingPlaceSubDistrictMappingComponent implements OnInit {
     };
     this.parkingPlaceMasterService
       .updateTalukMapping(updateObj)
-      .subscribe((response) => this.updateSuccessHandler(response));
+      .subscribe((response: any) => this.updateSuccessHandler(response));
   }
   updateSuccessHandler(response: any) {
     this.editMappedValue = null;
@@ -422,7 +426,7 @@ export class ParkingPlaceSubDistrictMappingComponent implements OnInit {
       this.alertService
         .confirm('Confirm', 'Are you sure you want to ' + this.status + '?')
         .subscribe(
-          (res) => {
+          (res: any) => {
             if (res) {
               const obj = {
                 ppSubDistrictMapID: parkingPlace.ppSubDistrictMapID,
@@ -432,7 +436,7 @@ export class ParkingPlaceSubDistrictMappingComponent implements OnInit {
               this.parkingPlaceMasterService
                 .mappingActivationDeactivation(obj)
                 .subscribe(
-                  (res) => {
+                  (res: any) => {
                     console.log('Activation or deactivation response', res);
                     this.alertService.alert(
                       this.status + 'd successfully',
@@ -444,11 +448,11 @@ export class ParkingPlaceSubDistrictMappingComponent implements OnInit {
                       this.parking_Place.parkingPlaceID,
                     );
                   },
-                  (err) => console.log('error', err),
+                  (err: any) => console.log('error', err),
                 );
             }
           },
-          (err) => {
+          (err: any) => {
             console.log(err);
           },
         );

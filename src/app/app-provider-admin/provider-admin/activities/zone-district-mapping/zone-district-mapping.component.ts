@@ -179,7 +179,7 @@ export class ZoneDistrictMappingComponent implements OnInit {
       .getZoneDistrictMappings({
         providerServiceMapID: this.providerServiceMapID,
       })
-      .subscribe((response) =>
+      .subscribe((response: any) =>
         this.getZoneDistrictMappingsSuccessHandler(response),
       );
   }
@@ -208,7 +208,7 @@ export class ZoneDistrictMappingComponent implements OnInit {
   getAvailableZones(providerServiceMapID: any) {
     this.zoneMasterService
       .getZones({ providerServiceMapID: providerServiceMapID })
-      .subscribe((response) => this.getZonesSuccessHandler(response));
+      .subscribe((response: any) => this.getZonesSuccessHandler(response));
   }
   getZonesSuccessHandler(response: any) {
     this.availableZones = [];
@@ -260,7 +260,7 @@ export class ZoneDistrictMappingComponent implements OnInit {
   getDistricts(zoneID: any, service: any, stateID: any) {
     this.zoneMasterService
       .getDistricts(stateID.stateID)
-      .subscribe((response) =>
+      .subscribe((response: any) =>
         this.getDistrictsSuccessHandeler(response, zoneID, service, stateID),
       );
   }
@@ -388,7 +388,7 @@ export class ZoneDistrictMappingComponent implements OnInit {
     const obj = { zoneDistrictMappings: this.zoneDistrictMappingList.data };
     this.zoneMasterService
       .saveZoneDistrictMappings(JSON.stringify(obj))
-      .subscribe((response) => this.successHandler(response));
+      .subscribe((response: any) => this.successHandler(response));
   }
 
   successHandler(response: any) {
@@ -418,7 +418,7 @@ export class ZoneDistrictMappingComponent implements OnInit {
       }
       this.alertMessage
         .confirm('Confirm', 'Are you sure you want to ' + this.status + '?')
-        .subscribe((response) => {
+        .subscribe((response: any) => {
           if (response) {
             this.dataObj = {};
             this.dataObj.zoneDistrictMapID = zoneMapping.zoneDistrictMapID;
@@ -426,7 +426,7 @@ export class ZoneDistrictMappingComponent implements OnInit {
             this.dataObj.modifiedBy = this.createdBy;
             this.zoneMasterService
               .updateZoneMappingStatus(this.dataObj)
-              .subscribe((response) => this.updateStatusHandler(response));
+              .subscribe((response: any) => this.updateStatusHandler(response));
 
             zoneMapping.deleted = !zoneMapping.deleted;
           }
@@ -444,7 +444,7 @@ export class ZoneDistrictMappingComponent implements OnInit {
         'Confirm',
         'Do you really want to cancel? Any unsaved data would be lost',
       )
-      .subscribe((res) => {
+      .subscribe((res: any) => {
         if (res) {
           this.zoneDistrictMappingForm.resetForm();
           this.resetDropdowns();
@@ -479,7 +479,7 @@ export class ZoneDistrictMappingComponent implements OnInit {
 
     this.zoneMasterService
       .updateZoneMappingData(this.dataObj)
-      .subscribe((response) => {
+      .subscribe((response: any) => {
         console.log('updated response', response);
         this.updateHandler(response);
       });

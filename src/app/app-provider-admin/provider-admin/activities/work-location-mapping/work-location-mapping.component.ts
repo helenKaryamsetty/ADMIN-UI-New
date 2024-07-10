@@ -180,7 +180,7 @@ export class WorkLocationMappingComponent implements OnInit {
       .subscribe(
         (response: any) =>
           this.getStatesSuccessHandeler(response.data, isNational),
-        (err) => {
+        (err: any) => {
           console.log(err, 'error');
         },
       );
@@ -211,7 +211,7 @@ export class WorkLocationMappingComponent implements OnInit {
       (response: any) => {
         this.services_array = response.data;
       },
-      (err) => {
+      (err: any) => {
         console.log(err, 'error');
       },
     );
@@ -230,7 +230,7 @@ export class WorkLocationMappingComponent implements OnInit {
             this.filteredmappedWorkLocationsList.data = response.data;
           }
         },
-        (err) => {
+        (err: any) => {
           console.log('Error', err);
         },
       );
@@ -250,7 +250,7 @@ export class WorkLocationMappingComponent implements OnInit {
           this.RolesList = [];
         }
       },
-      (err) => {
+      (err: any) => {
         console.log('Error', err);
         console.log(err, 'error');
       },
@@ -272,7 +272,7 @@ export class WorkLocationMappingComponent implements OnInit {
           this.RolesList = [];
         }
       },
-      (err) => {
+      (err: any) => {
         console.log(err, 'error');
       },
     );
@@ -338,7 +338,7 @@ export class WorkLocationMappingComponent implements OnInit {
             this.RolesList = [];
           }
         },
-        (err) => {
+        (err: any) => {
           console.log(err, 'error');
         },
       );
@@ -354,7 +354,7 @@ export class WorkLocationMappingComponent implements OnInit {
             this.checkExistance(serviceID, providerServiceMapID, userID);
           }
         },
-        (err) => {
+        (err: any) => {
           console.log(err, 'error');
         },
       );
@@ -370,7 +370,7 @@ export class WorkLocationMappingComponent implements OnInit {
             this.checkExistance(serviceID, psmID, userID);
           }
         },
-        (err) => {
+        (err: any) => {
           console.log(err, 'error');
         },
       );
@@ -636,7 +636,7 @@ export class WorkLocationMappingComponent implements OnInit {
                       this.getAllMappedWorkLocations();
                     }
                   },
-                  (err) => {
+                  (err: any) => {
                     console.log('error', err);
                     this.alertService.alert(err.errorMessage);
                   },
@@ -705,7 +705,7 @@ export class WorkLocationMappingComponent implements OnInit {
                         this.getAllMappedWorkLocations();
                       }
                     },
-                    (err) => {
+                    (err: any) => {
                       console.log('error', err);
                     },
                   );
@@ -740,7 +740,7 @@ export class WorkLocationMappingComponent implements OnInit {
                       this.getAllMappedWorkLocations();
                     }
                   },
-                  (err) => {
+                  (err: any) => {
                     console.log('error', err);
                   },
                 );
@@ -760,7 +760,7 @@ export class WorkLocationMappingComponent implements OnInit {
             this.worklocationmapping
               .DeleteWorkLocationMappingForTM(object)
               .subscribe(
-                (res) => {
+                (res: any) => {
                   if (res) {
                     this.alertService.alert(
                       'Deactivated successfully',
@@ -771,7 +771,7 @@ export class WorkLocationMappingComponent implements OnInit {
                     this.getAllMappedWorkLocations();
                   }
                 },
-                (err) => {
+                (err: any) => {
                   console.log('error', err);
                   console.log(err, 'error');
                 },
@@ -788,7 +788,7 @@ export class WorkLocationMappingComponent implements OnInit {
             this.worklocationmapping
               .DeleteWorkLocationMapping(object)
               .subscribe(
-                (res) => {
+                (res: any) => {
                   if (res) {
                     this.alertService.alert(
                       'Deactivated successfully',
@@ -799,7 +799,7 @@ export class WorkLocationMappingComponent implements OnInit {
                     this.getAllMappedWorkLocations();
                   }
                 },
-                (err) => {
+                (err: any) => {
                   console.log('error', err);
                   console.log(err, 'error');
                 },
@@ -1270,7 +1270,7 @@ export class WorkLocationMappingComponent implements OnInit {
           this.bufferArray.data = [];
           this.bufferArray.paginator = this.paginator;
         },
-        (err) => {
+        (err: any) => {
           console.log(err, 'ERROR');
 
           console.log(err, 'error');
@@ -1442,7 +1442,7 @@ export class WorkLocationMappingComponent implements OnInit {
             );
           }
         },
-        (err) => {
+        (err: any) => {
           console.log(err, 'error');
         },
       );
@@ -1478,7 +1478,7 @@ export class WorkLocationMappingComponent implements OnInit {
             this.getAllRoles_duringEdit2(serviceID, psmID, userID);
           }
         },
-        (err) => {
+        (err: any) => {
           console.log(err, 'error');
         },
       );
@@ -1512,7 +1512,7 @@ export class WorkLocationMappingComponent implements OnInit {
             }
           }
         },
-        (err) => {
+        (err: any) => {
           console.log(err, 'error');
         },
       );
@@ -1543,7 +1543,7 @@ export class WorkLocationMappingComponent implements OnInit {
 
       .subscribe(
         (response: any) => this.getServicesSuccessHandeler(response.data),
-        (err) => {
+        (err: any) => {
           console.log(err, 'error');
         },
       );
@@ -1568,7 +1568,7 @@ export class WorkLocationMappingComponent implements OnInit {
             isNational,
             true,
           ),
-        (err) => {
+        (err: any) => {
           console.log(err, 'error');
         },
       );
@@ -1585,7 +1585,7 @@ export class WorkLocationMappingComponent implements OnInit {
             isNational,
             false,
           ),
-        (err) => {
+        (err: any) => {
           console.log(err, 'error');
         },
       );
@@ -1682,7 +1682,7 @@ export class WorkLocationMappingComponent implements OnInit {
             this.districts_array = response.data;
           }
         },
-        (err) => {
+        (err: any) => {
           console.log(err, 'error');
         },
       );
@@ -1714,7 +1714,7 @@ export class WorkLocationMappingComponent implements OnInit {
             }
           }
         },
-        (err) => {
+        (err: any) => {
           console.log(err, 'error');
         },
       );
@@ -1746,7 +1746,7 @@ export class WorkLocationMappingComponent implements OnInit {
             this.workLocationsList = response.data;
           }
         },
-        (err) => {
+        (err: any) => {
           console.log(err, 'error');
         },
       );
@@ -1782,7 +1782,7 @@ export class WorkLocationMappingComponent implements OnInit {
             }
           }
         },
-        (err) => {
+        (err: any) => {
           console.log(err, 'error');
         },
       );
@@ -1860,7 +1860,7 @@ export class WorkLocationMappingComponent implements OnInit {
         .UpdateWorkLocationMapping(langObj)
 
         .subscribe(
-          (response) => {
+          (response: any) => {
             console.log(
               response,
               'after successful mapping of work location to provider',
@@ -1875,7 +1875,7 @@ export class WorkLocationMappingComponent implements OnInit {
             this.bufferArray.data = [];
             this.bufferArray.paginator = this.paginator;
           },
-          (err) => {
+          (err: any) => {
             console.log(err, 'ERROR');
           },
         );
@@ -1926,7 +1926,7 @@ export class WorkLocationMappingComponent implements OnInit {
           this.bufferArray.data = [];
           this.bufferArray.paginator = this.paginator;
         },
-        (err) => {
+        (err: any) => {
           console.log(err, 'ERROR');
         },
       );
