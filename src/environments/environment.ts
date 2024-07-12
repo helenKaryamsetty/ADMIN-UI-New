@@ -24,11 +24,11 @@
 // `ng build --env=prod` then `environment.prod.ts` will be used instead.
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
-const ADMIN_API = 'http://183.82.107.186:8080/';
-const COMMON_API = 'http://183.82.107.186:8080/';
-const adminBaseUrl = `${ADMIN_API}adminapi-v1.1/`;
-const superadminBaseURL = `${ADMIN_API}adminapi-v1.1/`;
-const commonBaseURL = `${COMMON_API}commonapi-v1.1/`;
+const ADMIN_API = 'https://amritwprdev.piramalswasthya.org/';
+const COMMON_API = 'https://amritwprdev.piramalswasthya.org/';
+const adminBaseUrl = `${ADMIN_API}adminapi-v1.0/`;
+const superadminBaseURL = `${ADMIN_API}adminapi-v1.0/`;
+const commonBaseURL = `${COMMON_API}commonapi-v1.0/`;
 
 export const environment = {
   production: false,
