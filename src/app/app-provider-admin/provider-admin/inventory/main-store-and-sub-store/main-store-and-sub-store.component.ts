@@ -168,13 +168,18 @@ export class MainStoreAndSubStoreComponent implements OnInit {
       });
   }
   getStoreType() {
-    //this.providerServiceMapID = providerServiceMapID;
+    let storeDetails = [];
     this.storeService
       .getStoreType(this.providerServiceMapID)
       .subscribe((response: any) => {
         if (response) {
-          console.log('All Main stores services success', response.data);
-          this.storeType_array = response.data;
+          console.log('All Main stores services success', response?.data);
+          storeDetails = response?.data;
+          this.storeType_array = storeDetails.filter((item: any) => {
+            if (item?.storeType === 'MAIN') {
+              return item;
+            }
+          });
         }
       });
   }

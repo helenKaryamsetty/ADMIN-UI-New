@@ -389,12 +389,12 @@ export class AddFieldsToProjectComponent implements OnInit {
   validateFieldName() {
     const fieldName = this.addFieldsForm.get('fieldName')?.value;
     const exists = this.allFieldsData.some(
-      (item: any) => item.fieldName.toLowerCase() === fieldName.toLowerCase(),
+      (item: any) => item.fieldName === fieldName,
     );
 
     if (exists) {
       this.confirmationService.alert(
-        'Field Name already exixts in the Project, Kindly give different name',
+        'Field Name already exists in the Project, Kindly give different name',
       );
       this.addFieldsForm.get('fieldName')?.reset();
     }
