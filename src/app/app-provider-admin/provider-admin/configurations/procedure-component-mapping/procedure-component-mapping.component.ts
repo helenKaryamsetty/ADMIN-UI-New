@@ -200,7 +200,7 @@ export class ProcedureComponentMappingComponent implements OnInit {
           if (this.editMode) this.saveMode = false;
           // this.selectedProcedureType = item.procedureType;
 
-          this.loadForConfig(res, item);
+          this.loadForConfig(res.data, item);
           //   this.configProcedureMapping(this.selectedProcedure, -1);
           this.procedureSelected_edit();
         } else {
