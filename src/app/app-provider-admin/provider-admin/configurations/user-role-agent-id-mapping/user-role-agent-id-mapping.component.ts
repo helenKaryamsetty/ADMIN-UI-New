@@ -180,9 +180,7 @@ export class UserRoleAgentIDMappingComponent implements OnInit {
     empname: any,
     empid: any,
   ) {
-    if (this.filterTerm) {
-      this.filterTerm.nativeElement.value = '';
-    }
+    this.resetFilter();
     console.log(
       state + '--' + service + '--' + role + '--' + empname + '--' + empid,
     );
@@ -214,6 +212,12 @@ export class UserRoleAgentIDMappingComponent implements OnInit {
       (response: any) => this.getEmployeesSuccessHandeler(response),
       (err) => console.log(err, 'error'),
     );
+  }
+
+  resetFilter() {
+    if (this.filterTerm) {
+      this.filterTerm.nativeElement.value = '';
+    }
   }
 
   getEmployeesSuccessHandeler(response: any) {
