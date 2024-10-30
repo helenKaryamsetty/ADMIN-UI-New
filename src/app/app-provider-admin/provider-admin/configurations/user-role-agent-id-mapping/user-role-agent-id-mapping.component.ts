@@ -19,7 +19,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see https://www.gnu.org/licenses/.
  */
-import { Component, OnInit, Inject, ViewChild } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Inject,
+  ViewChild,
+  ElementRef,
+} from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { UserRoleAgentID_MappingService } from '../services/user-role-agentID-mapping-service.service';
 import { ConfirmationDialogsService } from 'src/app/core/services/dialog/confirmation.service';
@@ -68,6 +74,8 @@ export class UserRoleAgentIDMappingComponent implements OnInit {
   }
 
   @ViewChild('searchCriteria') searchCriteria!: NgForm;
+
+  @ViewChild('filterTerm') filterTerm!: ElementRef;
   constructor(
     public _UserRoleAgentID_MappingService: UserRoleAgentID_MappingService,
     public commonDataService: dataService,
@@ -172,6 +180,9 @@ export class UserRoleAgentIDMappingComponent implements OnInit {
     empname: any,
     empid: any,
   ) {
+    if (this.filterTerm) {
+      this.filterTerm.nativeElement.value = '';
+    }
     console.log(
       state + '--' + service + '--' + role + '--' + empname + '--' + empid,
     );
@@ -209,13 +220,9 @@ export class UserRoleAgentIDMappingComponent implements OnInit {
     console.log(response, 'employees fetched as per condition');
     if (response) {
       this.searchResultArray = response.data.filter(function (obj: any) {
-        return obj.uSRMDeleted === false && obj.roleName === 'ProviderAdmin';
-      });
-      this.filteredsearchResultArray.data = response.data.filter(function (
-        obj: any,
-      ) {
         return obj.uSRMDeleted === false && obj.roleName !== 'ProviderAdmin';
       });
+      this.filteredsearchResultArray.data = this.searchResultArray;
 
       this.showTableFlag = true;
     }
@@ -262,6 +269,7 @@ export class UserRoleAgentIDMappingComponent implements OnInit {
             const value: string = '' + item[key];
             if (value.toLowerCase().indexOf(searchTerm.toLowerCase()) >= 0) {
               this.filteredsearchResultArray.data.push(item);
+              this.filteredsearchResultArray.paginator = this.paginator;
               break;
             }
           }
