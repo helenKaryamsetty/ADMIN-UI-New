@@ -26,9 +26,11 @@
 
 const ADMIN_API = '<%= ADMIN_API_BASE %>';
 const COMMON_API = '<%= COMMON_API_BASE %>';
+const FHIR_API = '<%= FHIR_API_BASE %>';
 const adminBaseUrl = `${ADMIN_API}/`;
 const superadminBaseURL = `${ADMIN_API}/`;
 const commonBaseURL = `${COMMON_API}/`;
+const fhirBaseUrl = `${FHIR_API}/`;
 
 export const environment = {
   production: true,
@@ -37,6 +39,7 @@ export const environment = {
   adminBaseUrl: adminBaseUrl,
   superadminBaseURL: superadminBaseURL,
   commonBaseURL: commonBaseURL,
+  fhirBaseUrl: fhirBaseUrl,
 
  extendSessionUrl: `${COMMON_API}common/extend/redisSession`,
 
@@ -486,5 +489,8 @@ export const environment = {
   saveSectionFields: `${commonBaseURL}customization/saveSectionAndFields`,
   updateSectionFields: `${commonBaseURL}customization/updateSectionAndFields`,
   getFieldTypes: `${commonBaseURL}customization/get/fileldType`,
+
+//ABDM Facility
+  getAbdmFacilities: `${fhirBaseUrl}facility/getAbdmRegisteredFacilities`,
 
 };
