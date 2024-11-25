@@ -552,15 +552,15 @@ export class ComponentMasterComponent implements OnInit {
     this.enableAlert = false;
     if (!searchTerm) {
       this.dataSource.data = this.componentList;
+      this.dataSource.paginator = this.paginator;
     } else {
       this.dataSource.data = [];
-      this.dataSource.data.forEach((item: any) => {
+      this.componentList.forEach((item: any) => {
         for (const key in item) {
           if (key === 'testComponentName' || key === 'inputType') {
             const value: string = '' + item[key];
             if (value.toLowerCase().indexOf(searchTerm.toLowerCase()) >= 0) {
               this.dataSource.data.push(item);
-              this.dataSource.paginator = this.paginator;
               this.dataSource.data.forEach((item: any, i: number) => {
                 item.sno = i + 1;
               });
@@ -569,6 +569,7 @@ export class ComponentMasterComponent implements OnInit {
           }
         }
       });
+      this.dataSource.paginator = this.paginator;
     }
   }
 

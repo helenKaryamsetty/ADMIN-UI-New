@@ -186,6 +186,7 @@ export class MainStoreAndSubStoreComponent implements OnInit {
   filterstoreList(searchTerm?: string) {
     if (!searchTerm) {
       this.filteredstoresList.data = this.storesList;
+      this.filteredstoresList.paginator = this.paginator;
     } else {
       this.filteredstoresList.data = [];
       this.storesList.forEach((item: any) => {
@@ -205,6 +206,7 @@ export class MainStoreAndSubStoreComponent implements OnInit {
           }
         }
       });
+      this.filteredstoresList.paginator = this.paginator;
     }
   }
 

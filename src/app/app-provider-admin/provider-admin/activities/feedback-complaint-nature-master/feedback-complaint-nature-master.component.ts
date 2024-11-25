@@ -410,6 +410,7 @@ export class FeedbackComplaintNatureMasterComponent implements OnInit {
   filterComponentList(searchTerm?: string) {
     if (!searchTerm) {
       this.filterednatureTypes.data = this.natureTypes;
+      this.filterednatureTypes.paginator = this.paginator;
     } else {
       this.filterednatureTypes.data = [];
       this.natureTypes.forEach((item: any) => {
@@ -423,6 +424,7 @@ export class FeedbackComplaintNatureMasterComponent implements OnInit {
           }
         }
       });
+      this.filterednatureTypes.paginator = this.paginator;
     }
   }
 }

@@ -268,6 +268,7 @@ export class ProjectServicelineMappingComponent implements OnInit {
         if (res && res.data && res.statusCode === 200) {
           if (res.data && res.data.length > 0) {
             this.dataSource.data = res.data;
+            this.dataSource.paginator = this.paginator;
             this.addedFields = res.data;
             console.log('this.dataSource.data', this.dataSource.data);
             this.getBlocks();
@@ -427,6 +428,7 @@ export class ProjectServicelineMappingComponent implements OnInit {
             );
             this.projectServcelineMappingForm.reset();
             this.dataSource.data = [];
+            this.dataSource.paginator = this.paginator;
             this.enableUpdate = false;
           } else {
             this.confirmationService.alert(res.errorMessage, 'error');
@@ -514,7 +516,9 @@ export class ProjectServicelineMappingComponent implements OnInit {
               'success',
             );
             this.projectServcelineMappingForm.reset();
+            this.addedFields = [];
             this.dataSource.data = [];
+            this.dataSource.paginator = this.paginator;
           } else {
             this.confirmationService.alert(res.errorMessage, 'error');
           }
@@ -535,5 +539,6 @@ export class ProjectServicelineMappingComponent implements OnInit {
     this.blocks = [];
     this.projectNames = [];
     this.dataSource.data = [];
+    this.dataSource.paginator = this.paginator;
   }
 }
