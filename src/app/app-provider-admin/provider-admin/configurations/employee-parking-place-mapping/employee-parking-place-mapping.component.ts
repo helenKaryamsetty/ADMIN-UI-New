@@ -38,7 +38,6 @@ import { MatPaginator } from '@angular/material/paginator';
 export class EmployeeParkingPlaceMappingComponent
   implements OnInit, AfterViewInit
 {
-  [x: string]: any;
   paginator!: MatPaginator;
   @ViewChild('paginatorFirst') paginatorFirst!: MatPaginator;
   @ViewChild('paginatorSecond') paginatorSecond!: MatPaginator;
