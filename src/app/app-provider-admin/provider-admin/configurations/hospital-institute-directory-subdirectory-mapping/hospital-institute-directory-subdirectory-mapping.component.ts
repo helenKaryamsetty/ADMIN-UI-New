@@ -524,7 +524,6 @@ export class HospitalInstituteDirectorySubdirectoryMappingComponent
       this.filteredsearchResultArray.paginator = this.paginator;
     } else {
       this.filteredsearchResultArray.data = [];
-      this.filteredsearchResultArray.paginator = this.paginator;
       this.searchResultArray.forEach((item: any) => {
         for (const key in item.institute) {
           if (key === 'institutionName') {
@@ -536,6 +535,7 @@ export class HospitalInstituteDirectorySubdirectoryMappingComponent
           }
         }
       });
+      this.filteredsearchResultArray.paginator = this.paginator;
     }
   }
 

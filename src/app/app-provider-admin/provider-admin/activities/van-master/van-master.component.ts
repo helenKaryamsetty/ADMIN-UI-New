@@ -459,6 +459,7 @@ export class VanComponent implements OnInit {
   filterComponentList(searchTerm?: string) {
     if (!searchTerm) {
       this.filteredavailableVans.data = this.availableVans;
+      this.filteredavailableVans.paginator = this.paginator;
     } else {
       this.filteredavailableVans.data = [];
       this.availableVans.forEach((item: any) => {
@@ -471,6 +472,7 @@ export class VanComponent implements OnInit {
             }
           }
       });
+      this.filteredavailableVans.paginator = this.paginator;
     }
   }
   back() {

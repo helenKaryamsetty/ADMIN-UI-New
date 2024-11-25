@@ -161,6 +161,7 @@ export class FacilityTypeMasterComponent implements OnInit {
   filterfacilityMasterList(searchTerm?: string) {
     if (!searchTerm) {
       this.filteredfacilityMasterList.data = this.facilityMasterList;
+      this.filteredfacilityMasterList.paginator = this.paginator;
     } else {
       this.filteredfacilityMasterList.data = [];
       this.facilityMasterList.forEach((item: any) => {
@@ -178,6 +179,7 @@ export class FacilityTypeMasterComponent implements OnInit {
           }
         }
       });
+      this.filteredfacilityMasterList.paginator = this.paginator;
     }
   }
   activate(facilityTypeID: any) {

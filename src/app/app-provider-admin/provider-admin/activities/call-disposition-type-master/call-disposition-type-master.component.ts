@@ -533,6 +533,7 @@ export class CallDispositionTypeMasterComponent
   filterComponentList(searchTerm?: string) {
     if (!searchTerm) {
       this.filtereddata.data = this.data;
+      this.filtereddata.paginator = this.paginatorFirst;
     } else {
       this.filtereddata.data = [];
       this.data.forEach((item: any) => {
@@ -546,6 +547,7 @@ export class CallDispositionTypeMasterComponent
           }
         }
       });
+      this.filtereddata.paginator = this.paginatorFirst;
     }
   }
 }

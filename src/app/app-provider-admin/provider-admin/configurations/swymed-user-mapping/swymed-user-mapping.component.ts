@@ -394,6 +394,7 @@ export class SwymedUserMappingComponent implements OnInit {
   filterComponentList(searchTerm?: string) {
     if (!searchTerm) {
       this.filteredswymedUserDetails.data = this.swymedUserDetails;
+      this.filteredswymedUserDetails.paginator = this.paginator;
     } else {
       this.filteredswymedUserDetails.data = [];
       this.swymedUserDetails.forEach((item: any) => {
@@ -411,6 +412,7 @@ export class SwymedUserMappingComponent implements OnInit {
           }
         }
       });
+      this.filteredswymedUserDetails.paginator = this.paginator;
     }
   }
 }

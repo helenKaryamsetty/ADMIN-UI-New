@@ -492,8 +492,9 @@ export class ZoneDistrictMappingComponent implements OnInit {
   }
   filterComponentList(searchTerm?: string) {
     if (!searchTerm) {
-      this.filteredavailableZoneDistrictMappings =
+      this.filteredavailableZoneDistrictMappings.data =
         this.availableZoneDistrictMappings;
+      this.filteredavailableZoneDistrictMappings.paginator = this.paginator;
     } else {
       this.filteredavailableZoneDistrictMappings.data = [];
       this.availableZoneDistrictMappings.forEach((item: any) => {
@@ -507,6 +508,7 @@ export class ZoneDistrictMappingComponent implements OnInit {
           }
         }
       });
+      this.filteredavailableZoneDistrictMappings.paginator = this.paginator;
     }
   }
 }

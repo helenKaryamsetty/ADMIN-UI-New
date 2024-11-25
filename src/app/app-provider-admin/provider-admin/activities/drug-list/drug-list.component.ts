@@ -379,7 +379,6 @@ export class DrugListComponent implements OnInit, AfterViewInit {
       this.fileteredavailableDrugs.paginator = this.paginatorFirst;
     } else {
       this.fileteredavailableDrugs.data = [];
-      this.fileteredavailableDrugs.paginator = this.paginatorFirst;
       this.availableDrugs.forEach((item: any) => {
         for (const key in item) {
           if (key === 'drugName') {
@@ -391,6 +390,7 @@ export class DrugListComponent implements OnInit, AfterViewInit {
           }
         }
       });
+      this.fileteredavailableDrugs.paginator = this.paginatorFirst;
     }
   }
   back() {

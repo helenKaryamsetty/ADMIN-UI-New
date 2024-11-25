@@ -384,6 +384,7 @@ export class FeedbackTypeMasterComponent implements OnInit, AfterViewInit {
   filterComponentList(searchTerm?: string) {
     if (!searchTerm) {
       this.filteredfeedbackTypes.data = this.feedbackTypes;
+      this.filteredfeedbackTypes.paginator = this.paginatorFirst;
     } else {
       this.filteredfeedbackTypes.data = [];
       this.feedbackTypes.forEach((item: any) => {
@@ -397,6 +398,7 @@ export class FeedbackTypeMasterComponent implements OnInit, AfterViewInit {
           }
         }
       });
+      this.filteredfeedbackTypes.paginator = this.paginatorFirst;
     }
   }
 }
