@@ -1042,7 +1042,7 @@ export class CategorySubcategoryProvisioningComponent
       this.filtereddata.paginator = this.paginatorFirst;
       this.data.forEach((item: any) => {
         for (const key in item) {
-          if (key === 'callGroupType' || key === 'callType') {
+          if (key === 'categoryName' || key === 'categoryDesc') {
             const value: string = '' + item[key];
             if (value.toLowerCase().indexOf(searchTerm.toLowerCase()) >= 0) {
               this.filtereddata.data.push(item);
@@ -1067,9 +1067,9 @@ export class CategorySubcategoryProvisioningComponent
             this.filteredsubCat.data.push(item);
             break;
           }
-          this.filteredsubCat.paginator = this.paginatorSecond;
         }
       });
+      this.filteredsubCat.paginator = this.paginatorSecond;
     }
   }
 }

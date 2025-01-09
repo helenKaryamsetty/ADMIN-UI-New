@@ -283,12 +283,10 @@ export class DrugStrengthComponent implements OnInit, AfterViewInit {
   filterComponentList(searchTerm?: string) {
     if (!searchTerm) {
       this.filteredDrugStrength.data = this.drugStrength;
-      this.filteredDrugStrength.paginator = this.paginator;
+      this.filteredDrugStrength.paginator = this.paginatorFirst;
       this.filteredDrugStrength.sort = this.sort;
     } else {
       this.filteredDrugStrength.data = [];
-      this.filteredDrugStrength.paginator = this.paginator;
-      this.filteredDrugStrength.sort = this.sort;
       this.drugStrength.forEach((item: any) => {
         for (const key in item) {
           if (key === 'drugStrength') {
@@ -300,6 +298,8 @@ export class DrugStrengthComponent implements OnInit, AfterViewInit {
           }
         }
       });
+      this.filteredDrugStrength.paginator = this.paginatorFirst;
+      this.filteredDrugStrength.sort = this.sort;
     }
   }
 }

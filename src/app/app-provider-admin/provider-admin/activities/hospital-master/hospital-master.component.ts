@@ -515,7 +515,15 @@ export class HospitalMasterComponent implements OnInit {
   getServiceSuccessHandeler(response: any) {
     if (response) {
       this.services = response.data.filter(function (item: any) {
-        if (item.serviceID === 3 || item.serviceID === 1) {
+        if (
+          item.serviceID === 3 ||
+          item.serviceID === 11 ||
+          item.serviceID === 1 ||
+          item.serviceID === 6 ||
+          item.serviceID === 2 ||
+          item.serviceID === 4 ||
+          item.serviceID === 9
+        ) {
           return item;
         }
       });
@@ -779,6 +787,7 @@ export class HospitalMasterComponent implements OnInit {
   filterComponentList(searchTerm?: string) {
     if (!searchTerm) {
       this.filteredsearchResultArray.data = this.searchResultArray;
+      this.filteredsearchResultArray.paginator = this.paginator;
     } else {
       this.filteredsearchResultArray.data = [];
       this.searchResultArray.forEach((item: any) => {
@@ -798,6 +807,7 @@ export class HospitalMasterComponent implements OnInit {
           }
         }
       });
+      this.filteredsearchResultArray.paginator = this.paginator;
     }
   }
 }

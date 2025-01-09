@@ -377,6 +377,7 @@ export class NatureOfComplaintCategoryMappingComponent implements OnInit {
   filterComponentList(searchTerm?: string) {
     if (!searchTerm) {
       this.filteredMappings.data = this.mappings;
+      this.filteredMappings.paginator = this.paginatorFirst;
     } else {
       this.filteredMappings.data = [];
       this.mappings.forEach((item: any) => {
@@ -390,6 +391,7 @@ export class NatureOfComplaintCategoryMappingComponent implements OnInit {
           }
         }
       });
+      this.filteredMappings.paginator = this.paginatorFirst;
     }
   }
 }

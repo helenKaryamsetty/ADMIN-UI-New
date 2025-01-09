@@ -665,6 +665,7 @@ export class AddQuestionnaireComponent implements OnInit, AfterViewInit {
       this.dataSource.paginator = this.paginator;
       console.log('questionrowsfilter', this.questionrowsfilter);
       this.questionrowsfilter.forEach((item: any) => {
+        console.log('item', item);
         for (const key in item) {
           console.log('Key', key);
           if (key === 'questionRank') {
@@ -680,9 +681,9 @@ export class AddQuestionnaireComponent implements OnInit, AfterViewInit {
               break;
             }
           }
-          this.dataSource.paginator = this.paginator;
         }
       });
+      this.dataSource.paginator = this.paginator;
     }
   }
   enableoptionField(i: any) {

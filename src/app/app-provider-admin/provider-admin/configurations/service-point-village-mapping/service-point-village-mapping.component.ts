@@ -567,6 +567,7 @@ export class ServicePointVillageMapComponent implements OnInit {
     if (!searchTerm) {
       this.filteredavailableServicePointVillageMaps.data =
         this.availableServicePointVillageMaps;
+      this.filteredavailableServicePointVillageMaps.paginator = this.paginator;
     } else {
       this.filteredavailableServicePointVillageMaps.data = [];
       this.availableServicePointVillageMaps.forEach((item: any) => {
@@ -588,6 +589,7 @@ export class ServicePointVillageMapComponent implements OnInit {
           }
         }
       });
+      this.filteredavailableServicePointVillageMaps.paginator = this.paginator;
     }
   }
   back() {

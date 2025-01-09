@@ -25,6 +25,7 @@ export class AddFieldsToProjectComponent implements OnInit {
   enableUpdate = false;
   setMin: any;
   setMax: any;
+  projectId: any;
 
   fieldTypesList: any = [];
 
@@ -57,7 +58,8 @@ export class AddFieldsToProjectComponent implements OnInit {
 
   ngOnInit() {
     console.log('data', this.input);
-    this.dialogData = this.input;
+    this.dialogData = this.input?.data;
+    this.projectId = this.input?.projectId;
     this.fetchAddedFields();
     this.getAllSectionsData();
   }
@@ -86,6 +88,7 @@ export class AddFieldsToProjectComponent implements OnInit {
     const reqObj = {
       sectionId: this.dialogData.sectionId,
       serviceProviderId: sessionStorage.getItem('service_providerID'),
+      projectId: this.projectId,
     };
     this.addFieldsService.fetchFields(reqObj).subscribe(
       (res: any) => {
@@ -163,6 +166,7 @@ export class AddFieldsToProjectComponent implements OnInit {
       placeholder: item.placeholder,
       fieldType: item.fieldType,
       fieldTypeId: item.fieldTypeId,
+      projectId: this.projectId,
     };
     this.addFieldsService.updateFields(reqObj).subscribe(
       (res: any) => {
@@ -208,6 +212,7 @@ export class AddFieldsToProjectComponent implements OnInit {
       fieldTypeId: this.addFieldsForm.get('fieldTypeId')?.value,
       modifiedBy: sessionStorage.getItem('uname'),
       serviceProviderId: sessionStorage.getItem('service_providerID'),
+      projectId: this.projectId,
     };
     this.addFieldsService.updateFields(reqObj).subscribe(
       (res: any) => {
@@ -298,6 +303,7 @@ export class AddFieldsToProjectComponent implements OnInit {
       serviceProviderId: sessionStorage.getItem('service_providerID'),
       createdBy: sessionStorage.getItem('uname'),
       fields: [form],
+      projectId: this.projectId,
     };
     console.log('reqObj', reqObj);
     this.addFieldsService.saveFields(reqObj).subscribe(
@@ -389,12 +395,12 @@ export class AddFieldsToProjectComponent implements OnInit {
   validateFieldName() {
     const fieldName = this.addFieldsForm.get('fieldName')?.value;
     const exists = this.allFieldsData.some(
-      (item: any) => item.fieldName.toLowerCase() === fieldName.toLowerCase(),
+      (item: any) => item.fieldName === fieldName,
     );
 
     if (exists) {
       this.confirmationService.alert(
-        'Field Name already exixts in the Project, Kindly give different name',
+        'Field Name already exists in the Project, Kindly give different name',
       );
       this.addFieldsForm.get('fieldName')?.reset();
     }
@@ -406,6 +412,7 @@ export class AddFieldsToProjectComponent implements OnInit {
       const reqObj = {
         sectionId: item,
         serviceProviderId: sessionStorage.getItem('service_providerID'),
+        projectId: this.projectId,
       };
       this.addFieldsService.fetchFields(reqObj).subscribe(
         (res: any) => {

@@ -368,6 +368,7 @@ export class SeverityTypeComponent implements OnInit, AfterViewInit {
   filterComponentList(searchTerm?: string) {
     if (!searchTerm) {
       this.filtereddata.data = this.data;
+      this.filtereddata.paginator = this.paginatorFirst;
     } else {
       this.filtereddata.data = [];
       this.data.forEach((item: any) => {
@@ -381,6 +382,7 @@ export class SeverityTypeComponent implements OnInit, AfterViewInit {
           }
         }
       });
+      this.filtereddata.paginator = this.paginatorFirst;
     }
   }
 }

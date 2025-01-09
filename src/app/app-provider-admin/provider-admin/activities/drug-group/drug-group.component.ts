@@ -382,11 +382,10 @@ export class DrugGroupComponent implements OnInit, AfterViewInit {
   filterComponentList(searchTerm?: string) {
     if (!searchTerm) {
       this.filteredavailableDrugGroups.data = this.availableDrugGroups;
-      this.filteredavailableDrugGroups.paginator = this.paginator;
+      this.filteredavailableDrugGroups.paginator = this.paginatorFirst;
       this.filteredavailableDrugGroups.sort = this.sort;
     } else {
       this.filteredavailableDrugGroups.data = [];
-      this.filteredavailableDrugGroups.paginator = this.paginator;
       this.filteredavailableDrugGroups.sort = this.sort;
       this.availableDrugGroups.forEach((item: any) => {
         for (const key in item) {
@@ -399,6 +398,7 @@ export class DrugGroupComponent implements OnInit, AfterViewInit {
           }
         }
       });
+      this.filteredavailableDrugGroups.paginator = this.paginatorFirst;
     }
   }
   back() {

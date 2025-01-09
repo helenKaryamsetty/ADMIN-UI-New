@@ -383,6 +383,7 @@ export class DrugMappingComponent implements OnInit {
   filterComponentList(searchTerm?: string) {
     if (!searchTerm) {
       this.filteredavailableDrugMappings.data = this.availableDrugMappings;
+      this.filteredavailableDrugMappings.paginator = this.paginator;
     } else {
       this.filteredavailableDrugMappings.data = [];
       this.availableDrugMappings.forEach((item: any) => {
@@ -396,6 +397,7 @@ export class DrugMappingComponent implements OnInit {
           }
         }
       });
+      this.filteredavailableDrugMappings.paginator = this.paginator;
     }
   }
   back() {

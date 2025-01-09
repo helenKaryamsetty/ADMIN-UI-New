@@ -229,7 +229,7 @@ export class ParkingPlaceComponent implements OnInit, AfterViewInit {
     this.showTableFlag = true;
     this.editable = false;
     this.createButton = true;
-    this.availableParkingPlaces.data = response.data;
+    this.availableParkingPlaces = response.data;
     this.filteredavailableParkingPlaces.data = response.data;
     for (const availableParkingPlace of this.availableParkingPlaces) {
       this.availableParkingPlaceNames.data.push(
@@ -396,7 +396,8 @@ export class ParkingPlaceComponent implements OnInit, AfterViewInit {
   }
   filterComponentList(searchTerm?: string) {
     if (!searchTerm) {
-      this.filteredavailableParkingPlaces = this.availableParkingPlaces;
+      this.filteredavailableParkingPlaces.data = this.availableParkingPlaces;
+      this.filteredavailableParkingPlaces.paginator = this.paginator;
     } else {
       this.filteredavailableParkingPlaces.data = [];
       this.availableParkingPlaces.forEach((item: any) => {
@@ -410,6 +411,7 @@ export class ParkingPlaceComponent implements OnInit, AfterViewInit {
           }
         }
       });
+      this.filteredavailableParkingPlaces.paginator = this.paginator;
     }
   }
   back() {
